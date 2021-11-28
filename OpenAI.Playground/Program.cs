@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI.Playground;
 using OpenAI.SDK;
+using OpenAI.SDK.Interfaces;
 using OpenAI.SDK.Models.RequestModels;
 
 var builder = new ConfigurationBuilder()
@@ -34,7 +35,7 @@ serviceCollection.Configure<OpenAiSettings>(configuration.GetSection(OpenAiSetti
 var serviceProvider = serviceCollection.BuildServiceProvider();
 
 var sdk = serviceProvider.GetRequiredService<IOpenAISdk>();
-var engineList = await sdk.ListEngines();
+var engineList = await sdk.Engine.ListEngines();
 
 Console.WriteLine("Engine List:");
 Console.WriteLine(string.Join(",", engineList.Engines.Select(r => r.Id)));
@@ -50,9 +51,12 @@ Console.WriteLine(string.Join(",", engineList.Engines.Select(r => r.Id)));
 
 Console.WriteLine("Create completion:");
 //TODO check why Laser Cat Eyes couldn't render response object
-var completionResult = await sdk.CreateCompletion("davinci", new CreateCompletionRequest()
+var completionResult = await sdk.Completions.CreateCompletion("davinci", new CreateCompletionRequest()
 {
     Prompt = "Once upon a time",
     MaxTokens = 5
 });
 Console.WriteLine(completionResult.Choices.FirstOrDefault());
+
+
+

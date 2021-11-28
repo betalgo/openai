@@ -1,8 +1,9 @@
 ﻿using System.Text.Json.Serialization;
+using OpenAI.SDK.Models.RequestModels.RequestInterfaces;
 
 namespace OpenAI.SDK.Models.RequestModels
 {
-    public record CreateClassificationRequest
+    public record CreateClassificationRequest : IOpenAiRequest.ITemperature, IOpenAiRequest.ILogitBias
     {
         /// <summary>
         ///     ID of the engine to use for completion.

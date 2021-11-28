@@ -1,12 +1,16 @@
 ﻿using Microsoft.Extensions.Options;
+using OpenAI.SDK.Extensions;
+using OpenAI.SDK.Interfaces;
 using OpenAI.SDK.Models.RequestModels;
 using OpenAI.SDK.Models.ResponseModels;
 
 namespace OpenAI.SDK
 {
     //TODO Find a way to show default request values in documentation
-    public class OpenAISdk : IOpenAISdk
+    //TODO Move endpoints to a setting file
+    public class OpenAISdk : IOpenAISdk, IEngine, ICompletions, ISearches, IClassifications, IAnswers, IFiles
     {
+        private const string ApiVersion = "v1";
         private readonly HttpClient _httpClient;
 
         public OpenAISdk(HttpClient httpClient, IOptions<OpenAiSettings> settings)
@@ -19,83 +23,83 @@ namespace OpenAI.SDK
             _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{organization}");
         }
 
+        //TODO Not tested yet
+        public async Task<CreateAnswerResponse?> CreateAnswer(CreateAnswerRequest createAnswerRequest)
+        {
+            return await _httpClient.PostAndReadAsAsync<CreateAnswerResponse?>($"/{ApiVersion}/answers", createAnswerRequest);
+        }
+
+        //TODO Not tested yet
+        public async Task<CreateClassificationResponse?> CreateClassification(CreateClassificationRequest createClassificationRequest)
+        {
+            return await _httpClient.PostAndReadAsAsync<CreateClassificationResponse?>($"/{ApiVersion}/classifications", createClassificationRequest);
+        }
+
+
+        public async Task<CreateCompletionResponse?> CreateCompletion(string engineId, CreateCompletionRequest createCompletionRequest)
+        {
+            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse?>($"/{ApiVersion}/engines/{engineId}/completions", createCompletionRequest);
+        }
 
         public async Task<ListEngineResponse?> ListEngines()
         {
-            return await _httpClient.GetFromJsonAsync<ListEngineResponse>("/v1/engines");
+            return await _httpClient.GetFromJsonAsync<ListEngineResponse>($"/{ApiVersion}/engines");
         }
 
         public async Task<RetrieveEngineResponse?> RetrieveEngine(string engineId)
         {
-            return await _httpClient.GetFromJsonAsync<RetrieveEngineResponse>($"/v1/engines/{engineId}");
+            return await _httpClient.GetFromJsonAsync<RetrieveEngineResponse>($"/{ApiVersion}/engines/{engineId}");
         }
 
-        public async Task<CreateCompletionResponse?> CreateCompletion(string engineId, CreateCompletionRequest createCompletionRequest)
+        //TODO Not tested yet
+        public async Task<ListFilesResponse?> ListFiles()
         {
-            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse?>($"v1/engines/{engineId}/completions", createCompletionRequest);
+            return await _httpClient.GetFromJsonAsync<ListFilesResponse>($"/{ApiVersion}/files");
         }
 
+        //TODO Not tested yet
+        public async Task<UploadFilesResponse?> UploadFiles(string purpose, byte[] file, string fileName)
+        {
+            var multipartContent = new MultipartFormDataContent();
+            multipartContent.Add(new StringContent(purpose), "purpose");
+            multipartContent.Add(new ByteArrayContent(file), "file", fileName);
+
+            return await _httpClient.PostFileAndReadAsAsync<UploadFilesResponse>($"/{ApiVersion}/files", multipartContent);
+        }
+
+        //TODO Not tested yet
+        //TODO check if there undocumented response object
+        public async Task DeleteFile(string fileId)
+        {
+            await _httpClient.DeleteAsync($"/{ApiVersion}/files/{fileId}");
+        }
+
+        //TODO Not tested yet
+        public async Task<RetrieveFileResponse?> RetrieveFile(string fileId)
+        {
+            return await _httpClient.GetFromJsonAsync<RetrieveFileResponse>($"/{ApiVersion}/files/{fileId}");
+        }
+
+        //TODO Not tested yet
+        //TODO check if there undocumented response object
+        public async Task RetrieveFileContent(string fileId)
+        {
+            //probably it will not return a json response
+            throw new NotImplementedException();
+            await _httpClient.GetFromJsonAsync<RetrieveFileResponse>($"/{ApiVersion}/files/{fileId}/content");
+        }
+
+        public IEngine Engine => this;
+        public ICompletions Completions => this;
+        public ISearches Searches => this;
+        public IClassifications Classifications => this;
+        public IAnswers Answers => this;
+        public IFiles Files => this;
+
+        //TODO Not tested yet
         public async Task<CreateCompletionResponse?> CreateSearch(string engineId, CreateSearchRequest createSearchRequest)
         {
-            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse?>($"v1/engines/{engineId}/search", createSearchRequest);
+            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse?>($"/{ApiVersion}/engines/{engineId}/search", createSearchRequest);
         }
-
-        public async Task<CreateClassificationResponse?> CreateClassification(string engineId, CreateClassificationRequest createClassificationRequest)
-        {
-            return await _httpClient.PostAndReadAsAsync<CreateClassificationResponse?>("v1/classifications", createClassificationRequest);
-        }
-    }
-
-
-    public interface IOpenAISdk
-    {
-        /// <summary>
-        ///     Lists the currently available engines, and provides basic information about each one such as the owner and
-        ///     availability.
-        /// </summary>
-        /// <returns></returns>
-        Task<ListEngineResponse?> ListEngines();
-
-        /// <summary>
-        ///     Retrieves an engine instance, providing basic information about the engine such as the owner and availability.
-        /// </summary>
-        /// <param name="engineId">The ID of the engine to use for this request</param>
-        /// <returns></returns>
-        Task<RetrieveEngineResponse?> RetrieveEngine(string engineId);
-
-        /// <summary>
-        ///     Creates a new completion for the provided prompt and parameters
-        /// </summary>
-        /// <param name="engineId">The ID of the engine to use for this request</param>
-        /// <param name="createCompletionModel"></param>
-        /// <returns></returns>
-        Task<CreateCompletionResponse?> CreateCompletion(string engineId, CreateCompletionRequest createCompletionModel);
-
-        /// <summary>
-        ///     The search endpoint computes similarity scores between provided query and documents. Documents can be passed
-        ///     directly to the API if there are no more than 200 of them.
-        ///     To go beyond the 200 document limit, documents can be processed offline and then used for efficient retrieval at
-        ///     query time.When file is set, the search endpoint searches over all the documents in the given file and returns up
-        ///     to the max_rerank number of documents.These documents will be returned along with their search scores.
-        ///     The similarity score is a positive score that usually ranges from 0 to 300 (but can sometimes go higher), where a
-        ///     score above 200 usually means the document is semantically similar to the query.
-        /// </summary>
-        /// <param name="engineId">The ID of the engine to use for this request</param>
-        /// <param name="createSearchRequest"></param>
-        /// <returns></returns>
-        Task<CreateCompletionResponse?> CreateSearch(string engineId, CreateSearchRequest createSearchRequest);
-
-        /// <summary>
-        ///     Classifies the specified query using provided examples.
-        ///     The endpoint first searches over the labeled examples to select the ones most relevant for the particular
-        ///     query.Then, the relevant examples are combined with the query to construct a prompt to produce the final label via
-        ///     the completions endpoint.
-        ///     Labeled examples can be provided via an uploaded file, or explicitly listed in the request using the examples
-        ///     parameter for quick tests and small scale use cases.
-        /// </summary>
-        /// <param name="engineId">The ID of the engine to use for this request</param>
-        /// <param name="createClassificationRequest"></param>
-        /// <returns></returns>
-        Task<CreateClassificationResponse?> CreateClassification(string engineId, CreateClassificationRequest createClassificationRequest);
     }
 }

@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenAI.SDK
+namespace OpenAI.SDK.Extensions
 {
     public static class HttpClientExtensions
     {
@@ -18,6 +18,11 @@ namespace OpenAI.SDK
             {
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
             });
+            return await response.Content.ReadFromJsonAsync<TResponse>();
+        }   
+        public static async Task<TResponse?> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content)
+        {
+            var response = await client.PostAsync(uri,content);
             return await response.Content.ReadFromJsonAsync<TResponse>();
         }
     }

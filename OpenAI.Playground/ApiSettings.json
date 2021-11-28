@@ -1,8 +1,11 @@
 {
+
+  // How to use user secret => right click your project name in solution explorer then click Manage User Secret, it is a good way to keep your api keys :)
   "OpenAISdkSettings": {
     "Organization": "org-dQWHBftxPqygzZwQ3Z6M4ixI"
+    //,"ApiKey":"Put your api key to here or in User Secret file" //How can I get an app key? visit here: https://openai.com/
   },
   "LaserCatEyesOptions": {
-    
-  } 
+    //"AppKey":"Put your app key to here or in User Secret file" //How can I get an app key? visit here: https://portal.lasercateyes.com/
+  }
 }
