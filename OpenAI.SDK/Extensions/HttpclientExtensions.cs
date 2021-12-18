@@ -25,5 +25,10 @@ namespace OpenAI.SDK.Extensions
             var response = await client.PostAsync(uri,content);
             return await response.Content.ReadFromJsonAsync<TResponse>();
         }
+        public static async Task<TResponse?> DeleteAndReadAsAsync<TResponse>(this HttpClient client, string uri)
+        {
+            var response = await client.DeleteAsync(uri);
+            return await response.Content.ReadFromJsonAsync<TResponse>();
+        }
     }
 }

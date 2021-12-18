@@ -2,6 +2,14 @@
 {
     public static class UploadFilePurposes
     {
+        public enum UploadFilePurpose
+        {
+            Search,
+            Answers,
+            Classifications,
+            FineTune
+        }
+
         public static string Search => "search";
         public static string Answers => "answers";
         public static string Classifications => "classifications";
@@ -18,13 +26,5 @@
                 _ => throw new ArgumentOutOfRangeException(nameof(uploadFilePurpose), uploadFilePurpose, null)
             };
         }
-    }
-
-    public enum UploadFilePurpose
-    {
-        Search,
-        Answers,
-        Classifications,
-        FineTune
     }
 }

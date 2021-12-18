@@ -1,4 +1,5 @@
-﻿using OpenAI.SDK.Models.RequestModels;
+﻿using OpenAI.SDK.Models;
+using OpenAI.SDK.Models.RequestModels;
 using OpenAI.SDK.Models.ResponseModels;
 
 namespace OpenAI.SDK.Interfaces;
@@ -23,4 +24,9 @@ public interface ISearches
     /// <param name="createSearchRequest"></param>
     /// <returns></returns>
     Task<CreateCompletionResponse?> CreateSearch(string engineId, CreateSearchRequest createSearchRequest);
+
+    Task<CreateCompletionResponse?> CreateSearch(Engines.Engine engineId, CreateSearchRequest createSearchRequest)
+    {
+        return CreateSearch(engineId.EnumToString(), createSearchRequest);
+    }
 }

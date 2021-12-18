@@ -5,7 +5,7 @@ namespace OpenAI.SDK.Models.ResponseModels
     public record BaseResponse
     {
         [JsonPropertyName("object")] public string ObjectTypeName { get; set; }
-        public bool Status => Error == null;
+        public bool Successful => Error == null;
         [JsonPropertyName("error")] public Error? Error { get; set; }
     }
 

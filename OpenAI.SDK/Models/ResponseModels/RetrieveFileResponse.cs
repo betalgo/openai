@@ -12,7 +12,7 @@ namespace OpenAI.SDK.Models.ResponseModels
 
         [JsonPropertyName("created_at")] public int CreatedAt { get; set; }
 
-        [JsonPropertyName("filename")] public string Filename { get; set; }
+        [JsonPropertyName("filename")] public string FileName { get; set; }
 
         [JsonPropertyName("purpose")] public string Purpose { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using OpenAI.SDK.Extensions;
 using OpenAI.SDK.Interfaces;
+using OpenAI.SDK.Models;
 using OpenAI.SDK.Models.RequestModels;
 using OpenAI.SDK.Models.ResponseModels;
 
@@ -51,13 +52,11 @@ namespace OpenAI.SDK
             return await _httpClient.GetFromJsonAsync<RetrieveEngineResponse>($"/{ApiVersion}/engines/{engineId}");
         }
 
-        //TODO Not tested yet
         public async Task<ListFilesResponse?> ListFiles()
         {
             return await _httpClient.GetFromJsonAsync<ListFilesResponse>($"/{ApiVersion}/files");
         }
 
-        //TODO Not tested yet
         public async Task<UploadFilesResponse?> UploadFiles(string purpose, byte[] file, string fileName)
         {
             var multipartContent = new MultipartFormDataContent();
@@ -67,14 +66,11 @@ namespace OpenAI.SDK
             return await _httpClient.PostFileAndReadAsAsync<UploadFilesResponse>($"/{ApiVersion}/files", multipartContent);
         }
 
-        //TODO Not tested yet
-        //TODO check if there undocumented response object
-        public async Task DeleteFile(string fileId)
+        public async Task<DeleteResponseModel?> DeleteFile(string fileId)
         {
-            await _httpClient.DeleteAsync($"/{ApiVersion}/files/{fileId}");
+            return await _httpClient.DeleteAndReadAsAsync<DeleteResponseModel>($"/{ApiVersion}/files/{fileId}");
         }
 
-        //TODO Not tested yet
         public async Task<RetrieveFileResponse?> RetrieveFile(string fileId)
         {
             return await _httpClient.GetFromJsonAsync<RetrieveFileResponse>($"/{ApiVersion}/files/{fileId}");
@@ -82,11 +78,11 @@ namespace OpenAI.SDK
 
         //TODO Not tested yet
         //TODO check if there undocumented response object
+        // I couldn't figure out how this endpoint works..
         public async Task RetrieveFileContent(string fileId)
         {
-            //probably it will not return a json response
             throw new NotImplementedException();
-            await _httpClient.GetFromJsonAsync<RetrieveFileResponse>($"/{ApiVersion}/files/{fileId}/content");
+            //await _httpClient.GetFromJsonAsync<RetrieveFileResponse>($"/{ApiVersion}/files/{fileId}/content");
         }
 
         public IEngine Engine => this;
@@ -101,5 +97,6 @@ namespace OpenAI.SDK
         {
             return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse?>($"/{ApiVersion}/engines/{engineId}/search", createSearchRequest);
         }
+        
     }
 }

@@ -41,12 +41,12 @@ public interface IFiles
         return UploadFiles(purpose, file.ToByteArray(), fileName);
     }
 
-    Task<UploadFilesResponse?> UploadFiles(UploadFilePurpose purpose, Stream file, string fileName)
+    Task<UploadFilesResponse?> UploadFiles(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName)
     {
         return UploadFiles(purpose.EnumToString(), file.ToByteArray(), fileName);
     }
 
-    Task<UploadFilesResponse?> UploadFiles(UploadFilePurpose purpose, byte[] file, string fileName)
+    Task<UploadFilesResponse?> UploadFiles(UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName)
     {
         return UploadFiles(purpose.EnumToString(), file, fileName);
     }
@@ -56,7 +56,7 @@ public interface IFiles
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <returns></returns>
-    Task DeleteFile(string fileId);
+    Task<DeleteResponseModel?> DeleteFile(string fileId);
 
     /// <summary>
     ///     Returns information about a specific file.
