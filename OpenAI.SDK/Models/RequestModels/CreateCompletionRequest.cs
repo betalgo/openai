@@ -1,11 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using OpenAI.SDK.Interfaces;
 
 namespace OpenAI.SDK.Models.RequestModels
 {
     //TODO Update Usage of link (see cref)
     //TODO add model validation
     //TODO check what is string or array for prompt,..
-    public record CreateCompletionRequest
+    public record CreateCompletionRequest : IModelValidate
     {
         /// <summary>
         ///     The prompt(s) to generate completions for, encoded as a string, a list of strings, or a list of token lists.
@@ -126,5 +128,10 @@ namespace OpenAI.SDK.Models.RequestModels
         /// <seealso cref="https://beta.openai.com/tokenizer?view=bpe" />
         [JsonPropertyName("logit_bias")]
         public object? LogitBias { get; set; }
+
+        public IEnumerable<ValidationResult> Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

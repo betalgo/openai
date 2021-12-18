@@ -39,13 +39,13 @@ namespace OpenAI.Playground
                 //{
                 //    Console.WriteLine($"Something went wrong while deleting file.");
                 //}
-                var searchResponse = await sdk.Searches.CreateSearch(Engines.Engine.Ada, new CreateSearchRequest()
+                var searchResponse = await sdk.Searches.CreateSearch(new CreateSearchRequest()
                 {
                     File = uploadedFile.Id,
                     MaxRerank = 5,
                     Query = "happy",
                     SearchModel = Engines.Engine.Ada.EnumToString()
-                });
+                }, Engines.Engine.Ada);
                 if (searchResponse?.Successful == true)
                 {
                     Console.WriteLine(string.Join(",", searchResponse.Choices));

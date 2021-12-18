@@ -1,9 +1,11 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using OpenAI.SDK.Interfaces;
 using OpenAI.SDK.Models.RequestModels.RequestInterfaces;
 
 namespace OpenAI.SDK.Models.RequestModels
 {
-    public record CreateClassificationRequest : IOpenAiRequest.ITemperature, IOpenAiRequest.ILogitBias
+    public record CreateClassificationRequest : IModelValidate, IOpenAiRequest.ITemperature, IOpenAiRequest.ILogitBias
     {
         /// <summary>
         ///     ID of the engine to use for completion.
@@ -108,5 +110,10 @@ namespace OpenAI.SDK.Models.RequestModels
         /// </summary>
         [JsonPropertyName("temperature")]
         public float? Temperature { get; set; }
+
+        public IEnumerable<ValidationResult> Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

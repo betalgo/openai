@@ -1,4 +1,5 @@
 ﻿using OpenAI.SDK.Models.ResponseModels;
+using OpenAI.SDK.Models.ResponseModels.EngineResponseModels;
 
 namespace OpenAI.SDK.Interfaces;
 
@@ -20,5 +21,5 @@ public interface IEngine
     /// </summary>
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <returns></returns>
-    Task<RetrieveEngineResponse> RetrieveEngine(string engineId);
+    Task<RetrieveEngineResponse> RetrieveEngine(string? engineId = null);
 }

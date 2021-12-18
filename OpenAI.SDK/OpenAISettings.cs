@@ -2,7 +2,7 @@
 {
     public class OpenAiSettings
     {
-        public static string SettingKey = "OpenAISdkSettings";
+        public static readonly string SettingKey = "OpenAISdkSettings";
 
         /// <summary>
         ///     For users who belong to multiple organizations, you can pass a header to specify which organization is used for an
@@ -24,5 +24,10 @@
         public string ApiVersion { get; set; } = "v1";
 
         public string BaseDomain { get; set; } = "https://api.openai.com/";
+        
+        /// <summary>
+        /// Default engine id. If you are working with only one engine, this will save you from few line extra code.
+        /// </summary>
+        public static string? DefaultEngineId { get; set; }
     }
 }

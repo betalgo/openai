@@ -3,6 +3,7 @@ using OpenAI.SDK.Extensions;
 using OpenAI.SDK.Interfaces;
 using OpenAI.SDK.Models.RequestModels;
 using OpenAI.SDK.Models.ResponseModels;
+using OpenAI.SDK.Models.ResponseModels.EngineResponseModels;
 
 namespace OpenAI.SDK
 {
@@ -12,6 +13,7 @@ namespace OpenAI.SDK
     {
         private readonly IOpenAiEndpointProvider _endpointProvider;
         private readonly HttpClient _httpClient;
+        private string? _engineId = null;
 
         public OpenAISdk(HttpClient httpClient, IOptions<OpenAiSettings> settings)
         {
@@ -23,6 +25,7 @@ namespace OpenAI.SDK
             _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{organization}");
 
             _endpointProvider = new OpenAiEndpointProvider(settings.Value.ApiVersion);
+            _engineId = OpenAiSettings.DefaultEngineId;
         }
 
         //TODO Not tested yet
@@ -38,9 +41,9 @@ namespace OpenAI.SDK
         }
 
 
-        public async Task<CreateCompletionResponse> CreateCompletion(string engineId, CreateCompletionRequest createCompletionRequest)
+        public async Task<CreateCompletionResponse> CreateCompletion(CreateCompletionRequest createCompletionRequest, string? engineId = null)
         {
-            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse>(_endpointProvider.CreateCompletion(engineId), createCompletionRequest);
+            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse>(_endpointProvider.CreateCompletion(ProcessEngineId(engineId)), createCompletionRequest);
         }
 
         public async Task<ListEngineResponse> ListEngines()
@@ -48,9 +51,9 @@ namespace OpenAI.SDK
             return await _httpClient.GetFromJsonAsync<ListEngineResponse>(_endpointProvider.ListEngines());
         }
 
-        public async Task<RetrieveEngineResponse> RetrieveEngine(string engineId)
+        public async Task<RetrieveEngineResponse> RetrieveEngine(string? engineId = null)
         {
-            return await _httpClient.GetFromJsonAsync<RetrieveEngineResponse>(_endpointProvider.RetrieveEngine(engineId));
+            return await _httpClient.GetFromJsonAsync<RetrieveEngineResponse>(_endpointProvider.RetrieveEngine(ProcessEngineId(engineId)));
         }
 
         public async Task<ListFilesResponse> ListFiles()
@@ -93,11 +96,21 @@ namespace OpenAI.SDK
         public IAnswers Answers => this;
         public IFiles Files => this;
 
+        public void SetDefaultEngineId(string engineId)
+        {
+            _engineId = engineId;
+        }
+
+        private string ProcessEngineId(string? engineId)
+        {
+            return engineId ?? _engineId ?? throw new ArgumentNullException(nameof(engineId));
+        }
+
 
         //TODO Not tested yet
-        public async Task<CreateCompletionResponse> CreateSearch(string engineId, CreateSearchRequest createSearchRequest)
+        public async Task<CreateCompletionResponse> CreateSearch(CreateSearchRequest createSearchRequest, string? engineId)
         {
-            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse>(_endpointProvider.CreateSearch(engineId), createSearchRequest);
+            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse>(_endpointProvider.CreateSearch(ProcessEngineId(engineId)), createSearchRequest);
         }
     }
 }

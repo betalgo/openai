@@ -42,4 +42,10 @@ public interface IOpenAISdk
     ///     <see cref="Searches" /> and <see cref="Classifications" />
     /// </summary>
     public IFiles Files { get; }
+
+    /// <summary>
+    /// Set default engine
+    /// </summary>
+    /// <param name="engineId"></param>
+    void SetDefaultEngineId(string engineId);
 }

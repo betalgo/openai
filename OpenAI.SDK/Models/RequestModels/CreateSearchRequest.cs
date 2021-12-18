@@ -1,8 +1,11 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using OpenAI.SDK.Interfaces;
+using OpenAI.SDK.Models.RequestModels.RequestInterfaces;
 
 namespace OpenAI.SDK.Models.RequestModels
 {
-    public record CreateSearchRequest
+    public record CreateSearchRequest: IModelValidate,IOpenAiRequest.IFileOrDocument
     {
         /// <summary>
         ///     Up to 200 documents to search over, provided as a list of strings.
@@ -41,5 +44,10 @@ namespace OpenAI.SDK.Models.RequestModels
         /// </summary>
         [JsonPropertyName("return_metadata")]
         public bool? ReturnMetadata { get; set; }
+
+        public IEnumerable<ValidationResult> Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

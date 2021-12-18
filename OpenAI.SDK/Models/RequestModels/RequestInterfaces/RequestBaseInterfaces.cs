@@ -46,5 +46,20 @@
         {
             List<string>? Expand { get; set; }
         }
+
+        public interface IFileOrDocument:IFile
+        {
+            public List<string>? Documents { get; set; }
+        }
+        public interface IFile
+        {
+            /// <summary>
+            ///     The ID of an uploaded file that contains documents to search over.
+            ///     You should specify either documents or a file, but not both.
+            /// </summary>
+            public string? File { get; set; }
+        }
     }
+
+  
 }

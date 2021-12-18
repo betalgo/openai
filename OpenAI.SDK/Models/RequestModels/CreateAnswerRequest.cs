@@ -1,13 +1,16 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using OpenAI.SDK.Interfaces;
 using OpenAI.SDK.Models.RequestModels.RequestInterfaces;
 
 namespace OpenAI.SDK.Models.RequestModels
 {
     //TODO validate fields types with documentation
     //TODO create common fields interfaces
-    public record CreateAnswerRequest : IOpenAiRequest.IModel, IOpenAiRequest.ITemperature, IOpenAiRequest.ILogitBias, IOpenAiRequest.ILogprobs, IOpenAiRequest.IMaxTokens, IOpenAiRequest.IStop, IOpenAiRequest.IReturnPrompt,
+    public record CreateAnswerRequest : IModelValidate,IOpenAiRequest.IModel, IOpenAiRequest.ITemperature, IOpenAiRequest.ILogitBias, IOpenAiRequest.ILogprobs, IOpenAiRequest.IMaxTokens, IOpenAiRequest.IStop, IOpenAiRequest.IReturnPrompt,
         IOpenAiRequest.IReturnMetadata,
-        IOpenAiRequest.IExpand
+        IOpenAiRequest.IExpand,
+        IOpenAiRequest.IFileOrDocument
     {
         /// <summary>
         ///     Question to get answered.
@@ -124,5 +127,10 @@ namespace OpenAI.SDK.Models.RequestModels
         /// </summary>
         [JsonPropertyName("temperature")]
         public float? Temperature { get; set; }
+
+        public IEnumerable<ValidationResult> Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
