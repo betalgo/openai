@@ -18,5 +18,5 @@ public interface IAnswers
     /// </summary>
     /// <param name="createAnswerRequest"></param>
     /// <returns></returns>
-    Task<CreateAnswerResponse?> CreateAnswer(CreateAnswerRequest createAnswerRequest);
+    Task<CreateAnswerResponse> CreateAnswer(CreateAnswerRequest createAnswerRequest);
 }

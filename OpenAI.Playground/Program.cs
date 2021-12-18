@@ -30,7 +30,6 @@ serviceCollection.Configure<OpenAiSettings>(configuration.GetSection(OpenAiSetti
 var serviceProvider = serviceCollection.BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAISdk>();
 var engineList = await sdk.Engine.ListEngines();
-
 //Console.WriteLine("Engine List:");
 //if (engineList == null)
 //{

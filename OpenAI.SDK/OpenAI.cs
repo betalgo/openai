@@ -10,69 +10,71 @@ namespace OpenAI.SDK
     //TODO Move endpoints to a setting file
     public class OpenAISdk : IOpenAISdk, IEngine, ICompletions, ISearches, IClassifications, IAnswers, IFiles
     {
-        private const string ApiVersion = "v1";
+        private readonly IOpenAiEndpointProvider _endpointProvider;
         private readonly HttpClient _httpClient;
 
         public OpenAISdk(HttpClient httpClient, IOptions<OpenAiSettings> settings)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("https://api.openai.com/");
+            _httpClient.BaseAddress = new Uri(settings.Value.BaseDomain);
             var authKey = settings.Value.ApiKey;
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authKey}");
             var organization = settings.Value.Organization;
             _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{organization}");
+
+            _endpointProvider = new OpenAiEndpointProvider(settings.Value.ApiVersion);
         }
 
         //TODO Not tested yet
-        public async Task<CreateAnswerResponse?> CreateAnswer(CreateAnswerRequest createAnswerRequest)
+        public async Task<CreateAnswerResponse> CreateAnswer(CreateAnswerRequest createAnswerRequest)
         {
-            return await _httpClient.PostAndReadAsAsync<CreateAnswerResponse?>($"/{ApiVersion}/answers", createAnswerRequest);
+            return await _httpClient.PostAndReadAsAsync<CreateAnswerResponse>(_endpointProvider.CreateAnswer(), createAnswerRequest);
         }
 
         //TODO Not tested yet
-        public async Task<CreateClassificationResponse?> CreateClassification(CreateClassificationRequest createClassificationRequest)
+        public async Task<CreateClassificationResponse> CreateClassification(CreateClassificationRequest createClassificationRequest)
         {
-            return await _httpClient.PostAndReadAsAsync<CreateClassificationResponse?>($"/{ApiVersion}/classifications", createClassificationRequest);
+            return await _httpClient.PostAndReadAsAsync<CreateClassificationResponse>(_endpointProvider.CreateClassification(), createClassificationRequest);
         }
 
 
-        public async Task<CreateCompletionResponse?> CreateCompletion(string engineId, CreateCompletionRequest createCompletionRequest)
+        public async Task<CreateCompletionResponse> CreateCompletion(string engineId, CreateCompletionRequest createCompletionRequest)
         {
-            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse?>($"/{ApiVersion}/engines/{engineId}/completions", createCompletionRequest);
+            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse>(_endpointProvider.CreateCompletion(engineId), createCompletionRequest);
         }
 
-        public async Task<ListEngineResponse?> ListEngines()
+        public async Task<ListEngineResponse> ListEngines()
         {
-            return await _httpClient.GetFromJsonAsync<ListEngineResponse>($"/{ApiVersion}/engines");
+            return await _httpClient.GetFromJsonAsync<ListEngineResponse>(_endpointProvider.ListEngines());
         }
 
-        public async Task<RetrieveEngineResponse?> RetrieveEngine(string engineId)
+        public async Task<RetrieveEngineResponse> RetrieveEngine(string engineId)
         {
-            return await _httpClient.GetFromJsonAsync<RetrieveEngineResponse>($"/{ApiVersion}/engines/{engineId}");
+            return await _httpClient.GetFromJsonAsync<RetrieveEngineResponse>(_endpointProvider.RetrieveEngine(engineId));
         }
 
-        public async Task<ListFilesResponse?> ListFiles()
+        public async Task<ListFilesResponse> ListFiles()
         {
-            return await _httpClient.GetFromJsonAsync<ListFilesResponse>($"/{ApiVersion}/files");
+            return await _httpClient.GetFromJsonAsync<ListFilesResponse>(_endpointProvider.ListFiles());
         }
 
-        public async Task<UploadFilesResponse?> UploadFiles(string purpose, byte[] file, string fileName)
+        public async Task<UploadFilesResponse> UploadFiles(string purpose, byte[] file, string fileName)
         {
             var multipartContent = new MultipartFormDataContent();
             multipartContent.Add(new StringContent(purpose), "purpose");
             multipartContent.Add(new ByteArrayContent(file), "file", fileName);
 
-            return await _httpClient.PostFileAndReadAsAsync<UploadFilesResponse>($"/{ApiVersion}/files", multipartContent);
+            return await _httpClient.PostFileAndReadAsAsync<UploadFilesResponse>(_endpointProvider.UploadFiles(), multipartContent);
         }
 
-        public async Task<DeleteResponseModel?> DeleteFile(string fileId)
+        public async Task<DeleteResponseModel> DeleteFile(string fileId)
         {
-            return await _httpClient.DeleteAndReadAsAsync<DeleteResponseModel>($"/{ApiVersion}/files/{fileId}");
+            return await _httpClient.DeleteAndReadAsAsync<DeleteResponseModel>(_endpointProvider.DeleteFile(fileId));
         }
 
-        public async Task<RetrieveFileResponse?> RetrieveFile(string fileId)
+        public async Task<RetrieveFileResponse> RetrieveFile(string fileId)
         {
-            return await _httpClient.GetFromJsonAsync<RetrieveFileResponse>($"/{ApiVersion}/files/{fileId}");
+            return await _httpClient.GetFromJsonAsync<RetrieveFileResponse>(_endpointProvider.RetrieveFile(fileId));
         }
 
         //TODO Not tested yet
@@ -91,10 +93,11 @@ namespace OpenAI.SDK
         public IAnswers Answers => this;
         public IFiles Files => this;
 
+
         //TODO Not tested yet
-        public async Task<CreateCompletionResponse?> CreateSearch(string engineId, CreateSearchRequest createSearchRequest)
+        public async Task<CreateCompletionResponse> CreateSearch(string engineId, CreateSearchRequest createSearchRequest)
         {
-            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse?>($"/{ApiVersion}/engines/{engineId}/search", createSearchRequest);
+            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse>(_endpointProvider.CreateSearch(engineId), createSearchRequest);
         }
     }
 }

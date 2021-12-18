@@ -15,5 +15,5 @@ public interface ICompletions
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <param name="createCompletionModel"></param>
     /// <returns></returns>
-    Task<CreateCompletionResponse?> CreateCompletion(string engineId, CreateCompletionRequest createCompletionModel);
+    Task<CreateCompletionResponse> CreateCompletion(string engineId, CreateCompletionRequest createCompletionModel);
 }

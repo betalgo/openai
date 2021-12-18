@@ -20,5 +20,5 @@ public interface IClassifications
     /// </summary>
     /// <param name="createClassificationRequest"></param>
     /// <returns></returns>
-    Task<CreateClassificationResponse?> CreateClassification(CreateClassificationRequest createClassificationRequest);
+    Task<CreateClassificationResponse> CreateClassification(CreateClassificationRequest createClassificationRequest);
 }

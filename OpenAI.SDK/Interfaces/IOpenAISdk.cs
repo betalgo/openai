@@ -3,8 +3,9 @@
 public interface IOpenAISdk
 {
     /// <summary>
-    ///     Engines describe and provide access to the various models available in the API. You can refer to the Engines
-    ///     documentation to understand what engines are available and the differences between them.
+    ///     Engines describe and provide access to the various models available in the API. You can refer to the
+    ///     <a href="https://beta.openai.com/docs/engines">Engine</a> documentation to understand what engines are available
+    ///     and the differences between them.
     /// </summary>
     public IEngine Engine { get; }
 

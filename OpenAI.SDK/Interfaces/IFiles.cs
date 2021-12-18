@@ -10,7 +10,7 @@ public interface IFiles
     ///     Returns a list of files that belong to the user's organization.
     /// </summary>
     /// <returns></returns>
-    Task<ListFilesResponse?> ListFiles();
+    Task<ListFilesResponse> ListFiles();
 
     /// <summary>
     ///     Upload a file that contains document(s) to be used across various endpoints/features. Currently, the size of all
@@ -34,19 +34,19 @@ public interface IFiles
     ///     Fine-tuning.This allows us to validate the format of the uploaded file.
     /// </param>
     /// <returns></returns>
-    Task<UploadFilesResponse?> UploadFiles(string purpose, byte[] file, string fileName);
+    Task<UploadFilesResponse> UploadFiles(string purpose, byte[] file, string fileName);
 
-    Task<UploadFilesResponse?> UploadFiles(string purpose, Stream file, string fileName)
+    Task<UploadFilesResponse> UploadFiles(string purpose, Stream file, string fileName)
     {
         return UploadFiles(purpose, file.ToByteArray(), fileName);
     }
 
-    Task<UploadFilesResponse?> UploadFiles(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName)
+    Task<UploadFilesResponse> UploadFiles(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName)
     {
         return UploadFiles(purpose.EnumToString(), file.ToByteArray(), fileName);
     }
 
-    Task<UploadFilesResponse?> UploadFiles(UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName)
+    Task<UploadFilesResponse> UploadFiles(UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName)
     {
         return UploadFiles(purpose.EnumToString(), file, fileName);
     }
@@ -56,14 +56,14 @@ public interface IFiles
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <returns></returns>
-    Task<DeleteResponseModel?> DeleteFile(string fileId);
+    Task<DeleteResponseModel> DeleteFile(string fileId);
 
     /// <summary>
     ///     Returns information about a specific file.
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <returns></returns>
-    Task<RetrieveFileResponse?> RetrieveFile(string fileId);
+    Task<RetrieveFileResponse> RetrieveFile(string fileId);
 
     /// <summary>
     ///     Returns the contents of the specified file

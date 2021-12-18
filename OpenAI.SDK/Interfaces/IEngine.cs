@@ -13,12 +13,12 @@ public interface IEngine
     ///     availability.
     /// </summary>
     /// <returns></returns>
-    Task<ListEngineResponse?> ListEngines();
+    Task<ListEngineResponse> ListEngines();
 
     /// <summary>
     ///     Retrieves an engine instance, providing basic information about the engine such as the owner and availability.
     /// </summary>
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <returns></returns>
-    Task<RetrieveEngineResponse?> RetrieveEngine(string engineId);
+    Task<RetrieveEngineResponse> RetrieveEngine(string engineId);
 }
