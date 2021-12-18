@@ -2,7 +2,6 @@
 
 namespace OpenAI.SDK.Models.ResponseModels
 {
-
     // TODO merge with other file object
     public record RetrieveFileResponse : BaseResponse
     {

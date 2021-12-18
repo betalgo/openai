@@ -24,9 +24,8 @@ namespace OpenAI.SDK.Models.RequestModels
         /// </summary>
         [JsonPropertyName("query")]
         public string Query { get; set; } = null!;
-        
-        [JsonPropertyName("search_model")]
-        public string SearchModel { get; set; } = null!;
+
+        [JsonPropertyName("search_model")] public string SearchModel { get; set; } = null!;
 
         /// <summary>
         ///     The maximum number of documents to be re-ranked and returned by search.
@@ -42,7 +41,5 @@ namespace OpenAI.SDK.Models.RequestModels
         /// </summary>
         [JsonPropertyName("return_metadata")]
         public bool? ReturnMetadata { get; set; }
-
-
     }
 }

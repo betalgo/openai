@@ -14,17 +14,19 @@ namespace OpenAI.SDK.Extensions
 
         public static async Task<TResponse?> PostAndReadAsAsync<TResponse>(this HttpClient client, string uri, object requestModel)
         {
-            var response = await client.PostAsJsonAsync(uri,requestModel, new JsonSerializerOptions()
+            var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions()
             {
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
             });
             return await response.Content.ReadFromJsonAsync<TResponse>();
-        }   
+        }
+
         public static async Task<TResponse?> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content)
         {
-            var response = await client.PostAsync(uri,content);
+            var response = await client.PostAsync(uri, content);
             return await response.Content.ReadFromJsonAsync<TResponse>();
         }
+
         public static async Task<TResponse?> DeleteAndReadAsAsync<TResponse>(this HttpClient client, string uri)
         {
             var response = await client.DeleteAsync(uri);

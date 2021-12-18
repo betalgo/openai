@@ -3,7 +3,6 @@ using OpenAI.SDK.Models.RequestModels.RequestInterfaces;
 
 namespace OpenAI.SDK.Models.RequestModels
 {
-
     //TODO validate fields types with documentation
     //TODO create common fields interfaces
     public record CreateAnswerRequest : IOpenAiRequest.IModel, IOpenAiRequest.ITemperature, IOpenAiRequest.ILogitBias, IOpenAiRequest.ILogprobs, IOpenAiRequest.IMaxTokens, IOpenAiRequest.IStop, IOpenAiRequest.IReturnPrompt,

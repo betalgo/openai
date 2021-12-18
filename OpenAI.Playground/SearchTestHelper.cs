@@ -48,7 +48,7 @@ namespace OpenAI.Playground
                 });
                 if (searchResponse?.Successful == true)
                 {
-                    Console.WriteLine(string.Join(",",searchResponse.Choices));
+                    Console.WriteLine(string.Join(",", searchResponse.Choices));
                 }
                 else
                 {
@@ -61,6 +61,7 @@ namespace OpenAI.Playground
                 throw;
             }
         }
+
         public static async Task UploadSampleFile(IOpenAISdk sdk)
         {
             const string fileName = "SearchSample.json";
@@ -85,7 +86,6 @@ namespace OpenAI.Playground
                 Console.WriteLine($"File found.");
                 var file = await sdk.Files.RetrieveFile(uploadedFile.Id);
                 Console.WriteLine($"File retrieved.{file.CreatedAt}");
-              
             }
             catch (Exception e)
             {

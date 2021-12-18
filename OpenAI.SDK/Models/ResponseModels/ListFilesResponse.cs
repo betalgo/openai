@@ -7,7 +7,7 @@ namespace OpenAI.SDK.Models.ResponseModels
         [JsonPropertyName("data")] public List<File> Data { get; set; }
     }
 
-    public record File:BaseResponse
+    public record File : BaseResponse
     {
         [JsonPropertyName("id")] public string Id { get; set; }
 

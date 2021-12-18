@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using OpenAI.SDK.Extensions;
 using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Models;
 using OpenAI.SDK.Models.RequestModels;
 using OpenAI.SDK.Models.ResponseModels;
 
@@ -97,6 +96,5 @@ namespace OpenAI.SDK
         {
             return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse?>($"/{ApiVersion}/engines/{engineId}/search", createSearchRequest);
         }
-        
     }
 }
