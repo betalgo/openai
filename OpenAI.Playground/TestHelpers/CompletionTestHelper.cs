@@ -2,7 +2,7 @@
 using OpenAI.SDK.Models;
 using OpenAI.SDK.Models.RequestModels;
 
-namespace OpenAI.Playground
+namespace OpenAI.Playground.TestHelpers
 {
     internal static class CompletionTestHelper
     {

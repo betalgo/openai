@@ -2,10 +2,42 @@
 using OpenAI.SDK.Models;
 using OpenAI.SDK.Models.RequestModels;
 
-namespace OpenAI.Playground
+namespace OpenAI.Playground.TestHelpers
 {
     internal static class SearchTestHelper
     {
+        public static async Task SearchDocuments(IOpenAISdk sdk)
+        {
+            ConsoleExtensions.WriteLine("Search Documents Test is starting:", ConsoleColor.Cyan);
+
+            try
+            {
+                var documents = new List<string>()
+                {
+                    "White House",
+                    "hospital",
+                    "school"
+                };
+                var searchResponse = await sdk.Searches.CreateSearch(new CreateSearchRequest
+                {
+                    Documents = documents,
+                    Query = "the president"
+                }, Engines.Engine.Davinci);
+
+                if (searchResponse.Data.FirstOrDefault()!.Document != 0)
+                {
+                    throw new Exception("something wrong");
+                }
+
+                Console.WriteLine(documents[searchResponse.Data.FirstOrDefault()!.Document]);
+            }
+            catch (Exception e)
+            {
+                ConsoleExtensions.WriteLine(e.Message,ConsoleColor.Red);
+                throw;
+            }
+        }
+
         public static async Task UploadSampleFileAndGetSearchResponse(IOpenAISdk sdk)
         {
             const string fileName = "SearchSample.jsonl";
@@ -48,7 +80,7 @@ namespace OpenAI.Playground
                 }, Engines.Engine.Ada);
                 if (searchResponse?.Successful == true)
                 {
-                    Console.WriteLine(string.Join(",", searchResponse.Choices));
+                    //Console.WriteLine(string.Join(",", searchResponse.Data));
                 }
                 else
                 {

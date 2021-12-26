@@ -23,9 +23,9 @@ public interface ISearches
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <param name="createSearchRequest"></param>
     /// <returns></returns>
-    Task<CreateCompletionResponse> CreateSearch(CreateSearchRequest createSearchRequest, string? engineId = null);
+    Task<CreateSearchResponse> CreateSearch(CreateSearchRequest createSearchRequest, string? engineId = null);
 
-    Task<CreateCompletionResponse> CreateSearch(CreateSearchRequest createSearchRequest, Engines.Engine engineId)
+    Task<CreateSearchResponse> CreateSearch(CreateSearchRequest createSearchRequest, Engines.Engine engineId)
     {
         return CreateSearch(createSearchRequest, engineId.EnumToString());
     }

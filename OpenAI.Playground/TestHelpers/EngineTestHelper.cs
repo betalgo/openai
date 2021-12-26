@@ -1,6 +1,6 @@
 ﻿using OpenAI.SDK.Interfaces;
 
-namespace OpenAI.Playground
+namespace OpenAI.Playground.TestHelpers
 {
     internal static class EngineTestHelper
     {

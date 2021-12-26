@@ -108,9 +108,9 @@ namespace OpenAI.SDK
 
 
         //TODO Not tested yet
-        public async Task<CreateCompletionResponse> CreateSearch(CreateSearchRequest createSearchRequest, string? engineId)
+        public async Task<CreateSearchResponse> CreateSearch(CreateSearchRequest createSearchRequest, string? engineId)
         {
-            return await _httpClient.PostAndReadAsAsync<CreateCompletionResponse>(_endpointProvider.CreateSearch(ProcessEngineId(engineId)), createSearchRequest);
+            return await _httpClient.PostAndReadAsAsync<CreateSearchResponse>(_endpointProvider.CreateSearch(ProcessEngineId(engineId)), createSearchRequest);
         }
     }
 }

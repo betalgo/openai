@@ -3,6 +3,7 @@ using LaserCatEyes.HttpClientListener;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI.Playground;
+using OpenAI.Playground.TestHelpers;
 using OpenAI.SDK;
 using OpenAI.SDK.Interfaces;
 using OpenAI.SDK.Models.RequestModels;
@@ -32,20 +33,15 @@ var serviceProvider = serviceCollection.BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAISdk>();
 //await EngineTestHelper.FetchEnginesTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest(sdk);
+//await SearchTestHelper.SearchDocuments(sdk);
+//await ClassificationsTestHelper.RunSimpleClassificationTest(sdk);
+//await AnswerTestHelper.RunSimpleAnswerTest(sdk);
+await FileTestHelper.RunSimpleFileTest(sdk);
 
-//var fileName = "AnswerQuestionsSample.json";
-//var searchSampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
-//await sdk.Files.UploadFiles(UploadFilePurpose.Answers, searchSampleFile, fileName);
-//var uploadedFiles = await sdk.Files.ListFiles();
-//foreach (var uploadedFile in uploadedFiles.Data)
-//{
-//    Console.WriteLine(uploadedFile.FileName);
-//    var file = await sdk.Files.RetrieveFile(uploadedFile.Id);
-//    Console.WriteLine(file.FileName);
-//    //   var fileContent = sdk.Files.RetrieveFileContent(file.Id);
-//    var deleteResponse = await sdk.Files.DeleteFile(file.Id);
-//}
+
 
 
 //await FileTestHelper.CleanAllFiles(sdk);
 //await SearchTestHelper.UploadSampleFileAndGetSearchResponse(sdk);
+
+Console.ReadLine();

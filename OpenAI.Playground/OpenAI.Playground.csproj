@@ -33,6 +33,9 @@
     <None Update="SampleData\AnswerQuestionsSample.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="SampleData\FineTuningSample1.jsonl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="SampleData\SearchSample.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
