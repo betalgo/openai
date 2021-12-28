@@ -1,6 +1,7 @@
 ﻿using OpenAI.SDK.Interfaces;
 using OpenAI.SDK.Models;
 using OpenAI.SDK.Models.RequestModels;
+using OpenAI.SDK.Models.ResponseModels.FineTuneResponseModels;
 
 namespace OpenAI.Playground.TestHelpers
 {
@@ -12,41 +13,75 @@ namespace OpenAI.Playground.TestHelpers
 
             try
             {
-                ConsoleExtensions.WriteLine("Fetching Engine List", ConsoleColor.DarkCyan);
-                var completionResult = await sdk.Answers.CreateAnswer(new CreateAnswerRequest()
+                const string fileName = "FineTuningSample1.jsonl";
+                var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
+
+                ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
+                var uploadFilesResponse = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.FineTune, sampleFile, fileName);
+                if (uploadFilesResponse.Successful)
                 {
-                    Documents = new List<string>()
-                    {
-                        "Puppy A is happy.", "Puppy B is sad."
-                    },
-                    Question = "which puppy is happy?",
-                    SearchModel = Engines.Engine.Ada.EnumToString(),
-                    Model = Engines.Engine.Curie.EnumToString(),
-                    ExamplesContext = "In 2017, U.S. life expectancy was 78.6 years.",
-                    Examples = new List<List<string>>()
-                    {
-                        new ()
-                        {
-                            "What is human life expectancy in the United States?", "78 years."
-                        }
-                    },
-                    MaxTokens = 5,
-                    //Stop = new List<string>()
-                    //{
-                    //    "\n", "<|endoftext|>"
-                    //}
+                    ConsoleExtensions.WriteLine($"{fileName} uploaded", ConsoleColor.DarkGreen);
+                }
+                else
+                {
+                    ConsoleExtensions.WriteLine($"{fileName} failed", ConsoleColor.DarkRed);
+                }
+
+                var createFineTuneResponse = await sdk.FineTunes.CreateFineTune(new FineTuneCreateRequest()
+                {
+                    TrainingFile = uploadFilesResponse.Id,
+                    Model = Engines.Curie
                 });
 
-                if (completionResult.Answers.FirstOrDefault() != "puppy A.")
+                var listFineTuneEventsStream = await sdk.FineTunes.ListFineTuneEvents(createFineTuneResponse.Id, true);
+                using var streamReader = new StreamReader(listFineTuneEventsStream);
+                while (!streamReader.EndOfStream)
                 {
-                    throw new Exception("Something Wrong");
+                    Console.WriteLine(await streamReader.ReadLineAsync());
                 }
-                Console.WriteLine(completionResult.Answers.FirstOrDefault());
+
+                FineTuneResponse retrieveFineTuneResponse;
+                do
+                {
+                    retrieveFineTuneResponse = await sdk.FineTunes.RetrieveFineTune(createFineTuneResponse.Id);
+                    if (retrieveFineTuneResponse.Status == "succeeded" || retrieveFineTuneResponse.Status == "cancelled" || retrieveFineTuneResponse.Status == "failed")
+                    {
+                        ConsoleExtensions.WriteLine($"Fine-tune Status for {createFineTuneResponse.Id}: {retrieveFineTuneResponse.Status}.", ConsoleColor.Yellow);
+                        break;
+                    }
+
+                    ConsoleExtensions.WriteLine($"Fine-tune Status for {createFineTuneResponse.Id}: {retrieveFineTuneResponse.Status}. Wait 10 more seconds", ConsoleColor.DarkYellow);
+                    await Task.Delay(10_000);
+                } while (true);
+
+                var completionResult = await sdk.FineTunes.FineTuneCompletions(new FineTuneCompletionsRequest()
+                {
+                    MaxTokens = 1,
+                    Prompt = @"https://t.co/f93xEd2 Excited to share my latest blog post! ->",
+                    Model = retrieveFineTuneResponse.FineTunedModel
+                });
+                if (completionResult.Successful)
+                {
+                    Console.WriteLine(completionResult.Choices.FirstOrDefault());
+                }
+                else
+                {
+                    throw new Exception($"failed{completionResult.Error?.Message}");
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
+            }
+        }
+
+        public static async Task CleanUpAllFineTunings(IOpenAISdk sdk)
+        {
+            var fineTunes = await sdk.FineTunes.ListFineTunes();
+            foreach (var datum in fineTunes.Data)
+            {
+                await sdk.FineTunes.DeleteFineTune(datum.FineTunedModel);
             }
         }
     }

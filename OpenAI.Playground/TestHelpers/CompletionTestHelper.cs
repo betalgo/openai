@@ -13,12 +13,12 @@ namespace OpenAI.Playground.TestHelpers
             try
             {
                 ConsoleExtensions.WriteLine("Fetching Engine List", ConsoleColor.DarkCyan);
-                var completionResult = await sdk.Completions.CreateCompletion( new CreateCompletionRequest()
+                var completionResult = await sdk.Completions.Create(new CompletionCreateRequest()
                 {
                     Prompt = "Once upon a time",
                     MaxTokens = 5
-                },Engines.Engine.Davinci);
-                
+                }, Engines.Engine.Davinci);
+
                 Console.WriteLine(completionResult.Choices.FirstOrDefault());
             }
             catch (Exception e)

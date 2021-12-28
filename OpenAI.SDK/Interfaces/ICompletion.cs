@@ -8,7 +8,7 @@ namespace OpenAI.SDK.Interfaces;
 ///     Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of
 ///     alternative tokens at each position.
 /// </summary>
-public interface ICompletions
+public interface ICompletion
 {
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
@@ -16,7 +16,7 @@ public interface ICompletions
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <param name="createCompletionModel"></param>
     /// <returns></returns>
-    Task<CreateCompletionResponse> CreateCompletion(CreateCompletionRequest createCompletionModel, string? engineId = null);
+    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, string? engineId = null);
 
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
@@ -24,8 +24,8 @@ public interface ICompletions
     /// <param name="createCompletionModel"></param>
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <returns></returns>
-    Task<CreateCompletionResponse> CreateCompletion(CreateCompletionRequest createCompletionModel, Engines.Engine engineId)
+    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Engines.Engine engineId)
     {
-        return CreateCompletion(createCompletionModel, engineId.EnumToString());
+        return Create(createCompletionModel, engineId.EnumToString());
     }
 }

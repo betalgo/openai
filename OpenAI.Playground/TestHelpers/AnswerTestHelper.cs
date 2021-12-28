@@ -13,7 +13,7 @@ namespace OpenAI.Playground.TestHelpers
             try
             {
                 ConsoleExtensions.WriteLine("Fetching Engine List", ConsoleColor.DarkCyan);
-                var completionResult = await sdk.Answers.CreateAnswer(new CreateAnswerRequest()
+                var completionResult = await sdk.Answers.Answer(new AnswerCreateRequest()
                 {
                     Documents = new List<string>()
                     {
@@ -25,12 +25,12 @@ namespace OpenAI.Playground.TestHelpers
                     ExamplesContext = "In 2017, U.S. life expectancy was 78.6 years.",
                     Examples = new List<List<string>>()
                     {
-                        new ()
+                        new()
                         {
                             "What is human life expectancy in the United States?", "78 years."
                         }
                     },
-                    MaxTokens = 5,
+                    MaxTokens = 5
                     //Stop = new List<string>()
                     //{
                     //    "\n", "<|endoftext|>"
@@ -41,6 +41,7 @@ namespace OpenAI.Playground.TestHelpers
                 {
                     throw new Exception("Something Wrong");
                 }
+
                 Console.WriteLine(completionResult.Answers.FirstOrDefault());
             }
             catch (Exception e)

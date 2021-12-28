@@ -9,7 +9,7 @@ namespace OpenAI.SDK.Interfaces;
 ///     company documentation or a knowledge base.
 ///     Related guide:<a href="https://beta.openai.com/docs/guides/answers">Answer questions</a>
 /// </summary>
-public interface IAnswers
+public interface IAnswer
 {
     /// <summary>
     ///     Answers the specified question using the provided documents and examples.
@@ -18,5 +18,5 @@ public interface IAnswers
     /// </summary>
     /// <param name="createAnswerRequest"></param>
     /// <returns></returns>
-    Task<CreateAnswerResponse> CreateAnswer(CreateAnswerRequest createAnswerRequest);
+    Task<AnswerCreateResponse> Answer(AnswerCreateRequest createAnswerRequest);
 }

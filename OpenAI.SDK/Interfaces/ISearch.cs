@@ -9,7 +9,7 @@ namespace OpenAI.SDK.Interfaces;
 ///     the provided query.
 ///     Related guide: <a href="https://beta.openai.com/docs/guides/search">Search</a>
 /// </summary>
-public interface ISearches
+public interface ISearch
 {
     /// <summary>
     ///     The search endpoint computes similarity scores between provided query and documents. Documents can be passed
@@ -23,10 +23,10 @@ public interface ISearches
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <param name="createSearchRequest"></param>
     /// <returns></returns>
-    Task<CreateSearchResponse> CreateSearch(CreateSearchRequest createSearchRequest, string? engineId = null);
+    Task<SearchCreateResponse> SearchCreate(SearchCreateRequest createSearchRequest, string? engineId = null);
 
-    Task<CreateSearchResponse> CreateSearch(CreateSearchRequest createSearchRequest, Engines.Engine engineId)
+    Task<SearchCreateResponse> SearchCreate(SearchCreateRequest createSearchRequest, Engines.Engine engineId)
     {
-        return CreateSearch(createSearchRequest, engineId.EnumToString());
+        return SearchCreate(createSearchRequest, engineId.EnumToString());
     }
 }

@@ -2,7 +2,7 @@
 
 namespace OpenAI.SDK.Models.ResponseModels
 {
-    public record CreateAnswerResponse : BaseResponse
+    public record AnswerCreateResponse : BaseResponse
     {
         [JsonPropertyName("Answers")] public List<string> Answers { get; set; }
 
@@ -16,7 +16,7 @@ namespace OpenAI.SDK.Models.ResponseModels
         public SelectedDocument[] SelectedDocuments { get; set; }
     }
 
-    public record SelectedDocument
+    public class SelectedDocument
     {
         [JsonPropertyName("document")] public int Document { get; set; }
 

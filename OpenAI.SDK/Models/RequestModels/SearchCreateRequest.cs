@@ -1,27 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Models.RequestModels.RequestInterfaces;
+using OpenAI.SDK.Models.SharedModels;
 
 namespace OpenAI.SDK.Models.RequestModels
 {
-    public record CreateSearchRequest: IModelValidate,IOpenAiRequest.IFileOrDocument
+    public record SearchCreateRequest : IModelValidate, IOpenAiModels.IFileOrDocument
     {
-        /// <summary>
-        ///     Up to 200 documents to search over, provided as a list of strings.
-        ///     The maximum document length(in tokens) is 2034 minus the number of tokens in the query.
-        ///     You should specify either documents or a file, but not both.
-        /// </summary>
-        [JsonPropertyName("documents")]
-        public List<string>? Documents { get; set; }
-
-        /// <summary>
-        ///     The ID of an uploaded file that contains documents to search over.
-        ///     You should specify either documents or a file, but not both.
-        /// </summary>
-        [JsonPropertyName("file")]
-        public string? File { get; set; }
-
         /// <summary>
         ///     Query to search against the documents.
         /// </summary>
@@ -44,6 +29,21 @@ namespace OpenAI.SDK.Models.RequestModels
         /// </summary>
         [JsonPropertyName("return_metadata")]
         public bool? ReturnMetadata { get; set; }
+
+        /// <summary>
+        ///     Up to 200 documents to search over, provided as a list of strings.
+        ///     The maximum document length(in tokens) is 2034 minus the number of tokens in the query.
+        ///     You should specify either documents or a file, but not both.
+        /// </summary>
+        [JsonPropertyName("documents")]
+        public List<string>? Documents { get; set; }
+
+        /// <summary>
+        ///     The ID of an uploaded file that contains documents to search over.
+        ///     You should specify either documents or a file, but not both.
+        /// </summary>
+        [JsonPropertyName("file")]
+        public string? File { get; set; }
 
         public IEnumerable<ValidationResult> Validate()
         {

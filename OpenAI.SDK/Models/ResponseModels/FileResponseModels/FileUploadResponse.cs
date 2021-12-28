@@ -1,9 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.SDK.Models.ResponseModels
+namespace OpenAI.SDK.Models.ResponseModels.FileResponseModels
 {
-    // TODO merge with other file object
-    public record RetrieveFileResponse : BaseResponse
+    public record FileUploadResponse : BaseResponse
     {
         [JsonPropertyName("id")] public string Id { get; set; }
 

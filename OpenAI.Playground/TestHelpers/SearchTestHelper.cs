@@ -18,7 +18,7 @@ namespace OpenAI.Playground.TestHelpers
                     "hospital",
                     "school"
                 };
-                var searchResponse = await sdk.Searches.CreateSearch(new CreateSearchRequest
+                var searchResponse = await sdk.Searches.SearchCreate(new SearchCreateRequest
                 {
                     Documents = documents,
                     Query = "the president"
@@ -33,7 +33,7 @@ namespace OpenAI.Playground.TestHelpers
             }
             catch (Exception e)
             {
-                ConsoleExtensions.WriteLine(e.Message,ConsoleColor.Red);
+                ConsoleExtensions.WriteLine(e.Message, ConsoleColor.Red);
                 throw;
             }
         }
@@ -47,7 +47,7 @@ namespace OpenAI.Playground.TestHelpers
                 Console.WriteLine($"Starting to read {fileName}");
                 var searchSampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
                 Console.WriteLine($"Uploading to read {fileName}");
-                var uploadResult = await sdk.Files.UploadFiles(UploadFilePurposes.UploadFilePurpose.Search.EnumToString(), searchSampleFile, fileName);
+                var uploadResult = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.Search.EnumToString(), searchSampleFile, fileName);
                 if (uploadResult?.Successful == true)
                 {
                     Console.WriteLine($"Uploading is done.");
@@ -57,10 +57,10 @@ namespace OpenAI.Playground.TestHelpers
                 }
 
                 Console.WriteLine($"Fetching files.");
-                var uploadedFiles = await sdk.Files.ListFiles();
+                var uploadedFiles = await sdk.Files.FileList();
                 var uploadedFile = uploadedFiles!.Data.Single(r => r.Id == uploadResult.Id);
                 Console.WriteLine($"File found.");
-                var file = await sdk.Files.RetrieveFile(uploadedFile.Id);
+                var file = await sdk.Files.FileRetrieve(uploadedFile.Id);
                 Console.WriteLine($"File retrieved.{file.CreatedAt}");
                 //var deleteResponse = await sdk.Files.DeleteFile(uploadedFile.Id);
                 //if (deleteResponse?.Successful == true && deleteResponse.Deleted)
@@ -71,7 +71,7 @@ namespace OpenAI.Playground.TestHelpers
                 //{
                 //    Console.WriteLine($"Something went wrong while deleting file.");
                 //}
-                var searchResponse = await sdk.Searches.CreateSearch(new CreateSearchRequest()
+                var searchResponse = await sdk.Searches.SearchCreate(new SearchCreateRequest()
                 {
                     File = uploadedFile.Id,
                     MaxRerank = 5,
@@ -103,7 +103,7 @@ namespace OpenAI.Playground.TestHelpers
                 Console.WriteLine($"Starting to read {fileName}");
                 var searchSampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
                 Console.WriteLine($"Uploading to read {fileName}");
-                var uploadResult = await sdk.Files.UploadFiles(UploadFilePurposes.UploadFilePurpose.Search.EnumToString(), searchSampleFile, fileName);
+                var uploadResult = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.Search.EnumToString(), searchSampleFile, fileName);
                 if (uploadResult?.Successful == true)
                 {
                     Console.WriteLine($"Uploading is done.");
@@ -113,10 +113,10 @@ namespace OpenAI.Playground.TestHelpers
                 }
 
                 Console.WriteLine($"Fetching files.");
-                var uploadedFiles = await sdk.Files.ListFiles();
+                var uploadedFiles = await sdk.Files.FileList();
                 var uploadedFile = uploadedFiles!.Data.Single(r => r.Id == uploadResult.Id);
                 Console.WriteLine($"File found.");
-                var file = await sdk.Files.RetrieveFile(uploadedFile.Id);
+                var file = await sdk.Files.FileRetrieve(uploadedFile.Id);
                 Console.WriteLine($"File retrieved.{file.CreatedAt}");
             }
             catch (Exception e)

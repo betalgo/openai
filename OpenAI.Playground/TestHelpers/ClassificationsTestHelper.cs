@@ -12,7 +12,7 @@ namespace OpenAI.Playground.TestHelpers
 
             try
             {
-                var classificationResponse = await sdk.Classifications.CreateClassification(new CreateClassificationRequest()
+                var classificationResponse = await sdk.Classifications.ClassificationsCreate(new ClassificationCreateRequest()
                 {
                     Examples = new List<List<string>>()
                     {

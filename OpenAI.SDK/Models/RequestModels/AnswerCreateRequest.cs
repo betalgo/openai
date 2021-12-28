@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Models.RequestModels.RequestInterfaces;
+using OpenAI.SDK.Models.SharedModels;
 
 namespace OpenAI.SDK.Models.RequestModels
 {
     //TODO validate fields types with documentation
     //TODO create common fields interfaces
-    public record CreateAnswerRequest : IModelValidate,IOpenAiRequest.IModel, IOpenAiRequest.ITemperature, IOpenAiRequest.ILogitBias, IOpenAiRequest.ILogprobs, IOpenAiRequest.IMaxTokens, IOpenAiRequest.IStop, IOpenAiRequest.IReturnPrompt,
-        IOpenAiRequest.IReturnMetadata,
-        IOpenAiRequest.IExpand,
-        IOpenAiRequest.IFileOrDocument
+    public record AnswerCreateRequest : IModelValidate, IOpenAiModels.IModel, IOpenAiModels.ITemperature, IOpenAiModels.ILogitBias, IOpenAiModels.ILogprobs, IOpenAiModels.IMaxTokens, IOpenAiModels.IStop, IOpenAiModels.IReturnPrompt,
+        IOpenAiModels.IReturnMetadata,
+        IOpenAiModels.IExpand,
+        IOpenAiModels.IFileOrDocument
     {
         /// <summary>
         ///     Question to get answered.
@@ -30,24 +30,6 @@ namespace OpenAI.SDK.Models.RequestModels
         /// </summary>
         [JsonPropertyName("examples_context")]
         public string ExamplesContext { get; set; }
-
-
-        /// <summary>
-        ///     List of documents from which the answer for the input question should be derived. If this is an empty list, the
-        ///     question will be answered based on the question-answer examples.
-        ///     You should specify either documents or a file, but not both.
-        /// </summary>
-        [JsonPropertyName("documents")]
-        public List<string>? Documents { get; set; }
-
-        /// <summary>
-        ///     The ID of an uploaded file that contains documents to search over. See
-        ///     <a href="https://beta.openai.com/docs/api-reference/files/upload">upload file</a> for how to upload a file of the
-        ///     desired format and purpose.
-        ///     You should specify either documents or a file, but not both.
-        /// </summary>
-        [JsonPropertyName("file")]
-        public string? File { get; set; }
 
         /// <summary>
         ///     ID of the engine to use for <a href="https://beta.openai.com/docs/api-reference/searches/create">Search</a>.
@@ -70,6 +52,24 @@ namespace OpenAI.SDK.Models.RequestModels
 
 
         [JsonPropertyName("expand")] public List<string>? Expand { get; set; }
+
+
+        /// <summary>
+        ///     List of documents from which the answer for the input question should be derived. If this is an empty list, the
+        ///     question will be answered based on the question-answer examples.
+        ///     You should specify either documents or a file, but not both.
+        /// </summary>
+        [JsonPropertyName("documents")]
+        public List<string>? Documents { get; set; }
+
+        /// <summary>
+        ///     The ID of an uploaded file that contains documents to search over. See
+        ///     <a href="https://beta.openai.com/docs/api-reference/files/upload">upload file</a> for how to upload a file of the
+        ///     desired format and purpose.
+        ///     You should specify either documents or a file, but not both.
+        /// </summary>
+        [JsonPropertyName("file")]
+        public string? File { get; set; }
 
 
         /// <summary>
@@ -97,6 +97,11 @@ namespace OpenAI.SDK.Models.RequestModels
         /// </summary>
         [JsonPropertyName("model")]
         public string Model { get; set; }
+
+        public IEnumerable<ValidationResult> Validate()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         ///     A special boolean flag for showing metadata. If set to true, each document entry in the returned JSON will contain
@@ -127,10 +132,5 @@ namespace OpenAI.SDK.Models.RequestModels
         /// </summary>
         [JsonPropertyName("temperature")]
         public float? Temperature { get; set; }
-
-        public IEnumerable<ValidationResult> Validate()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

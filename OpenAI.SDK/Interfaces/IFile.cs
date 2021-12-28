@@ -1,16 +1,17 @@
 ﻿using OpenAI.SDK.Extensions;
 using OpenAI.SDK.Models;
-using OpenAI.SDK.Models.ResponseModels;
+using OpenAI.SDK.Models.ResponseModels.FileResponseModels;
+using OpenAI.SDK.Models.SharedModels;
 
 namespace OpenAI.SDK.Interfaces;
 
-public interface IFiles
+public interface IFile
 {
     /// <summary>
     ///     Returns a list of files that belong to the user's organization.
     /// </summary>
     /// <returns></returns>
-    Task<ListFilesResponse> ListFiles();
+    Task<FileListResponse> FileList();
 
     /// <summary>
     ///     Upload a file that contains document(s) to be used across various endpoints/features. Currently, the size of all
@@ -34,21 +35,21 @@ public interface IFiles
     ///     Fine-tuning.This allows us to validate the format of the uploaded file.
     /// </param>
     /// <returns></returns>
-    Task<UploadFilesResponse> UploadFiles(string purpose, byte[] file, string fileName);
+    Task<FileUploadResponse> FileUpload(string purpose, byte[] file, string fileName);
 
-    Task<UploadFilesResponse> UploadFiles(string purpose, Stream file, string fileName)
+    Task<FileUploadResponse> FileUpload(string purpose, Stream file, string fileName)
     {
-        return UploadFiles(purpose, file.ToByteArray(), fileName);
+        return FileUpload(purpose, file.ToByteArray(), fileName);
     }
 
-    Task<UploadFilesResponse> UploadFiles(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName)
+    Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName)
     {
-        return UploadFiles(purpose.EnumToString(), file.ToByteArray(), fileName);
+        return FileUpload(purpose.EnumToString(), file.ToByteArray(), fileName);
     }
 
-    Task<UploadFilesResponse> UploadFiles(UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName)
+    Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName)
     {
-        return UploadFiles(purpose.EnumToString(), file, fileName);
+        return FileUpload(purpose.EnumToString(), file, fileName);
     }
 
     /// <summary>
@@ -56,19 +57,19 @@ public interface IFiles
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <returns></returns>
-    Task<DeleteResponseModel> DeleteFile(string fileId);
+    Task<FileDeleteResponse> FileDelete(string fileId);
 
     /// <summary>
     ///     Returns information about a specific file.
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <returns></returns>
-    Task<RetrieveFileResponse> RetrieveFile(string fileId);
+    Task<FileResponse> FileRetrieve(string fileId);
 
     /// <summary>
     ///     Returns the contents of the specified file
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <returns></returns>
-    Task RetrieveFileContent(string fileId);
+    Task FileRetrieveContent(string fileId);
 }

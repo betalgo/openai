@@ -2,11 +2,10 @@
 using LaserCatEyes.HttpClientListener;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenAI.Playground;
 using OpenAI.Playground.TestHelpers;
 using OpenAI.SDK;
 using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Models.RequestModels;
+using OpenAI.SDK.Managers;
 
 var builder = new ConfigurationBuilder()
     .AddJsonFile("ApiSettings.json")
@@ -36,12 +35,7 @@ var sdk = serviceProvider.GetRequiredService<IOpenAISdk>();
 //await SearchTestHelper.SearchDocuments(sdk);
 //await ClassificationsTestHelper.RunSimpleClassificationTest(sdk);
 //await AnswerTestHelper.RunSimpleAnswerTest(sdk);
-await FileTestHelper.RunSimpleFileTest(sdk);
-
-
-
-
-//await FileTestHelper.CleanAllFiles(sdk);
-//await SearchTestHelper.UploadSampleFileAndGetSearchResponse(sdk);
-
+//await FileTestHelper.RunSimpleFileTest(sdk);
+////await FineTuningTestHelper.CleanUpAllFineTunings(sdk);
+await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 Console.ReadLine();

@@ -1,7 +1,12 @@
-﻿namespace OpenAI.SDK.Models.RequestModels.RequestInterfaces
+﻿namespace OpenAI.SDK.Models.SharedModels
 {
-    public interface IOpenAiRequest
+    public interface IOpenAiModels
     {
+        public interface IId
+        {
+            string Id { get; set; }
+        }
+
         public interface IModel
         {
             string Model { get; set; }
@@ -47,10 +52,11 @@
             List<string>? Expand { get; set; }
         }
 
-        public interface IFileOrDocument:IFile
+        public interface IFileOrDocument : IFile
         {
             public List<string>? Documents { get; set; }
         }
+
         public interface IFile
         {
             /// <summary>
@@ -59,7 +65,15 @@
             /// </summary>
             public string? File { get; set; }
         }
-    }
 
-  
+        public interface ICreatedAt
+        {
+            public int? CreatedAt { get; set; }
+        }
+
+        public interface IFilePurpose
+        {
+            string Purpose { get; set; }
+        }
+    }
 }

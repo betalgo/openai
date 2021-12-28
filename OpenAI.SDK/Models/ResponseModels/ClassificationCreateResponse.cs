@@ -2,7 +2,7 @@
 
 namespace OpenAI.SDK.Models.ResponseModels
 {
-    public record CreateClassificationResponse : BaseResponse
+    public record ClassificationCreateResponse : BaseResponse
     {
         [JsonPropertyName("completion")] public string Completion { get; set; }
 

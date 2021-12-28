@@ -2,7 +2,7 @@
 
 namespace OpenAI.SDK.Models.ResponseModels
 {
-    public record CreateSearchResponse : BaseResponse
+    public record SearchCreateResponse : BaseResponse
     {
         [JsonPropertyName("data")] public SearchResult[] Data { get; set; }
     }

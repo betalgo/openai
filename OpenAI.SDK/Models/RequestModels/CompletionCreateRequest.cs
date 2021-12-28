@@ -7,7 +7,7 @@ namespace OpenAI.SDK.Models.RequestModels
     //TODO Update Usage of link (see cref)
     //TODO add model validation
     //TODO check what is string or array for prompt,..
-    public record CreateCompletionRequest : IModelValidate
+    public record CompletionCreateRequest : IModelValidate
     {
         /// <summary>
         ///     The prompt(s) to generate completions for, encoded as a string, a list of strings, or a list of token lists.
@@ -128,6 +128,9 @@ namespace OpenAI.SDK.Models.RequestModels
         /// <seealso cref="https://beta.openai.com/tokenizer?view=bpe" />
         [JsonPropertyName("logit_bias")]
         public object? LogitBias { get; set; }
+
+
+        [JsonPropertyName("model")] public string? Model { get; set; }
 
         public IEnumerable<ValidationResult> Validate()
         {

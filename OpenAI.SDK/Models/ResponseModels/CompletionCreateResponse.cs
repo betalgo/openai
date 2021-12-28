@@ -2,11 +2,11 @@
 
 namespace OpenAI.SDK.Models.ResponseModels
 {
-    public record CreateCompletionResponse : BaseResponse
+    public record CompletionCreateResponse : BaseResponse
     {
         [JsonPropertyName("id")] public string Id { get; set; }
 
-        [JsonPropertyName("created")] public int Created { get; set; }
+        [JsonPropertyName("created")] public int? Created { get; set; }
 
         [JsonPropertyName("model")] public string Model { get; set; }
 
@@ -17,7 +17,7 @@ namespace OpenAI.SDK.Models.ResponseModels
     {
         [JsonPropertyName("text")] public string Text { get; set; }
 
-        [JsonPropertyName("index")] public int Index { get; set; }
+        [JsonPropertyName("index")] public int? Index { get; set; }
 
         [JsonPropertyName("logprobs")] public object Logprobs { get; set; }
 

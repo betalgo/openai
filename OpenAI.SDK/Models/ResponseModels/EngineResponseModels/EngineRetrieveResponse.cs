@@ -1,9 +1,12 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.SDK.Models.ResponseModels;
 
-namespace OpenAI.SDK.Models.CommonModels
+namespace OpenAI.SDK.Models.ResponseModels.EngineResponseModels
 {
-    public record Engine : BaseResponse
+    public record EngineRetrieveResponse : EngineResponse
+    {
+    }
+
+    public record EngineResponse : BaseResponse
     {
         [JsonPropertyName("id")] public string Id { get; set; }
 

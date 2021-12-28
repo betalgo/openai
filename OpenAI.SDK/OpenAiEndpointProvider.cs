@@ -12,6 +12,13 @@
         string DeleteFile(string fileId);
         string RetrieveFile(string fileId);
         string CreateSearch(string engineId);
+        string FineTuneCreate();
+        string FineTuneList();
+        string FineTuneRetrieve(string fineTuneId);
+        string FineTuneCancel(string fineTuneId);
+        string FineTuneListEvents(string fineTuneId);
+        string FineTuneDelete(string fineTuneId);
+        string FineTuneCompletions();
     }
 
     internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
@@ -35,22 +42,23 @@
 
         public string CreateAnswer()
         {
-            return Answer();
+            return $"/{_apiVersion}/answers";
         }
 
         public string CreateClassification()
         {
-            return Classification();
+            return $"/{_apiVersion}/classifications";
         }
 
         public string CreateCompletion(string engineId)
         {
-            return Completion(engineId);
+            return $"/{_apiVersion}/engines/{engineId}/completions";
         }
 
         public string ListEngines()
         {
-            return Engine();
+            return $"/{_apiVersion}/engines";
+            ;
         }
 
         public string ListFiles()
@@ -73,24 +81,39 @@
             return $"/{_apiVersion}/engines/{engineId}/search";
         }
 
-        private string Answer()
+        public string FineTuneCreate()
         {
-            return $"/{_apiVersion}/answers";
+            return $"/{_apiVersion}/fine-tunes";
         }
 
-        private string Classification()
+        public string FineTuneList()
         {
-            return $"/{_apiVersion}/classifications";
+            return $"/{_apiVersion}/fine-tunes";
         }
 
-        private string Engine()
+        public string FineTuneRetrieve(string fineTuneId)
         {
-            return $"/{_apiVersion}/engines";
+            return $"/{_apiVersion}/fine-tunes/{fineTuneId}";
         }
 
-        private string Completion(string engineId)
+        public string FineTuneCancel(string fineTuneId)
         {
-            return $"/{_apiVersion}/engines/{engineId}/completions";
+            return $"/{_apiVersion}/fine-tunes/{fineTuneId}/cancel";
+        }
+
+        public string FineTuneListEvents(string fineTuneId)
+        {
+            return $"/{_apiVersion}/fine-tunes/{fineTuneId}/events";
+        }
+
+        public string FineTuneDelete(string fineTuneId)
+        {
+            return $"/{_apiVersion}/models/{fineTuneId}";
+        }
+
+        public string FineTuneCompletions()
+        {
+            return $"/{_apiVersion}/completions";
         }
 
         private string Files()

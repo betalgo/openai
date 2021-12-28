@@ -12,9 +12,11 @@ namespace OpenAI.Playground.TestHelpers
             try
             {
                 const string fileName = "AnswerQuestionsSample.json";
-                var searchSampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
+
+                var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
+
                 ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
-                var uploadFilesResponse = await sdk.Files.UploadFiles(UploadFilePurposes.UploadFilePurpose.Answers, searchSampleFile, fileName);
+                var uploadFilesResponse = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.Answers, sampleFile, fileName);
                 if (uploadFilesResponse.Successful)
                 {
                     ConsoleExtensions.WriteLine($"{fileName} uploaded", ConsoleColor.DarkGreen);
@@ -25,7 +27,7 @@ namespace OpenAI.Playground.TestHelpers
                 }
 
                 ConsoleExtensions.WriteLine("Listing files", ConsoleColor.Cyan);
-                var uploadedFiles = await sdk.Files.ListFiles();
+                var uploadedFiles = await sdk.Files.FileList();
                 // Need to wait for file processing before deleting it.
 
                 ConsoleExtensions.WriteLine("Need to wait for file processing", ConsoleColor.White);
@@ -33,7 +35,7 @@ namespace OpenAI.Playground.TestHelpers
                 foreach (var uploadedFile in uploadedFiles.Data)
                 {
                     ConsoleExtensions.WriteLine($"Retrieving {uploadedFile.FileName}", ConsoleColor.DarkCyan);
-                    var retrieveFileResponse= await sdk.Files.RetrieveFile(uploadedFile.Id);
+                    var retrieveFileResponse = await sdk.Files.FileRetrieve(uploadedFile.Id);
                     if (retrieveFileResponse.Successful)
                     {
                         ConsoleExtensions.WriteLine($"{retrieveFileResponse.FileName} retrieved", ConsoleColor.DarkGreen);
@@ -45,7 +47,7 @@ namespace OpenAI.Playground.TestHelpers
 
                     //   var fileContent = sdk.Files.RetrieveFileContent(file.Id);
                     ConsoleExtensions.WriteLine($"Deleting file {uploadedFile.FileName}", ConsoleColor.DarkCyan);
-                    var deleteResponse = await sdk.Files.DeleteFile(uploadedFile.Id);
+                    var deleteResponse = await sdk.Files.FileDelete(uploadedFile.Id);
                     if (deleteResponse.Successful)
                     {
                         ConsoleExtensions.WriteLine($"{retrieveFileResponse.FileName} deleted", ConsoleColor.DarkGreen);
@@ -69,11 +71,11 @@ namespace OpenAI.Playground.TestHelpers
             try
             {
                 Console.WriteLine($"Starting to clean All Files");
-                var uploadedFiles = await sdk.Files.ListFiles();
+                var uploadedFiles = await sdk.Files.FileList();
                 foreach (var uploadedFile in uploadedFiles!.Data)
                 {
                     Console.WriteLine(uploadedFile.FileName);
-                    var deleteResponse = await sdk.Files.DeleteFile(uploadedFile.Id);
+                    var deleteResponse = await sdk.Files.FileDelete(uploadedFile.Id);
                 }
             }
             catch (Exception e)

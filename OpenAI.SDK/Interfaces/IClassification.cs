@@ -8,7 +8,7 @@ namespace OpenAI.SDK.Interfaces;
 ///     a drop-in replacement for any ML classification or text-to-label task.
 ///     Related guide: <a href="https://beta.openai.com/docs/guides/classifications">Classify text</a>
 /// </summary>
-public interface IClassifications
+public interface IClassification
 {
     /// <summary>
     ///     Classifies the specified query using provided examples.
@@ -20,5 +20,5 @@ public interface IClassifications
     /// </summary>
     /// <param name="createClassificationRequest"></param>
     /// <returns></returns>
-    Task<CreateClassificationResponse> CreateClassification(CreateClassificationRequest createClassificationRequest);
+    Task<ClassificationCreateResponse> ClassificationsCreate(ClassificationCreateRequest createClassificationRequest);
 }

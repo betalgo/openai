@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Models.RequestModels.RequestInterfaces;
+using OpenAI.SDK.Models.SharedModels;
 
 namespace OpenAI.SDK.Models.RequestModels
 {
-    public record CreateClassificationRequest : IModelValidate, IOpenAiRequest.ITemperature, IOpenAiRequest.ILogitBias
+    public record ClassificationCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.ILogitBias
     {
         /// <summary>
         ///     ID of the engine to use for completion.
@@ -104,16 +104,16 @@ namespace OpenAI.SDK.Models.RequestModels
         [JsonPropertyName("logit_bias")]
         public object? LogitBias { get; set; }
 
+        public IEnumerable<ValidationResult> Validate()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         ///     What sampling temperature to use. Higher values mean the model will take more risks. Try 0.9 for more creative
         ///     applications, and 0 (argmax sampling) for ones with a well-defined answer.
         /// </summary>
         [JsonPropertyName("temperature")]
         public float? Temperature { get; set; }
-
-        public IEnumerable<ValidationResult> Validate()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
