@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.SDK.Models.ResponseModels.FileResponseModels
+namespace OpenAI.GPT3.Models.ResponseModels.FileResponseModels
 {
     public record FileUploadResponse : BaseResponse
     {

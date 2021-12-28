@@ -1,9 +1,9 @@
-﻿using OpenAI.SDK.Extensions;
-using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Models.ResponseModels.FileResponseModels;
-using OpenAI.SDK.Models.SharedModels;
+﻿using OpenAI.GPT3.Extensions;
+using OpenAI.GPT3.Interfaces;
+using OpenAI.GPT3.Models.ResponseModels.FileResponseModels;
+using OpenAI.GPT3.Models.SharedModels;
 
-namespace OpenAI.SDK.Managers;
+namespace OpenAI.GPT3.Managers;
 
 public partial class OpenAISdk : IFile
 {

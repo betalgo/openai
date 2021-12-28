@@ -1,4 +1,4 @@
-﻿namespace OpenAI.SDK.Interfaces;
+﻿namespace OpenAI.GPT3.Interfaces;
 
 public interface IOpenAISdk
 {

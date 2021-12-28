@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.SDK.Models.RequestModels
+namespace OpenAI.GPT3.Models.RequestModels
 {
     public record FineTuneCompletionsRequest
     {

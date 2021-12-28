@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Models.SharedModels;
+using OpenAI.GPT3.Interfaces;
+using OpenAI.GPT3.Models.SharedModels;
 
-namespace OpenAI.SDK.Models.RequestModels
+namespace OpenAI.GPT3.Models.RequestModels
 {
     public record ClassificationCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.ILogitBias
     {

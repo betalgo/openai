@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
-using OpenAI.SDK.Extensions;
-using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Models.RequestModels;
-using OpenAI.SDK.Models.ResponseModels;
+using OpenAI.GPT3.Extensions;
+using OpenAI.GPT3.Interfaces;
+using OpenAI.GPT3.Models.RequestModels;
+using OpenAI.GPT3.Models.ResponseModels;
 
-namespace OpenAI.SDK.Managers
+namespace OpenAI.GPT3.Managers
 {
     //TODO Find a way to show default request values in documentation
     //TODO Move endpoints to a setting file

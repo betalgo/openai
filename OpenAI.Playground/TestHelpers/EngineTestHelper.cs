@@ -1,4 +1,4 @@
-﻿using OpenAI.SDK.Interfaces;
+﻿using OpenAI.GPT3.Interfaces;
 
 namespace OpenAI.Playground.TestHelpers
 {

@@ -1,8 +1,8 @@
-﻿using OpenAI.SDK.Models;
-using OpenAI.SDK.Models.RequestModels;
-using OpenAI.SDK.Models.ResponseModels;
+﻿using OpenAI.GPT3.Models;
+using OpenAI.GPT3.Models.RequestModels;
+using OpenAI.GPT3.Models.ResponseModels;
 
-namespace OpenAI.SDK.Interfaces;
+namespace OpenAI.GPT3.Interfaces;
 
 /// <summary>
 ///     Given a query and a set of documents or labels, the model ranks each document based on its semantic similarity to

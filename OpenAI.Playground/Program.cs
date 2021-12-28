@@ -3,9 +3,9 @@ using LaserCatEyes.HttpClientListener;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI.Playground.TestHelpers;
-using OpenAI.SDK;
-using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Managers;
+using OpenAI.GPT3;
+using OpenAI.GPT3.Interfaces;
+using OpenAI.GPT3.Managers;
 
 var builder = new ConfigurationBuilder()
     .AddJsonFile("ApiSettings.json")

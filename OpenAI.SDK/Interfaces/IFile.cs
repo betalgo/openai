@@ -1,9 +1,9 @@
-﻿using OpenAI.SDK.Extensions;
-using OpenAI.SDK.Models;
-using OpenAI.SDK.Models.ResponseModels.FileResponseModels;
-using OpenAI.SDK.Models.SharedModels;
+﻿using OpenAI.GPT3.Extensions;
+using OpenAI.GPT3.Models;
+using OpenAI.GPT3.Models.ResponseModels.FileResponseModels;
+using OpenAI.GPT3.Models.SharedModels;
 
-namespace OpenAI.SDK.Interfaces;
+namespace OpenAI.GPT3.Interfaces;
 
 public interface IFile
 {

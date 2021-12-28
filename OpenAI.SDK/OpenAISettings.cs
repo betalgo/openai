@@ -1,4 +1,4 @@
-﻿namespace OpenAI.SDK
+﻿namespace OpenAI.GPT3
 {
     public class OpenAiSettings
     {

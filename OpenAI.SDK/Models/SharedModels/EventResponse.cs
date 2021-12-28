@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.SDK.Models.SharedModels
+namespace OpenAI.GPT3.Models.SharedModels
 {
     public record EventResponse
     {

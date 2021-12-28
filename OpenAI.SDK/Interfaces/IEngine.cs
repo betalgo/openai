@@ -1,6 +1,6 @@
-﻿using OpenAI.SDK.Models.ResponseModels.EngineResponseModels;
+﻿using OpenAI.GPT3.Models.ResponseModels.EngineResponseModels;
 
-namespace OpenAI.SDK.Interfaces;
+namespace OpenAI.GPT3.Interfaces;
 
 /// <summary>
 ///     Engines describe and provide access to the various models available in the API. You can refer to the Engines

@@ -1,7 +1,7 @@
-﻿using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Models;
-using OpenAI.SDK.Models.RequestModels;
-using OpenAI.SDK.Models.ResponseModels.FineTuneResponseModels;
+﻿using OpenAI.GPT3.Interfaces;
+using OpenAI.GPT3.Models;
+using OpenAI.GPT3.Models.RequestModels;
+using OpenAI.GPT3.Models.ResponseModels.FineTuneResponseModels;
 
 namespace OpenAI.Playground.TestHelpers
 {

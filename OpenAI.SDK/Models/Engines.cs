@@ -1,4 +1,4 @@
-﻿namespace OpenAI.SDK.Models
+﻿namespace OpenAI.GPT3.Models
 {
     public static class Engines
     {

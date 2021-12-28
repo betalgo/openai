@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.SDK.Interfaces;
+using OpenAI.GPT3.Interfaces;
 
-namespace OpenAI.SDK.Models.RequestModels
+namespace OpenAI.GPT3.Models.RequestModels
 {
     //TODO Update Usage of link (see cref)
     //TODO add model validation

@@ -1,7 +1,7 @@
-﻿using OpenAI.SDK.Models.RequestModels;
-using OpenAI.SDK.Models.ResponseModels;
+﻿using OpenAI.GPT3.Models.RequestModels;
+using OpenAI.GPT3.Models.ResponseModels;
 
-namespace OpenAI.SDK.Interfaces;
+namespace OpenAI.GPT3.Interfaces;
 
 /// <summary>
 ///     Given a question, a set of documents, and some examples, the API generates an answer to the question based on the

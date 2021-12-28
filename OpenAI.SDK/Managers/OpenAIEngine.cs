@@ -1,8 +1,8 @@
-﻿using OpenAI.SDK.Extensions;
-using OpenAI.SDK.Interfaces;
-using OpenAI.SDK.Models.ResponseModels.EngineResponseModels;
+﻿using OpenAI.GPT3.Extensions;
+using OpenAI.GPT3.Interfaces;
+using OpenAI.GPT3.Models.ResponseModels.EngineResponseModels;
 
-namespace OpenAI.SDK.Managers;
+namespace OpenAI.GPT3.Managers;
 
 public partial class OpenAISdk : IEngine
 {

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.SDK.Models.ResponseModels
+namespace OpenAI.GPT3.Models.ResponseModels
 {
     public record BaseResponse
     {

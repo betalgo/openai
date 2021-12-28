@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OpenAI.SDK\OpenAI.SDK.csproj" />
+    <ProjectReference Include="..\OpenAI.SDK\OpenAI.GPT3.csproj" />
   </ItemGroup>
 
   <ItemGroup>

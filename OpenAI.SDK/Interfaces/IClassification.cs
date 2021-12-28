@@ -1,7 +1,7 @@
-﻿using OpenAI.SDK.Models.RequestModels;
-using OpenAI.SDK.Models.ResponseModels;
+﻿using OpenAI.GPT3.Models.RequestModels;
+using OpenAI.GPT3.Models.ResponseModels;
 
-namespace OpenAI.SDK.Interfaces;
+namespace OpenAI.GPT3.Interfaces;
 
 /// <summary>
 ///     Given a query and a set of labeled examples, the model will predict the most likely label for the query. Useful as

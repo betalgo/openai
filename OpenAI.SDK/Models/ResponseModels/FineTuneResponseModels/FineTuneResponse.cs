@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.SDK.Models.SharedModels;
+using OpenAI.GPT3.Models.SharedModels;
 
-namespace OpenAI.SDK.Models.ResponseModels.FineTuneResponseModels;
+namespace OpenAI.GPT3.Models.ResponseModels.FineTuneResponseModels;
 
 public record FineTuneResponse : BaseResponse
 {
