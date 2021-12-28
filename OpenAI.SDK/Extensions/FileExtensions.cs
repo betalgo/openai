@@ -1,4 +1,4 @@
-﻿namespace OpenAI.SDK.Extensions
+﻿namespace OpenAI.GPT3.Extensions
 {
     internal static class FileExtensions
     {

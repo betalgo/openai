@@ -1,11 +1,19 @@
-﻿namespace OpenAI.SDK.Models
+﻿namespace OpenAI.GPT3.Models
 {
     public static class UploadFilePurposes
     {
-        public static string Search => "search";
-        public static string Answers => "answers";
-        public static string Classifications => "classifications";
-        public static string FineTune => "fine-tune";
+        public enum UploadFilePurpose
+        {
+            Search,
+            Answers,
+            Classifications,
+            FineTune
+        }
+
+        public const string Search = "search";
+        public const string Answers = "answers";
+        public const string Classifications = "classifications";
+        public const string FineTune = "fine-tune";
 
         public static string EnumToString(this UploadFilePurpose uploadFilePurpose)
         {
@@ -18,13 +26,17 @@
                 _ => throw new ArgumentOutOfRangeException(nameof(uploadFilePurpose), uploadFilePurpose, null)
             };
         }
-    }
 
-    public enum UploadFilePurpose
-    {
-        Search,
-        Answers,
-        Classifications,
-        FineTune
+        public static UploadFilePurpose ToEnum(string filePurpose)
+        {
+            return filePurpose switch
+            {
+                Search => UploadFilePurpose.Search,
+                Answers => UploadFilePurpose.Answers,
+                Classifications => UploadFilePurpose.Classifications,
+                FineTune => UploadFilePurpose.FineTune,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+        }
     }
 }

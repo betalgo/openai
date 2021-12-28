@@ -1,11 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.SDK.Models.ResponseModels
+namespace OpenAI.GPT3.Models.ResponseModels
 {
     public record BaseResponse
     {
         [JsonPropertyName("object")] public string ObjectTypeName { get; set; }
-        public bool Status => Error == null;
+        public bool Successful => Error == null;
         [JsonPropertyName("error")] public Error? Error { get; set; }
     }
 

@@ -1,6 +1,6 @@
-﻿using OpenAI.SDK.Models.ResponseModels;
+﻿using OpenAI.GPT3.Models.ResponseModels.EngineResponseModels;
 
-namespace OpenAI.SDK.Interfaces;
+namespace OpenAI.GPT3.Interfaces;
 
 /// <summary>
 ///     Engines describe and provide access to the various models available in the API. You can refer to the Engines
@@ -13,12 +13,12 @@ public interface IEngine
     ///     availability.
     /// </summary>
     /// <returns></returns>
-    Task<ListEngineResponse?> ListEngines();
+    Task<EngineListResponse> EngineList();
 
     /// <summary>
     ///     Retrieves an engine instance, providing basic information about the engine such as the owner and availability.
     /// </summary>
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <returns></returns>
-    Task<RetrieveEngineResponse?> RetrieveEngine(string engineId);
+    Task<EngineRetrieveResponse> EngineRetrieve(string? engineId = null);
 }
