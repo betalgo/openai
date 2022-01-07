@@ -6,7 +6,7 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class SearchTestHelper
     {
-        public static async Task SearchDocuments(IOpenAISdk sdk)
+        public static async Task SearchDocuments(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Search Documents Test is starting:", ConsoleColor.Cyan);
 
@@ -38,7 +38,7 @@ namespace OpenAI.Playground.TestHelpers
             }
         }
 
-        public static async Task UploadSampleFileAndGetSearchResponse(IOpenAISdk sdk)
+        public static async Task UploadSampleFileAndGetSearchResponse(IOpenAIService sdk)
         {
             const string fileName = "SearchSample.jsonl";
 
@@ -94,7 +94,7 @@ namespace OpenAI.Playground.TestHelpers
             }
         }
 
-        public static async Task UploadSampleFile(IOpenAISdk sdk)
+        public static async Task UploadSampleFile(IOpenAIService sdk)
         {
             const string fileName = "SearchSample.json";
 

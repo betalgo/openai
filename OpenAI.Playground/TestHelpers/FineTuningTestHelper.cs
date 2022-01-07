@@ -7,7 +7,7 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class FineTuningTestHelper
     {
-        public static async Task RunCaseStudyIsTheModelMakingUntrueStatements(IOpenAISdk sdk)
+        public static async Task RunCaseStudyIsTheModelMakingUntrueStatements(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Run Case Study Is The Model Making Untrue Statements:", ConsoleColor.Cyan);
 
@@ -30,7 +30,7 @@ namespace OpenAI.Playground.TestHelpers
                 var createFineTuneResponse = await sdk.FineTunes.CreateFineTune(new FineTuneCreateRequest()
                 {
                     TrainingFile = uploadFilesResponse.Id,
-                    Model = Engines.Curie
+                    Model = Engines.Ada
                 });
 
                 var listFineTuneEventsStream = await sdk.FineTunes.ListFineTuneEvents(createFineTuneResponse.Id, true);
@@ -54,20 +54,27 @@ namespace OpenAI.Playground.TestHelpers
                     await Task.Delay(10_000);
                 } while (true);
 
-                var completionResult = await sdk.FineTunes.FineTuneCompletions(new FineTuneCompletionsRequest()
+                do
                 {
-                    MaxTokens = 1,
-                    Prompt = @"https://t.co/f93xEd2 Excited to share my latest blog post! ->",
-                    Model = retrieveFineTuneResponse.FineTunedModel
-                });
-                if (completionResult.Successful)
-                {
-                    Console.WriteLine(completionResult.Choices.FirstOrDefault());
-                }
-                else
-                {
-                    throw new Exception($"failed{completionResult.Error?.Message}");
-                }
+                    var completionResult = await sdk.FineTunes.FineTuneCompletions(new FineTuneCompletionsRequest()
+                    {
+                        MaxTokens = 1,
+                        Prompt = @"https://t.co/f93xEd2 Excited to share my latest blog post! ->",
+                        Model = retrieveFineTuneResponse.FineTunedModel,
+                        Logprobs = 2
+                    });
+                    if (completionResult.Successful)
+                    {
+                        Console.WriteLine(completionResult.Choices.FirstOrDefault());
+                        break;
+                    }
+                    else
+                    {
+                        ConsoleExtensions.WriteLine($"failed{completionResult.Error?.Message}",ConsoleColor.DarkRed);
+                    }
+
+                } while (true);
+              
             }
             catch (Exception e)
             {
@@ -76,7 +83,7 @@ namespace OpenAI.Playground.TestHelpers
             }
         }
 
-        public static async Task CleanUpAllFineTunings(IOpenAISdk sdk)
+        public static async Task CleanUpAllFineTunings(IOpenAIService sdk)
         {
             var fineTunes = await sdk.FineTunes.ListFineTunes();
             foreach (var datum in fineTunes.Data)

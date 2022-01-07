@@ -2,10 +2,12 @@
 using LaserCatEyes.HttpClientListener;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenAI.Playground.TestHelpers;
 using OpenAI.GPT3;
+using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.Managers;
+using OpenAI.GPT3.Models;
+using OpenAI.Playground.TestHelpers;
 
 var builder = new ConfigurationBuilder()
     .AddJsonFile("ApiSettings.json")
@@ -13,29 +15,27 @@ var builder = new ConfigurationBuilder()
 
 IConfiguration configuration = builder.Build();
 var serviceCollection = new ServiceCollection();
-serviceCollection.AddOptions<OpenAiSettings>();
 serviceCollection.AddScoped(_ => configuration);
 
 
 // Laser cat eyes will help us to track request and responses between OpenAI server and our client
 //It is in Beta version, if you have consider about your data privacy or if you don't want to use it just comment out from here
 serviceCollection.Configure<LaserCatEyesOptions>(configuration.GetSection("LaserCatEyesOptions"));
-serviceCollection.AddHttpClient<IOpenAISdk, OpenAISdk>();
 serviceCollection.AddLaserCatEyesHttpClientListener();
+serviceCollection.AddOpenAIService(settings => { settings.ApiKey = "TEST"; });
+
 
 //// to here, and uncomment from here
-//serviceCollection.AddHttpClient<IOpenAISdk, OpenAISdk>();
+//serviceCollection.AddHttpClient<IOpenAIService, OpenAIService>();
 //// to here
-
-serviceCollection.Configure<OpenAiSettings>(configuration.GetSection(OpenAiSettings.SettingKey));
 var serviceProvider = serviceCollection.BuildServiceProvider();
-var sdk = serviceProvider.GetRequiredService<IOpenAISdk>();
-//await EngineTestHelper.FetchEnginesTest(sdk);
+var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
+await EngineTestHelper.FetchEnginesTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest(sdk);
 //await SearchTestHelper.SearchDocuments(sdk);
 //await ClassificationsTestHelper.RunSimpleClassificationTest(sdk);
 //await AnswerTestHelper.RunSimpleAnswerTest(sdk);
 //await FileTestHelper.RunSimpleFileTest(sdk);
-////await FineTuningTestHelper.CleanUpAllFineTunings(sdk);
-await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
+////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
+//await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 Console.ReadLine();

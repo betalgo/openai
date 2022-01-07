@@ -6,7 +6,7 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class AnswerTestHelper
     {
-        public static async Task RunSimpleAnswerTest(IOpenAISdk sdk)
+        public static async Task RunSimpleAnswerTest(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Completion Testing is starting:", ConsoleColor.Cyan);
 
