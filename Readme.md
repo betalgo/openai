@@ -1,4 +1,10 @@
-Dotnet SDK for OpenAI GTP-3 (Unofficial)
+# Dotnet SDK for OpenAI GTP-3 *(Unofficial)*
+
+[![Betalgo.OpenAI.GPT3](https://img.shields.io/nuget/v/Betalgo.OpenAI.GPT3?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.GPT3/)
+
+```
+Install-Package Betalgo.OpenAI.GPT3
+```
 
 *I was building an SDK for myself then I decide to share it, I hope it will be useful for you. I haven't maintained any open source projects before. Any help would be much appreciated. I am open to suggestions If you would like to contribute somehow.*
 
@@ -72,4 +78,4 @@ else
 
 
 Notes:
-I couldn't find enough time to test all the methods or improve the documenations. My main target was make fine-tunig avalibale. If you hit any issue please report it or pull request always appricater it 
+I couldn't find enough time to test all the methods or improve the documentation. My main target was to make fine-tuning available. If you hit any issue please report it or pull request always appreciated. 
