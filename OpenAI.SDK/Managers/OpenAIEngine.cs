@@ -4,7 +4,7 @@ using OpenAI.GPT3.Models.ResponseModels.EngineResponseModels;
 
 namespace OpenAI.GPT3.Managers;
 
-public partial class OpenAISdk : IEngine
+public partial class OpenAIService : IEngine
 {
     public async Task<EngineListResponse> EngineList()
     {

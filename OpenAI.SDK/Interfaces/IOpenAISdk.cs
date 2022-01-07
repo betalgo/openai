@@ -1,6 +1,6 @@
 ﻿namespace OpenAI.GPT3.Interfaces;
 
-public interface IOpenAISdk
+public interface IOpenAIService
 {
     /// <summary>
     ///     Engines describe and provide access to the various models available in the API. You can refer to the

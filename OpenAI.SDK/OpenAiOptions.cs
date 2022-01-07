@@ -1,8 +1,8 @@
 ﻿namespace OpenAI.GPT3
 {
-    public class OpenAiSettings
+    public class OpenAiOptions
     {
-        public static readonly string SettingKey = "OpenAISdkSettings";
+        public static readonly string SettingKey = "OpenAIServiceOptions";
 
         /// <summary>
         ///     For users who belong to multiple organizations, you can pass a header to specify which organization is used for an
@@ -30,5 +30,23 @@
         ///     Default engine id. If you are working with only one engine, this will save you from few line extra code.
         /// </summary>
         public static string? DefaultEngineId { get; set; }
+
+        public void Validate()
+        {
+            if (string.IsNullOrEmpty(ApiKey))
+            {
+                throw new ArgumentNullException(nameof(ApiKey));
+            }
+
+            if (string.IsNullOrEmpty(ApiVersion))
+            {
+                throw new ArgumentNullException(nameof(ApiVersion));
+            }
+
+            if (string.IsNullOrEmpty(BaseDomain))
+            {
+                throw new ArgumentNullException(nameof(BaseDomain));
+            }
+        }
     }
 }

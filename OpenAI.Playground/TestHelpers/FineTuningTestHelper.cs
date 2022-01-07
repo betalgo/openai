@@ -7,7 +7,7 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class FineTuningTestHelper
     {
-        public static async Task RunCaseStudyIsTheModelMakingUntrueStatements(IOpenAISdk sdk)
+        public static async Task RunCaseStudyIsTheModelMakingUntrueStatements(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Run Case Study Is The Model Making Untrue Statements:", ConsoleColor.Cyan);
 
@@ -83,7 +83,7 @@ namespace OpenAI.Playground.TestHelpers
             }
         }
 
-        public static async Task CleanUpAllFineTunings(IOpenAISdk sdk)
+        public static async Task CleanUpAllFineTunings(IOpenAIService sdk)
         {
             var fineTunes = await sdk.FineTunes.ListFineTunes();
             foreach (var datum in fineTunes.Data)

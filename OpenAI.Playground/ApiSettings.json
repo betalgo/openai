@@ -1,7 +1,7 @@
 {
 
   // How to use user secret => right click your project name in solution explorer then click Manage User Secret, it is a good way to keep your api keys :)
-  "OpenAISdkSettings": {
+  "OpenAIServiceOptions": {
     // "Organization": "Put your Organization Id to here or to User Secret file" //https:// beta.openai.com/account/org-settings
     //,"ApiKey":"Put your api key to here or to User Secret file" //How can I get an app key? visit here: https://openai.com/
   },

@@ -6,7 +6,7 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class ClassificationsTestHelper
     {
-        public static async Task RunSimpleClassificationTest(IOpenAISdk sdk)
+        public static async Task RunSimpleClassificationTest(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Run Simple Classification Test is starting:", ConsoleColor.Cyan);
 

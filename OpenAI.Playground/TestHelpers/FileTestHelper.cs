@@ -5,7 +5,7 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class FileTestHelper
     {
-        public static async Task RunSimpleFileTest(IOpenAISdk sdk)
+        public static async Task RunSimpleFileTest(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("File Testing is starting:", ConsoleColor.Cyan);
 
@@ -66,7 +66,7 @@ namespace OpenAI.Playground.TestHelpers
         }
 
 
-        public static async Task CleanAllFiles(IOpenAISdk sdk)
+        public static async Task CleanAllFiles(IOpenAIService sdk)
         {
             try
             {

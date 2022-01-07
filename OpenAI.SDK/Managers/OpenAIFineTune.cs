@@ -6,7 +6,7 @@ using OpenAI.GPT3.Models.ResponseModels.FineTuneResponseModels;
 
 namespace OpenAI.GPT3.Managers;
 
-public partial class OpenAISdk : IFineTune
+public partial class OpenAIService : IFineTune
 {
     public async Task<FineTuneResponse> CreateFineTune(FineTuneCreateRequest createFineTuneRequest)
     {

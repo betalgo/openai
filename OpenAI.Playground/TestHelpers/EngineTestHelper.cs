@@ -4,7 +4,7 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class EngineTestHelper
     {
-        public static async Task FetchEnginesTest(IOpenAISdk sdk)
+        public static async Task FetchEnginesTest(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Engine List Testing is starting:", ConsoleColor.Cyan);
 

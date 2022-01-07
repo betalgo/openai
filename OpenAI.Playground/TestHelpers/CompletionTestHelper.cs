@@ -6,7 +6,7 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class CompletionTestHelper
     {
-        public static async Task RunSimpleCompletionTest(IOpenAISdk sdk)
+        public static async Task RunSimpleCompletionTest(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Completion Testing is starting:", ConsoleColor.Cyan);
 
@@ -19,6 +19,18 @@ namespace OpenAI.Playground.TestHelpers
                     MaxTokens = 5
                 }, Engines.Engine.Davinci);
 
+                if (completionResult.Successful)
+                {
+                    Console.WriteLine(completionResult.Choices.FirstOrDefault());
+                }
+                else
+                {
+                    if (completionResult.Error == null)
+                    {
+                        throw new Exception("Unknown Error");
+                    }
+                    Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
+                }
                 Console.WriteLine(completionResult.Choices.FirstOrDefault());
             }
             catch (Exception e)
