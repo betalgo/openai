@@ -12,6 +12,7 @@ I will be using the latest libraries all the time *(including dotnet 6)*. Also, 
 
 As you can guess I do not accept any damage caused by use of the library. You are always free to use other libraries or OpenAI Web-API.
 
+Visit https://openai.com/ to get your API key.
 
 ## Sample Usages
 The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be carefull while playing with it. Some test methods will delete your files or fine tunings. **I would suggest to use different account than your main account while you use playground.**
@@ -30,10 +31,10 @@ The repository includes one sample project already **"OpenAI.Playground"** You c
 serviceCollection.AddOpenAIService();
 ```
 
-or use it like below but do NOT put your API key directly to your source code, you may expose your API key, which will cost you $$. 
+or use it like below but do NOT put your API key directly to your source code. 
 #### Program.cs
 ```csharp
-serviceCollection.AddOpenAIService(settings => { settings.ApiKey = "TEST"; });
+serviceCollection.AddOpenAIService(settings => { settings.ApiKey = Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY"); });
 ```
 
 After injecting your service you will be able to get it from service provider
@@ -45,7 +46,7 @@ Without dependcy injection:
 ```csharp
 var openAiService = new OpenAIService(new OpenAiOptions()
 {
-    ApiKey = "MY_API_KEY"
+    ApiKey =  Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY")
 });
 ```
 
