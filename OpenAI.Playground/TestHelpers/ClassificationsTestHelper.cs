@@ -12,7 +12,9 @@ namespace OpenAI.Playground.TestHelpers
 
             try
             {
-                var classificationResponse = await sdk.Classifications.ClassificationsCreate(new ClassificationCreateRequest()
+                var classificationResponse = await sdk.Classifications.ClassificationsCreate(new ClassificationCreateRequest(
+                    "It is a raining day :(",
+                    Engines.Engine.Curie.EnumToString())
                 {
                     Examples = new List<List<string>>()
                     {
@@ -30,8 +32,6 @@ namespace OpenAI.Playground.TestHelpers
                         }
                     },
                     SearchModel = Engines.Engine.Ada.EnumToString(),
-                    Model = Engines.Engine.Curie.EnumToString(),
-                    Query = "It is a raining day :(",
                     Labels = new List<string>()
                     {
                         "Positive", "Negative", "Neutral"

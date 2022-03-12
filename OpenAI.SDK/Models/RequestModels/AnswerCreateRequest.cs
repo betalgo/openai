@@ -13,23 +13,44 @@ namespace OpenAI.GPT3.Models.RequestModels
         IOpenAiModels.IFileOrDocument
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="question">Question to get answered.</param>
+        /// <param name="examples">List of (question, answer) pairs that will help steer the model towards the tone and answer format you'd like. We recommend adding 2 to 3 examples.</param>
+        /// <param name="examplesContext">A text snippet containing the contextual information used to generate the answers for the examples you provide.</param>
+        /// <param name="model"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public AnswerCreateRequest(string question, List<List<string>> examples, string examplesContext, string model = null!)
+        {
+            Question = question ?? throw new ArgumentNullException(nameof(question));
+            Examples = examples ?? throw new ArgumentNullException(nameof(examples));
+            ExamplesContext = examplesContext ?? throw new ArgumentNullException(nameof(examplesContext));
+            Model = model;
+        }
+
+        public AnswerCreateRequest()
+        {
+            
+        }
+
+        /// <summary>
         ///     Question to get answered.
         /// </summary>
         [JsonPropertyName("question")]
-        public string Question { get; set; }
+        public string Question { get; set; } = null!;
 
         /// <summary>
         ///     List of (question, answer) pairs that will help steer the model towards the tone and answer format you'd like. We
         ///     recommend adding 2 to 3 examples.
         /// </summary>
         [JsonPropertyName("examples")]
-        public List<List<string>> Examples { get; set; }
+        public List<List<string>> Examples { get; set; } = null!;
 
         /// <summary>
         ///     A text snippet containing the contextual information used to generate the answers for the examples you provide.
         /// </summary>
         [JsonPropertyName("examples_context")]
-        public string ExamplesContext { get; set; }
+        public string ExamplesContext { get; set; } = null!;
 
         /// <summary>
         ///     ID of the engine to use for <a href="https://beta.openai.com/docs/api-reference/searches/create">Search</a>.
@@ -96,7 +117,7 @@ namespace OpenAI.GPT3.Models.RequestModels
         ///     ID of the engine to use for completion.
         /// </summary>
         [JsonPropertyName("model")]
-        public string Model { get; set; }
+        public string Model { get; set; } = null!;
 
         public IEnumerable<ValidationResult> Validate()
         {

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
+using OpenAI.GPT3.Models.RequestModels;
 using OpenAI.Playground.TestHelpers;
 
 var builder = new ConfigurationBuilder()
@@ -13,7 +14,6 @@ var builder = new ConfigurationBuilder()
 IConfiguration configuration = builder.Build();
 var serviceCollection = new ServiceCollection();
 serviceCollection.AddScoped(_ => configuration);
-
 
 // Laser cat eyes will help us to track request and responses between OpenAI server and our client
 //It is in Beta version, if you have consider about your data privacy or if you don't want to use it just comment out from here
@@ -29,6 +29,7 @@ serviceCollection.AddOpenAIService();
 //// to here
 var serviceProvider = serviceCollection.BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
+
 await EngineTestHelper.FetchEnginesTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest(sdk);
 //await SearchTestHelper.SearchDocuments(sdk);
