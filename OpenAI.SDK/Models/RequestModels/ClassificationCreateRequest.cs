@@ -5,19 +5,36 @@ using OpenAI.GPT3.Models.SharedModels;
 
 namespace OpenAI.GPT3.Models.RequestModels
 {
-    public record ClassificationCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.ILogitBias
+    public record ClassificationCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.ILogitBias,IOpenAiModels.IModel
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="query">Query to be classified.</param>
+        /// <param name="model">ID of the engine to use for completion.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public ClassificationCreateRequest(string query, string model)
+        {
+            Query = query ?? throw new ArgumentNullException(nameof(query));
+            Model = model ?? throw new ArgumentNullException(nameof(model));
+        }
+
+        public ClassificationCreateRequest()
+        {
+            
+        }
+
         /// <summary>
         ///     ID of the engine to use for completion.
         /// </summary>
         [JsonPropertyName("model")]
-        public string Model { get; set; }
+        public string Model { get; set; } = null!;
 
         /// <summary>
         ///     Query to be classified.
         /// </summary>
         [JsonPropertyName("query")]
-        public string Query { get; set; }
+        public string Query { get; set; } = null!;
 
         /// <summary>
         ///     A list of examples with labels, in the following format:

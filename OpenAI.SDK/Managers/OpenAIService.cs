@@ -4,11 +4,11 @@ using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.Models.RequestModels;
 using OpenAI.GPT3.Models.ResponseModels;
+using OpenAI.GPT3.Models.SharedModels;
 
 namespace OpenAI.GPT3.Managers
 {
     //TODO Find a way to show default request values in documentation
-    //TODO Move endpoints to a setting file
     public partial class OpenAIService : IOpenAIService, ISearch, IClassification, IAnswer
     {
         private readonly IOpenAiEndpointProvider _endpointProvider;
@@ -52,6 +52,7 @@ namespace OpenAI.GPT3.Managers
         //TODO Not tested yet
         public async Task<AnswerCreateResponse> Answer(AnswerCreateRequest createAnswerRequest)
         {
+            CheckForEngineModel(createAnswerRequest);
             return await _httpClient.PostAndReadAsAsync<AnswerCreateResponse>(_endpointProvider.CreateAnswer(), createAnswerRequest);
         }
 
@@ -80,6 +81,19 @@ namespace OpenAI.GPT3.Managers
         public async Task<SearchCreateResponse> SearchCreate(SearchCreateRequest createSearchRequest, string? engineId)
         {
             return await _httpClient.PostAndReadAsAsync<SearchCreateResponse>(_endpointProvider.CreateSearch(ProcessEngineId(engineId)), createSearchRequest);
+        }
+
+        private void CheckForEngineModel<T>(T requestModel) where T : IOpenAiModels.IModel
+        {
+            if (requestModel is {Model: null})
+            {
+                if (_engineId == null)
+                {
+                    throw new ArgumentNullException(nameof(requestModel.Model));
+                }
+
+                requestModel.Model = _engineId;
+            }
         }
 
         private string ProcessEngineId(string? engineId)

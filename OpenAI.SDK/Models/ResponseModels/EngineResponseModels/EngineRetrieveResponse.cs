@@ -12,6 +12,7 @@ namespace OpenAI.GPT3.Models.ResponseModels.EngineResponseModels
 
         [JsonPropertyName("owner")] public string Owner { get; set; }
 
-        [JsonPropertyName("ready")] public bool Ready { get; set; }
+        [JsonPropertyName("ready")] public bool? Ready { get; set; }
+
     }
 }

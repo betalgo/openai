@@ -9,7 +9,7 @@
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Logo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>0.0.3</Version>
+		<Version>6.0.0</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>OpenAI GPT-3 dotnet SDK</Product>

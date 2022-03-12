@@ -13,23 +13,20 @@ namespace OpenAI.Playground.TestHelpers
             try
             {
                 ConsoleExtensions.WriteLine("Fetching Engine List", ConsoleColor.DarkCyan);
-                var completionResult = await sdk.Answers.Answer(new AnswerCreateRequest()
+                var completionResult = await sdk.Answers.Answer(new AnswerCreateRequest(
+                    "which puppy is happy?",
+                    new List<List<string>>
+                    {
+                        new() {"What is human life expectancy in the United States?", "78 years."}
+                    },
+                    "In 2017, U.S. life expectancy was 78.6 years.",
+                    Engines.Engine.Curie.EnumToString())
                 {
                     Documents = new List<string>()
                     {
                         "Puppy A is happy.", "Puppy B is sad."
                     },
-                    Question = "which puppy is happy?",
                     SearchModel = Engines.Engine.Ada.EnumToString(),
-                    Model = Engines.Engine.Curie.EnumToString(),
-                    ExamplesContext = "In 2017, U.S. life expectancy was 78.6 years.",
-                    Examples = new List<List<string>>()
-                    {
-                        new()
-                        {
-                            "What is human life expectancy in the United States?", "78 years."
-                        }
-                    },
                     MaxTokens = 5
                     //Stop = new List<string>()
                     //{
