@@ -12,7 +12,9 @@
             Davinci,
             DavinciCodex,
             DavinciInstructBeta,
-            DavinciInstructBetaV3
+            DavinciInstructBetaV3,
+            DavinciTextV1,
+            DavinciTextV2
         }
 
         public static string Ada => "ada";
