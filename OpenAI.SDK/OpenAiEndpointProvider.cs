@@ -2,11 +2,11 @@
 {
     internal interface IOpenAiEndpointProvider
     {
-        string RetrieveEngine(string engineId);
+        string RetrieveModel(string model);
         string CreateAnswer();
         string CreateClassification();
         string CreateCompletion(string engineId);
-        string ListEngines();
+        string ListModels();
         string ListFiles();
         string UploadFiles();
         string DeleteFile(string fileId);
@@ -30,9 +30,9 @@
             _apiVersion = apiVersion;
         }
 
-        public string RetrieveEngine(string engineId)
+        public string RetrieveModel(string model)
         {
-            return $"/{_apiVersion}/engines/{engineId}";
+            return $"/{_apiVersion}/models/{model}";
         }
 
         public string DeleteFile(string fileId)
@@ -55,9 +55,9 @@
             return $"/{_apiVersion}/engines/{engineId}/completions";
         }
 
-        public string ListEngines()
+        public string ListModels()
         {
-            return $"/{_apiVersion}/engines";
+            return $"/{_apiVersion}/models";
             ;
         }
 

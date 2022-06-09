@@ -3,11 +3,11 @@
 public interface IOpenAIService
 {
     /// <summary>
-    ///     Engines describe and provide access to the various models available in the API. You can refer to the
-    ///     <a href="https://beta.openai.com/docs/engines">Engine</a> documentation to understand what engines are available
-    ///     and the differences between them.
+    ///     List and describe the various models available in the API. You can refer to the
+    ///     <a href="https://beta.openai.com/docs/models">Models</a> documentation to understand what models are available and
+    ///     the differences between them.
     /// </summary>
-    public IEngine Engine { get; }
+    public IModel Models { get; }
 
     /// <summary>
     ///     Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of

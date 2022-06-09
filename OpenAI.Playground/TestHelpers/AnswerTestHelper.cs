@@ -1,6 +1,6 @@
 ﻿using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Models;
-using OpenAI.GPT3.Models.RequestModels;
+using OpenAI.GPT3.ObjectModels;
+using OpenAI.GPT3.ObjectModels.RequestModels;
 
 namespace OpenAI.Playground.TestHelpers
 {
@@ -20,13 +20,13 @@ namespace OpenAI.Playground.TestHelpers
                         new() {"What is human life expectancy in the United States?", "78 years."}
                     },
                     "In 2017, U.S. life expectancy was 78.6 years.",
-                    Engines.Engine.Curie.EnumToString())
+                    Models.Curie)
                 {
                     Documents = new List<string>()
                     {
                         "Puppy A is happy.", "Puppy B is sad."
                     },
-                    SearchModel = Engines.Engine.Ada.EnumToString(),
+                    SearchModel = Models.Ada,
                     MaxTokens = 5
                     //Stop = new List<string>()
                     //{

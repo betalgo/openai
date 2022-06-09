@@ -1,10 +1,8 @@
-﻿using LaserCatEyes.Domain.Models;
-using LaserCatEyes.HttpClientListener;
+﻿using LaserCatEyes.HttpClientListener;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Models.RequestModels;
 using OpenAI.Playground.TestHelpers;
 
 var builder = new ConfigurationBuilder()
@@ -30,7 +28,7 @@ serviceCollection.AddOpenAIService();
 var serviceProvider = serviceCollection.BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 
-await EngineTestHelper.FetchEnginesTest(sdk);
+await ModelTestHelper.FetchModelsTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest(sdk);
 //await SearchTestHelper.SearchDocuments(sdk);
 //await ClassificationsTestHelper.RunSimpleClassificationTest(sdk);
