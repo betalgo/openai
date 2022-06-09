@@ -1,5 +1,4 @@
 ﻿using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Models;
 using OpenAI.GPT3.ObjectModels;
 using OpenAI.GPT3.ObjectModels.RequestModels;
 

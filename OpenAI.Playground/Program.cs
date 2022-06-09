@@ -28,9 +28,9 @@ serviceCollection.AddOpenAIService();
 var serviceProvider = serviceCollection.BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 
-//await ModelTestHelper.FetchModelsTest(sdk);
+await ModelTestHelper.FetchModelsTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest(sdk);
-await SearchTestHelper.SearchDocuments(sdk);
+//await SearchTestHelper.SearchDocuments(sdk);
 //await ClassificationsTestHelper.RunSimpleClassificationTest(sdk);
 //await AnswerTestHelper.RunSimpleAnswerTest(sdk);
 //await FileTestHelper.RunSimpleFileTest(sdk);

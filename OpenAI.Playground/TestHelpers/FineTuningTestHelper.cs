@@ -1,5 +1,4 @@
 ﻿using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Models;
 using OpenAI.GPT3.ObjectModels;
 using OpenAI.GPT3.ObjectModels.RequestModels;
 using OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
@@ -71,11 +70,9 @@ namespace OpenAI.Playground.TestHelpers
                     }
                     else
                     {
-                        ConsoleExtensions.WriteLine($"failed{completionResult.Error?.Message}",ConsoleColor.DarkRed);
+                        ConsoleExtensions.WriteLine($"failed{completionResult.Error?.Message}", ConsoleColor.DarkRed);
                     }
-
                 } while (true);
-              
             }
             catch (Exception e)
             {

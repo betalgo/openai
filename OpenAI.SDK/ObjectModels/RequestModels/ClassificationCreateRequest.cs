@@ -5,10 +5,9 @@ using OpenAI.GPT3.Models.SharedModels;
 
 namespace OpenAI.GPT3.ObjectModels.RequestModels
 {
-    public record ClassificationCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.ILogitBias,IOpenAiModels.IModel
+    public record ClassificationCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.ILogitBias, IOpenAiModels.IModel
     {
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="query">Query to be classified.</param>
         /// <param name="model">ID of the engine to use for completion.</param>
@@ -21,14 +20,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
 
         public ClassificationCreateRequest()
         {
-            
         }
-
-        /// <summary>
-        ///     ID of the engine to use for completion.
-        /// </summary>
-        [JsonPropertyName("model")]
-        public string Model { get; set; } = null!;
 
         /// <summary>
         ///     Query to be classified.
@@ -120,6 +112,12 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         /// </summary>
         [JsonPropertyName("logit_bias")]
         public object? LogitBias { get; set; }
+
+        /// <summary>
+        ///     ID of the engine to use for completion.
+        /// </summary>
+        [JsonPropertyName("model")]
+        public string Model { get; set; } = null!;
 
         public IEnumerable<ValidationResult> Validate()
         {

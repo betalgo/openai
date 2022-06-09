@@ -13,11 +13,16 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         IOpenAiModels.IFileOrDocument
     {
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="question">Question to get answered.</param>
-        /// <param name="examples">List of (question, answer) pairs that will help steer the model towards the tone and answer format you'd like. We recommend adding 2 to 3 examples.</param>
-        /// <param name="examplesContext">A text snippet containing the contextual information used to generate the answers for the examples you provide.</param>
+        /// <param name="examples">
+        ///     List of (question, answer) pairs that will help steer the model towards the tone and answer
+        ///     format you'd like. We recommend adding 2 to 3 examples.
+        /// </param>
+        /// <param name="examplesContext">
+        ///     A text snippet containing the contextual information used to generate the answers for the
+        ///     examples you provide.
+        /// </param>
         /// <param name="model"></param>
         /// <exception cref="ArgumentNullException"></exception>
         public AnswerCreateRequest(string question, List<List<string>> examples, string examplesContext, string model = null!)
@@ -30,7 +35,6 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
 
         public AnswerCreateRequest()
         {
-            
         }
 
         /// <summary>

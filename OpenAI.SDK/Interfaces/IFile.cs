@@ -1,5 +1,4 @@
 ﻿using OpenAI.GPT3.Extensions;
-using OpenAI.GPT3.Models;
 using OpenAI.GPT3.Models.SharedModels;
 using OpenAI.GPT3.ObjectModels;
 using OpenAI.GPT3.ObjectModels.ResponseModels.FileResponseModels;

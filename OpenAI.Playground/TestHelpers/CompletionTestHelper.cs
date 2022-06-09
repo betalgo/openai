@@ -1,5 +1,4 @@
 ﻿using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Models;
 using OpenAI.GPT3.ObjectModels;
 using OpenAI.GPT3.ObjectModels.RequestModels;
 
@@ -30,8 +29,10 @@ namespace OpenAI.Playground.TestHelpers
                     {
                         throw new Exception("Unknown Error");
                     }
+
                     Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
                 }
+
                 Console.WriteLine(completionResult.Choices.FirstOrDefault());
             }
             catch (Exception e)
