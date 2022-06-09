@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Options;
 using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Models.RequestModels;
-using OpenAI.GPT3.Models.ResponseModels;
 using OpenAI.GPT3.Models.SharedModels;
+using OpenAI.GPT3.ObjectModels.RequestModels;
+using OpenAI.GPT3.ObjectModels.ResponseModels;
 
 namespace OpenAI.GPT3.Managers
 {
@@ -66,7 +66,7 @@ namespace OpenAI.GPT3.Managers
         }
 
 
-        public IEngine Engine => this;
+        public IModel Models => this;
         public ICompletion Completions => this;
         public ISearch Searches => this;
         public IClassification Classifications => this;

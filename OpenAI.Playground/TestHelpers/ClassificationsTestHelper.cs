@@ -1,6 +1,6 @@
 ﻿using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Models;
-using OpenAI.GPT3.Models.RequestModels;
+using OpenAI.GPT3.ObjectModels;
+using OpenAI.GPT3.ObjectModels.RequestModels;
 
 namespace OpenAI.Playground.TestHelpers
 {
@@ -14,7 +14,7 @@ namespace OpenAI.Playground.TestHelpers
             {
                 var classificationResponse = await sdk.Classifications.ClassificationsCreate(new ClassificationCreateRequest(
                     "It is a raining day :(",
-                    Engines.Engine.Curie.EnumToString())
+                    Models.Curie)
                 {
                     Examples = new List<List<string>>()
                     {
@@ -31,7 +31,7 @@ namespace OpenAI.Playground.TestHelpers
                             "I am feeling awesome", "Positive"
                         }
                     },
-                    SearchModel = Engines.Engine.Ada.EnumToString(),
+                    SearchModel = Models.Ada,
                     Labels = new List<string>()
                     {
                         "Positive", "Negative", "Neutral"

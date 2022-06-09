@@ -2,37 +2,37 @@
 
 namespace OpenAI.Playground.TestHelpers
 {
-    internal static class EngineTestHelper
+    internal static class ModelTestHelper
     {
-        public static async Task FetchEnginesTest(IOpenAIService sdk)
+        public static async Task FetchModelsTest(IOpenAIService sdk)
         {
-            ConsoleExtensions.WriteLine("Engine List Testing is starting:", ConsoleColor.Cyan);
+            ConsoleExtensions.WriteLine("Model List Testing is starting:", ConsoleColor.Cyan);
 
             try
             {
-                ConsoleExtensions.WriteLine("Fetching Engine List", ConsoleColor.DarkCyan);
-                var engineList = await sdk.Engine.EngineList();
+                ConsoleExtensions.WriteLine("Fetching Model List", ConsoleColor.DarkCyan);
+                var engineList = await sdk.Models.ModelList();
                 if (engineList == null)
                 {
-                    ConsoleExtensions.WriteLine("Fetching Engine List failed", ConsoleColor.DarkRed);
+                    ConsoleExtensions.WriteLine("Fetching Model List failed", ConsoleColor.DarkRed);
                     throw new NullReferenceException(nameof(engineList));
                 }
 
-                ConsoleExtensions.WriteLine("Engines:", ConsoleColor.DarkGreen);
-                Console.WriteLine(string.Join(Environment.NewLine, engineList.Engines.Select(r => r.Id)));
+                ConsoleExtensions.WriteLine("Models:", ConsoleColor.DarkGreen);
+                Console.WriteLine(string.Join(Environment.NewLine, engineList.Models.Select(r => r.Id)));
 
-                foreach (var engineItem in engineList.Engines)
+                foreach (var engineItem in engineList.Models)
                 {
-                    ConsoleExtensions.WriteLine($"Retrieving Engine:{engineItem.Id}", ConsoleColor.DarkCyan);
+                    ConsoleExtensions.WriteLine($"Retrieving Model:{engineItem.Id}", ConsoleColor.DarkCyan);
 
-                    var retrieveEngineResponse = await sdk.Engine.EngineRetrieve(engineItem.Id);
+                    var retrieveEngineResponse = await sdk.Models.ModelRetrieve(engineItem.Id);
                     if (retrieveEngineResponse.Successful)
                     {
                         Console.WriteLine(retrieveEngineResponse);
                     }
                     else
                     {
-                        ConsoleExtensions.WriteLine($"Retrieving {engineItem.Id} Engine failed", ConsoleColor.DarkRed);
+                        ConsoleExtensions.WriteLine($"Retrieving {engineItem.Id} Model failed", ConsoleColor.DarkRed);
                     }
                 }
             }

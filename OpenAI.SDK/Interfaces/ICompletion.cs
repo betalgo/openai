@@ -1,6 +1,6 @@
-﻿using OpenAI.GPT3.Models;
-using OpenAI.GPT3.Models.RequestModels;
-using OpenAI.GPT3.Models.ResponseModels;
+﻿using OpenAI.GPT3.ObjectModels;
+using OpenAI.GPT3.ObjectModels.RequestModels;
+using OpenAI.GPT3.ObjectModels.ResponseModels;
 
 namespace OpenAI.GPT3.Interfaces;
 
@@ -24,7 +24,7 @@ public interface ICompletion
     /// <param name="createCompletionModel"></param>
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <returns></returns>
-    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Engines.Engine engineId)
+    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, ObjectModels.Models.Model engineId)
     {
         return Create(createCompletionModel, engineId.EnumToString());
     }
