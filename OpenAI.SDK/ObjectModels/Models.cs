@@ -81,7 +81,14 @@
             var response = baseEngine;
             if (!string.IsNullOrEmpty(subject))
             {
-                response += $"-{subject}";
+                if (subject == Subject.InstructBeta.EnumToString() || subject == Subject.SimilarityFast.EnumToString())
+                {
+                    response = $"{baseEngine}-{subject}";
+                }
+                else
+                {
+                    response = $"{subject}-{baseEngine}";
+                }
             }
 
             if (!string.IsNullOrEmpty(version))
