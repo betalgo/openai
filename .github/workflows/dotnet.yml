@@ -24,7 +24,7 @@ jobs:
 
     - name: publish OpenAI.GPT3 
       id: publish_nuget_OpenAI_GPT3
-      uses: rohith/publish-nuget@v2
+      uses: alirezanet/publish-nuget@v3.0.3
       with:
           PROJECT_FILE_PATH: OpenAI.SDK\OpenAI.GPT3.csproj
           NUGET_KEY: ${{secrets.NUGET_KEY}}
