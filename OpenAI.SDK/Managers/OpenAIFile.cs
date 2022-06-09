@@ -1,7 +1,7 @@
 ﻿using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Models.ResponseModels.FileResponseModels;
 using OpenAI.GPT3.Models.SharedModels;
+using OpenAI.GPT3.ObjectModels.ResponseModels.FileResponseModels;
 
 namespace OpenAI.GPT3.Managers;
 

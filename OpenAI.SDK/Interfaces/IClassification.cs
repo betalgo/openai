@@ -1,5 +1,5 @@
-﻿using OpenAI.GPT3.Models.RequestModels;
-using OpenAI.GPT3.Models.ResponseModels;
+﻿using OpenAI.GPT3.ObjectModels.RequestModels;
+using OpenAI.GPT3.ObjectModels.ResponseModels;
 
 namespace OpenAI.GPT3.Interfaces;
 

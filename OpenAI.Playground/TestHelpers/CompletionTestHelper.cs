@@ -1,6 +1,7 @@
 ﻿using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.Models;
-using OpenAI.GPT3.Models.RequestModels;
+using OpenAI.GPT3.ObjectModels;
+using OpenAI.GPT3.ObjectModels.RequestModels;
 
 namespace OpenAI.Playground.TestHelpers
 {
@@ -12,12 +13,12 @@ namespace OpenAI.Playground.TestHelpers
 
             try
             {
-                ConsoleExtensions.WriteLine("Fetching Engine List", ConsoleColor.DarkCyan);
+                ConsoleExtensions.WriteLine("Completion Test:", ConsoleColor.DarkCyan);
                 var completionResult = await sdk.Completions.Create(new CompletionCreateRequest()
                 {
                     Prompt = "Once upon a time",
                     MaxTokens = 5
-                }, Engines.Engine.Davinci);
+                }, Models.Davinci);
 
                 if (completionResult.Successful)
                 {

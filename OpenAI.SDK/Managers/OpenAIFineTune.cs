@@ -1,8 +1,8 @@
 ﻿using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Models.RequestModels;
-using OpenAI.GPT3.Models.ResponseModels;
-using OpenAI.GPT3.Models.ResponseModels.FineTuneResponseModels;
+using OpenAI.GPT3.ObjectModels.RequestModels;
+using OpenAI.GPT3.ObjectModels.ResponseModels;
+using OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
 
 namespace OpenAI.GPT3.Managers;
 

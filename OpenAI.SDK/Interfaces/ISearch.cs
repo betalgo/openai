@@ -1,6 +1,6 @@
-﻿using OpenAI.GPT3.Models;
-using OpenAI.GPT3.Models.RequestModels;
-using OpenAI.GPT3.Models.ResponseModels;
+﻿using OpenAI.GPT3.ObjectModels;
+using OpenAI.GPT3.ObjectModels.RequestModels;
+using OpenAI.GPT3.ObjectModels.ResponseModels;
 
 namespace OpenAI.GPT3.Interfaces;
 
@@ -25,7 +25,7 @@ public interface ISearch
     /// <returns></returns>
     Task<SearchCreateResponse> SearchCreate(SearchCreateRequest createSearchRequest, string? engineId = null);
 
-    Task<SearchCreateResponse> SearchCreate(SearchCreateRequest createSearchRequest, Engines.Engine engineId)
+    Task<SearchCreateResponse> SearchCreate(SearchCreateRequest createSearchRequest, ObjectModels.Models.Model engineId)
     {
         return SearchCreate(createSearchRequest, engineId.EnumToString());
     }

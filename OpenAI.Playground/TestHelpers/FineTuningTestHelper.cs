@@ -1,7 +1,8 @@
 ﻿using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.Models;
-using OpenAI.GPT3.Models.RequestModels;
-using OpenAI.GPT3.Models.ResponseModels.FineTuneResponseModels;
+using OpenAI.GPT3.ObjectModels;
+using OpenAI.GPT3.ObjectModels.RequestModels;
+using OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
 
 namespace OpenAI.Playground.TestHelpers
 {
@@ -30,7 +31,7 @@ namespace OpenAI.Playground.TestHelpers
                 var createFineTuneResponse = await sdk.FineTunes.CreateFineTune(new FineTuneCreateRequest()
                 {
                     TrainingFile = uploadFilesResponse.Id,
-                    Model = Engines.Ada
+                    Model = Models.Ada
                 });
 
                 var listFineTuneEventsStream = await sdk.FineTunes.ListFineTuneEvents(createFineTuneResponse.Id, true);

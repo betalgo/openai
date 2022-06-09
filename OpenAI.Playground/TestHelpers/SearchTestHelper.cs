@@ -1,6 +1,7 @@
 ﻿using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.Models;
-using OpenAI.GPT3.Models.RequestModels;
+using OpenAI.GPT3.ObjectModels;
+using OpenAI.GPT3.ObjectModels.RequestModels;
 
 namespace OpenAI.Playground.TestHelpers
 {
@@ -22,7 +23,7 @@ namespace OpenAI.Playground.TestHelpers
                 {
                     Documents = documents,
                     Query = "the president"
-                }, Engines.Engine.Davinci);
+                }, Models.Davinci);
 
                 if (searchResponse.Data.FirstOrDefault()!.Document != 0)
                 {
@@ -76,8 +77,8 @@ namespace OpenAI.Playground.TestHelpers
                     File = uploadedFile.Id,
                     MaxRerank = 5,
                     Query = "happy",
-                    SearchModel = Engines.Engine.Ada.EnumToString()
-                }, Engines.Engine.Ada);
+                    SearchModel = Models.Ada
+                }, Models.Ada);
                 if (searchResponse?.Successful == true)
                 {
                     //Console.WriteLine(string.Join(",", searchResponse.Data));

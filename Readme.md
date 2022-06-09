@@ -5,6 +5,7 @@
 ```
 Install-Package Betalgo.OpenAI.GPT3
 ```
+For changelogs please go end of the document.
 
 *I was building an SDK for myself then I decide to share it, I hope it will be useful for you. I haven't maintained any open source projects before. Any help would be much appreciated. I am open to suggestions If you would like to contribute somehow.*
 
@@ -80,3 +81,11 @@ else
 
 Notes:
 I couldn't find enough time to test all the methods or improve the documentation. My main target was to make fine-tuning available. If you hit any issue please report it or pull request always appreciated. 
+
+
+## Changelog
+### 6.1.0
+* Organization id is not a required value anymore, Thanks to @samuelnygaard
+* Removed deprecated Engine Endpoint and replaced it with Models Endpoint. Now Model response have more fields.
+* Regarding OpenAI Engine naming, I had to rename Engine Enum and static fields. They are quite similar but you have to replace them with new ones. Please use Models class instead of Engine class.
+* To support fast engine name changing I have created a new Method, `Models.ModelNameBuilder()` you may consider using it.
