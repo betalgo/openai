@@ -25,7 +25,10 @@ namespace OpenAI.GPT3.Managers
             var authKey = settings.Value.ApiKey;
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authKey}");
             var organization = settings.Value.Organization;
-            _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{organization}");
+            if (!string.IsNullOrEmpty(organization))
+            {
+                _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{organization}");
+            }
 
             _endpointProvider = new OpenAiEndpointProvider(settings.Value.ApiVersion);
             _engineId = OpenAiOptions.DefaultEngineId;

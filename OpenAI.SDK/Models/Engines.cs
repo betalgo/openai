@@ -12,7 +12,9 @@
             Davinci,
             DavinciCodex,
             DavinciInstructBeta,
-            DavinciInstructBetaV3
+            DavinciInstructBetaV3,
+            DavinciTextV1,
+            DavinciTextV2
         }
 
         public static string Ada => "ada";
@@ -24,6 +26,8 @@
         public static string DavinciCodex => "davinci-codex";
         public static string DavinciInstructBeta => "davinci-instruct-beta";
         public static string DavinciInstructBetaV3 => "davinci-instruct-beta-v3";
+        public static string DavinciTextV1 => "text-davinci-001";
+        public static string DavinciTextV2 => "text-davinci-002";
 
         public static string EnumToString(this Engine engine)
         {
@@ -37,7 +41,8 @@
                 Engine.Davinci => "davinci",
                 Engine.DavinciCodex => "davinci-codex",
                 Engine.DavinciInstructBeta => "davinci-instruct-beta",
-                Engine.DavinciInstructBetaV3 => "davinci-instruct-beta-v3",
+                Engine.DavinciTextV1 => "text-davinci-001",
+                Engine.DavinciTextV2 => "text-davinci-002",
 
                 _ => throw new ArgumentOutOfRangeException(nameof(engine), engine, null)
             };
