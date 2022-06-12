@@ -13,7 +13,7 @@ namespace OpenAI.Playground.TestHelpers
 
             try
             {
-                const string fileName = "FineTuningSample1.jsonl";
+                const string fileName = "FineTuningSample1.json";
                 var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
 
                 ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
