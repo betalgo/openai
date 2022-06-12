@@ -14,17 +14,20 @@ var serviceCollection = new ServiceCollection();
 serviceCollection.AddScoped(_ => configuration);
 
 // Laser cat eyes will help us to track request and responses between OpenAI server and our client
-//It is in Beta version, if you have consider about your data privacy or if you don't want to use it just comment out from here
+// It is in Beta version, if you have concerns about your data privacy or if you don't want to use it,
+// just leave LaserCatEyesOptions:ApiKey empty in ApiSettings.json
+//
+// Get your app key from https://lasercateyes.com and put it under ApiSettings.json or secrets.json
 
-//get your app key from https://lasercateyes.com and put it under ApiSettings.json or secrets.json
-serviceCollection.AddLaserCatEyesHttpClientListener();
+if (!string.IsNullOrEmpty(configuration.GetValue<string>("LaserCatEyesOptions:ApiKey")))
+{
+    serviceCollection.AddLaserCatEyesHttpClientListener();
+}
+
 serviceCollection.AddOpenAIService();
+
 //serviceCollection.AddOpenAIService(settings => { settings.ApiKey = "TEST"; });
 
-
-//// to here, and uncomment from here
-//serviceCollection.AddHttpClient<IOpenAIService, OpenAIService>();
-//// to here
 var serviceProvider = serviceCollection.BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 
