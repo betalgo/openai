@@ -18,7 +18,7 @@
 		<PackageTags>openAI,gpt-3,ai,betalgo,NLP</PackageTags>
 		<PackageId>Betalgo.$(AssemblyName)</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
-		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\Readme.md">
