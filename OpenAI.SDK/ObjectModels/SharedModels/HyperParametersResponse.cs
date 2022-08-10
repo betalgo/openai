@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.GPT3.Models.SharedModels
+namespace OpenAI.GPT3.ObjectModels.SharedModels
 {
     public record HyperParametersResponse
     {

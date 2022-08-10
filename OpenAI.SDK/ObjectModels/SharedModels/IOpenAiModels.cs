@@ -1,4 +1,4 @@
-﻿namespace OpenAI.GPT3.Models.SharedModels
+﻿namespace OpenAI.GPT3.ObjectModels.SharedModels
 {
     public interface IOpenAiModels
     {

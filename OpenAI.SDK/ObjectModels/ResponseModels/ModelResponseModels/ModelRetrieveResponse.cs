@@ -3,6 +3,7 @@
 namespace OpenAI.GPT3.ObjectModels.ResponseModels.ModelResponseModels
 {
     public record ModelRetrieveResponse : ModelResponse
+        // ReSharper disable once RedundantRecordBody
     {
     }
 

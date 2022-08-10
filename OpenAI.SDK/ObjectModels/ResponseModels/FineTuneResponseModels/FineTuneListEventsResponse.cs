@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.GPT3.Models.SharedModels;
+using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
 
