@@ -11,12 +11,12 @@ namespace OpenAI.Playground.TestHelpers
 
             try
             {
-                const string fileName = "AnswerQuestionsSample.json";
+                const string fileName = "SentimentAnalysisSample.jsonl";
 
                 var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
 
                 ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
-                var uploadFilesResponse = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.Answers, sampleFile, fileName);
+                var uploadFilesResponse = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.FineTune, sampleFile, fileName);
                 if (uploadFilesResponse.Successful)
                 {
                     ConsoleExtensions.WriteLine($"{fileName} uploaded", ConsoleColor.DarkGreen);
@@ -70,9 +70,9 @@ namespace OpenAI.Playground.TestHelpers
         {
             try
             {
-                Console.WriteLine($"Starting to clean All Files");
+                Console.WriteLine("Starting to clean All Files");
                 var uploadedFiles = await sdk.Files.FileList();
-                foreach (var uploadedFile in uploadedFiles!.Data)
+                foreach (var uploadedFile in uploadedFiles.Data)
                 {
                     Console.WriteLine(uploadedFile.FileName);
                     var deleteResponse = await sdk.Files.FileDelete(uploadedFile.Id);

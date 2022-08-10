@@ -1,7 +1,7 @@
 ﻿using OpenAI.GPT3.Extensions;
-using OpenAI.GPT3.Models.SharedModels;
 using OpenAI.GPT3.ObjectModels;
 using OpenAI.GPT3.ObjectModels.ResponseModels.FileResponseModels;
+using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.Interfaces;
 
@@ -19,20 +19,14 @@ public interface IFile
     ///     limit.
     /// </summary>
     /// <param name="file">
-    ///     Name of the <a href="https://jsonlines.readthedocs.io/en/latest/">JSON Lines</a> file to be uploaded.
-    ///     If the purpose is set to "search" or "answers", each line is a JSON record with a "text" field and an optional
-    ///     "metadata" field.Only "text" field will be used for search.Specially, when the purpose is "answers", "\n" is used
-    ///     as a delimiter to chunk contents in the "text" field into multiple documents for finer-grained matching.
-    ///     If the purpose is set to "classifications", each line is a JSON record representing a single training example with
-    ///     "text" and "label" fields along with an optional "metadata" field.
+    ///     Name of the <a href="https://jsonlines.readthedocs.io/en/latest/"> JSON Lines </a> file to be uploaded.
     ///     If the purpose is set to "fine-tune", each line is a JSON record with "prompt" and "completion" fields representing
     ///     your <a href="https://beta.openai.com/docs/guides/fine-tuning/prepare-training-data">training examples</a>.
     /// </param>
     /// <param name="fileName">Name of file</param>
     /// <param name="purpose">
     ///     The intended purpose of the uploaded documents.
-    ///     Use "search" for Search, "answers" for Answers, "classifications" for Classifications and "fine-tune" for
-    ///     Fine-tuning.This allows us to validate the format of the uploaded file.
+    ///     Use "fine-tune" for <a href="https://beta.openai.com/docs/api-reference/fine-tunes">Fine-tuning</a>. This allows us to validate the format of the uploaded file.
     /// </param>
     /// <returns></returns>
     Task<FileUploadResponse> FileUpload(string purpose, byte[] file, string fileName);

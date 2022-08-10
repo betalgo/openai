@@ -3,15 +3,12 @@
     internal interface IOpenAiEndpointProvider
     {
         string RetrieveModel(string model);
-        string CreateAnswer();
-        string CreateClassification();
         string CreateCompletion(string engineId);
         string ListModels();
         string ListFiles();
         string UploadFiles();
         string DeleteFile(string fileId);
         string RetrieveFile(string fileId);
-        string CreateSearch(string engineId);
         string FineTuneCreate();
         string FineTuneList();
         string FineTuneRetrieve(string fineTuneId);
@@ -40,16 +37,6 @@
             return $"/{_apiVersion}/files/{fileId}";
         }
 
-        public string CreateAnswer()
-        {
-            return $"/{_apiVersion}/answers";
-        }
-
-        public string CreateClassification()
-        {
-            return $"/{_apiVersion}/classifications";
-        }
-
         public string CreateCompletion(string engineId)
         {
             return $"/{_apiVersion}/engines/{engineId}/completions";
@@ -58,7 +45,6 @@
         public string ListModels()
         {
             return $"/{_apiVersion}/models";
-            ;
         }
 
         public string ListFiles()
@@ -74,11 +60,6 @@
         public string RetrieveFile(string fileId)
         {
             return Files();
-        }
-
-        public string CreateSearch(string engineId)
-        {
-            return $"/{_apiVersion}/engines/{engineId}/search";
         }
 
         public string FineTuneCreate()

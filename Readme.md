@@ -1,4 +1,4 @@
-# Dotnet SDK for OpenAI GTP-3 *(Unofficial)*
+# Dotnet SDK for OpenAI GTP-3
 
 [![Betalgo.OpenAI.GPT3](https://img.shields.io/nuget/v/Betalgo.OpenAI.GPT3?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.GPT3/)
 
@@ -7,9 +7,12 @@ Install-Package Betalgo.OpenAI.GPT3
 ```
 For changelogs please go end of the document.
 
+Unofficial - Dotnet SDK for OpenAI GTP-3. 
+GPT-3 doesn't have any official .Net SDK.
+
 *I was building an SDK for myself then I decide to share it, I hope it will be useful for you. I haven't maintained any open source projects before. Any help would be much appreciated. I am open to suggestions If you would like to contribute somehow.*
 
-I will be using the latest libraries all the time *(including dotnet 6)*. Also, next releasing will include breaking changes frequently *(as I mentioned before I was building the SDK for myself. Unfortunately I do not have time to plan these changes and support lower version apps)*. So please be aware of that before starting to use the library. 
+I will be using the latest libraries all the time. Also, next releasing will include breaking changes frequently *(as I mentioned before I was building the SDK for myself. Unfortunately I do not have time to plan these changes and support lower version apps)*. So please be aware of that before starting to use the library. 
 
 As you can guess I do not accept any damage caused by use of the library. You are always free to use other libraries or OpenAI Web-API.
 
@@ -89,3 +92,6 @@ I couldn't find enough time to test all the methods or improve the documentation
 * Removed deprecated Engine Endpoint and replaced it with Models Endpoint. Now Model response have more fields.
 * Regarding OpenAI Engine naming, I had to rename Engine Enum and static fields. They are quite similar but you have to replace them with new ones. Please use Models class instead of Engine class.
 * To support fast engine name changing I have created a new Method, `Models.ModelNameBuilder()` you may consider using it.
+### 6.2.0
+* Removed deprecated Answers, Classifications, and Search endpoints https://community.openai.com/t/answers-classification-search-endpoint-deprecation/18532. They will be still avaliable until December at web-API. If you still need them please do not update to this version.
+* Code clean-up

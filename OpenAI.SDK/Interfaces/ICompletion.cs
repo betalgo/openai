@@ -24,7 +24,7 @@ public interface ICompletion
     /// <param name="createCompletionModel"></param>
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <returns></returns>
-    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, ObjectModels.Models.Model engineId)
+    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Models.Model engineId)
     {
         return Create(createCompletionModel, engineId.EnumToString());
     }

@@ -1,15 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Models.SharedModels;
-using OpenAI.GPT3.ObjectModels.RequestModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels;
 
 namespace OpenAI.GPT3.Managers
 {
     //TODO Find a way to show default request values in documentation
-    public partial class OpenAIService : IOpenAIService, ISearch, IClassification, IAnswer
+    public partial class OpenAIService : IOpenAIService
     {
         private readonly IOpenAiEndpointProvider _endpointProvider;
         private readonly HttpClient _httpClient;
@@ -52,51 +48,15 @@ namespace OpenAI.GPT3.Managers
             _engineId = OpenAiOptions.DefaultEngineId;
         }
 
-        //TODO Not tested yet
-        public async Task<AnswerCreateResponse> Answer(AnswerCreateRequest createAnswerRequest)
-        {
-            CheckForEngineModel(createAnswerRequest);
-            return await _httpClient.PostAndReadAsAsync<AnswerCreateResponse>(_endpointProvider.CreateAnswer(), createAnswerRequest);
-        }
-
-        //TODO Not tested yet
-        public async Task<ClassificationCreateResponse> ClassificationsCreate(ClassificationCreateRequest createClassificationRequest)
-        {
-            return await _httpClient.PostAndReadAsAsync<ClassificationCreateResponse>(_endpointProvider.CreateClassification(), createClassificationRequest);
-        }
-
 
         public IModel Models => this;
         public ICompletion Completions => this;
-        public ISearch Searches => this;
-        public IClassification Classifications => this;
-        public IAnswer Answers => this;
         public IFile Files => this;
         public IFineTune FineTunes => this;
 
         public void SetDefaultEngineId(string engineId)
         {
             _engineId = engineId;
-        }
-
-
-        //TODO Not tested yet
-        public async Task<SearchCreateResponse> SearchCreate(SearchCreateRequest createSearchRequest, string? engineId)
-        {
-            return await _httpClient.PostAndReadAsAsync<SearchCreateResponse>(_endpointProvider.CreateSearch(ProcessEngineId(engineId)), createSearchRequest);
-        }
-
-        private void CheckForEngineModel<T>(T requestModel) where T : IOpenAiModels.IModel
-        {
-            if (requestModel is {Model: null})
-            {
-                if (_engineId == null)
-                {
-                    throw new ArgumentNullException(nameof(requestModel.Model));
-                }
-
-                requestModel.Model = _engineId;
-            }
         }
 
         private string ProcessEngineId(string? engineId)
