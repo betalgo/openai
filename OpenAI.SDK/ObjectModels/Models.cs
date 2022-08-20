@@ -57,7 +57,7 @@
             CodeDavinciV2
         }
 
-        private enum Subject
+        public enum Subject
         {
             Text,
             InstructBeta,
@@ -117,9 +117,14 @@
         /// <param name="version"></param>
         /// <param name="baseEngine"></param>
         /// <returns></returns>
-        private static string ModelNameBuilder(this BaseEngine baseEngine, Subject? subject = null, string? version = null)
+        public static string ModelNameBuilder(this BaseEngine baseEngine, Subject? subject = null, string? version = null)
         {
-            var response = subject?.EnumToString(baseEngine) ?? $"{baseEngine.EnumToString()}";
+            return ModelNameBuilder(baseEngine.EnumToString(), subject?.EnumToString(baseEngine.EnumToString()), version);
+        }
+
+        public static string ModelNameBuilder(string baseEngine, string? subject, string? version)
+        {
+            var response = subject ?? $"{baseEngine}";
 
             if (!string.IsNullOrEmpty(version))
             {
@@ -182,7 +187,7 @@
             };
         }
 
-        private static string EnumToString(this Subject subject, BaseEngine baseEngine)
+        public static string EnumToString(this Subject subject, string baseEngine)
         {
             return String.Format(subject switch
             {
@@ -197,7 +202,7 @@
                 Subject.CodeSearchText => "code-search-{0}-text",
                 Subject.Code => "code-{0}",
                 _ => throw new ArgumentOutOfRangeException(nameof(subject), subject, null)
-            }, baseEngine.EnumToString());
+            }, baseEngine);
         }
     }
 }
