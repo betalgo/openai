@@ -51,6 +51,7 @@ namespace OpenAI.GPT3.Managers
 
         public IModel Models => this;
         public ICompletion Completions => this;
+        public IEmbedding Embeddings => this;
         public IFile Files => this;
         public IFineTune FineTunes => this;
 
