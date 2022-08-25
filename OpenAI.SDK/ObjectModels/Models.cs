@@ -189,7 +189,7 @@
 
         public static string EnumToString(this Subject subject, string baseEngine)
         {
-            return String.Format(subject switch
+            return string.Format(subject switch
             {
                 //{0}-{1}
                 Subject.Text => "text-{0}",
