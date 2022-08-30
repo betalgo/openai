@@ -16,6 +16,7 @@
         string FineTuneListEvents(string fineTuneId);
         string FineTuneDelete(string fineTuneId);
         string FineTuneCompletions();
+        string CreateEmbedding();
     }
 
     internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
@@ -95,6 +96,11 @@
         public string FineTuneCompletions()
         {
             return $"/{_apiVersion}/completions";
+        }
+
+        public string CreateEmbedding()
+        {
+            return $"/{_apiVersion}/embeddings";
         }
 
         private string Files()

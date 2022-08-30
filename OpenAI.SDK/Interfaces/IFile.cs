@@ -26,7 +26,8 @@ public interface IFile
     /// <param name="fileName">Name of file</param>
     /// <param name="purpose">
     ///     The intended purpose of the uploaded documents.
-    ///     Use "fine-tune" for <a href="https://beta.openai.com/docs/api-reference/fine-tunes">Fine-tuning</a>. This allows us to validate the format of the uploaded file.
+    ///     Use "fine-tune" for <a href="https://beta.openai.com/docs/api-reference/fine-tunes">Fine-tuning</a>. This allows us
+    ///     to validate the format of the uploaded file.
     /// </param>
     /// <returns></returns>
     Task<FileUploadResponse> FileUpload(string purpose, byte[] file, string fileName);
