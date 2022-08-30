@@ -18,7 +18,6 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         /// </summary>
         /// <see cref="https://beta.openai.com/docs/api-reference/embeddings/create#embeddings/create-input" />
         [JsonPropertyName("input")]
-        [JsonConverter(typeof(SingleOrArrayConverter<string>))]
         public List<string>? Input { get; set; }
 
 
