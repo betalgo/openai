@@ -16,6 +16,11 @@ public interface IOpenAIService
     public ICompletion Completions { get; }
 
     /// <summary>
+    ///     Creates an embedding vector representing the input text.
+    /// </summary>
+    public IEmbedding Embeddings { get; }
+
+    /// <summary>
     ///     Files are used to upload documents that can be used across features like <see cref="FineTunes" />
     /// </summary>
     public IFile Files { get; }

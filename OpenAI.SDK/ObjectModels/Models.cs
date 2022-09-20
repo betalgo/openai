@@ -30,6 +30,27 @@
 
             CurieSimilarityFast,
 
+            TextSimilarityAdaV1,
+            TextSimilarityBabbageV1,
+            TextSimilarityCurieV1,
+            TextSimilarityDavinciV1,
+
+            TextSearchAdaDocV1,
+            TextSearchBabbageDocV1,
+            TextSearchCurieDocV1,
+            TextSearchDavinciDocV1,
+
+            TextSearchAdaQueryV1,
+            TextSearchBabbageQueryV1,
+            TextSearchCurieQueryV1,
+            TextSearchDavinciQueryV1,
+
+            CodeSearchAdaCodeV1,
+            CodeSearchBabbageCodeV1,
+
+            CodeSearchAdaTextV1,
+            CodeSearchBabbageTextV1,
+
             CodeDavinciV1,
             CodeCushmanV1,
 
@@ -41,6 +62,11 @@
             Text,
             InstructBeta,
             SimilarityFast,
+            TextSimilarity,
+            TextSearchDocument,
+            TextSearchQuery,
+            CodeSearchCode,
+            CodeSearchText,
             Code
         }
 
@@ -64,6 +90,26 @@
         public static string CodeCushmanV1 => ModelNameBuilder(BaseEngine.Cushman, Subject.Code, "001");
         public static string CodeDavinciV2 => ModelNameBuilder(BaseEngine.Davinci, Subject.Code, "002");
 
+        public static string TextSimilarityAdaV1 => ModelNameBuilder(BaseEngine.Ada, Subject.TextSimilarity, "001");
+        public static string TextSimilarityBabbageV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.TextSimilarity, "001");
+        public static string TextSimilarityCurieV1 => ModelNameBuilder(BaseEngine.Curie, Subject.TextSimilarity, "001");
+        public static string TextSimilarityDavinciV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.TextSimilarity, "001");
+
+        public static string TextSearchAdaDocV1 => ModelNameBuilder(BaseEngine.Ada, Subject.TextSearchDocument, "001");
+        public static string TextSearchBabbageDocV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.TextSearchDocument, "001");
+        public static string TextSearchCurieDocV1 => ModelNameBuilder(BaseEngine.Curie, Subject.TextSearchDocument, "001");
+        public static string TextSearchDavinciDocV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.TextSearchDocument, "001");
+        public static string TextSearchAdaQueryV1 => ModelNameBuilder(BaseEngine.Ada, Subject.TextSearchQuery, "001");
+        public static string TextSearchBabbageQueryV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.TextSearchQuery, "001");
+        public static string TextSearchCurieQueryV1 => ModelNameBuilder(BaseEngine.Curie, Subject.TextSearchQuery, "001");
+        public static string TextSearchDavinciQueryV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.TextSearchQuery, "001");
+
+        public static string CodeSearchAdaCodeV1 => ModelNameBuilder(BaseEngine.Ada, Subject.CodeSearchCode, "001");
+        public static string CodeSearchBabbageCodeV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.CodeSearchCode, "001");
+        public static string CodeSearchAdaTextV1 => ModelNameBuilder(BaseEngine.Ada, Subject.CodeSearchText, "001");
+        public static string CodeSearchBabbageTextV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.CodeSearchText, "001");
+
+
         /// <summary>
         ///     This method does not guarantee returned model exists.
         /// </summary>
@@ -73,23 +119,12 @@
         /// <returns></returns>
         public static string ModelNameBuilder(this BaseEngine baseEngine, Subject? subject = null, string? version = null)
         {
-            return ModelNameBuilder(baseEngine.EnumToString(), subject?.EnumToString(), version);
+            return ModelNameBuilder(baseEngine.EnumToString(), subject?.EnumToString(baseEngine.EnumToString()), version);
         }
 
         public static string ModelNameBuilder(string baseEngine, string? subject, string? version)
         {
-            var response = baseEngine;
-            if (!string.IsNullOrEmpty(subject))
-            {
-                if (subject == Subject.InstructBeta.EnumToString() || subject == Subject.SimilarityFast.EnumToString())
-                {
-                    response = $"{baseEngine}-{subject}";
-                }
-                else
-                {
-                    response = $"{subject}-{baseEngine}";
-                }
-            }
+            var response = subject ?? $"{baseEngine}";
 
             if (!string.IsNullOrEmpty(version))
             {
@@ -119,6 +154,22 @@
                 Model.CodeDavinciV1 => CodeDavinciV1,
                 Model.CodeCushmanV1 => CodeCushmanV1,
                 Model.CodeDavinciV2 => CodeDavinciV2,
+                Model.TextSimilarityAdaV1 => TextSimilarityAdaV1,
+                Model.TextSimilarityBabbageV1 => TextSimilarityBabbageV1,
+                Model.TextSimilarityCurieV1 => TextSimilarityCurieV1,
+                Model.TextSimilarityDavinciV1 => TextSimilarityDavinciV1,
+                Model.TextSearchAdaDocV1 => TextSearchAdaDocV1,
+                Model.TextSearchBabbageDocV1 => TextSearchBabbageDocV1,
+                Model.TextSearchCurieDocV1 => TextSearchCurieDocV1,
+                Model.TextSearchDavinciDocV1 => TextSearchDavinciDocV1,
+                Model.TextSearchAdaQueryV1 => TextSearchAdaQueryV1,
+                Model.TextSearchBabbageQueryV1 => TextSearchBabbageQueryV1,
+                Model.TextSearchCurieQueryV1 => TextSearchCurieQueryV1,
+                Model.TextSearchDavinciQueryV1 => TextSearchDavinciQueryV1,
+                Model.CodeSearchAdaCodeV1 => CodeSearchAdaCodeV1,
+                Model.CodeSearchBabbageCodeV1 => CodeSearchBabbageCodeV1,
+                Model.CodeSearchAdaTextV1 => CodeSearchAdaTextV1,
+                Model.CodeSearchBabbageTextV1 => CodeSearchBabbageTextV1,
                 _ => throw new ArgumentOutOfRangeException(nameof(engine), engine, null)
             };
         }
@@ -136,16 +187,22 @@
             };
         }
 
-        private static string EnumToString(this Subject subject)
+        public static string EnumToString(this Subject subject, string baseEngine)
         {
-            return subject switch
+            return string.Format(subject switch
             {
-                Subject.Text => "text",
-                Subject.InstructBeta => "instruct-beta",
-                Subject.SimilarityFast => "similarity-fast",
-                Subject.Code => "code",
+                //{0}-{1}
+                Subject.Text => "text-{0}",
+                Subject.InstructBeta => "{0}-instruct-beta",
+                Subject.SimilarityFast => "{0}-similarity-fast",
+                Subject.TextSimilarity => "text-similarity-{0}",
+                Subject.TextSearchDocument => "text-search-{0}-doc",
+                Subject.TextSearchQuery => "text-search-{0}-query",
+                Subject.CodeSearchCode => "code-search-{0}-code",
+                Subject.CodeSearchText => "code-search-{0}-text",
+                Subject.Code => "code-{0}",
                 _ => throw new ArgumentOutOfRangeException(nameof(subject), subject, null)
-            };
+            }, baseEngine);
         }
     }
 }

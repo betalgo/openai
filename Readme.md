@@ -5,10 +5,21 @@
 ```
 Install-Package Betalgo.OpenAI.GPT3
 ```
-For changelogs please go end of the document.
+For changelogs please go to end of the document.
 
 Unofficial - Dotnet SDK for OpenAI GTP-3. 
 GPT-3 doesn't have any official .Net SDK.
+
+## Features
+- [x] Models
+- [x] Completions
+- [ ] Edit
+- [x] Mars
+- [x] Embeddings
+- [x] Files
+- [x] Fine-tunes
+- [ ] Moderation
+
 
 *I was building an SDK for myself then I decide to share it, I hope it will be useful for you. I haven't maintained any open source projects before. Any help would be much appreciated. I am open to suggestions If you would like to contribute somehow.*
 
@@ -16,7 +27,7 @@ I will be using the latest libraries all the time. Also, next releasing will inc
 
 As you can guess I do not accept any damage caused by use of the library. You are always free to use other libraries or OpenAI Web-API.
 
-Visit https://openai.com/ to get your API key.
+Visit https://openai.com/ to get your API key. Also documentation with more detail is avaliable there.
 
 ## Sample Usages
 The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be carefull while playing with it. Some test methods will delete your files or fine tunings. **I would suggest to use different account than your main account while you use playground.**
@@ -94,4 +105,9 @@ I couldn't find enough time to test all the methods or improve the documentation
 * To support fast engine name changing I have created a new Method, `Models.ModelNameBuilder()` you may consider using it.
 ### 6.2.0
 * Removed deprecated Answers, Classifications, and Search endpoints https://community.openai.com/t/answers-classification-search-endpoint-deprecation/18532. They will be still avaliable until December at web-API. If you still need them please do not update to this version.
+* Code clean-up
+### 6.3.0
+* Thanks to @c-d and @sarilouis for contributions on this version.
+* Now we support Embedding endpoint. Thanks to @sarilouis
+* Bug fixes and updates for Models
 * Code clean-up
