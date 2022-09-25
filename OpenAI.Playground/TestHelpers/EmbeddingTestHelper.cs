@@ -1,8 +1,6 @@
 ﻿using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels;
 using OpenAI.GPT3.ObjectModels.RequestModels;
-using System.ComponentModel.DataAnnotations;
-using System.Numerics;
 
 namespace OpenAI.Playground.TestHelpers
 {
@@ -17,7 +15,7 @@ namespace OpenAI.Playground.TestHelpers
                 ConsoleExtensions.WriteLine("Embedding Test:", ConsoleColor.DarkCyan);
                 var embeddingResult = await sdk.Embeddings.Create(new EmbeddingCreateRequest()
                 {
-                    Input = new List<string> { "The quick brown fox jumped over the lazy dog." },
+                    Input = new List<string> {"The quick brown fox jumped over the lazy dog."},
                     Model = Models.TextSearchAdaDocV1
                 });
 

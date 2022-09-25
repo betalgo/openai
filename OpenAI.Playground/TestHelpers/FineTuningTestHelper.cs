@@ -56,12 +56,12 @@ namespace OpenAI.Playground.TestHelpers
 
                 do
                 {
-                    var completionResult = await sdk.FineTunes.FineTuneCompletions(new FineTuneCompletionsRequest()
+                    var completionResult = await sdk.Completions.Create(new CompletionCreateRequest()
                     {
                         MaxTokens = 1,
                         Prompt = @"https://t.co/f93xEd2 Excited to share my latest blog post! ->",
                         Model = retrieveFineTuneResponse.FineTunedModel,
-                        Logprobs = 2
+                        LogProbs = 2
                     });
                     if (completionResult.Successful)
                     {

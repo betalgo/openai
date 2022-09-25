@@ -4,7 +4,7 @@ using OpenAI.GPT3.ObjectModels.ResponseModels.ModelResponseModels;
 
 namespace OpenAI.GPT3.Managers;
 
-public partial class OpenAIService : IModel
+public partial class OpenAIService : IModelService
 {
     public async Task<ModelListResponse> ModelList()
     {

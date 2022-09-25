@@ -5,7 +5,7 @@ using OpenAI.GPT3.ObjectModels.ResponseModels;
 
 namespace OpenAI.GPT3.Managers;
 
-public partial class OpenAIService : ICompletion
+public partial class OpenAIService : ICompletionService
 {
     public async Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionRequest, string? engineId = null)
     {

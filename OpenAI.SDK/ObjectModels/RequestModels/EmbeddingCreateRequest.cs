@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using OpenAI.GPT3.Interfaces;
+using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.ObjectModels.RequestModels
 {
-    //TODO Update Usage of link (see cref)
     //TODO add model validation
     //TODO check what is string or array for prompt,..
-    public record EmbeddingCreateRequest : IModelValidate
+    public record EmbeddingCreateRequest : IModelValidate, IOpenAiModels.IModel
     {
         /// <summary>
         ///     Input text to get embeddings for, encoded as a string or array of tokens. To get embeddings for multiple inputs
@@ -19,7 +19,6 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         /// <see cref="https://beta.openai.com/docs/api-reference/embeddings/create#embeddings/create-input" />
         [JsonPropertyName("input")]
         public List<string>? Input { get; set; }
-
 
         /// <summary>
         ///     ID of the model to use. You can use the [List models](/docs/api-reference/models/list) API to see all of your

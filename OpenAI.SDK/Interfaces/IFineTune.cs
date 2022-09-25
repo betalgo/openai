@@ -1,5 +1,4 @@
 ﻿using OpenAI.GPT3.ObjectModels.RequestModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels;
 using OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
 
 namespace OpenAI.GPT3.Interfaces
@@ -8,7 +7,7 @@ namespace OpenAI.GPT3.Interfaces
     ///     Manage fine-tuning jobs to tailor a model to your specific training data.
     ///     Related guide: <a href="https://beta.openai.com/docs/guides/fine-tuning">Fine-tune models</a>
     /// </summary>
-    public interface IFineTune
+    public interface IFineTuneService
     {
         /// <summary>
         ///     Creates a job that fine-tunes a specified model from a given dataset.
@@ -51,9 +50,6 @@ namespace OpenAI.GPT3.Interfaces
         /// </param>
         /// <returns></returns>
         Task<Stream> ListFineTuneEvents(string fineTuneId, bool? stream = null);
-
-        Task<CompletionCreateResponse> FineTuneCompletions(FineTuneCompletionsRequest fineTuneCompletionsRequest);
-
 
         Task DeleteFineTune(string fineTuneId);
     }

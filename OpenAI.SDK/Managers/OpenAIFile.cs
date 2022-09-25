@@ -5,7 +5,7 @@ using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.Managers;
 
-public partial class OpenAIService : IFile
+public partial class OpenAIService : IFileService
 {
     public async Task<FileListResponse> FileList()
     {

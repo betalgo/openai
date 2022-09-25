@@ -5,7 +5,7 @@ using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.Interfaces;
 
-public interface IFile
+public interface IFileService
 {
     /// <summary>
     ///     Returns a list of files that belong to the user's organization.

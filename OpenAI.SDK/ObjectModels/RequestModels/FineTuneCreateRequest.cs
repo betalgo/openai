@@ -1,37 +1,34 @@
 ﻿using System.Text.Json.Serialization;
+using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.ObjectModels.RequestModels;
 
-public record FineTuneCreateRequest
+public record FineTuneCreateRequest : IOpenAiModels.IModel
 {
     /// <summary>
     ///     The ID of an uploaded file that contains training data.
-    ///     See upload file for how to upload a file.
+    ///     See <a href="https://beta.openai.com/docs/api-reference/files/upload">upload file</a> for how to upload a file.
     ///     Your dataset must be formatted as a JSONL file, where each training example is a JSON object with the keys "prompt"
     ///     and "completion". Additionally, you must upload your file with the purpose fine-tune.
-    ///     See the fine-tuning guide for more details.
+    ///     See the <a href="https://beta.openai.com/docs/guides/fine-tuning/creating-training-data">fine-tuning</a> guide for
+    ///     more details.
     /// </summary>
     [JsonPropertyName("training_file")]
     public string TrainingFile { get; set; }
 
     /// <summary>
     ///     The ID of an uploaded file that contains validation data.
-    ///     If you provide this file, the data is used to generate validation metrics periodically during fine-tuning.These
-    ///     metrics can be viewed in the fine-tuning results file.Your train and validation data should be mutually exclusive.
+    ///     If you provide this file, the data is used to generate validation metrics periodically during fine-tuning. These
+    ///     metrics can be viewed in the
+    ///     <a href="https://beta.openai.com/docs/guides/fine-tuning/analyzing-your-fine-tuned-model">fine-tuning results file</a>
+    ///     . Your train and validation data should be mutually exclusive.
     ///     Your dataset must be formatted as a JSONL file, where each validation example is a JSON object with the keys
     ///     "prompt" and "completion". Additionally, you must upload your file with the purpose fine-tune.
-    ///     See the fine-tuning guide for more details.
+    ///     See the <a href="https://beta.openai.com/docs/guides/fine-tuning/creating-training-data">fine-tuning guide</a> for
+    ///     more details.
     /// </summary>
     [JsonPropertyName("validation_file")]
     public string? ValidationFile { get; set; }
-
-
-    /// <summary>
-    ///     The name of the base model to fine-tune. You can select one of "ada", "babbage", or "curie". To learn more about
-    ///     these models, see the <a href="https://beta.openai.com/docs/engines">Engines</a> documentation.
-    /// </summary>
-    [JsonPropertyName("model")]
-    public string? Model { get; set; }
 
     /// <summary>
     ///     The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.
@@ -70,7 +67,8 @@ public record FineTuneCreateRequest
 
     /// <summary>
     ///     If set, we calculate classification-specific metrics such as accuracy and F-1 score using the validation set at the
-    ///     end of every epoch.These metrics can be viewed in the results file.
+    ///     end of every epoch.These metrics can be viewed in the
+    ///     <a href="https://beta.openai.com/docs/guides/fine-tuning/analyzing-your-fine-tuned-model">results file</a>.
     ///     In order to compute classification metrics, you must provide a validation_file.Additionally, you must specify
     ///     classification_n_classes for multiclass classification or classification_positive_class for binary classification.
     /// </summary>
@@ -100,4 +98,19 @@ public record FineTuneCreateRequest
     /// </summary>
     [JsonPropertyName("classification_betas")]
     public List<string>? ClassificationBetas { get; set; }
+
+    /// <summary>
+    ///     A string of up to 40 characters that will be added to your fine-tuned model name.
+    ///     For example, a suffix of "custom-model-name" would produce a model name like
+    ///     ada:ft-your-org:custom-model-name-2022-02-15-04-21-04.
+    /// </summary>
+    public string? Suffix { get; set; }
+
+
+    /// <summary>
+    ///     The name of the base model to fine-tune. You can select one of "ada", "babbage", or "curie". To learn more about
+    ///     these models, see the <a href="https://beta.openai.com/docs/engines">Engines</a> documentation.
+    /// </summary>
+    [JsonPropertyName("model")]
+    public string? Model { get; set; }
 }
