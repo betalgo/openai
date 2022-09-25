@@ -8,7 +8,7 @@ namespace OpenAI.GPT3.Interfaces;
 ///     Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of
 ///     alternative tokens at each position.
 /// </summary>
-public interface ICompletion
+public interface ICompletionService
 {
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters

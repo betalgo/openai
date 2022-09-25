@@ -7,6 +7,8 @@ namespace OpenAI.GPT3.ObjectModels.ResponseModels
         [JsonPropertyName("model")] public string Model { get; set; }
 
         [JsonPropertyName("data")] public List<EmbeddingResponse> Data { get; set; }
+
+        [JsonPropertyName("usage")] public UsageResponse Usage { get; set; }
     }
 
     public record EmbeddingResponse

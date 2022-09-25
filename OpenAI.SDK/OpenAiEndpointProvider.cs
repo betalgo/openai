@@ -15,7 +15,6 @@
         string FineTuneCancel(string fineTuneId);
         string FineTuneListEvents(string fineTuneId);
         string FineTuneDelete(string fineTuneId);
-        string FineTuneCompletions();
         string CreateEmbedding();
     }
 
@@ -91,11 +90,6 @@
         public string FineTuneDelete(string fineTuneId)
         {
             return $"/{_apiVersion}/models/{fineTuneId}";
-        }
-
-        public string FineTuneCompletions()
-        {
-            return $"/{_apiVersion}/completions";
         }
 
         public string CreateEmbedding()

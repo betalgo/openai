@@ -6,7 +6,7 @@ namespace OpenAI.GPT3.Interfaces;
 /// <summary>
 ///     Creates an embedding vector representing the input text.
 /// </summary>
-public interface IEmbedding
+public interface IEmbeddingService
 {
     /// <summary>
     ///     Creates a new embedding for the provided input and parameters.

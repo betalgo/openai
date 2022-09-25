@@ -1,12 +1,11 @@
 ﻿using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels.RequestModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels;
 using OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
 
 namespace OpenAI.GPT3.Managers;
 
-public partial class OpenAIService : IFineTune
+public partial class OpenAIService : IFineTuneService
 {
     public async Task<FineTuneResponse> CreateFineTune(FineTuneCreateRequest createFineTuneRequest)
     {
@@ -35,11 +34,6 @@ public partial class OpenAIService : IFineTune
     {
         return await _httpClient.GetStreamAsync(_endpointProvider.FineTuneListEvents(fineTuneId));
         //return await _httpClient.GetFromJsonAsync<ListFineTuneEventsResponse>(_endpointProvider.FineTuneListEvents(fineTuneId));
-    }
-
-    public async Task<CompletionCreateResponse> FineTuneCompletions(FineTuneCompletionsRequest fineTuneCompletionsRequest)
-    {
-        return await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.FineTuneCompletions(), fineTuneCompletionsRequest);
     }
 
     public async Task DeleteFineTune(string fineTuneId)

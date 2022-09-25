@@ -49,11 +49,11 @@ namespace OpenAI.GPT3.Managers
         }
 
 
-        public IModel Models => this;
-        public ICompletion Completions => this;
-        public IEmbedding Embeddings => this;
-        public IFile Files => this;
-        public IFineTune FineTunes => this;
+        public IModelService Models => this;
+        public ICompletionService Completions => this;
+        public IEmbeddingService Embeddings => this;
+        public IFileService Files => this;
+        public IFineTuneService FineTunes => this;
 
         public void SetDefaultEngineId(string engineId)
         {

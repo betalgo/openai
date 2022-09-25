@@ -1,13 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using OpenAI.GPT3.Interfaces;
+using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.ObjectModels.RequestModels
 {
-    //TODO Update Usage of link (see cref)
     //TODO add model validation
     //TODO check what is string or array for prompt,..
-    public record CompletionCreateRequest : IModelValidate
+    /// <summary>
+    ///     Create Completion Request Model
+    /// </summary>
+    public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.IModel, IOpenAiModels.ILogProbs
     {
         /// <summary>
         ///     The prompt(s) to generate completions for, encoded as a string, a list of strings, or a list of token lists.
@@ -19,24 +22,19 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         public string? Prompt { get; set; }
 
         /// <summary>
-        ///     The maximum number of tokens to generate in the completion.
+        ///     The suffix that comes after a completion of inserted text.
+        /// </summary>
+        [JsonPropertyName("suffix")]
+        public string? Suffix { get; set; }
+
+        /// <summary>
+        ///     The maximum number of <a href="https://beta.openai.com/tokenizer">tokens</a> to generate in the completion.
         ///     The token count of your prompt plus max_tokens cannot exceed the model's context length. Most models have a context
         ///     length of 2048 tokens (except davinci-codex, which supports 4096).
         /// </summary>
         /// <see cref="https://beta.openai.com/docs/api-reference/completions/create#completions/create-max_tokens" />
-        /// <seealso cref="https://beta.openai.com/tokenizer" />
         [JsonPropertyName("max_tokens")]
         public int? MaxTokens { get; set; }
-
-        /// <summary>
-        ///     What sampling temperature to use. Higher values means the model will take more risks. Try 0.9 for more creative
-        ///     applications, and 0 (argmax sampling) for ones with a well-defined answer.
-        ///     We generally recommend altering this or top_p but not both.
-        /// </summary>
-        /// <see cref="https://beta.openai.com/docs/api-reference/completions/create#completions/create-temperature" />
-        /// <seealso cref="https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277" />
-        [JsonPropertyName("temperature")]
-        public float? Temperature { get; set; }
 
         /// <summary>
         ///     An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the
@@ -57,22 +55,15 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         public int? N { get; set; }
 
         /// <summary>
-        ///     Whether to stream back partial progress. If set, tokens will be sent as data-only server-sent events as they become
-        ///     available, with the stream terminated by a data: [DONE] message.
+        ///     Whether to stream back partial progress. If set, tokens will be sent as data-only
+        ///     <a
+        ///         href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format">
+        ///         server-sent events
+        ///     </a>
+        ///     as they become available, with the stream terminated by a data: [DONE] message.
         /// </summary>
-        /// <seealso
-        ///     cref="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format" />
         [JsonPropertyName("stream")]
         public bool? Stream { get; set; }
-
-        /// <summary>
-        ///     Include the log probabilities on the logprobs most likely tokens, as well the chosen tokens. For example, if
-        ///     logprobs is 10, the API will return a list of the 10 most likely tokens. the API will always return the logprob of
-        ///     the sampled token, so there may be up to logprobs+1 elements in the response.
-        /// </summary>
-
-        [JsonPropertyName("logprobs")]
-        public int? Logprobs { get; set; }
 
         /// <summary>
         ///     Echo back the prompt in addition to the completion
@@ -129,6 +120,20 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         [JsonPropertyName("logit_bias")]
         public object? LogitBias { get; set; }
 
+        /// <summary>
+        ///     A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.
+        /// </summary>
+        public string User { get; set; }
+
+        /// <summary>
+        ///     Include the log probabilities on the logprobs most likely tokens, as well the chosen tokens. For example, if
+        ///     logprobs is 5, the API will return a list of the 5 most likely tokens. The API will always return the logprob of
+        ///     the sampled token, so there may be up to logprobs+1 elements in the response.
+        ///     The maximum value for logprobs is 5. If you need more than this, please contact support@openai.com and describe
+        ///     your use case.
+        /// </summary>
+        [JsonPropertyName("logprobs")]
+        public int? LogProbs { get; set; }
 
         [JsonPropertyName("model")] public string? Model { get; set; }
 
@@ -136,5 +141,16 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        ///     What
+        ///     <a href="https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277">sampling temperature</a>
+        ///     to use. Higher values means the model will take more risks. Try 0.9 for more creative
+        ///     applications, and 0 (argmax sampling) for ones with a well-defined answer.
+        ///     We generally recommend altering this or top_p but not both.
+        /// </summary>
+        /// <see cref="https://beta.openai.com/docs/api-reference/completions/create#completions/create-temperature" />
+        [JsonPropertyName("temperature")]
+        public float? Temperature { get; set; }
     }
 }

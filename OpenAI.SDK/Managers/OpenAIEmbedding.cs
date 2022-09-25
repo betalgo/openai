@@ -5,7 +5,7 @@ using OpenAI.GPT3.ObjectModels.ResponseModels;
 
 namespace OpenAI.GPT3.Managers;
 
-public partial class OpenAIService : IEmbedding
+public partial class OpenAIService : IEmbeddingService
 {
     public async Task<EmbeddingCreateResponse> Create(EmbeddingCreateRequest createEmbeddingRequest)
     {
