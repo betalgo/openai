@@ -56,7 +56,7 @@ namespace OpenAI.Playground.TestHelpers
 
                 do
                 {
-                    var completionResult = await sdk.Completions.Create(new CompletionCreateRequest()
+                    var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest()
                     {
                         MaxTokens = 1,
                         Prompt = @"https://t.co/f93xEd2 Excited to share my latest blog post! ->",

@@ -2,20 +2,21 @@
 {
     internal interface IOpenAiEndpointProvider
     {
-        string RetrieveModel(string model);
-        string CreateCompletion(string engineId);
-        string ListModels();
-        string ListFiles();
-        string UploadFiles();
-        string DeleteFile(string fileId);
-        string RetrieveFile(string fileId);
+        string ModelRetrieve(string model);
+        string CompletionCreate(string engineId);
+        string ModelsList();
+        string FilesList();
+        string FilesUpload();
+        string FileDelete(string fileId);
+        string FileRetrieve(string fileId);
         string FineTuneCreate();
         string FineTuneList();
         string FineTuneRetrieve(string fineTuneId);
         string FineTuneCancel(string fineTuneId);
         string FineTuneListEvents(string fineTuneId);
         string FineTuneDelete(string fineTuneId);
-        string CreateEmbedding();
+        string EmbeddingCreate();
+        string ModerationCreate();
     }
 
     internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
@@ -27,37 +28,37 @@
             _apiVersion = apiVersion;
         }
 
-        public string RetrieveModel(string model)
+        public string ModelRetrieve(string model)
         {
             return $"/{_apiVersion}/models/{model}";
         }
 
-        public string DeleteFile(string fileId)
+        public string FileDelete(string fileId)
         {
             return $"/{_apiVersion}/files/{fileId}";
         }
 
-        public string CreateCompletion(string engineId)
+        public string CompletionCreate(string engineId)
         {
             return $"/{_apiVersion}/engines/{engineId}/completions";
         }
 
-        public string ListModels()
+        public string ModelsList()
         {
             return $"/{_apiVersion}/models";
         }
 
-        public string ListFiles()
+        public string FilesList()
         {
             return Files();
         }
 
-        public string UploadFiles()
+        public string FilesUpload()
         {
             return Files();
         }
 
-        public string RetrieveFile(string fileId)
+        public string FileRetrieve(string fileId)
         {
             return Files();
         }
@@ -92,9 +93,14 @@
             return $"/{_apiVersion}/models/{fineTuneId}";
         }
 
-        public string CreateEmbedding()
+        public string EmbeddingCreate()
         {
             return $"/{_apiVersion}/embeddings";
+        }
+
+        public string ModerationCreate()
+        {
+            return $"/{_apiVersion}/moderations";
         }
 
         private string Files()

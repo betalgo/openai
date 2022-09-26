@@ -14,12 +14,12 @@ public interface IModelService
     ///     availability.
     /// </summary>
     /// <returns></returns>
-    Task<ModelListResponse> ModelList();
+    Task<ModelListResponse> ListModel();
 
     /// <summary>
     ///     Retrieves a model instance, providing basic information about the model such as the owner and permissioning.
     /// </summary>
     /// <param name="model">The ID of the model to use for this request</param>
     /// <returns></returns>
-    Task<ModelRetrieveResponse> ModelRetrieve(string model);
+    Task<ModelRetrieveResponse> RetrieveModel(string model);
 }

@@ -27,7 +27,7 @@ namespace OpenAI.Playground.TestHelpers
                 }
 
                 ConsoleExtensions.WriteLine("Listing files", ConsoleColor.Cyan);
-                var uploadedFiles = await sdk.Files.FileList();
+                var uploadedFiles = await sdk.Files.ListFile();
                 // Need to wait for file processing before deleting it.
 
                 ConsoleExtensions.WriteLine("Need to wait for file processing", ConsoleColor.White);
@@ -35,7 +35,7 @@ namespace OpenAI.Playground.TestHelpers
                 foreach (var uploadedFile in uploadedFiles.Data)
                 {
                     ConsoleExtensions.WriteLine($"Retrieving {uploadedFile.FileName}", ConsoleColor.DarkCyan);
-                    var retrieveFileResponse = await sdk.Files.FileRetrieve(uploadedFile.Id);
+                    var retrieveFileResponse = await sdk.Files.RetrieveFile(uploadedFile.Id);
                     if (retrieveFileResponse.Successful)
                     {
                         ConsoleExtensions.WriteLine($"{retrieveFileResponse.FileName} retrieved", ConsoleColor.DarkGreen);
@@ -47,7 +47,7 @@ namespace OpenAI.Playground.TestHelpers
 
                     //   var fileContent = sdk.Files.RetrieveFileContent(file.Id);
                     ConsoleExtensions.WriteLine($"Deleting file {uploadedFile.FileName}", ConsoleColor.DarkCyan);
-                    var deleteResponse = await sdk.Files.FileDelete(uploadedFile.Id);
+                    var deleteResponse = await sdk.Files.DeleteFile(uploadedFile.Id);
                     if (deleteResponse.Successful)
                     {
                         ConsoleExtensions.WriteLine($"{retrieveFileResponse.FileName} deleted", ConsoleColor.DarkGreen);
@@ -71,11 +71,11 @@ namespace OpenAI.Playground.TestHelpers
             try
             {
                 Console.WriteLine("Starting to clean All Files");
-                var uploadedFiles = await sdk.Files.FileList();
+                var uploadedFiles = await sdk.Files.ListFile();
                 foreach (var uploadedFile in uploadedFiles.Data)
                 {
                     Console.WriteLine(uploadedFile.FileName);
-                    var deleteResponse = await sdk.Files.FileDelete(uploadedFile.Id);
+                    var deleteResponse = await sdk.Files.DeleteFile(uploadedFile.Id);
                 }
             }
             catch (Exception e)
