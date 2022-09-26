@@ -7,8 +7,8 @@ namespace OpenAI.GPT3.Managers;
 
 public partial class OpenAIService : IEmbeddingService
 {
-    public async Task<EmbeddingCreateResponse> Create(EmbeddingCreateRequest createEmbeddingRequest)
+    public async Task<EmbeddingCreateResponse> CreateEmbedding(EmbeddingCreateRequest createEmbeddingRequest)
     {
-        return await _httpClient.PostAndReadAsAsync<EmbeddingCreateResponse>(_endpointProvider.CreateEmbedding(), createEmbeddingRequest);
+        return await _httpClient.PostAndReadAsAsync<EmbeddingCreateResponse>(_endpointProvider.EmbeddingCreate(), createEmbeddingRequest);
     }
 }

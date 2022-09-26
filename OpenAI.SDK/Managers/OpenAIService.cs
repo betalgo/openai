@@ -54,6 +54,7 @@ namespace OpenAI.GPT3.Managers
         public IEmbeddingService Embeddings => this;
         public IFileService Files => this;
         public IFineTuneService FineTunes => this;
+        public IModerationService Moderation => this;
 
         public void SetDefaultEngineId(string engineId)
         {
