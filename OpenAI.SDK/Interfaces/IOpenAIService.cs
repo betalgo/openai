@@ -7,25 +7,27 @@ public interface IOpenAIService
     ///     <a href="https://beta.openai.com/docs/models">Models</a> documentation to understand what models are available and
     ///     the differences between them.
     /// </summary>
-    public IModel Models { get; }
+    public IModelService Models { get; }
 
     /// <summary>
     ///     Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of
     ///     alternative tokens at each position.
     /// </summary>
-    public ICompletion Completions { get; }
+    public ICompletionService Completions { get; }
 
     /// <summary>
     ///     Creates an embedding vector representing the input text.
     /// </summary>
-    public IEmbedding Embeddings { get; }
+    public IEmbeddingService Embeddings { get; }
 
     /// <summary>
     ///     Files are used to upload documents that can be used across features like <see cref="FineTunes" />
     /// </summary>
-    public IFile Files { get; }
+    public IFileService Files { get; }
 
-    public IFineTune FineTunes { get; }
+    public IFineTuneService FineTunes { get; }
+
+    public IModerationService Moderation { get; }
 
     /// <summary>
     ///     Set default engine

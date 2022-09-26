@@ -5,13 +5,13 @@ using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.Interfaces;
 
-public interface IFile
+public interface IFileService
 {
     /// <summary>
     ///     Returns a list of files that belong to the user's organization.
     /// </summary>
     /// <returns></returns>
-    Task<FileListResponse> FileList();
+    Task<FileListResponse> ListFile();
 
     /// <summary>
     ///     Upload a file that contains document(s) to be used across various endpoints/features. Currently, the size of all
@@ -30,21 +30,21 @@ public interface IFile
     ///     to validate the format of the uploaded file.
     /// </param>
     /// <returns></returns>
-    Task<FileUploadResponse> FileUpload(string purpose, byte[] file, string fileName);
+    Task<FileUploadResponse> UploadFile(string purpose, byte[] file, string fileName);
 
     Task<FileUploadResponse> FileUpload(string purpose, Stream file, string fileName)
     {
-        return FileUpload(purpose, file.ToByteArray(), fileName);
+        return UploadFile(purpose, file.ToByteArray(), fileName);
     }
 
     Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName)
     {
-        return FileUpload(purpose.EnumToString(), file.ToByteArray(), fileName);
+        return UploadFile(purpose.EnumToString(), file.ToByteArray(), fileName);
     }
 
     Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName)
     {
-        return FileUpload(purpose.EnumToString(), file, fileName);
+        return UploadFile(purpose.EnumToString(), file, fileName);
     }
 
     /// <summary>
@@ -52,19 +52,19 @@ public interface IFile
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <returns></returns>
-    Task<FileDeleteResponse> FileDelete(string fileId);
+    Task<FileDeleteResponse> DeleteFile(string fileId);
 
     /// <summary>
     ///     Returns information about a specific file.
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <returns></returns>
-    Task<FileResponse> FileRetrieve(string fileId);
+    Task<FileResponse> RetrieveFile(string fileId);
 
     /// <summary>
     ///     Returns the contents of the specified file
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <returns></returns>
-    Task FileRetrieveContent(string fileId);
+    Task RetrieveFileContent(string fileId);
 }

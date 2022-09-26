@@ -4,15 +4,15 @@ using OpenAI.GPT3.ObjectModels.ResponseModels.ModelResponseModels;
 
 namespace OpenAI.GPT3.Managers;
 
-public partial class OpenAIService : IModel
+public partial class OpenAIService : IModelService
 {
-    public async Task<ModelListResponse> ModelList()
+    public async Task<ModelListResponse> ListModel()
     {
-        return await _httpClient.GetFromJsonAsync<ModelListResponse>(_endpointProvider.ListModels());
+        return await _httpClient.GetFromJsonAsync<ModelListResponse>(_endpointProvider.ModelsList());
     }
 
-    public async Task<ModelRetrieveResponse> ModelRetrieve(string model)
+    public async Task<ModelRetrieveResponse> RetrieveModel(string model)
     {
-        return await _httpClient.GetFromJsonAsync<ModelRetrieveResponse>(_endpointProvider.RetrieveModel(ProcessEngineId(model)));
+        return await _httpClient.GetFromJsonAsync<ModelRetrieveResponse>(_endpointProvider.ModelRetrieve(ProcessEngineId(model)));
     }
 }

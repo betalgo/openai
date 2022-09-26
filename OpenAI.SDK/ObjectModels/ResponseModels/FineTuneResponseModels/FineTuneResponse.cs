@@ -3,14 +3,8 @@ using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
 
-public record FineTuneResponse : BaseResponse
+public record FineTuneResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IModel, IOpenAiModels.ICreatedAt
 {
-    [JsonPropertyName("id")] public string Id { get; set; }
-
-    [JsonPropertyName("model")] public string Model { get; set; }
-
-    [JsonPropertyName("created_at")] public int? CreatedAt { get; set; }
-
     [JsonPropertyName("events")] public List<EventResponse> Events { get; set; }
 
     [JsonPropertyName("fine_tuned_model")] public string FineTunedModel { get; set; }
@@ -28,4 +22,9 @@ public record FineTuneResponse : BaseResponse
     [JsonPropertyName("training_files")] public List<FileResponse> TrainingFiles { get; set; }
 
     [JsonPropertyName("updated_at")] public int? UpdatedAt { get; set; }
+
+    [JsonPropertyName("created_at")] public int CreatedAt { get; set; }
+    [JsonPropertyName("id")] public string Id { get; set; }
+
+    [JsonPropertyName("model")] public string Model { get; set; }
 }

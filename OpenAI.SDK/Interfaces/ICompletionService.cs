@@ -8,7 +8,7 @@ namespace OpenAI.GPT3.Interfaces;
 ///     Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of
 ///     alternative tokens at each position.
 /// </summary>
-public interface ICompletion
+public interface ICompletionService
 {
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
@@ -16,7 +16,7 @@ public interface ICompletion
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <param name="createCompletionModel"></param>
     /// <returns></returns>
-    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, string? engineId = null);
+    Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionModel, string? engineId = null);
 
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
@@ -26,6 +26,6 @@ public interface ICompletion
     /// <returns></returns>
     Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Models.Model engineId)
     {
-        return Create(createCompletionModel, engineId.EnumToString());
+        return CreateCompletion(createCompletionModel, engineId.EnumToString());
     }
 }

@@ -18,7 +18,7 @@ GPT-3 doesn't have any official .Net SDK.
 - [x] Embeddings
 - [x] Files
 - [x] Fine-tunes
-- [ ] Moderation
+- [x] Moderation
 
 
 *I was building an SDK for myself then I decide to share it, I hope it will be useful for you. I haven't maintained any open source projects before. Any help would be much appreciated. I am open to suggestions If you would like to contribute somehow.*
@@ -96,7 +96,6 @@ else
 Notes:
 I couldn't find enough time to test all the methods or improve the documentation. My main target was to make fine-tuning available. If you hit any issue please report it or pull request always appreciated. 
 
-
 ## Changelog
 ### 6.1.0
 * Organization id is not a required value anymore, Thanks to @samuelnygaard
@@ -111,3 +110,9 @@ I couldn't find enough time to test all the methods or improve the documentation
 * Now we support Embedding endpoint. Thanks to @sarilouis
 * Bug fixes and updates for Models
 * Code clean-up
+### 6.4.0
+* I have good news and bad news
+* Moderation feature implemenation is done. Now we support Moderation.
+* Updated some request and response models to catch up with changes in OpenAI api
+* New version has some breaking chnanges. Because we are in the fall season I needed to do some cleanup. Sorry for breaking changes but most of them are just renaming. I believe they can be solved before your coffee finish.
+* I am hoping to support Edit Feature in next version.

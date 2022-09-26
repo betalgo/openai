@@ -11,7 +11,7 @@ namespace OpenAI.Playground.TestHelpers
             try
             {
                 ConsoleExtensions.WriteLine("Fetching Model List", ConsoleColor.DarkCyan);
-                var engineList = await sdk.Models.ModelList();
+                var engineList = await sdk.Models.ListModel();
                 if (engineList == null)
                 {
                     ConsoleExtensions.WriteLine("Fetching Model List failed", ConsoleColor.DarkRed);
@@ -25,7 +25,7 @@ namespace OpenAI.Playground.TestHelpers
                 {
                     ConsoleExtensions.WriteLine($"Retrieving Model:{engineItem.Id}", ConsoleColor.DarkCyan);
 
-                    var retrieveEngineResponse = await sdk.Models.ModelRetrieve(engineItem.Id);
+                    var retrieveEngineResponse = await sdk.Models.RetrieveModel(engineItem.Id);
                     if (retrieveEngineResponse.Successful)
                     {
                         Console.WriteLine(retrieveEngineResponse);
