@@ -13,5 +13,5 @@ public interface IEmbeddingService
     /// </summary>
     /// <param name="createEmbeddingModel"></param>
     /// <returns></returns>
-    Task<EmbeddingCreateResponse> Create(EmbeddingCreateRequest createEmbeddingModel);
+    Task<EmbeddingCreateResponse> CreateEmbedding(EmbeddingCreateRequest createEmbeddingModel);
 }

@@ -27,6 +27,8 @@ public interface IOpenAIService
 
     public IFineTuneService FineTunes { get; }
 
+    public IModerationService Moderation { get; }
+
     /// <summary>
     ///     Set default engine
     /// </summary>
