@@ -30,23 +30,37 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 Visit https://openai.com/ to get your API key. Also documentation with more detail is avaliable there.
 
 ## Sample Usages
-The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be carefull while playing with it. Some test methods will delete your files or fine tunings. **I would suggest to use different account than your main account while you use playground.**
+#### ***!! I would strongly suggest to use different account than your main account while you use playground.<br> Test methods could add or delete your files and models !!***
 
+The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be carefull while playing with it. Some test methods will delete your files or fine tunings. <br>
+
+
+### Without using dependcy injection:
+```csharp
+var openAiService = new OpenAIService(new OpenAiOptions()
+{
+    ApiKey =  Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY")
+});
+```
 ### Using dependcy injection:
 #### secrets.json: 
-*(How to use [user secret](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows)? => right click your project name in "solution explorer" then click "Manage User Secret", it is a good way to keep your api keys) *
+
 ```csharp
  "OpenAIServiceOptions": {
     //"ApiKey":"Your api key goes here"
     //,"Organization": "Your Organization Id goes here (optional)"
   },
 ```
+*(How to use [user secret](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows) ? <br>
+Right click your project name in "solution explorer" then click "Manage User Secret", it is a good way to keep your api keys)*
+
 #### Program.cs
 ```csharp
 serviceCollection.AddOpenAIService();
 ```
 
-or use it like below but do NOT put your API key directly to your source code. 
+**OR**<br>
+Use it like below but do NOT put your API key directly to your source code. 
 #### Program.cs
 ```csharp
 serviceCollection.AddOpenAIService(settings => { settings.ApiKey = Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY"); });
@@ -57,13 +71,7 @@ After injecting your service you will be able to get it from service provider
 var openAiService = serviceProvider.GetRequiredService<IOpenAIService>();
 ```
 
-Without dependcy injection:
-```csharp
-var openAiService = new OpenAIService(new OpenAiOptions()
-{
-    ApiKey =  Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY")
-});
-```
+
 
 You can set default engine(optional):
 ```csharp
@@ -72,24 +80,24 @@ openAiService.SetDefaultEngineId(Engines.Davinci);
 
 ## Completions Sample
 ```csharp
-var completionResult = await openAiService.Completions.Create(new CompletionCreateRequest()
+var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest()
 {
-  Prompt = "Once upon a time",
-  MaxTokens = 5
-}, Engines.Engine.Davinci);
+    Prompt = "Once upon a time",
+    MaxTokens = 5
+}, Models.Davinci);
 
 if (completionResult.Successful)
 {
     Console.WriteLine(completionResult.Choices.FirstOrDefault());
-} 
+}
 else
 {
-  if (completionResult.Error == null)
-  {
-    throw new Exception("Unknown Error");
-  }
-  Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
- }
+    if (completionResult.Error == null)
+    {
+        throw new Exception("Unknown Error");
+    }
+    Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
+}
 ```
 
 
