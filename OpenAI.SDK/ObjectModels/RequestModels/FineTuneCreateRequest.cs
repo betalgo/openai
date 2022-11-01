@@ -104,6 +104,7 @@ public record FineTuneCreateRequest : IOpenAiModels.IModel
     ///     For example, a suffix of "custom-model-name" would produce a model name like
     ///     ada:ft-your-org:custom-model-name-2022-02-15-04-21-04.
     /// </summary>
+    [JsonPropertyName("suffix")]
     public string? Suffix { get; set; }
 
 

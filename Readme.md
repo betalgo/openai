@@ -124,3 +124,7 @@ I couldn't find enough time to test all the methods or improve the documentation
 * Updated some request and response models to catch up with changes in OpenAI api
 * New version has some breaking chnanges. Because we are in the fall season I needed to do some cleanup. Sorry for breaking changes but most of them are just renaming. I believe they can be solved before your coffee finish.
 * I am hoping to support Edit Feature in next version.
+### 6.4.1
+* Bug-fixes 
+    * FineTuneCreateRequest suffix json propert name changed "Suffix" to "suffix"
+    * CompletionCreateRequest user json propert name changed "User" to "user" (Thanks to @shaneqld), also now it is nullable string

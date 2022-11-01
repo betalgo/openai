@@ -123,7 +123,8 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         /// <summary>
         ///     A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.
         /// </summary>
-        public string User { get; set; }
+        [JsonPropertyName("user")]
+        public string? User { get; set; }
 
         /// <summary>
         ///     Include the log probabilities on the logprobs most likely tokens, as well the chosen tokens. For example, if
