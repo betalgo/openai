@@ -18,6 +18,8 @@
         string EmbeddingCreate();
         string ModerationCreate();
         string ImageCreate();
+        string ImageEditCreate();
+        string ImageVariationCreate();
     }
 
     internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
@@ -107,6 +109,16 @@
         public string ImageCreate()
         {
             return $"/{_apiVersion}/images/generations";
+        }
+
+        public string ImageEditCreate()
+        {
+            return $"/{_apiVersion}/images/edits";
+        }
+
+        public string ImageVariationCreate()
+        {
+            return $"/{_apiVersion}/images/variations";
         }
 
         private string Files()
