@@ -30,6 +30,12 @@ public interface IOpenAIService
     public IModerationService Moderation { get; }
 
     /// <summary>
+    ///     Given a prompt and/or an input image, the model will generate a new image.
+    /// </summary>
+    public IImageService Image  { get; }
+    
+
+    /// <summary>
     ///     Set default engine
     /// </summary>
     /// <param name="engineId"></param>
