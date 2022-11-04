@@ -17,6 +17,7 @@
         string FineTuneDelete(string fineTuneId);
         string EmbeddingCreate();
         string ModerationCreate();
+        string ImageCreate();
     }
 
     internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
@@ -101,6 +102,11 @@
         public string ModerationCreate()
         {
             return $"/{_apiVersion}/moderations";
+        }
+
+        public string ImageCreate()
+        {
+            return $"/{_apiVersion}/images/generations";
         }
 
         private string Files()

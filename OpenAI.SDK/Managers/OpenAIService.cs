@@ -55,6 +55,7 @@ namespace OpenAI.GPT3.Managers
         public IFileService Files => this;
         public IFineTuneService FineTunes => this;
         public IModerationService Moderation => this;
+        public IImageService Image => this;
 
         public void SetDefaultEngineId(string engineId)
         {

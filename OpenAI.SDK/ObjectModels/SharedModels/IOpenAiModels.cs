@@ -26,5 +26,9 @@
         {
             public int CreatedAt { get; set; }
         }
+        public interface IUser
+        {
+            public string User { get; set; }
+        }
     }
 }
