@@ -1,4 +1,4 @@
-# Dotnet SDK for OpenAI GTP-3 and DALL稥
+# Dotnet SDK for OpenAI GTP-3 and DALL路E
 
 [![Betalgo.OpenAI.GPT3](https://img.shields.io/nuget/v/Betalgo.OpenAI.GPT3?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.GPT3/)
 
@@ -6,12 +6,12 @@
 Install-Package Betalgo.OpenAI.GPT3
 ```
 
-Dotnet SDK for OpenAI GTP-3 and DALL稥  
+Dotnet SDK for OpenAI GTP-3 and DALL路E  
 *Unofficial*.  
 *GPT-3 doesn't have any official .Net SDK.*
 
 ## Features
-- [x] Image (DALL稥)
+- [x] Image (DALL路E)
 - [x] Models
 - [x] Completions
 - [x] Edit
@@ -76,7 +76,7 @@ openAiService.SetDefaultEngineId(Engines.Davinci);
 
 ## Completions Sample
 ```csharp
-var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest()
+var completionResult = await openAiService.Completions.CreateCompletion(new CompletionCreateRequest()
 {
     Prompt = "Once upon a time",
     MaxTokens = 5
@@ -117,8 +117,8 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 * In next version I will be focusing on code cleanup and refactoring. 
 * If I don't need to relase bug-fix for this version also I will be updating library with dotnet 7 in next version as I promised.
 ### 6.5.0
-* OpenAI made a surprise release yesterday and they have announced DALL稥 API. I needed to do other things but I couldn't resist. Because I was rushing, some methods and class names may will change in the next release. Until that day, enjoy your creative AI.  
-* **This library now fully support all DALL稥 features**.
+* OpenAI made a surprise release yesterday and they have announced DALL路E API. I needed to do other things but I couldn't resist. Because I was rushing, some methods and class names may will change in the next release. Until that day, enjoy your creative AI.  
+* **This library now fully support all DALL路E features**.
 * I tried to complete Edit API too bu unfortunately something was wrong with the documentation, I need to ask some questions in the community forum.
 ### 6.4.1
 * Bug-fixes 
