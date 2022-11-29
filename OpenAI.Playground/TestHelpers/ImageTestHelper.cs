@@ -42,19 +42,19 @@ namespace OpenAI.Playground.TestHelpers
                 Console.WriteLine(e);
                 throw;
             }
-        } 
-        
+        }
+
         public static async Task RunSimpleCreateImageEditTest(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Image Edit Create Testing is starting:", ConsoleColor.Cyan);
             const string maskFileName = "image_edit_mask.png";
             const string originalFileName = "image_edit_original.png";
-            
+
             // Images should be in png format with ARGB. I got help from this website to generate sample mask
             // https://www.online-image-editor.com/
             var maskFile = await File.ReadAllBytesAsync($"SampleData/{maskFileName}");
             var originalFile = await File.ReadAllBytesAsync($"SampleData/{originalFileName}");
-            
+
             try
             {
                 ConsoleExtensions.WriteLine("Image  Edit Create Test:", ConsoleColor.DarkCyan);
@@ -93,13 +93,13 @@ namespace OpenAI.Playground.TestHelpers
             }
         }
 
-         public static async Task RunSimpleCreateImageVariationTest(IOpenAIService sdk)
+        public static async Task RunSimpleCreateImageVariationTest(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Image Variation Create Testing is starting:", ConsoleColor.Cyan);
             const string originalFileName = "image_edit_original.png";
-            
+
             var originalFile = await File.ReadAllBytesAsync($"SampleData/{originalFileName}");
-            
+
             try
             {
                 ConsoleExtensions.WriteLine("Image Variation Create Test:", ConsoleColor.DarkCyan);

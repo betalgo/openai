@@ -121,12 +121,6 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         public object? LogitBias { get; set; }
 
         /// <summary>
-        ///     A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.
-        /// </summary>
-        [JsonPropertyName("user")]
-        public string? User { get; set; }
-
-        /// <summary>
         ///     Include the log probabilities on the logprobs most likely tokens, as well the chosen tokens. For example, if
         ///     logprobs is 5, the API will return a list of the 5 most likely tokens. The API will always return the logprob of
         ///     the sampled token, so there may be up to logprobs+1 elements in the response.
@@ -153,5 +147,11 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         /// <see cref="https://beta.openai.com/docs/api-reference/completions/create#completions/create-temperature" />
         [JsonPropertyName("temperature")]
         public float? Temperature { get; set; }
+
+        /// <summary>
+        ///     A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.
+        /// </summary>
+        [JsonPropertyName("user")]
+        public string? User { get; set; }
     }
 }

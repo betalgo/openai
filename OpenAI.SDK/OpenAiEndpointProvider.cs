@@ -4,6 +4,7 @@
     {
         string ModelRetrieve(string model);
         string CompletionCreate(string engineId);
+        string EditCreate();
         string ModelsList();
         string FilesList();
         string FilesUpload();
@@ -44,6 +45,11 @@
         public string CompletionCreate(string engineId)
         {
             return $"/{_apiVersion}/engines/{engineId}/completions";
+        }
+
+        public string EditCreate()
+        {
+            return $"/{_apiVersion}/edits";
         }
 
         public string ModelsList()

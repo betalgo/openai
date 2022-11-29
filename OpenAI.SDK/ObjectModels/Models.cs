@@ -24,6 +24,7 @@
             TextDavinciV1,
 
             TextDavinciV2,
+            TextDavinciV3,
 
             CurieInstructBeta,
             DavinciInstructBeta,
@@ -44,6 +45,9 @@
             TextSearchBabbageQueryV1,
             TextSearchCurieQueryV1,
             TextSearchDavinciQueryV1,
+
+            TextEditDavinciV1,
+            CodeEditDavinciV1,
 
             CodeSearchAdaCodeV1,
             CodeSearchBabbageCodeV1,
@@ -67,7 +71,9 @@
             TextSearchQuery,
             CodeSearchCode,
             CodeSearchText,
-            Code
+            Code,
+            CodeEdit,
+            Edit
         }
 
         public static string Ada => "ada";
@@ -80,6 +86,7 @@
 
         public static string TextDavinciV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.Text, "001");
         public static string TextDavinciV2 => ModelNameBuilder(BaseEngine.Davinci, Subject.Text, "002");
+        public static string TextDavinciV3 => ModelNameBuilder(BaseEngine.Davinci, Subject.Text, "003");
         public static string TextAdaV1 => ModelNameBuilder(BaseEngine.Ada, Subject.Text, "001");
         public static string TextBabbageV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.Text, "001");
         public static string TextCurieV1 => ModelNameBuilder(BaseEngine.Curie, Subject.Text, "001");
@@ -103,6 +110,9 @@
         public static string TextSearchBabbageQueryV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.TextSearchQuery, "001");
         public static string TextSearchCurieQueryV1 => ModelNameBuilder(BaseEngine.Curie, Subject.TextSearchQuery, "001");
         public static string TextSearchDavinciQueryV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.TextSearchQuery, "001");
+
+        public static string TextEditDavinciV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.Edit, "001");
+        public static string CodeEditDavinciV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.CodeEdit, "001");
 
         public static string CodeSearchAdaCodeV1 => ModelNameBuilder(BaseEngine.Ada, Subject.CodeSearchCode, "001");
         public static string CodeSearchBabbageCodeV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.CodeSearchCode, "001");
@@ -147,6 +157,7 @@
                 Model.DavinciInstructBeta => DavinciInstructBeta,
                 Model.TextDavinciV1 => TextDavinciV1,
                 Model.TextDavinciV2 => TextDavinciV2,
+                Model.TextDavinciV3 => TextDavinciV3,
                 Model.TextAdaV1 => TextAdaV1,
                 Model.TextBabbageV1 => TextBabbageV1,
                 Model.TextCurieV1 => TextCurieV1,
@@ -170,6 +181,8 @@
                 Model.CodeSearchBabbageCodeV1 => CodeSearchBabbageCodeV1,
                 Model.CodeSearchAdaTextV1 => CodeSearchAdaTextV1,
                 Model.CodeSearchBabbageTextV1 => CodeSearchBabbageTextV1,
+                Model.TextEditDavinciV1 => TextEditDavinciV1,
+                Model.CodeEditDavinciV1 => CodeEditDavinciV1,
                 _ => throw new ArgumentOutOfRangeException(nameof(engine), engine, null)
             };
         }
@@ -201,6 +214,8 @@
                 Subject.CodeSearchCode => "code-search-{0}-code",
                 Subject.CodeSearchText => "code-search-{0}-text",
                 Subject.Code => "code-{0}",
+                Subject.CodeEdit => "code-{0}-edit",
+                Subject.Edit => "text-{0}-edit",
                 _ => throw new ArgumentOutOfRangeException(nameof(subject), subject, null)
             }, baseEngine);
         }

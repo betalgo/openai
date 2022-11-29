@@ -2,7 +2,7 @@
 
 namespace OpenAI.GPT3.ObjectModels.RequestModels
 {
-    public class ImageVariationCreateRequest : SharedImageRequestBaseModel
+    public record ImageVariationCreateRequest : SharedImageRequestBaseModel
     {
         /// <summary>
         ///     The image to edit. Must be a valid PNG file, less than 4MB, and square.

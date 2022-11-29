@@ -3,7 +3,7 @@ using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.ObjectModels.RequestModels
 {
-    public class CreateModerationRequest : IOpenAiModels.IModel
+    public record CreateModerationRequest : IOpenAiModels.IModel
     {
         /// <summary>
         ///     The input text to classify
