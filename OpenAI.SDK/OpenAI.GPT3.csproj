@@ -7,7 +7,7 @@
 
 		<Copyright>Betalgo Up Ltd.</Copyright>
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
-		<PackageIcon>OpenAI-Logo.png</PackageIcon>
+		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Version>6.5.0</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
@@ -25,7 +25,7 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="OpenAI-Logo.png">
+		<None Include="OpenAI-Betalgo.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>

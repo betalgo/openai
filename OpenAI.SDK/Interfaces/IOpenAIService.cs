@@ -32,8 +32,13 @@ public interface IOpenAIService
     /// <summary>
     ///     Given a prompt and/or an input image, the model will generate a new image.
     /// </summary>
-    public IImageService Image  { get; }
-    
+    public IImageService Image { get; }
+
+    /// <summary>
+    ///     Creates a new edit for the provided input, instruction, and parameters
+    /// </summary>
+    public IEditService Edit { get; }
+
 
     /// <summary>
     ///     Set default engine

@@ -6,7 +6,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
     /// <summary>
     ///     Image Create Request Model
     /// </summary>
-    public class ImageCreateRequest : SharedImageRequestBaseModel, IOpenAiModels.IUser
+    public record ImageCreateRequest : SharedImageRequestBaseModel, IOpenAiModels.IUser
     {
         public ImageCreateRequest()
         {
