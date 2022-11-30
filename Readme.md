@@ -112,6 +112,7 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 ### 6.6.0
 * Added support for new models (davinciv3 & edit models)
 * Added support for Edit endpoint.
+* (*Warning*: edit endpoint works with only some of the models, I couldn't find documentation about it, please follow the thread for more information: https://community.openai.com/t/is-edit-endpoint-documentation-incorrect/23361 )
 * Some objects were created as class instead of record at last version. I change them to record. This will be breaking changes for some of you.
 * With this version I think we cover all of openai APIs 
 * In next version I will be focusing on code cleanup and refactoring. 
