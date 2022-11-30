@@ -9,13 +9,13 @@
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>6.5.0</Version>
+		<Version>6.6.0</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>OpenAI GPT-3 and DALL·E dotnet SDK</Product>
 		<Description>Dotnet SDK for OpenAI GTP-3 and DALL·E</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
-		<PackageTags>openAI,gpt-3,ai,betalgo,NLP, dalle, DALL·E </PackageTags>
+		<PackageTags>openAI,gpt-3,ai,betalgo,NLP,dalle,DALL·E,dall-e</PackageTags>
 		<PackageId>Betalgo.$(AssemblyName)</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
