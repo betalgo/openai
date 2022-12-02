@@ -6,15 +6,15 @@
 Install-Package Betalgo.OpenAI.GPT3
 ```
 
-Dotnet SDK for OpenAI GTP-3 and DALL·E </br>
-*Unofficial*. </br>
+Dotnet SDK for OpenAI GTP-3 and DALL·E  
+*Unofficial*.  
 *GPT-3 doesn't have any official .Net SDK.*
 
 ## Features
 - [x] Image (DALL·E)
 - [x] Models
 - [x] Completions
-- [ ] Edit
+- [x] Edit
 - [x] Mars
 - [x] Embeddings
 - [x] Files
@@ -26,9 +26,9 @@ For changelogs please go to end of the document.
 Visit https://openai.com/ to get your API key. Also documentation with more detail is avaliable there.
 
 ## Sample Usages
-### ***!! I would strongly suggest to use different account than your main account while you use playground.<br> Test methods could add or delete your files and models !!***
+### ***!! I would strongly suggest to use different account than your main account while you use playground.   Test methods could add or delete your files and models !!***
 
-The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be carefull while playing with it. Some test methods will delete your files or fine tunings. <br>
+The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be carefull while playing with it. Some test methods will delete your files or fine tunings.  
 
 
 ### Without using dependcy injection:
@@ -47,7 +47,7 @@ var openAiService = new OpenAIService(new OpenAiOptions()
     //,"Organization": "Your Organization Id goes here (optional)"
   },
 ```
-*(How to use [user secret](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows) ? <br>
+*(How to use [user secret](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows) ?  
 Right click your project name in "solution explorer" then click "Manage User Secret", it is a good way to keep your api keys)*
 
 #### Program.cs
@@ -55,7 +55,7 @@ Right click your project name in "solution explorer" then click "Manage User Sec
 serviceCollection.AddOpenAIService();
 ```
 
-**OR**<br>
+**OR**  
 Use it like below but do NOT put your API key directly to your source code. 
 #### Program.cs
 ```csharp
@@ -109,6 +109,14 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 
 
 ## Changelog
+### 6.6.0
+* Added support for new models (davinciv3 & edit models)
+* Added support for Edit endpoint.
+* (*Warning*: edit endpoint works with only some of the models, I couldn't find documentation about it, please follow the thread for more information: https://community.openai.com/t/is-edit-endpoint-documentation-incorrect/23361 )
+* Some objects were created as class instead of record at last version. I change them to record. This will be breaking changes for some of you.
+* With this version I think we cover all of openai APIs 
+* In next version I will be focusing on code cleanup and refactoring. 
+* If I don't need to relase bug-fix for this version also I will be updating library with dotnet 7 in next version as I promised.
 ### 6.5.0
 * OpenAI made a surprise release yesterday and they have announced DALL·E API. I needed to do other things but I couldn't resist. Because I was rushing, some methods and class names may will change in the next release. Until that day, enjoy your creative AI.  
 * **This library now fully support all DALL·E features**.

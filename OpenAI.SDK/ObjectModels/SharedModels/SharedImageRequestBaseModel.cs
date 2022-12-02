@@ -2,7 +2,7 @@
 
 namespace OpenAI.GPT3.ObjectModels.SharedModels
 {
-    public class SharedImageRequestBaseModel
+    public record SharedImageRequestBaseModel
     {
         /// <summary>
         ///     The number of images to generate. Must be between 1 and 10.
