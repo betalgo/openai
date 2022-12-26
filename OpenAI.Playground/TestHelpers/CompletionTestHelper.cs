@@ -16,6 +16,7 @@ namespace OpenAI.Playground.TestHelpers
                 var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest()
                 {
                     Prompt = "Once upon a time",
+                //    PromptAsList = new []{"Once upon a time"},
                     MaxTokens = 5
                 }, Models.Davinci);
 

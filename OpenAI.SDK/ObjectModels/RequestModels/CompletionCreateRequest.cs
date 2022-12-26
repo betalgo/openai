@@ -18,8 +18,37 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     the model will generate as if from the beginning of a new document.
         /// </summary>
         /// <see cref="https://beta.openai.com/docs/api-reference/completions/create#completions/create-prompt" />
-        [JsonPropertyName("prompt")]
+        [JsonIgnore]
         public string? Prompt { get; set; }
+
+        /// <summary>
+        ///     The prompt(s) to generate completions for, encoded as a string, a list of strings, or a list of token lists.
+        ///     Note that endoftext is the document separator that the model sees during training, so if a prompt is not specified
+        ///     the model will generate as if from the beginning of a new document.
+        /// </summary>
+        /// <see cref="https://beta.openai.com/docs/api-reference/completions/create#completions/create-prompt" />
+        [JsonIgnore]
+        public IList<string>? PromptAsList { get; set; }
+
+        [JsonPropertyName("prompt")]
+        public IList<string>? PromptCalculated
+        {
+            get
+            {
+                if (Prompt != null && PromptAsList != null)
+                {
+                    throw new ValidationException("Prompt and PromptAsList can not be assigned at the same time. One of them is should be null.");
+                }
+
+                if (Prompt != null)
+                {
+                    return new List<string>() {Prompt};
+                }
+
+
+                return PromptAsList;
+            }
+        }
 
         /// <summary>
         ///     The suffix that comes after a completion of inserted text.
@@ -75,8 +104,32 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop
         ///     sequence.
         /// </summary>
-        [JsonPropertyName("stop")]
         public string? Stop { get; set; }
+
+        /// <summary>
+        ///     Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop
+        ///     sequence.
+        /// </summary>
+        public IList<string>? StopAsList { get; set; }
+
+        [JsonPropertyName("stop")]
+        public IList<string>? StopCalculated
+        {
+            get
+            {
+                if (Stop != null && StopAsList != null)
+                {
+                    throw new ValidationException("Stop and StopAsList can not be assigned at the same time. One of them is should be null.");
+                }
+
+                if (Stop != null)
+                {
+                    return new List<string>() {Stop};
+                }
+
+                return StopAsList;
+            }
+        }
 
         /// <summary>
         ///     Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far,
