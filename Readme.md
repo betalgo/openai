@@ -109,6 +109,17 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 
 
 ## Changelog
+### 6.6.1
+* **Breaking change**. 
+    * `EmbeddingCreateRequest.Input` was a ***string list*** type now it is a ***string*** type.  
+    I have introduced `InputAsList` property instead of `Input`. You may need to update your code according the change.  
+    ***Both Input(string) and InputAsList(string list) avaliable for use***
+
+* Added string and string List support for some of the propertis.
+    * CompletionCreateRequest --> Prompt & PromptAsList / Stop & StopAsList 
+    * CreateModerationRequest --> Input & InputAsList 
+    * EmbeddingCreateRequest --> Input & InputAsList
+    
 ### 6.6.0
 * Added support for new models (davinciv3 & edit models)
 * Added support for Edit endpoint.

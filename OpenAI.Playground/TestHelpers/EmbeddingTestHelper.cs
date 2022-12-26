@@ -15,7 +15,7 @@ namespace OpenAI.Playground.TestHelpers
                 ConsoleExtensions.WriteLine("Embedding Test:", ConsoleColor.DarkCyan);
                 var embeddingResult = await sdk.Embeddings.CreateEmbedding(new EmbeddingCreateRequest()
                 {
-                    Input = new List<string> {"The quick brown fox jumped over the lazy dog."},
+                    InputAsList = new List<string> {"The quick brown fox jumped over the lazy dog."},
                     Model = Models.TextSearchAdaDocV1
                 });
 

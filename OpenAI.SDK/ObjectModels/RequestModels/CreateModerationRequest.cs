@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.ObjectModels.RequestModels
@@ -8,8 +9,34 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         /// <summary>
         ///     The input text to classify
         /// </summary>
+        [JsonIgnore]
+        public List<string>? InputAsList { get; set; }
+
+        /// <summary>
+        ///     The input text to classify
+        /// </summary>
+        [JsonIgnore]
+        public string? Input { get; set; }
+
+
         [JsonPropertyName("input")]
-        public string Input { get; set; }
+        public IList<string>? InputCalculated
+        {
+            get
+            {
+                if (Input != null && InputAsList != null)
+                {
+                    throw new ValidationException("Input and InputAsList can not be assigned at the same time. One of them is should be null.");
+                }
+
+                if (Input != null)
+                {
+                    return new List<string>() {Input};
+                }
+
+                return InputAsList;
+            }
+        }
 
         /// <summary>
         ///     Two content moderations models are available: text-moderation-stable and text-moderation-latest.
