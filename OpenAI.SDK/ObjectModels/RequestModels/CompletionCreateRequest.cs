@@ -104,12 +104,14 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop
         ///     sequence.
         /// </summary>
+        [JsonIgnore]
         public string? Stop { get; set; }
 
         /// <summary>
         ///     Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop
         ///     sequence.
         /// </summary>
+        [JsonIgnore]
         public IList<string>? StopAsList { get; set; }
 
         [JsonPropertyName("stop")]
