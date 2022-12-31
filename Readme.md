@@ -109,6 +109,9 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 
 
 ## Changelog
+### 6.6.2
+    * Bug-fix,added jsonignore for `stop` and `stopAsList`, thanks to @Patapum 
+
 ### 6.6.1
 * **Breaking change**. 
     * `EmbeddingCreateRequest.Input` was a ***string list*** type now it is a ***string*** type.  
