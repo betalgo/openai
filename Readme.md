@@ -1,4 +1,4 @@
-# Dotnet SDK for OpenAI GTP-3 and DALL·E
+# Dotnet SDK for OpenAI GPT-3 and DALL·E
 
 [![Betalgo.OpenAI.GPT3](https://img.shields.io/nuget/v/Betalgo.OpenAI.GPT3?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.GPT3/)
 
@@ -6,7 +6,7 @@
 Install-Package Betalgo.OpenAI.GPT3
 ```
 
-Dotnet SDK for OpenAI GTP-3 and DALL·E  
+Dotnet SDK for OpenAI GPT-3 and DALL·E  
 *Unofficial*.  
 *GPT-3 doesn't have any official .Net SDK.*
 
