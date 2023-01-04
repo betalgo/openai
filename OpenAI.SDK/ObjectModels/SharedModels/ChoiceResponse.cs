@@ -2,7 +2,7 @@
 
 namespace OpenAI.GPT3.ObjectModels.SharedModels;
 
-public record ChoiceResponse : IOpenAiModels.ILogProbs
+public record ChoiceResponse : IOpenAiModels.ILogProbsResponse
 {
     [JsonPropertyName("text")] public string Text { get; set; }
 
@@ -10,5 +10,5 @@ public record ChoiceResponse : IOpenAiModels.ILogProbs
 
     [JsonPropertyName("finish_reason")] public string FinishReason { get; set; }
 
-    [JsonPropertyName("logprobs")] public int? LogProbs { get; set; }
+    [JsonPropertyName("logprobs")] public LogProbsResponse LogProbs { get; set; }
 }
