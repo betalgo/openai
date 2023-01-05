@@ -9,7 +9,7 @@
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>6.6.2</Version>
+		<Version>6.6.3</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>OpenAI GPT-3 and DALL·E dotnet SDK</Product>
@@ -19,6 +19,8 @@
 		<PackageId>Betalgo.$(AssemblyName)</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<RepositoryUrl>https://github.com/betalgo/openai.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="..\Readme.md">

@@ -109,8 +109,12 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 
 
 ## Changelog
+### 6.6.3
+* Bug-fix,now we are handling logprops response properly, thanks to @KosmonikOS
+* Code cleanu-up, thanks to @KosmonikOS
+
 ### 6.6.2
-    * Bug-fix,added jsonignore for `stop` and `stopAsList`, thanks to @Patapum 
+* Bug-fix,added jsonignore for `stop` and `stopAsList`, thanks to @Patapum 
     
 ### 6.6.1
 * **Breaking change**. 

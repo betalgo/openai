@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace OpenAI.GPT3.ObjectModels.SharedModels;
 
@@ -10,7 +11,17 @@ public record LogProbsResponse
 
     [JsonPropertyName("top_logprobs")] public List<Dictionary<string, double>> TopLogProbsRaw { get; set; }
 
-    public Dictionary<string, double> TopLogProbs => TopLogProbsRaw.SelectMany(r => r).ToDictionary(k => k.Key, k => k.Value);
+    public List<TopLogProbResponse> TopLogProbs => TopLogProbsRaw.SelectMany(r => r.Select(a=> new TopLogProbResponse()
+    {
+        Key = a.Key,
+        LogProp= a.Value
+    })).ToList();
 
     [JsonPropertyName("text_offset")] public List<int> TextOffset { get; set; }
+}
+
+public class TopLogProbResponse
+{
+    public string Key { get; set; }
+    public double LogProp { get; set; }
 }
