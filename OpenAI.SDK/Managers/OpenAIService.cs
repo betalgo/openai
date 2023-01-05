@@ -13,22 +13,7 @@ namespace OpenAI.GPT3.Managers
 
         [ActivatorUtilitiesConstructor]
         public OpenAIService(HttpClient httpClient, IOptions<OpenAiOptions> settings)
-        {
-            settings.Value.Validate();
-
-            _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri(settings.Value.BaseDomain);
-            var authKey = settings.Value.ApiKey;
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authKey}");
-            var organization = settings.Value.Organization;
-            if (!string.IsNullOrEmpty(organization))
-            {
-                _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{organization}");
-            }
-
-            _endpointProvider = new OpenAiEndpointProvider(settings.Value.ApiVersion);
-            _engineId = OpenAiOptions.DefaultEngineId;
-        }
+        : this(settings.Value, httpClient) { }
 
         public OpenAIService(OpenAiOptions settings, HttpClient? httpClient = null)
         {

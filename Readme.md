@@ -1,4 +1,4 @@
-# Dotnet SDK for OpenAI GTP-3 and DALL·E
+# Dotnet SDK for OpenAI GPT-3 and DALL·E
 
 [![Betalgo.OpenAI.GPT3](https://img.shields.io/nuget/v/Betalgo.OpenAI.GPT3?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.GPT3/)
 
@@ -6,7 +6,7 @@
 Install-Package Betalgo.OpenAI.GPT3
 ```
 
-Dotnet SDK for OpenAI GTP-3 and DALL·E  
+Dotnet SDK for OpenAI GPT-3 and DALL·E  
 *Unofficial*.  
 *GPT-3 doesn't have any official .Net SDK.*
 
@@ -109,8 +109,12 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 
 
 ## Changelog
+### 6.6.3
+* Bug-fix, now we are handling logprops response properly, thanks to @KosmonikOS
+* Code clean-up, thanks to @KosmonikOS
+
 ### 6.6.2
-    * Bug-fix,added jsonignore for `stop` and `stopAsList`, thanks to @Patapum 
+* Bug-fix,added jsonignore for `stop` and `stopAsList`, thanks to @Patapum 
     
 ### 6.6.1
 * **Breaking change**. 

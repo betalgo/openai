@@ -12,9 +12,14 @@
             string Model { get; set; }
         }
 
-        public interface ILogProbs
+        public interface ILogProbsRequest
         {
             int? LogProbs { get; set; }
+        }
+
+        public interface ILogProbsResponse
+        {
+            LogProbsResponse LogProbs { get; set; }
         }
 
         public interface ITemperature
