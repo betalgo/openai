@@ -17,7 +17,8 @@ namespace OpenAI.Playground.TestHelpers
                 {
                     Prompt = "Once upon a time",
                     //    PromptAsList = new []{"Once upon a time"},
-                    MaxTokens = 5
+                    MaxTokens = 5,
+                    LogProbs = 1,
                 }, Models.Davinci);
 
                 if (completionResult.Successful)
