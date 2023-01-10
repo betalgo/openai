@@ -16,11 +16,11 @@
         ///     An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where image should be edited.
         ///     Must be a valid PNG file, less than 4MB, and have the same dimensions as image.
         /// </summary>
-        public byte[] Mask { get; set; }
+        public byte[]? Mask { get; set; }
 
         /// <summary>
         ///     Mask file name
         /// </summary>
-        public string MaskName { get; set; }
+        public string? MaskName { get; set; }
     }
 }
