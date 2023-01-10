@@ -95,7 +95,23 @@ else
     Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
 }
 ```
+## DALL·E Sample
+```csharp
+var imageResult = await sdk.Image.CreateImage(new ImageCreateRequest
+{
+    Prompt = "Laser cat eyes",
+    N = 2,
+    Size = StaticValues.ImageStatics.Size.Size256,
+    ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
+    User = "TestUser"
+});
 
+
+if (imageResult.Successful)
+{
+    Console.WriteLine(string.Join("\n", imageResult.Results.Select(r => r.Url)));
+}
+```
 
 ## Notes:
 I couldn't find enough time to test all the methods or improve the documentation. My main target was to make fine-tuning available. If you hit any issue please report it or pull request always appreciated. 
@@ -109,6 +125,10 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 
 
 ## Changelog
+### 6.6.4
+* Bug-fix, ImageEditRequest.Mask now is optional. thanks to @hanialaraj 
+*(if you are using edit request without mask your image has to be RGBA, RGB is not allowed)*
+
 ### 6.6.3
 * Bug-fix, now we are handling logprops response properly, thanks to @KosmonikOS
 * Code clean-up, thanks to @KosmonikOS
