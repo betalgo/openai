@@ -30,7 +30,9 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //await ImageTestHelper.RunSimpleCreateImageEditTest(sdk);
 //await ImageTestHelper.RunSimpleCreateImageVariationTest(sdk);
 //await ModerationTestHelper.CreateModerationTest(sdk);
-await CompletionTestHelper.RunSimpleCompletionTest(sdk);
+//await CompletionTestHelper.RunSimpleCompletionTest(sdk);
+
+await CompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 //await EmbeddingTestHelper.RunSimpleEmbeddingTest(sdk);
 //await FileTestHelper.RunSimpleFileTest(sdk);
 ////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
