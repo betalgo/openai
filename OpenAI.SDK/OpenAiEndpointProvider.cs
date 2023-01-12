@@ -3,6 +3,7 @@
     internal interface IOpenAiEndpointProvider
     {
         string ModelRetrieve(string model);
+        string CompletionCreate();
         string CompletionCreate(string engineId);
         string EditCreate();
         string ModelsList();
@@ -40,6 +41,18 @@
         public string FileDelete(string fileId)
         {
             return $"/{_apiVersion}/files/{fileId}";
+        }
+
+        /* 
+         *   From Documentation 
+         *   https://help.openai.com/en/articles/6283125-what-happened-to-engines
+         *   after June 6, 2022 
+         *   What happened to ‘engines’?
+         *   We are deprecating the term ‘engine’ in favor of ‘model’. Most people already use these terms interchangeably, and we consistently hear that ‘model’ is more intuitive. 
+         */
+        public string CompletionCreate()
+        {
+            return $"/{_apiVersion}/completions";
         }
 
         public string CompletionCreate(string engineId)

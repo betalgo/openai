@@ -9,6 +9,12 @@ public partial class OpenAIService : ICompletionService
 {
     public async Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionRequest, string? engineId = null)
     {
-        return await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(ProcessEngineId(engineId)), createCompletionRequest);
+        // if I don't have an engine I use the new endpoint
+        CompletionCreateResponse response =
+            !string.IsNullOrEmpty(createCompletionRequest.Model)
+                        ? await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(), createCompletionRequest)
+                        : await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(ProcessEngineId(engineId)), createCompletionRequest);
+
+        return response;
     }
 }
