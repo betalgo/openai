@@ -2,7 +2,6 @@
 using System.Text.Json.Serialization;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels.SharedModels;
-using static System.Net.WebRequestMethods;
 
 namespace OpenAI.GPT3.ObjectModels.RequestModels
 {
