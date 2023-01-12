@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels.SharedModels;
@@ -42,7 +42,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
 
                 if (Prompt != null)
                 {
-                    return new List<string>() { Prompt };
+                    return new List<string>() {Prompt};
                 }
 
 
@@ -126,7 +126,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
 
                 if (Stop != null)
                 {
-                    return new List<string>() { Stop };
+                    return new List<string>() {Stop};
                 }
 
                 return StopAsList;
@@ -185,8 +185,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         [JsonPropertyName("logprobs")]
         public int? LogProbs { get; set; }
 
-        [JsonPropertyName("model")]
-        public string? Model { get; set; }
+        [JsonPropertyName("model")] public string? Model { get; set; }
 
         public IEnumerable<ValidationResult> Validate()
         {
