@@ -31,7 +31,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         [JsonIgnore]
         public IList<string>? PromptAsList { get; set; }
 
-        [JsonPropertyName("prompt"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("prompt")]
         public IList<string>? PromptCalculated
         {
             get
@@ -54,7 +54,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         /// <summary>
         ///     The suffix that comes after a completion of inserted text.
         /// </summary>
-        [JsonPropertyName("suffix"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("suffix")]
         public string? Suffix { get; set; }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     length of 2048 tokens (except davinci-codex, which supports 4096).
         /// </summary>
         /// <see cref="https://beta.openai.com/docs/api-reference/completions/create#completions/create-max_tokens" />
-        [JsonPropertyName("max_tokens"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("max_tokens")]
         public int? MaxTokens { get; set; }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     considered.
         ///     We generally recommend altering this or temperature but not both.
         /// </summary>
-        [JsonPropertyName("top_p"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("top_p")]
         public float? TopP { get; set; }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     Note: Because this parameter generates many completions, it can quickly consume your token quota.Use carefully and
         ///     ensure that you have reasonable settings for max_tokens and stop.
         /// </summary>
-        [JsonPropertyName("n"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("n")]
         public int? N { get; set; }
 
         /// <summary>
@@ -92,13 +92,13 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     </a>
         ///     as they become available, with the stream terminated by a data: [DONE] message.
         /// </summary>
-        [JsonPropertyName("stream"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("stream")]
         public bool? Stream { get; set; }
 
         /// <summary>
         ///     Echo back the prompt in addition to the completion
         /// </summary>
-        [JsonPropertyName("echo"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("echo")]
         public bool? Echo { get; set; }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         [JsonIgnore]
         public IList<string>? StopAsList { get; set; }
 
-        [JsonPropertyName("stop"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("stop")]
         public IList<string>? StopCalculated
         {
             get
@@ -139,7 +139,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     increasing the model's likelihood to talk about new topics.
         /// </summary>
         /// <seealso cref="https://beta.openai.com/docs/api-reference/parameter-details" />
-        [JsonPropertyName("presence_penalty"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("presence_penalty")]
         public float? PresencePenalty { get; set; }
 
 
@@ -148,7 +148,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     far, decreasing the model's likelihood to repeat the same line verbatim.
         /// </summary>
         /// <seealso cref="https://beta.openai.com/docs/api-reference/parameter-details" />
-        [JsonPropertyName("frequency_penalty"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("frequency_penalty")]
         public float? FrequencyPenalty { get; set; }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     Note: Because this parameter generates many completions, it can quickly consume your token quota.Use carefully and
         ///     ensure that you have reasonable settings for max_tokens and stop.
         /// </summary>
-        [JsonPropertyName("best_of"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("best_of")]
         public int? BestOf { get; set; }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     to prevent the endoftext token from being generated.
         /// </summary>
         /// <seealso cref="https://beta.openai.com/tokenizer?view=bpe" />
-        [JsonPropertyName("logit_bias"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("logit_bias")]
         public object? LogitBias { get; set; }
 
         /// <summary>
@@ -183,10 +183,10 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     The maximum value for logprobs is 5. If you need more than this, please contact support@openai.com and describe
         ///     your use case.
         /// </summary>
-        [JsonPropertyName("logprobs"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("logprobs")]
         public int? LogProbs { get; set; }
 
-        [JsonPropertyName("model"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("model")]
         public string? Model { get; set; }
 
         public IEnumerable<ValidationResult> Validate()
@@ -202,13 +202,13 @@ namespace OpenAI.GPT3.ObjectModels.RequestModels
         ///     We generally recommend altering this or top_p but not both.
         /// </summary>
         /// <see cref="https://beta.openai.com/docs/api-reference/completions/create#completions/create-temperature" />
-        [JsonPropertyName("temperature"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("temperature")]
         public float? Temperature { get; set; }
 
         /// <summary>
         ///     A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.
         /// </summary>
-        [JsonPropertyName("user"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("user")]
         public string? User { get; set; }
     }
 }
