@@ -138,7 +138,7 @@ As you can guess I do not accept any damage caused by use of the library. You ar
             * If you find this complicated please have a look at the implementation, OpenAI.SDK/Extensions/ModelExtension.cs -> ProcessModelId()
 * New Method introduced:  GetDefaultModelId();
 * Some name changes about the legacy `engine` keyword with the new `model` keyword
-* Started to use the latest Completion endpoint. This expecting to solve finetuning issues
+* Started to use the latest Completion endpoint. This expecting to solve finetuning issues. Thanks to @maiemy and other reporters.
 ### 6.6.4
 * Bug-fix, ImageEditRequest.Mask now is optional. thanks to @hanialaraj 
 *(if you are using edit request without mask your image has to be RGBA, RGB is not allowed)*
