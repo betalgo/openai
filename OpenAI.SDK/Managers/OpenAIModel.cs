@@ -13,6 +13,6 @@ public partial class OpenAIService : IModelService
 
     public async Task<ModelRetrieveResponse> RetrieveModel(string model)
     {
-        return await _httpClient.GetFromJsonAsync<ModelRetrieveResponse>(_endpointProvider.ModelRetrieve(ProcessEngineId(model)));
+        return await _httpClient.GetFromJsonAsync<ModelRetrieveResponse>(_endpointProvider.ModelRetrieve(model));
     }
 }

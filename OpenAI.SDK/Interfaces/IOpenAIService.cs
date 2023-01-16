@@ -41,8 +41,8 @@ public interface IOpenAIService
 
 
     /// <summary>
-    ///     Set default engine
+    ///     Set default model
     /// </summary>
-    /// <param name="engineId"></param>
-    void SetDefaultEngineId(string engineId);
+    /// <param name="modelId"></param>
+    void SetDefaultModelId(string modelId);
 }

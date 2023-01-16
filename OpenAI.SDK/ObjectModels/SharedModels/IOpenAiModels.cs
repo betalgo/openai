@@ -9,7 +9,7 @@
 
         public interface IModel
         {
-            string Model { get; set; }
+            string? Model { get; set; }
         }
 
         public interface ILogProbsRequest

@@ -31,8 +31,10 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //await ImageTestHelper.RunSimpleCreateImageVariationTest(sdk);
 //await ModerationTestHelper.CreateModerationTest(sdk);
 await CompletionTestHelper.RunSimpleCompletionTest(sdk);
+await CompletionTestHelper.RunSimpleCompletionTest2(sdk);
+await CompletionTestHelper.RunSimpleCompletionTest3(sdk);
 //await EmbeddingTestHelper.RunSimpleEmbeddingTest(sdk);
-//await FileTestHelper.RunSimpleFileTest(sdk);
-////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
+//////await FileTestHelper.RunSimpleFileTest(sdk); //will delete files
+//////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
 //await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 Console.ReadLine();

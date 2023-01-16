@@ -7,17 +7,9 @@ namespace OpenAI.GPT3.Managers;
 
 public partial class OpenAIService : IEditService
 {
-    public async Task<EditCreateResponse> CreateEdit(EditCreateRequest editCreate, string? engineId = null)
+    public async Task<EditCreateResponse> CreateEdit(EditCreateRequest editCreate, string? modelId = null)
     {
-        if (editCreate.Model != null && engineId != null)
-        {
-            throw new ArgumentException("You cannot specify both a model and an engineId");
-        }
-        else if (editCreate.Model == null && engineId != null)
-        {
-            editCreate.Model = ProcessEngineId(engineId);
-        }
-
+        editCreate.ProcessModelId(modelId, _defaultModelId);
         return await _httpClient.PostAndReadAsAsync<EditCreateResponse>(_endpointProvider.EditCreate(), editCreate);
     }
 }
