@@ -8,9 +8,11 @@ namespace OpenAI.GPT3.Managers;
 
 public partial class OpenAIService : ICompletionService
 {
-    public async Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionRequest, string? engineId = null)
+    public async Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionRequest, string? modelId = null)
     {
-        return await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(ProcessEngineId(engineId)), createCompletionRequest);
+        createCompletionRequest.ProcessModelId(modelId, _defaultModelId);
+
+        return await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(), createCompletionRequest);
     }
 
 
