@@ -9,11 +9,13 @@ namespace OpenAI.GPT3.Managers
     {
         private readonly IOpenAiEndpointProvider _endpointProvider;
         private readonly HttpClient _httpClient;
-        private string? _engineId;
+        private string? _defaultModelId;
 
         [ActivatorUtilitiesConstructor]
         public OpenAIService(HttpClient httpClient, IOptions<OpenAiOptions> settings)
-        : this(settings.Value, httpClient) { }
+            : this(settings.Value, httpClient)
+        {
+        }
 
         public OpenAIService(OpenAiOptions settings, HttpClient? httpClient = null)
         {
@@ -30,7 +32,7 @@ namespace OpenAI.GPT3.Managers
             }
 
             _endpointProvider = new OpenAiEndpointProvider(settings.ApiVersion);
-            _engineId = OpenAiOptions.DefaultEngineId;
+            _defaultModelId = OpenAiOptions.DefaultEngineId;
         }
 
 
@@ -43,14 +45,22 @@ namespace OpenAI.GPT3.Managers
         public IImageService Image => this;
         public IEditService Edit => this;
 
-        public void SetDefaultEngineId(string engineId)
+        /// <summary>
+        ///     Sets default Model Id
+        /// </summary>
+        /// <param name="modelId"></param>
+        public void SetDefaultModelId(string modelId)
         {
-            _engineId = engineId;
+            _defaultModelId = modelId;
         }
 
-        private string ProcessEngineId(string? engineId)
+        /// <summary>
+        ///     Get default Model Id
+        /// </summary>
+        /// <returns></returns>
+        public string? GetDefaultModelId()
         {
-            return engineId ?? _engineId ?? throw new ArgumentNullException(nameof(engineId));
+            return _defaultModelId;
         }
     }
 }

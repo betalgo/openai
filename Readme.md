@@ -69,9 +69,9 @@ var openAiService = serviceProvider.GetRequiredService<IOpenAIService>();
 
 
 
-You can set default engine(optional):
+You can set default model(optional):
 ```csharp
-openAiService.SetDefaultEngineId(Engines.Davinci);
+openAiService.SetDefaultModelId(Engines.Davinci);
 ```
 
 ## Completions Sample
@@ -125,6 +125,20 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 
 
 ## Changelog
+### 6.6.5
+* Sad news, we have Breaking Changes.
+    * `SetDefaultEngineId()` replaced by `SetDefaultModelId()`
+    * `RetrieveModel(modelId)` will not use the default Model anymore. You have to pass modelId as a parameter.
+    * I implemented Model overwrite logic.  
+        * If you pass a modelId as a parameter it will overwrite the Default Model Id and object modelId  
+        * If you pass your modelId in your object it will overwrite the Default Model Id
+        * If you don't pass any modelId  it will use Default Model Id
+        * If you didn't set a Default Model Id, SDK will throw a null argument exception 
+            * Parameter Model Id > Object Model Id > Default Model Id
+            * If you find this complicated please have a look at the implementation, OpenAI.SDK/Extensions/ModelExtension.cs -> ProcessModelId()
+* New Method introduced:  GetDefaultModelId();
+* Some name changes about the legacy `engine` keyword with the new `model` keyword
+* Started to use the latest Completion endpoint. This expecting to solve finetuning issues
 ### 6.6.4
 * Bug-fix, ImageEditRequest.Mask now is optional. thanks to @hanialaraj 
 *(if you are using edit request without mask your image has to be RGBA, RGB is not allowed)*
