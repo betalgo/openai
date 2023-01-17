@@ -130,13 +130,12 @@ namespace OpenAI.Playground.TestHelpers
             try
             {
                 ConsoleExtensions.WriteLine("Completion Test:", ConsoleColor.DarkCyan);
-                var completionResult = sdk.Completions.CreateCompletionStream(new CompletionCreateRequest()
+                var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
                 {
                     Prompt = "Once upon a time",
                     //    PromptAsList = new []{"Once upon a time"},
-                    MaxTokens = 100,
-                    LogProbs = 1,
-                    LogitBias = null // this was causing an exception to be thrown when serializing the request to JSON
+                    MaxTokens = 1000,
+                  //  LogProbs = 1
                 }, Models.Davinci);
 
                 await foreach (var completion in completionResult)

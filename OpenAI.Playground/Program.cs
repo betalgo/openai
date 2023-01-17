@@ -30,9 +30,9 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //await ImageTestHelper.RunSimpleCreateImageEditTest(sdk);
 //await ImageTestHelper.RunSimpleCreateImageVariationTest(sdk);
 //await ModerationTestHelper.CreateModerationTest(sdk);
-await CompletionTestHelper.RunSimpleCompletionTest(sdk);
-await CompletionTestHelper.RunSimpleCompletionTest2(sdk);
-await CompletionTestHelper.RunSimpleCompletionTest3(sdk);
+//await CompletionTestHelper.RunSimpleCompletionTest(sdk);
+//await CompletionTestHelper.RunSimpleCompletionTest2(sdk);
+//await CompletionTestHelper.RunSimpleCompletionTest3(sdk);
 await CompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 //await EmbeddingTestHelper.RunSimpleEmbeddingTest(sdk);
 //////await FileTestHelper.RunSimpleFileTest(sdk); //will delete files
