@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -19,6 +20,22 @@ namespace OpenAI.GPT3.Extensions
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
             });
             return await response.Content.ReadFromJsonAsync<TResponse>() ?? throw new InvalidOperationException();
+        }
+
+        public static HttpResponseMessage PostAsStreamAsync(this HttpClient client, string uri, object requestModel)
+        {
+            var settings = new JsonSerializerOptions()
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+            };
+
+            var content = JsonContent.Create(requestModel, null, settings);
+
+            using var request = new HttpRequestMessage(HttpMethod.Post, uri);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
+            request.Content = content;
+
+            return client.Send(request, HttpCompletionOption.ResponseHeadersRead);
         }
 
         public static async Task<TResponse> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content)
