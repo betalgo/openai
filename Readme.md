@@ -11,6 +11,7 @@ Dotnet SDK for OpenAI GPT-3 and DALL·E
 *GPT-3 doesn't have any official .Net SDK.*
 
 ## Features
+- [ ] ChatGPT (coming soon)
 - [x] Image (DALL·E)
 - [x] Models
 - [x] Completions
@@ -20,6 +21,7 @@ Dotnet SDK for OpenAI GPT-3 and DALL·E
 - [x] Files
 - [x] Fine-tunes
 - [x] Moderation
+- [ ] Rate limit support
 
 For changelogs please go to end of the document.
 
@@ -67,8 +69,6 @@ After injecting your service you will be able to get it from service provider
 var openAiService = serviceProvider.GetRequiredService<IOpenAIService>();
 ```
 
-
-
 You can set default model(optional):
 ```csharp
 openAiService.SetDefaultModelId(Engines.Davinci);
@@ -79,8 +79,8 @@ openAiService.SetDefaultModelId(Engines.Davinci);
 var completionResult = await openAiService.Completions.CreateCompletion(new CompletionCreateRequest()
 {
     Prompt = "Once upon a time",
-    MaxTokens = 5
-}, Models.Davinci);
+    Model = Models.TextDavinciV3
+});
 
 if (completionResult.Successful)
 {
@@ -125,6 +125,9 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 
 
 ## Changelog
+### 6.6.6
+* CreateCompletionAsStream is now avaliable, big thanks to @qbm5
+
 ### 6.6.5
 * Sad news, we have Breaking Changes.
     * `SetDefaultEngineId()` replaced by `SetDefaultModelId()`
