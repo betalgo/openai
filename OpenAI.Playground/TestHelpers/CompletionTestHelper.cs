@@ -125,17 +125,15 @@ namespace OpenAI.Playground.TestHelpers
 
         public static async Task RunSimpleCompletionStreamTest(IOpenAIService sdk)
         {
-            ConsoleExtensions.WriteLine("Completion Testing is starting:", ConsoleColor.Cyan);
+            ConsoleExtensions.WriteLine("Completion Stream Testing is starting:", ConsoleColor.Cyan);
 
             try
             {
-                ConsoleExtensions.WriteLine("Completion Test:", ConsoleColor.DarkCyan);
+                ConsoleExtensions.WriteLine("Completion Stream Test:", ConsoleColor.DarkCyan);
                 var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
                 {
                     Prompt = "Once upon a time",
-                    //    PromptAsList = new []{"Once upon a time"},
-                    MaxTokens = 1000,
-                  //  LogProbs = 1
+                    MaxTokens = 50
                 }, Models.Davinci);
 
                 await foreach (var completion in completionResult)
@@ -157,9 +155,6 @@ namespace OpenAI.Playground.TestHelpers
 
                 Console.WriteLine("");
                 Console.WriteLine("Complete");
-
-
-
             }
             catch (Exception e)
             {

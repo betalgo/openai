@@ -13,27 +13,27 @@ public interface ICompletionService
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
     /// </summary>
-    /// <param name="engineId">The ID of the engine to use for this request</param>
+    /// <param name="modelId">The ID of the engine to use for this request</param>
     /// <param name="createCompletionModel"></param>
     /// <returns></returns>
-    Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionModel, string? engineId = null);
+    Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionModel, string? modelId = null);
 
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters and returns a stream of CompletionCreateRequests
     /// </summary>
-    /// <param name="engineId">The ID of the engine to use for this request</param>
+    /// <param name="modelId">The ID of the engine to use for this request</param>
     /// <param name="createCompletionModel"></param>
     /// <returns></returns>
-    IAsyncEnumerable<CompletionCreateResponse> CreateCompletionAsStream(CompletionCreateRequest createCompletionModel, string? engineId = null);
+    IAsyncEnumerable<CompletionCreateResponse> CreateCompletionAsStream(CompletionCreateRequest createCompletionModel, string? modelId = null);
 
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
     /// </summary>
     /// <param name="createCompletionModel"></param>
-    /// <param name="engineId">The ID of the engine to use for this request</param>
+    /// <param name="modelId">The ID of the engine to use for this request</param>
     /// <returns></returns>
-    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Models.Model engineId)
+    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Models.Model modelId)
     {
-        return CreateCompletion(createCompletionModel, engineId.EnumToString());
+        return CreateCompletion(createCompletionModel, modelId.EnumToString());
     }
 }

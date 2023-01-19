@@ -1,7 +1,5 @@
-﻿using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Runtime.ConstrainedExecution;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -31,12 +29,12 @@ namespace OpenAI.GPT3.Extensions
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
             };
 
-            JsonContent content = JsonContent.Create(requestModel, mediaType: null, settings);
+            var content = JsonContent.Create(requestModel, null, settings);
 
-            using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, uri);
+            using var request = new HttpRequestMessage(HttpMethod.Post, uri);
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
             request.Content = content;
-            
+
             return client.Send(request, HttpCompletionOption.ResponseHeadersRead);
         }
 
