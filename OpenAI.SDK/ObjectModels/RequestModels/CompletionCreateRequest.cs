@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels.SharedModels;
@@ -6,7 +6,6 @@ using OpenAI.GPT3.ObjectModels.SharedModels;
 namespace OpenAI.GPT3.ObjectModels.RequestModels
 {
     //TODO add model validation
-    //TODO check what is string or array for prompt,..
     /// <summary>
     ///     Create Completion Request Model
     /// </summary>

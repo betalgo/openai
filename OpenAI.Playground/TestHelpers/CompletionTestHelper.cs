@@ -122,5 +122,45 @@ namespace OpenAI.Playground.TestHelpers
                 throw;
             }
         }
+
+        public static async Task RunSimpleCompletionStreamTest(IOpenAIService sdk)
+        {
+            ConsoleExtensions.WriteLine("Completion Stream Testing is starting:", ConsoleColor.Cyan);
+
+            try
+            {
+                ConsoleExtensions.WriteLine("Completion Stream Test:", ConsoleColor.DarkCyan);
+                var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
+                {
+                    Prompt = "Once upon a time",
+                    MaxTokens = 50
+                }, Models.Davinci);
+
+                await foreach (var completion in completionResult)
+                {
+                    if (completion.Successful)
+                    {
+                        Console.Write(completion.Choices.FirstOrDefault()?.Text);
+                    }
+                    else
+                    {
+                        if (completion.Error == null)
+                        {
+                            throw new Exception("Unknown Error");
+                        }
+
+                        Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
+                    }
+                }
+
+                Console.WriteLine("");
+                Console.WriteLine("Complete");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
