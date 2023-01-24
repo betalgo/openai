@@ -95,6 +95,34 @@ else
     Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
 }
 ```
+
+## Completions Stream Sample
+```csharp
+var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
+   {
+      Prompt = "Once upon a time",
+      MaxTokens = 50
+   }, Models.Davinci);
+
+   await foreach (var completion in completionResult)
+   {
+      if (completion.Successful)
+      {
+         Console.Write(completion.Choices.FirstOrDefault()?.Text);
+      }
+      else
+      {
+         if (completion.Error == null)
+         {
+            throw new Exception("Unknown Error");
+         }
+
+         Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
+      }
+   }
+   Console.WriteLine("Complete");
+```
+
 ## DALL·E Sample
 ```csharp
 var imageResult = await sdk.Image.CreateImage(new ImageCreateRequest
