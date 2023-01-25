@@ -67,5 +67,33 @@ namespace OpenAI.Tests
             Assert.IsTrue(imageResult.Successful);
             Assert.That(imageResult.Results.Count, Is.EqualTo(2));
         }
+
+        [Test]
+        public async Task OpenIA_CreateCompletionAsStream()
+        {
+            var completionResult = openAiService.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
+            {
+                Prompt = "Once upon a time",
+                MaxTokens = 50
+            }, Models.Davinci);
+
+            await foreach (var completion in completionResult)
+            {
+                if (completion.Successful)
+                {
+                    Console.Write(completion.Choices.FirstOrDefault()?.Text);
+                }
+                else
+                {
+                    if (completion.Error == null)
+                    {
+                        throw new Exception("Unknown Error");
+                    }
+
+                    Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
+                }
+                Assert.IsTrue(completion.Successful);
+            }
+        }
     }
 }
