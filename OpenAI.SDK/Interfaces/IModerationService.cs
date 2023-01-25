@@ -16,9 +16,14 @@ namespace OpenAI.GPT3.Interfaces
         /// <returns></returns>
         Task<CreateModerationResponse> CreateModeration(CreateModerationRequest createModerationRequest);
 
+    }
+
+    public static class IModerationServiceExtension
+    {
         /// <summary>
         ///     Classifies if text violates OpenAI's Content Policy
         /// </summary>
+        /// <param name="service"></param>
         /// <param name="input">The input text to classify</param>
         /// <param name="model">
         ///     Two content moderations models are available: text-moderation-stable and text-moderation-latest.
@@ -27,9 +32,9 @@ namespace OpenAI.GPT3.Interfaces
         ///     the model. Accuracy of text-moderation-stable may be slightly lower than for text-moderation-latest.
         /// </param>
         /// <returns></returns>
-        Task<CreateModerationResponse> CreateModeration(string input, string? model = null)
+        public static Task<CreateModerationResponse> CreateModeration(this IModerationService service, string input, string? model = null)
         {
-            return CreateModeration(new CreateModerationRequest()
+            return service.CreateModeration(new CreateModerationRequest()
             {
                 Input = input,
                 Model = model

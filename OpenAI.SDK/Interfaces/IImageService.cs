@@ -17,16 +17,6 @@ public interface IImageService
     Task<ImageCreateResponse> CreateImage(ImageCreateRequest imageCreate);
 
     /// <summary>
-    ///     Creates an image given a prompt.
-    /// </summary>
-    /// <param name="prompt"></param>
-    /// <returns></returns>
-    Task<ImageCreateResponse> CreateImage(string prompt)
-    {
-        return CreateImage(new ImageCreateRequest(prompt));
-    }
-
-    /// <summary>
     ///     Creates an edited or extended image given an original image and a prompt.
     /// </summary>
     /// <param name="imageEditCreateRequest"></param>
@@ -39,4 +29,18 @@ public interface IImageService
     /// <param name="imageEditCreateRequest"></param>
     /// <returns></returns>
     Task<ImageCreateResponse> CreateImageVariation(ImageVariationCreateRequest imageEditCreateRequest);
+}
+
+public static class IImageServiceExtension
+{
+    /// <summary>
+    ///     Creates an image given a prompt.
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="prompt"></param>
+    /// <returns></returns>
+    public static Task<ImageCreateResponse> CreateImage(this IImageService service, string prompt)
+    {
+        return service.CreateImage(new ImageCreateRequest(prompt));
+    }
 }

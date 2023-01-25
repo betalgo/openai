@@ -25,8 +25,8 @@ public partial class OpenAIService : ICompletionService
         // Send the request to the CompletionCreate endpoint
         createCompletionRequest.ProcessModelId(modelId, _defaultModelId);
 
-        using var response = _httpClient.PostAsStreamAsync(_endpointProvider.CompletionCreate(), createCompletionRequest);
-        await using var stream = await response.Content.ReadAsStreamAsync();
+        using var response = await _httpClient.PostAsStreamAsync(_endpointProvider.CompletionCreate(), createCompletionRequest);
+        using var stream = await response.Content.ReadAsStreamAsync();
         using var reader = new StreamReader(stream);
         // Continuously read the stream until the end of it
         while (!reader.EndOfStream)

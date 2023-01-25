@@ -32,21 +32,6 @@ public interface IFileService
     /// <returns></returns>
     Task<FileUploadResponse> UploadFile(string purpose, byte[] file, string fileName);
 
-    Task<FileUploadResponse> FileUpload(string purpose, Stream file, string fileName)
-    {
-        return UploadFile(purpose, file.ToByteArray(), fileName);
-    }
-
-    Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName)
-    {
-        return UploadFile(purpose.EnumToString(), file.ToByteArray(), fileName);
-    }
-
-    Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName)
-    {
-        return UploadFile(purpose.EnumToString(), file, fileName);
-    }
-
     /// <summary>
     ///     Delete a file.
     /// </summary>
@@ -67,4 +52,22 @@ public interface IFileService
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <returns></returns>
     Task RetrieveFileContent(string fileId);
+}
+
+public static class IFileServiceExtension
+{
+    public static Task<FileUploadResponse> FileUpload(this IFileService service,string purpose, Stream file, string fileName)
+    {
+        return service.UploadFile(purpose, file.ToByteArray(), fileName);
+    }
+
+    public static Task<FileUploadResponse> FileUpload(this IFileService service, UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName)
+    {
+        return service.UploadFile(purpose.EnumToString(), file.ToByteArray(), fileName);
+    }
+
+    public static Task<FileUploadResponse> FileUpload(this IFileService service, UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName)
+    {
+        return service.UploadFile(purpose.EnumToString(), file, fileName);
+    }
 }

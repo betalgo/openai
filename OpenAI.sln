@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAI.Tests", "OpenAI.Tests\OpenAI.Tests.csproj", "{EBCB7783-B391-4064-A6ED-22CE333FAEC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{29A85621-10FF-4CA4-9555-D73DCA0D776E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29A85621-10FF-4CA4-9555-D73DCA0D776E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29A85621-10FF-4CA4-9555-D73DCA0D776E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBCB7783-B391-4064-A6ED-22CE333FAEC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBCB7783-B391-4064-A6ED-22CE333FAEC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBCB7783-B391-4064-A6ED-22CE333FAEC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBCB7783-B391-4064-A6ED-22CE333FAEC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{780F7F1F-45FC-4832-9E00-5BE6F32E7271} = {B614DB37-E04E-454F-8C99-EF69BC503745}
 		{29A85621-10FF-4CA4-9555-D73DCA0D776E} = {ADCA5A92-4E8E-4574-8E5F-DDE4C03A4F49}
+		{EBCB7783-B391-4064-A6ED-22CE333FAEC1} = {C0FFCEC4-22E9-423B-B10B-DAF24446FA49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A5FEB47-118A-4556-9183-C427C3082E8E}

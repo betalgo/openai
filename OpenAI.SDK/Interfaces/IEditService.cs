@@ -17,14 +17,19 @@ public interface IEditService
     /// <returns></returns>
     Task<EditCreateResponse> CreateEdit(EditCreateRequest editCreate, string? engineId = null);
 
+}
+
+public static class IEditServiceExtension
+{
     /// <summary>
     ///     Creates a new edit for the provided input, instruction, and parameters
     /// </summary>
+    /// <param name="service"></param>
     /// <param name="editCreate"></param>
     /// <param name="engineId">The ID of the engine to use for this request</param>
     /// <returns></returns>
-    Task<EditCreateResponse> Edit(EditCreateRequest editCreate, Models.Model engineId)
+    public static Task<EditCreateResponse> Edit(this IEditService service, EditCreateRequest editCreate, Models.Model engineId)
     {
-        return CreateEdit(editCreate, engineId.EnumToString());
+        return service.CreateEdit(editCreate, engineId.EnumToString());
     }
 }

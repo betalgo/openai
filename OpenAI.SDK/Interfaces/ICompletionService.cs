@@ -26,14 +26,19 @@ public interface ICompletionService
     /// <returns></returns>
     IAsyncEnumerable<CompletionCreateResponse> CreateCompletionAsStream(CompletionCreateRequest createCompletionModel, string? modelId = null);
 
+}
+
+public static class ICompletionServiceExtension
+{
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
     /// </summary>
+    /// <param name="service"></param>
     /// <param name="createCompletionModel"></param>
     /// <param name="modelId">The ID of the engine to use for this request</param>
     /// <returns></returns>
-    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Models.Model modelId)
+    public static Task<CompletionCreateResponse> Create(this ICompletionService service,CompletionCreateRequest createCompletionModel, Models.Model modelId)
     {
-        return CreateCompletion(createCompletionModel, modelId.EnumToString());
+        return service.CreateCompletion(createCompletionModel, modelId.EnumToString());
     }
 }
