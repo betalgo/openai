@@ -33,7 +33,7 @@ Visit https://openai.com/ to get your API key. Also documentation with more deta
 The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be carefull while playing with it. Some test methods will delete your files or fine tunings.  
 
 
-### Without using dependcy injection:
+### Without using dependency injection:
 ```csharp
 var openAiService = new OpenAIService(new OpenAiOptions()
 {
@@ -42,6 +42,8 @@ var openAiService = new OpenAIService(new OpenAiOptions()
 ```
 ### Using dependcy injection:
 #### secrets.json: 
+Your API Key comes from here --> https://beta.openai.com/account/api-keys
+Your Organization ID comes from here --> https://beta.openai.com/account/org-settings
 
 ```csharp
  "OpenAIServiceOptions": {
