@@ -20,7 +20,7 @@ namespace OpenAI.Playground.TestHelpers
             {
                 var imagePrompt = await CompletionTestHelper.RunSimpleCompletionStreamTest(sdk, completionPrompt);
                 var imageUrls = await ImageTestHelper.RunSimpleCreateImageTest(sdk, imagePrompt, 4);
-                var html = await BuildHtml(completionPrompt, imagePrompt, imageUrls);
+                var html = BuildHtml(completionPrompt, imagePrompt, imageUrls);
                 var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ComboCompletionImageTest.html");
                 await File.WriteAllTextAsync(path, html);
                 Console.WriteLine("HTML file saved to " + path);
@@ -38,7 +38,7 @@ namespace OpenAI.Playground.TestHelpers
             }
         }
 
-        public static async Task<string> BuildHtml(string completionPrompt, string imagePrompt, List<string> imageUrls)
+        public static string BuildHtml(string completionPrompt, string imagePrompt, List<string> imageUrls)
         {
             var body = $"<h1>Completion</h1>";
             body += "<p><strong>The initial completion prompt was:</strong> {completionPrompt}</p>";
