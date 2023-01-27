@@ -40,7 +40,7 @@ var openAiService = new OpenAIService(new OpenAiOptions()
     ApiKey =  Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY")
 });
 ```
-### Using dependcy injection:
+### Using dependency injection:
 #### secrets.json: 
 Your API Key comes from here --> https://beta.openai.com/account/api-keys
 
