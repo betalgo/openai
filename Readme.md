@@ -116,6 +116,23 @@ if (imageResult.Successful)
 }
 ```
 
+## Combo Sample
+Added a sample to show how to take the response from a completion and feed into image generation (GPT-3 --> DALL-E)
+This also generates HTML to display prompts and images in user's default browser.
+```csharp
+// Program.cs
+await ComboTestHelper.RunSimpleComboTest(sdk, prompt, imageCount);
+```
+
+## Command-Line Switches
+NOTE: Currently command-line switches only work for the [Combo Sample](#combo-sample)
+
+When using in command-line, use the following switches:
+```
+--prompt:"A sample prompt is awesome because" // prompt to feed to combo test; currently only works on combo; must include quotes;
+--imagecount:3 // number of images to generate
+```
+
 ## Notes:
 I couldn't find enough time to test all the methods or improve the documentation. My main target was to make fine-tuning available. If you hit any issue please report it or pull request always appreciated. 
 
