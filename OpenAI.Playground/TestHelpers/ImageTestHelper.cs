@@ -6,17 +6,18 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class ImageTestHelper
     {
-        public static async Task RunSimpleCreateImageTest(IOpenAIService sdk)
+        public static async Task<List<string>> RunSimpleCreateImageTest(IOpenAIService sdk, string prompt = "Laser cat eyes", int n = 2)
         {
             ConsoleExtensions.WriteLine("Image Create Testing is starting:", ConsoleColor.Cyan);
+            var imageUrls = new List<string>();
 
             try
             {
                 ConsoleExtensions.WriteLine("Image Create Test:", ConsoleColor.DarkCyan);
                 var imageResult = await sdk.Image.CreateImage(new ImageCreateRequest
                 {
-                    Prompt = "Laser cat eyes",
-                    N = 2,
+                    Prompt = prompt,
+                    N = n,
                     Size = StaticValues.ImageStatics.Size.Size256,
                     ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
                     User = "TestUser"
@@ -25,7 +26,14 @@ namespace OpenAI.Playground.TestHelpers
 
                 if (imageResult.Successful)
                 {
-                    Console.WriteLine(string.Join("\n", imageResult.Results.Select(r => r.Url)));
+                    Console.WriteLine("Image URLs:\n");
+                    foreach (var imageResultResult in imageResult.Results)
+                    {
+                        Console.WriteLine(imageResultResult.Url);
+                        Console.WriteLine("---");
+
+                        imageUrls.Add(imageResultResult.Url);
+                    }
                 }
                 else
                 {
@@ -42,6 +50,7 @@ namespace OpenAI.Playground.TestHelpers
                 Console.WriteLine(e);
                 throw;
             }
+            return imageUrls;
         }
 
         public static async Task RunSimpleCreateImageEditTest(IOpenAIService sdk)

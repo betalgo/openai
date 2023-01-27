@@ -123,24 +123,32 @@ namespace OpenAI.Playground.TestHelpers
             }
         }
 
-        public static async Task RunSimpleCompletionStreamTest(IOpenAIService sdk)
+        public static async Task<string> RunSimpleCompletionStreamTest(IOpenAIService sdk, string prompt = "Once upon a time")
         {
             ConsoleExtensions.WriteLine("Completion Stream Testing is starting:", ConsoleColor.Cyan);
 
             try
             {
                 ConsoleExtensions.WriteLine("Completion Stream Test:", ConsoleColor.DarkCyan);
-                var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
-                {
-                    Prompt = "Once upon a time",
-                    MaxTokens = 50
-                }, Models.Davinci);
 
+                var completionCreateRequest = new CompletionCreateRequest()
+                {
+                    Prompt = prompt,
+                    MaxTokens = 50
+                };
+
+                var completionResult = sdk.Completions.CreateCompletionAsStream(completionCreateRequest, Models.Davinci);
+
+                Console.Write($"[{prompt}] ");
+
+                var fullCompletionResult = prompt;
                 await foreach (var completion in completionResult)
                 {
                     if (completion.Successful)
                     {
-                        Console.Write(completion.Choices.FirstOrDefault()?.Text);
+                        var completionText = completion.Choices.FirstOrDefault()?.Text;
+                        Console.Write(completionText);
+                        fullCompletionResult += completionText;
                     }
                     else
                     {
@@ -155,6 +163,8 @@ namespace OpenAI.Playground.TestHelpers
 
                 Console.WriteLine("");
                 Console.WriteLine("Complete");
+
+                return fullCompletionResult;
             }
             catch (Exception e)
             {
