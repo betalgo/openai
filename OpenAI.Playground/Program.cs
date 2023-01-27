@@ -39,7 +39,7 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
 //await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 
-await ComboTestHelper.RunSimpleCompletionImageTest(sdk, "Once upon a time");
+await ComboTestHelper.RunSimpleComboTest(sdk, "Once upon a time");
 
 Console.WriteLine("Press ENTER to exit.");
 

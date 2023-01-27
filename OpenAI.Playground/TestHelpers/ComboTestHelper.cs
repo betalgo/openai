@@ -13,7 +13,7 @@ namespace OpenAI.Playground.TestHelpers
         /// <param name="sdk"></param>
         /// <param name="completionPrompt"></param>
         /// <returns></returns>
-        public static async Task RunSimpleCompletionImageTest(IOpenAIService sdk, string completionPrompt)
+        public static async Task RunSimpleComboTest(IOpenAIService sdk, string completionPrompt)
         {
             ConsoleExtensions.WriteLine("Combo Completion/Image Test:", ConsoleColor.Cyan);
             try
