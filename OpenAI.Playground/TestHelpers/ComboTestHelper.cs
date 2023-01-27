@@ -12,14 +12,15 @@ namespace OpenAI.Playground.TestHelpers
         /// </summary>
         /// <param name="sdk"></param>
         /// <param name="completionPrompt"></param>
+        /// <param name="imageCount"></param>
         /// <returns></returns>
-        public static async Task RunSimpleComboTest(IOpenAIService sdk, string completionPrompt)
+        public static async Task RunSimpleComboTest(IOpenAIService sdk, string completionPrompt, int imageCount = 1)
         {
             ConsoleExtensions.WriteLine("Combo Completion/Image Test:", ConsoleColor.Cyan);
             try
             {
                 var imagePrompt = await CompletionTestHelper.RunSimpleCompletionStreamTest(sdk, completionPrompt);
-                var imageUrls = await ImageTestHelper.RunSimpleCreateImageTest(sdk, imagePrompt, 4);
+                var imageUrls = await ImageTestHelper.RunSimpleCreateImageTest(sdk, imagePrompt, imageCount);
                 var html = BuildHtml(completionPrompt, imagePrompt, imageUrls);
                 var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ComboCompletionImageTest.html");
                 await File.WriteAllTextAsync(path, html);
@@ -37,11 +38,17 @@ namespace OpenAI.Playground.TestHelpers
                 throw;
             }
         }
-
-        public static string BuildHtml(string completionPrompt, string imagePrompt, List<string> imageUrls)
+        /// <summary>
+        /// Builds the HTML to show the output in a browser
+        /// </summary>
+        /// <param name="completionPrompt"></param>
+        /// <param name="imagePrompt"></param>
+        /// <param name="imageUrls"></param>
+        /// <returns></returns>
+        private static string BuildHtml(string completionPrompt, string imagePrompt, List<string> imageUrls)
         {
             var body = $"<h1>Completion</h1>";
-            body += "<p><strong>The initial completion prompt was:</strong> {completionPrompt}</p>";
+            body += $"<p><strong>The initial completion prompt was:</strong> {completionPrompt}</p>";
             body += $"<p>This gave us the following full completion from OpenAI: {imagePrompt}</p>";
             body += $"<h1>Image Generation</h1>";
             body +=
