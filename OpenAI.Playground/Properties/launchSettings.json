@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OpenAI.Playground": {
+      "commandName": "Project",
+      "commandLineArgs": "--prompt:\"jumping up and down like a\" --imagecount:3"
+    }
+  }
+}
