@@ -43,6 +43,7 @@ var openAiService = new OpenAIService(new OpenAiOptions()
 ### Using dependcy injection:
 #### secrets.json: 
 Your API Key comes from here --> https://beta.openai.com/account/api-keys
+
 Your Organization ID comes from here --> https://beta.openai.com/account/org-settings
 
 ```csharp
