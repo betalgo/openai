@@ -6,7 +6,7 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class ImageTestHelper
     {
-        public static async Task<List<string>> RunSimpleCreateImageTest(IOpenAIService sdk, string prompt = "Laser cat eyes", int n = 2)
+        public static async Task<List<string>> RunSimpleCreateImageTest(IOpenAIService sdk, string prompt = "Laser cat eyes", int imageCount = 2)
         {
             ConsoleExtensions.WriteLine("Image Create Testing is starting:", ConsoleColor.Cyan);
             var imageUrls = new List<string>();
@@ -17,7 +17,7 @@ namespace OpenAI.Playground.TestHelpers
                 var imageResult = await sdk.Image.CreateImage(new ImageCreateRequest
                 {
                     Prompt = prompt,
-                    N = n,
+                    N = imageCount,
                     Size = StaticValues.ImageStatics.Size.Size256,
                     ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
                     User = "TestUser"
