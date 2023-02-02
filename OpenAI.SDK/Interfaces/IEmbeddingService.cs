@@ -12,6 +12,7 @@ public interface IEmbeddingService
     ///     Creates a new embedding for the provided input and parameters.
     /// </summary>
     /// <param name="createEmbeddingModel"></param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<EmbeddingCreateResponse> CreateEmbedding(EmbeddingCreateRequest createEmbeddingModel);
+    Task<EmbeddingCreateResponse> CreateEmbedding(EmbeddingCreateRequest createEmbeddingModel, CancellationToken cancellationToken = default);
 }

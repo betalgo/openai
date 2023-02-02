@@ -13,8 +13,9 @@ namespace OpenAI.GPT3.Interfaces
         ///     Classifies if text violates OpenAI's Content Policy
         /// </summary>
         /// <param name="createModerationRequest"></param>
+        /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
         /// <returns></returns>
-        Task<CreateModerationResponse> CreateModeration(CreateModerationRequest createModerationRequest);
+        Task<CreateModerationResponse> CreateModeration(CreateModerationRequest createModerationRequest, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Classifies if text violates OpenAI's Content Policy
@@ -26,14 +27,15 @@ namespace OpenAI.GPT3.Interfaces
         ///     using our most accurate model. If you use text-moderation-stable, we will provide advanced notice before updating
         ///     the model. Accuracy of text-moderation-stable may be slightly lower than for text-moderation-latest.
         /// </param>
+        /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
         /// <returns></returns>
-        Task<CreateModerationResponse> CreateModeration(string input, string? model = null)
+        Task<CreateModerationResponse> CreateModeration(string input, string? model = null, CancellationToken cancellationToken = default)
         {
-            return CreateModeration(new CreateModerationRequest()
+            return CreateModeration(new CreateModerationRequest
             {
                 Input = input,
                 Model = model
-            });
+            }, cancellationToken);
         }
     }
 }

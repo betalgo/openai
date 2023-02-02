@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels.RequestModels;
@@ -10,14 +12,14 @@ namespace OpenAI.GPT3.Managers;
 public partial class OpenAIService : ICompletionService
 {
     /// <inheritdoc />
-    public async Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionRequest, string? modelId = null)
+    public async Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionRequest, string? modelId = null, CancellationToken cancellationToken = default)
     {
         createCompletionRequest.ProcessModelId(modelId, _defaultModelId);
-        return await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(), createCompletionRequest);
+        return await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(), createCompletionRequest, cancellationToken: cancellationToken);
     }
     
     /// <inheritdoc />
-    public async IAsyncEnumerable<CompletionCreateResponse> CreateCompletionAsStream(CompletionCreateRequest createCompletionRequest, string? modelId = null)
+    public async IAsyncEnumerable<CompletionCreateResponse> CreateCompletionAsStream(CompletionCreateRequest createCompletionRequest, string? modelId = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         // Mark the request as streaming
         createCompletionRequest.Stream = true;
@@ -25,8 +27,8 @@ public partial class OpenAIService : ICompletionService
         // Send the request to the CompletionCreate endpoint
         createCompletionRequest.ProcessModelId(modelId, _defaultModelId);
 
-        using var response = _httpClient.PostAsStreamAsync(_endpointProvider.CompletionCreate(), createCompletionRequest);
-        await using var stream = await response.Content.ReadAsStreamAsync();
+        using var response = _httpClient.PostAsStreamAsync(_endpointProvider.CompletionCreate(), createCompletionRequest, cancellationToken);
+        await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
         using var reader = new StreamReader(stream);
         // Continuously read the stream until the end of it
         while (!reader.EndOfStream)

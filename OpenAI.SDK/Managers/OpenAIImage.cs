@@ -12,9 +12,9 @@ public partial class OpenAIService : IImageService
     /// </summary>
     /// <param name="imageCreateModel"></param>
     /// <returns></returns>
-    public async Task<ImageCreateResponse> CreateImage(ImageCreateRequest imageCreateModel)
+    public async Task<ImageCreateResponse> CreateImage(ImageCreateRequest imageCreateModel, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageCreate(), imageCreateModel);
+        return await _httpClient.PostAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageCreate(), imageCreateModel, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -22,7 +22,7 @@ public partial class OpenAIService : IImageService
     /// </summary>
     /// <param name="imageEditCreateRequest"></param>
     /// <returns></returns>
-    public async Task<ImageCreateResponse> CreateImageEdit(ImageEditCreateRequest imageEditCreateRequest)
+    public async Task<ImageCreateResponse> CreateImageEdit(ImageEditCreateRequest imageEditCreateRequest, CancellationToken cancellationToken = default)
     {
         var multipartContent = new MultipartFormDataContent();
         if (imageEditCreateRequest.User != null) multipartContent.Add(new StringContent(imageEditCreateRequest.User), "user");
@@ -34,7 +34,7 @@ public partial class OpenAIService : IImageService
         multipartContent.Add(new StringContent(imageEditCreateRequest.Prompt), "prompt");
         multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
 
-        return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageEditCreate(), multipartContent);
+        return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageEditCreate(), multipartContent, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public partial class OpenAIService : IImageService
     /// </summary>
     /// <param name="imageEditCreateRequest"></param>
     /// <returns></returns>
-    public async Task<ImageCreateResponse> CreateImageVariation(ImageVariationCreateRequest imageEditCreateRequest)
+    public async Task<ImageCreateResponse> CreateImageVariation(ImageVariationCreateRequest imageEditCreateRequest, CancellationToken cancellationToken = default)
     {
         var multipartContent = new MultipartFormDataContent();
         if (imageEditCreateRequest.User != null) multipartContent.Add(new StringContent(imageEditCreateRequest.User), "user");
@@ -52,6 +52,6 @@ public partial class OpenAIService : IImageService
 
         multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
 
-        return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageVariationCreate(), multipartContent);
+        return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageVariationCreate(), multipartContent, cancellationToken: cancellationToken);
     }
 }

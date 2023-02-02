@@ -15,25 +15,28 @@ public interface ICompletionService
     /// </summary>
     /// <param name="modelId">The ID of the engine to use for this request</param>
     /// <param name="createCompletionModel"></param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionModel, string? modelId = null);
+    Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionModel, string? modelId = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters and returns a stream of CompletionCreateRequests
     /// </summary>
     /// <param name="modelId">The ID of the engine to use for this request</param>
     /// <param name="createCompletionModel"></param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    IAsyncEnumerable<CompletionCreateResponse> CreateCompletionAsStream(CompletionCreateRequest createCompletionModel, string? modelId = null);
+    IAsyncEnumerable<CompletionCreateResponse> CreateCompletionAsStream(CompletionCreateRequest createCompletionModel, string? modelId = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
     /// </summary>
     /// <param name="createCompletionModel"></param>
     /// <param name="modelId">The ID of the engine to use for this request</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Models.Model modelId)
+    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Models.Model modelId, CancellationToken cancellationToken = default)
     {
-        return CreateCompletion(createCompletionModel, modelId.EnumToString());
+        return CreateCompletion(createCompletionModel, modelId.EnumToString(), cancellationToken);
     }
 }
