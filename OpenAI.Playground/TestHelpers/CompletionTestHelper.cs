@@ -1,4 +1,5 @@
-﻿using OpenAI.GPT3.Interfaces;
+﻿using System.Runtime.CompilerServices;
+using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels;
 using OpenAI.GPT3.ObjectModels.RequestModels;
 
@@ -6,7 +7,7 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class CompletionTestHelper
     {
-        public static async Task RunSimpleCompletionTest(IOpenAIService sdk)
+        public static async Task RunSimpleCompletionTest(IOpenAIService sdk, CancellationToken cancellationToken = default)
         {
             ConsoleExtensions.WriteLine("Completion Testing is starting:", ConsoleColor.Cyan);
 
@@ -19,7 +20,7 @@ namespace OpenAI.Playground.TestHelpers
                     //    PromptAsList = new []{"Once upon a time"},
                     MaxTokens = 5,
                     LogProbs = 1
-                }, Models.Davinci);
+                }, Models.Davinci, cancellationToken);
 
                 if (completionResult.Successful)
                 {
@@ -41,6 +42,19 @@ namespace OpenAI.Playground.TestHelpers
             {
                 Console.WriteLine(e);
                 throw;
+            }
+        }
+        
+        public static async Task RunSimpleCompletionTestWithCancellationToken(IOpenAIService sdk)
+        {
+            var cancellationToken = new CancellationTokenSource(TimeSpan.Zero).Token;
+            try
+            {
+                await RunSimpleCompletionTest(sdk, cancellationToken);
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("Completion test has been cancelled.");
             }
         }
 

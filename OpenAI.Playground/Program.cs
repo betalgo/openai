@@ -33,7 +33,8 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //await CompletionTestHelper.RunSimpleCompletionTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest2(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest3(sdk);
-await CompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
+//await CompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
+await CompletionTestHelper.RunSimpleCompletionTestWithCancellationToken(sdk);
 //await EmbeddingTestHelper.RunSimpleEmbeddingTest(sdk);
 //////await FileTestHelper.RunSimpleFileTest(sdk); //will delete files
 //////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
