@@ -180,7 +180,6 @@ namespace OpenAI.Playground.TestHelpers
             ConsoleExtensions.WriteLine("Completion Stream Testing is starting:", ConsoleColor.Cyan);
             var cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(2)).Token;
             cancellationToken.Register(() => Console.WriteLine("Cancellation Token has been cancelled."));
-            // cancellationToken.Register(() => throw new TaskCanceledException());
 
             try
             {
@@ -191,23 +190,30 @@ namespace OpenAI.Playground.TestHelpers
                     MaxTokens = 100
                 }, Models.Davinci,cancellationToken);
 
-                await foreach (var completion in completionResult.WithCancellation(cancellationToken))
+                try
                 {
-                    if (completion.Successful)
+                    await foreach (var completion in completionResult.WithCancellation(cancellationToken))
                     {
-                        Console.Write(completion.Choices.FirstOrDefault()?.Text);
-                    }
-                    else
-                    {
-                        if (completion.Error == null)
+                        if (completion.Successful)
                         {
-                            throw new Exception("Unknown Error");
+                            Console.Write(completion.Choices.FirstOrDefault()?.Text);
                         }
+                        else
+                        {
+                            if (completion.Error == null)
+                            {
+                                throw new Exception("Unknown Error");
+                            }
 
-                        Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
+                            Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
+                        }
                     }
                 }
-
+                catch (OperationCanceledException e)
+                {
+                    ConsoleExtensions.WriteLine("Operation Cancelled", ConsoleColor.Green);
+                }
+               
                 Console.WriteLine("");
                 Console.WriteLine("Complete");
             }

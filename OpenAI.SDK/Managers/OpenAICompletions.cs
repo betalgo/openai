@@ -31,11 +31,8 @@ public partial class OpenAIService : ICompletionService
         // Continuously read the stream until the end of it
         while (!reader.EndOfStream)
         {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                break;
-            }
-
+            cancellationToken.ThrowIfCancellationRequested();
+           
             var line = await reader.ReadLineAsync();
             // Skip empty lines
             if (string.IsNullOrEmpty(line)) continue;
