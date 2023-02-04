@@ -15,28 +15,32 @@ namespace OpenAI.GPT3.Interfaces
         ///     complete.
         /// </summary>
         /// <param name="createFineTuneRequest"></param>
+        /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
         /// <returns></returns>
-        Task<FineTuneResponse> CreateFineTune(FineTuneCreateRequest createFineTuneRequest);
+        Task<FineTuneResponse> CreateFineTune(FineTuneCreateRequest createFineTuneRequest, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     List your organization's fine-tuning jobs
         /// </summary>
+        /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
         /// <returns></returns>
-        Task<FineTuneListResponse> ListFineTunes();
+        Task<FineTuneListResponse> ListFineTunes(CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Gets info about the fine-tune job.
         /// </summary>
         /// <param name="fineTuneId">The ID of the fine-tune job</param>
+        /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
         /// <returns></returns>
-        Task<FineTuneResponse> RetrieveFineTune(string fineTuneId);
+        Task<FineTuneResponse> RetrieveFineTune(string fineTuneId, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Immediately cancel a fine-tune job.
         /// </summary>
         /// <param name="fineTuneId">The ID of the fine-tune job to cancel</param>
+        /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
         /// <returns></returns>
-        Task<FineTuneResponse> CancelFineTune(string fineTuneId);
+        Task<FineTuneResponse> CancelFineTune(string fineTuneId, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Get fine-grained status updates for a fine-tune job.
@@ -48,9 +52,10 @@ namespace OpenAI.GPT3.Interfaces
         ///     (succeeded, cancelled, or failed).
         ///     If set to false, only events generated so far will be returned.
         /// </param>
+        /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
         /// <returns></returns>
-        Task<Stream> ListFineTuneEvents(string fineTuneId, bool? stream = null);
+        Task<Stream> ListFineTuneEvents(string fineTuneId, bool? stream = null, CancellationToken cancellationToken = default);
 
-        Task DeleteFineTune(string fineTuneId);
+        Task DeleteFineTune(string fineTuneId, CancellationToken cancellationToken = default);
     }
 }
