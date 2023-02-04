@@ -14,7 +14,7 @@ public partial class OpenAIService : IImageService
     /// <returns></returns>
     public async Task<ImageCreateResponse> CreateImage(ImageCreateRequest imageCreateModel, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageCreate(), imageCreateModel, cancellationToken: cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageCreate(), imageCreateModel, cancellationToken);
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public partial class OpenAIService : IImageService
         multipartContent.Add(new StringContent(imageEditCreateRequest.Prompt), "prompt");
         multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
 
-        return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageEditCreate(), multipartContent, cancellationToken: cancellationToken);
+        return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageEditCreate(), multipartContent, cancellationToken);
     }
 
     /// <summary>
@@ -52,6 +52,6 @@ public partial class OpenAIService : IImageService
 
         multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
 
-        return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageVariationCreate(), multipartContent, cancellationToken: cancellationToken);
+        return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageVariationCreate(), multipartContent, cancellationToken);
     }
 }

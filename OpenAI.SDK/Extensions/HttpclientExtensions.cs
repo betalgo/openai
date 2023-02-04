@@ -18,7 +18,7 @@ namespace OpenAI.GPT3.Extensions
             var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions()
             {
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
-            }, cancellationToken: cancellationToken);
+            }, cancellationToken);
             return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
         }
 

@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using OpenAI.GPT3.Interfaces;
+﻿using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels;
 using OpenAI.GPT3.ObjectModels.RequestModels;
 
@@ -44,7 +43,7 @@ namespace OpenAI.Playground.TestHelpers
                 throw;
             }
         }
-        
+
         public static async Task RunSimpleCompletionTestWithCancellationToken(IOpenAIService sdk)
         {
             var cancellationToken = new CancellationTokenSource(TimeSpan.Zero).Token;
@@ -140,6 +139,48 @@ namespace OpenAI.Playground.TestHelpers
         public static async Task RunSimpleCompletionStreamTest(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Completion Stream Testing is starting:", ConsoleColor.Cyan);
+            try
+            {
+                ConsoleExtensions.WriteLine("Completion Stream Test:", ConsoleColor.DarkCyan);
+                var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
+                {
+                    Prompt = "Once upon a time",
+                    MaxTokens = 500
+                }, Models.Davinci);
+
+                await foreach (var completion in completionResult)
+                {
+                    if (completion.Successful)
+                    {
+                        Console.Write(completion.Choices.FirstOrDefault()?.Text);
+                    }
+                    else
+                    {
+                        if (completion.Error == null)
+                        {
+                            throw new Exception("Unknown Error");
+                        }
+
+                        Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
+                    }
+                }
+
+                Console.WriteLine("");
+                Console.WriteLine("Complete");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public static async Task RunSimpleCompletionStreamTestWithCancellationToken(IOpenAIService sdk)
+        {
+            ConsoleExtensions.WriteLine("Completion Stream Testing is starting:", ConsoleColor.Cyan);
+            var cancellationToken = new CancellationTokenSource(TimeSpan.FromSeconds(2)).Token;
+            cancellationToken.Register(() => Console.WriteLine("Cancellation Token has been cancelled."));
+            // cancellationToken.Register(() => throw new TaskCanceledException());
 
             try
             {
@@ -147,10 +188,10 @@ namespace OpenAI.Playground.TestHelpers
                 var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
                 {
                     Prompt = "Once upon a time",
-                    MaxTokens = 50
-                }, Models.Davinci);
+                    MaxTokens = 100
+                }, Models.Davinci,cancellationToken);
 
-                await foreach (var completion in completionResult)
+                await foreach (var completion in completionResult.WithCancellation(cancellationToken))
                 {
                     if (completion.Successful)
                     {

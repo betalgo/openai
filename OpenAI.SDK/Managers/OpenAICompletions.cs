@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Json;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
 using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
@@ -8,16 +7,15 @@ using OpenAI.GPT3.ObjectModels.ResponseModels;
 
 namespace OpenAI.GPT3.Managers;
 
-
 public partial class OpenAIService : ICompletionService
 {
     /// <inheritdoc />
     public async Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionRequest, string? modelId = null, CancellationToken cancellationToken = default)
     {
         createCompletionRequest.ProcessModelId(modelId, _defaultModelId);
-        return await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(), createCompletionRequest, cancellationToken: cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(), createCompletionRequest, cancellationToken);
     }
-    
+
     /// <inheritdoc />
     public async IAsyncEnumerable<CompletionCreateResponse> CreateCompletionAsStream(CompletionCreateRequest createCompletionRequest, string? modelId = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
@@ -33,6 +31,11 @@ public partial class OpenAIService : ICompletionService
         // Continuously read the stream until the end of it
         while (!reader.EndOfStream)
         {
+            if (cancellationToken.IsCancellationRequested)
+            {
+                break;
+            }
+
             var line = await reader.ReadLineAsync();
             // Skip empty lines
             if (string.IsNullOrEmpty(line)) continue;
@@ -55,6 +58,7 @@ public partial class OpenAIService : ICompletionService
                 line += await reader.ReadToEndAsync();
                 block = JsonSerializer.Deserialize<CompletionCreateResponse>(line);
             }
+
 
             if (null != block) yield return block;
         }
