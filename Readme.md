@@ -32,6 +32,9 @@ Visit https://openai.com/ to get your API key. Also documentation with more deta
 
 The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be careful while playing with it. Some test methods will delete your files or fine tunings.  
 
+Your API Key comes from here --> https://platform.openai.com/account/api-keys
+
+Your Organization ID comes from here --> https://platform.openai.com/account/org-settings
 
 ### Without using dependency injection:
 ```csharp
@@ -95,6 +98,34 @@ else
     Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
 }
 ```
+
+## Completions Stream Sample
+```csharp
+var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
+   {
+      Prompt = "Once upon a time",
+      MaxTokens = 50
+   }, Models.Davinci);
+
+   await foreach (var completion in completionResult)
+   {
+      if (completion.Successful)
+      {
+         Console.Write(completion.Choices.FirstOrDefault()?.Text);
+      }
+      else
+      {
+         if (completion.Error == null)
+         {
+            throw new Exception("Unknown Error");
+         }
+
+         Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
+      }
+   }
+   Console.WriteLine("Complete");
+```
+
 ## DALL·E Sample
 ```csharp
 var imageResult = await sdk.Image.CreateImage(new ImageCreateRequest
