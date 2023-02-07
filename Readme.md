@@ -156,6 +156,10 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 
 
 ## Changelog
+### 6.6.7
+* Added Cancellation Token support, thanks to @robertlyson 
+* Updated readme file, thanks to @qbm5, @gotmike, @SteveMCarroll
+
 ### 6.6.6
 * CreateCompletionAsStream is now avaliable, big thanks to @qbm5
 
