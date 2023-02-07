@@ -30,11 +30,11 @@ Visit https://openai.com/ to get your API key. Also documentation with more deta
 ## Sample Usages
 ### ***!! I would strongly suggest to use different account than your main account while you use playground.   Test methods could add or delete your files and models !!***
 
-The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be carefull while playing with it. Some test methods will delete your files or fine tunings.  
+The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be careful while playing with it. Some test methods will delete your files or fine tunings.  
 
-Your API Key comes from here --> https://beta.openai.com/account/api-keys
+Your API Key comes from here --> https://platform.openai.com/account/api-keys
 
-Your Organization ID comes from here --> https://beta.openai.com/account/org-settings
+Your Organization ID comes from here --> https://platform.openai.com/account/org-settings
 
 ### Without using dependency injection:
 ```csharp
