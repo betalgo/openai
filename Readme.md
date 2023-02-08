@@ -30,17 +30,20 @@ Visit https://openai.com/ to get your API key. Also documentation with more deta
 ## Sample Usages
 ### ***!! I would strongly suggest to use different account than your main account while you use playground.   Test methods could add or delete your files and models !!***
 
-The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be carefull while playing with it. Some test methods will delete your files or fine tunings.  
+The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be careful while playing with it. Some test methods will delete your files or fine tunings.  
 
+Your API Key comes from here --> https://platform.openai.com/account/api-keys
 
-### Without using dependcy injection:
+Your Organization ID comes from here --> https://platform.openai.com/account/org-settings
+
+### Without using dependency injection:
 ```csharp
 var openAiService = new OpenAIService(new OpenAiOptions()
 {
     ApiKey =  Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY")
 });
 ```
-### Using dependcy injection:
+### Using dependency injection:
 #### secrets.json: 
 
 ```csharp
@@ -95,6 +98,34 @@ else
     Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
 }
 ```
+
+## Completions Stream Sample
+```csharp
+var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
+   {
+      Prompt = "Once upon a time",
+      MaxTokens = 50
+   }, Models.Davinci);
+
+   await foreach (var completion in completionResult)
+   {
+      if (completion.Successful)
+      {
+         Console.Write(completion.Choices.FirstOrDefault()?.Text);
+      }
+      else
+      {
+         if (completion.Error == null)
+         {
+            throw new Exception("Unknown Error");
+         }
+
+         Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
+      }
+   }
+   Console.WriteLine("Complete");
+```
+
 ## DALL·E Sample
 ```csharp
 var imageResult = await sdk.Image.CreateImage(new ImageCreateRequest
@@ -125,6 +156,10 @@ As you can guess I do not accept any damage caused by use of the library. You ar
 
 
 ## Changelog
+### 6.6.7
+* Added Cancellation Token support, thanks to @robertlyson 
+* Updated readme file, thanks to @qbm5, @gotmike, @SteveMCarroll
+
 ### 6.6.6
 * CreateCompletionAsStream is now avaliable, big thanks to @qbm5
 

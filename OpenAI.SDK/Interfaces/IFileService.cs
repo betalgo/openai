@@ -10,8 +10,9 @@ public interface IFileService
     /// <summary>
     ///     Returns a list of files that belong to the user's organization.
     /// </summary>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<FileListResponse> ListFile();
+    Task<FileListResponse> ListFile(CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Upload a file that contains document(s) to be used across various endpoints/features. Currently, the size of all
@@ -29,42 +30,46 @@ public interface IFileService
     ///     Use "fine-tune" for <a href="https://beta.openai.com/docs/api-reference/fine-tunes">Fine-tuning</a>. This allows us
     ///     to validate the format of the uploaded file.
     /// </param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<FileUploadResponse> UploadFile(string purpose, byte[] file, string fileName);
+    Task<FileUploadResponse> UploadFile(string purpose, byte[] file, string fileName, CancellationToken cancellationToken = default);
 
-    Task<FileUploadResponse> FileUpload(string purpose, Stream file, string fileName)
+    Task<FileUploadResponse> FileUpload(string purpose, Stream file, string fileName, CancellationToken cancellationToken = default)
     {
         return UploadFile(purpose, file.ToByteArray(), fileName);
     }
 
-    Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName)
+    Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName, CancellationToken cancellationToken = default)
     {
-        return UploadFile(purpose.EnumToString(), file.ToByteArray(), fileName);
+        return UploadFile(purpose.EnumToString(), file.ToByteArray(), fileName, cancellationToken);
     }
 
-    Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName)
+    Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName, CancellationToken cancellationToken = default)
     {
-        return UploadFile(purpose.EnumToString(), file, fileName);
+        return UploadFile(purpose.EnumToString(), file, fileName, cancellationToken);
     }
 
     /// <summary>
     ///     Delete a file.
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<FileDeleteResponse> DeleteFile(string fileId);
+    Task<FileDeleteResponse> DeleteFile(string fileId, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Returns information about a specific file.
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<FileResponse> RetrieveFile(string fileId);
+    Task<FileResponse> RetrieveFile(string fileId, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Returns the contents of the specified file
     /// </summary>
     /// <param name="fileId">The ID of the file to use for this request</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task RetrieveFileContent(string fileId);
+    Task RetrieveFileContent(string fileId, CancellationToken cancellationToken = default);
 }
