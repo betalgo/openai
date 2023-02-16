@@ -16,7 +16,7 @@
 		<Description>Dotnet SDK for OpenAI GPT-3 and DALL·E</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
 		<PackageTags>openAI,gpt-3,ai,betalgo,NLP,dalle,DALL·E,dall-e,OpenAI,OpenAi,openAi</PackageTags>
-		<PackageId>Betalgo.$(AssemblyName)</PackageId>
+		<PackageId>Betalgo.OpenAI.GPT3</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RepositoryUrl>https://github.com/betalgo/openai.git</RepositoryUrl>
