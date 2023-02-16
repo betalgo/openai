@@ -9,7 +9,8 @@ Install-Package Betalgo.OpenAI.GPT3
 Dotnet SDK for OpenAI GPT-3 and DALL·E  
 *Unofficial*.  
 *GPT-3 doesn't have any official .Net SDK.*
-
+## Checkout the wiki page: 
+https://github.com/betalgo/openai/wiki
 ## Features
 - [ ] ChatGPT (coming soon)
 - [x] Image (DALL·E)
@@ -25,7 +26,9 @@ Dotnet SDK for OpenAI GPT-3 and DALL·E
 
 For changelogs please go to end of the document.
 
-Visit https://openai.com/ to get your API key. Also documentation with more detail is avaliable there.
+Visit https://openai.com/ to get your API key. Also documentation with more detail is avaliable there.  
+
+
 
 ## Sample Usages
 ### ***!! I would strongly suggest to use different account than your main account while you use playground.   Test methods could add or delete your files and models !!***
