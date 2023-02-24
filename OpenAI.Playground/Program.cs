@@ -19,7 +19,13 @@ serviceCollection.AddScoped(_ => configuration);
 serviceCollection.AddLaserCatEyesHttpClientListener();
 
 serviceCollection.AddOpenAIService();
-//serviceCollection.AddOpenAIService(settings => { settings.ApiKey = "TEST"; });
+// DeploymentId and ResourceName are only for Azure OpenAI. If you set DeploymentId it will start to use Azure OpenAI.
+//serviceCollection.AddOpenAIService(options =>
+//{
+//    options.ApiKey = "Test";
+//    options.DeploymentId = "MyDeploymentId";
+//    options.ResourceName = "MyResourceName";
+//});
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAIService>();

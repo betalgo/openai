@@ -7,9 +7,9 @@ namespace OpenAI.GPT3.Managers
     //TODO Find a way to show default request values in documentation
     public partial class OpenAIService : IOpenAIService
     {
-        readonly IOpenAiEndpointProvider _endpointProvider;
-        readonly HttpClient _httpClient;
-        string? _defaultModelId;
+        private readonly IOpenAiEndpointProvider _endpointProvider;
+        private readonly HttpClient _httpClient;
+        private string? _defaultModelId;
 
         [ActivatorUtilitiesConstructor]
         public OpenAIService(HttpClient httpClient, IOptions<OpenAiOptions> settings)
@@ -23,25 +23,29 @@ namespace OpenAI.GPT3.Managers
 
             _httpClient = httpClient ?? HttpClientFactory.Create();
             _httpClient.BaseAddress = new Uri(settings.BaseDomain);
-            var authKey = settings.ApiKey;
             
-            if (settings.ApiType == ApiType.OpenAi)
-                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authKey}");
-            else if (settings.ApiType == ApiType.Azure)
-                _httpClient.DefaultRequestHeaders.Add("api-key", settings.ApiKey);
-            
-            var organization = settings.Organization;
-            if (!string.IsNullOrEmpty(organization))
+            switch (settings.ProviderType)
             {
-                _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{organization}");
+                case ProviderType.Azure:
+                    _httpClient.DefaultRequestHeaders.Add("api-key", settings.ApiKey);
+                    break;
+                case ProviderType.OpenAi:
+                default:
+                    _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
+                    break;
             }
 
-            _endpointProvider = settings.ApiType switch
+            if (!string.IsNullOrEmpty(settings.Organization))
             {
-                ApiType.Azure => new AzureOpenAiEndpointProvider(settings.ApiVersion, settings.DeploymentId),
+                _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{settings.Organization}");
+            }
+
+            _endpointProvider = settings.ProviderType switch
+            {
+                ProviderType.Azure => new AzureOpenAiEndpointProvider(settings.ApiVersion, settings.DeploymentId),
                 _ => new OpenAiEndpointProvider(settings.ApiVersion)
             };
-            
+
             _defaultModelId = OpenAiOptions.DefaultEngineId;
         }
 

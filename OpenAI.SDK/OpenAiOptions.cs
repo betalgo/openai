@@ -1,17 +1,50 @@
 ﻿namespace OpenAI.GPT3
 {
-    public enum ApiType
+    /// <summary>
+    ///     Provider Type
+    /// </summary>
+    public enum ProviderType
     {
+        /// <summary>
+        ///     OpenAi Provider
+        /// </summary>
         OpenAi = 1,
+
+        /// <summary>
+        ///     Azure Provider
+        /// </summary>
         Azure = 2
     }
 
     public class OpenAiOptions
     {
+        private const string OpenAiDefaultApiVersion = "v1";
+        private const string OpenAiDefaultBaseDomain = "https://api.openai.com/";
+        private const string AzureOpenAiDefaultApiVersion = "2022-12-01";
+
+
+        /// <summary>
+        ///     Setting key for Json Setting Bindings
+        /// </summary>
         public static readonly string SettingKey = "OpenAIServiceOptions";
 
-        public virtual ApiType ApiType { get; set; } = ApiType.OpenAi;
-        
+        private string? _apiVersion;
+        private string? _baseDomain;
+        private ProviderType? _providerType;
+
+        /// <summary>
+        ///     Get Provider Type
+        /// </summary>
+        public ProviderType ProviderType
+        {
+            get
+            {
+                _providerType ??= !string.IsNullOrEmpty(DeploymentId) || !string.IsNullOrEmpty(ResourceName) ? ProviderType.Azure : ProviderType.OpenAi;
+                return _providerType.Value;
+            }
+            set => _providerType = value;
+        }
+
         /// <summary>
         ///     For users who belong to multiple organizations, you can pass a header to specify which organization is used for an
         ///     API request. Usage from these API requests will count against the specified organization's subscription quota.
@@ -29,34 +62,81 @@
         ///     from an environment variable or key management service.
         /// </summary>
         public string ApiKey { get; set; } = null!;
-        public string ApiVersion { get; set; } = "v1";
-        public string BaseDomain { get; set; } = "https://api.openai.com/";
-        public string DeploymentId { get; set; }
+
+        /// <summary>
+        ///     Default Api Version
+        /// </summary>
+        public string ApiVersion
+        {
+            get
+            {
+                return _apiVersion ??= ProviderType switch
+                {
+                    ProviderType.OpenAi => OpenAiDefaultApiVersion,
+                    ProviderType.Azure => AzureOpenAiDefaultApiVersion,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+            set => _apiVersion = value;
+        }
+
+        /// <summary>
+        ///     Base Domain
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public string BaseDomain
+        {
+            get
+            {
+                return _baseDomain ??= ProviderType switch
+                {
+                    ProviderType.OpenAi => OpenAiDefaultBaseDomain,
+                    ProviderType.Azure => $"https://{ResourceName}.openai.azure.com/",
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+            set => _baseDomain = value;
+        }
+
+        /// <summary>
+        ///     Azure Deployment Id
+        /// </summary>
+        public string? DeploymentId { get; set; }
+
+        /// <summary>
+        ///     Azure Resource Name
+        /// </summary>
+        public string? ResourceName { get; set; }
 
         /// <summary>
         ///     Default engine id. If you are working with only one engine, this will save you from few line extra code.
         /// </summary>
         public static string? DefaultEngineId { get; set; }
+
         /// <summary>
         ///     Create an instance of this class with the necessary information to connect to the azure open ai api
         /// </summary>
-        /// <param name="baseDomain">Domain for your open ai instance</param>
-        /// <param name="deploymentId">The id of your deployment of open ai</param>
+        /// <param name="resourceName">Resource Name of your Azure OpenAI resource</param>
+        /// <param name="deploymentId">The id of your deployment of OpenAI</param>
         /// <param name="apiVersion">The azure open ai api version</param>
         /// <param name="apiKey">Token used for authentication</param>
         /// <returns>A valid OpenAiSettings instance configured with the method inputs</returns>
-        static OpenAiOptions CreateAzureSettings(string baseDomain, string deploymentId, string apiVersion, string apiKey)
+        private static OpenAiOptions CreateAzureSettings(string apiKey, string resourceName, string deploymentId, string? apiVersion)
         {
-            return new()
+            return new OpenAiOptions
             {
-                ApiType = ApiType.Azure,
-                BaseDomain = baseDomain,
+                _providerType = ProviderType.Azure,
+                ResourceName = resourceName,
                 DeploymentId = deploymentId,
-                ApiVersion = apiVersion,
-                ApiKey = apiKey
+                ApiKey = apiKey,
+                ApiVersion = apiVersion ?? AzureOpenAiDefaultApiVersion
             };
         }
-        
+
+        /// <summary>
+        ///     Validate Settings
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
         public void Validate()
         {
             if (string.IsNullOrEmpty(ApiKey))
@@ -72,6 +152,19 @@
             if (string.IsNullOrEmpty(BaseDomain))
             {
                 throw new ArgumentNullException(nameof(BaseDomain));
+            }
+
+            if (ProviderType == ProviderType.Azure)
+            {
+                if (string.IsNullOrEmpty(DeploymentId))
+                {
+                    throw new ArgumentNullException(nameof(DeploymentId));
+                }
+
+                if (string.IsNullOrEmpty(ResourceName))
+                {
+                    throw new ArgumentNullException(nameof(ResourceName));
+                }
             }
         }
     }
