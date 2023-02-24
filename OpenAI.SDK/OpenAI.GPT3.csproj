@@ -22,6 +22,16 @@
 		<RepositoryUrl>https://github.com/betalgo/openai.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Tokenizer\encoder.json" />
+	  <None Remove="Tokenizer\vocab.bpe" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Tokenizer\GPT3\encoder.json" />
+	  <EmbeddedResource Include="Tokenizer\GPT3\vocab.bpe" />
+	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\Readme.md">
 			<Pack>True</Pack>
