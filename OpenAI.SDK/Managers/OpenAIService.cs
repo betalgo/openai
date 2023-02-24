@@ -7,9 +7,9 @@ namespace OpenAI.GPT3.Managers
     //TODO Find a way to show default request values in documentation
     public partial class OpenAIService : IOpenAIService
     {
-        private readonly IOpenAiEndpointProvider _endpointProvider;
-        private readonly HttpClient _httpClient;
-        private string? _defaultModelId;
+        readonly IOpenAiEndpointProvider _endpointProvider;
+        readonly HttpClient _httpClient;
+        string? _defaultModelId;
 
         [ActivatorUtilitiesConstructor]
         public OpenAIService(HttpClient httpClient, IOptions<OpenAiOptions> settings)
@@ -24,14 +24,24 @@ namespace OpenAI.GPT3.Managers
             _httpClient = httpClient ?? HttpClientFactory.Create();
             _httpClient.BaseAddress = new Uri(settings.BaseDomain);
             var authKey = settings.ApiKey;
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authKey}");
+            
+            if (settings.ApiType == ApiType.OpenAi)
+                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authKey}");
+            else if (settings.ApiType == ApiType.Azure)
+                _httpClient.DefaultRequestHeaders.Add("api-key", settings.ApiKey);
+            
             var organization = settings.Organization;
             if (!string.IsNullOrEmpty(organization))
             {
                 _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{organization}");
             }
 
-            _endpointProvider = new OpenAiEndpointProvider(settings.ApiVersion);
+            _endpointProvider = settings.ApiType switch
+            {
+                ApiType.Azure => new AzureOpenAiEndpointProvider(settings.ApiVersion, settings.DeploymentId),
+                _ => new OpenAiEndpointProvider(settings.ApiVersion)
+            };
+            
             _defaultModelId = OpenAiOptions.DefaultEngineId;
         }
 
