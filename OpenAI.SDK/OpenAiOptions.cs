@@ -65,7 +65,7 @@ public class OpenAiOptions
             {
                 ProviderType.OpenAi => OpenAiDefaultApiVersion,
                 ProviderType.Azure => AzureOpenAiDefaultApiVersion,
-                _ => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
         }
         set => _apiVersion = value;
@@ -85,7 +85,7 @@ public class OpenAiOptions
             {
                 ProviderType.OpenAi => OpenAiDefaultBaseDomain,
                 ProviderType.Azure => ResourceName == null ? null : $"https://{ResourceName}.openai.azure.com/",
-                _ => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
 #pragma warning restore CS8603
         }
@@ -153,15 +153,8 @@ public class OpenAiOptions
     /// <exception cref="ArgumentNullException"></exception>
     public void Validate()
     {
-        if (string.IsNullOrEmpty(ApiKey))
-        {
-            throw new ArgumentNullException(nameof(ApiKey));
-        }
-
-        if (string.IsNullOrEmpty(ApiVersion))
-        {
-            throw new ArgumentNullException(nameof(ApiVersion));
-        }
+        _ = ApiKey;
+        _ = ApiVersion;
 
         if (string.IsNullOrEmpty(BaseDomain))
         {
@@ -180,9 +173,9 @@ public class OpenAiOptions
                 throw new ArgumentNullException(nameof(DeploymentId));
             }
 
-            if (BaseDomain.Equals("https://.openai.azure.com/"))
+            if (BaseDomain.Equals(OpenAiDefaultBaseDomain))
             {
-                throw new ArgumentNullException(nameof(ResourceName));
+                throw new ArgumentNullException(nameof(BaseDomain));
             }
         }
         else if (ProviderType == ProviderType.OpenAi)
