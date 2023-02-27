@@ -27,6 +27,7 @@ public class OpenAiOptions
     ///     Setting key for Json Setting Bindings
     /// </summary>
     public static readonly string SettingKey = "OpenAIServiceOptions";
+
     private string? _apiVersion;
     private string? _baseDomain;
 
@@ -114,12 +115,32 @@ public class OpenAiOptions
     /// <param name="apiVersion">The azure open ai api version</param>
     /// <param name="apiKey">Token used for authentication</param>
     /// <returns>A valid OpenAiSettings instance configured with the method inputs</returns>
-    private static OpenAiOptions CreateAzureSettings(string apiKey, string resourceName, string deploymentId, string? apiVersion)
+    private static OpenAiOptions CreateAzureSettings(string apiKey, string deploymentId, string resourceName, string? apiVersion)
     {
         return new OpenAiOptions
         {
             ProviderType = ProviderType.Azure,
             ResourceName = resourceName,
+            DeploymentId = deploymentId,
+            ApiKey = apiKey,
+            ApiVersion = apiVersion ?? AzureOpenAiDefaultApiVersion
+        };
+    }
+
+    /// <summary>
+    ///     Create an instance of this class with the necessary information to connect to the azure open ai api
+    /// </summary>
+    /// <param name="deploymentId">The id of your deployment of OpenAI</param>
+    /// <param name="baseDomain">Base Domain of your Azure OpenAI service</param>
+    /// <param name="apiVersion">The azure open ai api version</param>
+    /// <param name="apiKey">Token used for authentication</param>
+    /// <returns>A valid OpenAiSettings instance configured with the method inputs</returns>
+    private static OpenAiOptions CreateAzureSettingsWithBaseDomain(string apiKey, string deploymentId, string baseDomain, string? apiVersion)
+    {
+        return new OpenAiOptions
+        {
+            ProviderType = ProviderType.Azure,
+            BaseDomain = baseDomain,
             DeploymentId = deploymentId,
             ApiKey = apiKey,
             ApiVersion = apiVersion ?? AzureOpenAiDefaultApiVersion
@@ -148,6 +169,7 @@ public class OpenAiOptions
             {
                 throw new ArgumentNullException(nameof(ResourceName));
             }
+
             throw new ArgumentNullException(nameof(BaseDomain));
         }
 
@@ -158,7 +180,7 @@ public class OpenAiOptions
                 throw new ArgumentNullException(nameof(DeploymentId));
             }
 
-            if (BaseDomain.Equals("https://.openai.azure.com/") )
+            if (BaseDomain.Equals("https://.openai.azure.com/"))
             {
                 throw new ArgumentNullException(nameof(ResourceName));
             }
