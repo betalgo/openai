@@ -153,9 +153,13 @@ public class OpenAiOptions
     /// <exception cref="ArgumentNullException"></exception>
     public void Validate()
     {
-        _ = ApiKey;
-        _ = ApiVersion;
+        if (string.IsNullOrEmpty(ApiKey))
+        {
+            throw new ArgumentNullException(nameof(ApiKey));
+        }
 
+        _ = _apiVersion; //accessing this will throw an exception if the configuration is invalid.
+        
         if (string.IsNullOrEmpty(BaseDomain))
         {
             if (ProviderType == ProviderType.Azure && string.IsNullOrEmpty(ResourceName))
