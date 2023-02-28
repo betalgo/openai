@@ -42,7 +42,7 @@ namespace OpenAI.GPT3.Managers
 
             _endpointProvider = settings.ProviderType switch
             {
-                ProviderType.Azure => new AzureOpenAiEndpointProvider(settings.ApiVersion, settings.DeploymentId),
+                ProviderType.Azure => new AzureOpenAiEndpointProvider(settings.ApiVersion, settings.DeploymentId!),
                 _ => new OpenAiEndpointProvider(settings.ApiVersion)
             };
 

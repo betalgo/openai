@@ -157,9 +157,11 @@ public class OpenAiOptions
         {
             throw new ArgumentNullException(nameof(ApiKey));
         }
+        if (string.IsNullOrEmpty(ApiVersion))
+        {
+            throw new ArgumentNullException(nameof(ApiVersion));
+        }
 
-        _ = _apiVersion; //accessing this will throw an exception if the configuration is invalid.
-        
         if (string.IsNullOrEmpty(BaseDomain))
         {
             if (ProviderType == ProviderType.Azure && string.IsNullOrEmpty(ResourceName))
@@ -177,9 +179,9 @@ public class OpenAiOptions
                 throw new ArgumentNullException(nameof(DeploymentId));
             }
 
-            if (BaseDomain.Equals(OpenAiDefaultBaseDomain))
+            if (BaseDomain.Equals("https://.openai.azure.com/"))
             {
-                throw new ArgumentNullException(nameof(BaseDomain));
+                throw new ArgumentNullException(nameof(ResourceName));
             }
         }
         else if (ProviderType == ProviderType.OpenAi)
