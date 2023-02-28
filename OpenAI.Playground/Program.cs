@@ -19,7 +19,14 @@ serviceCollection.AddScoped(_ => configuration);
 serviceCollection.AddLaserCatEyesHttpClientListener();
 
 serviceCollection.AddOpenAIService();
-//serviceCollection.AddOpenAIService(settings => { settings.ApiKey = "TEST"; });
+//// DeploymentId and ResourceName are only for Azure OpenAI. If you want to use Azure OpenAI services you have to set Provider type To Azure.
+//serviceCollection.AddOpenAIService(options =>
+//{
+//    options.ProviderType = ProviderType.Azure;
+//    options.ApiKey = "Test";
+//    options.DeploymentId = "MyDeploymentId";
+//    options.ResourceName = "MyResourceName";
+//});
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
@@ -40,4 +47,6 @@ await CompletionTestHelper.RunSimpleCompletionTest(sdk);
 //////await FileTestHelper.RunSimpleFileTest(sdk); //will delete files
 //////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
 //await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
+await TokenizerTestHelper.RunTokenizerTest();
+
 Console.ReadLine();

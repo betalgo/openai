@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OpenAI.GPT3.Interfaces
+namespace OpenAI.GPT3.Interfaces;
+
+public interface IModelValidate
 {
-    public interface IModelValidate
-    {
-        IEnumerable<ValidationResult> Validate();
-    }
+    IEnumerable<ValidationResult> Validate();
 }

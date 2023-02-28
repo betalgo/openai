@@ -5,7 +5,7 @@ namespace OpenAI.GPT3.Interfaces;
 
 /// <summary>
 ///     Given a prompt and/or an input image, the model will generate a new image.
-///     Related guide: <a href="https://beta.openai.com/docs/guides/images">Image generation</a>
+///     Related guide: <a href="https://platform.openai.com/docs/guides/images">Image generation</a>
 /// </summary>
 public interface IImageService
 {

@@ -9,19 +9,29 @@
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>6.6.7</Version>
+		<Version>6.6.8</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>OpenAI GPT-3 and DALL·E dotnet SDK</Product>
 		<Description>Dotnet SDK for OpenAI GPT-3 and DALL·E</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
-		<PackageTags>openAI,gpt-3,ai,betalgo,NLP,dalle,DALL·E,dall-e,OpenAI,OpenAi,openAi</PackageTags>
+		<PackageTags>openAI,gpt-3,ai,betalgo,NLP,dalle,DALL·E,dall-e,OpenAI,OpenAi,openAi,azureOpenAI,azure openAI,chatgpt</PackageTags>
 		<PackageId>Betalgo.OpenAI.GPT3</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RepositoryUrl>https://github.com/betalgo/openai.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Tokenizer\encoder.json" />
+	  <None Remove="Tokenizer\vocab.bpe" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Tokenizer\GPT3\encoder.json" />
+	  <EmbeddedResource Include="Tokenizer\GPT3\vocab.bpe" />
+	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\Readme.md">
 			<Pack>True</Pack>
