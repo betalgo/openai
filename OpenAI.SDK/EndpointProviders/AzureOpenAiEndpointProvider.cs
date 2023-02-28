@@ -4,10 +4,10 @@ namespace OpenAI.GPT3.EndpointProviders;
 
 internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 {
-    const string DeploymentsPrefix = "deployments";
-    const string ApiPrefix = "openai";
-    readonly string _apiVersion;
-    readonly string _deploymentId;
+    private const string DeploymentsPrefix = "deployments";
+    private const string ApiPrefix = "openai";
+    private readonly string _apiVersion;
+    private readonly string _deploymentId;
 
 
     public AzureOpenAiEndpointProvider(string apiVersion, string deploymentId)
@@ -16,47 +16,107 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         _deploymentId = deploymentId;
     }
 
-    string Prefix => $"/{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
-    string QueryString => $"?api-version={_apiVersion}";
+    private string Prefix => $"/{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
+    private string QueryString => $"?api-version={_apiVersion}";
 
 
-    public string ModelRetrieve(string model) => $"{Prefix}/models/{model}{QueryString}";
+    public string ModelRetrieve(string model)
+    {
+        return $"{Prefix}/models/{model}{QueryString}";
+    }
 
-    public string FileDelete(string fileId) => $"{Prefix}/files/{fileId}{QueryString}";
+    public string FileDelete(string fileId)
+    {
+        return $"{Prefix}/files/{fileId}{QueryString}";
+    }
 
-    public string CompletionCreate() => $"{Prefix}/completions{QueryString}";
+    public string CompletionCreate()
+    {
+        return $"{Prefix}/completions{QueryString}";
+    }
 
-    public string EditCreate() => $"{Prefix}/edits{QueryString}";
+    public string EditCreate()
+    {
+        return $"{Prefix}/edits{QueryString}";
+    }
 
-    public string ModelsList() => $"{Prefix}/models{QueryString}";
+    public string ModelsList()
+    {
+        return $"{Prefix}/models{QueryString}";
+    }
 
-    public string FilesList() => Files();
+    public string FilesList()
+    {
+        return Files();
+    }
 
-    public string FilesUpload() => Files();
+    public string FilesUpload()
+    {
+        return Files();
+    }
 
-    public string FileRetrieve(string fileId) => Files();
+    public string FileRetrieve(string fileId)
+    {
+        return Files();
+    }
 
-    public string FineTuneCreate() => $"{Prefix}/fine-tunes{QueryString}";
+    public string FineTuneCreate()
+    {
+        return $"{Prefix}/fine-tunes{QueryString}";
+    }
 
-    public string FineTuneList() => $"{Prefix}/fine-tunes{QueryString}";
+    public string FineTuneList()
+    {
+        return $"{Prefix}/fine-tunes{QueryString}";
+    }
 
-    public string FineTuneRetrieve(string fineTuneId) => $"{Prefix}/fine-tunes/{fineTuneId}{QueryString}";
+    public string FineTuneRetrieve(string fineTuneId)
+    {
+        return $"{Prefix}/fine-tunes/{fineTuneId}{QueryString}";
+    }
 
-    public string FineTuneCancel(string fineTuneId) => $"{Prefix}/fine-tunes/{fineTuneId}/cancel{QueryString}";
+    public string FineTuneCancel(string fineTuneId)
+    {
+        return $"{Prefix}/fine-tunes/{fineTuneId}/cancel{QueryString}";
+    }
 
-    public string FineTuneListEvents(string fineTuneId) => $"{Prefix}/fine-tunes/{fineTuneId}/events{QueryString}";
+    public string FineTuneListEvents(string fineTuneId)
+    {
+        return $"{Prefix}/fine-tunes/{fineTuneId}/events{QueryString}";
+    }
 
-    public string FineTuneDelete(string fineTuneId) => $"{Prefix}/models/{fineTuneId}{QueryString}";
+    public string FineTuneDelete(string fineTuneId)
+    {
+        return $"{Prefix}/models/{fineTuneId}{QueryString}";
+    }
 
-    public string EmbeddingCreate() => $"{Prefix}/embeddings{QueryString}";
+    public string EmbeddingCreate()
+    {
+        return $"{Prefix}/embeddings{QueryString}";
+    }
 
-    public string ModerationCreate() => $"{Prefix}/moderations{QueryString}";
+    public string ModerationCreate()
+    {
+        return $"{Prefix}/moderations{QueryString}";
+    }
 
-    public string ImageCreate() => $"{Prefix}/images/generations{QueryString}";
+    public string ImageCreate()
+    {
+        return $"{Prefix}/images/generations{QueryString}";
+    }
 
-    public string ImageEditCreate() => $"{Prefix}/images/edits{QueryString}";
+    public string ImageEditCreate()
+    {
+        return $"{Prefix}/images/edits{QueryString}";
+    }
 
-    public string ImageVariationCreate() => $"{Prefix}/images/variations{QueryString}";
+    public string ImageVariationCreate()
+    {
+        return $"{Prefix}/images/variations{QueryString}";
+    }
 
-    string Files() => $"{Prefix}/files{QueryString}";
+    private string Files()
+    {
+        return $"{Prefix}/files{QueryString}";
+    }
 }

@@ -25,11 +25,30 @@ public partial class OpenAIService : IImageService
     public async Task<ImageCreateResponse> CreateImageEdit(ImageEditCreateRequest imageEditCreateRequest, CancellationToken cancellationToken = default)
     {
         var multipartContent = new MultipartFormDataContent();
-        if (imageEditCreateRequest.User != null) multipartContent.Add(new StringContent(imageEditCreateRequest.User), "user");
-        if (imageEditCreateRequest.ResponseFormat != null) multipartContent.Add(new StringContent(imageEditCreateRequest.ResponseFormat), "response_format");
-        if (imageEditCreateRequest.Size != null) multipartContent.Add(new StringContent(imageEditCreateRequest.Size), "size");
-        if (imageEditCreateRequest.N != null) multipartContent.Add(new StringContent(imageEditCreateRequest.N.ToString()!), "n");
-        if (imageEditCreateRequest.Mask != null) multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Mask), "mask", imageEditCreateRequest.MaskName);
+        if (imageEditCreateRequest.User != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.User), "user");
+        }
+
+        if (imageEditCreateRequest.ResponseFormat != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.ResponseFormat), "response_format");
+        }
+
+        if (imageEditCreateRequest.Size != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.Size), "size");
+        }
+
+        if (imageEditCreateRequest.N != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.N.ToString()!), "n");
+        }
+
+        if (imageEditCreateRequest.Mask != null)
+        {
+            multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Mask), "mask", imageEditCreateRequest.MaskName);
+        }
 
         multipartContent.Add(new StringContent(imageEditCreateRequest.Prompt), "prompt");
         multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
@@ -45,10 +64,25 @@ public partial class OpenAIService : IImageService
     public async Task<ImageCreateResponse> CreateImageVariation(ImageVariationCreateRequest imageEditCreateRequest, CancellationToken cancellationToken = default)
     {
         var multipartContent = new MultipartFormDataContent();
-        if (imageEditCreateRequest.User != null) multipartContent.Add(new StringContent(imageEditCreateRequest.User), "user");
-        if (imageEditCreateRequest.ResponseFormat != null) multipartContent.Add(new StringContent(imageEditCreateRequest.ResponseFormat), "response_format");
-        if (imageEditCreateRequest.Size != null) multipartContent.Add(new StringContent(imageEditCreateRequest.Size), "size");
-        if (imageEditCreateRequest.N != null) multipartContent.Add(new StringContent(imageEditCreateRequest.N.ToString()!), "n");
+        if (imageEditCreateRequest.User != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.User), "user");
+        }
+
+        if (imageEditCreateRequest.ResponseFormat != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.ResponseFormat), "response_format");
+        }
+
+        if (imageEditCreateRequest.Size != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.Size), "size");
+        }
+
+        if (imageEditCreateRequest.N != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.N.ToString()!), "n");
+        }
 
         multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
 

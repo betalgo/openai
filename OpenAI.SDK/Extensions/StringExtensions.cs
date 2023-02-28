@@ -1,20 +1,19 @@
-﻿namespace OpenAI.GPT3.Extensions
+﻿namespace OpenAI.GPT3.Extensions;
+
+/// <summary>
+///     Extension methods for string manipulation
+/// </summary>
+public static class StringExtensions
 {
     /// <summary>
-    ///     Extension methods for string manipulation
+    ///     Remove the search string from the begging of string if exist
     /// </summary>
-    public static class StringExtensions
+    /// <param name="text"></param>
+    /// <param name="search"></param>
+    /// <returns></returns>
+    public static string RemoveIfStartWith(this string text, string search)
     {
-        /// <summary>
-        ///     Remove the search string from the begging of string if exist
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        public static string RemoveIfStartWith(this string text, string search)
-        {
-            var pos = text.IndexOf(search, StringComparison.Ordinal);
-            return pos != 0 ? text : text[search.Length..];
-        }
+        var pos = text.IndexOf(search, StringComparison.Ordinal);
+        return pos != 0 ? text : text[search.Length..];
     }
 }

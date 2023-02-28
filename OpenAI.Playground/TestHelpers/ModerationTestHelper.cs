@@ -1,33 +1,32 @@
 ﻿using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels.RequestModels;
 
-namespace OpenAI.Playground.TestHelpers
+namespace OpenAI.Playground.TestHelpers;
+
+public class ModerationTestHelper
 {
-    public class ModerationTestHelper
+    public static async Task CreateModerationTest(IOpenAIService sdk)
     {
-        public static async Task CreateModerationTest(IOpenAIService sdk)
+        ConsoleExtensions.WriteLine("Create Moderation test is starting:", ConsoleColor.Cyan);
+
+        try
         {
-            ConsoleExtensions.WriteLine("Create Moderation test is starting:", ConsoleColor.Cyan);
-
-            try
+            ConsoleExtensions.WriteLine("Create Moderation test", ConsoleColor.DarkCyan);
+            var moderationResponse = await sdk.Moderation.CreateModeration(new CreateModerationRequest
             {
-                ConsoleExtensions.WriteLine("Create Moderation test", ConsoleColor.DarkCyan);
-                var moderationResponse = await sdk.Moderation.CreateModeration(new CreateModerationRequest()
-                {
-                    Input = "I want to kill them."
-                });
-                if (moderationResponse.Results.FirstOrDefault()?.Flagged != true)
-                {
-                    ConsoleExtensions.WriteLine("Create Moderation test failed", ConsoleColor.DarkRed);
-                }
-
-                ConsoleExtensions.WriteLine("Create Moderation test passed.", ConsoleColor.DarkGreen);
-            }
-            catch (Exception e)
+                Input = "I want to kill them."
+            });
+            if (moderationResponse.Results.FirstOrDefault()?.Flagged != true)
             {
-                Console.WriteLine(e);
-                throw;
+                ConsoleExtensions.WriteLine("Create Moderation test failed", ConsoleColor.DarkRed);
             }
+
+            ConsoleExtensions.WriteLine("Create Moderation test passed.", ConsoleColor.DarkGreen);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 }

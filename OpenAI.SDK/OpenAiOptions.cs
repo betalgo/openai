@@ -157,6 +157,7 @@ public class OpenAiOptions
         {
             throw new ArgumentNullException(nameof(ApiKey));
         }
+
         if (string.IsNullOrEmpty(ApiVersion))
         {
             throw new ArgumentNullException(nameof(ApiVersion));

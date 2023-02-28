@@ -2,22 +2,27 @@
 
 using System.Reflection;
 
-namespace OpenAI.GPT3.Tokenizer.GPT3
+namespace OpenAI.GPT3.Tokenizer.GPT3;
+
+internal static class EmbeddedResource
 {
-    internal static class EmbeddedResource
+    private static readonly string? Namespace = typeof(EmbeddedResource).Namespace;
+
+    internal static string Read(string name)
     {
-        private static readonly string? Namespace = typeof(EmbeddedResource).Namespace;
-
-        internal static string Read(string name)
+        var assembly = typeof(EmbeddedResource).GetTypeInfo().Assembly;
+        if (assembly == null)
         {
-            var assembly = typeof(EmbeddedResource).GetTypeInfo().Assembly;
-            if (assembly == null) throw new NullReferenceException($"[{Namespace}] {name} assembly not found");
-
-            using var resource = assembly.GetManifestResourceStream($"{Namespace}." + name);
-            if (resource == null) throw new NullReferenceException($"[{Namespace}] {name} resource not found");
-
-            using var reader = new StreamReader(resource);
-            return reader.ReadToEnd();
+            throw new NullReferenceException($"[{Namespace}] {name} assembly not found");
         }
+
+        using var resource = assembly.GetManifestResourceStream($"{Namespace}." + name);
+        if (resource == null)
+        {
+            throw new NullReferenceException($"[{Namespace}] {name} resource not found");
+        }
+
+        using var reader = new StreamReader(resource);
+        return reader.ReadToEnd();
     }
 }

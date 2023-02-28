@@ -10,7 +10,7 @@ public record LogProbsResponse
 
     [JsonPropertyName("top_logprobs")] public List<Dictionary<string, double>> TopLogProbsRaw { get; set; }
 
-    public List<TopLogProbResponse> TopLogProbs => TopLogProbsRaw.SelectMany(r => r.Select(a => new TopLogProbResponse()
+    public List<TopLogProbResponse> TopLogProbs => TopLogProbsRaw.SelectMany(r => r.Select(a => new TopLogProbResponse
     {
         Key = a.Key,
         LogProp = a.Value

@@ -1,7 +1,6 @@
 ﻿using LaserCatEyes.HttpClientListener;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenAI.GPT3;
 using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.Playground.TestHelpers;
