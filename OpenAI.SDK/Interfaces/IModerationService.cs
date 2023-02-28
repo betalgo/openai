@@ -5,7 +5,7 @@ namespace OpenAI.GPT3.Interfaces;
 
 /// <summary>
 ///     Given a input text, outputs if the model classifies it as violating OpenAI's content policy.
-///     Related guide: <a href="https://beta.openai.com/docs/guides/moderation">Moderations</a>
+///     Related guide: <a href="https://platform.openai.com/docs/guides/moderation">Moderations</a>
 /// </summary>
 public interface IModerationService
 {

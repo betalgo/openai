@@ -47,7 +47,7 @@ public partial class OpenAIService : IOpenAIService
             _ => new OpenAiEndpointProvider(settings.ApiVersion)
         };
 
-        _defaultModelId = OpenAiOptions.DefaultEngineId;
+        _defaultModelId = settings.DefaultModelId;
     }
 
 

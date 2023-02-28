@@ -2,7 +2,7 @@
 
 public static class Models
 {
-    public enum BaseEngine
+    public enum BaseModel
     {
         Ada,
         Babbage,
@@ -81,43 +81,43 @@ public static class Models
     public static string Curie => "curie";
     public static string Davinci => "davinci";
 
-    public static string CurieInstructBeta => ModelNameBuilder(BaseEngine.Curie, Subject.InstructBeta);
-    public static string DavinciInstructBeta => ModelNameBuilder(BaseEngine.Davinci, Subject.InstructBeta);
+    public static string CurieInstructBeta => ModelNameBuilder(BaseModel.Curie, Subject.InstructBeta);
+    public static string DavinciInstructBeta => ModelNameBuilder(BaseModel.Davinci, Subject.InstructBeta);
 
-    public static string TextDavinciV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.Text, "001");
-    public static string TextDavinciV2 => ModelNameBuilder(BaseEngine.Davinci, Subject.Text, "002");
-    public static string TextDavinciV3 => ModelNameBuilder(BaseEngine.Davinci, Subject.Text, "003");
-    public static string TextAdaV1 => ModelNameBuilder(BaseEngine.Ada, Subject.Text, "001");
-    public static string TextBabbageV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.Text, "001");
-    public static string TextCurieV1 => ModelNameBuilder(BaseEngine.Curie, Subject.Text, "001");
+    public static string TextDavinciV1 => ModelNameBuilder(BaseModel.Davinci, Subject.Text, "001");
+    public static string TextDavinciV2 => ModelNameBuilder(BaseModel.Davinci, Subject.Text, "002");
+    public static string TextDavinciV3 => ModelNameBuilder(BaseModel.Davinci, Subject.Text, "003");
+    public static string TextAdaV1 => ModelNameBuilder(BaseModel.Ada, Subject.Text, "001");
+    public static string TextBabbageV1 => ModelNameBuilder(BaseModel.Babbage, Subject.Text, "001");
+    public static string TextCurieV1 => ModelNameBuilder(BaseModel.Curie, Subject.Text, "001");
 
-    public static string CurieSimilarityFast => ModelNameBuilder(BaseEngine.Curie, Subject.SimilarityFast);
+    public static string CurieSimilarityFast => ModelNameBuilder(BaseModel.Curie, Subject.SimilarityFast);
 
-    public static string CodeDavinciV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.Code, "001");
-    public static string CodeCushmanV1 => ModelNameBuilder(BaseEngine.Cushman, Subject.Code, "001");
-    public static string CodeDavinciV2 => ModelNameBuilder(BaseEngine.Davinci, Subject.Code, "002");
+    public static string CodeDavinciV1 => ModelNameBuilder(BaseModel.Davinci, Subject.Code, "001");
+    public static string CodeCushmanV1 => ModelNameBuilder(BaseModel.Cushman, Subject.Code, "001");
+    public static string CodeDavinciV2 => ModelNameBuilder(BaseModel.Davinci, Subject.Code, "002");
 
-    public static string TextSimilarityAdaV1 => ModelNameBuilder(BaseEngine.Ada, Subject.TextSimilarity, "001");
-    public static string TextSimilarityBabbageV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.TextSimilarity, "001");
-    public static string TextSimilarityCurieV1 => ModelNameBuilder(BaseEngine.Curie, Subject.TextSimilarity, "001");
-    public static string TextSimilarityDavinciV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.TextSimilarity, "001");
+    public static string TextSimilarityAdaV1 => ModelNameBuilder(BaseModel.Ada, Subject.TextSimilarity, "001");
+    public static string TextSimilarityBabbageV1 => ModelNameBuilder(BaseModel.Babbage, Subject.TextSimilarity, "001");
+    public static string TextSimilarityCurieV1 => ModelNameBuilder(BaseModel.Curie, Subject.TextSimilarity, "001");
+    public static string TextSimilarityDavinciV1 => ModelNameBuilder(BaseModel.Davinci, Subject.TextSimilarity, "001");
 
-    public static string TextSearchAdaDocV1 => ModelNameBuilder(BaseEngine.Ada, Subject.TextSearchDocument, "001");
-    public static string TextSearchBabbageDocV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.TextSearchDocument, "001");
-    public static string TextSearchCurieDocV1 => ModelNameBuilder(BaseEngine.Curie, Subject.TextSearchDocument, "001");
-    public static string TextSearchDavinciDocV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.TextSearchDocument, "001");
-    public static string TextSearchAdaQueryV1 => ModelNameBuilder(BaseEngine.Ada, Subject.TextSearchQuery, "001");
-    public static string TextSearchBabbageQueryV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.TextSearchQuery, "001");
-    public static string TextSearchCurieQueryV1 => ModelNameBuilder(BaseEngine.Curie, Subject.TextSearchQuery, "001");
-    public static string TextSearchDavinciQueryV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.TextSearchQuery, "001");
+    public static string TextSearchAdaDocV1 => ModelNameBuilder(BaseModel.Ada, Subject.TextSearchDocument, "001");
+    public static string TextSearchBabbageDocV1 => ModelNameBuilder(BaseModel.Babbage, Subject.TextSearchDocument, "001");
+    public static string TextSearchCurieDocV1 => ModelNameBuilder(BaseModel.Curie, Subject.TextSearchDocument, "001");
+    public static string TextSearchDavinciDocV1 => ModelNameBuilder(BaseModel.Davinci, Subject.TextSearchDocument, "001");
+    public static string TextSearchAdaQueryV1 => ModelNameBuilder(BaseModel.Ada, Subject.TextSearchQuery, "001");
+    public static string TextSearchBabbageQueryV1 => ModelNameBuilder(BaseModel.Babbage, Subject.TextSearchQuery, "001");
+    public static string TextSearchCurieQueryV1 => ModelNameBuilder(BaseModel.Curie, Subject.TextSearchQuery, "001");
+    public static string TextSearchDavinciQueryV1 => ModelNameBuilder(BaseModel.Davinci, Subject.TextSearchQuery, "001");
 
-    public static string TextEditDavinciV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.Edit, "001");
-    public static string CodeEditDavinciV1 => ModelNameBuilder(BaseEngine.Davinci, Subject.CodeEdit, "001");
+    public static string TextEditDavinciV1 => ModelNameBuilder(BaseModel.Davinci, Subject.Edit, "001");
+    public static string CodeEditDavinciV1 => ModelNameBuilder(BaseModel.Davinci, Subject.CodeEdit, "001");
 
-    public static string CodeSearchAdaCodeV1 => ModelNameBuilder(BaseEngine.Ada, Subject.CodeSearchCode, "001");
-    public static string CodeSearchBabbageCodeV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.CodeSearchCode, "001");
-    public static string CodeSearchAdaTextV1 => ModelNameBuilder(BaseEngine.Ada, Subject.CodeSearchText, "001");
-    public static string CodeSearchBabbageTextV1 => ModelNameBuilder(BaseEngine.Babbage, Subject.CodeSearchText, "001");
+    public static string CodeSearchAdaCodeV1 => ModelNameBuilder(BaseModel.Ada, Subject.CodeSearchCode, "001");
+    public static string CodeSearchBabbageCodeV1 => ModelNameBuilder(BaseModel.Babbage, Subject.CodeSearchCode, "001");
+    public static string CodeSearchAdaTextV1 => ModelNameBuilder(BaseModel.Ada, Subject.CodeSearchText, "001");
+    public static string CodeSearchBabbageTextV1 => ModelNameBuilder(BaseModel.Babbage, Subject.CodeSearchText, "001");
 
 
     /// <summary>
@@ -125,16 +125,16 @@ public static class Models
     /// </summary>
     /// <param name="subject"></param>
     /// <param name="version"></param>
-    /// <param name="baseEngine"></param>
+    /// <param name="baseModel"></param>
     /// <returns></returns>
-    public static string ModelNameBuilder(this BaseEngine baseEngine, Subject? subject = null, string? version = null)
+    public static string ModelNameBuilder(this BaseModel baseModel, Subject? subject = null, string? version = null)
     {
-        return ModelNameBuilder(baseEngine.EnumToString(), subject?.EnumToString(baseEngine.EnumToString()), version);
+        return ModelNameBuilder(baseModel.EnumToString(), subject?.EnumToString(baseModel.EnumToString()), version);
     }
 
-    public static string ModelNameBuilder(string baseEngine, string? subject, string? version)
+    public static string ModelNameBuilder(string baseModel, string? subject, string? version)
     {
-        var response = subject ?? $"{baseEngine}";
+        var response = subject ?? $"{baseModel}";
 
         if (!string.IsNullOrEmpty(version))
         {
@@ -145,9 +145,9 @@ public static class Models
     }
 
 
-    public static string EnumToString(this Model engine)
+    public static string EnumToString(this Model model)
     {
-        return engine switch
+        return model switch
         {
             Model.Ada => Ada,
             Model.Babbage => Babbage,
@@ -183,24 +183,24 @@ public static class Models
             Model.CodeSearchBabbageTextV1 => CodeSearchBabbageTextV1,
             Model.TextEditDavinciV1 => TextEditDavinciV1,
             Model.CodeEditDavinciV1 => CodeEditDavinciV1,
-            _ => throw new ArgumentOutOfRangeException(nameof(engine), engine, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
 
-    private static string EnumToString(this BaseEngine baseEngine)
+    private static string EnumToString(this BaseModel baseModel)
     {
-        return baseEngine switch
+        return baseModel switch
         {
-            BaseEngine.Ada => Ada,
-            BaseEngine.Babbage => Babbage,
-            BaseEngine.Curie => Curie,
-            BaseEngine.Davinci => Davinci,
-            BaseEngine.Cushman => "cushman",
-            _ => throw new ArgumentOutOfRangeException(nameof(baseEngine), baseEngine, null)
+            BaseModel.Ada => Ada,
+            BaseModel.Babbage => Babbage,
+            BaseModel.Curie => Curie,
+            BaseModel.Davinci => Davinci,
+            BaseModel.Cushman => "cushman",
+            _ => throw new ArgumentOutOfRangeException(nameof(baseModel), baseModel, null)
         };
     }
 
-    public static string EnumToString(this Subject subject, string baseEngine)
+    public static string EnumToString(this Subject subject, string baseModel)
     {
         return string.Format(subject switch
         {
@@ -217,6 +217,6 @@ public static class Models
             Subject.CodeEdit => "code-{0}-edit",
             Subject.Edit => "text-{0}-edit",
             _ => throw new ArgumentOutOfRangeException(nameof(subject), subject, null)
-        }, baseEngine);
+        }, baseModel);
     }
 }

@@ -11,28 +11,28 @@ internal static class ModelTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Fetching Model List", ConsoleColor.DarkCyan);
-            var engineList = await sdk.Models.ListModel();
-            if (engineList == null)
+            var modelList = await sdk.Models.ListModel();
+            if (modelList == null)
             {
                 ConsoleExtensions.WriteLine("Fetching Model List failed", ConsoleColor.DarkRed);
-                throw new NullReferenceException(nameof(engineList));
+                throw new NullReferenceException(nameof(modelList));
             }
 
             ConsoleExtensions.WriteLine("Models:", ConsoleColor.DarkGreen);
-            Console.WriteLine(string.Join(Environment.NewLine, engineList.Models.Select(r => r.Id)));
+            Console.WriteLine(string.Join(Environment.NewLine, modelList.Models.Select(r => r.Id)));
 
-            foreach (var engineItem in engineList.Models)
+            foreach (var modelItem in modelList.Models)
             {
-                ConsoleExtensions.WriteLine($"Retrieving Model:{engineItem.Id}", ConsoleColor.DarkCyan);
+                ConsoleExtensions.WriteLine($"Retrieving Model:{modelItem.Id}", ConsoleColor.DarkCyan);
 
-                var retrieveEngineResponse = await sdk.Models.RetrieveModel(engineItem.Id);
-                if (retrieveEngineResponse.Successful)
+                var retrieveModelResponse = await sdk.Models.RetrieveModel(modelItem.Id);
+                if (retrieveModelResponse.Successful)
                 {
-                    Console.WriteLine(retrieveEngineResponse);
+                    Console.WriteLine(retrieveModelResponse);
                 }
                 else
                 {
-                    ConsoleExtensions.WriteLine($"Retrieving {engineItem.Id} Model failed", ConsoleColor.DarkRed);
+                    ConsoleExtensions.WriteLine($"Retrieving {modelItem.Id} Model failed", ConsoleColor.DarkRed);
                 }
             }
         }

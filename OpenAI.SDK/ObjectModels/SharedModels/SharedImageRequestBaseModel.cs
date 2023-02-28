@@ -24,7 +24,7 @@ public record SharedImageRequestBaseModel
 
     /// <summary>
     ///     A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.
-    ///     <a href="https://beta.openai.com/docs/usage-policies/end-user-ids">Learn more</a>.
+    ///     <a href="https://platform.openai.com/docs/usage-policies/end-user-ids">Learn more</a>.
     /// </summary>
     [JsonPropertyName("user")]
     public string? User { get; set; }

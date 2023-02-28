@@ -77,7 +77,7 @@ var openAiService = serviceProvider.GetRequiredService<IOpenAIService>();
 
 You can set default model(optional):
 ```csharp
-openAiService.SetDefaultModelId(Engines.Davinci);
+openAiService.SetDefaultModelId(Models.Davinci);
 ```
 
 ## Completions Sample

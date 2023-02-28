@@ -5,7 +5,7 @@ namespace OpenAI.GPT3.Interfaces;
 
 /// <summary>
 ///     Manage fine-tuning jobs to tailor a model to your specific training data.
-///     Related guide: <a href="https://beta.openai.com/docs/guides/fine-tuning">Fine-tune models</a>
+///     Related guide: <a href="https://platform.openai.com/docs/guides/fine-tuning">Fine-tune models</a>
 /// </summary>
 public interface IFineTuneService
 {
