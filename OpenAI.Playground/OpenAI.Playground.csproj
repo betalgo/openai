@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>c7a3a51e-4319-4038-b522-9ed24fd5ef66</UserSecretsId>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +18,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
-  </ItemGroup>
+   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OpenAI.SDK\OpenAI.GPT3.csproj" />
@@ -25,6 +26,9 @@
 
   <ItemGroup>
     <None Update="ApiSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleData\TokenizerSample.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="SampleData\FineTuningSample1.jsonl">
@@ -36,7 +40,7 @@
     <None Update="SampleData\image_edit_original.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="SampleData\SentimentAnalysisSample.jsonl">
+	  <None Update="SampleData\SentimentAnalysisSample.jsonl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
