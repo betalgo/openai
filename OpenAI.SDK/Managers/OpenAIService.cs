@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using OpenAI.GPT3.EndpointProviders;
 using OpenAI.GPT3.Interfaces;
 
 namespace OpenAI.GPT3.Managers
@@ -23,15 +24,29 @@ namespace OpenAI.GPT3.Managers
 
             _httpClient = httpClient ?? HttpClientFactory.Create();
             _httpClient.BaseAddress = new Uri(settings.BaseDomain);
-            var authKey = settings.ApiKey;
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {authKey}");
-            var organization = settings.Organization;
-            if (!string.IsNullOrEmpty(organization))
+            
+            switch (settings.ProviderType)
             {
-                _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{organization}");
+                case ProviderType.Azure:
+                    _httpClient.DefaultRequestHeaders.Add("api-key", settings.ApiKey);
+                    break;
+                case ProviderType.OpenAi:
+                default:
+                    _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
+                    break;
             }
 
-            _endpointProvider = new OpenAiEndpointProvider(settings.ApiVersion);
+            if (!string.IsNullOrEmpty(settings.Organization))
+            {
+                _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{settings.Organization}");
+            }
+
+            _endpointProvider = settings.ProviderType switch
+            {
+                ProviderType.Azure => new AzureOpenAiEndpointProvider(settings.ApiVersion, settings.DeploymentId!),
+                _ => new OpenAiEndpointProvider(settings.ApiVersion)
+            };
+
             _defaultModelId = OpenAiOptions.DefaultEngineId;
         }
 
