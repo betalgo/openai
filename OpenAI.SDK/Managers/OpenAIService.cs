@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using OpenAI.GPT3.EndpointProviders;
 using OpenAI.GPT3.Interfaces;
 
 namespace OpenAI.GPT3.Managers

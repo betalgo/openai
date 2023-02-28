@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace OpenAI.GPT3;
+namespace OpenAI.GPT3.EndpointProviders;
 
 internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 {
@@ -16,10 +16,10 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         _deploymentId = deploymentId;
     }
 
-    string Prefix =>  $"/{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
+    string Prefix => $"/{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
     string QueryString => $"?api-version={_apiVersion}";
-    
-    
+
+
     public string ModelRetrieve(string model) => $"{Prefix}/models/{model}{QueryString}";
 
     public string FileDelete(string fileId) => $"{Prefix}/files/{fileId}{QueryString}";
