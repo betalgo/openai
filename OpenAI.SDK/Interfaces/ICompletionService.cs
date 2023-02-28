@@ -13,7 +13,7 @@ public interface ICompletionService
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
     /// </summary>
-    /// <param name="modelId">The ID of the engine to use for this request</param>
+    /// <param name="modelId">The ID of the model to use for this request</param>
     /// <param name="createCompletionModel"></param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
@@ -22,7 +22,7 @@ public interface ICompletionService
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters and returns a stream of CompletionCreateRequests
     /// </summary>
-    /// <param name="modelId">The ID of the engine to use for this request</param>
+    /// <param name="modelId">The ID of the model to use for this request</param>
     /// <param name="createCompletionModel"></param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
@@ -32,7 +32,7 @@ public interface ICompletionService
     ///     Creates a new completion for the provided prompt and parameters
     /// </summary>
     /// <param name="createCompletionModel"></param>
-    /// <param name="modelId">The ID of the engine to use for this request</param>
+    /// <param name="modelId">The ID of the model to use for this request</param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
     Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Models.Model modelId, CancellationToken cancellationToken = default)

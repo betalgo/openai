@@ -4,7 +4,7 @@ namespace OpenAI.GPT3.Interfaces;
 
 /// <summary>
 ///     List and describe the various models available in the API. You can refer to the
-///     <a href="https://beta.openai.com/docs/models">Models</a> documentation to understand what models are available and
+///     <a href="https://platform.openai.com/docs/models">Models</a> documentation to understand what models are available and
 ///     the differences between them.
 /// </summary>
 public interface IModelService

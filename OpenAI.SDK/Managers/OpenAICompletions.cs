@@ -32,15 +32,21 @@ public partial class OpenAIService : ICompletionService
         while (!reader.EndOfStream)
         {
             cancellationToken.ThrowIfCancellationRequested();
-           
+
             var line = await reader.ReadLineAsync();
             // Skip empty lines
-            if (string.IsNullOrEmpty(line)) continue;
+            if (string.IsNullOrEmpty(line))
+            {
+                continue;
+            }
 
             line = line.RemoveIfStartWith("data: ");
 
             // Exit the loop if the stream is done
-            if (line.StartsWith("[DONE]")) break;
+            if (line.StartsWith("[DONE]"))
+            {
+                break;
+            }
 
             CompletionCreateResponse? block;
             try
@@ -57,7 +63,10 @@ public partial class OpenAIService : ICompletionService
             }
 
 
-            if (null != block) yield return block;
+            if (null != block)
+            {
+                yield return block;
+            }
         }
     }
 }

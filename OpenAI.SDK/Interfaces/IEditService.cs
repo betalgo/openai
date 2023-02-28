@@ -13,20 +13,20 @@ public interface IEditService
     ///     Creates a new edit for the provided input, instruction, and parameters
     /// </summary>
     /// <param name="editCreate"></param>
-    /// <param name="engineId">The ID of the engine to use for this request</param>
+    /// <param name="modelId">The ID of the model to use for this request</param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<EditCreateResponse> CreateEdit(EditCreateRequest editCreate, string? engineId = null, CancellationToken cancellationToken = default);
+    Task<EditCreateResponse> CreateEdit(EditCreateRequest editCreate, string? modelId = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Creates a new edit for the provided input, instruction, and parameters
     /// </summary>
     /// <param name="editCreate"></param>
-    /// <param name="engineId">The ID of the engine to use for this request</param>
+    /// <param name="modelId">The ID of the model to use for this request</param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<EditCreateResponse> Edit(EditCreateRequest editCreate, Models.Model engineId, CancellationToken cancellationToken = default)
+    Task<EditCreateResponse> Edit(EditCreateRequest editCreate, Models.Model modelId, CancellationToken cancellationToken = default)
     {
-        return CreateEdit(editCreate, engineId.EnumToString(), cancellationToken);
+        return CreateEdit(editCreate, modelId.EnumToString(), cancellationToken);
     }
 }

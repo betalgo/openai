@@ -3,91 +3,88 @@ using OpenAI.GPT3.ObjectModels;
 using OpenAI.GPT3.ObjectModels.RequestModels;
 using OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
 
-namespace OpenAI.Playground.TestHelpers
+namespace OpenAI.Playground.TestHelpers;
+
+internal static class FineTuningTestHelper
 {
-    internal static class FineTuningTestHelper
+    public static async Task RunCaseStudyIsTheModelMakingUntrueStatements(IOpenAIService sdk)
     {
-        public static async Task RunCaseStudyIsTheModelMakingUntrueStatements(IOpenAIService sdk)
+        ConsoleExtensions.WriteLine("Run Case Study Is The Model Making Untrue Statements:", ConsoleColor.Cyan);
+
+        try
         {
-            ConsoleExtensions.WriteLine("Run Case Study Is The Model Making Untrue Statements:", ConsoleColor.Cyan);
+            const string fileName = "FineTuningSample1.jsonl";
+            var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
 
-            try
+            ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
+            var uploadFilesResponse = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.FineTune, sampleFile, fileName);
+            if (uploadFilesResponse.Successful)
             {
-                const string fileName = "FineTuningSample1.jsonl";
-                var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
+                ConsoleExtensions.WriteLine($"{fileName} uploaded", ConsoleColor.DarkGreen);
+            }
+            else
+            {
+                ConsoleExtensions.WriteLine($"{fileName} failed", ConsoleColor.DarkRed);
+            }
 
-                ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
-                var uploadFilesResponse = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.FineTune, sampleFile, fileName);
-                if (uploadFilesResponse.Successful)
+            var createFineTuneResponse = await sdk.FineTunes.CreateFineTune(new FineTuneCreateRequest
+            {
+                TrainingFile = uploadFilesResponse.Id,
+                Model = Models.Ada
+            });
+
+            var listFineTuneEventsStream = await sdk.FineTunes.ListFineTuneEvents(createFineTuneResponse.Id, true);
+            using var streamReader = new StreamReader(listFineTuneEventsStream);
+            while (!streamReader.EndOfStream)
+            {
+                Console.WriteLine(await streamReader.ReadLineAsync());
+            }
+
+            FineTuneResponse retrieveFineTuneResponse;
+            do
+            {
+                retrieveFineTuneResponse = await sdk.FineTunes.RetrieveFineTune(createFineTuneResponse.Id);
+                if (retrieveFineTuneResponse.Status == "succeeded" || retrieveFineTuneResponse.Status == "cancelled" || retrieveFineTuneResponse.Status == "failed")
                 {
-                    ConsoleExtensions.WriteLine($"{fileName} uploaded", ConsoleColor.DarkGreen);
-                }
-                else
-                {
-                    ConsoleExtensions.WriteLine($"{fileName} failed", ConsoleColor.DarkRed);
+                    ConsoleExtensions.WriteLine($"Fine-tune Status for {createFineTuneResponse.Id}: {retrieveFineTuneResponse.Status}.", ConsoleColor.Yellow);
+                    break;
                 }
 
-                var createFineTuneResponse = await sdk.FineTunes.CreateFineTune(new FineTuneCreateRequest()
+                ConsoleExtensions.WriteLine($"Fine-tune Status for {createFineTuneResponse.Id}: {retrieveFineTuneResponse.Status}. Wait 10 more seconds", ConsoleColor.DarkYellow);
+                await Task.Delay(10_000);
+            } while (true);
+
+            do
+            {
+                var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest
                 {
-                    TrainingFile = uploadFilesResponse.Id,
-                    Model = Models.Ada
+                    MaxTokens = 1,
+                    Prompt = @"https://t.co/f93xEd2 Excited to share my latest blog post! ->",
+                    Model = retrieveFineTuneResponse.FineTunedModel,
+                    LogProbs = 2
                 });
-
-                var listFineTuneEventsStream = await sdk.FineTunes.ListFineTuneEvents(createFineTuneResponse.Id, true);
-                using var streamReader = new StreamReader(listFineTuneEventsStream);
-                while (!streamReader.EndOfStream)
+                if (completionResult.Successful)
                 {
-                    Console.WriteLine(await streamReader.ReadLineAsync());
+                    Console.WriteLine(completionResult.Choices.FirstOrDefault());
+                    break;
                 }
 
-                FineTuneResponse retrieveFineTuneResponse;
-                do
-                {
-                    retrieveFineTuneResponse = await sdk.FineTunes.RetrieveFineTune(createFineTuneResponse.Id);
-                    if (retrieveFineTuneResponse.Status == "succeeded" || retrieveFineTuneResponse.Status == "cancelled" || retrieveFineTuneResponse.Status == "failed")
-                    {
-                        ConsoleExtensions.WriteLine($"Fine-tune Status for {createFineTuneResponse.Id}: {retrieveFineTuneResponse.Status}.", ConsoleColor.Yellow);
-                        break;
-                    }
-
-                    ConsoleExtensions.WriteLine($"Fine-tune Status for {createFineTuneResponse.Id}: {retrieveFineTuneResponse.Status}. Wait 10 more seconds", ConsoleColor.DarkYellow);
-                    await Task.Delay(10_000);
-                } while (true);
-
-                do
-                {
-                    var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest()
-                    {
-                        MaxTokens = 1,
-                        Prompt = @"https://t.co/f93xEd2 Excited to share my latest blog post! ->",
-                        Model = retrieveFineTuneResponse.FineTunedModel,
-                        LogProbs = 2
-                    });
-                    if (completionResult.Successful)
-                    {
-                        Console.WriteLine(completionResult.Choices.FirstOrDefault());
-                        break;
-                    }
-                    else
-                    {
-                        ConsoleExtensions.WriteLine($"failed{completionResult.Error?.Message}", ConsoleColor.DarkRed);
-                    }
-                } while (true);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+                ConsoleExtensions.WriteLine($"failed{completionResult.Error?.Message}", ConsoleColor.DarkRed);
+            } while (true);
         }
-
-        public static async Task CleanUpAllFineTunings(IOpenAIService sdk)
+        catch (Exception e)
         {
-            var fineTunes = await sdk.FineTunes.ListFineTunes();
-            foreach (var datum in fineTunes.Data)
-            {
-                await sdk.FineTunes.DeleteFineTune(datum.FineTunedModel);
-            }
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public static async Task CleanUpAllFineTunings(IOpenAIService sdk)
+    {
+        var fineTunes = await sdk.FineTunes.ListFineTunes();
+        foreach (var datum in fineTunes.Data)
+        {
+            await sdk.FineTunes.DeleteFineTune(datum.FineTunedModel);
         }
     }
 }
