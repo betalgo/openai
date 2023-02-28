@@ -1,6 +1,7 @@
 ﻿using LaserCatEyes.HttpClientListener;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OpenAI.GPT3;
 using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.Playground.TestHelpers;
@@ -19,9 +20,10 @@ serviceCollection.AddScoped(_ => configuration);
 serviceCollection.AddLaserCatEyesHttpClientListener();
 
 serviceCollection.AddOpenAIService();
-// DeploymentId and ResourceName are only for Azure OpenAI. If you set DeploymentId it will start to use Azure OpenAI.
+//// DeploymentId and ResourceName are only for Azure OpenAI. If you want to use Azure OpenAI services you have to set Provider type To Azure.
 //serviceCollection.AddOpenAIService(options =>
 //{
+//    options.ProviderType = ProviderType.Azure;
 //    options.ApiKey = "Test";
 //    options.DeploymentId = "MyDeploymentId";
 //    options.ResourceName = "MyResourceName";
