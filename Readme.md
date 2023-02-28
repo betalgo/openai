@@ -13,6 +13,7 @@ Dotnet SDK for OpenAI GPT-3 and DALL·E
 https://github.com/betalgo/openai/wiki
 ## Features
 - [ ] ChatGPT (coming soon)
+- [x] Azure OpenAI Support
 - [x] Image (DALL·E)
 - [x] Models
 - [x] Completions
@@ -22,6 +23,7 @@ https://github.com/betalgo/openai/wiki
 - [x] Files
 - [x] Fine-tunes
 - [x] Moderation
+- [x] Tokenizer Support
 - [ ] Rate limit support
 
 For changelogs please go to end of the document.
@@ -31,9 +33,10 @@ Visit https://openai.com/ to get your API key. Also documentation with more deta
 
 
 ## Sample Usages
-### ***!! I would strongly suggest to use different account than your main account while you use playground.   Test methods could add or delete your files and models !!***
+The repository contains a sample project named **OpenAI.Playground** that you can refer to for a better understanding of how the library works. However, please exercise caution while experimenting with it, as some of the test methods may result in unintended consequences such as file deletion or fine tuning.
 
-The repository includes one sample project already **"OpenAI.Playground"** You can check playground project to see how I was testing it while I was developing the library. Be careful while playing with it. Some test methods will delete your files or fine tunings.  
+
+### ***!! It is highly recommended that you use a separate account instead of your primary account while using the playground. This is because some test methods may add or delete your files and models, which could potentially cause unwanted issues. !!***
 
 Your API Key comes from here --> https://platform.openai.com/account/api-keys
 
@@ -148,17 +151,25 @@ if (imageResult.Successful)
 ```
 
 ## Notes:
-I couldn't find enough time to test all the methods or improve the documentation. My main target was to make fine-tuning available. If you hit any issue please report it or pull request always appreciated. 
+Please note that due to time constraints, I was unable to thoroughly test all of the methods or fully document the library. If you encounter any issues, please do not hesitate to report them or submit a pull request - your contributions are always appreciated.
 
-*I was building an SDK for myself then I decide to share it, I hope it will be useful for you. I haven't maintained any open source projects before. Any help would be much appreciated. I am open to suggestions If you would like to contribute somehow.*
+I initially developed this SDK for my personal use and later decided to share it with the community. As I have not maintained any open-source projects before, any assistance or feedback would be greatly appreciated. If you would like to contribute in any way, please feel free to reach out to me with your suggestions.
 
-I will be using the latest libraries all the time. Also, next releasing will include breaking changes frequently *(as I mentioned before I was building the SDK for myself. Unfortunately I do not have time to plan these changes and support lower version apps)*. So please be aware of that before starting to use the library. 
-
-As you can guess I do not accept any damage caused by use of the library. You are always free to use other libraries or OpenAI Web-API.
-
+I will always be using the latest libraries, and future releases will frequently include breaking changes. Please take this into consideration before deciding to use the library. I want to make it clear that I cannot accept any responsibility for any damage caused by using the library. If you feel that this is not suitable for your purposes, you are free to explore alternative libraries or the OpenAI Web-API.
 
 
 ## Changelog
+### 6.6.8
+* **Breaking Changes**
+    * Renamed `Engine` keyword to `Model` in accordance with OpenAI's new naming convention.
+    * Deprecated `DefaultEngineId` in favor of `DefaultModelId`.
+    * `DefaultEngineId` and `DefaultModelId` is not static anymore.
+
+* Added support for Azure OpenAI, a big thanks to @copypastedeveloper!
+* Added support for Tokenizer, inspired by @dluc's https://github.com/dluc/openai-tools repository. Please consider giving the repo a star.  
+
+These two changes are recent additions, so please let me know if you encounter any issues.
+* Updated documentation links from beta.openai.com to platform.openai.com.
 ### 6.6.7
 * Added Cancellation Token support, thanks to @robertlyson 
 * Updated readme file, thanks to @qbm5, @gotmike, @SteveMCarroll
