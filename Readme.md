@@ -19,7 +19,7 @@ Be aware! It might have some bugs, also the next version may have breaking chang
 Enjoy your new Methods! Don't forget to star the repo if you like it.
 
 ## Features
-- [x] [Chat GPT](Chat-GPT)
+- [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
 - [x] Azure OpenAI Support
 - [x] [Image DALL·E](Dall-E)
 - [x] [Models](Models)
