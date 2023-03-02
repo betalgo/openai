@@ -21,14 +21,14 @@ Enjoy your new Methods! Don't forget to star the repo if you like it.
 ## Features
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
 - [x] Azure OpenAI Support
-- [x] [Image DALL·E](Dall-E)
-- [x] [Models](Models)
-- [x] [Completions](Completions) 
-- [x] [Edit](Edit) 
-- [x] [Embeddings](Embeddings) 
-- [x] [Files](Files) 
-- [x] [Fine-tunes](Fine-Tuning) 
-- [x] [Moderation](Moderation)
+- [x] [Image DALL·E](https://github.com/betalgo/openai/wiki/Dall-E)
+- [x] [Models](https://github.com/betalgo/openai/wiki/Models)
+- [x] [Completions](https://github.com/betalgo/openai/wiki/Completions) 
+- [x] [Edit](https://github.com/betalgo/openai/wiki/Edit) 
+- [x] [Embeddings](https://github.com/betalgo/openai/wiki/Embeddings) 
+- [x] [Files](https://github.com/betalgo/openai/wiki/Files) 
+- [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning) 
+- [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
 - [x] Tokenizer Support
 - [ ] Whisper
 - [ ] Rate limit support
