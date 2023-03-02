@@ -4,7 +4,8 @@ public interface IOpenAIService
 {
     /// <summary>
     ///     List and describe the various models available in the API. You can refer to the
-    ///     <a href="https://platform.openai.com/docs/models">Models</a> documentation to understand what models are available and
+    ///     <a href="https://platform.openai.com/docs/models">Models</a> documentation to understand what models are available
+    ///     and
     ///     the differences between them.
     /// </summary>
     public IModelService Models { get; }
@@ -38,6 +39,11 @@ public interface IOpenAIService
     ///     Creates a new edit for the provided input, instruction, and parameters
     /// </summary>
     public IEditService Edit { get; }
+
+    /// <summary>
+    ///     Given a chat conversation, the model will return a chat completion response.
+    /// </summary>
+    public IChatCompletionService ChatCompletion { get; }
 
 
     /// <summary>

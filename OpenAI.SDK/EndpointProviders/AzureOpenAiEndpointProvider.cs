@@ -120,6 +120,11 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/images/variations{QueryString}";
     }
 
+    public string ChatCompletionCreate()
+    {
+        return $"{Prefix}/chat/completions{QueryString}";
+    }
+
     private string Files()
     {
         return $"{Prefix}/files{QueryString}";

@@ -10,7 +10,8 @@ public record FineTuneCreateRequest : IOpenAiModels.IModel
     ///     See <a href="https://platform.openai.com/docs/api-reference/files/upload">upload file</a> for how to upload a file.
     ///     Your dataset must be formatted as a JSONL file, where each training example is a JSON object with the keys "prompt"
     ///     and "completion". Additionally, you must upload your file with the purpose fine-tune.
-    ///     See the <a href="https://platform.openai.com/docs/guides/fine-tuning/creating-training-data">fine-tuning</a> guide for
+    ///     See the <a href="https://platform.openai.com/docs/guides/fine-tuning/creating-training-data">fine-tuning</a> guide
+    ///     for
     ///     more details.
     /// </summary>
     [JsonPropertyName("training_file")]
@@ -20,11 +21,15 @@ public record FineTuneCreateRequest : IOpenAiModels.IModel
     ///     The ID of an uploaded file that contains validation data.
     ///     If you provide this file, the data is used to generate validation metrics periodically during fine-tuning. These
     ///     metrics can be viewed in the
-    ///     <a href="https://platform.openai.com/docs/guides/fine-tuning/analyzing-your-fine-tuned-model">fine-tuning results file</a>
+    ///     <a href="https://platform.openai.com/docs/guides/fine-tuning/analyzing-your-fine-tuned-model">
+    ///         fine-tuning results
+    ///         file
+    ///     </a>
     ///     . Your train and validation data should be mutually exclusive.
     ///     Your dataset must be formatted as a JSONL file, where each validation example is a JSON object with the keys
     ///     "prompt" and "completion". Additionally, you must upload your file with the purpose fine-tune.
-    ///     See the <a href="https://platform.openai.com/docs/guides/fine-tuning/creating-training-data">fine-tuning guide</a> for
+    ///     See the <a href="https://platform.openai.com/docs/guides/fine-tuning/creating-training-data">fine-tuning guide</a>
+    ///     for
     ///     more details.
     /// </summary>
     [JsonPropertyName("validation_file")]

@@ -27,7 +27,8 @@ public interface IFileService
     /// <param name="fileName">Name of file</param>
     /// <param name="purpose">
     ///     The intended purpose of the uploaded documents.
-    ///     Use "fine-tune" for <a href="https://platform.openai.com/docs/api-reference/fine-tunes">Fine-tuning</a>. This allows us
+    ///     Use "fine-tune" for <a href="https://platform.openai.com/docs/api-reference/fine-tunes">Fine-tuning</a>. This
+    ///     allows us
     ///     to validate the format of the uploaded file.
     /// </param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
