@@ -21,4 +21,5 @@ internal interface IOpenAiEndpointProvider
     string ImageCreate();
     string ImageEditCreate();
     string ImageVariationCreate();
+    string ChatCompletionCreate();
 }

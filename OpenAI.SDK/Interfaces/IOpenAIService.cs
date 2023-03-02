@@ -40,6 +40,11 @@ public interface IOpenAIService
     /// </summary>
     public IEditService Edit { get; }
 
+    /// <summary>
+    ///     Given a chat conversation, the model will return a chat completion response.
+    /// </summary>
+    public IChatCompletionService ChatCompletion { get; }
+
 
     /// <summary>
     ///     Set default model
