@@ -31,12 +31,8 @@ public partial class OpenAIService : IFileService
         return await _httpClient.GetFromJsonAsync<FileResponse>(_endpointProvider.FileRetrieve(fileId), cancellationToken);
     }
 
-    //TODO Not tested yet
-    //TODO check if there undocumented response object
-    // I couldn't figure out how this endpoint works..
-    public async Task RetrieveFileContent(string fileId, CancellationToken cancellationToken = default)
+    public async Task<string> RetrieveFileContent(string fileId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
-        //await _httpClient.GetFromJsonAsync<RetrieveFileResponse>($"/{ApiVersion}/files/{fileId}/content");
+        return await _httpClient.GetStringAsync(_endpointProvider.FileRetrieveContent(fileId), cancellationToken);
     }
 }

@@ -71,5 +71,5 @@ public interface IFileService
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task RetrieveFileContent(string fileId, CancellationToken cancellationToken = default);
+    Task<string> RetrieveFileContent(string fileId, CancellationToken cancellationToken = default);
 }

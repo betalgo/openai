@@ -60,6 +60,11 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return Files();
     }
 
+    public string FileRetrieveContent(string fileId)
+    {
+        return $"/{Prefix}/files/{fileId}/content{QueryString}";
+    }
+
     public string FineTuneCreate()
     {
         return $"{Prefix}/fine-tunes{QueryString}";
