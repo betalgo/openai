@@ -13,7 +13,7 @@ internal static class ChatCompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Chat Completion Test:", ConsoleColor.DarkCyan);
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest()
+            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
             {
                 Messages = new List<ChatMessage>
                 {
@@ -53,17 +53,17 @@ internal static class ChatCompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Chat Completion Stream Test:", ConsoleColor.DarkCyan);
-            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest()
+            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest
             {
                 Messages = new List<ChatMessage>
                 {
-                    new(StaticValues.ChatMessageRoles.System,"You are a helpful assistant."),
-                    new(StaticValues.ChatMessageRoles.User,"Who won the world series in 2020?"),
-                    new(StaticValues.ChatMessageRoles.System,"The Los Angeles Dodgers won the World Series in 2020."),
-                    new(StaticValues.ChatMessageRoles.User,"Tell me a story about The Los Angeles Dodgers")
+                    new(StaticValues.ChatMessageRoles.System, "You are a helpful assistant."),
+                    new(StaticValues.ChatMessageRoles.User, "Who won the world series in 2020?"),
+                    new(StaticValues.ChatMessageRoles.System, "The Los Angeles Dodgers won the World Series in 2020."),
+                    new(StaticValues.ChatMessageRoles.User, "Tell me a story about The Los Angeles Dodgers")
                 },
                 MaxTokens = 150,
-                Model = Models.ChatGpt3_5Turbo 
+                Model = Models.ChatGpt3_5Turbo
             });
 
             await foreach (var completion in completionResult)
@@ -92,5 +92,4 @@ internal static class ChatCompletionTestHelper
             throw;
         }
     }
-
 }

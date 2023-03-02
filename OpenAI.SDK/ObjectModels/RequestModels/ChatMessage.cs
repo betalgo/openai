@@ -31,7 +31,7 @@ public class ChatMessage
         return new ChatMessage(StaticValues.ChatMessageRoles.Assistant, content);
     }
 
-    public static  ChatMessage FromUser(string content)
+    public static ChatMessage FromUser(string content)
     {
         return new ChatMessage(StaticValues.ChatMessageRoles.User, content);
     }

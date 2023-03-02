@@ -23,7 +23,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
     {
         return $"/{_apiVersion}/completions";
     }
-    
+
     public string ChatCompletionCreate()
     {
         return $"/{_apiVersion}/chat/completions";

@@ -2,7 +2,6 @@
 
 public static class Models
 {
-
     public enum BaseModel
     {
         Ada,
