@@ -1,4 +1,4 @@
-# Dotnet SDK for OpenAI GPT-3 and DALL·E
+# Dotnet SDK for OpenAI Chat GPT, GPT-3 and DALL·E
 
 [![Betalgo.OpenAI.GPT3](https://img.shields.io/nuget/v/Betalgo.OpenAI.GPT3?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.GPT3/)
 
@@ -6,13 +6,20 @@
 Install-Package Betalgo.OpenAI.GPT3
 ```
 
-Dotnet SDK for OpenAI GPT-3 and DALL·E  
+Dotnet SDK for OpenAI Chat GPT, GPT-3 and DALL·E  
 *Unofficial*.  
 *GPT-3 doesn't have any official .Net SDK.*
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki
+
+## **NOTE**  for v6.7.0
+I know we are all excited about new Chat Gpt APIs, so I tried to rush this version. It's nearly 4 AM here.  
+Be aware! It might have some bugs, also the next version may have breaking changes. Because I didn't like namings but I don't have time to think about it at the moment.  Whisper is coming soon to.
+
+Enjoy your new Methods! Don't forget to star the repo if you like it.
+
 ## Features
-- [ ] ChatGPT (coming soon)
+- [x] ChatGPT
 - [x] Azure OpenAI Support
 - [x] Image (DALL·E)
 - [x] Models
@@ -24,6 +31,7 @@ https://github.com/betalgo/openai/wiki
 - [x] Fine-tunes
 - [x] Moderation
 - [x] Tokenizer Support
+- [ ] Whisper
 - [ ] Rate limit support
 
 For changelogs please go to end of the document.
@@ -82,7 +90,25 @@ You can set default model(optional):
 ```csharp
 openAiService.SetDefaultModelId(Models.Davinci);
 ```
-
+## Chat Gpt Sample
+```csharp
+var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+{
+    Messages = new List<ChatMessage>
+    {
+        ChatMessage.FromSystem("You are a helpful assistant."),
+        ChatMessage.FromUser("Who won the world series in 2020?"),
+        ChatMessage.FromAssistance("The Los Angeles Dodgers won the World Series in 2020."),
+        ChatMessage.FromUser("Where was it played?")
+    },
+    Model = Models.ChatGpt3_5Turbo,
+    MaxTokens = 50//optional
+});
+if (completionResult.Successful)
+{
+   Console.WriteLine(completionResult.Choices.First().Message.Content);
+}
+```
 ## Completions Sample
 ```csharp
 var completionResult = await openAiService.Completions.CreateCompletion(new CompletionCreateRequest()
@@ -159,6 +185,10 @@ I will always be using the latest libraries, and future releases will frequently
 
 
 ## Changelog
+### 6.7.0
+* We all beeen waiting for this moment. Please enjoy Chat GPT API
+* Added support for Chat GPT API
+* Fixed Tokenizer Bug, it was not working properly.
 ### 6.6.8
 * **Breaking Changes**
     * Renamed `Engine` keyword to `Model` in accordance with OpenAI's new naming convention.

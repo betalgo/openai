@@ -28,7 +28,6 @@ public class OpenAiOptions
     /// </summary>
     public static readonly string SettingKey = "OpenAIServiceOptions";
 
-   
 
     private string? _apiVersion;
     private string? _baseDomain;

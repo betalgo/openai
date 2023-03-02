@@ -31,13 +31,23 @@ serviceCollection.AddOpenAIService();
 var serviceProvider = serviceCollection.BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 
+//                                 CHAT GPT
+//  |-----------------------------------------------------------------------|
+//  |    o   \ o /  _ o         __|    \ /     |__        o _  \ o /   o    |
+//  |   /|\    |     /\   ___\o   \o    |    o/    o/__   /\     |    /|\   |
+//  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
+//  |-----------------------------------------------------------------------|
+await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
+await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
+
+
 //await ModelTestHelper.FetchModelsTest(sdk);
 //await EditTestHelper.RunSimpleEditCreateTest(sdk);
 //await ImageTestHelper.RunSimpleCreateImageTest(sdk);
 //await ImageTestHelper.RunSimpleCreateImageEditTest(sdk);
 //await ImageTestHelper.RunSimpleCreateImageVariationTest(sdk);
 //await ModerationTestHelper.CreateModerationTest(sdk);
-await CompletionTestHelper.RunSimpleCompletionTest(sdk);
+//await CompletionTestHelper.RunSimpleCompletionTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest2(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest3(sdk);
 //await CompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
