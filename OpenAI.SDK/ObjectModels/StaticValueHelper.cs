@@ -17,4 +17,10 @@ public class StaticValues
             public static string Base64 => "b64_json";
         }
     }
+    public static class ChatMessageRoles
+    {
+        public static string System => "system";
+        public static string User => "user";
+        public static string Assistant => "assistant";
+    }
 }

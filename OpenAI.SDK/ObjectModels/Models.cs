@@ -2,6 +2,7 @@
 
 public static class Models
 {
+
     public enum BaseModel
     {
         Ada,
@@ -58,7 +59,10 @@ public static class Models
         CodeDavinciV1,
         CodeCushmanV1,
 
-        CodeDavinciV2
+        CodeDavinciV2,
+
+        ChatGpt3_5Turbo,
+        ChatGpt3_5Turbo0301
     }
 
     public enum Subject
@@ -119,6 +123,8 @@ public static class Models
     public static string CodeSearchAdaTextV1 => ModelNameBuilder(BaseModel.Ada, Subject.CodeSearchText, "001");
     public static string CodeSearchBabbageTextV1 => ModelNameBuilder(BaseModel.Babbage, Subject.CodeSearchText, "001");
 
+    public static string ChatGpt3_5Turbo => "gpt-3.5-turbo";
+    public static string ChatGpt3_5Turbo0301 => "gpt-3.5-turbo-0301";
 
     /// <summary>
     ///     This method does not guarantee returned model exists.
@@ -183,6 +189,8 @@ public static class Models
             Model.CodeSearchBabbageTextV1 => CodeSearchBabbageTextV1,
             Model.TextEditDavinciV1 => TextEditDavinciV1,
             Model.CodeEditDavinciV1 => CodeEditDavinciV1,
+            Model.ChatGpt3_5Turbo => ChatGpt3_5Turbo,
+            Model.ChatGpt3_5Turbo0301 => ChatGpt3_5Turbo0301,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }

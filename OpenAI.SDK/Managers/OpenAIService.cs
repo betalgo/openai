@@ -59,6 +59,7 @@ public partial class OpenAIService : IOpenAIService
     public IModerationService Moderation => this;
     public IImageService Image => this;
     public IEditService Edit => this;
+    public IChatCompletionService ChatCompletion => this;
 
     /// <summary>
     ///     Sets default Model Id
