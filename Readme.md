@@ -19,17 +19,16 @@ Be aware! It might have some bugs, also the next version may have breaking chang
 Enjoy your new Methods! Don't forget to star the repo if you like it.
 
 ## Features
-- [x] ChatGPT
+- [x] [Chat GPT](Chat-GPT)
 - [x] Azure OpenAI Support
-- [x] Image (DALL·E)
-- [x] Models
-- [x] Completions
-- [x] Edit
-- [x] Mars
-- [x] Embeddings
-- [x] Files
-- [x] Fine-tunes
-- [x] Moderation
+- [x] [Image DALL·E](Dall-E)
+- [x] [Models](Models)
+- [x] [Completions](Completions) 
+- [x] [Edit](Edit) 
+- [x] [Embeddings](Embeddings) 
+- [x] [Files](Files) 
+- [x] [Fine-tunes](Fine-Tuning) 
+- [x] [Moderation](Moderation)
 - [x] Tokenizer Support
 - [ ] Whisper
 - [ ] Rate limit support
