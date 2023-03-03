@@ -51,7 +51,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string FileRetrieve(string fileId)
     {
-        return Files();
+        return $"/{_apiVersion}/files/{fileId}";
     }
 
     public string FineTuneCreate()
