@@ -19,9 +19,11 @@ public partial class OpenAIService : IFileService
     /// <inheritdoc />
     public async Task<FileUploadResponse> UploadFile(string purpose, byte[] file, string fileName, CancellationToken cancellationToken = default)
     {
-        var multipartContent = new MultipartFormDataContent();
-        multipartContent.Add(new StringContent(purpose), "purpose");
-        multipartContent.Add(new ByteArrayContent(file), "file", fileName);
+        var multipartContent = new MultipartFormDataContent
+        {
+            {new StringContent(purpose), "purpose"},
+            {new ByteArrayContent(file), "file", fileName}
+        };
 
         return await _httpClient.PostFileAndReadAsAsync<FileUploadResponse>(_endpointProvider.FilesUpload(), multipartContent, cancellationToken);
     }
