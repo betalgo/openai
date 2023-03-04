@@ -4,6 +4,7 @@
   "OpenAIServiceOptions": {
     // "Organization": "Put your Organization Id to here or to User Secret file" //https:// platform.openai.com/account/org-settings
     //,"ApiKey":"Put your api key to here or to User Secret file" //How can I get an app key? visit here: https://openai.com/
+    ////,"ValidateApiOptions": false // if you want to skip options validation.
   },
   //// Azure Sample
   //"OpenAIServiceOptions": {
@@ -12,6 +13,7 @@
   //  "ResourceName": "Your Resource Name",
   //  "ProviderType": "Azure"
   //  //,"ApiVersion": "Your API Version"//optional
+  // //,"ValidateApiOptions": false // if you want to skip options validation.
   //},
 
   "LaserCatEyesOptions": {

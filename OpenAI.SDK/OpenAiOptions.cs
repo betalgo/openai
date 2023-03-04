@@ -113,6 +113,7 @@ public class OpenAiOptions
         set => DefaultModelId = value;
     }
 
+    public bool ValidateApiOptions { get; set; } =true;
     /// <summary>
     ///     Default model id. If you are working with only one model, this will save you from few line extra code.
     /// </summary>
@@ -164,6 +165,11 @@ public class OpenAiOptions
     /// <exception cref="ArgumentNullException"></exception>
     public void Validate()
     {
+        if (!ValidateApiOptions)
+        {
+            return;
+        }
+
         if (string.IsNullOrEmpty(ApiKey))
         {
             throw new ArgumentNullException(nameof(ApiKey));

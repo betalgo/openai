@@ -18,12 +18,12 @@ internal static class AudioTestHelper
             var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
 
             ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
-            var audioResult = await sdk.Audio.CreateTranscription(new AudioCreateTranscriptionRequest()
+            var audioResult = await sdk.Audio.CreateTranscription(new AudioCreateTranscriptionRequest
             {
                 FileName = fileName,
                 File = sampleFile,
                 Model = Models.WhisperV1,
-                ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson,
+                ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson
             });
 
 
@@ -60,14 +60,14 @@ internal static class AudioTestHelper
             var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
 
             ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
-            var audioResult = await sdk.Audio.CreateTranslation(new AudioCreateTranscriptionRequest()
+            var audioResult = await sdk.Audio.CreateTranslation(new AudioCreateTranscriptionRequest
             {
                 FileName = fileName,
                 File = sampleFile,
                 Model = Models.WhisperV1,
                 ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson
             });
-            
+
             if (audioResult.Successful)
             {
                 Console.WriteLine(string.Join("\n", audioResult.Text));

@@ -17,6 +17,7 @@ public class StaticValues
             public static string Base64 => "b64_json";
         }
     }
+
     public static class AudioStatics
     {
         public static class ResponseFormat

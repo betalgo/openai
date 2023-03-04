@@ -51,8 +51,8 @@ public partial class OpenAIService : IFileService
             {
                 Error = new Error
                 {
-                    Message = $"Api returned Status Code: {(int)response.StatusCode} {response.StatusCode}",
-                    Code = ((int)response.StatusCode).ToString()
+                    Message = $"Api returned Status Code: {(int) response.StatusCode} {response.StatusCode}",
+                    Code = ((int) response.StatusCode).ToString()
                 }
             };
         }
