@@ -54,7 +54,7 @@ await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionStreamTestWithCancellationToken(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTestWithCancellationToken(sdk);
 //await EmbeddingTestHelper.RunSimpleEmbeddingTest(sdk);
-//////await FileTestHelper.RunSimpleFileTest(sdk); //will delete files
+//////await FileTestHelper.RunSimpleFileTest(sdk); //will delete all of your files
 //////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
 //await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 await TokenizerTestHelper.RunTokenizerTest();
