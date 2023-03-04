@@ -12,7 +12,7 @@ Dotnet SDK for OpenAI Chat GPT, GPT-3 and DALL·E
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki
 
-## **NOTE**  for v6.7.0
+## **NOTE**  for v6.7.0 & v6.7.1
 I know we are all excited about new Chat Gpt APIs, so I tried to rush this version. It's nearly 4 AM here.  
 Be aware! It might have some bugs, also the next version may have breaking changes. Because I didn't like namings but I don't have time to think about it at the moment.  Whisper is coming soon to.
 
@@ -30,7 +30,7 @@ Enjoy your new Methods! Don't forget to star the repo if you like it.
 - [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning) 
 - [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
 - [x] Tokenizer Support
-- [ ] Whisper
+- [x] Whisper
 - [ ] Rate limit support
 
 For changelogs please go to end of the document.
@@ -184,10 +184,16 @@ I will always be using the latest libraries, and future releases will frequently
 
 
 ## Changelog
+### 6.7.1
+* Introduced support for Whisper.
+* Grateful thanks to @shanepowell for contributing RetrieveFileContent.
+* Resolved an issue that was causing problems with the tokenizer. A clean build should hopefully address this.
+
 ### 6.7.0
 * We all beeen waiting for this moment. Please enjoy Chat GPT API
 * Added support for Chat GPT API
 * Fixed Tokenizer Bug, it was not working properly.
+
 ### 6.6.8
 * **Breaking Changes**
     * Renamed `Engine` keyword to `Model` in accordance with OpenAI's new naming convention.
@@ -199,6 +205,3 @@ I will always be using the latest libraries, and future releases will frequently
 
 These two changes are recent additions, so please let me know if you encounter any issues.
 * Updated documentation links from beta.openai.com to platform.openai.com.
-### 6.6.7
-* Added Cancellation Token support, thanks to @robertlyson 
-* Updated readme file, thanks to @qbm5, @gotmike, @SteveMCarroll
