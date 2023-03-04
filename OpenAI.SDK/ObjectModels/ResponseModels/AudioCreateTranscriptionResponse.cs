@@ -33,7 +33,7 @@ public record AudioCreateTranscriptionResponse : BaseResponse
         [JsonPropertyName("avg_logprob")] public float Avglogprob { get; set; }
 
         [JsonPropertyName("compression_ratio")]
-        public float compressionratio { get; set; }
+        public float CompressionRatio { get; set; }
 
         [JsonPropertyName("no_speech_prob")] public float Nospeechprob { get; set; }
 
