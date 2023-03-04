@@ -36,4 +36,10 @@ public interface IOpenAiModels
     {
         public string User { get; set; }
     }
+
+    public interface IFile
+    {
+        public byte[] File { get; set; }
+        public string FileName { get; set; }
+    }
 }

@@ -125,6 +125,17 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/chat/completions{QueryString}";
     }
 
+    public string AudioCreateTranscription()
+    {
+        return $"/{Prefix}/audio/transcriptions{QueryString}";
+    }
+
+    public string AudioCreateTranslation()
+    {
+        return $"/{Prefix}/audio/translation{QueryString}";
+
+    }
+
     private string Files()
     {
         return $"{Prefix}/files{QueryString}";

@@ -45,6 +45,11 @@ public interface IOpenAIService
     /// </summary>
     public IChatCompletionService ChatCompletion { get; }
 
+    /// <summary>
+    ///    Given an audio file, the model will return a transcription of the audio.
+    /// </summary>
+    public IAudioService Audio { get; }
+
 
     /// <summary>
     ///     Set default model
