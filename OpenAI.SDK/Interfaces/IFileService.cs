@@ -37,7 +37,7 @@ public interface IFileService
 
     Task<FileUploadResponse> FileUpload(string purpose, Stream file, string fileName, CancellationToken cancellationToken = default)
     {
-        return UploadFile(purpose, file.ToByteArray(), fileName);
+        return UploadFile(purpose, file.ToByteArray(), fileName, cancellationToken);
     }
 
     Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName, CancellationToken cancellationToken = default)
@@ -72,5 +72,16 @@ public interface IFileService
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<string> RetrieveFileContent(string fileId, CancellationToken cancellationToken = default);
+    Task<FileContentResponse<string?>> RetrieveFileContent(string fileId, CancellationToken cancellationToken = default)
+    {
+        return RetrieveFileContent<string>(fileId, cancellationToken);
+    }
+
+    /// <summary>
+    ///     Returns the contents of the specified file
+    /// </summary>
+    /// <param name="fileId">The ID of the file to use for this request</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns></returns>
+    Task<FileContentResponse<T?>> RetrieveFileContent<T>(string fileId, CancellationToken cancellationToken = default);
 }
