@@ -40,6 +40,9 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
+// Whisper
+await AudioTestHelper.RunSimpleAudioCreateTranscriptionTest(sdk);
+await AudioTestHelper.RunSimpleAudioCreateTranslationTest(sdk);
 
 //await ModelTestHelper.FetchModelsTest(sdk);
 //await EditTestHelper.RunSimpleEditCreateTest(sdk);
@@ -54,7 +57,7 @@ await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionStreamTestWithCancellationToken(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTestWithCancellationToken(sdk);
 //await EmbeddingTestHelper.RunSimpleEmbeddingTest(sdk);
-//////await FileTestHelper.RunSimpleFileTest(sdk); //will delete files
+//////await FileTestHelper.RunSimpleFileTest(sdk); //will delete all of your files
 //////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
 //await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 await TokenizerTestHelper.RunTokenizerTest();

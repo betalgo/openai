@@ -61,7 +61,9 @@ public static class Models
         CodeDavinciV2,
 
         ChatGpt3_5Turbo,
-        ChatGpt3_5Turbo0301
+        ChatGpt3_5Turbo0301,
+
+        WhisperV1
     }
 
     public enum Subject
@@ -124,6 +126,8 @@ public static class Models
 
     public static string ChatGpt3_5Turbo => "gpt-3.5-turbo";
     public static string ChatGpt3_5Turbo0301 => "gpt-3.5-turbo-0301";
+
+    public static string WhisperV1 => "whisper-1";
 
     /// <summary>
     ///     This method does not guarantee returned model exists.
@@ -190,6 +194,7 @@ public static class Models
             Model.CodeEditDavinciV1 => CodeEditDavinciV1,
             Model.ChatGpt3_5Turbo => ChatGpt3_5Turbo,
             Model.ChatGpt3_5Turbo0301 => ChatGpt3_5Turbo0301,
+            Model.WhisperV1 => WhisperV1,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }

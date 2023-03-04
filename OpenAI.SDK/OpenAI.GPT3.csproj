@@ -9,13 +9,13 @@
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>6.7.0</Version>
+		<Version>6.7.1</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>OpenAI GPT-3 and DALL·E dotnet SDK</Product>
-		<Description>Dotnet SDK for OpenAI GPT-3 and DALL·E</Description>
+		<Description>Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-3 and DALL·E</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
-		<PackageTags>openAI,gpt-3,ai,betalgo,NLP,dalle,DALL·E,dall-e,OpenAI,OpenAi,openAi,azureOpenAI,azure,chatgpt,whisper</PackageTags>
+		<PackageTags>openAI,chatgpt,gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
 		<PackageId>Betalgo.OpenAI.GPT3</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>

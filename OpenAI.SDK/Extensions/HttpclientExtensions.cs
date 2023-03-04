@@ -44,6 +44,12 @@ public static class HttpClientExtensions
         return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
     }
 
+    public static async Task<string> PostFileAndReadAsStringAsync(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default)
+    {
+        var response = await client.PostAsync(uri, content, cancellationToken);
+        return await response.Content.ReadAsStringAsync(cancellationToken) ?? throw new InvalidOperationException();
+    }
+
     public static async Task<TResponse> DeleteAndReadAsAsync<TResponse>(this HttpClient client, string uri, CancellationToken cancellationToken = default)
     {
         var response = await client.DeleteAsync(uri, cancellationToken);

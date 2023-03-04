@@ -57,7 +57,12 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string FileRetrieve(string fileId)
     {
-        return Files();
+        return $"/{Prefix}/files/{fileId}{QueryString}";
+    }
+
+    public string FileRetrieveContent(string fileId)
+    {
+        return $"/{Prefix}/files/{fileId}/content{QueryString}";
     }
 
     public string FineTuneCreate()
@@ -118,6 +123,16 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
     public string ChatCompletionCreate()
     {
         return $"{Prefix}/chat/completions{QueryString}";
+    }
+
+    public string AudioCreateTranscription()
+    {
+        return $"/{Prefix}/audio/transcriptions{QueryString}";
+    }
+
+    public string AudioCreateTranslation()
+    {
+        return $"/{Prefix}/audio/translation{QueryString}";
     }
 
     private string Files()

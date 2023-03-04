@@ -29,6 +29,16 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"/{_apiVersion}/chat/completions";
     }
 
+    public string AudioCreateTranscription()
+    {
+        return $"/{_apiVersion}/audio/transcriptions";
+    }
+
+    public string AudioCreateTranslation()
+    {
+        return $"/{_apiVersion}/audio/translations";
+    }
+
     public string EditCreate()
     {
         return $"/{_apiVersion}/edits";
@@ -51,7 +61,12 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string FileRetrieve(string fileId)
     {
-        return Files();
+        return $"/{_apiVersion}/files/{fileId}";
+    }
+
+    public string FileRetrieveContent(string fileId)
+    {
+        return $"/{_apiVersion}/files/{fileId}/content";
     }
 
     public string FineTuneCreate()

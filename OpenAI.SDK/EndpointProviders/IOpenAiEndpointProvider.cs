@@ -10,6 +10,7 @@ internal interface IOpenAiEndpointProvider
     string FilesUpload();
     string FileDelete(string fileId);
     string FileRetrieve(string fileId);
+    string FileRetrieveContent(string fileId);
     string FineTuneCreate();
     string FineTuneList();
     string FineTuneRetrieve(string fineTuneId);
@@ -22,4 +23,6 @@ internal interface IOpenAiEndpointProvider
     string ImageEditCreate();
     string ImageVariationCreate();
     string ChatCompletionCreate();
+    string AudioCreateTranscription();
+    string AudioCreateTranslation();
 }
