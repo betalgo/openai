@@ -188,6 +188,7 @@ I will always be using the latest libraries, and future releases will frequently
 * Introduced support for Whisper.
 * Grateful thanks to @shanepowell for contributing RetrieveFileContent.
 * Resolved an issue that was causing problems with the tokenizer. A clean build should hopefully address this.
+* Added support for skip options validation
 
 ### 6.7.0
 * We all beeen waiting for this moment. Please enjoy Chat GPT API
