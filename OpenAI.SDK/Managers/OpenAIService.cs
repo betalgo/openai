@@ -51,15 +51,34 @@ public partial class OpenAIService : IOpenAIService
     }
 
 
+    /// <inheritdoc />
     public IModelService Models => this;
+
+    /// <inheritdoc />
     public ICompletionService Completions => this;
+
+    /// <inheritdoc />
     public IEmbeddingService Embeddings => this;
+
+    /// <inheritdoc />
     public IFileService Files => this;
+
+    /// <inheritdoc />
     public IFineTuneService FineTunes => this;
+
+    /// <inheritdoc />
     public IModerationService Moderation => this;
+
+    /// <inheritdoc />
     public IImageService Image => this;
+
+    /// <inheritdoc />
     public IEditService Edit => this;
+
+    /// <inheritdoc />
     public IChatCompletionService ChatCompletion => this;
+
+    /// <inheritdoc />
     public IAudioService Audio => this;
 
     /// <summary>

@@ -37,11 +37,11 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |   /|\    |     /\   ___\o   \o    |    o/    o/__   /\     |    /|\   |
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
-//await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
-//await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
+await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
+await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
 // Whisper
-//await AudioTestHelper.RunSimpleAudioCreateTranscriptionTest(sdk);
+await AudioTestHelper.RunSimpleAudioCreateTranscriptionTest(sdk);
 await AudioTestHelper.RunSimpleAudioCreateTranslationTest(sdk);
 
 //await ModelTestHelper.FetchModelsTest(sdk);

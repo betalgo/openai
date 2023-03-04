@@ -65,8 +65,7 @@ internal static class AudioTestHelper
                 FileName = fileName,
                 File = sampleFile,
                 Model = Models.WhisperV1,
-                ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson,
-                Language = "fr"
+                ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson
             });
             
             if (audioResult.Successful)
