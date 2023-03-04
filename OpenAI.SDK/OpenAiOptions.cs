@@ -1,4 +1,6 @@
-﻿namespace OpenAI.GPT3;
+﻿using OpenAI.GPT3.Extensions;
+
+namespace OpenAI.GPT3;
 
 /// <summary>
 ///     Provider Type
@@ -164,32 +166,20 @@ public class OpenAiOptions
     /// <exception cref="ArgumentNullException"></exception>
     public void Validate()
     {
-        if (string.IsNullOrEmpty(ApiKey))
-        {
-            throw new ArgumentNullException(nameof(ApiKey));
-        }
-
-        if (string.IsNullOrEmpty(ApiVersion))
-        {
-            throw new ArgumentNullException(nameof(ApiVersion));
-        }
+        ApiKey.ThrowIfIsNullOrEmpty(nameof(ApiKey));
+        ApiVersion.ThrowIfIsNullOrEmpty(nameof(ApiVersion));
 
         if (string.IsNullOrEmpty(BaseDomain))
         {
-            if (ProviderType == ProviderType.Azure && string.IsNullOrEmpty(ResourceName))
-            {
-                throw new ArgumentNullException(nameof(ResourceName));
-            }
+            if (ProviderType == ProviderType.Azure)
+                ResourceName?.ThrowIfIsNullOrEmpty(nameof(ResourceName));
 
             throw new ArgumentNullException(nameof(BaseDomain));
         }
 
         if (ProviderType == ProviderType.Azure)
         {
-            if (string.IsNullOrEmpty(DeploymentId))
-            {
-                throw new ArgumentNullException(nameof(DeploymentId));
-            }
+            DeploymentId?.ThrowIfIsNullOrEmpty(nameof(DeploymentId));
 
             if (BaseDomain.Equals("https://.openai.azure.com/"))
             {
@@ -198,15 +188,11 @@ public class OpenAiOptions
         }
         else if (ProviderType == ProviderType.OpenAi)
         {
-            if (!string.IsNullOrEmpty(DeploymentId))
-            {
-                throw new ArgumentException(nameof(DeploymentId) + " is not supported for OpenAi Provider. Set ProviderType to Azure or remove " + nameof(DeploymentId));
-            }
+            DeploymentId?.ThrowIfNotNullOrEmpty(nameof(DeploymentId),
+                "is not supported for OpenAi Provider. Set ProviderType to Azure or remove.");
 
-            if (!string.IsNullOrEmpty(ResourceName))
-            {
-                throw new ArgumentException(nameof(ResourceName) + " is not supported for OpenAi Provider. Set ProviderType to Azure or remove " + nameof(ResourceName));
-            }
+            ResourceName?.ThrowIfNotNullOrEmpty(nameof(ResourceName),
+                "is not supported for OpenAi Provider. Set ProviderType to Azure or remove");
         }
     }
 }
