@@ -46,7 +46,7 @@ public interface IOpenAIService
     public IChatCompletionService ChatCompletion { get; }
 
     /// <summary>
-    ///    Given an audio file, the model will return a transcription of the audio.
+    ///     Given an audio file, the model will return a transcription of the audio.
     /// </summary>
     public IAudioService Audio { get; }
 

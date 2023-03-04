@@ -1,18 +1,9 @@
-﻿using OpenAI.GPT3.ObjectModels.SharedModels;
-using static OpenAI.GPT3.ObjectModels.SharedModels.IOpenAiModels;
+﻿using static OpenAI.GPT3.ObjectModels.SharedModels.IOpenAiModels;
 
 namespace OpenAI.GPT3.ObjectModels.RequestModels;
 
-public record AudioCreateTranscriptionRequest : IModel, ITemperature,IFile
+public record AudioCreateTranscriptionRequest : IModel, ITemperature, IFile
 {
-    /// <summary>
-    ///     The audio file to transcribe, in one of these formats: mp3, mp4, mpeg, mpga, m4a, wav, or webm.
-    /// </summary>
-    public byte[] File { get; set; }
-    /// <summary>
-    /// FileName
-    /// </summary>
-    public string FileName { get; set; }
     /// <summary>
     ///     An optional text to guide the model's style or continue a previous audio segment. The prompt should match the audio
     ///     language.
@@ -25,10 +16,21 @@ public record AudioCreateTranscriptionRequest : IModel, ITemperature,IFile
     public string? ResponseFormat { get; set; }
 
     /// <summary>
-    ///     The language of the input audio. Supplying the input language in <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO-639-1</a> format will improve accuracy and
+    ///     The language of the input audio. Supplying the input language in
+    ///     <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO-639-1</a> format will improve accuracy and
     ///     latency.
     /// </summary>
     public string? Language { get; set; }
+
+    /// <summary>
+    ///     The audio file to transcribe, in one of these formats: mp3, mp4, mpeg, mpga, m4a, wav, or webm.
+    /// </summary>
+    public byte[] File { get; set; }
+
+    /// <summary>
+    ///     FileName
+    /// </summary>
+    public string FileName { get; set; }
 
     /// <summary>
     ///     ID of the model to use. Only whisper-1 is currently available.
