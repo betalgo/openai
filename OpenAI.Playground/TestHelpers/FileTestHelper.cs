@@ -1,4 +1,5 @@
-﻿using OpenAI.GPT3.Interfaces;
+﻿using System.Text;
+using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels;
 
 namespace OpenAI.Playground.TestHelpers;
@@ -14,6 +15,7 @@ internal static class FileTestHelper
             const string fileName = "SentimentAnalysisSample.jsonl";
 
             var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
+            var sampleFileAsString = Encoding.UTF8.GetString(sampleFile);
 
             ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
             var uploadFilesResponse = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.FineTune, sampleFile, fileName);
@@ -39,6 +41,46 @@ internal static class FileTestHelper
                 if (retrieveFileResponse.Successful)
                 {
                     ConsoleExtensions.WriteLine($"{retrieveFileResponse.FileName} retrieved", ConsoleColor.DarkGreen);
+                }
+                else
+                {
+                    ConsoleExtensions.WriteLine($"Retrieve {retrieveFileResponse.FileName} failed", ConsoleColor.Red);
+                }
+
+                var retrieveFileContentResponse = await sdk.Files.RetrieveFileContent(uploadedFile.Id);
+                if (retrieveFileContentResponse.Successful && retrieveFileContentResponse.Content?.Equals(sampleFileAsString) == true)
+                {
+                    ConsoleExtensions.WriteLine($"retrieved content as string:{Environment.NewLine}{retrieveFileContentResponse.Content} ", ConsoleColor.DarkGreen);
+                }
+                else
+                {
+                    ConsoleExtensions.WriteLine($"Retrieve {retrieveFileResponse.FileName} failed", ConsoleColor.Red);
+                }
+
+                var retrieveFileContentResponseAsByteArray = await sdk.Files.RetrieveFileContent<byte[]>(uploadedFile.Id);
+                if (retrieveFileContentResponseAsByteArray.Content != null && sampleFileAsString == Encoding.UTF8.GetString(retrieveFileContentResponseAsByteArray.Content))
+                {
+                    ConsoleExtensions.WriteLine($"retrieved content as byteArray:{Environment.NewLine}{Encoding.UTF8.GetString(retrieveFileContentResponseAsByteArray.Content)} ", ConsoleColor.DarkGreen);
+                }
+                else
+                {
+                    ConsoleExtensions.WriteLine($"Retrieve {retrieveFileResponse.FileName} failed", ConsoleColor.Red);
+                }
+
+                var retrieveFileContentResponseAsStream = await sdk.Files.RetrieveFileContent<Stream>(uploadedFile.Id);
+
+                if (retrieveFileContentResponseAsStream.Content != null)
+                {
+                    var reader = new StreamReader(retrieveFileContentResponseAsStream.Content!);
+                    var content = await reader.ReadToEndAsync();
+                    if (content.Equals(sampleFileAsString))
+                    {
+                        ConsoleExtensions.WriteLine($"retrieved content as Stream:{Environment.NewLine}{content} ", ConsoleColor.DarkGreen);
+                    }
+                    else
+                    {
+                        ConsoleExtensions.WriteLine($"Retrieve {retrieveFileResponse.FileName} failed", ConsoleColor.Red);
+                    }
                 }
                 else
                 {

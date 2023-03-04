@@ -54,6 +54,11 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"/{_apiVersion}/files/{fileId}";
     }
 
+    public string FileRetrieveContent(string fileId)
+    {
+        return $"/{_apiVersion}/files/{fileId}/content";
+    }
+
     public string FineTuneCreate()
     {
         return $"/{_apiVersion}/fine-tunes";

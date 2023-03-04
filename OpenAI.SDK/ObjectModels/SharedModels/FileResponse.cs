@@ -11,4 +11,5 @@ public record FileResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICre
     [JsonPropertyName("purpose")] public string Purpose { get; set; }
     [JsonPropertyName("created_at")] public int CreatedAt { get; set; }
     [JsonPropertyName("id")] public string Id { get; set; }
+    [JsonPropertyName("status")] public string Status { get; set; }
 }
