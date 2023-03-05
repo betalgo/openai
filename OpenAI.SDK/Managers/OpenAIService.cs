@@ -22,7 +22,7 @@ public partial class OpenAIService : IOpenAIService
     {
         settings.Validate();
 
-        _httpClient = httpClient ?? HttpClientFactory.Create();
+        _httpClient = httpClient ?? new HttpClient();
         _httpClient.BaseAddress = new Uri(settings.BaseDomain);
 
         switch (settings.ProviderType)
