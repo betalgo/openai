@@ -29,7 +29,7 @@ Enjoy your new Methods! Don't forget to star the repo if you like it.
 - [x] [Files](https://github.com/betalgo/openai/wiki/Files) 
 - [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning) 
 - [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
-- [x] Tokenizer Support (has a bug, working on for fixing the issue)
+- [x] Tokenizer Support
 - [x] Whisper
 - [ ] Rate limit support
 
