@@ -91,7 +91,7 @@ openAiService.SetDefaultModelId(Models.Davinci);
 ```
 ## Chat Gpt Sample
 ```csharp
-var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+var completionResult = await openAiService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
 {
     Messages = new List<ChatMessage>
     {
@@ -132,7 +132,7 @@ else
 
 ## Completions Stream Sample
 ```csharp
-var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
+var completionResult = openAiService.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
    {
       Prompt = "Once upon a time",
       MaxTokens = 50
@@ -159,7 +159,7 @@ var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCr
 
 ## DALL·E Sample
 ```csharp
-var imageResult = await sdk.Image.CreateImage(new ImageCreateRequest
+var imageResult = await openAiService.Image.CreateImage(new ImageCreateRequest
 {
     Prompt = "Laser cat eyes",
     N = 2,
