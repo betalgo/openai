@@ -7,12 +7,6 @@ namespace OpenAI.GPT3.Extensions;
 
 public static class HttpClientExtensions
 {
-    public static async Task<T> GetFromJsonAsync<T>(this HttpClient client, string uri, CancellationToken cancellationToken = default)
-    {
-        var response = await client.GetAsync(uri, cancellationToken);
-        return await response.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
-    }
-
     public static async Task<TResponse> PostAndReadAsAsync<TResponse>(this HttpClient client, string uri, object requestModel, CancellationToken cancellationToken = default)
     {
         var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
