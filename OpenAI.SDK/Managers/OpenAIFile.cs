@@ -1,4 +1,5 @@
-﻿using OpenAI.GPT3.Extensions;
+﻿using System.Net.Http.Json;
+using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels.ResponseModels;
 using OpenAI.GPT3.ObjectModels.ResponseModels.FileResponseModels;
@@ -13,7 +14,7 @@ public partial class OpenAIService : IFileService
     /// <inheritdoc />
     public async Task<FileListResponse> ListFile(CancellationToken cancellationToken = default)
     {
-        return await _httpClient.GetFromJsonAsync<FileListResponse>(_endpointProvider.FilesList(), cancellationToken);
+        return (await _httpClient.GetFromJsonAsync<FileListResponse>(_endpointProvider.FilesList(), cancellationToken))!;
     }
 
     /// <inheritdoc />
@@ -37,7 +38,7 @@ public partial class OpenAIService : IFileService
     /// <inheritdoc />
     public async Task<FileResponse> RetrieveFile(string fileId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.GetFromJsonAsync<FileResponse>(_endpointProvider.FileRetrieve(fileId), cancellationToken);
+        return (await _httpClient.GetFromJsonAsync<FileResponse>(_endpointProvider.FileRetrieve(fileId), cancellationToken))!;
     }
 
     /// <inheritdoc />
@@ -83,7 +84,7 @@ public partial class OpenAIService : IFileService
 
         return new FileContentResponse<T?>
         {
-            Content = await response.Content.ReadAsAsync<T>(cancellationToken)
+            Content = await response.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken)
         };
     }
 }

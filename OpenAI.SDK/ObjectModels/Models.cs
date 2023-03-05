@@ -49,6 +49,8 @@ public static class Models
         TextEditDavinciV1,
         CodeEditDavinciV1,
 
+        TextEmbeddingAdaV2,
+
         CodeSearchAdaCodeV1,
         CodeSearchBabbageCodeV1,
 
@@ -63,7 +65,7 @@ public static class Models
         ChatGpt3_5Turbo,
         ChatGpt3_5Turbo0301,
 
-        WhisperV1
+        WhisperV1,
     }
 
     public enum Subject
@@ -78,7 +80,8 @@ public static class Models
         CodeSearchText,
         Code,
         CodeEdit,
-        Edit
+        Edit,
+        TextEmbedding
     }
 
     public static string Ada => "ada";
@@ -123,6 +126,8 @@ public static class Models
     public static string CodeSearchBabbageCodeV1 => ModelNameBuilder(BaseModel.Babbage, Subject.CodeSearchCode, "001");
     public static string CodeSearchAdaTextV1 => ModelNameBuilder(BaseModel.Ada, Subject.CodeSearchText, "001");
     public static string CodeSearchBabbageTextV1 => ModelNameBuilder(BaseModel.Babbage, Subject.CodeSearchText, "001");
+
+    public static string TextEmbeddingAdaV2 => ModelNameBuilder(BaseModel.Ada, Subject.TextEmbedding, "002");
 
     public static string ChatGpt3_5Turbo => "gpt-3.5-turbo";
     public static string ChatGpt3_5Turbo0301 => "gpt-3.5-turbo-0301";
@@ -195,6 +200,7 @@ public static class Models
             Model.ChatGpt3_5Turbo => ChatGpt3_5Turbo,
             Model.ChatGpt3_5Turbo0301 => ChatGpt3_5Turbo0301,
             Model.WhisperV1 => WhisperV1,
+            Model.TextEmbeddingAdaV2 => TextEmbeddingAdaV2,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
@@ -228,6 +234,7 @@ public static class Models
             Subject.Code => "code-{0}",
             Subject.CodeEdit => "code-{0}-edit",
             Subject.Edit => "text-{0}-edit",
+            Subject.TextEmbedding => "text-embedding-{0}",
             _ => throw new ArgumentOutOfRangeException(nameof(subject), subject, null)
         }, baseModel);
     }

@@ -1,4 +1,5 @@
-﻿using OpenAI.GPT3.Extensions;
+﻿using System.Net.Http.Json;
+using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.ObjectModels.RequestModels;
 using OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
@@ -14,12 +15,12 @@ public partial class OpenAIService : IFineTuneService
 
     public async Task<FineTuneListResponse> ListFineTunes(CancellationToken cancellationToken = default)
     {
-        return await _httpClient.GetFromJsonAsync<FineTuneListResponse>(_endpointProvider.FineTuneList(), cancellationToken);
+        return (await _httpClient.GetFromJsonAsync<FineTuneListResponse>(_endpointProvider.FineTuneList(), cancellationToken))!;
     }
 
     public async Task<FineTuneResponse> RetrieveFineTune(string fineTuneId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.GetFromJsonAsync<FineTuneResponse>(_endpointProvider.FineTuneRetrieve(fineTuneId), cancellationToken);
+        return (await _httpClient.GetFromJsonAsync<FineTuneResponse>(_endpointProvider.FineTuneRetrieve(fineTuneId), cancellationToken))!;
     }
 
     public async Task<FineTuneResponse> CancelFineTune(string fineTuneId, CancellationToken cancellationToken = default)
