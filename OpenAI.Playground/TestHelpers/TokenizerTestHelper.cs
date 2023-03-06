@@ -1,4 +1,5 @@
 ﻿using OpenAI.GPT3.Tokenizer.GPT3;
+using System.Text;
 
 namespace OpenAI.Playground.TestHelpers;
 
@@ -13,7 +14,7 @@ internal static class TokenizerTestHelper
             ConsoleExtensions.WriteLine("Tokenizer Test:", ConsoleColor.DarkCyan);
             const string fileName = "TokenizerSample.txt";
 
-            var input = await File.ReadAllTextAsync($"SampleData/{fileName}");
+            var input = await File.ReadAllTextAsync($"SampleData/{fileName}", Encoding.ASCII);
             var encodedList = TokenizerGpt3.Encode(input);
             if (encodedList.Count == 64)
             {
