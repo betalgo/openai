@@ -29,7 +29,13 @@ public static class HttpClientExtensions
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
         request.Content = content;
 
+#if NET6_0
         return client.Send(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+#else
+        var responseTask = client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        var response = responseTask.GetAwaiter().GetResult();
+        return response;
+#endif
     }
 
     public static async Task<TResponse> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default)
