@@ -55,4 +55,43 @@ public static class HttpClientExtensions
         var response = await client.DeleteAsync(uri, cancellationToken);
         return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
     }
+
+#if NETSTANDARD2_0
+    public static async Task<string> ReadAsStringAsync(this HttpContent content, CancellationToken cancellationToken)
+    {
+        var stream = await content.ReadAsStreamAsync().WithCancellation(cancellationToken);
+        using var sr = new StreamReader(stream);
+        return await sr.ReadToEndAsync().WithCancellation(cancellationToken);
+    }
+
+    public static async Task<Stream> ReadAsStreamAsync(this HttpContent content, CancellationToken cancellationToken)
+    {
+        return await content.ReadAsStreamAsync().WithCancellation(cancellationToken);
+    }
+
+    public static async Task<byte[]> ReadAsByteArrayAsync(this HttpContent content, CancellationToken cancellationToken)
+    {
+        return await content.ReadAsByteArrayAsync().WithCancellation(cancellationToken);
+    }
+
+    public static async Task<Stream> GetStreamAsync(this HttpClient client, string requestUri, CancellationToken cancellationToken)
+    {
+        var response = await client.GetAsync(requestUri, cancellationToken);
+        return await response.Content.ReadAsStreamAsync(cancellationToken);
+    }
+
+    public static async Task<T> WithCancellation<T>(this Task<T> task, CancellationToken cancellationToken)
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        using (cancellationToken.Register(s => ((TaskCompletionSource<bool>)s).TrySetResult(true), tcs))
+        {
+            if (task != await Task.WhenAny(task, tcs.Task))
+            {
+                throw new OperationCanceledException(cancellationToken);
+            }
+        }
+
+        return await task;
+    }
+#endif
 }
