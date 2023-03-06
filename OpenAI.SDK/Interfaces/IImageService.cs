@@ -18,17 +18,6 @@ public interface IImageService
     Task<ImageCreateResponse> CreateImage(ImageCreateRequest imageCreate, CancellationToken cancellationToken = default);
 
     /// <summary>
-    ///     Creates an image given a prompt.
-    /// </summary>
-    /// <param name="prompt"></param>
-    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
-    /// <returns></returns>
-    Task<ImageCreateResponse> CreateImage(string prompt, CancellationToken cancellationToken = default)
-    {
-        return CreateImage(new ImageCreateRequest(prompt), cancellationToken);
-    }
-
-    /// <summary>
     ///     Creates an edited or extended image given an original image and a prompt.
     /// </summary>
     /// <param name="imageEditCreateRequest"></param>
@@ -43,4 +32,19 @@ public interface IImageService
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
     Task<ImageCreateResponse> CreateImageVariation(ImageVariationCreateRequest imageEditCreateRequest, CancellationToken cancellationToken = default);
+}
+
+public static class IImageServiceExtension
+{
+    /// <summary>
+    ///     Creates an image given a prompt.
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="prompt"></param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns></returns>
+    public static Task<ImageCreateResponse> CreateImage(this IImageService service, string prompt, CancellationToken cancellationToken = default)
+    {
+        return service.CreateImage(new ImageCreateRequest(prompt), cancellationToken);
+    }
 }

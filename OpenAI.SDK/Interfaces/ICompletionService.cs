@@ -27,16 +27,20 @@ public interface ICompletionService
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
     IAsyncEnumerable<CompletionCreateResponse> CreateCompletionAsStream(CompletionCreateRequest createCompletionModel, string? modelId = null, CancellationToken cancellationToken = default);
+}
 
+public static class ICompletionServiceExtension
+{
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
     /// </summary>
+    /// <param name="service"></param>
     /// <param name="createCompletionModel"></param>
     /// <param name="modelId">The ID of the model to use for this request</param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<CompletionCreateResponse> Create(CompletionCreateRequest createCompletionModel, Models.Model modelId, CancellationToken cancellationToken = default)
+    public static Task<CompletionCreateResponse> Create(this ICompletionService service, CompletionCreateRequest createCompletionModel, Models.Model modelId, CancellationToken cancellationToken = default)
     {
-        return CreateCompletion(createCompletionModel, modelId.EnumToString(), cancellationToken);
+        return service.CreateCompletion(createCompletionModel, modelId.EnumToString(), cancellationToken);
     }
 }

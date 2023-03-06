@@ -16,10 +16,14 @@ public interface IModerationService
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
     Task<CreateModerationResponse> CreateModeration(CreateModerationRequest createModerationRequest, CancellationToken cancellationToken = default);
+}
 
+public static class IModerationServiceExtension
+{
     /// <summary>
     ///     Classifies if text violates OpenAI's Content Policy
     /// </summary>
+    /// <param name="service"></param>
     /// <param name="input">The input text to classify</param>
     /// <param name="model">
     ///     Two content moderations models are available: text-moderation-stable and text-moderation-latest.
@@ -29,9 +33,9 @@ public interface IModerationService
     /// </param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<CreateModerationResponse> CreateModeration(string input, string? model = null, CancellationToken cancellationToken = default)
+    public static Task<CreateModerationResponse> CreateModeration(this IModerationService service, string input, string? model = null, CancellationToken cancellationToken = default)
     {
-        return CreateModeration(new CreateModerationRequest
+        return service.CreateModeration(new CreateModerationRequest
         {
             Input = input,
             Model = model
