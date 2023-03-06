@@ -30,7 +30,7 @@ public interface IChatCompletionService
     /// <summary>
     ///     Creates a new completion for the provided prompt and parameters
     /// </summary>
-    /// <param name="createCompletionModel"></param>
+    /// <param name="chatCompletionCreate"></param>
     /// <param name="modelId">The ID of the model to use for this request</param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
