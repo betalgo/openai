@@ -29,7 +29,7 @@ public static class HttpClientExtensions
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
         request.Content = content;
 
-#if NET6_0
+#if NET6_0_OR_GREATER
         return client.Send(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
 #else
         var responseTask = client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
