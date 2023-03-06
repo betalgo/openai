@@ -172,14 +172,14 @@ public class OpenAiOptions
         if (string.IsNullOrEmpty(BaseDomain))
         {
             if (ProviderType == ProviderType.Azure)
-                ResourceName?.ThrowIfIsNullOrEmpty(nameof(ResourceName));
+                ResourceName.ThrowIfIsNullOrEmpty(nameof(ResourceName));
 
             throw new ArgumentNullException(nameof(BaseDomain));
         }
 
         if (ProviderType == ProviderType.Azure)
         {
-            DeploymentId?.ThrowIfIsNullOrEmpty(nameof(DeploymentId));
+            DeploymentId.ThrowIfIsNullOrEmpty(nameof(DeploymentId));
 
             if (BaseDomain.Equals("https://.openai.azure.com/"))
             {
@@ -188,10 +188,10 @@ public class OpenAiOptions
         }
         else if (ProviderType == ProviderType.OpenAi)
         {
-            DeploymentId?.ThrowIfNotNullOrEmpty(nameof(DeploymentId),
+            DeploymentId.ThrowIfNotNullOrEmpty(nameof(DeploymentId),
                 "is not supported for OpenAi Provider. Set ProviderType to Azure or remove.");
 
-            ResourceName?.ThrowIfNotNullOrEmpty(nameof(ResourceName),
+            ResourceName.ThrowIfNotNullOrEmpty(nameof(ResourceName),
                 "is not supported for OpenAi Provider. Set ProviderType to Azure or remove");
         }
     }

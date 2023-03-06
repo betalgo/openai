@@ -23,7 +23,7 @@ public static class StringExtensions
     /// <param name="toCheck"></param>
     /// <param name="name"></param>
     /// <exception cref="ArgumentNullException"></exception>
-    public static void ThrowIfIsNullOrEmpty(this string toCheck, string name)
+    public static void ThrowIfIsNullOrEmpty(this string? toCheck, string name)
     {
         if (string.IsNullOrEmpty(toCheck))
             throw new ArgumentNullException(name);
@@ -36,7 +36,7 @@ public static class StringExtensions
     /// <param name="name"></param>
     /// <param name="description"></param>
     /// <exception cref="ArgumentNullException"></exception>
-    public static void ThrowIfNotNullOrEmpty(this string toCheck, string name, string description)
+    public static void ThrowIfNotNullOrEmpty(this string? toCheck, string name, string description)
     {
         if (!string.IsNullOrEmpty(toCheck))
             throw new ArgumentNullException($"{name} {description} {name}");
