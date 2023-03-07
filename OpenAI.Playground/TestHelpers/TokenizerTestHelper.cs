@@ -15,6 +15,34 @@ internal static class TokenizerTestHelper
 
             var input = await File.ReadAllTextAsync($"SampleData/{fileName}");
             var encodedList = TokenizerGpt3.Encode(input);
+            if (encodedList.Count == 68)
+            {
+                ConsoleExtensions.WriteLine("Tokenizer Test Success", ConsoleColor.Green);
+            }
+            else
+            {
+                ConsoleExtensions.WriteLine("Tokenizer Test Failed", ConsoleColor.Red);
+                ConsoleExtensions.WriteLine("Expected Token: 64 ", ConsoleColor.Red);
+                ConsoleExtensions.WriteLine($"Found Token={encodedList.Count}", ConsoleColor.Red);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+    public static async Task RunTokenizerTestCrClean()
+    {
+        ConsoleExtensions.WriteLine("Tokenizer Test is starting:", ConsoleColor.Cyan);
+
+        try
+        {
+            ConsoleExtensions.WriteLine("Tokenizer Test:", ConsoleColor.DarkCyan);
+            const string fileName = "TokenizerSample.txt";
+
+            var input = await File.ReadAllTextAsync($"SampleData/{fileName}");
+            var encodedList = TokenizerGpt3.Encode(input,true);
             if (encodedList.Count == 64)
             {
                 ConsoleExtensions.WriteLine("Tokenizer Test Success", ConsoleColor.Green);

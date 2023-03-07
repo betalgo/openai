@@ -16,18 +16,23 @@ public static class TokenizerGpt3
     private static readonly Regex EncodingRegex = new(@"'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+", RegexOptions.Compiled);
 
     /// <summary>
-    ///     Encode
+    ///     Encode This method use LF style EOL, if you use CR LF style EOL you need to set cleanUpWindowsEOL to true
     /// </summary>
     /// <param name="text"></param>
+    /// <param name="cleanUpCREOL">set it true to get rid of CR</param>
     /// <returns></returns>
-    public static List<int> Encode(string text)
+    public static List<int> Encode(string text, bool cleanUpCREOL = false)
     {
         if (string.IsNullOrEmpty(text))
         {
             return new List<int>();
         }
 
-        text = text.Replace("\r\n", "\n");
+        if (cleanUpCREOL)
+        {
+            text = text.Replace("\r", "");
+        }
+
         var byteEncoder = BytesToUnicodeCache;
         var matches = EncodingRegex.Matches(text);
 
@@ -48,30 +53,33 @@ public static class TokenizerGpt3
     ///     Encode
     /// </summary>
     /// <param name="stringBuilder"></param>
+    /// <param name="cleanUpCREOL">set it true to get rid of CR</param>
     /// <returns></returns>
-    public static List<int> Encode(StringBuilder? stringBuilder)
+    public static List<int> Encode(StringBuilder? stringBuilder, bool cleanUpCREOL = false)
     {
-        return stringBuilder == null ? new List<int>() : Encode(stringBuilder.ToString());
+        return stringBuilder == null ? new List<int>() : Encode(stringBuilder.ToString(), cleanUpCREOL);
     }
 
     /// <summary>
     ///     Encode
     /// </summary>
     /// <param name="chars"></param>
+    /// <param name="cleanUpCREOL">set it true to get rid of CR</param>
     /// <returns></returns>
-    public static List<int> Encode(char[]? chars)
+    public static List<int> Encode(char[]? chars, bool cleanUpCREOL = false)
     {
-        return chars == null ? new List<int>() : Encode(new string(chars));
+        return chars == null ? new List<int>() : Encode(new string(chars), cleanUpCREOL);
     }
 
     /// <summary>
     ///     Encode
     /// </summary>
     /// <param name="chars"></param>
+    /// <param name="cleanUpCREOL">set it true to get rid of CR</param>
     /// <returns></returns>
-    public static List<int> Encode(IEnumerable<char>? chars)
+    public static List<int> Encode(IEnumerable<char>? chars, bool cleanUpCREOL = false)
     {
-        return chars == null ? new List<int>() : Encode(chars.ToArray());
+        return chars == null ? new List<int>() : Encode(chars.ToArray(), cleanUpCREOL);
     }
 
     private static int Ord(string x)
