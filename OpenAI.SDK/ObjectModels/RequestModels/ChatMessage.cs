@@ -26,7 +26,7 @@ public class ChatMessage
     [JsonPropertyName("content")]
     public string Content { get; set; }
 
-    public static ChatMessage FromAssistance(string content)
+    public static ChatMessage FromAssistant(string content)
     {
         return new ChatMessage(StaticValues.ChatMessageRoles.Assistant, content);
     }
