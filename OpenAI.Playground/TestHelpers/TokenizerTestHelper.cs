@@ -1,5 +1,4 @@
 ﻿using OpenAI.GPT3.Tokenizer.GPT3;
-using System.Text;
 
 namespace OpenAI.Playground.TestHelpers;
 
