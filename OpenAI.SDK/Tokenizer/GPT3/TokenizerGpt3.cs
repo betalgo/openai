@@ -27,6 +27,7 @@ public static class TokenizerGpt3
             return new List<int>();
         }
 
+        text = text.Replace("\r\n", "\n");
         var byteEncoder = BytesToUnicodeCache;
         var matches = EncodingRegex.Matches(text);
 

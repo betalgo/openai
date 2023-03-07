@@ -14,7 +14,6 @@ internal static class TokenizerTestHelper
             const string fileName = "TokenizerSample.txt";
 
             var input = await File.ReadAllTextAsync($"SampleData/{fileName}");
-            input = input.Replace("\r\n", "\n");
             var encodedList = TokenizerGpt3.Encode(input);
             if (encodedList.Count == 64)
             {
