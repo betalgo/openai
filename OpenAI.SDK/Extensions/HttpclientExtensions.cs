@@ -64,9 +64,10 @@ public static class HttpClientExtensions
         return await sr.ReadToEndAsync().WithCancellation(cancellationToken);
     }
 
-    public static async Task<Stream> ReadAsStreamAsync(this HttpContent content, CancellationToken cancellationToken)
+    public static async Task<AsyncDisposableStream> ReadAsStreamAsync(this HttpContent content, CancellationToken cancellationToken)
     {
-        return await content.ReadAsStreamAsync().WithCancellation(cancellationToken);
+        var stream = await content.ReadAsStreamAsync().WithCancellation(cancellationToken);
+        return new AsyncDisposableStream(stream);
     }
 
     public static async Task<byte[]> ReadAsByteArrayAsync(this HttpContent content, CancellationToken cancellationToken)
