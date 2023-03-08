@@ -15,7 +15,7 @@ internal static class AudioTestHelper
             ConsoleExtensions.WriteLine("Audio Create Transcription Test:", ConsoleColor.DarkCyan);
 
             const string fileName = "micro-machines.mp3";
-            var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
+            var sampleFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{fileName}");
 
             ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
             var audioResult = await sdk.Audio.CreateTranscription(new AudioCreateTranscriptionRequest
@@ -57,7 +57,7 @@ internal static class AudioTestHelper
             ConsoleExtensions.WriteLine("Audio Create Translation Test:", ConsoleColor.DarkCyan);
 
             const string fileName = "multilingual.mp3";
-            var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
+            var sampleFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{fileName}");
 
             ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
             var audioResult = await sdk.Audio.CreateTranslation(new AudioCreateTranscriptionRequest
