@@ -22,7 +22,7 @@ internal static class TokenizerTestHelper
             else
             {
                 ConsoleExtensions.WriteLine("Tokenizer Test Failed", ConsoleColor.Red);
-                ConsoleExtensions.WriteLine("Expected Token: 64 ", ConsoleColor.Red);
+                ConsoleExtensions.WriteLine("Expected Token: 68 ", ConsoleColor.Red);
                 ConsoleExtensions.WriteLine($"Found Token={encodedList.Count}", ConsoleColor.Red);
             }
         }
