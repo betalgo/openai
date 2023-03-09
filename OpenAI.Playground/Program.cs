@@ -61,5 +61,6 @@ await AudioTestHelper.RunSimpleAudioCreateTranslationTest(sdk);
 //////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
 //await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 await TokenizerTestHelper.RunTokenizerTest();
+await TokenizerTestHelper.RunTokenizerTestCrClean();
 
 Console.ReadLine();
