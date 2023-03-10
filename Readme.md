@@ -6,17 +6,11 @@
 Install-Package Betalgo.OpenAI.GPT3
 ```
 
-Dotnet SDK for OpenAI Chat GPT, GPT-3 and DALL·E  
+Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-3 and DALL·E  
 *Unofficial*.  
 *GPT-3 doesn't have any official .Net SDK.*
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki
-
-## **NOTE**  for v6.7.0 & v6.7.1
-I know we are all excited about new Chat Gpt APIs, so I tried to rush this version. It's nearly 4 AM here.  
-Be aware! It might have some bugs, also the next version may have breaking changes. Because I didn't like namings but I don't have time to think about it at the moment.  Whisper is coming soon to.
-
-Enjoy your new Methods! Don't forget to star the repo if you like it.
 
 ## Features
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
@@ -36,8 +30,6 @@ Enjoy your new Methods! Don't forget to star the repo if you like it.
 For changelogs please go to end of the document.
 
 Visit https://openai.com/ to get your API key. Also documentation with more detail is avaliable there.  
-
-
 
 ## Sample Usages
 The repository contains a sample project named **OpenAI.Playground** that you can refer to for a better understanding of how the library works. However, please exercise caution while experimenting with it, as some of the test methods may result in unintended consequences such as file deletion or fine tuning.
@@ -97,7 +89,7 @@ var completionResult = await openAiService.ChatCompletion.CreateCompletion(new C
     {
         ChatMessage.FromSystem("You are a helpful assistant."),
         ChatMessage.FromUser("Who won the world series in 2020?"),
-        ChatMessage.FromAssistance("The Los Angeles Dodgers won the World Series in 2020."),
+        ChatMessage.FromAssistant("The Los Angeles Dodgers won the World Series in 2020."),
         ChatMessage.FromUser("Where was it played?")
     },
     Model = Models.ChatGpt3_5Turbo,
@@ -184,6 +176,9 @@ I will always be using the latest libraries, and future releases will frequently
 
 
 ## Changelog
+### 6.7.3
+* **Breaking change**: `ChatMessage.FromAssistance` is now `ChatMessage.FromAssistant`.
+* The Tokenizer method has been extended with `cleanUpCREOL`. You can use this option to clean up Windows-style line endings.
 ### 6.7.2
 * Removed Microsoft.AspNet.WebApi.Client dependecy
 * The action build device has been updated to ubuntu due to suspicions that the EOL of the vocab.bpe file had been altered in the last few Windows builds.
