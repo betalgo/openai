@@ -14,7 +14,7 @@ internal static class FileTestHelper
         {
             const string fileName = "SentimentAnalysisSample.jsonl";
 
-            var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
+            var sampleFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{fileName}");
             var sampleFileAsString = Encoding.UTF8.GetString(sampleFile);
 
             ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);

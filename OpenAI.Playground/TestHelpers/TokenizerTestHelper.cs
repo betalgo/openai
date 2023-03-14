@@ -13,7 +13,7 @@ internal static class TokenizerTestHelper
             ConsoleExtensions.WriteLine("Tokenizer Test:", ConsoleColor.DarkCyan);
             const string fileName = "TokenizerSample.txt";
 
-            var input = await File.ReadAllTextAsync($"SampleData/{fileName}");
+            var input = await FileExtensions.ReadAllTextAsync($"SampleData/{fileName}");
             var encodedList = TokenizerGpt3.Encode(input);
             if (encodedList.Count == 68)
             {
