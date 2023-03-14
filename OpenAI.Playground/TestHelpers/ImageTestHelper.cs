@@ -52,8 +52,8 @@ internal static class ImageTestHelper
 
         // Images should be in png format with ARGB. I got help from this website to generate sample mask
         // https://www.online-image-editor.com/
-        var maskFile = await File.ReadAllBytesAsync($"SampleData/{maskFileName}");
-        var originalFile = await File.ReadAllBytesAsync($"SampleData/{originalFileName}");
+        var maskFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{maskFileName}");
+        var originalFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{originalFileName}");
 
         try
         {
@@ -98,7 +98,7 @@ internal static class ImageTestHelper
         ConsoleExtensions.WriteLine("Image Variation Create Testing is starting:", ConsoleColor.Cyan);
         const string originalFileName = "image_edit_original.png";
 
-        var originalFile = await File.ReadAllBytesAsync($"SampleData/{originalFileName}");
+        var originalFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{originalFileName}");
 
         try
         {

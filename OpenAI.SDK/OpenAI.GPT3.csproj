@@ -1,21 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<LangVersion>Latest</LangVersion>
 
 		<Copyright>Betalgo Up Ltd.</Copyright>
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>6.7.3</Version>
+		<Version>6.8.0</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>OpenAI ChatGPT, Whisper, GPT-3 and DALL·E dotnet SDK</Product>
 		<Description>Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-3 and DALL·E</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
-		<PackageTags>openAI,chatgpt,gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
+		<PackageTags>openAI,chatGPT,gpt-3,gpt-4,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
 		<PackageId>Betalgo.OpenAI.GPT3</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -46,5 +47,8 @@
 		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
 	</ItemGroup>
-
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+	</ItemGroup>
 </Project>
