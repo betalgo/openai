@@ -26,6 +26,7 @@ https://github.com/betalgo/openai/wiki
 - [x] Tokenizer Support (has a bug, working on for fixing the issue)
 - [x] Whisper
 - [ ] Rate limit support
+- [ ] CahtGPT-4 support
 
 For changelogs please go to end of the document.
 
@@ -174,8 +175,12 @@ I initially developed this SDK for my personal use and later decided to share it
 
 I will always be using the latest libraries, and future releases will frequently include breaking changes. Please take this into consideration before deciding to use the library. I want to make it clear that I cannot accept any responsibility for any damage caused by using the library. If you feel that this is not suitable for your purposes, you are free to explore alternative libraries or the OpenAI Web-API.
 
+I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 6.8.0
+* Added .Net Standart Support, Massive thanks to @pdcruze and @ricaun
+
 ### 6.7.3
 * **Breaking change**: `ChatMessage.FromAssistance` is now `ChatMessage.FromAssistant`. Thanks to @Swimburger 
 * The Tokenizer method has been extended with `cleanUpCREOL`. You can use this option to clean up Windows-style line endings. Thanks to @gspentzas1991 
@@ -196,14 +201,3 @@ I will always be using the latest libraries, and future releases will frequently
 * Added support for Chat GPT API
 * Fixed Tokenizer Bug, it was not working properly.
 
-### 6.6.8
-* **Breaking Changes**
-    * Renamed `Engine` keyword to `Model` in accordance with OpenAI's new naming convention.
-    * Deprecated `DefaultEngineId` in favor of `DefaultModelId`.
-    * `DefaultEngineId` and `DefaultModelId` is not static anymore.
-
-* Added support for Azure OpenAI, a big thanks to @copypastedeveloper!
-* Added support for Tokenizer, inspired by @dluc's https://github.com/dluc/openai-tools repository. Please consider giving the repo a star.  
-
-These two changes are recent additions, so please let me know if you encounter any issues.
-* Updated documentation links from beta.openai.com to platform.openai.com.
