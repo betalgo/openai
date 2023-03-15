@@ -26,7 +26,7 @@ https://github.com/betalgo/openai/wiki
 - [x] Tokenizer Support
 - [x] Whisper
 - [ ] Rate limit support
-- [ ] CahtGPT-4 support
+- [ ] ChatGPT-4 support
 
 For changelogs please go to end of the document.
 
