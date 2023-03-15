@@ -35,21 +35,6 @@ public interface IFileService
     /// <returns></returns>
     Task<FileUploadResponse> UploadFile(string purpose, byte[] file, string fileName, CancellationToken cancellationToken = default);
 
-    Task<FileUploadResponse> FileUpload(string purpose, Stream file, string fileName, CancellationToken cancellationToken = default)
-    {
-        return UploadFile(purpose, file.ToByteArray(), fileName, cancellationToken);
-    }
-
-    Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName, CancellationToken cancellationToken = default)
-    {
-        return UploadFile(purpose.EnumToString(), file.ToByteArray(), fileName, cancellationToken);
-    }
-
-    Task<FileUploadResponse> FileUpload(UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName, CancellationToken cancellationToken = default)
-    {
-        return UploadFile(purpose.EnumToString(), file, fileName, cancellationToken);
-    }
-
     /// <summary>
     ///     Delete a file.
     /// </summary>
@@ -72,16 +57,35 @@ public interface IFileService
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<FileContentResponse<string?>> RetrieveFileContent(string fileId, CancellationToken cancellationToken = default)
+    Task<FileContentResponse<T?>> RetrieveFileContent<T>(string fileId, CancellationToken cancellationToken = default);
+}
+
+public static class IFileServiceExtension
+{
+    public static Task<FileUploadResponse> FileUpload(this IFileService service, string purpose, Stream file, string fileName, CancellationToken cancellationToken = default)
     {
-        return RetrieveFileContent<string>(fileId, cancellationToken);
+        return service.UploadFile(purpose, file.ToByteArray(), fileName, cancellationToken);
+    }
+
+    public static Task<FileUploadResponse> FileUpload(this IFileService service, UploadFilePurposes.UploadFilePurpose purpose, Stream file, string fileName, CancellationToken cancellationToken = default)
+    {
+        return service.UploadFile(purpose.EnumToString(), file.ToByteArray(), fileName, cancellationToken);
+    }
+
+    public static Task<FileUploadResponse> FileUpload(this IFileService service, UploadFilePurposes.UploadFilePurpose purpose, byte[] file, string fileName, CancellationToken cancellationToken = default)
+    {
+        return service.UploadFile(purpose.EnumToString(), file, fileName, cancellationToken);
     }
 
     /// <summary>
     ///     Returns the contents of the specified file
     /// </summary>
+    /// <param name="service"></param>
     /// <param name="fileId">The ID of the file to use for this request</param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<FileContentResponse<T?>> RetrieveFileContent<T>(string fileId, CancellationToken cancellationToken = default);
+    public static Task<FileContentResponse<string?>> RetrieveFileContent(this IFileService service, string fileId, CancellationToken cancellationToken = default)
+    {
+        return service.RetrieveFileContent<string>(fileId, cancellationToken);
+    }
 }

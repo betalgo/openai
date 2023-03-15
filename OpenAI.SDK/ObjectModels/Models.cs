@@ -1,5 +1,10 @@
-﻿namespace OpenAI.GPT3.ObjectModels;
+﻿using System.Diagnostics.CodeAnalysis;
 
+#pragma warning disable CS1591
+namespace OpenAI.GPT3.ObjectModels;
+
+[SuppressMessage("ReSharper", "InconsistentNaming")]
+[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
 public static class Models
 {
     public enum BaseModel
@@ -11,6 +16,7 @@ public static class Models
         Cushman
     }
 
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public enum Model
     {
         Ada,
@@ -65,7 +71,12 @@ public static class Models
         ChatGpt3_5Turbo,
         ChatGpt3_5Turbo0301,
 
-        WhisperV1,
+        Gpt_4,
+        Gpt_4_0314,
+        Gpt_4_32k,
+        Gpt_4_32k_0314,
+
+        WhisperV1
     }
 
     public enum Subject
@@ -83,6 +94,34 @@ public static class Models
         Edit,
         TextEmbedding
     }
+
+    /// <summary>
+    ///     More capable than any GPT-3.5 model, able to do more complex tasks, and optimized for chat. Will be updated with
+    ///     our latest model iteration.
+    ///     8,192 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt4 => "gpt-4";
+
+    /// <summary>
+    ///     Snapshot of gpt-4 from March 14th 2023. Unlike gpt-4, this model will not receive updates, and will only be
+    ///     supported for a three month period ending on June 14th 2023.
+    ///     8,192 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_4_0314 => "gpt-4-0314";
+
+    /// <summary>
+    ///     Same capabilities as the base gpt-4 mode but with 4x the context length. Will be updated with our latest model
+    ///     iteration.
+    ///     32,768 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_4_32k => "gpt-4-32k";
+
+    /// <summary>
+    ///     Snapshot of gpt-4-32 from March 14th 2023. Unlike gpt-4-32k, this model will not receive updates, and will only be
+    ///     supported for a three month period ending on June 14th 2023.
+    ///     32,768 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_4_32k_0314 => "gpt-4-32k-0314";
 
     public static string Ada => "ada";
     public static string Babbage => "babbage";
@@ -129,7 +168,18 @@ public static class Models
 
     public static string TextEmbeddingAdaV2 => ModelNameBuilder(BaseModel.Ada, Subject.TextEmbedding, "002");
 
+    /// <summary>
+    ///     Most capable GPT-3.5 model and optimized for chat at 1/10th the cost of text-davinci-003. Will be updated with our
+    ///     latest model iteration.
+    ///     4,096 tokens	Up to Sep 2021
+    /// </summary>
     public static string ChatGpt3_5Turbo => "gpt-3.5-turbo";
+
+    /// <summary>
+    ///     Snapshot of gpt-3.5-turbo from March 1st 2023. Unlike gpt-3.5-turbo, this model will not receive updates, and will
+    ///     only be supported for a three month period ending on June 1st 2023.
+    ///     4,096 tokens	Up to Sep 2021
+    /// </summary>
     public static string ChatGpt3_5Turbo0301 => "gpt-3.5-turbo-0301";
 
     public static string WhisperV1 => "whisper-1";
@@ -201,6 +251,10 @@ public static class Models
             Model.ChatGpt3_5Turbo0301 => ChatGpt3_5Turbo0301,
             Model.WhisperV1 => WhisperV1,
             Model.TextEmbeddingAdaV2 => TextEmbeddingAdaV2,
+            Model.Gpt_4 => Gpt4,
+            Model.Gpt_4_0314 => Gpt_4_0314,
+            Model.Gpt_4_32k => Gpt_4_32k,
+            Model.Gpt_4_32k_0314 => Gpt_4_32k_0314,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }

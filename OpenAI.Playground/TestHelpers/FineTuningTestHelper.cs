@@ -14,7 +14,7 @@ internal static class FineTuningTestHelper
         try
         {
             const string fileName = "FineTuningSample1.jsonl";
-            var sampleFile = await File.ReadAllBytesAsync($"SampleData/{fileName}");
+            var sampleFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{fileName}");
 
             ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
             var uploadFilesResponse = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.FineTune, sampleFile, fileName);
