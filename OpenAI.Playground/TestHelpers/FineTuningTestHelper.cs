@@ -33,11 +33,9 @@ internal static class FineTuningTestHelper
                 Model = Models.Ada
             });
 
-            var listFineTuneEventsStream = await sdk.FineTunes.ListFineTuneEvents(createFineTuneResponse.Id, true);
-            using var streamReader = new StreamReader(listFineTuneEventsStream);
-            while (!streamReader.EndOfStream)
+            await foreach (var eventResponse in sdk.FineTunes.ListFineTuneEventsStream(createFineTuneResponse.Id))
             {
-                Console.WriteLine(await streamReader.ReadLineAsync());
+                Console.WriteLine($"{(eventResponse.CreatedAt != null ? DateTimeOffset.FromUnixTimeSeconds(eventResponse.CreatedAt.Value).ToLocalTime() : string.Empty)} : {eventResponse.Level} : {eventResponse.Object} : {eventResponse.Message}");
             }
 
             FineTuneResponse retrieveFineTuneResponse;
@@ -71,6 +69,64 @@ internal static class FineTuningTestHelper
 
                 ConsoleExtensions.WriteLine($"failed{completionResult.Error?.Message}", ConsoleColor.DarkRed);
             } while (true);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public static async Task RunCaseListFineTuneEvents(IOpenAIService sdk)
+    {
+        try
+        {
+            var jobs = await sdk.FineTunes.ListFineTunes();
+            if (!jobs.Successful)
+            {
+                return;
+            }
+
+            foreach (var jobInfo in jobs.Data)
+            {
+                var jobEvents = await sdk.FineTunes.ListFineTuneEvents(jobInfo.Id);
+                if (jobEvents.Successful)
+                {
+                    foreach (var eventResponse in jobEvents.Data)
+                    {
+                        Console.WriteLine($"{(eventResponse.CreatedAt != null ? DateTimeOffset.FromUnixTimeSeconds(eventResponse.CreatedAt.Value).ToLocalTime() : string.Empty)} : {eventResponse.Level} : {eventResponse.Object} : {eventResponse.Message}");
+                    }
+                }
+                else
+                {
+                    ConsoleExtensions.WriteLine($"{jobInfo.Id} failed", ConsoleColor.DarkRed);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public static async Task RunCaseListFineTuneEventsStream(IOpenAIService sdk)
+    {
+        try
+        {
+            var jobs = await sdk.FineTunes.ListFineTunes();
+            if (!jobs.Successful)
+            {
+                return;
+            }
+
+            foreach (var jobInfo in jobs.Data)
+            {
+                await foreach (var eventResponse in sdk.FineTunes.ListFineTuneEventsStream(jobInfo.Id))
+                {
+                    Console.WriteLine($"{(eventResponse.CreatedAt != null ? DateTimeOffset.FromUnixTimeSeconds(eventResponse.CreatedAt.Value).ToLocalTime() : string.Empty)} : {eventResponse.Level} : {eventResponse.Object} : {eventResponse.Message}");
+                }
+            }
         }
         catch (Exception e)
         {

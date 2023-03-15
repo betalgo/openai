@@ -60,6 +60,8 @@ await AudioTestHelper.RunSimpleAudioCreateTranslationTest(sdk);
 //////await FileTestHelper.RunSimpleFileTest(sdk); //will delete all of your files
 //////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
 //await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
+//await FineTuningTestHelper.RunCaseListFineTuneEvents(sdk);
+//await FineTuningTestHelper.RunCaseListFineTuneEventsStream(sdk);
 await TokenizerTestHelper.RunTokenizerTest();
 await TokenizerTestHelper.RunTokenizerTestCrClean();
 
