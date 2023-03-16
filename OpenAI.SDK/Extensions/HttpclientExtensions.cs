@@ -16,7 +16,7 @@ public static class HttpClientExtensions
         return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
     }
 
-    public static HttpResponseMessage PostAsStreamAsync(this HttpClient client, string uri, object requestModel, CancellationToken cancellationToken = default)
+    public static Task<HttpResponseMessage> PostAsStreamAsync(this HttpClient client, string uri, object requestModel, CancellationToken cancellationToken = default)
     {
         var settings = new JsonSerializerOptions
         {
@@ -29,13 +29,7 @@ public static class HttpClientExtensions
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
         request.Content = content;
 
-#if NET6_0_OR_GREATER
-        return client.Send(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-#else
-        var responseTask = client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-        var response = responseTask.GetAwaiter().GetResult();
-        return response;
-#endif
+        return client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
     }
 
     public static async Task<TResponse> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default)
