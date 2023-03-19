@@ -31,7 +31,7 @@ public record Categories
 
     [JsonPropertyName("sexual")] public bool Sexual { get; set; }
 
-    [JsonPropertyName("sexualminors")] public bool Sexualminors { get; set; }
+    [JsonPropertyName("sexualminors")] public bool SexualMinors { get; set; }
 
     [JsonPropertyName("violence")] public bool Violence { get; set; }
 
