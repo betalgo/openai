@@ -23,10 +23,10 @@ https://github.com/betalgo/openai/wiki
 - [x] [Files](https://github.com/betalgo/openai/wiki/Files) 
 - [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning) 
 - [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
-- [x] Tokenizer Support (has a bug, working on for fixing the issue)
+- [x] Tokenizer Support
 - [x] Whisper
 - [ ] Rate limit support
-- [ ] CahtGPT-4 support
+- [ ] Chat GPT-4 support (models are supported, Image analyze API not released yet by OpenAI)
 
 For changelogs please go to end of the document.
 
@@ -178,6 +178,14 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 6.8.1
+- **Breaking Change**: Typo fixed in Content Moderation CategoryScores, changing `Sexualminors` to `SexualMinors`. Thanks to @HowToDoThis.
+- Tokenizer changes thanks to @IS4Code.
+    - Performance improvement
+    - Introduced a new method `TokenCount` that returns the number of tokens instead of a list.
+    - **Breaking Change**: Removed overridden methods that were basically string conversions. 
+    I think these methods were not used much and it is fairly easy to do these conversions outside of the method. 
+    If you disagree, let me know and I can consider adding them back.
 ### 6.8.0
 * Added .Net Standart Support, Massive thanks to @pdcruze and @ricaun
 
