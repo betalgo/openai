@@ -6,9 +6,9 @@
 Install-Package Betalgo.OpenAI.GPT3
 ```
 
-Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-3 and DALL·E  
+Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E  
 *Unofficial*.  
-*GPT-3 doesn't have any official .Net SDK.*
+*OpenAI doesn't have any official .Net SDK.*
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki
 
@@ -203,9 +203,3 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 * Grateful thanks to @shanepowell for contributing RetrieveFileContent.
 * Resolved an issue that was causing problems with the tokenizer. A clean build should hopefully address this.
 * Added support for skip options validation
-
-### 6.7.0
-* We all beeen waiting for this moment. Please enjoy Chat GPT API
-* Added support for Chat GPT API
-* Fixed Tokenizer Bug, it was not working properly.
-
