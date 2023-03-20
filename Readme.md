@@ -6,9 +6,9 @@
 Install-Package Betalgo.OpenAI.GPT3
 ```
 
-Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-3 and DALL·E  
+Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E  
 *Unofficial*.  
-*GPT-3 doesn't have any official .Net SDK.*
+*OpenAI doesn't have any official .Net SDK.*
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki
 
@@ -26,7 +26,7 @@ https://github.com/betalgo/openai/wiki
 - [x] Tokenizer Support
 - [x] Whisper
 - [ ] Rate limit support
-- [ ] ChatGPT-4 support
+- [ ] Chat GPT-4 support (models are supported, Image analyze API not released yet by OpenAI)
 
 For changelogs please go to end of the document.
 
@@ -178,6 +178,15 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+
+### 6.8.1
+- **Breaking Change**: Typo fixed in Content Moderation CategoryScores, changing `Sexualminors` to `SexualMinors`. Thanks to @HowToDoThis.
+- Tokenizer changes thanks to @IS4Code.
+    - Performance improvement
+    - Introduced a new method `TokenCount` that returns the number of tokens instead of a list.
+    - **Breaking Change**: Removed overridden methods that were basically string conversions. 
+    I think these methods were not used much and it is fairly easy to do these conversions outside of the method. 
+    If you disagree, let me know and I can consider adding them back.
 ### 6.8.0
 * Added .Net Standart Support, Massive thanks to @pdcruze and @ricaun
 
@@ -195,9 +204,3 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 * Grateful thanks to @shanepowell for contributing RetrieveFileContent.
 * Resolved an issue that was causing problems with the tokenizer. A clean build should hopefully address this.
 * Added support for skip options validation
-
-### 6.7.0
-* We all beeen waiting for this moment. Please enjoy Chat GPT API
-* Added support for Chat GPT API
-* Fixed Tokenizer Bug, it was not working properly.
-

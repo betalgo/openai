@@ -21,11 +21,11 @@ public static class TokenizerGpt3
     /// <param name="text"></param>
     /// <param name="cleanUpCREOL">set it true to get rid of CR</param>
     /// <returns></returns>
-    public static List<int> Encode(string text, bool cleanUpCREOL = false)
+    public static IEnumerable<int> Encode(string text, bool cleanUpCREOL = false)
     {
         if (string.IsNullOrEmpty(text))
         {
-            return new List<int>();
+            yield break;
         }
 
         if (cleanUpCREOL)
@@ -33,54 +33,51 @@ public static class TokenizerGpt3
             text = text.Replace("\r", "");
         }
 
+        foreach (var newToken in GetNewTokens(text))
+        {
+            yield return TokenizerGpt3Settings.Encoder[newToken];
+        }
+    }
+
+    /// <summary>
+    ///     Get token count. This method use LF style EOL, if you use CR LF style EOL you need to set cleanUpWindowsEOL to true
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="cleanUpCREOL">set it true to get rid of CR</param>
+    /// <returns></returns>
+    public static int TokenCount(string text, bool cleanUpCREOL = false)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return 0;
+        }
+
+        if (cleanUpCREOL)
+        {
+            text = text.Replace("\r", "");
+        }
+
+        return GetNewTokens(text).Count();
+    }
+
+    private static IEnumerable<string> GetNewTokens(string text)
+    {
         var byteEncoder = BytesToUnicodeCache;
         var matches = EncodingRegex.Matches(text);
-
-        var bpeTokens = new List<int>(matches.Count);
 
         foreach (var match in matches.Cast<Match>())
         {
             var tokenBytes = Encoding.UTF8.GetBytes(match.Value);
             var token = new string(Array.ConvertAll(tokenBytes, x => byteEncoder[x]));
-            var newTokens = BytePairEncoding(token).Split(' ').Select(x => TokenizerGpt3Settings.Encoder[x]).ToList();
-            bpeTokens.AddRange(newTokens);
+            var newTokens = BytePairEncoding(token).Split(' ');
+
+            foreach (var newToken in newTokens)
+            {
+                yield return newToken;
+            }
         }
-
-        return bpeTokens;
     }
 
-    /// <summary>
-    ///     Encode
-    /// </summary>
-    /// <param name="stringBuilder"></param>
-    /// <param name="cleanUpCREOL">set it true to get rid of CR</param>
-    /// <returns></returns>
-    public static List<int> Encode(StringBuilder? stringBuilder, bool cleanUpCREOL = false)
-    {
-        return stringBuilder == null ? new List<int>() : Encode(stringBuilder.ToString(), cleanUpCREOL);
-    }
-
-    /// <summary>
-    ///     Encode
-    /// </summary>
-    /// <param name="chars"></param>
-    /// <param name="cleanUpCREOL">set it true to get rid of CR</param>
-    /// <returns></returns>
-    public static List<int> Encode(char[]? chars, bool cleanUpCREOL = false)
-    {
-        return chars == null ? new List<int>() : Encode(new string(chars), cleanUpCREOL);
-    }
-
-    /// <summary>
-    ///     Encode
-    /// </summary>
-    /// <param name="chars"></param>
-    /// <param name="cleanUpCREOL">set it true to get rid of CR</param>
-    /// <returns></returns>
-    public static List<int> Encode(IEnumerable<char>? chars, bool cleanUpCREOL = false)
-    {
-        return chars == null ? new List<int>() : Encode(chars.ToArray(), cleanUpCREOL);
-    }
 
     private static int Ord(string x)
     {
