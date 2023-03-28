@@ -1,9 +1,9 @@
-# Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-3 and DALL·E
+# Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-4 and DALL·E
 
-[![Betalgo.OpenAI.GPT3](https://img.shields.io/nuget/v/Betalgo.OpenAI.GPT3?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.GPT3/)
+[![Betalgo.OpenAI](https://img.shields.io/nuget/v/Betalgo.OpenAI?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI/)
 
 ```
-Install-Package Betalgo.OpenAI.GPT3
+Install-Package Betalgo.OpenAI
 ```
 
 Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E  
@@ -36,7 +36,7 @@ Visit https://openai.com/ to get your API key. Also documentation with more deta
 The repository contains a sample project named **OpenAI.Playground** that you can refer to for a better understanding of how the library works. However, please exercise caution while experimenting with it, as some of the test methods may result in unintended consequences such as file deletion or fine tuning.
 
 
-### ***!! It is highly recommended that you use a separate account instead of your primary account while using the playground. This is because some test methods may add or delete your files and models, which could potentially cause unwanted issues. !!***
+*!! It is highly recommended that you use a separate account instead of your primary account while using the playground. This is because some test methods may add or delete your files and models, which could potentially cause unwanted issues. !!*
 
 Your API Key comes from here --> https://platform.openai.com/account/api-keys
 
@@ -178,13 +178,26 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 6.8.2
+- **Breaking Changes**: 
+    - I am going to update library namespace from `Betalgo.OpenAI.GPT3` to `OpenAI.GPT3`. This is the first time I am trying to update my nuget packageId. If something broken, please be patient. I will be fixing it soon.
+    - Small Typo change on model name `Model.GPT4` `to Model.GPT_4`
 
+    - `ServiceCollection.AddOpenAIService();` now returns `IHttpClientBuilder` which means it allows you to play with httpclient object. Thanks for all the reporters and @LGinC.
+    Here is a little sample
+```csharp
+ServiceCollection.AddOpenAIService()
+.ConfigurePrimaryHttpMessageHandler((s => new HttpClientHandler
+{
+    Proxy = new WebProxy("1.1.1.1:1010"),
+});
+``` 
 ### 6.8.1
-- **Breaking Change**: Typo fixed in Content Moderation CategoryScores, changing `Sexualminors` to `SexualMinors`. Thanks to @HowToDoThis.
+- **Breaking Changes**: Typo fixed in Content Moderation CategoryScores, changing `Sexualminors` to `SexualMinors`. Thanks to @HowToDoThis.
 - Tokenizer changes thanks to @IS4Code.
     - Performance improvement
     - Introduced a new method `TokenCount` that returns the number of tokens instead of a list.
-    - **Breaking Change**: Removed overridden methods that were basically string conversions. 
+    - **Breaking Changes**: Removed overridden methods that were basically string conversions. 
     I think these methods were not used much and it is fairly easy to do these conversions outside of the method. 
     If you disagree, let me know and I can consider adding them back.
 ### 6.8.0
@@ -198,9 +211,3 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 * Removed Microsoft.AspNet.WebApi.Client dependecy
 * The action build device has been updated to ubuntu due to suspicions that the EOL of the vocab.bpe file had been altered in the last few Windows builds.
 * Added support for TextEmbeddingAdaV2 Model.
-
-### 6.7.1
-* Introduced support for Whisper.
-* Grateful thanks to @shanepowell for contributing RetrieveFileContent.
-* Resolved an issue that was causing problems with the tokenizer. A clean build should hopefully address this.
-* Added support for skip options validation
