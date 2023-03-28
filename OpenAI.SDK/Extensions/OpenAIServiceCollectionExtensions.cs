@@ -7,19 +7,20 @@ namespace OpenAI.GPT3.Extensions;
 
 public static class OpenAIServiceCollectionExtensions
 {
-    public static IServiceCollection AddOpenAIService(this IServiceCollection services)
+    public static IHttpClientBuilder AddOpenAIService(this IServiceCollection services, Action<OpenAiOptions>? setupAction = null)
     {
-        services.AddOptions<OpenAiOptions>();
-        services.AddHttpClient<IOpenAIService, OpenAIService>();
+        if (setupAction == null)
+        {
+            services.AddOptions<OpenAiOptions>();
+        }
+        else
+        {
+            services.AddOptions<OpenAiOptions>().Configure(setupAction);
+        }
+
         var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
         services.Configure<OpenAiOptions>(configuration.GetSection(OpenAiOptions.SettingKey));
-        return services;
-    }
 
-    public static IServiceCollection AddOpenAIService(this IServiceCollection services, Action<OpenAiOptions> setupAction)
-    {
-        services.AddOptions<OpenAiOptions>().Configure(setupAction);
-        services.AddHttpClient<IOpenAIService, OpenAIService>();
-        return services;
+        return services.AddHttpClient<IOpenAIService, OpenAIService>();
     }
 }
