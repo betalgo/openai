@@ -4,6 +4,7 @@
   "OpenAIServiceOptions": {
     // "Organization": "Put your Organization Id to here or to User Secret file" //https:// platform.openai.com/account/org-settings
     //,"ApiKey":"Put your api key to here or to User Secret file" //How can I get an app key? visit here: https://openai.com/
+    //,"Proxy": "http://192.168.1.2:7890" //http proxy or sock5 proxy
     ////,"ValidateApiOptions": false // if you want to skip options validation.
   },
   //// Azure Sample

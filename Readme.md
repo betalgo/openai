@@ -56,6 +56,7 @@ var openAiService = new OpenAIService(new OpenAiOptions()
  "OpenAIServiceOptions": {
     //"ApiKey":"Your api key goes here"
     //,"Organization": "Your Organization Id goes here (optional)"
+    //,"Proxy": "http://192.168.1.2:7890"
   },
 ```
 *(How to use [user secret](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows) ?  
