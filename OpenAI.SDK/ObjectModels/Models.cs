@@ -100,7 +100,7 @@ public static class Models
     ///     our latest model iteration.
     ///     8,192 tokens	Up to Sep 2021
     /// </summary>
-    public static string Gpt4 => "gpt-4";
+    public static string Gpt_4 => "gpt-4";
 
     /// <summary>
     ///     Snapshot of gpt-4 from March 14th 2023. Unlike gpt-4, this model will not receive updates, and will only be
@@ -251,7 +251,7 @@ public static class Models
             Model.ChatGpt3_5Turbo0301 => ChatGpt3_5Turbo0301,
             Model.WhisperV1 => WhisperV1,
             Model.TextEmbeddingAdaV2 => TextEmbeddingAdaV2,
-            Model.Gpt_4 => Gpt4,
+            Model.Gpt_4 => Gpt_4,
             Model.Gpt_4_0314 => Gpt_4_0314,
             Model.Gpt_4_32k => Gpt_4_32k,
             Model.Gpt_4_32k_0314 => Gpt_4_32k_0314,

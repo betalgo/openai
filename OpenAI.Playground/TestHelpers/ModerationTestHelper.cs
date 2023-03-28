@@ -16,12 +16,14 @@ public class ModerationTestHelper
             {
                 Input = "I want to kill them."
             });
-            if (moderationResponse.Results.FirstOrDefault()?.Flagged != true)
+            if (moderationResponse.Results.First().Flagged == true)
+            {
+                ConsoleExtensions.WriteLine("Create Moderation test passed.", ConsoleColor.DarkGreen);
+            }
+            else
             {
                 ConsoleExtensions.WriteLine("Create Moderation test failed", ConsoleColor.DarkRed);
             }
-
-            ConsoleExtensions.WriteLine("Create Moderation test passed.", ConsoleColor.DarkGreen);
         }
         catch (Exception e)
         {
