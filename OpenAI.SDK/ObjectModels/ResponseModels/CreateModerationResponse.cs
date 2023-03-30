@@ -27,7 +27,7 @@ public record Categories
 
     [JsonPropertyName("hatethreatening")] public bool HateThreatening { get; set; }
 
-    [JsonPropertyName("selfharm")] public bool Selfharm { get; set; }
+    [JsonPropertyName("self-harm")] public bool Selfharm { get; set; }
 
     [JsonPropertyName("sexual")] public bool Sexual { get; set; }
 
@@ -44,7 +44,7 @@ public record CategoryScores
 
     [JsonPropertyName("hatethreatening")] public float HateThreatening { get; set; }
 
-    [JsonPropertyName("selfharm")] public float Selfharm { get; set; }
+    [JsonPropertyName("self-harm")] public float Selfharm { get; set; }
 
     [JsonPropertyName("sexual")] public float Sexual { get; set; }
 
