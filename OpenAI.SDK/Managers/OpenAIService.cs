@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using OpenAI.GPT3.EndpointProviders;
 using OpenAI.GPT3.Interfaces;
+using System.Net;
 
 namespace OpenAI.GPT3.Managers;
 
@@ -22,7 +23,19 @@ public partial class OpenAIService : IOpenAIService
     {
         settings.Validate();
 
-        _httpClient = httpClient ?? new HttpClient();
+        if (!string.IsNullOrWhiteSpace(settings.HttpProxy))
+        {
+            var handler = new HttpClientHandler()
+            {
+                Proxy = new WebProxy(settings.HttpProxy),
+                UseProxy = true
+            };
+            _httpClient = httpClient ?? new HttpClient(handler);
+        }
+        else
+        {
+            _httpClient = httpClient ?? new HttpClient();
+        }
         _httpClient.BaseAddress = new Uri(settings.BaseDomain);
 
         switch (settings.ProviderType)

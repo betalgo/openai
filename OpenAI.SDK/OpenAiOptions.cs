@@ -104,6 +104,11 @@ public class OpenAiOptions
     public string? ResourceName { get; set; }
 
     /// <summary>
+    /// Http Client Proxy Url
+    /// </summary>
+    public string? HttpProxy{ get; set; }
+
+    /// <summary>
     ///     Default model id. If you are working with only one model, this will save you from few line extra code.
     /// </summary>
     [Obsolete("Use Default Model Id")]
