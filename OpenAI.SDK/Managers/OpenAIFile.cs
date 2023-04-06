@@ -62,7 +62,7 @@ public partial class OpenAIService : IFileService
         {
             return new FileContentResponse<T?>
             {
-                Content = (T) (object) await response.Content.ReadAsStringAsync(cancellationToken)
+                Content = (T) (object) await response.Content.ReadAsStringAsync()
             };
         }
 
@@ -70,7 +70,7 @@ public partial class OpenAIService : IFileService
         {
             return new FileContentResponse<T?>
             {
-                Content = (T) (object) await response.Content.ReadAsByteArrayAsync(cancellationToken)
+                Content = (T) (object) await response.Content.ReadAsByteArrayAsync()
             };
         }
 
@@ -78,7 +78,7 @@ public partial class OpenAIService : IFileService
         {
             return new FileContentResponse<T?>
             {
-                Content = (T) (object) await response.Content.ReadAsStreamAsync(cancellationToken)
+                Content = (T) (object) await response.Content.ReadAsStreamAsync()
             };
         }
 
