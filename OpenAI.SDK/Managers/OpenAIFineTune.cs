@@ -33,7 +33,7 @@ public partial class OpenAIService : IFineTuneService
 
     public async Task<Stream> ListFineTuneEvents(string fineTuneId, bool? stream = null, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.GetStreamAsync(_endpointProvider.FineTuneListEvents(fineTuneId), cancellationToken);
+        return await _httpClient.GetStreamAsync(_endpointProvider.FineTuneListEvents(fineTuneId));
         //return await _httpClient.GetFromJsonAsync<ListFineTuneEventsResponse>(_endpointProvider.FineTuneListEvents(fineTuneId));
     }
 
