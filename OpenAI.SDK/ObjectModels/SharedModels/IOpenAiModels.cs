@@ -40,6 +40,7 @@ public interface IOpenAiModels
     public interface IFile
     {
         public byte[] File { get; set; }
+        public Stream FileStream { get; set; }
         public string FileName { get; set; }
     }
 }

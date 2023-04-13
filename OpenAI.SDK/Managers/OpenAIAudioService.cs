@@ -24,11 +24,27 @@ public partial class OpenAIService : IAudioService
 
     private async Task<AudioCreateTranscriptionResponse> Create(AudioCreateTranscriptionRequest audioCreateTranscriptionRequest, string uri, CancellationToken cancellationToken = default)
     {
-        var multipartContent = new MultipartFormDataContent
+        var multipartContent = new MultipartFormDataContent();
+
+        if (audioCreateTranscriptionRequest.File != null)
         {
-            {new ByteArrayContent(audioCreateTranscriptionRequest.File), "file", audioCreateTranscriptionRequest.FileName},
-            {new StringContent(audioCreateTranscriptionRequest.Model), "model"}
-        };
+            multipartContent.Add(
+                new ByteArrayContent(audioCreateTranscriptionRequest.File), 
+                "file",
+                audioCreateTranscriptionRequest.FileName
+            );
+        }
+        else if (audioCreateTranscriptionRequest.FileStream != null)
+        {
+            multipartContent.Add(
+                new StreamContent(audioCreateTranscriptionRequest.FileStream), 
+                "file",
+                audioCreateTranscriptionRequest.FileName
+            );
+        }
+        
+        multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Model), "model");
+        
         if (audioCreateTranscriptionRequest.Language != null)
         {
             multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Language), "language");
