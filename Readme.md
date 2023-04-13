@@ -14,7 +14,7 @@ https://github.com/betalgo/openai/wiki
 
 ## Features
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
-- [x] Azure OpenAI Support
+- [ ] Azure OpenAI Support
 - [x] [Image DALL·E](https://github.com/betalgo/openai/wiki/Dall-E)
 - [x] [Models](https://github.com/betalgo/openai/wiki/Models)
 - [x] [Completions](https://github.com/betalgo/openai/wiki/Completions) 
