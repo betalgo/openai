@@ -42,6 +42,10 @@ public partial class OpenAIService : IAudioService
                 audioCreateTranscriptionRequest.FileName
             );
         }
+        else
+        {
+            throw new ArgumentException("File or FileStream must be set");
+        }
         
         multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Model), "model");
         
