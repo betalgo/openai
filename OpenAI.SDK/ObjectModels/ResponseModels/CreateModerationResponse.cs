@@ -25,32 +25,32 @@ public record Categories
 {
     [JsonPropertyName("hate")] public bool Hate { get; set; }
 
-    [JsonPropertyName("hatethreatening")] public bool HateThreatening { get; set; }
+    [JsonPropertyName("hate/threatening")] public bool HateThreatening { get; set; }
 
-    [JsonPropertyName("self-harm")] public bool Selfharm { get; set; }
+    [JsonPropertyName("self-harm")] public bool SelfHarm { get; set; }
 
     [JsonPropertyName("sexual")] public bool Sexual { get; set; }
 
-    [JsonPropertyName("sexualminors")] public bool SexualMinors { get; set; }
+    [JsonPropertyName("sexual/minors")] public bool SexualMinors { get; set; }
 
     [JsonPropertyName("violence")] public bool Violence { get; set; }
 
-    [JsonPropertyName("violencegraphic")] public bool Violencegraphic { get; set; }
+    [JsonPropertyName("violence/graphic")] public bool ViolenceGraphic { get; set; }
 }
 
 public record CategoryScores
 {
     [JsonPropertyName("hate")] public float Hate { get; set; }
 
-    [JsonPropertyName("hatethreatening")] public float HateThreatening { get; set; }
+    [JsonPropertyName("hate/threatening")] public float HateThreatening { get; set; }
 
-    [JsonPropertyName("self-harm")] public float Selfharm { get; set; }
+    [JsonPropertyName("self-harm")] public float SelfHarm { get; set; }
 
     [JsonPropertyName("sexual")] public float Sexual { get; set; }
 
-    [JsonPropertyName("sexualminors")] public float SexualMinors { get; set; }
+    [JsonPropertyName("sexual/minors")] public float SexualMinors { get; set; }
 
     [JsonPropertyName("violence")] public float Violence { get; set; }
 
-    [JsonPropertyName("violencegraphic")] public float Violencegraphic { get; set; }
+    [JsonPropertyName("violence/graphic")] public float ViolenceGraphic { get; set; }
 }
