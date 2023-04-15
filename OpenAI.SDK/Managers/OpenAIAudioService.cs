@@ -26,6 +26,10 @@ public partial class OpenAIService : IAudioService
     {
         var multipartContent = new MultipartFormDataContent();
 
+        if (audioCreateTranscriptionRequest is {File: not null, FileStream: not null})
+        {
+            throw new ArgumentException("Either File or FileStream must be set, but not both.");
+        }
         if (audioCreateTranscriptionRequest.File != null)
         {
             multipartContent.Add(
@@ -42,11 +46,7 @@ public partial class OpenAIService : IAudioService
                 audioCreateTranscriptionRequest.FileName
             );
         }
-        else
-        {
-            throw new ArgumentException("File or FileStream must be set");
-        }
-        
+
         multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Model), "model");
         
         if (audioCreateTranscriptionRequest.Language != null)
