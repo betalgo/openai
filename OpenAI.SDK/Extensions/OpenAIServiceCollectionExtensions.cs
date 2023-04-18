@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Net;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.GPT3.Managers;
 
@@ -18,6 +20,11 @@ public static class OpenAIServiceCollectionExtensions
             optionsBuilder.BindConfiguration(OpenAiOptions.SettingKey);
         }
 
-        return services.AddHttpClient<IOpenAIService, OpenAIService>();
+        var serviceProvider = optionsBuilder.Services.BuildServiceProvider();
+        var httpProxy = serviceProvider.GetRequiredService<IOptions<OpenAiOptions>>().Value.HttpProxy;
+
+        return httpProxy != null
+            ? services.AddHttpClient<IOpenAIService, OpenAIService>().ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler {Proxy = new WebProxy(httpProxy), UseProxy = true})
+            : services.AddHttpClient<IOpenAIService, OpenAIService>();
     }
 }

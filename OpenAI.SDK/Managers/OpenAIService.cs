@@ -22,7 +22,6 @@ public partial class OpenAIService : IOpenAIService
     public OpenAIService(OpenAiOptions settings, HttpClient? httpClient = null)
     {
         settings.Validate();
-
         if (!string.IsNullOrWhiteSpace(settings.HttpProxy))
         {
             var handler = new HttpClientHandler()
