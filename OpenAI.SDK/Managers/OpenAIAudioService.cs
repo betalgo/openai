@@ -30,10 +30,11 @@ public partial class OpenAIService : IAudioService
         {
             throw new ArgumentException("Either File or FileStream must be set, but not both.");
         }
+
         if (audioCreateTranscriptionRequest.File != null)
         {
             multipartContent.Add(
-                new ByteArrayContent(audioCreateTranscriptionRequest.File), 
+                new ByteArrayContent(audioCreateTranscriptionRequest.File),
                 "file",
                 audioCreateTranscriptionRequest.FileName
             );
@@ -41,14 +42,14 @@ public partial class OpenAIService : IAudioService
         else if (audioCreateTranscriptionRequest.FileStream != null)
         {
             multipartContent.Add(
-                new StreamContent(audioCreateTranscriptionRequest.FileStream), 
+                new StreamContent(audioCreateTranscriptionRequest.FileStream),
                 "file",
                 audioCreateTranscriptionRequest.FileName
             );
         }
 
         multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Model), "model");
-        
+
         if (audioCreateTranscriptionRequest.Language != null)
         {
             multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Language), "language");

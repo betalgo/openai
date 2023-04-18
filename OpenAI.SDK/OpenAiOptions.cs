@@ -113,7 +113,8 @@ public class OpenAiOptions
         set => DefaultModelId = value;
     }
 
-    public bool ValidateApiOptions { get; set; } =true;
+    public bool ValidateApiOptions { get; set; } = true;
+
     /// <summary>
     ///     Default model id. If you are working with only one model, this will save you from few line extra code.
     /// </summary>

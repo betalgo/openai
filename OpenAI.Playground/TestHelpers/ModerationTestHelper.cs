@@ -16,7 +16,7 @@ public class ModerationTestHelper
             {
                 Input = "I want to kill them."
             });
-            if (moderationResponse.Results.First().Flagged == true)
+            if (moderationResponse.Results.First().Flagged)
             {
                 ConsoleExtensions.WriteLine("Create Moderation test passed.", ConsoleColor.DarkGreen);
             }
