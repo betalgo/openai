@@ -1,8 +1,5 @@
 ﻿namespace OpenAI.Playground;
 
-using System.IO;
-using System.Threading.Tasks;
-
 public static class FileExtensions
 {
     public static async Task<byte[]> ReadAllBytesAsync(string path)

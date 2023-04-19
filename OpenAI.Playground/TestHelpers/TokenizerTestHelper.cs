@@ -32,6 +32,7 @@ internal static class TokenizerTestHelper
             throw;
         }
     }
+
     public static async Task RunTokenizerCountTest()
     {
         ConsoleExtensions.WriteLine("Tokenizer Count Test is starting:", ConsoleColor.Cyan);
@@ -60,6 +61,7 @@ internal static class TokenizerTestHelper
             throw;
         }
     }
+
     public static async Task RunTokenizerTestCrClean()
     {
         ConsoleExtensions.WriteLine("Tokenizer Test is starting:", ConsoleColor.Cyan);
@@ -70,7 +72,7 @@ internal static class TokenizerTestHelper
             const string fileName = "TokenizerSample.txt";
 
             var input = await FileExtensions.ReadAllTextAsync($"SampleData/{fileName}");
-            var encodedList = TokenizerGpt3.Encode(input,true).ToList();
+            var encodedList = TokenizerGpt3.Encode(input, true).ToList();
             if (encodedList.Count == 64)
             {
                 ConsoleExtensions.WriteLine("Tokenizer Test Success", ConsoleColor.Green);

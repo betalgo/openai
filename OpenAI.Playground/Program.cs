@@ -1,11 +1,11 @@
-﻿#if NET6_0_OR_GREATER
-using LaserCatEyes.HttpClientListener;
-#endif
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI.GPT3.Extensions;
 using OpenAI.GPT3.Interfaces;
 using OpenAI.Playground.TestHelpers;
+#if NET6_0_OR_GREATER
+using LaserCatEyes.HttpClientListener;
+#endif
 
 var builder = new ConfigurationBuilder()
     .AddJsonFile("ApiSettings.json")

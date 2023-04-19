@@ -25,7 +25,12 @@ public record AudioCreateTranscriptionRequest : IModel, ITemperature, IFile
     /// <summary>
     ///     The audio file to transcribe, in one of these formats: mp3, mp4, mpeg, mpga, m4a, wav, or webm.
     /// </summary>
-    public byte[] File { get; set; }
+    public byte[]? File { get; set; }
+
+    /// <summary>
+    ///     The stream of the audio file to transcribe, in one of these formats: mp3, mp4, mpeg, mpga, m4a, wav, or webm.
+    /// </summary>
+    public Stream? FileStream { get; set; }
 
     /// <summary>
     ///     FileName
