@@ -209,7 +209,7 @@ internal static class CompletionTestHelper
                     }
                 }
             }
-            catch (OperationCanceledException e)
+            catch (OperationCanceledException)
             {
                 ConsoleExtensions.WriteLine("Operation Cancelled", ConsoleColor.Green);
             }
