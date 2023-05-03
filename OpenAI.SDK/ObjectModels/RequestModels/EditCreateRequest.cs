@@ -57,7 +57,7 @@ public record EditCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IO
     ///     applications, and 0 (argmax sampling) for ones with a well-defined answer.
     ///     We generally recommend altering this or top_p but not both.
     /// </summary>
-    /// <see cref="https://platform.openai.com/docs/api-reference/completions/create#completions/create-temperature" />
+    /// <see href="https://platform.openai.com/docs/api-reference/completions/create#completions/create-temperature" />
     [JsonPropertyName("temperature")]
     public float? Temperature { get; set; }
 }
