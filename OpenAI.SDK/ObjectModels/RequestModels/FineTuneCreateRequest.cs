@@ -15,7 +15,7 @@ public record FineTuneCreateRequest : IOpenAiModels.IModel
     ///     more details.
     /// </summary>
     [JsonPropertyName("training_file")]
-    public string TrainingFile { get; set; }
+    public string? TrainingFile { get; set; }
 
     /// <summary>
     ///     The ID of an uploaded file that contains validation data.

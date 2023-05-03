@@ -24,32 +24,11 @@ public partial class OpenAIService : IAudioService
 
     private async Task<AudioCreateTranscriptionResponse> Create(AudioCreateTranscriptionRequest audioCreateTranscriptionRequest, string uri, CancellationToken cancellationToken = default)
     {
-        var multipartContent = new MultipartFormDataContent();
-
-        if (audioCreateTranscriptionRequest is {File: not null, FileStream: not null})
+        var multipartContent = new MultipartFormDataContent
         {
-            throw new ArgumentException("Either File or FileStream must be set, but not both.");
-        }
-
-        if (audioCreateTranscriptionRequest.File != null)
-        {
-            multipartContent.Add(
-                new ByteArrayContent(audioCreateTranscriptionRequest.File),
-                "file",
-                audioCreateTranscriptionRequest.FileName
-            );
-        }
-        else if (audioCreateTranscriptionRequest.FileStream != null)
-        {
-            multipartContent.Add(
-                new StreamContent(audioCreateTranscriptionRequest.FileStream),
-                "file",
-                audioCreateTranscriptionRequest.FileName
-            );
-        }
-
-        multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Model), "model");
-
+            {new ByteArrayContent(audioCreateTranscriptionRequest.File), "file", audioCreateTranscriptionRequest.FileName ?? string.Empty},
+            {new StringContent(audioCreateTranscriptionRequest.Model ?? string.Empty), "model"}
+        };
         if (audioCreateTranscriptionRequest.Language != null)
         {
             multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Language), "language");
@@ -71,8 +50,7 @@ public partial class OpenAIService : IAudioService
         }
 
 
-        if (null == audioCreateTranscriptionRequest.ResponseFormat ||
-            StaticValues.AudioStatics.ResponseFormat.Json == audioCreateTranscriptionRequest.ResponseFormat ||
+        if (StaticValues.AudioStatics.ResponseFormat.Json == audioCreateTranscriptionRequest.ResponseFormat ||
             StaticValues.AudioStatics.ResponseFormat.VerboseJson == audioCreateTranscriptionRequest.ResponseFormat)
         {
             return await _httpClient.PostFileAndReadAsAsync<AudioCreateTranscriptionResponse>(uri, multipartContent, cancellationToken);

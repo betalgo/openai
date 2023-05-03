@@ -28,7 +28,7 @@ internal static class ChatCompletionTestHelper
 
             if (completionResult.Successful)
             {
-                Console.WriteLine(completionResult.Choices.First().Message.Content);
+                Console.WriteLine(completionResult.Choices.First().Message?.Content);
             }
             else
             {
@@ -70,7 +70,7 @@ internal static class ChatCompletionTestHelper
             {
                 if (completion.Successful)
                 {
-                    Console.Write(completion.Choices.First().Message.Content);
+                    Console.Write(completion.Choices.First().Message?.Content);
                 }
                 else
                 {

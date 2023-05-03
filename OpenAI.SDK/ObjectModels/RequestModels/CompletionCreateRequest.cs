@@ -41,7 +41,7 @@ public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperatu
 
             if (Prompt != null)
             {
-                return new List<string> {Prompt};
+                return new List<string> { Prompt };
             }
 
 
@@ -125,7 +125,7 @@ public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperatu
 
             if (Stop != null)
             {
-                return new List<string> {Stop};
+                return new List<string> { Stop };
             }
 
             return StopAsList;

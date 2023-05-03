@@ -22,7 +22,7 @@ public record EditCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IO
     ///     The instruction that tells the model how to edit the prompt.
     /// </summary>
     [JsonPropertyName("instruction")]
-    public string Instruction { get; set; }
+    public string? Instruction { get; set; }
 
     /// <summary>
     ///     Defaults to 1
