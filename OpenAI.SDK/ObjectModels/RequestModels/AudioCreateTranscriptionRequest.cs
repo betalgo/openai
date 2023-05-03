@@ -25,22 +25,17 @@ public record AudioCreateTranscriptionRequest : IModel, ITemperature, IFile
     /// <summary>
     ///     The audio file to transcribe, in one of these formats: mp3, mp4, mpeg, mpga, m4a, wav, or webm.
     /// </summary>
-    public byte[]? File { get; set; }
-
-    /// <summary>
-    ///     The stream of the audio file to transcribe, in one of these formats: mp3, mp4, mpeg, mpga, m4a, wav, or webm.
-    /// </summary>
-    public Stream? FileStream { get; set; }
+    public byte[] File { get; set; } = Array.Empty<byte>();
 
     /// <summary>
     ///     FileName
     /// </summary>
-    public string FileName { get; set; }
+    public string? FileName { get; set; } = string.Empty;
 
     /// <summary>
     ///     ID of the model to use. Only whisper-1 is currently available.
     /// </summary>
-    public string Model { get; set; }
+    public string? Model { get; set; }
 
     /// <summary>
     ///     The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower

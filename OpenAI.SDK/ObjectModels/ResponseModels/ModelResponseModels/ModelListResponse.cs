@@ -4,5 +4,5 @@ namespace OpenAI.GPT3.ObjectModels.ResponseModels.ModelResponseModels;
 
 public record ModelListResponse : BaseResponse
 {
-    [JsonPropertyName("data")] public List<ModelResponse> Models { get; set; }
+    [JsonPropertyName("data")] public List<ModelResponse> Models { get; set; } = new();
 }

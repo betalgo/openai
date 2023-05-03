@@ -21,5 +21,5 @@ public record ImageCreateRequest : SharedImageRequestBaseModel, IOpenAiModels.IU
     ///     A text description of the desired image(s). The maximum length is 1000 characters.
     /// </summary>
     [JsonPropertyName("prompt")]
-    public string Prompt { get; set; }
+    public string Prompt { get; set; } = string.Empty;
 }

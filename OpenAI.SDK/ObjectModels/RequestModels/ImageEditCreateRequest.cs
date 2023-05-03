@@ -5,12 +5,12 @@ public record ImageEditCreateRequest : ImageCreateRequest
     /// <summary>
     ///     The image to edit. Must be a valid PNG file, less than 4MB, and square.
     /// </summary>
-    public byte[] Image { get; set; }
+    public byte[]? Image { get; set; }
 
     /// <summary>
     ///     Image file name
     /// </summary>
-    public string ImageName { get; set; }
+    public string? ImageName { get; set; }
 
     /// <summary>
     ///     An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where image should be edited.

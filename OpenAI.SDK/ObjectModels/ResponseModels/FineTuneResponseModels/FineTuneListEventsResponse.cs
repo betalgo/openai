@@ -5,5 +5,5 @@ namespace OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
 
 public record FineTuneListEventsResponse : BaseResponse
 {
-    [JsonPropertyName("data")] public List<EventResponse> Data { get; set; }
+    [JsonPropertyName("data")] public List<EventResponse> Data { get; set; } = new();
 }
