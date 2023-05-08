@@ -68,7 +68,7 @@ public record FineTuneCreateRequest : IOpenAiModels.IModel
     ///     over-prioritizing learning the prompt.
     /// </summary>
     [JsonPropertyName("prompt_loss_weight")]
-    public int? PromptLossWeight { get; set; }
+    public float? PromptLossWeight { get; set; }
 
     /// <summary>
     ///     If set, we calculate classification-specific metrics such as accuracy and F-1 score using the validation set at the
