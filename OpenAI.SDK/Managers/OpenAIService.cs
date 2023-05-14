@@ -14,7 +14,7 @@ public partial class OpenAIService : IOpenAIService, IDisposable
     private bool _disposeHttpClient;
 
     [ActivatorUtilitiesConstructor]
-    public OpenAIService(HttpClient httpClient, IOptions<OpenAiOptions> settings)
+    public OpenAIService(IOptions<OpenAiOptions> settings,HttpClient httpClient)
         : this(settings.Value, httpClient)
     {
     }
