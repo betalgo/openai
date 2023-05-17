@@ -17,7 +17,7 @@
 		<Description>Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-4 and DALL·E</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
 		<PackageTags>openAI,chatGPT,gpt-4, gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
-		<PackageId>Betalgo.OpenAI.GPT3</PackageId>
+		<PackageId>Betalgo.OpenAI</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RepositoryUrl>https://github.com/betalgo/openai.git</RepositoryUrl>
