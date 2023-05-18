@@ -16,8 +16,10 @@ Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E
 https://github.com/betalgo/openai/wiki
 
 ## Features
+- [ ] Plugins (coming soon)
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
-- [ ] Azure OpenAI Support
+- [x] [Chat GPT-4](https://github.com/betalgo/openai/wiki/Chat-GPT) *(models are supported, Image analyze API not released yet by OpenAI)*
+- [x] [Azure OpenAI](https://github.com/betalgo/openai/wiki/Azure-OpenAI)
 - [x] [Image DALL·E](https://github.com/betalgo/openai/wiki/Dall-E)
 - [x] [Models](https://github.com/betalgo/openai/wiki/Models)
 - [x] [Completions](https://github.com/betalgo/openai/wiki/Completions) 
@@ -26,23 +28,22 @@ https://github.com/betalgo/openai/wiki
 - [x] [Files](https://github.com/betalgo/openai/wiki/Files) 
 - [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning) 
 - [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
-- [x] Tokenizer Support
-- [x] Whisper
-- [ ] Rate limit support
-- [ ] Chat GPT-4 support (models are supported, Image analyze API not released yet by OpenAI)
+- [x] [Tokenizer-GPT3](https://github.com/betalgo/openai/wiki/Tokenizer)
+- [ ] [Tokenizer](https://github.com/betalgo/openai/wiki/Tokenizer)
+- [x] [Whisper](https://github.com/betalgo/openai/wiki/Whisper)
+- [x] [Rate limit](https://github.com/betalgo/openai/wiki/Rate-Limit)
+- [x] [Proxy](https://github.com/betalgo/openai/wiki/Proxy)
 
 For changelogs please go to end of the document.
 
-Visit https://openai.com/ to get your API key. Also documentation with more detail is avaliable there.  
+
 
 ## Sample Usages
-The repository contains a sample project named **OpenAI.Playground** that you can refer to for a better understanding of how the library works. However, please exercise caution while experimenting with it, as some of the test methods may result in unintended consequences such as file deletion or fine tuning.
-
+The repository contains a sample project named **OpenAI.Playground** that you can refer to for a better understanding of how the library works. However, please exercise caution while experimenting with it, as some of the test methods may result in unintended consequences such as file deletion or fine tuning.  
 
 *!! It is highly recommended that you use a separate account instead of your primary account while using the playground. This is because some test methods may add or delete your files and models, which could potentially cause unwanted issues. !!*
 
-Your API Key comes from here --> https://platform.openai.com/account/api-keys
-
+Your API Key comes from here --> https://platform.openai.com/account/api-keys   
 Your Organization ID comes from here --> https://platform.openai.com/account/org-settings
 
 ### Without using dependency injection:
@@ -181,6 +182,11 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 6.8.6
+- Updated Azure OpenAI default API version to the preview version to support ChatGPT. thanks to all [issue reporters](https://github.com/betalgo/openai/issues/181)
+- Added support for an optional chat `name` field. thanks to @shanepowell
+- Breaking Change
+   - `FineTuneCreateRequest.PromptLossWeight` converto to float thanks to @JohnJ0808
 ### 6.8.5
 - Mostly bug fixes
 - Fixed Moderation functions. https://github.com/betalgo/openai/issues/214 thanks to @scolmarg @AbdelAzizMohamedMousa @digitalvir
@@ -213,5 +219,3 @@ ServiceCollection.AddOpenAIService()
     - **Breaking Changes**: Removed overridden methods that were basically string conversions. 
     I think these methods were not used much and it is fairly easy to do these conversions outside of the method. 
     If you disagree, let me know and I can consider adding them back.
-### 6.8.0
-* Added .Net Standart Support, Massive thanks to @pdcruze and @ricaun
