@@ -30,12 +30,18 @@
 
 	<ItemGroup>
 	  <None Remove="Tokenizer\encoder.json" />
+	  <None Remove="Tokenizer\TikToken\ranks\cl100k_base.tiktoken" />
+	  <None Remove="Tokenizer\TikToken\ranks\p50k_base.tiktoken" />
+	  <None Remove="Tokenizer\TikToken\ranks\r50k_base.tiktoken" />
 	  <None Remove="Tokenizer\vocab.bpe" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Tokenizer\GPT3\encoder.json" />
 	  <EmbeddedResource Include="Tokenizer\GPT3\vocab.bpe" />
+	  <EmbeddedResource Include="Tokenizer\TikToken\ranks\cl100k_base.tiktoken" />
+	  <EmbeddedResource Include="Tokenizer\TikToken\ranks\p50k_base.tiktoken" />
+	  <EmbeddedResource Include="Tokenizer\TikToken\ranks\r50k_base.tiktoken" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\Readme.md">
