@@ -89,8 +89,12 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"/{_apiVersion}/fine-tunes/{fineTuneId}/cancel";
     }
 
-    public string FineTuneListEvents(string fineTuneId)
+    public string FineTuneListEvents(string fineTuneId, bool? stream)
     {
+        if (stream != null)
+        {
+            return $"/{_apiVersion}/fine-tunes/{fineTuneId}/events?stream={stream}";
+        }
         return $"/{_apiVersion}/fine-tunes/{fineTuneId}/events";
     }
 

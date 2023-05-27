@@ -1,5 +1,6 @@
 ﻿using OpenAI.GPT3.ObjectModels.RequestModels;
 using OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
+using OpenAI.GPT3.ObjectModels.SharedModels;
 
 namespace OpenAI.GPT3.Interfaces;
 
@@ -46,15 +47,17 @@ public interface IFineTuneService
     ///     Get fine-grained status updates for a fine-tune job.
     /// </summary>
     /// <param name="fineTuneId">The ID of the fine-tune job to get events for.</param>
-    /// <param name="stream">
-    ///     Whether to stream events for the fine-tune job. If set to true, events will be sent as data-only server-sent events
-    ///     as they become available. The stream will terminate with a data: [DONE] message when the job is finished
-    ///     (succeeded, cancelled, or failed).
-    ///     If set to false, only events generated so far will be returned.
-    /// </param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<Stream> ListFineTuneEvents(string fineTuneId, bool? stream = null, CancellationToken cancellationToken = default);
+    Task<FineTuneListEventsResponse> ListFineTuneEvents(string fineTuneId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Get fine-grained status updates for a fine-tune job as a stream (blocks until a new event comes in).
+    /// </summary>
+    /// <param name="fineTuneId">The ID of the fine-tune job to get events for.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns></returns>
+    IAsyncEnumerable<EventResponse> ListFineTuneEventsStream(string fineTuneId, CancellationToken cancellationToken = default);
 
     Task DeleteFineTune(string fineTuneId, CancellationToken cancellationToken = default);
 }

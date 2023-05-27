@@ -15,7 +15,7 @@ internal interface IOpenAiEndpointProvider
     string FineTuneList();
     string FineTuneRetrieve(string fineTuneId);
     string FineTuneCancel(string fineTuneId);
-    string FineTuneListEvents(string fineTuneId);
+    string FineTuneListEvents(string fineTuneId, bool? stream);
     string FineTuneDelete(string fineTuneId);
     string EmbeddingCreate();
     string ModerationCreate();

@@ -85,8 +85,12 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/fine-tunes/{fineTuneId}/cancel{QueryString}";
     }
 
-    public string FineTuneListEvents(string fineTuneId)
+    public string FineTuneListEvents(string fineTuneId, bool? stream)
     {
+        if (stream != null)
+        {
+            return $"{Prefix}/fine-tunes/{fineTuneId}/events{QueryString}&stream={stream}";
+        }
         return $"{Prefix}/fine-tunes/{fineTuneId}/events{QueryString}";
     }
 
