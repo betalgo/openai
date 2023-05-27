@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace OpenAI.GPT3.Extensions
+namespace OpenAI.Extensions
 {
     public class AsyncDisposableStream : Stream, IAsyncDisposable
     {

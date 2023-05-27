@@ -1,4 +1,4 @@
-﻿namespace OpenAI.GPT3.Interfaces;
+﻿namespace OpenAI.Interfaces;
 
 public interface IOpenAIService
 {

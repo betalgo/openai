@@ -1,10 +1,10 @@
 ﻿using System.Net.Http.Json;
-using OpenAI.GPT3.Extensions;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels.RequestModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
+using OpenAI.Extensions;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
 
-namespace OpenAI.GPT3.Managers;
+namespace OpenAI.Managers;
 
 public partial class OpenAIService : IFineTuneService
 {

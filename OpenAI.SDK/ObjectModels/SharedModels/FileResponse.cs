@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.GPT3.ObjectModels.ResponseModels;
+using OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.GPT3.ObjectModels.SharedModels;
+namespace OpenAI.ObjectModels.SharedModels;
 
 public record FileResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt
 {

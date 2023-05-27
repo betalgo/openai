@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.Managers;
+using OpenAI.Interfaces;
+using OpenAI.Managers;
 
-namespace OpenAI.GPT3.Extensions;
+namespace OpenAI.Extensions;
 
 public static class OpenAIServiceCollectionExtensions
 {

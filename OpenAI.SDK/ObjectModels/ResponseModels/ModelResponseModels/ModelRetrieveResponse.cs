@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.GPT3.ObjectModels.ResponseModels.ModelResponseModels;
+namespace OpenAI.ObjectModels.ResponseModels.ModelResponseModels;
 
 public record ModelRetrieveResponse : ModelResponse
     // ReSharper disable once RedundantRecordBody

@@ -1,4 +1,4 @@
-﻿namespace OpenAI.GPT3.EndpointProviders;
+﻿namespace OpenAI.EndpointProviders;
 
 internal interface IOpenAiEndpointProvider
 {

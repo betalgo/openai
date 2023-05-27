@@ -1,8 +1,8 @@
-﻿using OpenAI.GPT3.ObjectModels;
-using OpenAI.GPT3.ObjectModels.RequestModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels;
+﻿using OpenAI.ObjectModels;
+using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.GPT3.Interfaces;
+namespace OpenAI.Interfaces;
 
 /// <summary>
 ///     Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenAI.GPT3.Extensions;
-using OpenAI.GPT3.Interfaces;
+using OpenAI.Extensions;
+using OpenAI.Interfaces;
 using OpenAI.Playground.TestHelpers;
 #if NET6_0_OR_GREATER
 using LaserCatEyes.HttpClientListener;

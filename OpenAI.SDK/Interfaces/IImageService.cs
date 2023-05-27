@@ -1,7 +1,7 @@
-﻿using OpenAI.GPT3.ObjectModels.RequestModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels.ImageResponseModel;
+﻿using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
 
-namespace OpenAI.GPT3.Interfaces;
+namespace OpenAI.Interfaces;
 
 /// <summary>
 ///     Given a prompt and/or an input image, the model will generate a new image.
