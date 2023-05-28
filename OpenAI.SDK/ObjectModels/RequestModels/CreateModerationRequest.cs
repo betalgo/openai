@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.GPT3.ObjectModels.SharedModels;
+using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.GPT3.ObjectModels.RequestModels;
+namespace OpenAI.ObjectModels.RequestModels;
 
 public record CreateModerationRequest : IOpenAiModels.IModel
 {

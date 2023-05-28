@@ -1,4 +1,4 @@
-﻿namespace OpenAI.GPT3;
+﻿namespace OpenAI;
 
 /// <summary>
 ///     Provider Type

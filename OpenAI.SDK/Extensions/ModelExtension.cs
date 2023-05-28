@@ -1,6 +1,6 @@
-﻿using OpenAI.GPT3.ObjectModels.SharedModels;
+﻿using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.GPT3.Extensions;
+namespace OpenAI.Extensions;
 
 public static class ModelExtension
 {

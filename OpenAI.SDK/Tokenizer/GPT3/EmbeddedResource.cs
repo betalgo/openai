@@ -2,7 +2,7 @@
 
 using System.Reflection;
 
-namespace OpenAI.GPT3.Tokenizer.GPT3;
+namespace OpenAI.Tokenizer.GPT3;
 
 internal static class EmbeddedResource
 {

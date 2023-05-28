@@ -1,4 +1,4 @@
-﻿namespace OpenAI.GPT3.ObjectModels;
+﻿namespace OpenAI.ObjectModels;
 
 public static class UploadFilePurposes
 {

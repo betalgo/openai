@@ -1,6 +1,6 @@
-﻿using OpenAI.GPT3.ObjectModels.SharedModels;
+﻿using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.GPT3.ObjectModels.RequestModels;
+namespace OpenAI.ObjectModels.RequestModels;
 
 public record ImageVariationCreateRequest : SharedImageRequestBaseModel
 {

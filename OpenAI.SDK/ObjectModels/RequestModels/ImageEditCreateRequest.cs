@@ -1,4 +1,4 @@
-﻿namespace OpenAI.GPT3.ObjectModels.RequestModels;
+﻿namespace OpenAI.ObjectModels.RequestModels;
 
 public record ImageEditCreateRequest : ImageCreateRequest
 {

@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace OpenAI.GPT3.Tokenizer.GPT3;
+namespace OpenAI.Tokenizer.GPT3;
 
 /// <summary>
 ///     GPT3 Tokenizer.
