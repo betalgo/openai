@@ -15,6 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.Playground", "OpenAI
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{27B22566-7173-4B05-B0FB-09BF7FD9332C}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		Readme.md = Readme.md
 	EndProjectSection
