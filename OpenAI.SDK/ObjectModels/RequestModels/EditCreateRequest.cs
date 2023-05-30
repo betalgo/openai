@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels.SharedModels;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.GPT3.ObjectModels.RequestModels;
+namespace OpenAI.ObjectModels.RequestModels;
 
 //TODO add model validation
 //TODO check what is string or array for prompt,..
@@ -57,7 +57,7 @@ public record EditCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IO
     ///     applications, and 0 (argmax sampling) for ones with a well-defined answer.
     ///     We generally recommend altering this or top_p but not both.
     /// </summary>
-    /// <see cref="https://platform.openai.com/docs/api-reference/completions/create#completions/create-temperature" />
+    /// <see href="https://platform.openai.com/docs/api-reference/completions/create#completions/create-temperature" />
     [JsonPropertyName("temperature")]
     public float? Temperature { get; set; }
 }

@@ -1,19 +1,20 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using OpenAI.GPT3.EndpointProviders;
-using OpenAI.GPT3.Interfaces;
+using OpenAI.EndpointProviders;
+using OpenAI.Interfaces;
 
-namespace OpenAI.GPT3.Managers;
+namespace OpenAI.Managers;
 
 //TODO Find a way to show default request values in documentation
-public partial class OpenAIService : IOpenAIService
+public partial class OpenAIService : IOpenAIService, IDisposable
 {
     private readonly IOpenAiEndpointProvider _endpointProvider;
     private readonly HttpClient _httpClient;
     private string? _defaultModelId;
+    private bool _disposeHttpClient;
 
     [ActivatorUtilitiesConstructor]
-    public OpenAIService(HttpClient httpClient, IOptions<OpenAiOptions> settings)
+    public OpenAIService(IOptions<OpenAiOptions> settings,HttpClient httpClient)
         : this(settings.Value, httpClient)
     {
     }
@@ -22,7 +23,16 @@ public partial class OpenAIService : IOpenAIService
     {
         settings.Validate();
 
-        _httpClient = httpClient ?? new HttpClient();
+        if (httpClient == null)
+        {
+            _disposeHttpClient = true;
+            _httpClient = new HttpClient();
+        }
+        else
+        {
+            _httpClient = httpClient;
+        }
+
         _httpClient.BaseAddress = new Uri(settings.BaseDomain);
 
         switch (settings.ProviderType)
@@ -97,5 +107,25 @@ public partial class OpenAIService : IOpenAIService
     public string? GetDefaultModelId()
     {
         return _defaultModelId;
+    }
+
+    /// <summary>
+    ///     Method to dispose the HttpContext if created internally.
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (_disposeHttpClient && _httpClient != null)
+            {
+                _httpClient.Dispose();
+            }
+        }
     }
 }

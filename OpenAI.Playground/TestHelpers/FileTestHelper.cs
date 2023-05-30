@@ -1,6 +1,6 @@
 ﻿using System.Text;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels;
 
 namespace OpenAI.Playground.TestHelpers;
 

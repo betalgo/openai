@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels.SharedModels;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.GPT3.ObjectModels.RequestModels;
+namespace OpenAI.ObjectModels.RequestModels;
 
 //TODO add model validation
 /// <summary>
@@ -16,7 +16,7 @@ public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperatu
     ///     Note that endoftext is the document separator that the model sees during training, so if a prompt is not specified
     ///     the model will generate as if from the beginning of a new document.
     /// </summary>
-    /// <see cref="https://platform.openai.com/docs/api-reference/completions/create#completions/create-prompt" />
+    /// <see href="https://platform.openai.com/docs/api-reference/completions/create#completions/create-prompt" />
     [JsonIgnore]
     public string? Prompt { get; set; }
 
@@ -25,7 +25,7 @@ public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperatu
     ///     Note that endoftext is the document separator that the model sees during training, so if a prompt is not specified
     ///     the model will generate as if from the beginning of a new document.
     /// </summary>
-    /// <see cref="https://platform.openai.com/docs/api-reference/completions/create#completions/create-prompt" />
+    /// <see href="https://platform.openai.com/docs/api-reference/completions/create#completions/create-prompt" />
     [JsonIgnore]
     public IList<string>? PromptAsList { get; set; }
 
@@ -60,7 +60,7 @@ public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperatu
     ///     The token count of your prompt plus max_tokens cannot exceed the model's context length. Most models have a context
     ///     length of 2048 tokens (except davinci-codex, which supports 4096).
     /// </summary>
-    /// <see cref="https://platform.openai.com/docs/api-reference/completions/create#completions/create-max_tokens" />
+    /// <see href="https://platform.openai.com/docs/api-reference/completions/create#completions/create-max_tokens" />
     [JsonPropertyName("max_tokens")]
     public int? MaxTokens { get; set; }
 
@@ -136,7 +136,7 @@ public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperatu
     ///     Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far,
     ///     increasing the model's likelihood to talk about new topics.
     /// </summary>
-    /// <seealso cref="https://platform.openai.com/docs/api-reference/parameter-details" />
+    /// <seealso href="https://platform.openai.com/docs/api-reference/parameter-details" />
     [JsonPropertyName("presence_penalty")]
     public float? PresencePenalty { get; set; }
 
@@ -145,7 +145,7 @@ public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperatu
     ///     Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so
     ///     far, decreasing the model's likelihood to repeat the same line verbatim.
     /// </summary>
-    /// <seealso cref="https://platform.openai.com/docs/api-reference/parameter-details" />
+    /// <seealso href="https://platform.openai.com/docs/api-reference/parameter-details" />
     [JsonPropertyName("frequency_penalty")]
     public float? FrequencyPenalty { get; set; }
 
@@ -170,7 +170,7 @@ public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperatu
     ///     As an example, you can pass { "50256": -100}
     ///     to prevent the endoftext token from being generated.
     /// </summary>
-    /// <seealso cref="https://platform.openai.com/tokenizer?view=bpe" />
+    /// <seealso href="https://platform.openai.com/tokenizer?view=bpe" />
     [JsonPropertyName("logit_bias")]
     public object? LogitBias { get; set; }
 
@@ -198,7 +198,7 @@ public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperatu
     ///     applications, and 0 (argmax sampling) for ones with a well-defined answer.
     ///     We generally recommend altering this or top_p but not both.
     /// </summary>
-    /// <see cref="https://platform.openai.com/docs/api-reference/completions/create#completions/create-temperature" />
+    /// <see href="https://platform.openai.com/docs/api-reference/completions/create#completions/create-temperature" />
     [JsonPropertyName("temperature")]
     public float? Temperature { get; set; }
 

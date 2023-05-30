@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.GPT3.ObjectModels.ResponseModels.FileResponseModels;
+namespace OpenAI.ObjectModels.ResponseModels.FileResponseModels;
 
 /// <summary>
 ///     File content response

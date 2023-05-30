@@ -1,11 +1,11 @@
 ﻿using System.Net.Http.Json;
-using OpenAI.GPT3.Extensions;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels.ResponseModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels.FileResponseModels;
-using OpenAI.GPT3.ObjectModels.SharedModels;
+using OpenAI.Extensions;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels.ResponseModels;
+using OpenAI.ObjectModels.ResponseModels.FileResponseModels;
+using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.GPT3.Managers;
+namespace OpenAI.Managers;
 
 #pragma warning disable CS1591
 public partial class OpenAIService : IFileService

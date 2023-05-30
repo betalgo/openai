@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace OpenAI.GPT3.EndpointProviders;
+namespace OpenAI.EndpointProviders;
 
 internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 {

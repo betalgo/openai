@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels.SharedModels;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.GPT3.ObjectModels.RequestModels;
+namespace OpenAI.ObjectModels.RequestModels;
 
 public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.IModel, IOpenAiModels.IUser
 {
@@ -75,7 +75,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     ///     The maximum number of tokens allowed for the generated answer. By default, the number of tokens the model can
     ///     return will be (4096 - prompt tokens).
     /// </summary>
-    /// <see cref="https://platform.openai.com/docs/api-reference/completions/create#completions/create-max_tokens" />
+    /// <see href="https://platform.openai.com/docs/api-reference/completions/create#completions/create-max_tokens" />
     [JsonPropertyName("max_tokens")]
     public int? MaxTokens { get; set; }
 
@@ -83,7 +83,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     ///     Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far,
     ///     increasing the model's likelihood to talk about new topics.
     /// </summary>
-    /// <seealso cref="https://platform.openai.com/docs/api-reference/parameter-details" />
+    /// <seealso href="https://platform.openai.com/docs/api-reference/parameter-details" />
     [JsonPropertyName("presence_penalty")]
     public float? PresencePenalty { get; set; }
 
@@ -92,7 +92,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     ///     Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so
     ///     far, decreasing the model's likelihood to repeat the same line verbatim.
     /// </summary>
-    /// <seealso cref="https://platform.openai.com/docs/api-reference/parameter-details" />
+    /// <seealso href="https://platform.openai.com/docs/api-reference/parameter-details" />
     [JsonPropertyName("frequency_penalty")]
     public float? FrequencyPenalty { get; set; }
 
@@ -106,7 +106,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     ///     As an example, you can pass { "50256": -100}
     ///     to prevent the endoftext token from being generated.
     /// </summary>
-    /// <seealso cref="https://platform.openai.com/tokenizer?view=bpe" />
+    /// <seealso href="https://platform.openai.com/tokenizer?view=bpe" />
     [JsonPropertyName("logit_bias")]
     public object? LogitBias { get; set; }
 

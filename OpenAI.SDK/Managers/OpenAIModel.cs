@@ -1,8 +1,8 @@
 ﻿using System.Net.Http.Json;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels.ResponseModels.ModelResponseModels;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels.ResponseModels.ModelResponseModels;
 
-namespace OpenAI.GPT3.Managers;
+namespace OpenAI.Managers;
 
 public partial class OpenAIService : IModelService
 {

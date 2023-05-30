@@ -1,8 +1,8 @@
-﻿using static OpenAI.GPT3.ObjectModels.SharedModels.IOpenAiModels;
+﻿using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.GPT3.ObjectModels.RequestModels;
+namespace OpenAI.ObjectModels.RequestModels;
 
-public record AudioCreateTranscriptionRequest : IModel, ITemperature, IFile
+public record AudioCreateTranscriptionRequest : IOpenAiModels.IModel, IOpenAiModels.ITemperature, IOpenAiModels.IFile
 {
     /// <summary>
     ///     An optional text to guide the model's style or continue a previous audio segment. The prompt should match the audio
