@@ -182,6 +182,20 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 7.0.0
+- The code now supports .NET 7.0. Big cheers to @BroMarduk for making this happen.
+- The library now automatically disposes of the Httpclient when it's created by the constructor. This feature is thanks to @BroMarduk.
+- New support has been added for using more than one instance at the same time. Check out this [link](https://github.com/betalgo/openai/wiki/Working-with-Multiple-Instances) for more details. Thanks to @remixtedi for bringing this to my attention.
+- A lot of small improvements have been done by @BroMarduk.
+- **Breaking Changes** 😢
+  - I've removed 'GPT3' from the namespace, so you might need to modify some aspects of your project. But don't worry, it's pretty simple! For instance, instead of writing `using OpenAI.GPT3.Interfaces`, you'll now write `using OpenAI.Interfaces`.
+  - The order of the OpenAI constructor parameters has changed. It now takes 'options' first, then 'httpclient'.
+    ```csharp
+	//Before
+	var openAiService = new OpenAIService(httpClient, options);
+	//Now
+	var openAiService = new OpenAIService(options, httpClient);
+	```
 ### 6.8.6
 - Updated Azure OpenAI default API version to the preview version to support ChatGPT. thanks to all [issue reporters](https://github.com/betalgo/openai/issues/181)
 - Added support for an optional chat `name` field. thanks to @shanepowell
