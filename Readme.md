@@ -14,8 +14,12 @@ Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E
 
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki
-## Checkout new experimantal utilities library:
+## Checkout new ***experimantal*** utilities library:
+[![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
 
+```
+Install-Package Betalgo.OpenAI.Utilities
+```
 ## Features
 - [ ] Plugins (coming soon)
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
