@@ -1,0 +1,34 @@
+name: Build And Deploy Betalgo.OpenAI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 7.0.x
+    - name: Clean
+      run: dotnet clean
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+    - name: publish OpenAI 
+      id: publish_nuget_OpenAI
+      uses: alirezanet/publish-nuget@v3.1.0
+      with:
+          PROJECT_FILE_PATH: OpenAI.SDK\OpenAI.csproj
+          NUGET_KEY: ${{secrets.NUGET_KEY}}
+          INCLUDE_SYMBOLS: true
+          PACKAGE_NAME: Betalgo.OpenAI
