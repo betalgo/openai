@@ -4,10 +4,10 @@ using System.Text;
 using CsvHelper;
 using MathNet.Numerics;
 using Microsoft.Data.Analysis;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels.RequestModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels;
-using OpenAI.GPT3.Tokenizer.GPT3;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.ResponseModels;
+using OpenAI.Tokenizer.GPT3;
 
 namespace OpenAI.Utilities;
 
