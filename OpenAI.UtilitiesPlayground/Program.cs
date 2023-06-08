@@ -1,10 +1,10 @@
 ﻿using LaserCatEyes.HttpClientListener;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenAI.GPT3.Extensions;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels;
-using OpenAI.GPT3.ObjectModels.RequestModels;
+using OpenAI.Extensions;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels;
+using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Utilities;
 
 var builder = new ConfigurationBuilder()
