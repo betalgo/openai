@@ -169,11 +169,24 @@ public static class Models
     public static string TextEmbeddingAdaV2 => ModelNameBuilder(BaseModel.Ada, Subject.TextEmbedding, "002");
 
     /// <summary>
+    /// Same capabilities as the standard gpt-3.5-turbo model but with 4 times the context.
+    /// 16,384 tokens	Up to Sep 2021
+    /// </summary>
+    public static string ChatGpt3_5Turbo_16k => "gpt-3.5-turbo-16k";
+
+    /// <summary>
     ///     Most capable GPT-3.5 model and optimized for chat at 1/10th the cost of text-davinci-003. Will be updated with our
     ///     latest model iteration.
     ///     4,096 tokens	Up to Sep 2021
     /// </summary>
     public static string ChatGpt3_5Turbo => "gpt-3.5-turbo";
+    
+    ///<summary>
+    /// Snapshot of gpt-3.5-turbo from June 13th 2023 with function calling data. Unlike gpt-3.5-turbo, this model will not 
+    /// receive updates, and will be deprecated 3 months after a new version is released.
+    ///  4,096 tokens	Up to Sep 2021
+    ///</summary>
+    public static string ChatGpt3_5Turbo0613 => "gpt-3.5-turbo-0613";
 
     /// <summary>
     ///     Snapshot of gpt-3.5-turbo from March 1st 2023. Unlike gpt-3.5-turbo, this model will not receive updates, and will
