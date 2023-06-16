@@ -116,7 +116,7 @@ public static class Models
     /// See more: https://openai.com/blog/function-calling-and-other-api-updates
     /// 8,192 tokens
     /// </summary>
-    public static string Gpt_4_0314 => "gpt-4-0613";
+    public static string Gpt_4_0613 => "gpt-4-0613";
 
     /// <summary>
     ///     Same capabilities as the base gpt-4 mode but with 4x the context length. Will be updated with our latest model
@@ -197,7 +197,7 @@ public static class Models
     /// See more: https://openai.com/blog/function-calling-and-other-api-updates
     ///     16,384 tokens
     /// </summary>
-    public static string ChatGpt3_5Turbo0301 => "gpt-3.5-turbo-0613";
+    public static string ChatGpt3_5Turbo0613 => "gpt-3.5-turbo-0613";
 
     public static string WhisperV1 => "whisper-1";
 
@@ -266,10 +266,12 @@ public static class Models
             Model.CodeEditDavinciV1 => CodeEditDavinciV1,
             Model.ChatGpt3_5Turbo => ChatGpt3_5Turbo,
             Model.ChatGpt3_5Turbo0301 => ChatGpt3_5Turbo0301,
+            Model.ChatGpt3_5Turbo0613 =>  ChatGpt3_5Turbo0613,
             Model.WhisperV1 => WhisperV1,
             Model.TextEmbeddingAdaV2 => TextEmbeddingAdaV2,
             Model.Gpt_4 => Gpt_4,
             Model.Gpt_4_0314 => Gpt_4_0314,
+            Model.Gpt_4_0613 => Gpt_4_0613,
             Model.Gpt_4_32k => Gpt_4_32k,
             Model.Gpt_4_32k_0314 => Gpt_4_32k_0314,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
