@@ -70,9 +70,11 @@ public static class Models
 
         ChatGpt3_5Turbo,
         ChatGpt3_5Turbo0301,
+        ChatGpt3_5Turbo0613,
 
         Gpt_4,
         Gpt_4_0314,
+        Gpt_4_0613,
         Gpt_4_32k,
         Gpt_4_32k_0314,
 
@@ -108,6 +110,13 @@ public static class Models
     ///     8,192 tokens	Up to Sep 2021
     /// </summary>
     public static string Gpt_4_0314 => "gpt-4-0314";
+
+    /// <summary>
+    /// The model has a greater ability to understand and call functions described by programmers, generating a JSON object to make these calls.
+    /// See more: https://openai.com/blog/function-calling-and-other-api-updates
+    /// 8,192 tokens
+    /// </summary>
+    public static string Gpt_4_0314 => "gpt-4-0613";
 
     /// <summary>
     ///     Same capabilities as the base gpt-4 mode but with 4x the context length. Will be updated with our latest model
@@ -181,6 +190,14 @@ public static class Models
     ///     4,096 tokens	Up to Sep 2021
     /// </summary>
     public static string ChatGpt3_5Turbo0301 => "gpt-3.5-turbo-0301";
+    
+    /// <summary>
+    /// The model has a greater ability to understand and call functions described by programmers, generating a JSON object to make these calls.
+    /// Increased amount of context to 16k
+    /// See more: https://openai.com/blog/function-calling-and-other-api-updates
+    ///     16,384 tokens
+    /// </summary>
+    public static string ChatGpt3_5Turbo0301 => "gpt-3.5-turbo-0613";
 
     public static string WhisperV1 => "whisper-1";
 
