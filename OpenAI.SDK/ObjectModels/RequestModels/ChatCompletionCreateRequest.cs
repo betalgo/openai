@@ -16,6 +16,12 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     [JsonPropertyName("messages")]
     public IList<ChatMessage> Messages { get; set; }
 
+    /// <summary> 
+    ///     A list of functions the model may generate JSON inputs for.
+    /// </summary>
+    [JsonPropertyName("functions")]
+    public IList<FunctionDefinition>? Functions { get; set; }
+
     /// <summary>
     ///     An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the
     ///     tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are
@@ -134,4 +140,18 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// </summary>
     [JsonPropertyName("user")]
     public string User { get; set; }
+
+
+    /// <summary> 
+    ///     String or object. Controls how the model responds to function calls. 
+    ///     "none" means the model does not call a function, and responds to the end-user. 
+    ///     "auto" means the model can pick between an end-user or calling a function. 
+    ///     "none" is the default when no functions are present. "auto" is the default if functions are present.
+    ///     Specifying a particular function via {"name": "my_function"} forces the model to call that function. 
+    ///     (Note: in C# specify that as: 
+    ///         FunctionCall = new Dictionary&lt;string, string&gt; { { "name", "my_function" } }
+    ///         ).
+    /// </summary>
+    [JsonPropertyName("function_call")]
+    public object? FunctionCall { get; set; }
 }
