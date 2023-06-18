@@ -116,7 +116,7 @@ internal static class ChatCompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Chat Function Call Test:", ConsoleColor.DarkCyan);
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+            var completionResults = sdk.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest
             {
                 Messages = new List<ChatMessage>
                 {
@@ -139,29 +139,32 @@ internal static class ChatCompletionTestHelper
                   num_days: 5
             */
 
-            if (completionResult.Successful)
+            await foreach (var completionResult in completionResults)
             {
-                var choice = completionResult.Choices.First();
-                Console.WriteLine($"Message:        {choice.Message.Content}");
-                
-                var fn = choice.Message.FunctionCall;
-                if (fn != null)
+                if (completionResult.Successful)
                 {
-                    Console.WriteLine($"Function call:  {fn.Name}");
-                    foreach (var entry in fn.ParseArguments())
+                    var choice = completionResult.Choices.First();
+                    Console.WriteLine($"Message:        {choice.Message.Content}");
+
+                    var fn = choice.Message.FunctionCall;
+                    if (fn != null)
                     {
-                        Console.WriteLine($"  {entry.Key}: {entry.Value}");
+                        Console.WriteLine($"Function call:  {fn.Name}");
+                        foreach (var entry in fn.ParseArguments())
+                        {
+                            Console.WriteLine($"  {entry.Key}: {entry.Value}");
+                        }
                     }
                 }
-            }
-            else
-            {
-                if (completionResult.Error == null)
+                else
                 {
-                    throw new Exception("Unknown Error");
-                }
+                    if (completionResult.Error == null)
+                    {
+                        throw new Exception("Unknown Error");
+                    }
 
-                Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
+                    Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
+                }
             }
         }
         catch (Exception e)
