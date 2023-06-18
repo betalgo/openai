@@ -10,7 +10,7 @@ Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E
 *Unofficial*.  
 *OpenAI doesn't have any official .Net SDK.*
 
-#### This library used to known as `Betalgo.OpenAI.GPT3`, now it has a new package Id `Betalgo.OpenAI`.
+#### This library used be to known as `Betalgo.OpenAI.GPT3`, now it has a new package Id `Betalgo.OpenAI`.
 
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki
