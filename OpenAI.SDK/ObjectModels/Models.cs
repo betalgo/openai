@@ -103,13 +103,6 @@ public static class Models
     public static string Gpt_4 => "gpt-4";
 
     /// <summary>
-    ///     Snapshot of gpt-4 from March 14th 2023. Unlike gpt-4, this model will not receive updates, and will only be
-    ///     supported for a three month period ending on June 14th 2023.
-    ///     8,192 tokens	Up to Sep 2021
-    /// </summary>
-    public static string Gpt_4_0314 => "gpt-4-0314";
-
-    /// <summary>
     ///     Same capabilities as the base gpt-4 mode but with 4x the context length. Will be updated with our latest model
     ///     iteration.
     ///     32,768 tokens	Up to Sep 2021
@@ -117,11 +110,33 @@ public static class Models
     public static string Gpt_4_32k => "gpt-4-32k";
 
     /// <summary>
+    ///     Snapshot of gpt-4 from March 14th 2023. Unlike gpt-4, this model will not receive updates, and will only be
+    ///     supported for a three month period ending on June 14th 2023.
+    ///     8,192 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_4_0314 => "gpt-4-0314";
+
+    /// <summary>
     ///     Snapshot of gpt-4-32 from March 14th 2023. Unlike gpt-4-32k, this model will not receive updates, and will only be
     ///     supported for a three month period ending on June 14th 2023.
     ///     32,768 tokens	Up to Sep 2021
     /// </summary>
     public static string Gpt_4_32k_0314 => "gpt-4-32k-0314";
+
+    /// <summary>
+    ///     Snapshot of gpt-4 from June 13th 2023 with function calling data. Unlike gpt-4, this model will not receive updates, 
+    ///     and will be deprecated 3 months after a new version is released.	
+    ///     8,192 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_4_0613 => "gpt-4-0613";
+
+    /// <summary>
+    ///     Snapshot of gpt-4-32 from June 13th 2023. Unlike gpt-4-32k, this model will not receive updates, 
+    ///     and will be deprecated 3 months after a new version is released.	
+    ///     32,768 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_32k_0613 => "gpt-4-32k-0613";
+
 
     public static string Ada => "ada";
     public static string Babbage => "babbage";
@@ -176,11 +191,32 @@ public static class Models
     public static string ChatGpt3_5Turbo => "gpt-3.5-turbo";
 
     /// <summary>
+    ///     Same capabilities as the standard gpt-3.5-turbo model but with 4 times the context.	
+    ///     16,384 tokens	Up to Sep 2021
+    /// </summary>
+    public static string ChatGpt3_5Turbo_16k => "gpt-3.5-turbo-16k";
+
+    /// <summary>
     ///     Snapshot of gpt-3.5-turbo from March 1st 2023. Unlike gpt-3.5-turbo, this model will not receive updates, and will
     ///     only be supported for a three month period ending on June 1st 2023.
     ///     4,096 tokens	Up to Sep 2021
     /// </summary>
     public static string ChatGpt3_5Turbo0301 => "gpt-3.5-turbo-0301";
+
+    /// <summary>
+    ///     Snapshot of gpt-3.5-turbo from June 13th 2023 with function calling data. Unlike gpt-3.5-turbo, 
+    ///     this model will not receive updates, and will be deprecated 3 months after a new version is released.	
+    ///     4,096 tokens	Up to Sep 2021
+    /// </summary>
+    public static string ChatGpt3_5Turbo_0613 => "gpt-3.5-turbo-0613";
+
+    /// <summary>
+    ///     Snapshot of gpt-3.5-turbo from June 13th 2023 with function calling data. Unlike gpt-3.5-turbo, 
+    ///     this model will not receive updates, and will be deprecated 3 months after a new version is released.	
+    ///     4,096 tokens	Up to Sep 2021
+    /// </summary>
+    public static string ChatGpt3_5Turbo_16k_0613 => "gpt-3.5-turbo-16k-0613";
+
 
     public static string WhisperV1 => "whisper-1";
 
