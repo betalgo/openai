@@ -21,6 +21,7 @@ https://github.com/betalgo/openai/wiki
 Install-Package Betalgo.OpenAI.Utilities
 ```
 ## Features
+- [X] [Function Calling] Beta Avaliable
 - [ ] Plugins (coming soon)
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
 - [x] [Chat GPT-4](https://github.com/betalgo/openai/wiki/Chat-GPT) *(models are supported, Image analyze API not released yet by OpenAI)*
@@ -38,6 +39,7 @@ Install-Package Betalgo.OpenAI.Utilities
 - [x] [Whisper](https://github.com/betalgo/openai/wiki/Whisper)
 - [x] [Rate limit](https://github.com/betalgo/openai/wiki/Rate-Limit)
 - [x] [Proxy](https://github.com/betalgo/openai/wiki/Proxy)
+
 
 For changelogs please go to end of the document.
 
@@ -187,6 +189,9 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 7.1.0-beta
+- Function Calling: We're releasing this version to bring in a new feature that lets you call functions faster. But remember, this version might not be perfectly stable and we might change it a lot later. A big shout-out to @rzubek for helping us add this feature. Although I liked his work, I didn't have enough time to look into it thoroughly. Still, the tests I did showed it was working, so I decided to add his feature to our code. This lets everyone use it now. Even though I'm busy moving houses and didn't have much time, seeing @rzubek's help made things a lot easier for me.
+- Support for New Models: This update also includes support for new models that OpenAI recently launched. I've also changed the naming style to match OpenAI's. Model names will no longer start with 'chat'; instead, they'll start with 'gpt_3_5' and so on.
 ### 7.0.0
 - The code now supports .NET 7.0. Big cheers to @BroMarduk for making this happen.
 - The library now automatically disposes of the Httpclient when it's created by the constructor. This feature is thanks to @BroMarduk.
