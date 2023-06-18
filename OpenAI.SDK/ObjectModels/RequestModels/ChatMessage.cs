@@ -169,6 +169,7 @@ public class FunctionParameterPropertyValue
     /// <summary>
     ///     Optional. List of allowed values for this argument.
     /// </summary>
+    [JsonPropertyName("enum")]
     public IList<string>? Enum { get; set; }
 }
 
