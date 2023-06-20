@@ -146,6 +146,24 @@ public class FunctionParameters
     public IList<string>? Required { get; set; }
 }
 
+
+public abstract class FunctionParameterPropertyValueType
+{
+}
+
+public class FunctionParameterPropertyValueTypeString : FunctionParameterPropertyValueType
+{
+	public string Value { get; }
+
+	public FunctionParameterPropertyValueTypeString(string value) => Value = value;
+}
+
+public class FunctionParameterPropertyValueTypeArray : FunctionParameterPropertyValueType
+{
+	public string[] Value { get; }
+
+	public FunctionParameterPropertyValueTypeArray(string[] value) => Value = value;
+}
 /// <summary>
 ///     Each property value is a JSON Schema object with its own keys and values.
 ///     The documentation (https://platform.openai.com/docs/guides/gpt/function-calling)
@@ -155,10 +173,10 @@ public class FunctionParameterPropertyValue
 {
     /// <summary> 
     ///     Argument type (e.g. string, integer, and so on). 
-    ///     For examples, see https://json-schema.org/understanding-json-schema/reference/object.html
+    ///     For examples, see https://json-schema.org/understanding-json-schema/reference/type.html
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; } = "string";
+    public FunctionParameterPropertyValueType Type { get; set; } = new FunctionParameterPropertyValueTypeString("string");
 
     /// <summary>
     ///     Optional. Argument description.
@@ -215,7 +233,7 @@ public class FunctionDefinitionBuilder
     }
 
     public FunctionDefinitionBuilder AddParameter(
-        string name, string type, string? description = null,
+        string name, FunctionParameterPropertyValueType type, string? description = null,
         IList<string>? @enum = null, bool required = true)
     {
         _definition.Parameters ??= new FunctionParameters();

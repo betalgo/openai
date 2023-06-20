@@ -101,16 +101,16 @@ internal static class ChatCompletionTestHelper
         // https://github.com/openai/openai-cookbook/blob/main/examples/How_to_call_functions_with_chat_models.ipynb
 
         var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather")
-            .AddParameter("location", "string", "The city and state, e.g. San Francisco, CA")
-            .AddParameter("format", "string", "The temperature unit to use. Infer this from the users location.",
+            .AddParameter("location", new FunctionParameterPropertyValueTypeString("string"), "The city and state, e.g. San Francisco, CA")
+            .AddParameter("format", new FunctionParameterPropertyValueTypeString("string"), "The temperature unit to use. Infer this from the users location.",
                 @enum: new List<string> { "celsius", "fahrenheit" })
             .Build();
 
         var fn2 = new FunctionDefinitionBuilder("get_n_day_weather_forecast", "Get an N-day weather forecast")
-            .AddParameter("location", "string", "The city and state, e.g. San Francisco, CA")
-            .AddParameter("format", "string", "The temperature unit to use. Infer this from the users location.",
+            .AddParameter("location", new FunctionParameterPropertyValueTypeString("string"), "The city and state, e.g. San Francisco, CA")
+            .AddParameter("format", new FunctionParameterPropertyValueTypeString("string"), "The temperature unit to use. Infer this from the users location.",
                 @enum: new List<string> { "celsius", "fahrenheit" })
-            .AddParameter("num_days", "integer", "The number of days to forecast")
+            .AddParameter("num_days", new FunctionParameterPropertyValueTypeString("integer"), "The number of days to forecast")
             .Build();
 
         try
