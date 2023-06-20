@@ -155,10 +155,10 @@ public class FunctionParameterPropertyValue
 {
     /// <summary> 
     ///     Argument type (e.g. string, integer, and so on). 
-    ///     For examples, see https://json-schema.org/understanding-json-schema/reference/object.html
+    ///     For examples, see https://json-schema.org/understanding-json-schema/reference/type.html
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; } = "string";
+    public Union<string, List<string>> Type { get; set; } = "string";
 
     /// <summary>
     ///     Optional. Argument description.
