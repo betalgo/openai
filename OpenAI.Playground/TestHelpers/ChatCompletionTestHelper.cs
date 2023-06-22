@@ -23,7 +23,7 @@ internal static class ChatCompletionTestHelper
                     ChatMessage.FromUser("Where was it played?")
                 },
                 MaxTokens = 50,
-                Model = Models.ChatGpt3_5Turbo
+                Model = Models.Gpt_3_5_Turbo
             });
 
             if (completionResult.Successful)
@@ -63,7 +63,7 @@ internal static class ChatCompletionTestHelper
                     new(StaticValues.ChatMessageRoles.User, "Tell me a story about The Los Angeles Dodgers")
                 },
                 MaxTokens = 150,
-                Model = Models.ChatGpt3_5Turbo
+                Model = Models.Gpt_3_5_Turbo
             });
 
             await foreach (var completion in completionResult)
@@ -127,7 +127,7 @@ internal static class ChatCompletionTestHelper
                 // optionally, to force a specific function:
                 // FunctionCall = new Dictionary<string, string> { { "name", "get_current_weather" } },
                 MaxTokens = 50,
-                Model = Models.ChatGpt3_5Turbo_0613
+                Model = Models.Gpt_3_5_Turbo_0613
             });
 
             /*  expected output along the lines of:
