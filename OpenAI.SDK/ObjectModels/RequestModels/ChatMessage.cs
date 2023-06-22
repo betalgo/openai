@@ -53,7 +53,10 @@ public class ChatMessage
     {
         return new ChatMessage(StaticValues.ChatMessageRoles.Assistant, content, name);
     }
-
+    public static ChatMessage FromFunction(string content, string? name = null)
+    {
+        return new ChatMessage(StaticValues.ChatMessageRoles.Function, content, name);
+    }
     public static ChatMessage FromUser(string content, string? name = null)
     {
         return new ChatMessage(StaticValues.ChatMessageRoles.User, content, name);
