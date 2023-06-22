@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.GPT3.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.RequestModels;
 
-namespace OpenAI.GPT3.ObjectModels.SharedModels;
+namespace OpenAI.ObjectModels.SharedModels;
 
 public record ChatChoiceResponse
 {

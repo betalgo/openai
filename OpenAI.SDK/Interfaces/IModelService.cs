@@ -1,6 +1,6 @@
-﻿using OpenAI.GPT3.ObjectModels.ResponseModels.ModelResponseModels;
+﻿using OpenAI.ObjectModels.ResponseModels.ModelResponseModels;
 
-namespace OpenAI.GPT3.Interfaces;
+namespace OpenAI.Interfaces;
 
 /// <summary>
 ///     List and describe the various models available in the API. You can refer to the

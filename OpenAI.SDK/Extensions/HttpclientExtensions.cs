@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenAI.GPT3.Extensions;
+namespace OpenAI.Extensions;
 
 public static class HttpClientExtensions
 {

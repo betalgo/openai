@@ -1,4 +1,4 @@
-﻿using OpenAI.GPT3.Tokenizer.GPT3;
+﻿using OpenAI.Tokenizer.GPT3;
 
 namespace OpenAI.Playground.TestHelpers;
 

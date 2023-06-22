@@ -1,4 +1,4 @@
-name: .NET
+name: Build And Deploy Betalgo.OpenAI.Utilities
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: Clean
       run: dotnet clean
     - name: Restore dependencies
@@ -24,9 +24,11 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
-    - name: publish OpenAI.GPT3 
-      id: publish_nuget_OpenAI_GPT3
-      uses: alirezanet/publish-nuget@v3.0.3
+    - name: publish OpenAI 
+      id: publish_nuget_OpenAI
+      uses: alirezanet/publish-nuget@v3.1.0
       with:
-          PROJECT_FILE_PATH: OpenAI.SDK\OpenAI.GPT3.csproj
+          PROJECT_FILE_PATH: OpenAI.Utilities\OpenAI.Utilities.csproj
           NUGET_KEY: ${{secrets.NUGET_KEY}}
+          INCLUDE_SYMBOLS: true
+          PACKAGE_NAME: Betalgo.OpenAI.Utilities

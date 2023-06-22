@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.GPT3", "OpenAI.SDK\OpenAI.GPT3.csproj", "{780F7F1F-45FC-4832-9E00-5BE6F32E7271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI", "OpenAI.SDK\OpenAI.csproj", "{780F7F1F-45FC-4832-9E00-5BE6F32E7271}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{B614DB37-E04E-454F-8C99-EF69BC503745}"
 EndProject
@@ -15,9 +15,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.Playground", "OpenAI
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{27B22566-7173-4B05-B0FB-09BF7FD9332C}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\workflows\BuildAndDeployBetalgoOpenAIUtilities.yml = .github\workflows\BuildAndDeployBetalgoOpenAIUtilities.yml
+		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
+		.github\workflows\BuildAndDeployBetalgoOpenAI.yml = .github\workflows\BuildAndDeployBetalgoOpenAI.yml
 		Readme.md = Readme.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.Utilities", "OpenAI.Utilities\OpenAI.Utilities.csproj", "{ADB482B9-7F95-41E6-888F-2DD6712D64BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.UtilitiesPlayground", "OpenAI.UtilitiesPlayground\OpenAI.UtilitiesPlayground.csproj", "{A2CEF336-DE84-41A2-880E-84B2871FF929}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,14 @@ Global
 		{29A85621-10FF-4CA4-9555-D73DCA0D776E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29A85621-10FF-4CA4-9555-D73DCA0D776E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29A85621-10FF-4CA4-9555-D73DCA0D776E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADB482B9-7F95-41E6-888F-2DD6712D64BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADB482B9-7F95-41E6-888F-2DD6712D64BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADB482B9-7F95-41E6-888F-2DD6712D64BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADB482B9-7F95-41E6-888F-2DD6712D64BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2CEF336-DE84-41A2-880E-84B2871FF929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2CEF336-DE84-41A2-880E-84B2871FF929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2CEF336-DE84-41A2-880E-84B2871FF929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2CEF336-DE84-41A2-880E-84B2871FF929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,6 +54,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{780F7F1F-45FC-4832-9E00-5BE6F32E7271} = {B614DB37-E04E-454F-8C99-EF69BC503745}
 		{29A85621-10FF-4CA4-9555-D73DCA0D776E} = {ADCA5A92-4E8E-4574-8E5F-DDE4C03A4F49}
+		{ADB482B9-7F95-41E6-888F-2DD6712D64BF} = {B614DB37-E04E-454F-8C99-EF69BC503745}
+		{A2CEF336-DE84-41A2-880E-84B2871FF929} = {ADCA5A92-4E8E-4574-8E5F-DDE4C03A4F49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A5FEB47-118A-4556-9183-C427C3082E8E}

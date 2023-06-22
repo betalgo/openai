@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels.SharedModels;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.GPT3.ObjectModels.RequestModels;
+namespace OpenAI.ObjectModels.RequestModels;
 
 //TODO add model validation
 //TODO check what is string or array for prompt,..

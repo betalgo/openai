@@ -1,11 +1,11 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
-using OpenAI.GPT3.Extensions;
-using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels.RequestModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels;
+using OpenAI.Extensions;
+using OpenAI.Interfaces;
+using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.GPT3.Managers;
+namespace OpenAI.Managers;
 
 public partial class OpenAIService : ICompletionService
 {

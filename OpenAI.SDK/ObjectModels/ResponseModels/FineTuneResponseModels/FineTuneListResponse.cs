@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
+namespace OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
 
 public record FineTuneListResponse : BaseResponse
 {

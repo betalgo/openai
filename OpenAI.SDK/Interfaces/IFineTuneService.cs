@@ -1,7 +1,7 @@
-﻿using OpenAI.GPT3.ObjectModels.RequestModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels.FineTuneResponseModels;
+﻿using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
 
-namespace OpenAI.GPT3.Interfaces;
+namespace OpenAI.Interfaces;
 
 /// <summary>
 ///     Manage fine-tuning jobs to tailor a model to your specific training data.

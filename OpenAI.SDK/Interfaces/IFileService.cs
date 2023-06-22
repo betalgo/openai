@@ -1,9 +1,9 @@
-﻿using OpenAI.GPT3.Extensions;
-using OpenAI.GPT3.ObjectModels;
-using OpenAI.GPT3.ObjectModels.ResponseModels.FileResponseModels;
-using OpenAI.GPT3.ObjectModels.SharedModels;
+﻿using OpenAI.Extensions;
+using OpenAI.ObjectModels;
+using OpenAI.ObjectModels.ResponseModels.FileResponseModels;
+using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.GPT3.Interfaces;
+namespace OpenAI.Interfaces;
 
 public interface IFileService
 {

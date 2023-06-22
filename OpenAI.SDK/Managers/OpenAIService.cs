@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using OpenAI.GPT3.EndpointProviders;
-using OpenAI.GPT3.Interfaces;
+using OpenAI.EndpointProviders;
+using OpenAI.Interfaces;
 
-namespace OpenAI.GPT3.Managers;
+namespace OpenAI.Managers;
 
 //TODO Find a way to show default request values in documentation
 public partial class OpenAIService : IOpenAIService, IDisposable
@@ -14,7 +14,7 @@ public partial class OpenAIService : IOpenAIService, IDisposable
     private bool _disposeHttpClient;
 
     [ActivatorUtilitiesConstructor]
-    public OpenAIService(HttpClient httpClient, IOptions<OpenAiOptions> settings)
+    public OpenAIService(IOptions<OpenAiOptions> settings,HttpClient httpClient)
         : this(settings.Value, httpClient)
     {
     }

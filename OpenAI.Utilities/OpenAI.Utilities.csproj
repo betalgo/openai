@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>Latest</LangVersion>
+
+		<Copyright>Betalgo Up Ltd.</Copyright>
+		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
+		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Version>7.0.1</Version>
+		<Authors>Tolga Kayhan, Betalgo</Authors>
+		<Company>Betalgo Up Ltd.</Company>
+		<Product>Utility tools for Betalgo.OpenAI</Product>
+		<Description>Utility tools for Betalgo.OpenAI - Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-4 and DALL·E</Description>
+		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
+		<PackageTags>openAI,chatGPT,gpt-4, gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
+		<PackageId>Betalgo.OpenAI.Utilities</PackageId>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<RepositoryUrl>https://github.com/betalgo/openai.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="Readme.md">
+			<PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+		</None>
+		<None Include="OpenAI-Betalgo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Betalgo.OpenAI" Version="7.0.0" />
+		<PackageReference Include="CsvHelper" Version="30.0.1" />
+		<PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Data.Analysis" Version="0.20.1" />
+	</ItemGroup>
+
+</Project>

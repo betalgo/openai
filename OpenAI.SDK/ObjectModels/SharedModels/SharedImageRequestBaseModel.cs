@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.GPT3.ObjectModels.SharedModels;
+namespace OpenAI.ObjectModels.SharedModels;
 
 public record SharedImageRequestBaseModel
 {

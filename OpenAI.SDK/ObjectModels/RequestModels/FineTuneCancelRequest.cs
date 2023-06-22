@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.GPT3.ObjectModels.RequestModels;
+namespace OpenAI.ObjectModels.RequestModels;
 
 public record FineTuneCancelRequest
 {

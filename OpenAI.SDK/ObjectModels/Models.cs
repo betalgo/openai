@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable CS1591
-namespace OpenAI.GPT3.ObjectModels;
+namespace OpenAI.ObjectModels;
 
 [SuppressMessage("ReSharper", "InconsistentNaming")]
 [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
@@ -67,14 +67,23 @@ public static class Models
         CodeCushmanV1,
 
         CodeDavinciV2,
-
+        [Obsolete("Use Gpt_3_5_Turbo instead")]
         ChatGpt3_5Turbo,
+        Gpt_3_5_Turbo,
+        [Obsolete("Use Gpt_3_5_Turbo_0301 instead")]
         ChatGpt3_5Turbo0301,
+        Gpt_3_5_Turbo_0301,
+
+        Gpt_3_5_Turbo_16k,
+        Gpt_3_5_Turbo_16k_0613,
+        Gpt_3_5_Turbo_0613,
 
         Gpt_4,
         Gpt_4_0314,
+        Gpt_4_0613,
         Gpt_4_32k,
         Gpt_4_32k_0314,
+        Gpt_4_32k_0613,
 
         WhisperV1
     }
@@ -103,13 +112,6 @@ public static class Models
     public static string Gpt_4 => "gpt-4";
 
     /// <summary>
-    ///     Snapshot of gpt-4 from March 14th 2023. Unlike gpt-4, this model will not receive updates, and will only be
-    ///     supported for a three month period ending on June 14th 2023.
-    ///     8,192 tokens	Up to Sep 2021
-    /// </summary>
-    public static string Gpt_4_0314 => "gpt-4-0314";
-
-    /// <summary>
     ///     Same capabilities as the base gpt-4 mode but with 4x the context length. Will be updated with our latest model
     ///     iteration.
     ///     32,768 tokens	Up to Sep 2021
@@ -117,11 +119,33 @@ public static class Models
     public static string Gpt_4_32k => "gpt-4-32k";
 
     /// <summary>
+    ///     Snapshot of gpt-4 from March 14th 2023. Unlike gpt-4, this model will not receive updates, and will only be
+    ///     supported for a three month period ending on June 14th 2023.
+    ///     8,192 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_4_0314 => "gpt-4-0314";
+
+    /// <summary>
     ///     Snapshot of gpt-4-32 from March 14th 2023. Unlike gpt-4-32k, this model will not receive updates, and will only be
     ///     supported for a three month period ending on June 14th 2023.
     ///     32,768 tokens	Up to Sep 2021
     /// </summary>
     public static string Gpt_4_32k_0314 => "gpt-4-32k-0314";
+
+    /// <summary>
+    ///     Snapshot of gpt-4 from June 13th 2023 with function calling data. Unlike gpt-4, this model will not receive updates, 
+    ///     and will be deprecated 3 months after a new version is released.	
+    ///     8,192 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_4_0613 => "gpt-4-0613";
+
+    /// <summary>
+    ///     Snapshot of gpt-4-32 from June 13th 2023. Unlike gpt-4-32k, this model will not receive updates, 
+    ///     and will be deprecated 3 months after a new version is released.	
+    ///     32,768 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_4_32k_0613 => "gpt-4-32k-0613";
+
 
     public static string Ada => "ada";
     public static string Babbage => "babbage";
@@ -173,14 +197,49 @@ public static class Models
     ///     latest model iteration.
     ///     4,096 tokens	Up to Sep 2021
     /// </summary>
+    [Obsolete("Use Gpt_3_5_Turbo instead, this is just a naming change,the field will be removed in next versions")]
     public static string ChatGpt3_5Turbo => "gpt-3.5-turbo";
+    /// <summary>
+    ///     Most capable GPT-3.5 model and optimized for chat at 1/10th the cost of text-davinci-003. Will be updated with our
+    ///     latest model iteration.
+    ///     4,096 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_3_5_Turbo => "gpt-3.5-turbo";
+
+    /// <summary>
+    ///     Same capabilities as the standard gpt-3.5-turbo model but with 4 times the context.	
+    ///     16,384 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_3_5_Turbo_16k => "gpt-3.5-turbo-16k";
 
     /// <summary>
     ///     Snapshot of gpt-3.5-turbo from March 1st 2023. Unlike gpt-3.5-turbo, this model will not receive updates, and will
     ///     only be supported for a three month period ending on June 1st 2023.
     ///     4,096 tokens	Up to Sep 2021
     /// </summary>
+    [Obsolete("Use Gpt_3_5_Turbo_0301 instead, this is just a naming change,the field will be removed in next versions")]
     public static string ChatGpt3_5Turbo0301 => "gpt-3.5-turbo-0301";
+    /// <summary>
+    ///     Snapshot of gpt-3.5-turbo from March 1st 2023. Unlike gpt-3.5-turbo, this model will not receive updates, and will
+    ///     only be supported for a three month period ending on June 1st 2023.
+    ///     4,096 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_3_5_Turbo_0301 => "gpt-3.5-turbo-0301";
+
+    /// <summary>
+    ///     Snapshot of gpt-3.5-turbo from June 13th 2023 with function calling data. Unlike gpt-3.5-turbo, 
+    ///     this model will not receive updates, and will be deprecated 3 months after a new version is released.	
+    ///     4,096 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_3_5_Turbo_0613 => "gpt-3.5-turbo-0613";
+
+    /// <summary>
+    ///     Snapshot of gpt-3.5-turbo from June 13th 2023 with function calling data. Unlike gpt-3.5-turbo, 
+    ///     this model will not receive updates, and will be deprecated 3 months after a new version is released.	
+    ///     4,096 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_3_5_Turbo_16k_0613 => "gpt-3.5-turbo-16k-0613";
+
 
     public static string WhisperV1 => "whisper-1";
 
@@ -248,13 +307,20 @@ public static class Models
             Model.TextEditDavinciV1 => TextEditDavinciV1,
             Model.CodeEditDavinciV1 => CodeEditDavinciV1,
             Model.ChatGpt3_5Turbo => ChatGpt3_5Turbo,
+            Model.Gpt_3_5_Turbo => Gpt_3_5_Turbo,
             Model.ChatGpt3_5Turbo0301 => ChatGpt3_5Turbo0301,
+            Model.Gpt_3_5_Turbo_0301 => Gpt_3_5_Turbo_0301,
+            Model.Gpt_3_5_Turbo_0613 => Gpt_3_5_Turbo_0613,
+            Model.Gpt_3_5_Turbo_16k_0613 => Gpt_3_5_Turbo_16k_0613,
+            Model.Gpt_3_5_Turbo_16k => Gpt_3_5_Turbo_16k,
             Model.WhisperV1 => WhisperV1,
             Model.TextEmbeddingAdaV2 => TextEmbeddingAdaV2,
             Model.Gpt_4 => Gpt_4,
             Model.Gpt_4_0314 => Gpt_4_0314,
             Model.Gpt_4_32k => Gpt_4_32k,
             Model.Gpt_4_32k_0314 => Gpt_4_32k_0314,
+            Model.Gpt_4_0613 => Gpt_4_0613,
+            Model.Gpt_4_32k_0613 => Gpt_4_32k_0613,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
