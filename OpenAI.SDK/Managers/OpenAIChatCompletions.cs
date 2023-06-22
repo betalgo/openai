@@ -108,6 +108,7 @@ public partial class OpenAIService : IChatCompletionService
             if (firstChoice == null) { return; } // not a valid state? nothing to do
 
             var isStreamingFnCall = IsStreamingFunctionCall();
+            var justStarted = false;
 
             // If we're not yet assembling, and we just got a streaming block that has a function_call segment,
             // this is the beginning of a function call assembly.
@@ -116,10 +117,12 @@ public partial class OpenAIService : IChatCompletionService
             {
                 FnCall = firstChoice.Message.FunctionCall;
                 firstChoice.Message.FunctionCall = null;
+                justStarted = true;
             }
 
             // As long as we're assembling, keep on appending those args
-            if (IsFnAssemblyActive)
+            // (Skip the first one, because it was already processed in the block above)
+            if (IsFnAssemblyActive && !justStarted)
             {
                 FnCall.Arguments += ExtractArgsSoFar();
             }
