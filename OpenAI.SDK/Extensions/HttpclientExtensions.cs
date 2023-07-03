@@ -30,12 +30,24 @@ public static class HttpClientExtensions
         request.Content = content;
 
 #if NET6_0_OR_GREATER
-        return client.Send(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        try
+        {
+            return client.Send(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        }
+        catch (PlatformNotSupportedException)
+        {
+            return SendRequestPreNet6(client, request, cancellationToken);
+        }
 #else
+        return SendRequestPreNet6(client, request, cancellationToken);
+#endif
+    }
+
+    public static HttpResponseMessage SendRequestPreNet6(HttpClient client, HttpRequestMessage request, CancellationToken cancellationToken)
+    {
         var responseTask = client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
         var response = responseTask.GetAwaiter().GetResult();
         return response;
-#endif
     }
 
     public static async Task<TResponse> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default)
