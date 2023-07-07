@@ -187,7 +187,11 @@ public class FunctionDefinitionBuilder
         _definition = new()
         {
             Name = fnName,
-            Description = fnDescription
+            Description = fnDescription,
+            Parameters = new FunctionParameters
+            {
+                Properties = new Dictionary<string, FunctionParameterPropertyValue>()
+            }
         };
     }
 
@@ -222,10 +226,7 @@ public class FunctionDefinitionBuilder
         string name, string type, string? description = null,
         IList<string>? @enum = null, bool required = true)
     {
-        _definition.Parameters ??= new FunctionParameters();
-        _definition.Parameters.Properties ??= new Dictionary<string, FunctionParameterPropertyValue>();
-
-        _definition.Parameters.Properties[name] =
+        _definition.Parameters!.Properties![name] =
             new FunctionParameterPropertyValue() { Type = type, Description = description, Enum = @enum };
 
         if (required)

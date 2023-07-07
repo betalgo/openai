@@ -112,6 +112,9 @@ internal static class ChatCompletionTestHelper
                 @enum: new List<string> { "celsius", "fahrenheit" })
             .AddParameter("num_days", "integer", "The number of days to forecast")
             .Build();
+        
+        var fn3 = new FunctionDefinitionBuilder("get_current_datetime", "Get the current date and time, e.g. 'Saturday, June 24, 2023 6:14:14 PM'")
+            .Build();
 
         try
         {
@@ -123,7 +126,7 @@ internal static class ChatCompletionTestHelper
                     ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
                     ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days."),
                 },
-                Functions = new List<FunctionDefinition> { fn1, fn2 },
+                Functions = new List<FunctionDefinition> { fn1, fn2, fn3 },
                 // optionally, to force a specific function:
                 // FunctionCall = new Dictionary<string, string> { { "name", "get_current_weather" } },
                 MaxTokens = 50,
