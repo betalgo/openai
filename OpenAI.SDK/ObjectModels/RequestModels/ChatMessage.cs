@@ -164,6 +164,14 @@ public class FunctionParameterPropertyValue
     public string Type { get; set; } = "string";
 
     /// <summary>
+    ///     If type is "array", this specifies the element type for all items in the array.
+    ///     If type is not "array", this should be null.
+    ///     For more details, see https://json-schema.org/understanding-json-schema/reference/array.html
+    /// </summary>
+    [JsonPropertyName("items")]
+    public ArrayItemsDefinition? Items { get; set; }
+
+    /// <summary>
     ///     Optional. Argument description.
     /// </summary>
     [JsonPropertyName("description")]
@@ -174,6 +182,22 @@ public class FunctionParameterPropertyValue
     /// </summary>
     [JsonPropertyName("enum")]
     public IList<string>? Enum { get; set; }
+
+    public class ArrayItemsDefinition
+    {
+        /// <summary> 
+        ///     Argument type for all array items (e.g. string, integer, and so on). 
+        ///     For examples, see https://json-schema.org/understanding-json-schema/reference/object.html
+        /// </summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; } = "string";
+
+        /// <summary>
+        ///     Optional. Array item description.
+        /// </summary>
+        [JsonPropertyName("description")]
+        public string? Description { get; set; }
+    }
 }
 
 public class FunctionDefinitionBuilder
@@ -226,16 +250,35 @@ public class FunctionDefinitionBuilder
         string name, string type, string? description = null,
         IList<string>? @enum = null, bool required = true)
     {
-        _definition.Parameters!.Properties![name] =
-            new FunctionParameterPropertyValue() { Type = type, Description = description, Enum = @enum };
+        var value = new FunctionParameterPropertyValue() { Type = type, Description = description, Enum = @enum };
 
-        if (required)
-        {
-            _definition.Parameters.Required ??= new List<string>();
-            _definition.Parameters.Required.Add(name);
-        }
+        Add(name, value, required);
 
         return this;
+    }
+
+    public FunctionDefinitionBuilder AddArrayParameter(
+        string name, string itemType, string? description = null, string? itemDescription = null,
+        IList<string>? @enum = null, bool required = true)
+    {
+        var items = new FunctionParameterPropertyValue.ArrayItemsDefinition { Type = itemType, Description = itemDescription };
+        var value = new FunctionParameterPropertyValue() { Type = "array", Items = items, Description = description, Enum = @enum };
+
+        Add(name, value, required);
+
+        return this;
+    }
+
+    private void Add(string name, FunctionParameterPropertyValue value, bool required)
+    {
+        var pars = _definition.Parameters!;
+        pars.Properties![name] = value;
+       
+        if (required)
+        {
+            pars.Required ??= new List<string>();
+            pars.Required.Add(name);
+        }
     }
 
     public FunctionDefinition Build() => _definition;

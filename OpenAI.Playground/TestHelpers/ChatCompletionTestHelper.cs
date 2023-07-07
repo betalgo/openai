@@ -116,6 +116,10 @@ internal static class ChatCompletionTestHelper
         var fn3 = new FunctionDefinitionBuilder("get_current_datetime", "Get the current date and time, e.g. 'Saturday, June 24, 2023 6:14:14 PM'")
             .Build();
 
+        var fn4 = new FunctionDefinitionBuilder("identify_number_sequence", "Get a sequence of numbers present in the user message")
+            .AddArrayParameter("values", "number", "Sequence of numbers specified by the user")
+            .Build();
+
         try
         {
             ConsoleExtensions.WriteLine("Chat Function Call Test:", ConsoleColor.DarkCyan);
@@ -124,16 +128,21 @@ internal static class ChatCompletionTestHelper
                 Messages = new List<ChatMessage>
                 {
                     ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
+                    
+                    // to test weather forecast functions:
                     ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days."),
+
+                    // or to test array functions, use this instead:
+                    // ChatMessage.FromUser("The combination is: One. Two. Three. Four. Five."),
                 },
-                Functions = new List<FunctionDefinition> { fn1, fn2, fn3 },
+                Functions = new List<FunctionDefinition> { fn1, fn2, fn3, fn4 },
                 // optionally, to force a specific function:
                 // FunctionCall = new Dictionary<string, string> { { "name", "get_current_weather" } },
                 MaxTokens = 50,
                 Model = Models.Gpt_3_5_Turbo_0613
             });
 
-            /*  expected output along the lines of:
+            /*  when testing weather forecasts, expected output should be along the lines of:
              
                 Message:
                 Function call:  get_n_day_weather_forecast
@@ -141,6 +150,13 @@ internal static class ChatCompletionTestHelper
                   format: celsius
                   num_days: 5
             */
+
+            /*  when testing array functions, expected output should be along the lines of:
+             
+                Message:
+                Function call:  identify_number_sequence
+                  values: [1, 2, 3, 4, 5]
+            */ 
 
             await foreach (var completionResult in completionResults)
             {
