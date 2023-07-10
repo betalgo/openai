@@ -9,6 +9,9 @@ Install-Package Betalgo.OpenAI
 Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E  
 *Unofficial*.  
 *OpenAI doesn't have any official .Net SDK.*
+# Description
+
+Lets try this project for clonning
 
 #### This library used be to known as `Betalgo.OpenAI.GPT3`, now it has a new package Id `Betalgo.OpenAI`.
 
