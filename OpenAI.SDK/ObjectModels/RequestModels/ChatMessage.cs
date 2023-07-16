@@ -149,6 +149,21 @@ public class FunctionParameters
     public IList<string>? Required { get; set; }
 }
 
+public class FunctionItemPropertyValue
+{
+    /// <summary>
+    /// Argument type (e.g. string, integer, and so on). 
+    /// </summary>
+    [JsonPropertyName("type")] 
+    public string Type { get; set; } = "string";
+    
+    /// <summary>
+    ///     Optional. Argument description.
+    /// </summary>
+    [JsonPropertyName("description")] 
+    public string? Description { get; set; }
+}
+
 /// <summary>
 ///     Each property value is a JSON Schema object with its own keys and values.
 ///     The documentation (https://platform.openai.com/docs/guides/gpt/function-calling)
@@ -157,7 +172,7 @@ public class FunctionParameters
 public class FunctionParameterPropertyValue
 {
     /// <summary> 
-    ///     Argument type (e.g. string, integer, and so on). 
+    ///     Argument type (e.g. string, integer, array, and so on). 
     ///     For examples, see https://json-schema.org/understanding-json-schema/reference/object.html
     /// </summary>
     [JsonPropertyName("type")]
@@ -168,6 +183,12 @@ public class FunctionParameterPropertyValue
     /// </summary>
     [JsonPropertyName("description")]
     public string? Description { get; set; }
+    
+    /// <summary>
+    ///     Optional. Argument items.
+    /// </summary>
+    [JsonPropertyName("items")]
+    public FunctionItemPropertyValue? Items { get; set; }
 
     /// <summary>
     ///     Optional. List of allowed values for this argument.
@@ -220,13 +241,13 @@ public class FunctionDefinitionBuilder
 
     public FunctionDefinitionBuilder AddParameter(
         string name, string type, string? description = null,
-        IList<string>? @enum = null, bool required = true)
+        FunctionItemPropertyValue? items = null, IList<string>? @enum = null, bool required = true)
     {
         _definition.Parameters ??= new FunctionParameters();
         _definition.Parameters.Properties ??= new Dictionary<string, FunctionParameterPropertyValue>();
 
         _definition.Parameters.Properties[name] =
-            new FunctionParameterPropertyValue() { Type = type, Description = description, Enum = @enum };
+            new FunctionParameterPropertyValue() { Type = type, Description = description, Items = items, Enum = @enum };
 
         if (required)
         {
