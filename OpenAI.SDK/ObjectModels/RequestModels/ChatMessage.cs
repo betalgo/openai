@@ -53,10 +53,12 @@ public class ChatMessage
     {
         return new ChatMessage(StaticValues.ChatMessageRoles.Assistant, content, name);
     }
+
     public static ChatMessage FromFunction(string content, string? name = null)
     {
         return new ChatMessage(StaticValues.ChatMessageRoles.Function, content, name);
     }
+
     public static ChatMessage FromUser(string content, string? name = null)
     {
         return new ChatMessage(StaticValues.ChatMessageRoles.User, content, name);
@@ -90,7 +92,9 @@ public class FunctionCall
 
     public Dictionary<string, object> ParseArguments()
     {
-        var result = !string.IsNullOrWhiteSpace(Arguments) ? JsonSerializer.Deserialize<Dictionary<string, object>>(Arguments) : null;
+        var result = !string.IsNullOrWhiteSpace(Arguments)
+            ? JsonSerializer.Deserialize<Dictionary<string, object>>(Arguments)
+            : null;
         return result ?? new();
     }
 }
@@ -149,18 +153,25 @@ public class FunctionParameters
     public IList<string>? Required { get; set; }
 }
 
-public class FunctionParameterItemsPropertyValue
+public interface IParameterProperty
 {
-    /// <summary>
-    /// Argument type (e.g. string, integer, and so on). 
+    /// <summary> 
+    ///     Argument type (e.g. string, integer, array, and so on). 
+    ///     For examples, see https://json-schema.org/understanding-json-schema/reference/object.html
     /// </summary>
-    [JsonPropertyName("type")] 
-    public string Type { get; set; } = "string";
-    
+    [JsonPropertyName("type")]
+    string Type { get; set; }
+
     /// <summary>
     ///     Optional. Argument description.
     /// </summary>
-    [JsonPropertyName("description")] 
+    [JsonPropertyName("description")]
+    string? Description { get; set; }
+}
+
+public class FunctionParameterItemsPropertyValue : IParameterProperty
+{
+    public string Type { get; set; } = "string";
     public string? Description { get; set; }
 }
 
@@ -169,21 +180,11 @@ public class FunctionParameterItemsPropertyValue
 ///     The documentation (https://platform.openai.com/docs/guides/gpt/function-calling)
 ///     suggests that only a few specific keys are used: type, description, and sometimes enum.
 /// </summary>
-public class FunctionParameterPropertyValue
+public class FunctionParameterPropertyValue : IParameterProperty
 {
-    /// <summary> 
-    ///     Argument type (e.g. string, integer, array, and so on). 
-    ///     For examples, see https://json-schema.org/understanding-json-schema/reference/object.html
-    /// </summary>
-    [JsonPropertyName("type")]
     public string Type { get; set; } = "string";
-
-    /// <summary>
-    ///     Optional. Argument description.
-    /// </summary>
-    [JsonPropertyName("description")]
     public string? Description { get; set; }
-    
+
     /// <summary>
     ///     Optional. Argument items.
     /// </summary>
@@ -235,7 +236,7 @@ public class FunctionDefinitionBuilder
         static void Throw(string message)
         {
             throw new ArgumentOutOfRangeException(nameof(fnName), message +
-                " The name of the function must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.");
+                                                                  " The name of the function must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.");
         }
     }
 
@@ -247,7 +248,8 @@ public class FunctionDefinitionBuilder
         _definition.Parameters.Properties ??= new Dictionary<string, FunctionParameterPropertyValue>();
 
         _definition.Parameters.Properties[name] =
-            new FunctionParameterPropertyValue() { Type = type, Description = description, Items = items, Enum = @enum };
+            new FunctionParameterPropertyValue()
+                { Type = type, Description = description, Items = items, Enum = @enum };
 
         if (required)
         {
