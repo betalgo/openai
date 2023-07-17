@@ -149,7 +149,7 @@ public class FunctionParameters
     public IList<string>? Required { get; set; }
 }
 
-public class FunctionItemPropertyValue
+public class FunctionParameterItemsPropertyValue
 {
     /// <summary>
     /// Argument type (e.g. string, integer, and so on). 
@@ -188,7 +188,7 @@ public class FunctionParameterPropertyValue
     ///     Optional. Argument items.
     /// </summary>
     [JsonPropertyName("items")]
-    public FunctionItemPropertyValue? Items { get; set; }
+    public FunctionParameterItemsPropertyValue? Items { get; set; }
 
     /// <summary>
     ///     Optional. List of allowed values for this argument.
@@ -241,7 +241,7 @@ public class FunctionDefinitionBuilder
 
     public FunctionDefinitionBuilder AddParameter(
         string name, string type, string? description = null,
-        FunctionItemPropertyValue? items = null, IList<string>? @enum = null, bool required = true)
+        FunctionParameterItemsPropertyValue? items = null, IList<string>? @enum = null, bool required = true)
     {
         _definition.Parameters ??= new FunctionParameters();
         _definition.Parameters.Properties ??= new Dictionary<string, FunctionParameterPropertyValue>();
