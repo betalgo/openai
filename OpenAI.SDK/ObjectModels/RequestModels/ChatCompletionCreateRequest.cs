@@ -24,19 +24,19 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     public IList<FunctionDefinition>? Functions { get; set; }
     
     [JsonIgnore]
-    public object? FunctionAsObject { get; set; }
+    public object? FunctionsAsObject { get; set; }
     
     [JsonPropertyName("functions")]
     public object? FunctionCalculated
     {
         get
         {
-            if (FunctionAsObject != null && Functions != null)
+            if (FunctionsAsObject != null && Functions != null)
             {
                 throw new ValidationException("FunctionAsObject and Functions can not be assigned at the same time. One of them is should be null.");
             }
 
-            return Functions ?? FunctionAsObject;
+            return Functions ?? FunctionsAsObject;
         }
     }
 
