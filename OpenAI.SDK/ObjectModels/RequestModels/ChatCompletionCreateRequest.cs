@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.SharedModels;
@@ -19,8 +20,25 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// <summary> 
     ///     A list of functions the model may generate JSON inputs for.
     /// </summary>
-    [JsonPropertyName("functions")]
+    [JsonIgnore]
     public IList<FunctionDefinition>? Functions { get; set; }
+    
+    [JsonIgnore]
+    public object? FunctionAsObject { get; set; }
+    
+    [JsonPropertyName("functions")]
+    public object? FunctionCalculated
+    {
+        get
+        {
+            if (FunctionAsObject != null && Functions != null)
+            {
+                throw new ValidationException("FunctionAsObject and Functions can not be assigned at the same time. One of them is should be null.");
+            }
+
+            return Functions ?? FunctionAsObject;
+        }
+    }
 
     /// <summary>
     ///     An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the
