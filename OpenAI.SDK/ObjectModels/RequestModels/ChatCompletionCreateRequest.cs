@@ -117,7 +117,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     public object? LogitBias { get; set; }
 
     /// <summary>
-    ///     ID of the model to use. Currently, only gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
+    ///     ID of the model to use. For models supported see <see cref="OpenAI.ObjectModels.Models" /> start with <c>Gpt_</c>
     /// </summary>
     [JsonPropertyName("model")]
     public string? Model { get; set; }
