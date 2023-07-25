@@ -47,18 +47,6 @@ public partial class OpenAIService : IFileService
         var response = await _httpClient.GetAsync(_endpointProvider.FileRetrieveContent(fileId), cancellationToken);
 
         response.EnsureSuccessStatusCode();
-        //if (!response.IsSuccessStatusCode)
-        //{
-        //    response.EnsureSuccessStatusCode();
-        //    return new FileContentResponse<T?>
-        //    {
-        //        Error = new Error
-        //        {
-        //            Message = $"Api returned Status Code: {(int) response.StatusCode} {response.StatusCode}",
-        //            Code = ((int) response.StatusCode).ToString()
-        //        }
-        //    };
-        //}
 
         if (typeof(T) == typeof(string))
         {
