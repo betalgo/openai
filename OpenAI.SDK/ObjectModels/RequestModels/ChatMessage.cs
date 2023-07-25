@@ -51,9 +51,9 @@ public class ChatMessage
     [JsonPropertyName("function_call")]
     public FunctionCall? FunctionCall { get; set; }
 
-    public static ChatMessage FromAssistant(string content, string? name = null)
+    public static ChatMessage FromAssistant(string content, string? name = null, FunctionCall? functionCall = null)
     {
-        return new ChatMessage(StaticValues.ChatMessageRoles.Assistant, content, name);
+        return new ChatMessage(StaticValues.ChatMessageRoles.Assistant, content, name, functionCall);
     }
 
     public static ChatMessage FromFunction(string content, string? name = null)
