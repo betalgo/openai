@@ -86,7 +86,8 @@ public class PropertyDefinition
             Type = ConvertTypeToString(FunctionObjectTypes.Array)
         };
     }
-    public static PropertyDefinition DefineEnum(List<string> enumList,string? description =null)
+
+    public static PropertyDefinition DefineEnum(List<string> enumList, string? description = null)
     {
         return new PropertyDefinition
         {
@@ -95,7 +96,8 @@ public class PropertyDefinition
             Type = ConvertTypeToString(FunctionObjectTypes.String)
         };
     }
-    public static PropertyDefinition DefineInteger(string? description =null)
+
+    public static PropertyDefinition DefineInteger(string? description = null)
     {
         return new PropertyDefinition
         {
@@ -103,7 +105,8 @@ public class PropertyDefinition
             Type = ConvertTypeToString(FunctionObjectTypes.Integer)
         };
     }
-    public static PropertyDefinition DefineNumber(string? description =null)
+
+    public static PropertyDefinition DefineNumber(string? description = null)
     {
         return new PropertyDefinition
         {
@@ -112,7 +115,7 @@ public class PropertyDefinition
         };
     }
 
-    public static PropertyDefinition DefineString(string? description =null)
+    public static PropertyDefinition DefineString(string? description = null)
     {
         return new PropertyDefinition
         {
@@ -120,6 +123,25 @@ public class PropertyDefinition
             Type = ConvertTypeToString(FunctionObjectTypes.String)
         };
     }
+
+    public static PropertyDefinition DefineBoolean(string? description = null)
+    {
+        return new PropertyDefinition
+        {
+            Description = description,
+            Type = ConvertTypeToString(FunctionObjectTypes.Boolean)
+        };
+    }
+
+    public static PropertyDefinition DefineNull(string? description = null)
+    {
+        return new PropertyDefinition
+        {
+            Description = description,
+            Type = ConvertTypeToString(FunctionObjectTypes.Null)
+        };
+    }
+
     public static PropertyDefinition DefineObject(IDictionary<string, PropertyDefinition>? properties, IList<string>? required, bool? additionalProperties, string? description, IList<string>? @enum)
     {
         return new PropertyDefinition
@@ -132,7 +154,7 @@ public class PropertyDefinition
             Type = ConvertTypeToString(FunctionObjectTypes.Object)
         };
     }
-    
+
     /// <summary>
     ///     Converts a FunctionObjectTypes enumeration value to its corresponding string representation.
     /// </summary>
