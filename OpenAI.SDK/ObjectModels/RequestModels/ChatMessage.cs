@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+﻿using System.Text.Json.Serialization;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
@@ -72,59 +70,4 @@ public class ChatMessage
     {
         return new ChatMessage(StaticValues.ChatMessageRoles.System, content, name);
     }
-}
-
-/// <summary>
-///     Describes a function call returned from GPT.
-///     A function call contains a function name, and a dictionary
-///     mapping function argument names to their values.
-/// </summary>
-public class FunctionCall
-{
-    /// <summary>
-    ///     Function name
-    /// </summary>
-    [JsonPropertyName("name")]
-    public string? Name { get; set; }
-
-    /// <summary>
-    ///     Function arguments, returned as a JSON-encoded dictionary mapping
-    ///     argument names to argument values.
-    /// </summary>
-    [JsonPropertyName("arguments")]
-    public string? Arguments { get; set; }
-
-    public Dictionary<string, object> ParseArguments()
-    {
-        var result = !string.IsNullOrWhiteSpace(Arguments) ? JsonSerializer.Deserialize<Dictionary<string, object>>(Arguments) : null;
-        return result ?? new Dictionary<string, object>();
-    }
-}
-
-/// <summary>
-///     Definition of a valid function call.
-/// </summary>
-public class FunctionDefinition
-{
-    /// <summary>
-    ///     Required. The name of the function to be called. Must be a-z, A-Z, 0-9,
-    ///     or contain underscores and dashes, with a maximum length of 64.
-    /// </summary>
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    /// <summary>
-    ///     Optional. The description of what the function does.
-    /// </summary>
-    [JsonPropertyName("description")]
-    public string? Description { get; set; }
-
-    /// <summary>
-    ///     Optional. The parameters the functions accepts, described as a JSON Schema object.
-    ///     See the guide (https://platform.openai.com/docs/guides/gpt/function-calling) for examples,
-    ///     and the JSON Schema reference (https://json-schema.org/understanding-json-schema/)
-    ///     for documentation about the format.
-    /// </summary>
-    [JsonPropertyName("parameters")]
-    public FunctionParameters? Parameters { get; set; }
 }
