@@ -2,6 +2,7 @@
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.Playground.TestHelpers;
 
@@ -102,17 +103,15 @@ internal static class ChatCompletionTestHelper
         // https://github.com/openai/openai-cookbook/blob/main/examples/How_to_call_functions_with_chat_models.ipynb
 
         var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather")
-            .AddParameter("location", "string", "The city and state, e.g. San Francisco, CA")
-            .AddParameter("format", "string", "The temperature unit to use. Infer this from the users location.",
-                new List<string> {"celsius", "fahrenheit"})
+            .AddParameter("location", PropertyDefinition.DefineString("The city and state, e.g. San Francisco, CA"))
+            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"},"The temperature unit to use. Infer this from the users location."))
             .Validate()
             .Build();
 
         var fn2 = new FunctionDefinitionBuilder("get_n_day_weather_forecast", "Get an N-day weather forecast")
-            .AddParameter("location", "string", "The city and state, e.g. San Francisco, CA")
-            .AddParameter("format", "string", "The temperature unit to use. Infer this from the users location.",
-                new List<string> {"celsius", "fahrenheit"})
-            .AddParameter("num_days", "integer", "The number of days to forecast")
+            .AddParameter("location", new() { Type = "string",Description = "The city and state, e.g. San Francisco, CA"})
+            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"}, "The temperature unit to use. Infer this from the users location."))
+            .AddParameter("num_days", PropertyDefinition.DefineInteger("The number of days to forecast"))
             .Validate()
             .Build();
 
@@ -183,17 +182,15 @@ internal static class ChatCompletionTestHelper
         // https://github.com/openai/openai-cookbook/blob/main/examples/How_to_call_functions_with_chat_models.ipynb
 
         var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather")
-            .AddParameter("location", "string", "The city and state, e.g. San Francisco, CA")
-            .AddParameter("format", "string", "The temperature unit to use. Infer this from the users location.",
-                new List<string> {"celsius", "fahrenheit"})
+            .AddParameter("location", PropertyDefinition.DefineString("The city and state, e.g. San Francisco, CA"))
+            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"},"The temperature unit to use. Infer this from the users location."))
             .Validate()
             .Build();
 
         var fn2 = new FunctionDefinitionBuilder("get_n_day_weather_forecast", "Get an N-day weather forecast")
-            .AddParameter("location", "string", "The city and state, e.g. San Francisco, CA")
-            .AddParameter("format", "string", "The temperature unit to use. Infer this from the users location.",
-                new List<string> {"celsius", "fahrenheit"})
-            .AddParameter("num_days", "integer", "The number of days to forecast")
+            .AddParameter("location", new PropertyDefinition{ Type = "string",Description = "The city and state, e.g. San Francisco, CA"})
+            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"}, "The temperature unit to use. Infer this from the users location."))
+            .AddParameter("num_days", PropertyDefinition.DefineInteger("The number of days to forecast"))
             .Validate()
             .Build();
         
@@ -201,7 +198,7 @@ internal static class ChatCompletionTestHelper
             .Build();
 
         var fn4 = new FunctionDefinitionBuilder("identify_number_sequence", "Get a sequence of numbers present in the user message")
-            .AddArrayParameter("values", "number", "Sequence of numbers specified by the user")
+            .AddParameter("values", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Sequence of numbers specified by the user")))
             .Build();
 
         try

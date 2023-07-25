@@ -28,46 +28,23 @@ public class FunctionDefinitionBuilder
         _definition = new FunctionDefinition
         {
             Name = name,
-            Description = description
+            Description = description,
+            Parameters = new PropertyDefinition
+            {
+                Properties = new Dictionary<string, PropertyDefinition>()
+            }
         };
     }
 
-    /// <summary>
-    ///     Adds a parameter to the function definition with a type expressed as an enumeration.
-    /// </summary>
-    /// <param name="name">The name of the parameter</param>
-    /// <param name="type">The type of the parameter</param>
-    /// <param name="description">The optional description of the parameter</param>
-    /// <param name="enum">The optional list of possible string values for the parameter</param>
-    /// <param name="required">Whether this parameter is required (default is true)</param>
-    /// <returns>The FunctionDefinitionBuilder instance for fluent configuration</returns>
-    public FunctionDefinitionBuilder AddParameter(string name, FunctionParameters.FunctionObjectTypes type, string? description = null, IList<string>? @enum = null, bool required = true)
+    public FunctionDefinitionBuilder AddParameter(string name, PropertyDefinition value, bool required = true)
     {
-        var typeStr = ConvertTypeToString(type);
-        return AddParameter(name, typeStr, description, @enum, required);
-    }
-
-    /// <summary>
-    ///     Adds a parameter to the function definition with a type expressed as a string.
-    /// </summary>
-    /// <param name="name">The name of the parameter</param>
-    /// <param name="type">The type of the parameter</param>
-    /// <param name="description">The optional description of the parameter</param>
-    /// <param name="enum">The optional list of possible string values for the parameter</param>
-    /// <param name="required">Whether this parameter is required (default is true)</param>
-    /// <returns>The FunctionDefinitionBuilder instance for fluent configuration</returns>
-    public FunctionDefinitionBuilder AddParameter(string name, string type, string? description = null, IList<string>? @enum = null, bool required = true)
-    {
-        _definition.Parameters ??= new FunctionParameters();
-        _definition.Parameters.Properties ??= new Dictionary<string, FunctionParameters.FunctionParameterPropertyValue>();
-
-        _definition.Parameters.Properties[name] =
-            new FunctionParameters.FunctionParameterPropertyValue {Type = type, Description = description, Enum = @enum};
+        var pars = _definition.Parameters!;
+        pars.Properties![name] = value;
 
         if (required)
         {
-            _definition.Parameters.Required ??= new List<string>();
-            _definition.Parameters.Required.Add(name);
+            pars.Required ??= new List<string>();
+            pars.Required.Add(name);
         }
 
         return this;
@@ -114,24 +91,5 @@ public class FunctionDefinitionBuilder
 
             throw new ArgumentOutOfRangeException(nameof(functionName), message);
         }
-    }
-
-    /// <summary>
-    ///     Converts a FunctionObjectTypes enumeration value to its corresponding string representation.
-    /// </summary>
-    /// <param name="type">The type to convert</param>
-    /// <returns>The string representation of the given type</returns>
-    private static string ConvertTypeToString(FunctionParameters.FunctionObjectTypes type)
-    {
-        return type switch
-        {
-            FunctionParameters.FunctionObjectTypes.String => "string",
-            FunctionParameters.FunctionObjectTypes.Number => "number",
-            FunctionParameters.FunctionObjectTypes.Object => "object",
-            FunctionParameters.FunctionObjectTypes.Array => "array",
-            FunctionParameters.FunctionObjectTypes.Boolean => "boolean",
-            FunctionParameters.FunctionObjectTypes.Null => "null",
-            _ => throw new ArgumentOutOfRangeException(nameof(type), $"Unknown type: {type}")
-        };
     }
 }
