@@ -114,7 +114,12 @@ internal static class ChatCompletionTestHelper
             .AddParameter("num_days", PropertyDefinition.DefineInteger("The number of days to forecast"))
             .Validate()
             .Build();
+        var fn3 = new FunctionDefinitionBuilder("get_current_datetime", "Get the current date and time, e.g. 'Saturday, June 24, 2023 6:14:14 PM'")
+            .Build();
 
+        var fn4 = new FunctionDefinitionBuilder("identify_number_sequence", "Get a sequence of numbers present in the user message")
+            .AddParameter("values", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Sequence of numbers specified by the user")))
+            .Build();
         try
         {
             ConsoleExtensions.WriteLine("Chat Function Call Test:", ConsoleColor.DarkCyan);
@@ -125,11 +130,11 @@ internal static class ChatCompletionTestHelper
                     ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
                     ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days.")
                 },
-                Functions = new List<FunctionDefinition> {fn1, fn2},
+                Functions = new List<FunctionDefinition> { fn1, fn2, fn3, fn4 },
                 // optionally, to force a specific function:
                 // FunctionCall = new Dictionary<string, string> { { "name", "get_current_weather" } },
                 MaxTokens = 50,
-                Model = Models.Gpt_3_5_Turbo_0613
+                Model = Models.Gpt_3_5_Turbo
             });
 
             /*  expected output along the lines of:
