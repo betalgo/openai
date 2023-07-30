@@ -16,12 +16,14 @@ Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E
 https://github.com/betalgo/openai/wiki
 ## Checkout new ***experimantal*** utilities library:
 [![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
+    
+<!-- sponsors --><!-- sponsors -->
 
 ```
 Install-Package Betalgo.OpenAI.Utilities
 ```
 ## Features
-- [X] [Function Calling] Beta Avaliable
+- [X] [Function Calling] (wikipage is coming soon)
 - [ ] Plugins (coming soon)
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
 - [x] [Chat GPT-4](https://github.com/betalgo/openai/wiki/Chat-GPT) *(models are supported, Image analyze API not released yet by OpenAI)*
@@ -112,26 +114,55 @@ if (completionResult.Successful)
    Console.WriteLine(completionResult.Choices.First().Message.Content);
 }
 ```
-## Completions Sample
+## Function Sample
 ```csharp
-var completionResult = await openAiService.Completions.CreateCompletion(new CompletionCreateRequest()
-{
-    Prompt = "Once upon a time",
-    Model = Models.TextDavinciV3
-});
+var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather")
+            .AddParameter("location", PropertyDefinition.DefineString("The city and state, e.g. San Francisco, CA"))
+            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> { "celsius", "fahrenheit" }, "The temperature unit to use. Infer this from the users location."))
+            .Validate()
+            .Build();
 
-if (completionResult.Successful)
-{
-    Console.WriteLine(completionResult.Choices.FirstOrDefault());
-}
-else
-{
-    if (completionResult.Error == null)
-    {
-        throw new Exception("Unknown Error");
-    }
-    Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
-}
+        var fn2 = new FunctionDefinitionBuilder("get_n_day_weather_forecast", "Get an N-day weather forecast")
+            .AddParameter("location", new() { Type = "string", Description = "The city and state, e.g. San Francisco, CA" })
+            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> { "celsius", "fahrenheit" }, "The temperature unit to use. Infer this from the users location."))
+            .AddParameter("num_days", PropertyDefinition.DefineInteger("The number of days to forecast"))
+            .Validate()
+            .Build();
+        var fn3 = new FunctionDefinitionBuilder("get_current_datetime", "Get the current date and time, e.g. 'Saturday, June 24, 2023 6:14:14 PM'")
+            .Build();
+
+        var fn4 = new FunctionDefinitionBuilder("identify_number_sequence", "Get a sequence of numbers present in the user message")
+            .AddParameter("values", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Sequence of numbers specified by the user")))
+            .Build();
+
+        ConsoleExtensions.WriteLine("Chat Function Call Test:", ConsoleColor.DarkCyan);
+        var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+        {
+            Messages = new List<ChatMessage>
+                {
+                    ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
+                    ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days.")
+                },
+            Functions = new List<FunctionDefinition> { fn1, fn2, fn3, fn4 },
+            MaxTokens = 50,
+            Model = Models.Gpt_3_5_Turbo
+        });
+
+        if (completionResult.Successful)
+        {
+            var choice = completionResult.Choices.First();
+            Console.WriteLine($"Message:        {choice.Message.Content}");
+
+            var fn = choice.Message.FunctionCall;
+            if (fn != null)
+            {
+                Console.WriteLine($"Function call:  {fn.Name}");
+                foreach (var entry in fn.ParseArguments())
+                {
+                    Console.WriteLine($"  {entry.Key}: {entry.Value}");
+                }
+            }
+        }
 ```
 
 ## Completions Stream Sample
@@ -189,6 +220,10 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 7.1.3
+- This release was a bit late and took longer than expected due to a couple of reasons. The future was quite big, and I couldn't cover all possibilities. However, I believe I have covered most of the function definitions (with some details missing). Additionally, I added an option to build it manually. If you don't know what I mean, you don't need to worry. I plan to cover the rest of the function definition in the next release. Until then, you can discover this by playing in the playground or in the source code. This version also support using other libraries to export your function definition.
+- We now have support for functions! Big cheers to @rzubek for completing most of this feature.
+- Additionally, we have made bug fixes and improvements. Thanks to @choshinyoung, @yt3trees, @WeihanLi, @N0ker, and all the bug reporters. (Apologies if I missed any names. Please let me know if I missed your name and you have a commit.) 
 ### 7.1.2-beta
 - Bugfix https://github.com/betalgo/openai/pull/302
 - Added support for Function role https://github.com/betalgo/openai/issues/303
