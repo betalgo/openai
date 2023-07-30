@@ -16,12 +16,16 @@ Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E
 https://github.com/betalgo/openai/wiki
 ## Checkout new ***experimantal*** utilities library:
 [![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
-    
-<!-- sponsors --><!-- sponsors -->
-
 ```
 Install-Package Betalgo.OpenAI.Utilities
 ```
+Maintenance of this project is made possible by all the bug reporters, [contributors](https://github.com/betalgo/openai/graphs/contributors) and [sponsors](https://github.com/sponsors/kayhantolga).  💖
+Sponsors:  
+[@betalgo](https://github.com/betalgo),
+[Laser Cat Eyes](https://lasercateyes.com/)
+
+[@oferavnery](https://github.com/oferavnery)
+[@Removable](https://github.com/Removable)
 ## Features
 - [X] [Function Calling] (wikipage is coming soon)
 - [ ] Plugins (coming soon)
@@ -44,8 +48,6 @@ Install-Package Betalgo.OpenAI.Utilities
 
 
 For changelogs please go to end of the document.
-
-
 
 ## Sample Usages
 The repository contains a sample project named **OpenAI.Playground** that you can refer to for a better understanding of how the library works. However, please exercise caution while experimenting with it, as some of the test methods may result in unintended consequences such as file deletion or fine tuning.  
