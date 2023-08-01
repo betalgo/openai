@@ -1,0 +1,160 @@
+﻿using OpenAI.ObjectModels.RequestModels;
+
+namespace OpenAI.Utilities.Tests;
+
+public class FunctionCallingHelperTests
+{
+	[Fact]
+	public void VerifyGetFunctionDefinition()
+	{
+		var functionDefinition = FunctionCallingHelper.GetFunctionDefinition(typeof(FunctionCallingTestClass).GetMethod("TestFunction")!);
+
+		functionDefinition.Name.ShouldBe("TestFunction");
+		functionDefinition.Description.ShouldBe("Test Function");
+		functionDefinition.Parameters.ShouldNotBeNull();
+		functionDefinition.Parameters.Properties!.Count.ShouldBe(9);
+
+		var intParameter = functionDefinition.Parameters.Properties["intParameter"];
+		intParameter.Description.ShouldBe("Int Parameter");
+		intParameter.Type.ShouldBe("integer");
+
+		var floatParameter = functionDefinition.Parameters.Properties["floatParameter"];
+		floatParameter.Description.ShouldBe("Float Parameter");
+		floatParameter.Type.ShouldBe("number");
+
+		var boolParameter = functionDefinition.Parameters.Properties["boolParameter"];
+		boolParameter.Description.ShouldBe("Bool Parameter");
+		boolParameter.Type.ShouldBe("boolean");
+
+		var stringParameter = functionDefinition.Parameters.Properties["stringParameter"];
+		stringParameter.Description.ShouldBe("String Parameter");
+		stringParameter.Type.ShouldBe("string");
+
+		var enumValues = new List<string> {"Value1", "Value2", "Value3"};
+
+		var enumParameter = functionDefinition.Parameters.Properties["enumParameter"];
+		enumParameter.Description.ShouldBe("Enum Parameter");
+		enumParameter.Type.ShouldBe("string");
+		enumParameter.Enum.ShouldBe(enumValues);
+		
+
+		var enumParameter2 = functionDefinition.Parameters.Properties["enumParameter2"];
+		enumParameter2.Description.ShouldBe("Enum Parameter 2");
+		enumParameter2.Type.ShouldBe("string");
+		enumParameter2.Enum.ShouldBe(enumValues);
+
+		functionDefinition.Parameters.Properties.ShouldNotContainKey("overriddenNameParameter");
+		functionDefinition.Parameters.Properties.ShouldContainKey("OverriddenName");
+	}
+
+	[Fact]
+	public void VerifyGetFunctionDefinitions()
+	{
+		var obj = new FunctionCallingTestClass();
+		var functionDefinitions = FunctionCallingHelper.GetFunctionDefinitions(obj);
+
+		functionDefinitions.Count.ShouldBe(2);
+
+		var functionDefinition = functionDefinitions.First(x => x.Name == "TestFunction");
+		functionDefinition.Description.ShouldBe("Test Function");
+		functionDefinition.Parameters.ShouldNotBeNull();
+		functionDefinition.Parameters.Properties!.Count.ShouldBe(9);
+
+		var functionDefinition2 = functionDefinitions.First(x => x.Name == "SecondFunction");
+		functionDefinition2.Description.ShouldBe("Second Function");
+		functionDefinition2.Parameters.ShouldNotBeNull();
+		functionDefinition2.Parameters.Properties!.Count.ShouldBe(0);
+	}
+
+	[Fact]
+	public void VerifyCallFunction_Simple()
+	{
+		var obj = new FunctionCallingTestClass();
+
+		var functionCall = new FunctionCall
+		{
+			Name = "SecondFunction",
+		};
+
+		var result = FunctionCallingHelper.CallFunction<string>(functionCall, obj);
+		result.ShouldBe("Hello");
+	}
+
+	[Fact]
+	public void VerifyCallFunction_Complex()
+	{
+		var obj = new FunctionCallingTestClass();
+
+		var functionCall = new FunctionCall
+		{
+			Name = "TestFunction",
+			// arguments is a json dictionary
+			Arguments = "{\"intParameter\": 1, \"floatParameter\": 2.0, \"boolParameter\": true, \"stringParameter\": \"Hello\", \"enumParameter\": \"Value1\", \"enumParameter2\": \"Value2\", \"requiredIntParameter\": 1, \"notRequiredIntParameter\": 2, \"OverriddenName\": 3}"
+			
+		};
+
+		var result = FunctionCallingHelper.CallFunction<int>(functionCall, obj);
+		result.ShouldBe(5);
+
+		obj.IntParameter.ShouldBe(1);
+		obj.FloatParameter.ShouldBe(2.0f);
+		obj.BoolParameter.ShouldBe(true);
+		obj.StringParameter.ShouldBe("Hello");
+		obj.EnumParameter.ShouldBe(TestEnum.Value1);
+		obj.EnumParameter2.ShouldBe(TestEnum.Value2);
+		obj.RequiredIntParameter.ShouldBe(1);
+		obj.NotRequiredIntParameter.ShouldBe(2);
+		obj.OverriddenNameParameter.ShouldBe(3);
+	}
+}
+
+internal class FunctionCallingTestClass
+{
+	public int IntParameter;
+	public float FloatParameter;
+	public bool BoolParameter;
+	public string StringParameter;
+	public TestEnum EnumParameter;
+	public TestEnum EnumParameter2;
+	public int RequiredIntParameter;
+	public int? NotRequiredIntParameter;
+	public int OverriddenNameParameter;
+
+	[FunctionDescription("Test Function")]
+	public int TestFunction(
+		[ParameterDescription("Int Parameter")] int intParameter,
+		[ParameterDescription("Float Parameter")] float floatParameter,
+		[ParameterDescription("Bool Parameter")] bool boolParameter,
+		[ParameterDescription("String Parameter")] string stringParameter,
+		[ParameterDescription(Description = "Enum Parameter", Enum = "Value1, Value2, Value3")] TestEnum enumParameter,
+		[ParameterDescription("Enum Parameter 2")] TestEnum enumParameter2,
+		[ParameterDescription(Description = "Required Int Parameter", Required= true)] int requiredIntParameter,
+		[ParameterDescription(Description = "Not required Int Parameter", Required = false)] int notRequiredIntParameter,
+		[ParameterDescription(Name = "OverriddenName", Description = "Overridden")] int overriddenNameParameter)
+	{
+		IntParameter = intParameter;
+		FloatParameter = floatParameter;
+		BoolParameter = boolParameter;
+		StringParameter = stringParameter;
+		EnumParameter = enumParameter;
+		EnumParameter2 = enumParameter2;
+		RequiredIntParameter = requiredIntParameter;
+		NotRequiredIntParameter = notRequiredIntParameter;
+		OverriddenNameParameter = overriddenNameParameter;
+
+		return 5;
+	}
+
+	[FunctionDescription("Second Function")]
+	public string SecondFunction()
+	{
+		return "Hello";
+	}
+}
+
+public enum TestEnum
+{
+	Value1,
+	Value2,
+	Value3
+}

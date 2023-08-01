@@ -15,15 +15,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.Playground", "OpenAI
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{27B22566-7173-4B05-B0FB-09BF7FD9332C}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\BuildAndDeployBetalgoOpenAI.yml = .github\workflows\BuildAndDeployBetalgoOpenAI.yml
 		.github\workflows\BuildAndDeployBetalgoOpenAIUtilities.yml = .github\workflows\BuildAndDeployBetalgoOpenAIUtilities.yml
 		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
-		.github\workflows\BuildAndDeployBetalgoOpenAI.yml = .github\workflows\BuildAndDeployBetalgoOpenAI.yml
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.Utilities", "OpenAI.Utilities\OpenAI.Utilities.csproj", "{ADB482B9-7F95-41E6-888F-2DD6712D64BF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.UtilitiesPlayground", "OpenAI.UtilitiesPlayground\OpenAI.UtilitiesPlayground.csproj", "{A2CEF336-DE84-41A2-880E-84B2871FF929}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAI.Utilities.Tests", "OpenAI.Utilities.Tests\OpenAI.Utilities.Tests.csproj", "{8BC7E997-8591-4ED4-BA4A-486B21419A3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{A2CEF336-DE84-41A2-880E-84B2871FF929}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2CEF336-DE84-41A2-880E-84B2871FF929}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2CEF336-DE84-41A2-880E-84B2871FF929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BC7E997-8591-4ED4-BA4A-486B21419A3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BC7E997-8591-4ED4-BA4A-486B21419A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BC7E997-8591-4ED4-BA4A-486B21419A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BC7E997-8591-4ED4-BA4A-486B21419A3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{29A85621-10FF-4CA4-9555-D73DCA0D776E} = {ADCA5A92-4E8E-4574-8E5F-DDE4C03A4F49}
 		{ADB482B9-7F95-41E6-888F-2DD6712D64BF} = {B614DB37-E04E-454F-8C99-EF69BC503745}
 		{A2CEF336-DE84-41A2-880E-84B2871FF929} = {ADCA5A92-4E8E-4574-8E5F-DDE4C03A4F49}
+		{8BC7E997-8591-4ED4-BA4A-486B21419A3E} = {C0FFCEC4-22E9-423B-B10B-DAF24446FA49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A5FEB47-118A-4556-9183-C427C3082E8E}
