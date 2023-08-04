@@ -106,6 +106,21 @@ public class FunctionCallingHelperTests
 		obj.NotRequiredIntParameter.ShouldBe(2);
 		obj.OverriddenNameParameter.ShouldBe(3);
 	}
+    
+    [Fact]
+    public void VerifyCallFunction_ArgumentsDoNotMatch()
+    {
+        var obj = new FunctionCallingTestClass();
+
+        var functionCall = new FunctionCall
+        {
+            Name = "TestFunction",
+            Arguments = "{\"intParameter\": \"invalid\", \"floatParameter\": true, \"boolParameter\": 1, \"stringParameter\": 123, \"enumParameter\": \"NonExistentValue\"}"
+        };
+
+        Should.Throw<Exception>(() => FunctionCallingHelper.CallFunction<int>(functionCall, obj));
+    }
+
 }
 
 internal class FunctionCallingTestClass
@@ -113,7 +128,7 @@ internal class FunctionCallingTestClass
 	public int IntParameter;
 	public float FloatParameter;
 	public bool BoolParameter;
-	public string StringParameter;
+	public string StringParameter = null!;
 	public TestEnum EnumParameter;
 	public TestEnum EnumParameter2;
 	public int RequiredIntParameter;
