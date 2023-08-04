@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -11,7 +12,8 @@ public static class HttpClientExtensions
     {
         var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
         {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
+            
         }, cancellationToken);
         return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
     }
@@ -28,6 +30,8 @@ public static class HttpClientExtensions
         using var request = new HttpRequestMessage(HttpMethod.Post, uri);
         request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
         request.Content = content;
+        var jsonString = JsonSerializer.Serialize(requestModel,settings);
+        request.Content.Headers.ContentLength = Encoding.UTF8.GetByteCount(jsonString);
 
 #if NET6_0_OR_GREATER
         return client.Send(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
