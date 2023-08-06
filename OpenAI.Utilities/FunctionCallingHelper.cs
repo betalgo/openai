@@ -32,32 +32,40 @@ public static class FunctionCallingHelper
 
             PropertyDefinition definition;
 
-            switch (parameter.ParameterType)
+            switch (parameter.ParameterType, parameterDescriptionAttribute?.Type == null)
             {
-                case { } t when t.IsAssignableFrom(typeof(int)):
-                    definition = PropertyDefinition.DefineInteger(description);
-                    break;
-                case {  } t when t.IsAssignableFrom(typeof(float)):
-                    definition = PropertyDefinition.DefineNumber(description);
-                    break;
-                case { } t when t.IsAssignableFrom(typeof(bool)):
-                    definition = PropertyDefinition.DefineBoolean(description);
-                    break;
-                case { } t when t.IsAssignableFrom(typeof(string)):
-                    definition = PropertyDefinition.DefineString(description);
-                    break;
-                case { IsEnum: true }:
+	            case (_, false):
+		            definition = new PropertyDefinition()
+		            {
+			            Type = parameterDescriptionAttribute!.Type!,
+			            Description = description,
+		            };
 
-                    var enumValues = string.IsNullOrEmpty(parameterDescriptionAttribute?.Enum)
-                        ? Enum.GetNames(parameter.ParameterType).ToList()
-                        : parameterDescriptionAttribute.Enum.Split(",").Select(x => x.Trim()).ToList();
+		            break;
+	            case ({ } t, _) when t.IsAssignableFrom(typeof(int)):
+		            definition = PropertyDefinition.DefineInteger(description);
+		            break;
+	            case ({ } t, _) when t.IsAssignableFrom(typeof(float)):
+		            definition = PropertyDefinition.DefineNumber(description);
+		            break;
+	            case ({ } t, _) when t.IsAssignableFrom(typeof(bool)):
+		            definition = PropertyDefinition.DefineBoolean(description);
+		            break;
+	            case ({ } t, _) when t.IsAssignableFrom(typeof(string)):
+		            definition = PropertyDefinition.DefineString(description);
+		            break;
+	            case ({ IsEnum: true }, _):
 
+		            var enumValues = string.IsNullOrEmpty(parameterDescriptionAttribute?.Enum)
+			            ? Enum.GetNames(parameter.ParameterType).ToList()
+			            : parameterDescriptionAttribute.Enum.Split(",").Select(x => x.Trim()).ToList();
 
-                    definition =
-                        PropertyDefinition.DefineEnum(enumValues, description);
-                    break;
-                default:
-                    throw new Exception($"Parameter type '{parameter.ParameterType}' not supported");
+		            definition =
+			            PropertyDefinition.DefineEnum(enumValues, description);
+
+		            break;
+	            default:
+		            throw new Exception($"Parameter type '{parameter.ParameterType}' not supported");
             }
 
             result.AddParameter(
@@ -122,15 +130,18 @@ public static class FunctionCallingHelper
             throw new ArgumentNullException(nameof(functionCall));
 
         if (functionCall.Name == null)
-            throw new Exception("Function name is null");
+            throw new InvalidFunctionCallException("Function Name is null");
+
+        if (obj == null)
+			throw new ArgumentNullException(nameof(obj));
 
         var methodInfo = obj.GetType().GetMethod(functionCall.Name);
 
         if (methodInfo == null)
-            throw new Exception($"Method '{functionCall.Name}' on type '{obj.GetType()}' not found");
+            throw new InvalidFunctionCallException($"Method '{functionCall.Name}' on type '{obj.GetType()}' not found");
 
         if (!methodInfo.ReturnType.IsAssignableTo(typeof(T)))
-            throw new Exception(
+            throw new InvalidFunctionCallException(
                 $"Method '{functionCall.Name}' on type '{obj.GetType()}' has return type '{methodInfo.ReturnType}' but expected '{typeof(T)}'");
 
         var parameters = methodInfo.GetParameters().ToList();
@@ -158,6 +169,18 @@ public static class FunctionCallingHelper
         T? result = (T?)methodInfo.Invoke(obj, args.ToArray());
         return result;
     }
+}
+
+/// <summary>
+/// Exception thrown when a function call is invalid
+/// </summary>
+public class InvalidFunctionCallException : Exception
+{
+    /// <summary>
+    /// Creates a new instance of the <see cref="InvalidFunctionCallException"/> with the provided message
+    /// </summary>
+	public InvalidFunctionCallException(string message) : base(message)
+	{ }
 }
 
 /// <summary>

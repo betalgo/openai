@@ -48,12 +48,21 @@ public class FunctionCallingHelperTests
 	}
 
 	[Fact]
+	public void VerifyTypeOverride()
+	{
+		var functionDefinition = FunctionCallingHelper.GetFunctionDefinition(typeof(FunctionCallingTestClass).GetMethod("ThirdFunction")!);
+
+		var overriddenNameParameter = functionDefinition.Parameters.Properties["overriddenTypeParameter"];
+		overriddenNameParameter.Type.ShouldBe("string");
+		overriddenNameParameter.Description.ShouldBe("Overridden type parameter");
+	}
+
+	[Fact]
 	public void VerifyGetFunctionDefinitions()
 	{
-		var obj = new FunctionCallingTestClass();
-		var functionDefinitions = FunctionCallingHelper.GetFunctionDefinitions(obj);
+		var functionDefinitions = FunctionCallingHelper.GetFunctionDefinitions<FunctionCallingTestClass>();
 
-		functionDefinitions.Count.ShouldBe(2);
+		functionDefinitions.Count.ShouldBe(3);
 
 		var functionDefinition = functionDefinitions.First(x => x.Name == "TestFunction");
 		functionDefinition.Description.ShouldBe("Test Function");
@@ -64,6 +73,11 @@ public class FunctionCallingHelperTests
 		functionDefinition2.Description.ShouldBe("Second Function");
 		functionDefinition2.Parameters.ShouldNotBeNull();
 		functionDefinition2.Parameters.Properties!.Count.ShouldBe(0);
+
+		var functionDefinition3 = functionDefinitions.First(x => x.Name == "ThirdFunction");
+		functionDefinition3.Description.ShouldBe("Third Function");
+		functionDefinition3.Parameters.ShouldNotBeNull();
+		functionDefinition3.Parameters.Properties!.Count.ShouldBe(1);
 	}
 
 	[Fact]
@@ -121,6 +135,62 @@ public class FunctionCallingHelperTests
         Should.Throw<Exception>(() => FunctionCallingHelper.CallFunction<int>(functionCall, obj));
     }
 
+    [Fact]
+    public void CallFunctionShouldThrowIfObjIsNull()
+    {
+		var functionCall = new FunctionCall
+			{
+			Name = "SecondFunction",
+		};
+
+		Should.Throw<ArgumentNullException>(() => FunctionCallingHelper.CallFunction<string>(functionCall, null!));
+    }
+
+    [Fact]
+    public void CallFunctionShouldThrowIfFunctionCallIsNull()
+    {
+		var obj = new FunctionCallingTestClass();
+
+		Should.Throw<ArgumentNullException>(() => FunctionCallingHelper.CallFunction<string>(null!, obj));
+	}
+
+    [Fact]
+    public void CallFunctionShouldThrowIfFunctionCallNameIsNotSet()
+    {
+		var obj = new FunctionCallingTestClass();
+
+		var functionCall = new FunctionCall
+		{
+			Name = null!,
+		};
+
+		Should.Throw<InvalidFunctionCallException>(() => FunctionCallingHelper.CallFunction<string>(functionCall, obj));
+	}
+
+    [Fact]
+    public void CallFunctionShouldThrowIfFunctionCallNameIsNotValid()
+    {
+		var obj = new FunctionCallingTestClass();
+
+		var functionCall = new FunctionCall
+		{
+			Name = "NonExistentFunction",
+		};
+
+		Should.Throw<InvalidFunctionCallException>(() => FunctionCallingHelper.CallFunction<string>(functionCall, obj));
+	}
+
+    [Fact]
+    public void CallFunctionShouldThrowIfInvalidReturnType()
+    {
+		var obj = new FunctionCallingTestClass();
+		var functionCall = new FunctionCall()
+		{
+			Name = "SecondFunction",
+		};
+
+		Should.Throw<InvalidFunctionCallException>(() => FunctionCallingHelper.CallFunction<int>(functionCall, obj));
+    }
 }
 
 internal class FunctionCallingTestClass
@@ -134,6 +204,7 @@ internal class FunctionCallingTestClass
 	public int RequiredIntParameter;
 	public int? NotRequiredIntParameter;
 	public int OverriddenNameParameter;
+	public string OverriddenTypeParameter = null!;
 
 	[FunctionDescription("Test Function")]
 	public int TestFunction(
@@ -146,6 +217,7 @@ internal class FunctionCallingTestClass
 		[ParameterDescription(Description = "Required Int Parameter", Required= true)] int requiredIntParameter,
 		[ParameterDescription(Description = "Not required Int Parameter", Required = false)] int notRequiredIntParameter,
 		[ParameterDescription(Name = "OverriddenName", Description = "Overridden")] int overriddenNameParameter)
+
 	{
 		IntParameter = intParameter;
 		FloatParameter = floatParameter;
@@ -164,6 +236,12 @@ internal class FunctionCallingTestClass
 	public string SecondFunction()
 	{
 		return "Hello";
+	}
+
+	[FunctionDescription("Third Function")]
+	public void ThirdFunction([ParameterDescription(Type = "string", Description = "Overridden type parameter")] int overriddenTypeParameter)
+	{
+		OverriddenTypeParameter = overriddenTypeParameter.ToString();
 	}
 }
 
