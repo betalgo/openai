@@ -20,7 +20,7 @@ public static class OpenAIServiceCollectionExtensions
 
         return services.AddHttpClient<IOpenAIService, OpenAIService>();
     }
-    
+
     public static IHttpClientBuilder AddOpenAIService<TServiceInterface>(this IServiceCollection services, string name, Action<OpenAiOptions>? setupAction = null)
         where TServiceInterface : class, IOpenAIService
     {
