@@ -19,8 +19,8 @@ https://github.com/betalgo/openai/wiki
 ```
 Install-Package Betalgo.OpenAI.Utilities
 ```
-Maintenance of this project is made possible by all the bug reporters, [contributors](https://github.com/betalgo/openai/graphs/contributors) and [sponsors](https://github.com/sponsors/kayhantolga).  💖
-Sponsors:  
+Maintenance of this project is made possible by all the bug reporters, [contributors](https://github.com/betalgo/openai/graphs/contributors) and [sponsors](https://github.com/sponsors/kayhantolga).  
+💖 Sponsors:  
 [@betalgo](https://github.com/betalgo),
 [Laser Cat Eyes](https://lasercateyes.com/)
 
@@ -222,6 +222,9 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 7.1.5
+- Added error handling for PlatformNotSupportedException in PostAsStreamAsync when using HttpClient.Send, now falls back to SendRequestPreNet6 for compatibility on platforms like MAUI, Mac. Thanks to  @Almis90
+- We now have a function caller describe method that automatically generates function descriptions. This method is available in the utilities library. Thanks to @vbandi
 ### 7.1.3
 - This release was a bit late and took longer than expected due to a couple of reasons. The future was quite big, and I couldn't cover all possibilities. However, I believe I have covered most of the function definitions (with some details missing). Additionally, I added an option to build it manually. If you don't know what I mean, you don't need to worry. I plan to cover the rest of the function definition in the next release. Until then, you can discover this by playing in the playground or in the source code. This version also support using other libraries to export your function definition.
 - We now have support for functions! Big cheers to @rzubek for completing most of this feature.
@@ -258,28 +261,3 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 - Fixed Whisper default response type, Thanks to @Swimburger 
 - Performance improvements and code clean up,again Thanks to @Swimburger 👏
 - Code clenaup, Thanks to @WeihanLi
-### 6.8.4
-- Released update message about nuget Package ID change
-### 6.8.3
-- **Breaking Changes**: 
-    - ~~I am going to update library namespace from `Betalgo.OpenAI.GPT3` to `OpenAI.GPT3`. This is the first time I am trying to update my nuget packageId. If something broken, please be patient. I will be fixing it soon.~~
-    Reverted namespace change, maybe next time.
-    - Small Typo change on model name `Model.GPT4` `to Model.GPT_4`
-
-    - `ServiceCollection.AddOpenAIService();` now returns `IHttpClientBuilder` which means it allows you to play with httpclient object. Thanks for all the reporters and @LGinC.
-    Here is a little sample
-```csharp
-ServiceCollection.AddOpenAIService()
-.ConfigurePrimaryHttpMessageHandler((s => new HttpClientHandler
-{
-    Proxy = new WebProxy("1.1.1.1:1010"),
-});
-``` 
-### 6.8.1
-- **Breaking Changes**: Typo fixed in Content Moderation CategoryScores, changing `Sexualminors` to `SexualMinors`. Thanks to @HowToDoThis.
-- Tokenizer changes thanks to @IS4Code.
-    - Performance improvement
-    - Introduced a new method `TokenCount` that returns the number of tokens instead of a list.
-    - **Breaking Changes**: Removed overridden methods that were basically string conversions. 
-    I think these methods were not used much and it is fairly easy to do these conversions outside of the method. 
-    If you disagree, let me know and I can consider adding them back.
