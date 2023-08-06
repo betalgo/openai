@@ -121,6 +121,11 @@ public class OpenAiOptions
     public string? DefaultModelId { get; set; }
 
     /// <summary>
+    ///     Default timeout in which API has to respond
+    /// </summary>
+    public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(3);
+
+    /// <summary>
     ///     Create an instance of this class with the necessary information to connect to the azure open ai api
     /// </summary>
     /// <param name="resourceName">Resource Name of your Azure OpenAI resource</param>
