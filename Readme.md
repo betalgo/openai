@@ -19,8 +19,8 @@ https://github.com/betalgo/openai/wiki
 ```
 Install-Package Betalgo.OpenAI.Utilities
 ```
-Maintenance of this project is made possible by all the bug reporters, [contributors](https://github.com/betalgo/openai/graphs/contributors) and [sponsors](https://github.com/sponsors/kayhantolga).  💖
-Sponsors:  
+Maintenance of this project is made possible by all the bug reporters, [contributors](https://github.com/betalgo/openai/graphs/contributors) and [sponsors](https://github.com/sponsors/kayhantolga).  
+💖 Sponsors:  
 [@betalgo](https://github.com/betalgo),
 [Laser Cat Eyes](https://lasercateyes.com/)
 
