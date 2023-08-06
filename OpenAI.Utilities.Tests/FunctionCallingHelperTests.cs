@@ -191,6 +191,21 @@ public class FunctionCallingHelperTests
 
 		Should.Throw<InvalidFunctionCallException>(() => FunctionCallingHelper.CallFunction<int>(functionCall, obj));
     }
+
+    [Fact]
+    public void VerifyCallFunctionWithOverriddenType()
+    {
+		var obj = new FunctionCallingTestClass();
+
+		var functionCall = new FunctionCall
+		{
+			Name = "ThirdFunction",
+			Arguments = "{\"overriddenTypeParameter\": 1}"
+		};
+
+		FunctionCallingHelper.CallFunction<object>(functionCall, obj);
+		obj.OverriddenTypeParameter.ShouldBe("1");
+	}
 }
 
 internal class FunctionCallingTestClass
