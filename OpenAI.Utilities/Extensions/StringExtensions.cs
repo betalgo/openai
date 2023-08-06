@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 
 namespace OpenAI.Utilities;
+
 public static partial class StringExtensions
 {
     private static readonly Regex NewlineToSpaceRegex = NewlineToSpace();

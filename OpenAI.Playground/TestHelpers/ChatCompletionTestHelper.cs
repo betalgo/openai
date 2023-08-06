@@ -104,12 +104,12 @@ internal static class ChatCompletionTestHelper
 
         var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather")
             .AddParameter("location", PropertyDefinition.DefineString("The city and state, e.g. San Francisco, CA"))
-            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"},"The temperature unit to use. Infer this from the users location."))
+            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"}, "The temperature unit to use. Infer this from the users location."))
             .Validate()
             .Build();
 
         var fn2 = new FunctionDefinitionBuilder("get_n_day_weather_forecast", "Get an N-day weather forecast")
-            .AddParameter("location", new() { Type = "string",Description = "The city and state, e.g. San Francisco, CA"})
+            .AddParameter("location", new PropertyDefinition {Type = "string", Description = "The city and state, e.g. San Francisco, CA"})
             .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"}, "The temperature unit to use. Infer this from the users location."))
             .AddParameter("num_days", PropertyDefinition.DefineInteger("The number of days to forecast"))
             .Validate()
@@ -130,7 +130,7 @@ internal static class ChatCompletionTestHelper
                     ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
                     ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days.")
                 },
-                Functions = new List<FunctionDefinition> { fn1, fn2, fn3, fn4 },
+                Functions = new List<FunctionDefinition> {fn1, fn2, fn3, fn4},
                 // optionally, to force a specific function:
                 // FunctionCall = new Dictionary<string, string> { { "name", "get_current_weather" } },
                 MaxTokens = 50,
@@ -188,17 +188,17 @@ internal static class ChatCompletionTestHelper
 
         var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather")
             .AddParameter("location", PropertyDefinition.DefineString("The city and state, e.g. San Francisco, CA"))
-            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"},"The temperature unit to use. Infer this from the users location."))
+            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"}, "The temperature unit to use. Infer this from the users location."))
             .Validate()
             .Build();
 
         var fn2 = new FunctionDefinitionBuilder("get_n_day_weather_forecast", "Get an N-day weather forecast")
-            .AddParameter("location", new PropertyDefinition{ Type = "string",Description = "The city and state, e.g. San Francisco, CA"})
+            .AddParameter("location", new PropertyDefinition {Type = "string", Description = "The city and state, e.g. San Francisco, CA"})
             .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"}, "The temperature unit to use. Infer this from the users location."))
             .AddParameter("num_days", PropertyDefinition.DefineInteger("The number of days to forecast"))
             .Validate()
             .Build();
-        
+
         var fn3 = new FunctionDefinitionBuilder("get_current_datetime", "Get the current date and time, e.g. 'Saturday, June 24, 2023 6:14:14 PM'")
             .Build();
 
@@ -214,14 +214,14 @@ internal static class ChatCompletionTestHelper
                 Messages = new List<ChatMessage>
                 {
                     ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
-                    
+
                     // to test weather forecast functions:
-                    ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days."),
+                    ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days.")
 
                     // or to test array functions, use this instead:
                     // ChatMessage.FromUser("The combination is: One. Two. Three. Four. Five."),
                 },
-                Functions = new List<FunctionDefinition> { fn1, fn2, fn3, fn4 },
+                Functions = new List<FunctionDefinition> {fn1, fn2, fn3, fn4},
                 // optionally, to force a specific function:
                 // FunctionCall = new Dictionary<string, string> { { "name", "get_current_weather" } },
                 MaxTokens = 50,
@@ -242,7 +242,7 @@ internal static class ChatCompletionTestHelper
                 Message:
                 Function call:  identify_number_sequence
                   values: [1, 2, 3, 4, 5]
-            */ 
+            */
 
             await foreach (var completionResult in completionResults)
             {

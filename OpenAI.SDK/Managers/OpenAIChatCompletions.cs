@@ -1,9 +1,9 @@
-﻿using OpenAI.Extensions;
+﻿using System.Runtime.CompilerServices;
+using System.Text.Json;
+using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
 
 namespace OpenAI.Managers;
 
@@ -82,17 +82,16 @@ public partial class OpenAIService : IChatCompletionService
 
     /// <summary>
     ///     This helper class attempts to reassemble a function call response
-    ///     that was split up across several streamed chunks. 
+    ///     that was split up across several streamed chunks.
     ///     Note that this only works for the first message in each response,
     ///     and ignores the others; if OpenAI ever changes their response format
     ///     this will need to be adjusted.
     /// </summary>
     private class ReassemblyContext
     {
-        private FunctionCall? FnCall = null;
+        private FunctionCall? FnCall;
 
         public bool IsFnAssemblyActive => FnCall != null;
-
 
 
         /// <summary>
@@ -105,7 +104,10 @@ public partial class OpenAIService : IChatCompletionService
         public void Process(ChatCompletionCreateResponse block)
         {
             var firstChoice = block.Choices?.FirstOrDefault();
-            if (firstChoice == null) { return; } // not a valid state? nothing to do
+            if (firstChoice == null)
+            {
+                return;
+            } // not a valid state? nothing to do
 
             var isStreamingFnCall = IsStreamingFunctionCall();
             var justStarted = false;
@@ -136,12 +138,16 @@ public partial class OpenAIService : IChatCompletionService
             }
 
             // Returns true if we're actively streaming, and also have a partial function call in the response
-            bool IsStreamingFunctionCall() =>
-                firstChoice.FinishReason == null &&  // actively streaming, and
-                firstChoice.Message?.FunctionCall != null; // have a function call
+            bool IsStreamingFunctionCall()
+            {
+                return firstChoice.FinishReason == null && // actively streaming, and
+                       firstChoice.Message?.FunctionCall != null;
+            } // have a function call
 
-            string ExtractArgsSoFar() =>
-                block.Choices?.FirstOrDefault()?.Message?.FunctionCall?.Arguments ?? "";
+            string ExtractArgsSoFar()
+            {
+                return block.Choices?.FirstOrDefault()?.Message?.FunctionCall?.Arguments ?? "";
+            }
         }
     }
 }

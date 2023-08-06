@@ -2,7 +2,7 @@
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
-using OpenAI.Utilities;
+using OpenAI.Utilities.FunctionCalling;
 
 namespace OpenAI.UtilitiesPlayground.TestHelpers;
 
@@ -56,14 +56,26 @@ public static class FunctionCallingTestHelpers
         } while (req.Messages.Last().FunctionCall != null);
     }
 
-    
+
     public class Calculator
     {
+        public enum AdvancedOperators
+        {
+            Multiply,
+            Divide
+        }
+
         [FunctionDescription("Adds two numbers.")]
-        public float Add(float a, float b) => a + b;
+        public float Add(float a, float b)
+        {
+            return a + b;
+        }
 
         [FunctionDescription("Subtracts two numbers.")]
-        public float Subtract(float a, float b) => a - b;
+        public float Subtract(float a, float b)
+        {
+            return a - b;
+        }
 
         [FunctionDescription("Performs advanced math operators on two numbers.")]
         public float AdvancedMath(float a, float b, AdvancedOperators advancedOperator)
@@ -74,11 +86,6 @@ public static class FunctionCallingTestHelpers
                 AdvancedOperators.Divide => a / b,
                 _ => throw new ArgumentOutOfRangeException(nameof(advancedOperator), advancedOperator, null)
             };
-        }
-
-        public enum AdvancedOperators
-        {
-            Multiply, Divide
         }
     }
 }
