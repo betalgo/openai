@@ -27,7 +27,7 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 [@oferavnery](https://github.com/oferavnery)
 [@Removable](https://github.com/Removable)
 ## Features
-- [X] [Function Calling] (wikipage is coming soon)
+- [X] [Function Calling](https://github.com/betalgo/openai/wiki/Function-Calling)
 - [ ] Plugins (coming soon)
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
 - [x] [Chat GPT-4](https://github.com/betalgo/openai/wiki/Chat-GPT) *(models are supported, Image analyze API not released yet by OpenAI)*
@@ -38,7 +38,7 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 - [x] [Edit](https://github.com/betalgo/openai/wiki/Edit) 
 - [x] [Embeddings](https://github.com/betalgo/openai/wiki/Embeddings) 
 - [x] [Files](https://github.com/betalgo/openai/wiki/Files) 
-- [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning) 
+- [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning)
 - [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
 - [x] [Tokenizer-GPT3](https://github.com/betalgo/openai/wiki/Tokenizer)
 - [ ] [Tokenizer](https://github.com/betalgo/openai/wiki/Tokenizer)
