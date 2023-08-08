@@ -11,6 +11,7 @@ public partial class OpenAIService : IImageService
     ///     Creates an image given a prompt.
     /// </summary>
     /// <param name="imageCreateModel"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ImageCreateResponse> CreateImage(ImageCreateRequest imageCreateModel, CancellationToken cancellationToken = default)
     {
@@ -21,6 +22,7 @@ public partial class OpenAIService : IImageService
     ///     Creates an edited or extended image given an original image and a prompt.
     /// </summary>
     /// <param name="imageEditCreateRequest"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ImageCreateResponse> CreateImageEdit(ImageEditCreateRequest imageEditCreateRequest, CancellationToken cancellationToken = default)
     {
@@ -45,13 +47,17 @@ public partial class OpenAIService : IImageService
             multipartContent.Add(new StringContent(imageEditCreateRequest.N.ToString()!), "n");
         }
 
-        if (imageEditCreateRequest.Mask != null)
+        if (imageEditCreateRequest.Mask != null && imageEditCreateRequest.MaskName != null)
         {
             multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Mask), "mask", imageEditCreateRequest.MaskName);
         }
 
         multipartContent.Add(new StringContent(imageEditCreateRequest.Prompt), "prompt");
-        multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
+
+        if (imageEditCreateRequest.Image != null && imageEditCreateRequest.ImageName != null)
+        {
+            multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
+        }
 
         return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageEditCreate(), multipartContent, cancellationToken);
     }
@@ -60,6 +66,7 @@ public partial class OpenAIService : IImageService
     ///     Creates a variation of a given image.
     /// </summary>
     /// <param name="imageEditCreateRequest"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<ImageCreateResponse> CreateImageVariation(ImageVariationCreateRequest imageEditCreateRequest, CancellationToken cancellationToken = default)
     {
@@ -84,7 +91,10 @@ public partial class OpenAIService : IImageService
             multipartContent.Add(new StringContent(imageEditCreateRequest.N.ToString()!), "n");
         }
 
-        multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
+        if (imageEditCreateRequest.Image != null && imageEditCreateRequest.ImageName != null)
+        {
+            multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
+        }
 
         return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageVariationCreate(), multipartContent, cancellationToken);
     }

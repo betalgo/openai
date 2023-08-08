@@ -84,6 +84,7 @@ internal static class FineTuningTestHelper
         var fineTunes = await sdk.FineTunes.ListFineTunes();
         foreach (var datum in fineTunes.Data)
         {
+            if (datum.FineTunedModel == null) continue;
             await sdk.FineTunes.DeleteFineTune(datum.FineTunedModel);
         }
     }

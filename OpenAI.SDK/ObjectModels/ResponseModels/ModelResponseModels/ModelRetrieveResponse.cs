@@ -3,15 +3,15 @@
 namespace OpenAI.ObjectModels.ResponseModels.ModelResponseModels;
 
 public record ModelRetrieveResponse : ModelResponse
-    // ReSharper disable once RedundantRecordBody
+// ReSharper disable once RedundantRecordBody
 {
 }
 
 public record ModelResponse : BaseResponse
 {
-    [JsonPropertyName("id")] public string Id { get; set; }
+    [JsonPropertyName("id")] public string Id { get; set; } = string.Empty;
 
-    [JsonPropertyName("owned_by")] public string Owner { get; set; }
+    [JsonPropertyName("owned_by")] public string? Owner { get; set; }
 
     [JsonPropertyName("permission")] public List<Permission> Permissions { get; set; } = new();
 
@@ -26,7 +26,7 @@ public record ModelResponse : BaseResponse
 
 public record Permission : BaseResponse
 {
-    [JsonPropertyName("id")] public string Id { get; set; }
+    [JsonPropertyName("id")] public string Id { get; set; } = string.Empty;
 
     [JsonPropertyName("created")] public int Created { get; set; }
     public DateTimeOffset CreatedTime => DateTimeOffset.FromUnixTimeSeconds(Created);
@@ -46,9 +46,9 @@ public record Permission : BaseResponse
     [JsonPropertyName("allow_fine_tuning")]
     public bool AllowFineTuning { get; set; }
 
-    [JsonPropertyName("organization")] public string Organization { get; set; }
+    [JsonPropertyName("organization")] public string? Organization { get; set; }
 
-    [JsonPropertyName("group")] public object Group { get; set; }
+    [JsonPropertyName("group")] public object? Group { get; set; }
 
     [JsonPropertyName("is_blocking")] public bool IsBlocking { get; set; }
 }

@@ -4,15 +4,15 @@ namespace OpenAI.ObjectModels.ResponseModels;
 
 public record AudioCreateTranscriptionResponse : BaseResponse
 {
-    [JsonPropertyName("text")] public string Text { get; set; }
+    [JsonPropertyName("text")] public string? Text { get; set; }
 
-    [JsonPropertyName("task")] public string Task { get; set; }
+    [JsonPropertyName("task")] public string? Task { get; set; }
 
-    [JsonPropertyName("language")] public string Language { get; set; }
+    [JsonPropertyName("language")] public string? Language { get; set; }
 
     [JsonPropertyName("duration")] public float Duration { get; set; }
 
-    [JsonPropertyName("segments")] public List<Segment> Segments { get; set; }
+    [JsonPropertyName("segments")] public List<Segment>? Segments { get; set; }
 
     public class Segment
     {
@@ -24,9 +24,9 @@ public record AudioCreateTranscriptionResponse : BaseResponse
 
         [JsonPropertyName("end")] public float End { get; set; }
 
-        [JsonPropertyName("text")] public string Text { get; set; }
+        [JsonPropertyName("text")] public string? Text { get; set; }
 
-        [JsonPropertyName("tokens")] public List<int> Tokens { get; set; }
+        [JsonPropertyName("tokens")] public List<int>? Tokens { get; set; }
 
         [JsonPropertyName("temperature")] public float Temperature { get; set; }
 

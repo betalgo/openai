@@ -14,7 +14,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     ///     short as 1 message or fill many pages.
     /// </summary>
     [JsonPropertyName("messages")]
-    public IList<ChatMessage> Messages { get; set; }
+    public IList<ChatMessage>? Messages { get; set; }
 
     /// <summary>
     ///     A list of functions the model may generate JSON inputs for.
@@ -86,7 +86,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
 
             if (Stop != null)
             {
-                return new List<string> {Stop};
+                return new List<string> { Stop };
             }
 
             return StopAsList;
