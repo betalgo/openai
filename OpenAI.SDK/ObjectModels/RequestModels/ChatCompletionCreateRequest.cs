@@ -16,11 +16,27 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     [JsonPropertyName("messages")]
     public IList<ChatMessage>? Messages { get; set; }
 
-    /// <summary> 
+    /// <summary>
     ///     A list of functions the model may generate JSON inputs for.
     /// </summary>
-    [JsonPropertyName("functions")]
+    [JsonIgnore]
     public IList<FunctionDefinition>? Functions { get; set; }
+
+    [JsonIgnore] public object? FunctionsAsObject { get; set; }
+
+    [JsonPropertyName("functions")]
+    public object? FunctionCalculated
+    {
+        get
+        {
+            if (FunctionsAsObject != null && Functions != null)
+            {
+                throw new ValidationException("FunctionAsObject and Functions can not be assigned at the same time. One of them is should be null.");
+            }
+
+            return Functions ?? FunctionsAsObject;
+        }
+    }
 
     /// <summary>
     ///     An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the
@@ -116,8 +132,22 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     [JsonPropertyName("logit_bias")]
     public object? LogitBias { get; set; }
 
+
     /// <summary>
-    ///     ID of the model to use. Currently, only gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
+    ///     String or object. Controls how the model responds to function calls.
+    ///     "none" means the model does not call a function, and responds to the end-user.
+    ///     "auto" means the model can pick between an end-user or calling a function.
+    ///     "none" is the default when no functions are present. "auto" is the default if functions are present.
+    ///     Specifying a particular function via {"name": "my_function"} forces the model to call that function.
+    ///     (Note: in C# specify that as:
+    ///     FunctionCall = new Dictionary&lt;string, string&gt; { { "name", "my_function" } }
+    ///     ).
+    /// </summary>
+    [JsonPropertyName("function_call")]
+    public object? FunctionCall { get; set; }
+
+    /// <summary>
+    ///     ID of the model to use. For models supported see <see cref="OpenAI.ObjectModels.Models" /> start with <c>Gpt_</c>
     /// </summary>
     [JsonPropertyName("model")]
     public string? Model { get; set; }
@@ -140,18 +170,4 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// </summary>
     [JsonPropertyName("user")]
     public string User { get; set; }
-
-
-    /// <summary> 
-    ///     String or object. Controls how the model responds to function calls. 
-    ///     "none" means the model does not call a function, and responds to the end-user. 
-    ///     "auto" means the model can pick between an end-user or calling a function. 
-    ///     "none" is the default when no functions are present. "auto" is the default if functions are present.
-    ///     Specifying a particular function via {"name": "my_function"} forces the model to call that function. 
-    ///     (Note: in C# specify that as: 
-    ///         FunctionCall = new Dictionary&lt;string, string&gt; { { "name", "my_function" } }
-    ///         ).
-    /// </summary>
-    [JsonPropertyName("function_call")]
-    public object? FunctionCall { get; set; }
 }

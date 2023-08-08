@@ -9,7 +9,7 @@ using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels;
 using OpenAI.Tokenizer.GPT3;
 
-namespace OpenAI.Utilities;
+namespace OpenAI.Utilities.Embedding;
 
 // ReSharper disable MemberCanBePrivate.Global
 public interface IEmbeddingTools
@@ -28,7 +28,7 @@ public interface IEmbeddingTools
     /// <param name="pathsToDirectoriesOrFiles">The paths to the files or directories.</param>
     /// <param name="outputFileName">The name of the output file.</param>
     /// <returns>The DataFrame containing the embedding data.</returns>
-    /// <exception cref="System.Exception">Thrown when no files are found in the provided paths.</exception>
+    /// <exception cref="Exception">Thrown when no files are found in the provided paths.</exception>
     Task<DataFrame> ReadFilesAndCreateEmbeddingDataAsCsv(IEnumerable<string> pathsToDirectoriesOrFiles, string outputFileName);
 
     string CreateContext(string question, DataFrame df, int maxLen = 1800);

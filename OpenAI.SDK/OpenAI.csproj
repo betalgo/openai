@@ -10,7 +10,8 @@
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>7.1.2-beta</Version>
+		<Title>OpenAI SDK by Betalgo</Title>
+		<Version>7.1.5</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>OpenAI ChatGPT, Whisper, GPT-4 and DALL·E dotnet SDK</Product>

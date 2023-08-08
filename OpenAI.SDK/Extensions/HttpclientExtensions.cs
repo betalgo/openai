@@ -25,17 +25,38 @@ public static class HttpClientExtensions
 
         var content = JsonContent.Create(requestModel, null, settings);
 
-        using var request = new HttpRequestMessage(HttpMethod.Post, uri);
-        request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
-        request.Content = content;
+        using var request = CreatePostEventStreamRequest(uri, content);
 
 #if NET6_0_OR_GREATER
-        return client.Send(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        try
+        {
+            return client.Send(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        }
+        catch (PlatformNotSupportedException)
+        {
+            using var newRequest = CreatePostEventStreamRequest(uri, content);
+
+            return SendRequestPreNet6(client, newRequest, cancellationToken);
+        }
 #else
+        return SendRequestPreNet6(client, request, cancellationToken);
+#endif
+    }
+
+    private static HttpResponseMessage SendRequestPreNet6(HttpClient client, HttpRequestMessage request, CancellationToken cancellationToken)
+    {
         var responseTask = client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
         var response = responseTask.GetAwaiter().GetResult();
         return response;
-#endif
+    }
+
+    private static HttpRequestMessage CreatePostEventStreamRequest(string uri, HttpContent content)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Post, uri);
+        request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/event-stream"));
+        request.Content = content;
+
+        return request;
     }
 
     public static async Task<TResponse> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default)
