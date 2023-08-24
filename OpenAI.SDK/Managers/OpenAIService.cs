@@ -35,12 +35,24 @@ public partial class OpenAIService : IOpenAIService, IDisposable
 
         _httpClient.BaseAddress = new Uri(settings.BaseDomain);
 
+        // Open Router AI required headers:
+        if (settings.ReferUrl != null)
+        {
+            _httpClient.DefaultRequestHeaders.Add("HTTP-Referer", settings.ReferUrl);
+        }
+
+        if (settings.XTitle != null)
+        {
+            _httpClient.DefaultRequestHeaders.Add("X-Title", settings.XTitle);
+        }
+
         switch (settings.ProviderType)
         {
             case ProviderType.Azure:
                 _httpClient.DefaultRequestHeaders.Add("api-key", settings.ApiKey);
                 break;
             case ProviderType.OpenAi:
+            case ProviderType.OpenRouterAi:
             default:
                 _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
                 break;

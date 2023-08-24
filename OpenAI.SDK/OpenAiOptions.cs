@@ -13,7 +13,12 @@ public enum ProviderType
     /// <summary>
     ///     Azure Provider
     /// </summary>
-    Azure = 2
+    Azure = 2,
+
+    /// <summary>
+    ///     OpenRouter AI Provider
+    /// </summary>
+    OpenRouterAi = 3
 }
 
 public class OpenAiOptions
@@ -21,6 +26,8 @@ public class OpenAiOptions
     private const string OpenAiDefaultApiVersion = "v1";
     private const string OpenAiDefaultBaseDomain = "https://api.openai.com/";
     private const string AzureOpenAiDefaultApiVersion = "2023-03-15-preview";
+    private const string OpenRouterAiDefaultApiVersion = "api/v1";
+    private const string OpenRouterAiDefaultBaseDomain = "https://openrouter.ai/";
 
 
     /// <summary>
@@ -66,6 +73,7 @@ public class OpenAiOptions
             {
                 ProviderType.OpenAi => OpenAiDefaultApiVersion,
                 ProviderType.Azure => AzureOpenAiDefaultApiVersion,
+                ProviderType.OpenRouterAi => OpenRouterAiDefaultApiVersion,
                 _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
         }
@@ -86,6 +94,7 @@ public class OpenAiOptions
             {
                 ProviderType.OpenAi => OpenAiDefaultBaseDomain,
                 ProviderType.Azure => ResourceName == null ? null : $"https://{ResourceName}.openai.azure.com/",
+                ProviderType.OpenRouterAi => OpenRouterAiDefaultBaseDomain,
                 _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
 #pragma warning restore CS8603
@@ -102,6 +111,16 @@ public class OpenAiOptions
     ///     Azure Resource Name
     /// </summary>
     public string? ResourceName { get; set; }
+
+    /// <summary>
+    ///     OpenRouter AI Http Refer header (site url)
+    /// </summary>
+    public string? ReferUrl { get; set; }
+
+    /// <summary>
+    ///     OpenRouter AI Http X-Title (site name)
+    /// </summary>
+    public string? XTitle { get; set; }
 
     /// <summary>
     ///     Default model id. If you are working with only one model, this will save you from few line extra code.
