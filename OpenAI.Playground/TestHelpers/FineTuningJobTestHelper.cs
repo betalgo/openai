@@ -27,6 +27,9 @@ internal static class FineTuningJobTestHelper
                 ConsoleExtensions.WriteLine($"{fileName} failed", ConsoleColor.DarkRed);
             }
 
+            ConsoleExtensions.WriteLine($"Wait 5 seconds for the file to be ready", ConsoleColor.DarkYellow);
+            await Task.Delay(5_000);
+
             var createFineTuningJobResponse = await sdk.FineTuningJob.CreateFineTuningJob(new FineTuningJobCreateRequest
             {
                 TrainingFile = uploadFilesResponse.Id,
