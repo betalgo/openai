@@ -13,7 +13,7 @@ internal static class FineTuningJobTestHelper
 
         try
         {
-            const string fileName = "FineTuningSample1.jsonl";
+            const string fileName = "FineTuningJobSample2.jsonl";
             var sampleFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{fileName}");
 
             ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
