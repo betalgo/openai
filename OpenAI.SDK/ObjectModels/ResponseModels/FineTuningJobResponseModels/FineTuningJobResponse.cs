@@ -27,16 +27,16 @@ public record FineTuningJobResponse : BaseResponse, IOpenAiModels.IId, IOpenAiMo
     public string Status { get; set; }
 
     [JsonPropertyName("hyperparameters")]
-    public HyperParametersResponse HyperParams { get; set; }
+    public HyperParametersResponse HyperParameters { get; set; }
 
-    [JsonPropertyName("validation_files")]
-    public List<FileResponse> ValidationFiles { get; set; }
+    [JsonPropertyName("validation_file")]
+    public string? ValidationFile { get; set; }
 
-    [JsonPropertyName("training_files")]
-    public List<FileResponse> TrainingFiles { get; set; }
+    [JsonPropertyName("training_file")]
+    public string TrainingFile { get; set; }
 
     [JsonPropertyName("result_files")]
-    public List<FileResponse> ResultFiles { get; set; }
+    public List<string> ResultFiles { get; set; }
 
     [JsonPropertyName("trained_tokens")]
     public int? TrainedTokens { get; set; }
