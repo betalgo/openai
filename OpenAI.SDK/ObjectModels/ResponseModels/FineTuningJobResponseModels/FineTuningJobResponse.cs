@@ -8,9 +8,6 @@ public record FineTuningJobResponse : BaseResponse, IOpenAiModels.IId, IOpenAiMo
     [JsonPropertyName("id")]
     public string Id { get; set; }
 
-    [JsonPropertyName("object")]
-    public string Object { get; set; }
-
     [JsonPropertyName("created_at")]
     public int CreatedAt { get; set; }
 
