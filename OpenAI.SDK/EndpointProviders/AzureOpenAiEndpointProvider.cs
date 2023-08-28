@@ -95,6 +95,36 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/models/{fineTuneId}{QueryString}";
     }
 
+    public string FineTuningJobCreate()
+    {
+        return $"{Prefix}/fine_tuning/jobs{QueryString}";
+    }
+
+    public string FineTuningJobList()
+    {
+        return $"{Prefix}/fine_tuning/jobs{QueryString}";
+    }
+
+    public string FineTuningJobRetrieve(string fineTuningJobId)
+    {
+        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}{QueryString}";
+    }
+
+    public string FineTuningJobCancel(string fineTuningJobId)
+    {
+        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}/cancel{QueryString}";
+    }
+
+    public string FineTuningJobListEvents(string fineTuningJobId)
+    {
+        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}/events{QueryString}";
+    }
+
+    public string FineTuningJobDelete(string fineTuningJobId)
+    {
+        return $"{Prefix}/models/{fineTuningJobId}{QueryString}";
+    }
+
     public string EmbeddingCreate()
     {
         return $"{Prefix}/embeddings{QueryString}";

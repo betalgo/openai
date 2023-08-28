@@ -17,6 +17,12 @@ internal interface IOpenAiEndpointProvider
     string FineTuneCancel(string fineTuneId);
     string FineTuneListEvents(string fineTuneId);
     string FineTuneDelete(string fineTuneId);
+    string FineTuningJobCreate();
+    string FineTuningJobList();
+    string FineTuningJobRetrieve(string fineTuningJobId);
+    string FineTuningJobCancel(string fineTuningJobId);
+    string FineTuningJobListEvents(string fineTuningJobId);
+    string FineTuningJobDelete(string fineTuningJobId);
     string EmbeddingCreate();
     string ModerationCreate();
     string ImageCreate();

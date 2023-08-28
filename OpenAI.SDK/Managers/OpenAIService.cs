@@ -86,6 +86,9 @@ public partial class OpenAIService : IOpenAIService, IDisposable
     public IFineTuneService FineTunes => this;
 
     /// <inheritdoc />
+    public IFineTuningJobService FineTuningJob => this;
+
+    /// <inheritdoc />
     public IModerationService Moderation => this;
 
     /// <inheritdoc />

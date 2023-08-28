@@ -99,6 +99,36 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"/{_apiVersion}/models/{fineTuneId}";
     }
 
+    public string FineTuningJobCreate()
+    {
+        return $"/{_apiVersion}/fine_tuning/jobs";
+    }
+
+    public string FineTuningJobList()
+    {
+        return $"/{_apiVersion}/fine_tuning/jobs";
+    }
+
+    public string FineTuningJobRetrieve(string fineTuningJobId)
+    {
+        return $"/{_apiVersion}/fine_tuning/jobs/{fineTuningJobId}";
+    }
+
+    public string FineTuningJobCancel(string fineTuningJobId)
+    {
+        return $"/{_apiVersion}/fine_tuning/jobs/{fineTuningJobId}/cancel";
+    }
+
+    public string FineTuningJobListEvents(string fineTuningJobId)
+    {
+        return $"/{_apiVersion}/fine_tuning/jobs/{fineTuningJobId}/events";
+    }
+
+    public string FineTuningJobDelete(string fineTuningJobId)
+    {
+        return $"/{_apiVersion}/models/{fineTuningJobId}";
+    }
+
     public string EmbeddingCreate()
     {
         return $"/{_apiVersion}/embeddings";
