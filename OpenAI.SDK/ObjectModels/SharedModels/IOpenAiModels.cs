@@ -34,7 +34,7 @@ public interface IOpenAIModels
 
     public interface IUser
     {
-        public string User { get; set; }
+        public string? User { get; set; }
     }
 
     public interface IFile
