@@ -3,7 +3,7 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
-public record FineTuneCreateRequest : IOpenAiModels.IModel
+public record FineTuneCreateRequest : IOpenAIModels.IModel
 {
     /// <summary>
     ///     The ID of an uploaded file that contains training data.

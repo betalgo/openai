@@ -3,7 +3,7 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
 
-public record ImageCreateResponse : BaseResponse, IOpenAiModels.ICreatedAt
+public record ImageCreateResponse : BaseResponse, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("data")] public List<ImageDataResult> Results { get; set; }
 

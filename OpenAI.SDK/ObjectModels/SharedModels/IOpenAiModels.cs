@@ -1,6 +1,6 @@
 ﻿namespace OpenAI.ObjectModels.SharedModels;
 
-public interface IOpenAiModels
+public interface IOpenAIModels
 {
     public interface IId
     {

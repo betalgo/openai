@@ -16,7 +16,7 @@
 		<Product>Utility tools for Betalgo.OpenAI</Product>
 		<Description>Utility tools for Betalgo.OpenAI - Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-4 and DALL·E</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
-		<PackageTags>openAI,chatGPT,gpt-4, gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
+		<PackageTags>openAI,chatGPT,gpt-4, gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openai,azure</PackageTags>
 		<PackageId>Betalgo.OpenAI.Utilities</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>

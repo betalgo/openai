@@ -3,7 +3,7 @@ using OpenAI.ObjectModels.ResponseModels;
 
 namespace OpenAI.ObjectModels.SharedModels;
 
-public record FileResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt
+public record FileResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("bytes")] public int? Bytes { get; set; }
     [JsonPropertyName("filename")] public string FileName { get; set; }

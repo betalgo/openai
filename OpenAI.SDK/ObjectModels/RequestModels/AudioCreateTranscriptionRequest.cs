@@ -2,7 +2,7 @@
 
 namespace OpenAI.ObjectModels.RequestModels;
 
-public record AudioCreateTranscriptionRequest : IOpenAiModels.IModel, IOpenAiModels.ITemperature, IOpenAiModels.IFile
+public record AudioCreateTranscriptionRequest : IOpenAIModels.IModel, IOpenAIModels.ITemperature, IOpenAIModels.IFile
 {
     /// <summary>
     ///     An optional text to guide the model's style or continue a previous audio segment. The prompt should match the audio

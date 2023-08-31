@@ -3,7 +3,7 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
 
-public record FineTuneResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IModel, IOpenAiModels.ICreatedAt
+public record FineTuneResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.IModel, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("events")] public List<EventResponse> Events { get; set; }
 

@@ -6,32 +6,32 @@ namespace OpenAI.Extensions;
 
 public static class OpenAIServiceCollectionExtensions
 {
-    public static IHttpClientBuilder AddOpenAIService(this IServiceCollection services, Action<OpenAiOptions>? setupAction = null)
+    public static IHttpClientBuilder AddOpenAIService(this IServiceCollection services, Action<OpenAIOptions>? setupAction = null)
     {
-        var optionsBuilder = services.AddOptions<OpenAiOptions>();
+        var optionsBuilder = services.AddOptions<OpenAIOptions>();
         if (setupAction != null)
         {
             optionsBuilder.Configure(setupAction);
         }
         else
         {
-            optionsBuilder.BindConfiguration(OpenAiOptions.SettingKey);
+            optionsBuilder.BindConfiguration(OpenAIOptions.SettingKey);
         }
 
         return services.AddHttpClient<IOpenAIService, OpenAIService>();
     }
 
-    public static IHttpClientBuilder AddOpenAIService<TServiceInterface>(this IServiceCollection services, string name, Action<OpenAiOptions>? setupAction = null)
+    public static IHttpClientBuilder AddOpenAIService<TServiceInterface>(this IServiceCollection services, string name, Action<OpenAIOptions>? setupAction = null)
         where TServiceInterface : class, IOpenAIService
     {
-        var optionsBuilder = services.AddOptions<OpenAiOptions>(name);
+        var optionsBuilder = services.AddOptions<OpenAIOptions>(name);
         if (setupAction != null)
         {
             optionsBuilder.Configure(setupAction);
         }
         else
         {
-            optionsBuilder.BindConfiguration($"{OpenAiOptions.SettingKey}:{name}");
+            optionsBuilder.BindConfiguration($"{OpenAIOptions.SettingKey}:{name}");
         }
 
         return services.AddHttpClient<TServiceInterface>();

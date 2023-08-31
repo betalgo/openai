@@ -1,10 +1,10 @@
 ﻿namespace OpenAI.EndpointProviders;
 
-internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
+internal class OpenAIEndpointProvider : IOpenAIEndpointProvider
 {
     private readonly string _apiVersion;
 
-    public OpenAiEndpointProvider(string apiVersion)
+    public OpenAIEndpointProvider(string apiVersion)
     {
         _apiVersion = apiVersion;
     }

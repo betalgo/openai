@@ -9,17 +9,17 @@ namespace OpenAI.Managers;
 public partial class OpenAIService : IOpenAIService, IDisposable
 {
     private readonly bool _disposeHttpClient;
-    private readonly IOpenAiEndpointProvider _endpointProvider;
+    private readonly IOpenAIEndpointProvider _endpointProvider;
     private readonly HttpClient _httpClient;
     private string? _defaultModelId;
 
     [ActivatorUtilitiesConstructor]
-    public OpenAIService(IOptions<OpenAiOptions> settings, HttpClient httpClient)
+    public OpenAIService(IOptions<OpenAIOptions> settings, HttpClient httpClient)
         : this(settings.Value, httpClient)
     {
     }
 
-    public OpenAIService(OpenAiOptions settings, HttpClient? httpClient = null)
+    public OpenAIService(OpenAIOptions settings, HttpClient? httpClient = null)
     {
         settings.Validate();
 
@@ -40,7 +40,7 @@ public partial class OpenAIService : IOpenAIService, IDisposable
             case ProviderType.Azure:
                 _httpClient.DefaultRequestHeaders.Add("api-key", settings.ApiKey);
                 break;
-            case ProviderType.OpenAi:
+            case ProviderType.OpenAI:
             default:
                 _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
                 break;
@@ -53,8 +53,8 @@ public partial class OpenAIService : IOpenAIService, IDisposable
 
         _endpointProvider = settings.ProviderType switch
         {
-            ProviderType.Azure => new AzureOpenAiEndpointProvider(settings.ApiVersion, settings.DeploymentId!),
-            _ => new OpenAiEndpointProvider(settings.ApiVersion)
+            ProviderType.Azure => new AzureOpenAIEndpointProvider(settings.ApiVersion, settings.DeploymentId!),
+            _ => new OpenAIEndpointProvider(settings.ApiVersion)
         };
 
         _defaultModelId = settings.DefaultModelId;

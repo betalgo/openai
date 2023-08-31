@@ -10,7 +10,7 @@ namespace OpenAI.ObjectModels.RequestModels;
 /// <summary>
 ///     Create Edit Request Model
 /// </summary>
-public record EditCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.IModel
+public record EditCreateRequest : IModelValidate, IOpenAIModels.ITemperature, IOpenAIModels.IModel
 {
     /// <summary>
     ///     The input text to use as a starting point for the edit.

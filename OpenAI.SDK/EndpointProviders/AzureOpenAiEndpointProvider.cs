@@ -2,7 +2,7 @@ using System.Net;
 
 namespace OpenAI.EndpointProviders;
 
-internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
+internal class AzureOpenAIEndpointProvider : IOpenAIEndpointProvider
 {
     private const string DeploymentsPrefix = "deployments";
     private const string ApiPrefix = "openai";
@@ -10,7 +10,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
     private readonly string _deploymentId;
 
 
-    public AzureOpenAiEndpointProvider(string apiVersion, string deploymentId)
+    public AzureOpenAIEndpointProvider(string apiVersion, string deploymentId)
     {
         _apiVersion = apiVersion;
         _deploymentId = deploymentId;

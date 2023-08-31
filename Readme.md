@@ -59,7 +59,7 @@ Your Organization ID comes from here --> https://platform.openai.com/account/org
 
 ### Without using dependency injection:
 ```csharp
-var openAiService = new OpenAIService(new OpenAiOptions()
+var openaiService = new OpenAIService(new OpenAIOptions()
 {
     ApiKey =  Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY")
 });
@@ -90,16 +90,16 @@ serviceCollection.AddOpenAIService(settings => { settings.ApiKey = Environment.G
 
 After injecting your service you will be able to get it from service provider
 ```csharp
-var openAiService = serviceProvider.GetRequiredService<IOpenAIService>();
+var openaiService = serviceProvider.GetRequiredService<IOpenAIService>();
 ```
 
 You can set default model(optional):
 ```csharp
-openAiService.SetDefaultModelId(Models.Davinci);
+openaiService.SetDefaultModelId(Models.Davinci);
 ```
 ## Chat Gpt Sample
 ```csharp
-var completionResult = await openAiService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+var completionResult = await openaiService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
 {
     Messages = new List<ChatMessage>
     {
@@ -169,7 +169,7 @@ var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current 
 
 ## Completions Stream Sample
 ```csharp
-var completionResult = openAiService.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
+var completionResult = openaiService.Completions.CreateCompletionAsStream(new CompletionCreateRequest()
    {
       Prompt = "Once upon a time",
       MaxTokens = 50
@@ -196,7 +196,7 @@ var completionResult = openAiService.Completions.CreateCompletionAsStream(new Co
 
 ## DALL·E Sample
 ```csharp
-var imageResult = await openAiService.Image.CreateImage(new ImageCreateRequest
+var imageResult = await openaiService.Image.CreateImage(new ImageCreateRequest
 {
     Prompt = "Laser cat eyes",
     N = 2,
@@ -245,9 +245,9 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
   - The order of the OpenAI constructor parameters has changed. It now takes 'options' first, then 'httpclient'.
     ```csharp
 	//Before
-	var openAiService = new OpenAIService(httpClient, options);
+	var openaiService = new OpenAIService(httpClient, options);
 	//Now
-	var openAiService = new OpenAIService(options, httpClient);
+	var openaiService = new OpenAIService(options, httpClient);
 	```
 ### 6.8.6
 - Updated Azure OpenAI default API version to the preview version to support ChatGPT. thanks to all [issue reporters](https://github.com/betalgo/openai/issues/181)

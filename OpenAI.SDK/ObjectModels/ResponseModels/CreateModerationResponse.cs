@@ -3,7 +3,7 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.ResponseModels;
 
-public record CreateModerationResponse : BaseResponse, IOpenAiModels.IModel, IOpenAiModels.IId
+public record CreateModerationResponse : BaseResponse, IOpenAIModels.IModel, IOpenAIModels.IId
 {
     [JsonPropertyName("results")] public List<Result> Results { get; set; }
 

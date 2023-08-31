@@ -3,7 +3,7 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.ResponseModels;
 
-public record EditCreateResponse : BaseResponse, IOpenAiModels.ICreatedAt
+public record EditCreateResponse : BaseResponse, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("model")] public string Model { get; set; }
 

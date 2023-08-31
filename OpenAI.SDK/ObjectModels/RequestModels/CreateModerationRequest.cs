@@ -4,7 +4,7 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
-public record CreateModerationRequest : IOpenAiModels.IModel
+public record CreateModerationRequest : IOpenAIModels.IModel
 {
     /// <summary>
     ///     The input text to classify
