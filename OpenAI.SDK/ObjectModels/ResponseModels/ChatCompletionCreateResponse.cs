@@ -8,7 +8,7 @@ public record ChatCompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IO
     [JsonPropertyName("model")] public string Model { get; set; }
     [JsonPropertyName("object")] public string Type { get; set; }
 
-    [JsonPropertyName("choices")] public List<ChatChoiceResponse> Choices { get; set; }
+    [JsonPropertyName("choices")] public List<ChatChoiceResponse>? Choices { get; set; }
 
     [JsonPropertyName("usage")] public UsageResponse? Usage { get; set; }
 
