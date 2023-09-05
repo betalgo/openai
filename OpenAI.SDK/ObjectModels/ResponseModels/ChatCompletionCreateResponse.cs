@@ -6,7 +6,6 @@ namespace OpenAI.ObjectModels.ResponseModels;
 public record ChatCompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt
 {
     [JsonPropertyName("model")] public string Model { get; set; }
-    [JsonPropertyName("object")] public string Type { get; set; }
 
     [JsonPropertyName("choices")] public List<ChatChoiceResponse>? Choices { get; set; }
 
