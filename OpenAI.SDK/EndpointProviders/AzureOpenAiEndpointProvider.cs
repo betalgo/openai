@@ -127,12 +127,12 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string AudioCreateTranscription()
     {
-        return $"/{Prefix}/audio/transcriptions{QueryString}";
+        return $"{Prefix}/audio/transcriptions{QueryString}";
     }
 
     public string AudioCreateTranslation()
     {
-        return $"/{Prefix}/audio/translation{QueryString}";
+        return $"{Prefix}/audio/translation{QueryString}";
     }
 
     private string Files()
