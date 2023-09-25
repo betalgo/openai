@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
 using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
@@ -37,8 +38,10 @@ public record FineTuneCreateRequest : IOpenAiModels.IModel
 
     /// <summary>
     ///     The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.
+    ///     Set -1 for "auto value
     /// </summary>
     [JsonPropertyName("n_epochs")]
+    [JsonConverter(typeof(NEpochsConverter))]
     public int? NEpochs { get; set; }
 
     /// <summary>

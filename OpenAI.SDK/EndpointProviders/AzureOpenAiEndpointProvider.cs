@@ -1,4 +1,5 @@
 using System.Net;
+using OpenAI.ObjectModels.RequestModels;
 
 namespace OpenAI.EndpointProviders;
 
@@ -100,6 +101,23 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/fine_tuning/jobs{QueryString}";
     }
 
+    public string FineTuningJobList(FineTuningJobListRequest? fineTuningJobListRequest)
+    {
+        var url = $"/{Prefix}/fine_tuning/jobs";
+        if (fineTuningJobListRequest != null)
+        {
+            var queryParams = new List<string>();
+            if (fineTuningJobListRequest.After != null)
+                queryParams.Add($"after={WebUtility.UrlEncode(fineTuningJobListRequest.After)}");
+            if (fineTuningJobListRequest.Limit.HasValue)
+                queryParams.Add($"limit={fineTuningJobListRequest.Limit.Value}");
+        
+            if (queryParams.Any())
+                url = $"{url}{QueryString}&{string.Join("&", queryParams)}";
+        }
+        return url;
+    }
+
     public string FineTuningJobList()
     {
         return $"{Prefix}/fine_tuning/jobs{QueryString}";
@@ -120,9 +138,9 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}/events{QueryString}";
     }
 
-    public string FineTuningJobDelete(string fineTuningJobId)
+    public string ModelsDelete(string modelId)
     {
-        return $"{Prefix}/models/{fineTuningJobId}{QueryString}";
+        return $"{Prefix}/models/{modelId}{QueryString}";
     }
 
     public string EmbeddingCreate()

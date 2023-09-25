@@ -1,4 +1,7 @@
-﻿namespace OpenAI.EndpointProviders;
+﻿using System.Net;
+using OpenAI.ObjectModels.RequestModels;
+
+namespace OpenAI.EndpointProviders;
 
 internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 {
@@ -104,9 +107,21 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"/{_apiVersion}/fine_tuning/jobs";
     }
 
-    public string FineTuningJobList()
+    public string FineTuningJobList(FineTuningJobListRequest? fineTuningJobListRequest)
     {
-        return $"/{_apiVersion}/fine_tuning/jobs";
+        var url = $"/{_apiVersion}/fine_tuning/jobs";
+        if (fineTuningJobListRequest != null)
+        {
+            var queryParams = new List<string>();
+            if (fineTuningJobListRequest.After != null)
+                queryParams.Add($"after={WebUtility.UrlEncode(fineTuningJobListRequest.After)}");
+            if (fineTuningJobListRequest.Limit.HasValue)
+                queryParams.Add($"limit={fineTuningJobListRequest.Limit.Value}");
+        
+            if (queryParams.Any())
+                url = $"{url}?{string.Join("&", queryParams)}";
+        }
+        return url;
     }
 
     public string FineTuningJobRetrieve(string fineTuningJobId)
@@ -124,9 +139,9 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"/{_apiVersion}/fine_tuning/jobs/{fineTuningJobId}/events";
     }
 
-    public string FineTuningJobDelete(string fineTuningJobId)
+    public string ModelsDelete(string modelId)
     {
-        return $"/{_apiVersion}/models/{fineTuningJobId}";
+        return $"/{_apiVersion}/models/{modelId}";
     }
 
     public string EmbeddingCreate()

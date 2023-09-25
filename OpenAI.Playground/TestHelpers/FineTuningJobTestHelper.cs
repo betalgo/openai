@@ -11,6 +11,13 @@ internal static class FineTuningJobTestHelper
     {
         ConsoleExtensions.WriteLine("Run Case Study Is The Model Making Untrue Statements:", ConsoleColor.Cyan);
 
+        var jobs = await sdk.FineTuningJob.ListFineTuningJobs();
+        //print all jobs
+        foreach (var job in jobs.Data)
+        {
+            Console.WriteLine(job.FineTunedModel);
+        } 
+
         try
         {
             const string fileName = "FineTuningJobSample2.jsonl";
@@ -36,7 +43,11 @@ internal static class FineTuningJobTestHelper
                 Model = Models.Gpt_3_5_Turbo
             });
 
-            var listFineTuningJobEventsStream = await sdk.FineTuningJob.ListFineTuningJobEvents(createFineTuningJobResponse.Id, true);
+            var listFineTuningJobEventsStream = await sdk.FineTuningJob.ListFineTuningJobEvents(new FineTuningJobListEventsRequest
+            {
+                FineTuningJobId = createFineTuningJobResponse.Id
+            }, true);
+
             using var streamReader = new StreamReader(listFineTuningJobEventsStream);
             while (!streamReader.EndOfStream)
             {
@@ -59,13 +70,17 @@ internal static class FineTuningJobTestHelper
 
             do
             {
-                var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest
+                var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
                 {
-                    MaxTokens = 1,
-                    Prompt = @"https://t.co/f93xEd2 Excited to share my latest blog post! ->",
-                    Model = retrieveFineTuningJobResponse.FineTunedModel,
-                    LogProbs = 2
+                    Messages = new List<ChatMessage>
+                    {
+                        ChatMessage.FromSystem("You are Marv, a chatbot that reluctantly answers questions with sarcastic responses."),
+                        ChatMessage.FromUser("How many pounds are in a kilogram?"),
+                    },
+                    MaxTokens = 50,
+                    Model = retrieveFineTuningJobResponse.FineTunedModel
                 });
+
                 if (completionResult.Successful)
                 {
                     Console.WriteLine(completionResult.Choices.FirstOrDefault());
@@ -87,7 +102,7 @@ internal static class FineTuningJobTestHelper
         var FineTuningJobs = await sdk.FineTuningJob.ListFineTuningJobs();
         foreach (var datum in FineTuningJobs.Data)
         {
-            await sdk.FineTuningJob.DeleteFineTuningJob(datum.FineTunedModel);
+            await sdk.Models.DeleteModel(datum.FineTunedModel);
         }
     }
 }

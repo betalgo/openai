@@ -5,7 +5,6 @@ using OpenAI.Interfaces;
 
 namespace OpenAI.Managers;
 
-//TODO Find a way to show default request values in documentation
 public partial class OpenAIService : IOpenAIService, IDisposable
 {
     private readonly bool _disposeHttpClient;

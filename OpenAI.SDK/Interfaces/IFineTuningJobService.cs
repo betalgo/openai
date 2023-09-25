@@ -22,9 +22,10 @@ public interface IFineTuningJobService
     /// <summary>
     ///     List your organization's fine-tuning jobs
     /// </summary>
+    /// <param name="fineTuningJobListRequest"></param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<FineTuningJobListResponse> ListFineTuningJobs(CancellationToken cancellationToken = default);
+    Task<FineTuningJobListResponse> ListFineTuningJobs(FineTuningJobListRequest? fineTuningJobListRequest =null,CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Gets info about the fine-tuning job.
@@ -45,7 +46,7 @@ public interface IFineTuningJobService
     /// <summary>
     ///     Get fine-grained status updates for a fine-tuning job.
     /// </summary>
-    /// <param name="fineTuningJobId">The ID of the fine-tuning job to get events for.</param>
+    /// <param name="model"></param>
     /// <param name="stream">
     ///     Whether to stream events for the fine-tuning job. If set to true, events will be sent as data-only server-sent events
     ///     as they become available. The stream will terminate with a data: [DONE] message when the job is finished
@@ -54,7 +55,5 @@ public interface IFineTuningJobService
     /// </param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<Stream> ListFineTuningJobEvents(string fineTuningJobId, bool? stream = null, CancellationToken cancellationToken = default);
-
-    Task DeleteFineTuningJob(string fineTuningJobId, CancellationToken cancellationToken = default);
+    Task<Stream> ListFineTuningJobEvents(FineTuningJobListEventsRequest model, bool? stream = null, CancellationToken cancellationToken = default);
 }

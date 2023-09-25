@@ -1,4 +1,5 @@
-﻿using OpenAI.Extensions;
+﻿using System.Net;
+using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
@@ -13,32 +14,25 @@ namespace OpenAI.Managers
             return await _httpClient.PostAndReadAsAsync<FineTuningJobResponse>(_endpointProvider.FineTuningJobCreate(), createFineTuningJobRequest, cancellationToken);
         }
 
-        public async Task<FineTuningJobListResponse> ListFineTuningJobs(CancellationToken cancellationToken = default)
+        public async Task<FineTuningJobListResponse> ListFineTuningJobs(FineTuningJobListRequest? fineTuningJobListRequest, CancellationToken cancellationToken = default)
         {
-            return (await _httpClient.GetFromJsonAsync<FineTuningJobListResponse>(_endpointProvider.FineTuningJobList(), cancellationToken))!;
+
+            return (await _httpClient.GetFromJsonAsync<FineTuningJobListResponse>(_endpointProvider.FineTuningJobList(fineTuningJobListRequest), cancellationToken))!;
         }
 
-        public async Task<FineTuningJobResponse> RetrieveFineTuningJob(string FineTuningJobId, CancellationToken cancellationToken = default)
+        public async Task<FineTuningJobResponse> RetrieveFineTuningJob(string fineTuningJobId, CancellationToken cancellationToken = default)
         {
-            return (await _httpClient.GetFromJsonAsync<FineTuningJobResponse>(_endpointProvider.FineTuningJobRetrieve(FineTuningJobId), cancellationToken))!;
+            return (await _httpClient.GetFromJsonAsync<FineTuningJobResponse>(_endpointProvider.FineTuningJobRetrieve(fineTuningJobId), cancellationToken))!;
         }
 
-        public async Task<FineTuningJobResponse> CancelFineTuningJob(string FineTuningJobId, CancellationToken cancellationToken = default)
+        public async Task<FineTuningJobResponse> CancelFineTuningJob(string fineTuningJobId, CancellationToken cancellationToken = default)
         {
-            return await _httpClient.PostAndReadAsAsync<FineTuningJobResponse>(_endpointProvider.FineTuningJobCancel(FineTuningJobId), new FineTuningJobCancelRequest
-            {
-                FineTuningJobId = FineTuningJobId
-            }, cancellationToken);
+            return await _httpClient.PostAndReadAsAsync<FineTuningJobResponse>(_endpointProvider.FineTuningJobCancel(fineTuningJobId),null, cancellationToken: cancellationToken);
         }
 
-        public async Task<Stream> ListFineTuningJobEvents(string FineTuningJobId, bool? stream = null, CancellationToken cancellationToken = default)
+        public async Task<Stream> ListFineTuningJobEvents(FineTuningJobListEventsRequest fineTuningJobRequestModel, bool? stream = null, CancellationToken cancellationToken = default)
         {
-            return await _httpClient.GetStreamAsync(_endpointProvider.FineTuningJobListEvents(FineTuningJobId), cancellationToken);
-        }
-
-        public async Task DeleteFineTuningJob(string FineTuningJobId, CancellationToken cancellationToken = default)
-        {
-            await _httpClient.DeleteAsync(_endpointProvider.FineTuningJobDelete(FineTuningJobId), cancellationToken);
+            return await _httpClient.GetStreamAsync(_endpointProvider.FineTuningJobListEvents(fineTuningJobRequestModel.FineTuningJobId), cancellationToken);
         }
     }
 }
