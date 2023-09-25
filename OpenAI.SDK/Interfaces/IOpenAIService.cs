@@ -28,6 +28,11 @@ public interface IOpenAIService
 
     public IFineTuneService FineTunes { get; }
 
+    /// <summary>
+    /// Manage fine-tuning jobs to tailor a model to your specific training data.
+    /// </summary>
+    public IFineTuningJobService FineTuningJob { get; }
+
     public IModerationService Moderation { get; }
 
     /// <summary>
