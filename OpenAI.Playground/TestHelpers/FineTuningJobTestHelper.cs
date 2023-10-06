@@ -96,13 +96,4 @@ internal static class FineTuningJobTestHelper
             throw;
         }
     }
-
-    public static async Task CleanUpAllFineTunings(IOpenAIService sdk)
-    {
-        var FineTuningJobs = await sdk.FineTuningJob.ListFineTuningJobs();
-        foreach (var datum in FineTuningJobs.Data)
-        {
-            await sdk.Models.DeleteModel(datum.FineTunedModel);
-        }
-    }
 }
