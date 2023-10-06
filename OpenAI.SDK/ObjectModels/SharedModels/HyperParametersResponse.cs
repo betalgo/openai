@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
 
 namespace OpenAI.ObjectModels.SharedModels;
 
@@ -9,7 +10,9 @@ public record HyperParametersResponse
     [JsonPropertyName("learning_rate_multiplier")]
     public float? LearningRateMultiplier { get; set; }
 
-    [JsonPropertyName("n_epochs")] public int? NEpochs { get; set; }
+    [JsonPropertyName("n_epochs")]
+    [JsonConverter(typeof(NEpochsConverter))]
+    public int? NEpochs { get; set; }
 
     [JsonPropertyName("prompt_loss_weight")]
     public float? PromptLossWeight { get; set; }
