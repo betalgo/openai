@@ -17,7 +17,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         _deploymentId = deploymentId;
     }
 
-    private string Prefix => $"/{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
+    private string Prefix => $"{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
     private string QueryString => $"?api-version={_apiVersion}";
 
 
@@ -58,12 +58,12 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string FileRetrieve(string fileId)
     {
-        return $"/{Prefix}/files/{fileId}{QueryString}";
+        return $"{Prefix}/files/{fileId}{QueryString}";
     }
 
     public string FileRetrieveContent(string fileId)
     {
-        return $"/{Prefix}/files/{fileId}/content{QueryString}";
+        return $"{Prefix}/files/{fileId}/content{QueryString}";
     }
 
     public string FineTuneCreate()
@@ -103,7 +103,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string FineTuningJobList(FineTuningJobListRequest? fineTuningJobListRequest)
     {
-        var url = $"/{Prefix}/fine_tuning/jobs";
+        var url = $"{Prefix}/fine_tuning/jobs";
         if (fineTuningJobListRequest != null)
         {
             var queryParams = new List<string>();
