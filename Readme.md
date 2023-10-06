@@ -38,6 +38,7 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 - [x] [Edit](https://github.com/betalgo/openai/wiki/Edit) 
 - [x] [Embeddings](https://github.com/betalgo/openai/wiki/Embeddings) 
 - [x] [Files](https://github.com/betalgo/openai/wiki/Files) 
+- [x] [Chatgpt Fine-Tuning](https://github.com/betalgo/openai/wiki/Chatgpt-Fine-Tuning) 
 - [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning)
 - [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
 - [x] [Tokenizer-GPT3](https://github.com/betalgo/openai/wiki/Tokenizer)
