@@ -38,6 +38,7 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 - [x] [Edit](https://github.com/betalgo/openai/wiki/Edit) 
 - [x] [Embeddings](https://github.com/betalgo/openai/wiki/Embeddings) 
 - [x] [Files](https://github.com/betalgo/openai/wiki/Files) 
+- [x] [Chatgpt Fine-Tuning](https://github.com/betalgo/openai/wiki/Chatgpt-Fine-Tuning) 
 - [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning)
 - [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
 - [x] [Tokenizer-GPT3](https://github.com/betalgo/openai/wiki/Tokenizer)
@@ -222,6 +223,10 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 7.2.0
+- Added Chatgpt Finetununig support thanks to @aghimir3 
+- Default Azure Openai version increased thanks to @mac8005
+- Fixed Azure Openai Audio endpoint thanks to @mac8005
 ### 7.1.5
 - Added error handling for PlatformNotSupportedException in PostAsStreamAsync when using HttpClient.Send, now falls back to SendRequestPreNet6 for compatibility on platforms like MAUI, Mac. Thanks to  @Almis90
 - We now have a function caller describe method that automatically generates function descriptions. This method is available in the utilities library. Thanks to @vbandi
@@ -249,15 +254,3 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 	//Now
 	var openAiService = new OpenAIService(options, httpClient);
 	```
-### 6.8.6
-- Updated Azure OpenAI default API version to the preview version to support ChatGPT. thanks to all [issue reporters](https://github.com/betalgo/openai/issues/181)
-- Added support for an optional chat `name` field. thanks to @shanepowell
-- Breaking Change
-   - `FineTuneCreateRequest.PromptLossWeight` converto to float thanks to @JohnJ0808
-### 6.8.5
-- Mostly bug fixes
-- Fixed Moderation functions. https://github.com/betalgo/openai/issues/214 thanks to @scolmarg @AbdelAzizMohamedMousa @digitalvir
-- Added File Stream support for Whisper, Thanks to @Swimburger 
-- Fixed Whisper default response type, Thanks to @Swimburger 
-- Performance improvements and code clean up,again Thanks to @Swimburger 👏
-- Code clenaup, Thanks to @WeihanLi
