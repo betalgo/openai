@@ -13,6 +13,7 @@ public static class HttpClientExtensions
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
         }, cancellationToken);
+        response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
     }
 
@@ -47,6 +48,7 @@ public static class HttpClientExtensions
     {
         var responseTask = client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
         var response = responseTask.GetAwaiter().GetResult();
+        response.EnsureSuccessStatusCode();
         return response;
     }
 
@@ -62,18 +64,21 @@ public static class HttpClientExtensions
     public static async Task<TResponse> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default)
     {
         var response = await client.PostAsync(uri, content, cancellationToken);
+        response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
     }
 
     public static async Task<string> PostFileAndReadAsStringAsync(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default)
     {
         var response = await client.PostAsync(uri, content, cancellationToken);
+        response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStringAsync(cancellationToken) ?? throw new InvalidOperationException();
     }
 
     public static async Task<TResponse> DeleteAndReadAsAsync<TResponse>(this HttpClient client, string uri, CancellationToken cancellationToken = default)
     {
         var response = await client.DeleteAsync(uri, cancellationToken);
+        response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
     }
 
@@ -99,6 +104,7 @@ public static class HttpClientExtensions
     public static async Task<Stream> GetStreamAsync(this HttpClient client, string requestUri, CancellationToken cancellationToken)
     {
         var response = await client.GetAsync(requestUri, cancellationToken);
+        response.EnsureSuccessStatusCode();
         return await response.Content.ReadAsStreamAsync(cancellationToken);
     }
 
