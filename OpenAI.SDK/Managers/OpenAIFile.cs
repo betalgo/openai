@@ -45,8 +45,6 @@ public partial class OpenAIService : IFileService
     {
         var response = await _httpClient.GetAsync(_endpointProvider.FileRetrieveContent(fileId), cancellationToken);
 
-        response.EnsureSuccessStatusCode();
-
         if (typeof(T) == typeof(string))
         {
             return new FileContentResponse<T?>

@@ -224,6 +224,11 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### Version 7.3.1
+- **Reverting a breking change which will be also Breaking Changes(only for 7.3.0):**
+    - Reverting the usage of `EnsureStatusCode()` which caused the loss of error information. Initially, I thought it would help in implementing HTTP retry tools, but now I believe it is a bad idea for two reasons.
+        1. You can't simply retry if the request wasn't successful because it could fail for various reasons. For example, you might have used too many tokens in your request, causing OpenAI to reject the response, or you might have tried to use a nonexistent model. It would be better to use the Error object in your retry rules. All responses are already derived from this base object.
+        2. We will lose error response data.
 ### Version 7.3.0
 - Updated Moderation categories as reported by @dmki.
 - **Breaking Changes:**
