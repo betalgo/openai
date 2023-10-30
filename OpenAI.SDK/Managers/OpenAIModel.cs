@@ -15,4 +15,9 @@ public partial class OpenAIService : IModelService
     {
         return (await _httpClient.GetFromJsonAsync<ModelRetrieveResponse>(_endpointProvider.ModelRetrieve(model), cancellationToken))!;
     }
+
+    public async Task<ModelDeleteResponse?> DeleteModel(string modelId, CancellationToken cancellationToken = default)
+    {
+        return await (await _httpClient.DeleteAsync(_endpointProvider.ModelsDelete(modelId), cancellationToken)).Content.ReadFromJsonAsync<ModelDeleteResponse>(cancellationToken: cancellationToken);
+    }
 }

@@ -20,7 +20,7 @@ public class OpenAiOptions
 {
     private const string OpenAiDefaultApiVersion = "v1";
     private const string OpenAiDefaultBaseDomain = "https://api.openai.com/";
-    private const string AzureOpenAiDefaultApiVersion = "2023-03-15-preview";
+    private const string AzureOpenAiDefaultApiVersion = "2023-09-01-preview";
 
 
     /// <summary>

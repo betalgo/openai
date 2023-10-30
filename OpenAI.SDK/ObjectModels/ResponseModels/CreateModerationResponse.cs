@@ -27,7 +27,16 @@ public record Categories
 
     [JsonPropertyName("hate/threatening")] public bool HateThreatening { get; set; }
 
+    [JsonPropertyName("harassment")] public bool Harassment { get; set; }
+
+    [JsonPropertyName("harassment/threatening")]
+    public bool HarassmentThreatening { get; set; }
+
     [JsonPropertyName("self-harm")] public bool SelfHarm { get; set; }
+    [JsonPropertyName("self-harm/intent")] public bool SelfHarmIntent { get; set; }
+
+    [JsonPropertyName("self-harm/instructions")]
+    public bool SelfHarmInstructions { get; set; }
 
     [JsonPropertyName("sexual")] public bool Sexual { get; set; }
 
@@ -44,7 +53,16 @@ public record CategoryScores
 
     [JsonPropertyName("hate/threatening")] public float HateThreatening { get; set; }
 
+    [JsonPropertyName("harassment")] public float Harassment { get; set; }
+
+    [JsonPropertyName("harassment/threatening")]
+    public float HarassmentThreatening { get; set; }
+
     [JsonPropertyName("self-harm")] public float SelfHarm { get; set; }
+    [JsonPropertyName("self-harm/intent")] public float SelfHarmIntent { get; set; }
+
+    [JsonPropertyName("self-harm/instructions")]
+    public float SelfHarmInstructions { get; set; }
 
     [JsonPropertyName("sexual")] public float Sexual { get; set; }
 
