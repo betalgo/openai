@@ -13,7 +13,8 @@ Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E
 #### This library used be to known as `Betalgo.OpenAI.GPT3`, now it has a new package Id `Betalgo.OpenAI`.
 
 ## Checkout the wiki page: 
-https://github.com/betalgo/openai/wiki
+https://github.com/betalgo/openai/wiki  
+or  [![Static Badge](https://img.shields.io/badge/API%20Docs-RobiniaDocs-43bc00?logo=readme&logoColor=white)](https://www.robiniadocs.com/d/betalgo-openai/api/OpenAI.ObjectModels.RequestModels.ChatMessage.html)
 ## Checkout new ***experimantal*** utilities library:
 [![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
 ```
@@ -38,6 +39,7 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 - [x] [Edit](https://github.com/betalgo/openai/wiki/Edit) 
 - [x] [Embeddings](https://github.com/betalgo/openai/wiki/Embeddings) 
 - [x] [Files](https://github.com/betalgo/openai/wiki/Files) 
+- [x] [Chatgpt Fine-Tuning](https://github.com/betalgo/openai/wiki/Chatgpt-Fine-Tuning) 
 - [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning)
 - [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
 - [x] [Tokenizer-GPT3](https://github.com/betalgo/openai/wiki/Tokenizer)
@@ -222,6 +224,20 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### Version 7.3.1
+- **Reverting a breking change which will be also Breaking Changes(only for 7.3.0):**
+    - Reverting the usage of `EnsureStatusCode()` which caused the loss of error information. Initially, I thought it would help in implementing HTTP retry tools, but now I believe it is a bad idea for two reasons.
+        1. You can't simply retry if the request wasn't successful because it could fail for various reasons. For example, you might have used too many tokens in your request, causing OpenAI to reject the response, or you might have tried to use a nonexistent model. It would be better to use the Error object in your retry rules. All responses are already derived from this base object.
+        2. We will lose error response data.
+### Version 7.3.0
+- Updated Moderation categories as reported by @dmki.
+- **Breaking Changes:**
+    - Introduced the use of `EnsureStatusCode()` after making requests.Please adjust your code accordingly for handling failure cases. Thanks to @miroljub1995 for reporting.
+    - Previously, we used to override paths in the base domain, but this behavior has now changed. If you were using `abc.com/mypath` as the base domain, we used to ignore `/mypath`. This will no longer be the case, and the code will now respect `/mypath`. Thanks to @Hzw576816 for reporting.
+### 7.2.0
+- Added Chatgpt Finetununig support thanks to @aghimir3 
+- Default Azure Openai version increased thanks to @mac8005
+- Fixed Azure Openai Audio endpoint thanks to @mac8005
 ### 7.1.5
 - Added error handling for PlatformNotSupportedException in PostAsStreamAsync when using HttpClient.Send, now falls back to SendRequestPreNet6 for compatibility on platforms like MAUI, Mac. Thanks to  @Almis90
 - We now have a function caller describe method that automatically generates function descriptions. This method is available in the utilities library. Thanks to @vbandi
@@ -229,35 +245,3 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 - This release was a bit late and took longer than expected due to a couple of reasons. The future was quite big, and I couldn't cover all possibilities. However, I believe I have covered most of the function definitions (with some details missing). Additionally, I added an option to build it manually. If you don't know what I mean, you don't need to worry. I plan to cover the rest of the function definition in the next release. Until then, you can discover this by playing in the playground or in the source code. This version also support using other libraries to export your function definition.
 - We now have support for functions! Big cheers to @rzubek for completing most of this feature.
 - Additionally, we have made bug fixes and improvements. Thanks to @choshinyoung, @yt3trees, @WeihanLi, @N0ker, and all the bug reporters. (Apologies if I missed any names. Please let me know if I missed your name and you have a commit.) 
-### 7.1.2-beta
-- Bugfix https://github.com/betalgo/openai/pull/302
-- Added support for Function role https://github.com/betalgo/openai/issues/303
-### 7.1.0-beta
-- Function Calling: We're releasing this version to bring in a new feature that lets you call functions faster. But remember, this version might not be perfectly stable and we might change it a lot later. A big shout-out to @rzubek for helping us add this feature. Although I liked his work, I didn't have enough time to look into it thoroughly. Still, the tests I did showed it was working, so I decided to add his feature to our code. This lets everyone use it now. Even though I'm busy moving houses and didn't have much time, seeing @rzubek's help made things a lot easier for me.
-- Support for New Models: This update also includes support for new models that OpenAI recently launched. I've also changed the naming style to match OpenAI's. Model names will no longer start with 'chat'; instead, they'll start with 'gpt_3_5' and so on.
-### 7.0.0
-- The code now supports .NET 7.0. Big cheers to @BroMarduk for making this happen.
-- The library now automatically disposes of the Httpclient when it's created by the constructor. This feature is thanks to @BroMarduk.
-- New support has been added for using more than one instance at the same time. Check out this [link](https://github.com/betalgo/openai/wiki/Working-with-Multiple-Instances) for more details. Thanks to @remixtedi for bringing this to my attention.
-- A lot of small improvements have been done by @BroMarduk.
-- **Breaking Changes** 😢
-  - I've removed 'GPT3' from the namespace, so you might need to modify some aspects of your project. But don't worry, it's pretty simple! For instance, instead of writing `using OpenAI.GPT3.Interfaces`, you'll now write `using OpenAI.Interfaces`.
-  - The order of the OpenAI constructor parameters has changed. It now takes 'options' first, then 'httpclient'.
-    ```csharp
-	//Before
-	var openaiService = new OpenAIService(httpClient, options);
-	//Now
-	var openaiService = new OpenAIService(options, httpClient);
-	```
-### 6.8.6
-- Updated Azure OpenAI default API version to the preview version to support ChatGPT. thanks to all [issue reporters](https://github.com/betalgo/openai/issues/181)
-- Added support for an optional chat `name` field. thanks to @shanepowell
-- Breaking Change
-   - `FineTuneCreateRequest.PromptLossWeight` converto to float thanks to @JohnJ0808
-### 6.8.5
-- Mostly bug fixes
-- Fixed Moderation functions. https://github.com/betalgo/openai/issues/214 thanks to @scolmarg @AbdelAzizMohamedMousa @digitalvir
-- Added File Stream support for Whisper, Thanks to @Swimburger 
-- Fixed Whisper default response type, Thanks to @Swimburger 
-- Performance improvements and code clean up,again Thanks to @Swimburger 👏
-- Code clenaup, Thanks to @WeihanLi
