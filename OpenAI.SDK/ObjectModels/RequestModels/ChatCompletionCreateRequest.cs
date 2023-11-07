@@ -170,4 +170,24 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// </summary>
     [JsonPropertyName("user")]
     public string User { get; set; }
+    
+    /// <summary>
+    ///  An object specifying the format that the model must output. Used to enable JSON mode.
+    ///  Setting to `json_object` enables JSON mode. This guarantees that the message the model generates is valid JSON.
+    ///  Note that your system prompt must still instruct the model to produce JSON, and to help ensure you don't forget,
+    ///  the API will throw an error if the string `JSON` does not appear in your system message. Also note that the message
+    ///  content may be partial (i.e. cut off) if `finish_reason="length"`, which indicates the generation exceeded
+    ///  `max_tokens` or the conversation exceeded the max context length.
+    ///  Must be one of `text` or `json_object`.
+    /// </summary>
+    [JsonPropertyName("response_format")]
+    public string ResponseFormat { get; set; }
+    
+    /// <summary>
+    ///  This feature is in Beta. If specified, our system will make a best effort to sample deterministically, such that
+    ///  repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed,
+    ///  and you should refer to the system_fingerprint response parameter to monitor changes in the backend.
+    /// </summary>
+    [JsonPropertyName("seed")]
+    public int Seed { get; set; }
 }
