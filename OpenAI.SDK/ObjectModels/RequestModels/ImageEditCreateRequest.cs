@@ -1,4 +1,7 @@
-﻿namespace OpenAI.ObjectModels.RequestModels;
+﻿using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.SharedModels;
+
+namespace OpenAI.ObjectModels.RequestModels;
 
 public record ImageEditCreateRequest : SharedImageRequestBaseModel
 {
