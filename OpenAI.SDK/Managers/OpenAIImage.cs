@@ -47,7 +47,7 @@ public partial class OpenAIService : IImageService
 
         if (imageEditCreateRequest.Model != null)
         {
-            multipartContent.Add(new StringContent(imageEditCreateRequest.Model.ToString()!), "model");
+            multipartContent.Add(new StringContent(imageEditCreateRequest.Model!), "model");
         }
 
         if (imageEditCreateRequest.Mask != null)
@@ -91,7 +91,7 @@ public partial class OpenAIService : IImageService
 
         if (imageEditCreateRequest.Model != null)
         {
-            multipartContent.Add(new StringContent(imageEditCreateRequest.Model.ToString()!), "model");
+            multipartContent.Add(new StringContent(imageEditCreateRequest.Model!), "model");
         }
 
         multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
