@@ -27,6 +27,7 @@ public record ImageCreateRequest : SharedImageRequestBaseModel, IOpenAiModels.IU
     ///     The quality of the image that will be generated. Must be hd. 
     ///     Hd creates images with finer details and greater consistency across the image. 
     ///     This param is only supported for dall-e-3 model.
+    ///     <br /><br />Check <see cref="StaticValues.ImageStatics.Size"/> for possible values
     /// </summary>
     [JsonPropertyName("quality")]
     public string? Quality { get; set; }
@@ -35,6 +36,7 @@ public record ImageCreateRequest : SharedImageRequestBaseModel, IOpenAiModels.IU
     ///     The style of the generated images. Must be one of vivid or natural. 
     ///     Vivid causes the model to lean towards generating hyper-real and dramatic images. 
     ///     Natural causes the model to produce more natural, less hyper-real looking images. This param is only supported for dall-e-3. 
+    ///     <br /><br />Check <see cref="StaticValues.ImageStatics.Style"/> for possible values
     /// </summary>
     [JsonPropertyName("style")]
     public string? Style { get; set; }
