@@ -80,6 +80,7 @@ public static class Models
         Gpt_3_5_Turbo_16k_0613,
         Gpt_3_5_Turbo_0613,
         Gpt_3_5_Turbo_1106,
+        Gpt_3_5_Turbo_Instruct,
 
         Gpt_4,
         Gpt_4_0314,
@@ -271,6 +272,11 @@ public static class Models
     ///     4,096 tokens	Up to Sep 2021
     /// </summary>
     public static string Gpt_3_5_Turbo_16k_0613 => "gpt-3.5-turbo-16k-0613";
+    /// <summary>
+    ///     Similar capabilities as text-davinci-003 but compatible with legacy Completions endpoint and not Chat Completions.
+    ///     4,096 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_3_5_Turbo_Instruct => "gpt-3.5-turbo-instruct";
 
 
     public static string WhisperV1 => "whisper-1";
@@ -355,6 +361,7 @@ public static class Models
             Model.Gpt_3_5_Turbo_1106 => Gpt_3_5_Turbo_1106,
             Model.Gpt_3_5_Turbo_16k_0613 => Gpt_3_5_Turbo_16k_0613,
             Model.Gpt_3_5_Turbo_16k => Gpt_3_5_Turbo_16k,
+            Model.Gpt_3_5_Turbo_Instruct => Gpt_3_5_Turbo_Instruct,
             Model.WhisperV1 => WhisperV1,
             Model.TextEmbeddingAdaV2 => TextEmbeddingAdaV2,
             Model.Gpt_4 => Gpt_4,
