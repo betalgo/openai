@@ -87,7 +87,10 @@ public static class Models
         Gpt_4_32k_0314,
         Gpt_4_32k_0613,
 
-        WhisperV1
+        WhisperV1,
+
+        Dall_e_2,
+        Dall_e_3
     }
 
     public enum Subject
@@ -249,6 +252,15 @@ public static class Models
     public static string WhisperV1 => "whisper-1";
 
     /// <summary>
+    /// The previous DALL·E model released in Nov 2022. The 2nd iteration of DALL·E with more realistic, accurate, and 4x greater resolution images than the original model.
+    /// </summary>
+    public static string Dall_e_2 => "dall-e-2";
+    /// <summary>
+    /// The latest DALL·E model released in Nov 2023. 
+    /// </summary>
+    public static string Dall_e_3 => "dall-e-3";
+
+    /// <summary>
     ///     This method does not guarantee returned model exists.
     /// </summary>
     /// <param name="subject"></param>
@@ -326,6 +338,8 @@ public static class Models
             Model.Gpt_4_32k_0314 => Gpt_4_32k_0314,
             Model.Gpt_4_0613 => Gpt_4_0613,
             Model.Gpt_4_32k_0613 => Gpt_4_32k_0613,
+            Model.Dall_e_2 => Dall_e_2,
+            Model.Dall_e_3 => Dall_e_3,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
