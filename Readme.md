@@ -26,8 +26,10 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 [Laser Cat Eyes](https://lasercateyes.com/)
 
 [@oferavnery](https://github.com/oferavnery)
+[@AnukarOP](https://github.com/AnukarOP)
 [@Removable](https://github.com/Removable)
 ## Features
+- [ ] Dev day Updates (Some updates are currently available, while others will be released soon. Please follow the changelogs for more information.)
 - [X] [Function Calling](https://github.com/betalgo/openai/wiki/Function-Calling)
 - [ ] Plugins (coming soon)
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
