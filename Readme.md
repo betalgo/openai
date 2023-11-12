@@ -15,7 +15,7 @@ Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki  
 or  [![Static Badge](https://img.shields.io/badge/API%20Docs-RobiniaDocs-43bc00?logo=readme&logoColor=white)](https://www.robiniadocs.com/d/betalgo-openai/api/OpenAI.ObjectModels.RequestModels.ChatMessage.html)
-## Checkout new ***experimantal*** utilities library:
+## Checkout new ***experimental*** utilities library:
 [![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
 ```
 Install-Package Betalgo.OpenAI.Utilities
@@ -26,8 +26,10 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 [Laser Cat Eyes](https://lasercateyes.com/)
 
 [@oferavnery](https://github.com/oferavnery)
+[@AnukarOP](https://github.com/AnukarOP)
 [@Removable](https://github.com/Removable)
 ## Features
+- [ ] Dev day Updates (Some updates are currently available, while others will be released soon. Please follow the changelogs for more information.)
 - [X] [Function Calling](https://github.com/betalgo/openai/wiki/Function-Calling)
 - [ ] Plugins (coming soon)
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
@@ -224,6 +226,10 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### Version 7.4.0
+- Added support for Dall-e 3, thanks to @belaszalontai and @szabe74
+- Added support for GPT-4-Turbo/Vision thanks to @ChaseIngersol
+- Models are updated with latest.
 ### Version 7.3.1
 - **Reverting a breking change which will be also Breaking Changes(only for 7.3.0):**
     - Reverting the usage of `EnsureStatusCode()` which caused the loss of error information. Initially, I thought it would help in implementing HTTP retry tools, but now I believe it is a bad idea for two reasons.
@@ -241,7 +247,3 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 ### 7.1.5
 - Added error handling for PlatformNotSupportedException in PostAsStreamAsync when using HttpClient.Send, now falls back to SendRequestPreNet6 for compatibility on platforms like MAUI, Mac. Thanks to  @Almis90
 - We now have a function caller describe method that automatically generates function descriptions. This method is available in the utilities library. Thanks to @vbandi
-### 7.1.3
-- This release was a bit late and took longer than expected due to a couple of reasons. The future was quite big, and I couldn't cover all possibilities. However, I believe I have covered most of the function definitions (with some details missing). Additionally, I added an option to build it manually. If you don't know what I mean, you don't need to worry. I plan to cover the rest of the function definition in the next release. Until then, you can discover this by playing in the playground or in the source code. This version also support using other libraries to export your function definition.
-- We now have support for functions! Big cheers to @rzubek for completing most of this feature.
-- Additionally, we have made bug fixes and improvements. Thanks to @choshinyoung, @yt3trees, @WeihanLi, @N0ker, and all the bug reporters. (Apologies if I missed any names. Please let me know if I missed your name and you have a commit.) 
