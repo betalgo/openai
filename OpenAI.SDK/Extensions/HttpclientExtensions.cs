@@ -16,6 +16,22 @@ public static class HttpClientExtensions
         return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
     }
 
+    public static async Task<byte[]> PostAndReadAsByteArrayAsync(this HttpClient client, string uri, object? requestModel, CancellationToken cancellationToken = default)
+    {
+        var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+        }, cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new InvalidOperationException(response.StatusCode.ToString());
+        }
+        
+        return await response.Content.ReadAsByteArrayAsync(cancellationToken) ?? throw new InvalidOperationException();
+    }
+
+
     public static HttpResponseMessage PostAsStreamAsync(this HttpClient client, string uri, object requestModel, CancellationToken cancellationToken = default)
     {
         var settings = new JsonSerializerOptions
