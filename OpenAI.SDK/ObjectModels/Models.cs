@@ -79,6 +79,8 @@ public static class Models
         Gpt_3_5_Turbo_16k,
         Gpt_3_5_Turbo_16k_0613,
         Gpt_3_5_Turbo_0613,
+        Gpt_3_5_Turbo_1106,
+        Gpt_3_5_Turbo_Instruct,
 
         Gpt_4,
         Gpt_4_0314,
@@ -86,8 +88,13 @@ public static class Models
         Gpt_4_32k,
         Gpt_4_32k_0314,
         Gpt_4_32k_0613,
+        Gpt_4_1106_preview,
+        Gpt_4_vision_preview,
 
-        WhisperV1
+        WhisperV1,
+
+        Dall_e_2,
+        Dall_e_3
     }
 
     public enum Subject
@@ -148,6 +155,21 @@ public static class Models
     ///     32,768 tokens	Up to Sep 2021
     /// </summary>
     public static string Gpt_4_32k_0613 => "gpt-4-32k-0613";
+
+    /// <summary>
+    ///     The latest GPT-4 model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more.
+    ///     Returns a maximum of 4,096 output tokens. This preview model is not yet suited for production traffic.
+    ///     128,000 tokens	Up to Apr 2023
+    /// </summary>
+    public static string Gpt_4_1106_preview => "gpt-4-1106-preview";
+
+    /// <summary>
+    ///     Ability to understand images, in addition to all other GPT-4 Turbo capabilties.
+    ///     Returns a maximum of 4,096 output tokens. This is a preview model version and not suited yet for production traffic.
+    ///     128,000 tokens	Up to Apr 2023
+    /// </summary>
+    public static string Gpt_4_vision_preview => "gpt-4-vision-preview";
+    
 
 
     public static string Ada => "ada";
@@ -237,6 +259,12 @@ public static class Models
     ///     4,096 tokens	Up to Sep 2021
     /// </summary>
     public static string Gpt_3_5_Turbo_0613 => "gpt-3.5-turbo-0613";
+    
+    /// <summary>
+    ///     The latest GPT-3.5 Turbo model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more.
+    ///     16,384 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_3_5_Turbo_1106 => "gpt-3.5-turbo-1106";
 
     /// <summary>
     ///     Snapshot of gpt-3.5-turbo from June 13th 2023 with function calling data. Unlike gpt-3.5-turbo,
@@ -244,9 +272,23 @@ public static class Models
     ///     4,096 tokens	Up to Sep 2021
     /// </summary>
     public static string Gpt_3_5_Turbo_16k_0613 => "gpt-3.5-turbo-16k-0613";
+    /// <summary>
+    ///     Similar capabilities as text-davinci-003 but compatible with legacy Completions endpoint and not Chat Completions.
+    ///     4,096 tokens	Up to Sep 2021
+    /// </summary>
+    public static string Gpt_3_5_Turbo_Instruct => "gpt-3.5-turbo-instruct";
 
 
     public static string WhisperV1 => "whisper-1";
+
+    /// <summary>
+    /// The previous DALL·E model released in Nov 2022. The 2nd iteration of DALL·E with more realistic, accurate, and 4x greater resolution images than the original model.
+    /// </summary>
+    public static string Dall_e_2 => "dall-e-2";
+    /// <summary>
+    /// The latest DALL·E model released in Nov 2023. 
+    /// </summary>
+    public static string Dall_e_3 => "dall-e-3";
 
     /// <summary>
     ///     This method does not guarantee returned model exists.
@@ -316,8 +358,10 @@ public static class Models
             Model.ChatGpt3_5Turbo0301 => ChatGpt3_5Turbo0301,
             Model.Gpt_3_5_Turbo_0301 => Gpt_3_5_Turbo_0301,
             Model.Gpt_3_5_Turbo_0613 => Gpt_3_5_Turbo_0613,
+            Model.Gpt_3_5_Turbo_1106 => Gpt_3_5_Turbo_1106,
             Model.Gpt_3_5_Turbo_16k_0613 => Gpt_3_5_Turbo_16k_0613,
             Model.Gpt_3_5_Turbo_16k => Gpt_3_5_Turbo_16k,
+            Model.Gpt_3_5_Turbo_Instruct => Gpt_3_5_Turbo_Instruct,
             Model.WhisperV1 => WhisperV1,
             Model.TextEmbeddingAdaV2 => TextEmbeddingAdaV2,
             Model.Gpt_4 => Gpt_4,
@@ -326,6 +370,10 @@ public static class Models
             Model.Gpt_4_32k_0314 => Gpt_4_32k_0314,
             Model.Gpt_4_0613 => Gpt_4_0613,
             Model.Gpt_4_32k_0613 => Gpt_4_32k_0613,
+            Model.Dall_e_2 => Dall_e_2,
+            Model.Dall_e_3 => Dall_e_3,
+            Model.Gpt_4_1106_preview => Gpt_4_1106_preview,
+            Model.Gpt_4_vision_preview => Gpt_4_vision_preview,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
