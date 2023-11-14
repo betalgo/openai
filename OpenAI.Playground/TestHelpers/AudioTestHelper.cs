@@ -96,10 +96,10 @@ internal static class AudioTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Audio Create Speech Test:", ConsoleColor.DarkCyan);
-            var audioResult = await sdk.Audio.CreateSpeech(new AudioCreateSpeechRequest
+            var audioResult = await sdk.Audio.CreateSpeech<Stream>(new AudioCreateSpeechRequest
             {
                 Model = Models.Tts_1,
-                Input = "This is a speech",
+                Input = "The sixth sick sheikh's sixth sheep's sick",
                 Voice = StaticValues.AudioStatics.Voice.Alloy,
                 ResponseFormat = StaticValues.AudioStatics.ResponseFormat.Mp3,
                 Speed = 1.1f
@@ -107,6 +107,13 @@ internal static class AudioTestHelper
 
             if (audioResult.Successful)
             {
+#if NET6_0_OR_GREATER
+                var audio =audioResult.Data!;
+                // save stream data as mp3 file
+                await using var fileStream = File.Create("SampleData/speech.mp3");
+                await audio.CopyToAsync(fileStream);
+                //await File.WriteAllBytesAsync("SampleData/speech.mp3", audioByteList);
+#endif
                 Console.WriteLine("\n Audio content in mp3 format is successfully generated");
             }
             else

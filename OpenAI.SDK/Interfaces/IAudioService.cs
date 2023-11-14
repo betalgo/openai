@@ -31,5 +31,7 @@ public interface IAudioService
     /// <param name="audioCreateSpeechRequest"></param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<AudioCreateSpeechResponse<byte[]>> CreateSpeech(AudioCreateSpeechRequest audioCreateSpeechRequest, CancellationToken cancellationToken = default);
+    Task<AudioCreateSpeechResponse<T>> CreateSpeech<T>(AudioCreateSpeechRequest audioCreateSpeechRequest, CancellationToken cancellationToken = default);
+
+
 }
