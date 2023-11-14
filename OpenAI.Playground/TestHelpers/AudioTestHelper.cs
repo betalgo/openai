@@ -101,7 +101,7 @@ internal static class AudioTestHelper
                 Model = Models.Tts_1,
                 Input = "The sixth sick sheikh's sixth sheep's sick",
                 Voice = StaticValues.AudioStatics.Voice.Alloy,
-                ResponseFormat = StaticValues.AudioStatics.ResponseFormat.Mp3,
+                ResponseFormat = StaticValues.AudioStatics.CreateSpeechResponseFormat.Mp3,
                 Speed = 1.1f
             });
 
