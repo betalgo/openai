@@ -37,8 +37,8 @@ public class StaticValues
 
         public static class Style
         {
-            public static string Vivid => "Vivid";
-            public static string Natural => "Natural";
+            public static string Vivid => "vivid";
+            public static string Natural => "natural";
         }
     }
 
