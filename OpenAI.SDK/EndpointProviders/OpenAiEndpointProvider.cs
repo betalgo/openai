@@ -42,6 +42,11 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/audio/translations";
     }
 
+    public string AudioCreateSpeech()
+    {
+        return $"{_apiVersion}/audio/speech";
+    }
+
     public string EditCreate()
     {
         return $"{_apiVersion}/edits";
