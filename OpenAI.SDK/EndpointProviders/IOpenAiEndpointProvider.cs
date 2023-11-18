@@ -33,4 +33,5 @@ internal interface IOpenAiEndpointProvider
     string ChatCompletionCreate();
     string AudioCreateTranscription();
     string AudioCreateTranslation();
+    string AudioCreateSpeech();
 }

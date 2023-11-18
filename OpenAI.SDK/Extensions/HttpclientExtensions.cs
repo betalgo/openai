@@ -2,6 +2,7 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.ResponseModels;
 
 namespace OpenAI.Extensions;
 
@@ -15,6 +16,40 @@ public static class HttpClientExtensions
         }, cancellationToken);
         return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
     }
+
+    public static async Task<TResponse> PostAndReadAsDataAsync<TResponse,TData>(this HttpClient client, string uri, object? requestModel, CancellationToken cancellationToken = default) where TResponse : DataBaseResponse<TData>, new()  
+    {
+        var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+        }, cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
+        }
+
+        TData data;
+        if (typeof(TData) == typeof(byte[]))
+        {
+            data = (TData)(object)await response.Content.ReadAsByteArrayAsync(cancellationToken);
+        }
+        else if (typeof(TData) == typeof(Stream))
+        {
+            data = (TData)(object)await response.Content.ReadAsStreamAsync(cancellationToken);
+        }
+        else if (typeof(TData) == typeof(string))
+        {
+            data = (TData)(object)await response.Content.ReadAsStringAsync(cancellationToken);
+        }
+        else
+        {
+            throw new NotSupportedException("Unsupported type for TData");
+        }
+
+        return new TResponse { Data = data };
+    }
+
 
     public static HttpResponseMessage PostAsStreamAsync(this HttpClient client, string uri, object requestModel, CancellationToken cancellationToken = default)
     {

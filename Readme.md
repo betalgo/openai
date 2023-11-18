@@ -6,11 +6,9 @@
 Install-Package Betalgo.OpenAI
 ```
 
-Dotnet SDK for OpenAI Chat GPT, Whisper, GPT-4 ,GPT-3 and DALL·E  
-*Unofficial*.  
+Dotnet SDK for OpenAI  
+*Unofficial*. 
 *OpenAI doesn't have any official .Net SDK.*
-
-#### This library used be to known as `Betalgo.OpenAI.GPT3`, now it has a new package Id `Betalgo.OpenAI`.
 
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki  
@@ -25,6 +23,7 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 [@betalgo](https://github.com/betalgo),
 [Laser Cat Eyes](https://lasercateyes.com/)
 
+[@tylerje](https://github.com/tylerje)
 [@oferavnery](https://github.com/oferavnery)
 [@AnukarOP](https://github.com/AnukarOP)
 [@Removable](https://github.com/Removable)
@@ -33,7 +32,6 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 - [X] [Function Calling](https://github.com/betalgo/openai/wiki/Function-Calling)
 - [ ] Plugins (coming soon)
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
-- [x] [Chat GPT-4](https://github.com/betalgo/openai/wiki/Chat-GPT) *(models are supported, Image analyze API not released yet by OpenAI)*
 - [x] [Azure OpenAI](https://github.com/betalgo/openai/wiki/Azure-OpenAI)
 - [x] [Image DALL·E](https://github.com/betalgo/openai/wiki/Dall-E)
 - [x] [Models](https://github.com/betalgo/openai/wiki/Models)
@@ -217,6 +215,8 @@ if (imageResult.Successful)
 ```
 
 ## Notes:
+#### This library used to be known as `Betalgo.OpenAI.GPT3`, now it has a new package Id `Betalgo.OpenAI`.
+
 Please note that due to time constraints, I was unable to thoroughly test all of the methods or fully document the library. If you encounter any issues, please do not hesitate to report them or submit a pull request - your contributions are always appreciated.
 
 I initially developed this SDK for my personal use and later decided to share it with the community. As I have not maintained any open-source projects before, any assistance or feedback would be greatly appreciated. If you would like to contribute in any way, please feel free to reach out to me with your suggestions.
@@ -226,16 +226,18 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
-### Version 7.4.0
+### 7.4.1
+- Added support for "Create Speech" thanks to @belaszalontai / @szabe74 
+### 7.4.0
 - Added support for Dall-e 3, thanks to @belaszalontai and @szabe74
 - Added support for GPT-4-Turbo/Vision thanks to @ChaseIngersol
 - Models are updated with latest.
-### Version 7.3.1
+### 7.3.1
 - **Reverting a breking change which will be also Breaking Changes(only for 7.3.0):**
     - Reverting the usage of `EnsureStatusCode()` which caused the loss of error information. Initially, I thought it would help in implementing HTTP retry tools, but now I believe it is a bad idea for two reasons.
         1. You can't simply retry if the request wasn't successful because it could fail for various reasons. For example, you might have used too many tokens in your request, causing OpenAI to reject the response, or you might have tried to use a nonexistent model. It would be better to use the Error object in your retry rules. All responses are already derived from this base object.
         2. We will lose error response data.
-### Version 7.3.0
+### 7.3.0
 - Updated Moderation categories as reported by @dmki.
 - **Breaking Changes:**
     - Introduced the use of `EnsureStatusCode()` after making requests.Please adjust your code accordingly for handling failure cases. Thanks to @miroljub1995 for reporting.
@@ -244,6 +246,3 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 - Added Chatgpt Finetununig support thanks to @aghimir3 
 - Default Azure Openai version increased thanks to @mac8005
 - Fixed Azure Openai Audio endpoint thanks to @mac8005
-### 7.1.5
-- Added error handling for PlatformNotSupportedException in PostAsStreamAsync when using HttpClient.Send, now falls back to SendRequestPreNet6 for compatibility on platforms like MAUI, Mac. Thanks to  @Almis90
-- We now have a function caller describe method that automatically generates function descriptions. This method is available in the utilities library. Thanks to @vbandi

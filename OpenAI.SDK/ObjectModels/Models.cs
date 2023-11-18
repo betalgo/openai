@@ -94,7 +94,10 @@ public static class Models
         WhisperV1,
 
         Dall_e_2,
-        Dall_e_3
+        Dall_e_3,
+
+        Tts_1,
+        Tts_1_hd
     }
 
     public enum Subject
@@ -291,6 +294,20 @@ public static class Models
     public static string Dall_e_3 => "dall-e-3";
 
     /// <summary>
+    /// TTS is an AI model that converts text to natural sounding spoken text. 
+    /// tts-1 is optimized for real time text to speech use cases.
+    /// Released in Nov 2023.
+    /// </summary>
+    public static string Tts_1 => "tts-1";
+
+    /// <summary>
+    /// TTS is an AI model that converts text to natural sounding spoken text. 
+    /// tts-1-hd is optimized for quality
+    /// Released in Nov 2023.
+    /// </summary>
+    public static string Tts_1_hd => "tts-1-hd";
+
+    /// <summary>
     ///     This method does not guarantee returned model exists.
     /// </summary>
     /// <param name="subject"></param>
@@ -374,6 +391,8 @@ public static class Models
             Model.Dall_e_3 => Dall_e_3,
             Model.Gpt_4_1106_preview => Gpt_4_1106_preview,
             Model.Gpt_4_vision_preview => Gpt_4_vision_preview,
+            Model.Tts_1 => Tts_1,
+            Model.Tts_1_hd => Tts_1_hd,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }

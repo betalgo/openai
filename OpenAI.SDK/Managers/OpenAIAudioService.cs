@@ -22,6 +22,11 @@ public partial class OpenAIService : IAudioService
         return await Create(audioCreateTranscriptionRequest, _endpointProvider.AudioCreateTranslation(), cancellationToken);
     }
 
+    public async Task<AudioCreateSpeechResponse<T>> CreateSpeech<T>(AudioCreateSpeechRequest audioCreateSpeechRequest, CancellationToken cancellationToken = default)
+    {
+        return await _httpClient.PostAndReadAsDataAsync<AudioCreateSpeechResponse<T>,T>(_endpointProvider.AudioCreateSpeech(), audioCreateSpeechRequest, cancellationToken);
+    }
+
     private async Task<AudioCreateTranscriptionResponse> Create(AudioCreateTranscriptionRequest audioCreateTranscriptionRequest, string uri, CancellationToken cancellationToken = default)
     {
         var multipartContent = new MultipartFormDataContent();
