@@ -187,9 +187,89 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
     {
         return $"{Prefix}/audio/speech{QueryString}";
     }
-
+    
     private string Files()
     {
         return $"{Prefix}/files{QueryString}";
+    }
+    public string AssistantCreate()
+    {
+        return $"{Prefix}/assistants{QueryString}";
+    }
+
+    public string AssistantRetrieve(string assistantId)
+    {
+        return $"{Prefix}/assistants/{assistantId}{QueryString}";
+    }
+
+    public string AssistantModify(string assistantId)
+    {
+        return $"{Prefix}/assistants/{assistantId}{QueryString}";
+    }
+
+    public string AssistantDelete(string assistantId)
+    {
+        return $"{Prefix}/assistants/{assistantId}{QueryString}";
+    }
+
+    public string AssistantList(AssistantListRequest? assistantListRequest)
+    {
+        var url = $"{Prefix}/assistants";
+        
+        if (assistantListRequest != null)
+        {
+            var queryParams = new List<string>();
+            
+            if(assistantListRequest.Limit != null)
+                queryParams.Add($"limit={assistantListRequest.Limit.Value}");
+            if(assistantListRequest.Order != null)
+                queryParams.Add($"order={WebUtility.UrlEncode(assistantListRequest.Order)}");
+            if(assistantListRequest.After != null)
+                queryParams.Add($"after={WebUtility.UrlEncode(assistantListRequest.After)}");
+            if(assistantListRequest.Before != null)
+                queryParams.Add($"before={WebUtility.UrlEncode(assistantListRequest.Before)}");
+
+            if(queryParams.Any())
+                url = $"{url}{QueryString}?{string.Join("&", queryParams)}";
+        }
+        return url;
+    }
+
+    public string AssistantFileCreate(string assistantId)
+    {
+        return $"{Prefix}/assistants/{assistantId}/files{QueryString}";
+    }
+
+    public string AssistantFileRetrieve(string assistantId, string fileId)
+    {
+        return $"{Prefix}/assistants/{assistantId}/files/{fileId}{QueryString}";
+    }
+
+    public string AssistantFileDelete(string assistantId, string fileId)
+    {
+        return $"{Prefix}/assistants/{assistantId}/files/{fileId}{QueryString}";
+    }
+
+    public string AssistantFileList(string assistantId, AssistantFileListRequest? assistantFileListRequest)
+    {
+        var url = $"{Prefix}/assistants/{assistantId}/files";
+        
+        if (assistantFileListRequest != null)
+        {
+            var queryParams = new List<string>();
+            
+            if(assistantFileListRequest.Limit != null)
+                queryParams.Add($"limit={assistantFileListRequest.Limit.Value}");
+            if(assistantFileListRequest.Order != null)
+                queryParams.Add($"order={WebUtility.UrlEncode(assistantFileListRequest.Order)}");
+            if(assistantFileListRequest.After != null)
+                queryParams.Add($"after={WebUtility.UrlEncode(assistantFileListRequest.After)}");
+            if(assistantFileListRequest.Before != null)
+                queryParams.Add($"before={WebUtility.UrlEncode(assistantFileListRequest.Before)}");
+
+            if(queryParams.Any())
+                url = $"{url}{QueryString}?{string.Join("&", queryParams)}";
+        }
+        return url;
     }
 }

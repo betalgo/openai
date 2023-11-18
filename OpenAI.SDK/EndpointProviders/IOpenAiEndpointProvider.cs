@@ -34,4 +34,13 @@ internal interface IOpenAiEndpointProvider
     string AudioCreateTranscription();
     string AudioCreateTranslation();
     string AudioCreateSpeech();
+    string AssistantCreate();
+    string AssistantRetrieve(string assistantId);
+    string AssistantModify(string assistantId);
+    string AssistantDelete(string assistantId);
+    string AssistantList(AssistantListRequest? assistantListRequest);
+    string AssistantFileCreate(string assistantId);
+    string AssistantFileRetrieve(string assistantId, string fileId);
+    string AssistantFileDelete(string assistantId, string fileId);
+    string AssistantFileList(string assistantId, AssistantFileListRequest? assistantFileListRequest);
 }
