@@ -10,6 +10,10 @@ public record BaseResponse
     [JsonPropertyName("error")] public Error? Error { get; set; }
 }
 
+public record DataBaseResponse<T> : BaseResponse
+{
+    [JsonPropertyName("data")] public T? Data { get; set; }
+}
 //public record Error
 //{
 //    [JsonPropertyName("code")] public string? Code { get; set; }

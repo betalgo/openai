@@ -37,8 +37,8 @@ public class StaticValues
 
         public static class Style
         {
-            public static string Vivid => "Vivid";
-            public static string Natural => "Natural";
+            public static string Vivid => "vivid";
+            public static string Natural => "natural";
         }
     }
 
@@ -51,6 +51,23 @@ public class StaticValues
             public static string Srt => "srt";
             public static string VerboseJson => "verbose_json";
             public static string Vtt => "vtt";
+        }
+        public static class CreateSpeechResponseFormat
+        {
+            public static string Mp3 => "mp3";
+            public static string Opus => "opus";
+            public static string Aac => "aac";
+            public static string Flac => "flac";
+        }
+
+        public static class Voice
+        {
+            public static string Alloy => "alloy";
+            public static string Echo => "echo";
+            public static string Fable => "fable";
+            public static string Nova => "nova";
+            public static string Onyx => "onyx";
+            public static string Shimmer => "shimmer";
         }
     }
 

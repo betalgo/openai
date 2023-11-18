@@ -88,4 +88,48 @@ internal static class AudioTestHelper
             throw;
         }
     }
+
+     public static async Task RunSimpleAudioCreateSpeechTest(IOpenAIService sdk)
+    {
+        ConsoleExtensions.WriteLine("Create Speech Testing is starting:", ConsoleColor.Cyan);
+
+        try
+        {
+            ConsoleExtensions.WriteLine("Audio Create Speech Test:", ConsoleColor.DarkCyan);
+            var audioResult = await sdk.Audio.CreateSpeech<Stream>(new AudioCreateSpeechRequest
+            {
+                Model = Models.Tts_1,
+                Input = "The sixth sick sheikh's sixth sheep's sick",
+                Voice = StaticValues.AudioStatics.Voice.Alloy,
+                ResponseFormat = StaticValues.AudioStatics.CreateSpeechResponseFormat.Mp3,
+                Speed = 1.1f
+            });
+
+            if (audioResult.Successful)
+            {
+#if NET6_0_OR_GREATER
+                var audio =audioResult.Data!;
+                // save stream data as mp3 file
+                await using var fileStream = File.Create("SampleData/speech.mp3");
+                await audio.CopyToAsync(fileStream);
+                //await File.WriteAllBytesAsync("SampleData/speech.mp3", audioByteList);
+#endif
+                Console.WriteLine("\n Audio content in mp3 format is successfully generated");
+            }
+            else
+            {
+                if (audioResult.Error == null)
+                {
+                    throw new Exception("Unknown Error");
+                }
+
+                Console.WriteLine($"{audioResult.Error.Code}: {audioResult.Error.Message}");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }
