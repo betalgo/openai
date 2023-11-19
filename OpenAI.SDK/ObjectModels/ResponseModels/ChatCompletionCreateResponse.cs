@@ -14,4 +14,5 @@ public record ChatCompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IO
     [JsonPropertyName("created")] public int CreatedAt { get; set; }
 
     [JsonPropertyName("id")] public string Id { get; set; }
+    [JsonPropertyName("system_fingerprint")] public string SystemFingerprint { get; set; }
 }
