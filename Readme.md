@@ -214,6 +214,28 @@ if (imageResult.Successful)
 }
 ```
 
+## Vision Sample
+```csharp
+ var completionResult = await openAiService.ChatCompletion.CreateVision(new VisionCreateRequest
+{
+    Messages = new List<VisionChatMessage>
+    {
+        VisionChatMessage.FromUser(new List<VisionContent>
+            {
+                new("text", "What is on the picture in details?"), 
+                new("image_url", new VisionImageUrl("https://www.digitaltrends.com/wp-content/uploads/2016/06/1024px-Bill_Cunningham_at_Fashion_Week_photographed_by_Jiyang_Chen.jpg?p=1", "high"))
+            })
+    },
+    MaxTokens = 1000,
+    Model = Models.Gpt_4_vision_preview,
+});
+
+if (completionResult.Successful)
+{
+    Console.WriteLine(completionResult.Choices.First().Message.Content);
+}
+```
+
 ## Notes:
 #### This library used to be known as `Betalgo.OpenAI.GPT3`, now it has a new package Id `Betalgo.OpenAI`.
 

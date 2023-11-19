@@ -1,0 +1,46 @@
+﻿using System.Text.Json.Serialization;
+
+namespace OpenAI.ObjectModels.RequestModels;
+
+/// <summary>
+///     The image_url object of vision message content
+/// </summary>
+public class VisionImageUrl
+{
+    /// <summary>
+    /// </summary>
+    /// <param name="url">The image url.</param>
+    /// <param name="detail">The detail property</param>
+    public VisionImageUrl(string url, string? detail = "auto")
+    {
+        Url = url;
+        Detail = detail;
+    }
+
+    /// <summary>
+    ///     The Url property
+    ///     Images are made available to the model in two main ways: by passing a link to the image or by passing the base64 encoded image directly in the url property.
+    ///     link example: "url" : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+    ///     base64 encoded image example: "url" : "data:image/jpeg;base64,{base64_image}"
+    ///     
+    ///     Limitations:
+    ///     OpenAI currently supports PNG (.png), JPEG (.jpeg and .jpg), WEBP (.webp), and non-animated GIF (.gif) image formats
+    ///     Image upload size is limited to 20MB per image
+    ///     Captcha submission is blocked
+    ///     
+    /// </summary>
+    [JsonPropertyName("url")]
+    public string Url { get; set; }
+
+    /// <summary>
+    ///    The optional Detail property controls low or high fidelity image understanding
+    ///    It has three options, low, high, or auto, you have control over how the model processes the image and generates its textual understanding.
+    ///    By default, the model will use the auto setting which will look at the image input size and decide if it should use the low or high setting.
+    ///    
+    ///    low will disable the “high res” model. The model will receive a low-res 512px x 512px version of the image.
+    ///    high will enable “high res” mode, which first allows the model to see the low res image and then creates detailed crops of input images 
+    ///    as 512px squares based on the input image size.
+    /// </summary>
+    [JsonPropertyName("detail")]
+    public string? Detail { get; set; }
+}
