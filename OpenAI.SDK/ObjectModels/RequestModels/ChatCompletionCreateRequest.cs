@@ -25,12 +25,12 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// <summary>
     ///     A list of functions the model may generate JSON inputs for.
     /// </summary>
-    [JsonIgnore]
+    [JsonIgnore, Obsolete("use ToolFunctions instead")]
     public IList<FunctionDefinition>? Functions { get; set; }
 
-    [JsonIgnore] public object? FunctionsAsObject { get; set; }
+    [JsonIgnore, Obsolete("use ToolFunctions instead")] public object? FunctionsAsObject { get; set; }
 
-    [JsonPropertyName("functions")]
+    [JsonPropertyName("functions"), Obsolete("use ToolFunctions instead")]
     public object? FunctionCalculated
     {
         get
@@ -138,6 +138,47 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     [JsonPropertyName("logit_bias")]
     public object? LogitBias { get; set; }
 
+    /// <summary>
+    ///     A list of functions the model may generate JSON inputs for.
+    /// </summary>
+    [JsonIgnore]
+    public IList<FunctionDefinition>? ToolFunctions { get; set; }
+
+
+    [JsonIgnore] public object? ToolsAsObject { get; set; }
+
+    /// <summary>
+    ///     A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list
+    ///     of functions the model may generate JSON inputs for.
+    /// </summary>
+    [JsonPropertyName("tools")] public object? ToolsCalculated
+    {
+        get
+        {
+            if (ToolsAsObject != null && ToolFunctions != null)
+            {
+                throw new ValidationException("ToolsAsObject and ToolFunctions can not be assigned at the same time. One of them is should be null.");
+            }
+
+            if (ToolFunctions != null)
+            {
+                return ToolFunctions.Select(f => new ToolDefinition { Function = f }).ToList();
+            }
+
+            return ToolsAsObject;
+        }
+    }
+
+    /// <summary>
+    ///     Controls which (if any) function is called by the model. none means the model will not call a function and instead
+    ///     generates a message. auto means the model can pick between generating a message or calling a function. Specifying
+    ///     a particular function via {"type: "function", "function": {"name": "my_function"}} forces the model to call that
+    ///     function.
+    ///
+    ///     none is the default when no functions are present. auto is the default if functions are present.
+    /// </summary>
+    [JsonPropertyName("tool_choice")] public object? ToolChoice { get; set; }
+
 
     /// <summary>
     ///     String or object. Controls how the model responds to function calls.
@@ -149,7 +190,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     ///     FunctionCall = new Dictionary&lt;string, string&gt; { { "name", "my_function" } }
     ///     ).
     /// </summary>
-    [JsonPropertyName("function_call")]
+    [JsonPropertyName("function_call"), Obsolete("use ToolChoice instead")]
     public object? FunctionCall { get; set; }
 
     /// <summary>
