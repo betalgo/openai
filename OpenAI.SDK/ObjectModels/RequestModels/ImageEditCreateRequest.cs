@@ -1,6 +1,9 @@
-﻿namespace OpenAI.ObjectModels.RequestModels;
+﻿using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.SharedModels;
 
-public record ImageEditCreateRequest : ImageCreateRequest
+namespace OpenAI.ObjectModels.RequestModels;
+
+public record ImageEditCreateRequest : SharedImageRequestBaseModel
 {
     /// <summary>
     ///     The image to edit. Must be a valid PNG file, less than 4MB, and square.
@@ -22,4 +25,10 @@ public record ImageEditCreateRequest : ImageCreateRequest
     ///     Mask file name
     /// </summary>
     public string? MaskName { get; set; }
+
+    /// <summary>
+    ///     A text description of the desired image(s). The maximum length is 1000 characters.
+    /// </summary>
+    [JsonPropertyName("prompt")]
+    public string Prompt { get; set; }
 }

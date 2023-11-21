@@ -7,6 +7,12 @@ namespace OpenAI.ObjectModels.RequestModels;
 
 public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.IModel, IOpenAiModels.IUser
 {
+    public enum ResponseFormats
+    {
+        Text,
+        Json
+    }
+
     /// <summary>
     ///     The messages to generate chat completions for, in the chat format.
     ///     The main input is the messages parameter. Messages must be an array of message objects, where each object has a
@@ -86,7 +92,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
 
             if (Stop != null)
             {
-                return new List<string> {Stop};
+                return new List<string> { Stop };
             }
 
             return StopAsList;
@@ -145,6 +151,68 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// </summary>
     [JsonPropertyName("function_call")]
     public object? FunctionCall { get; set; }
+
+    /// <summary>
+    ///     The format that the model must output. Used to enable JSON mode.
+    ///     Must be one of "text" or "json_object".<br />
+    ///     <see cref="StaticValues.CompletionStatics.ResponseFormat" /><br />
+    ///     <example>
+    ///         Sample Usage:<br />
+    ///         new ResponseFormat { Type = StaticValues.CompletionStatics.ResponseFormat.Json }
+    ///     </example>
+    /// </summary>
+    [JsonPropertyName("response_format")]
+    public ResponseFormat? ResponseFormat { get; set; }
+
+    /// <summary>
+    ///     The format that the model must output. Used to enable JSON mode.
+    ///     Must be one of "text" or "json_object".
+    /// </summary>
+    /// <example>
+    ///     This example shows how to set the ChatResponseFormat to JSON:
+    ///     <code>
+    ///         var chatResponse = new ChatResponse
+    ///         {
+    ///             ChatResponseFormat = ChatResponseFormats.Json
+    ///         };
+    ///     </code>
+    /// </example>
+    /// <exception cref="ArgumentOutOfRangeException">
+    ///     Thrown when an unsupported <see cref="ResponseFormats" /> value is provided.
+    /// </exception>
+    /// <exception cref="ValidationException">
+    ///     Thrown when <see cref="ResponseFormat" /> is already set.
+    /// </exception>
+    [JsonIgnore]
+    public ResponseFormats? ChatResponseFormat
+    {
+        set
+        {
+            if (value == null) return;
+            if (ResponseFormat?.Type != null)
+            {
+                throw new ValidationException("ResponseFormat and ChatResponseFormat can not be assigned at the same time. One of them is should be null.");
+            }
+
+            ResponseFormat = new ResponseFormat
+            {
+                Type = value switch
+                {
+                    ResponseFormats.Json => StaticValues.CompletionStatics.ResponseFormat.Json,
+                    ResponseFormats.Text => StaticValues.CompletionStatics.ResponseFormat.Text,
+                    _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
+                }
+            };
+        }
+    }
+
+    /// <summary>
+    ///     This feature is in Beta. If specified, our system will make a best effort to sample deterministically, such that
+    ///     repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed,
+    ///     and you should refer to the system_fingerprint response parameter to monitor changes in the backend.
+    /// </summary>
+    [JsonPropertyName("seed")]
+    public int? Seed { get; set; }
 
     /// <summary>
     ///     ID of the model to use. For models supported see <see cref="OpenAI.ObjectModels.Models" /> start with <c>Gpt_</c>
