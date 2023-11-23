@@ -1,16 +1,10 @@
 using System.Text.Json.Serialization;
+using OpenAI.Enums;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace OpenAI.ObjectModels.SharedModels.BetaSharedModels;
 
-public class AssistantFileListRequest : AssistantListRequest
+public record BaseListRequest
 {
-    
-}
-
-public class AssistantListRequest
-{
-    private string _order;
-    
     /// <summary>
     /// A limit on the number of objects to be returned.
     /// Limit can range between 1 and 100, and the default is 20.
@@ -23,16 +17,8 @@ public class AssistantListRequest
     /// "asc" for ascending order and "desc" for descending order.
     /// </summary>
     [JsonPropertyName("order")]
-    public string? Order
-    {
-        get => _order;
-        set => _order = value switch
-        {
-            "asc" => value,
-            "desc" => value,
-            _ => throw new ArgumentException("Invalid order value. Only 'asc' or 'desc' are allowed")
-        };
-    }
+    public OrderEnum? Order { get; set; }
+
     
     /// <summary>
     /// A cursor for use in pagination. after is an object ID that defines your place in the list.
@@ -49,6 +35,4 @@ public class AssistantListRequest
     /// </summary>
     [JsonPropertyName("before")]
     public string? Before { get; set; }
-    
-    
 }

@@ -1,5 +1,6 @@
 using System.Net;
 using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.RequestModels.AssistantRequestModels;
 
 namespace OpenAI.EndpointProviders;
 
@@ -223,7 +224,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
             if(assistantListRequest.Limit != null)
                 queryParams.Add($"limit={assistantListRequest.Limit.Value}");
             if(assistantListRequest.Order != null)
-                queryParams.Add($"order={WebUtility.UrlEncode(assistantListRequest.Order)}");
+                queryParams.Add($"order={WebUtility.UrlEncode(assistantListRequest.Order.ToString())}");
             if(assistantListRequest.After != null)
                 queryParams.Add($"after={WebUtility.UrlEncode(assistantListRequest.After)}");
             if(assistantListRequest.Before != null)
@@ -261,7 +262,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
             if(assistantFileListRequest.Limit != null)
                 queryParams.Add($"limit={assistantFileListRequest.Limit.Value}");
             if(assistantFileListRequest.Order != null)
-                queryParams.Add($"order={WebUtility.UrlEncode(assistantFileListRequest.Order)}");
+                queryParams.Add($"order={WebUtility.UrlEncode(assistantFileListRequest.Order.ToString())}");
             if(assistantFileListRequest.After != null)
                 queryParams.Add($"after={WebUtility.UrlEncode(assistantFileListRequest.After)}");
             if(assistantFileListRequest.Before != null)

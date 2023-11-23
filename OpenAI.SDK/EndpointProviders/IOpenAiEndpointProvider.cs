@@ -1,4 +1,5 @@
 ﻿using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.RequestModels.AssistantRequestModels;
 
 namespace OpenAI.EndpointProviders;
 
