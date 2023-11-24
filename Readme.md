@@ -214,6 +214,72 @@ if (imageResult.Successful)
 }
 ```
 
+## VISION Sample
+```csharp
+var completionResult = await sdk.ChatCompletion.CreateCompletion(
+    new ChatCompletionCreateRequest
+    {
+        Messages = new List<ChatMessage>
+        {
+            ChatMessage.FromSystem("You are an image analyzer assistant."),
+            ChatMessage.FromVisionUser(
+                new List<VisionContent>
+                {
+                    VisionContent.TextContent("What is on the picture in details?"),
+                    VisionContent.ImageUrlContent(
+                        "https://www.digitaltrends.com/wp-content/uploads/2016/06/1024px-Bill_Cunningham_at_Fashion_Week_photographed_by_Jiyang_Chen.jpg?p=1",
+                        ImageStatics.ImageDetailTypes.High
+                    )
+                }
+            ),
+        },
+        MaxTokens = 300,
+        Model = Models.Gpt_4_vision_preview,
+        N = 1
+    }
+);
+
+if (completionResult.Successful)
+{
+    Console.WriteLine(completionResult.Choices.First().Message.Content);
+}
+```
+
+## VISION Sample using Base64 encoded image
+```csharp
+const string fileName = "image.png";
+var binaryImage = await FileExtensions.ReadAllBytesAsync(fileName);
+
+var completionResult = await sdk.ChatCompletion.CreateCompletion(
+    new ChatCompletionCreateRequest
+    {
+        Messages = new List<ChatMessage>
+        {
+            ChatMessage.FromSystem("You are an image analyzer assistant."),
+            ChatMessage.FromVisionUser(
+                new List<VisionContent>
+                {
+                    VisionContent.TextContent("What is on the picture in details?"),
+                    VisionContent.ImageBinaryContent(
+                        binaryImage,
+                        ImageStatics.ImageFileTypes.Png,
+                        ImageStatics.ImageDetailTypes.High
+                    )
+                }
+            ),
+        },
+        MaxTokens = 300,
+        Model = Models.Gpt_4_vision_preview,
+        N = 1
+    }
+);
+
+if (completionResult.Successful)
+{
+    Console.WriteLine(completionResult.Choices.First().Message.Content);
+}
+```
+
 ## Notes:
 #### This library used to be known as `Betalgo.OpenAI.GPT3`, now it has a new package Id `Betalgo.OpenAI`.
 
