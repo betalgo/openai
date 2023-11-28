@@ -3,7 +3,7 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.ResponseModels;
 
-public record ChatCompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt
+public record ChatCompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt,IOpenAiModels.ISystemFingerPrint
 {
     [JsonPropertyName("model")] public string Model { get; set; }
 
@@ -14,4 +14,7 @@ public record ChatCompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IO
     [JsonPropertyName("created")] public int CreatedAt { get; set; }
 
     [JsonPropertyName("id")] public string Id { get; set; }
+
+    [JsonPropertyName("system_fingerprint")] public string SystemFingerPrint { get; set; }
+
 }

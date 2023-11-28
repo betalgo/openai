@@ -42,8 +42,15 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
 
+//await AssistantTestHelper.RunAssistantCreateTest(sdk);
+//await AssistantTestHelper.RunAssistantWorkTest(sdk);
+await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
 
-await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
+//await MessageTestHelper.RunMessageCreateTest(sdk);
+
+//await ThreadTestHelper.RunThreadRetrieveTest(sdk);
+
+//await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 //await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 //await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
 //await FineTuningJobTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);

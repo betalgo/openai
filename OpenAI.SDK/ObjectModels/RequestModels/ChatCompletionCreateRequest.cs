@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.SharedModels;
+//using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
@@ -21,6 +22,25 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// </summary>
     [JsonPropertyName("messages")]
     public IList<ChatMessage> Messages { get; set; }
+
+    /// <summary>
+    /// A list of tools the model may call. Currently, only functions are supported as a tool. 
+    /// Use this to provide a list of functions the model may generate JSON inputs for.
+    /// </summary>
+    [JsonPropertyName("tools")]
+    public IList<ToolDefinition> Tools { get; set; }
+
+    /// <summary>
+    ///  string or object.Controls which (if any) function is called by the model. 
+    ///  "none" means the model will not call a function and instead generates a message. 
+    ///  "auto" means the model can pick between generating a message or calling a function. 
+    ///  "none" is the default when no functions are present. "auto" is the default if functions are present.
+    ///  
+    ///  Specifying a particular function via {"type: "function", "function": {"name": "my_function"}}
+    ///  
+    /// </summary>
+    [JsonPropertyName("tool_choice")]
+    public object? ToolChoice { get; set; }
 
     /// <summary>
     ///     A list of functions the model may generate JSON inputs for.
