@@ -214,7 +214,7 @@ internal static class ChatCompletionTestHelper
                     ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
                     ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days.")
                 },
-                ToolFunctions = new List<FunctionDefinition> {fn1, fn2, fn3, fn4},
+                Tools = new List<ToolDefinition> { new() { Function = fn1 }, new() { Function = fn2 }, new() { Function = fn3 }, new() { Function = fn4 }, new() { Function = fn4 } },
                 // optionally, to force a specific function:
                 // ToolChoice = new ToolChoiceFunction() { Function = new FunctionTool() { Name = "get_current_weather" }},
                 // or auto tool choice:
@@ -244,9 +244,9 @@ internal static class ChatCompletionTestHelper
                     Console.WriteLine($"Tools: {tools.Count}");
                     foreach (var toolCall in tools)
                     {
-                        Console.WriteLine($"  {toolCall.Id}: {toolCall.Function}");
+                        Console.WriteLine($"  {toolCall.Id}: {toolCall.FunctionCall}");
 
-                        var fn = toolCall.Function;
+                        var fn = toolCall.FunctionCall;
                         if (fn != null)
                         {
                             Console.WriteLine($"  Function call:  {fn.Name}");
@@ -317,7 +317,7 @@ internal static class ChatCompletionTestHelper
                     // or to test array functions, use this instead:
                     // ChatMessage.FromUser("The combination is: One. Two. Three. Four. Five."),
                 },
-                ToolFunctions = new List<FunctionDefinition> {fn1, fn2, fn3, fn4},
+                Tools = new List<ToolDefinition> { new() { Function = fn1 }, new() { Function = fn2 }, new() { Function = fn3 }, new() { Function = fn4 }, new() { Function = fn4 } },
                 // optionally, to force a specific function:
                 // ToolChoice = new ToolChoiceFunction() { Function = new FunctionTool() { Name = "get_current_weather" }},
                 // or auto tool choice:
@@ -356,9 +356,9 @@ internal static class ChatCompletionTestHelper
                         for (int i = 0; i < tools.Count; i++)
                         {
                             var toolCall = tools[i];
-                            Console.WriteLine($"  {toolCall.Id}: {toolCall.Function}");
+                            Console.WriteLine($"  {toolCall.Id}: {toolCall.FunctionCall}");
 
-                            var fn = toolCall.Function;
+                            var fn = toolCall.FunctionCall;
                             if (fn != null)
                             {
                                 if (!string.IsNullOrEmpty(fn.Name))

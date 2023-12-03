@@ -25,12 +25,12 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// <summary>
     ///     A list of functions the model may generate JSON inputs for.
     /// </summary>
-    [JsonIgnore, Obsolete("use ToolFunctions instead")]
+    [JsonIgnore, Obsolete("use Tools instead")]
     public IList<FunctionDefinition>? Functions { get; set; }
 
-    [JsonIgnore, Obsolete("use ToolFunctions instead")] public object? FunctionsAsObject { get; set; }
+    [JsonIgnore, Obsolete("use Tools instead")] public object? FunctionsAsObject { get; set; }
 
-    [JsonPropertyName("functions"), Obsolete("use ToolFunctions instead")]
+    [JsonPropertyName("functions"), Obsolete("use Tools instead")]
     public object? FunctionCalculated
     {
         get
@@ -142,7 +142,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     ///     A list of functions the model may generate JSON inputs for.
     /// </summary>
     [JsonIgnore]
-    public IList<FunctionDefinition>? ToolFunctions { get; set; }
+    public IList<ToolDefinition>? Tools { get; set; }
 
 
     [JsonIgnore] public object? ToolsAsObject { get; set; }
@@ -155,17 +155,12 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     {
         get
         {
-            if (ToolsAsObject != null && ToolFunctions != null)
+            if (ToolsAsObject != null && Tools != null)
             {
-                throw new ValidationException("ToolsAsObject and ToolFunctions can not be assigned at the same time. One of them is should be null.");
+                throw new ValidationException("ToolsAsObject and Tools can not be assigned at the same time. One of them is should be null.");
             }
 
-            if (ToolFunctions != null)
-            {
-                return ToolFunctions.Select(f => new ToolDefinition { Function = f }).ToList();
-            }
-
-            return ToolsAsObject;
+            return Tools ?? ToolsAsObject;
         }
     }
 

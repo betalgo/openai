@@ -20,5 +20,5 @@ public class ToolCall
     ///     The function that the model called.
     /// </summary>
     [JsonPropertyName("function")]
-    public FunctionCall? Function { get; set; }
+    public FunctionCall? FunctionCall { get; set; }
 }
