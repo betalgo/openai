@@ -8,6 +8,15 @@ namespace OpenAI.Extensions;
 
 public static class HttpClientExtensions
 {
+    public static async Task<TResponse> GetReadAsAsync<TResponse>(this HttpClient client, string uri, CancellationToken cancellationToken = default)
+    {
+       var response = await client.GetFromJsonAsync<TResponse>(uri, new JsonSerializerOptions
+       {
+           DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+       }, cancellationToken);
+        return response ?? throw new InvalidOperationException();
+    }
+
     public static async Task<TResponse> PostAndReadAsAsync<TResponse>(this HttpClient client, string uri, object? requestModel, CancellationToken cancellationToken = default)
     {
         var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
