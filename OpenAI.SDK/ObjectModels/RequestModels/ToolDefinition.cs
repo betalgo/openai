@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
@@ -13,9 +14,30 @@ public class ToolDefinition
     [JsonPropertyName("type")]
     public string Type { get; set; } = StaticValues.CompletionStatics.ToolType.Function;
 
+  
+    /// <summary>
+    ///     A list of functions the model may generate JSON inputs for.
+    /// </summary>
+    [JsonIgnore]
+    public FunctionDefinition? Function { get; set; }
+
+    [JsonIgnore] 
+    public object? FunctionsAsObject { get; set; }
+
     /// <summary>
     ///     Required. The description of what the function does.
     /// </summary>
     [JsonPropertyName("function")]
-    public FunctionDefinition? Function { get; set; }
+    public object? FunctionCalculated
+    {
+        get
+        {
+            if (FunctionsAsObject != null && Function != null)
+            {
+                throw new ValidationException("FunctionAsObject and Function can not be assigned at the same time. One of them is should be null.");
+            }
+
+            return Function ?? FunctionsAsObject;
+        }
+    }
 }

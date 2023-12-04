@@ -93,7 +93,6 @@ public class StaticValues
         public static string System => "system";
         public static string User => "user";
         public static string Assistant => "assistant";
-        public static string Function => "function"; // Deprecated
         public static string Tool => "tool";
     }
 }

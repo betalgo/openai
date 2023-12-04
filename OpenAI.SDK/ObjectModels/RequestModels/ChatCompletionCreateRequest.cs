@@ -23,28 +23,6 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     public IList<ChatMessage> Messages { get; set; }
 
     /// <summary>
-    ///     A list of functions the model may generate JSON inputs for.
-    /// </summary>
-    [JsonIgnore, Obsolete("use Tools instead")]
-    public IList<FunctionDefinition>? Functions { get; set; }
-
-    [JsonIgnore, Obsolete("use Tools instead")] public object? FunctionsAsObject { get; set; }
-
-    [JsonPropertyName("functions"), Obsolete("use Tools instead")]
-    public object? FunctionCalculated
-    {
-        get
-        {
-            if (FunctionsAsObject != null && Functions != null)
-            {
-                throw new ValidationException("FunctionAsObject and Functions can not be assigned at the same time. One of them is should be null.");
-            }
-
-            return Functions ?? FunctionsAsObject;
-        }
-    }
-
-    /// <summary>
     ///     An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the
     ///     tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are
     ///     considered.
@@ -173,20 +151,6 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     ///     none is the default when no functions are present. auto is the default if functions are present.
     /// </summary>
     [JsonPropertyName("tool_choice")] public object? ToolChoice { get; set; }
-
-
-    /// <summary>
-    ///     String or object. Controls how the model responds to function calls.
-    ///     "none" means the model does not call a function, and responds to the end-user.
-    ///     "auto" means the model can pick between an end-user or calling a function.
-    ///     "none" is the default when no functions are present. "auto" is the default if functions are present.
-    ///     Specifying a particular function via {"name": "my_function"} forces the model to call that function.
-    ///     (Note: in C# specify that as:
-    ///     FunctionCall = new Dictionary&lt;string, string&gt; { { "name", "my_function" } }
-    ///     ).
-    /// </summary>
-    [JsonPropertyName("function_call"), Obsolete("use ToolChoice instead")]
-    public object? FunctionCall { get; set; }
 
     /// <summary>
     ///     The format that the model must output. Used to enable JSON mode.
