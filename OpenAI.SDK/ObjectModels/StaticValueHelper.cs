@@ -41,6 +41,12 @@ public class StaticValues
             public static string Natural => "natural";
         }
 
+        public static class Quality
+        {
+            public static string Standard => "standard";
+            public static string Hd => "hd";
+        }
+
         public static class ImageFileTypes
         {
             public static string Jpeg => "JPEG";
