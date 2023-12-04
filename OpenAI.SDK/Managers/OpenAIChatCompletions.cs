@@ -10,14 +10,18 @@ namespace OpenAI.Managers;
 public partial class OpenAIService : IChatCompletionService
 {
     /// <inheritdoc />
-    public async Task<ChatCompletionCreateResponse> CreateCompletion(ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null, CancellationToken cancellationToken = default)
+    public async Task<ChatCompletionCreateResponse> CreateCompletion(
+        ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null,
+        CancellationToken cancellationToken = default)
     {
         chatCompletionCreateRequest.ProcessModelId(modelId, _defaultModelId);
-        return await _httpClient.PostAndReadAsAsync<ChatCompletionCreateResponse>(_endpointProvider.ChatCompletionCreate(), chatCompletionCreateRequest, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<ChatCompletionCreateResponse>(
+            _endpointProvider.ChatCompletionCreate(), chatCompletionCreateRequest, cancellationToken);
     }
 
     /// <inheritdoc />
-    public async IAsyncEnumerable<ChatCompletionCreateResponse> CreateCompletionAsStream(ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null,
+    public async IAsyncEnumerable<ChatCompletionCreateResponse> CreateCompletionAsStream(
+        ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         // Helper data in case we need to reassemble a multi-packet response
@@ -29,7 +33,8 @@ public partial class OpenAIService : IChatCompletionService
         // Send the request to the CompletionCreate endpoint
         chatCompletionCreateRequest.ProcessModelId(modelId, _defaultModelId);
 
-        using var response = _httpClient.PostAsStreamAsync(_endpointProvider.ChatCompletionCreate(), chatCompletionCreateRequest, cancellationToken);
+        using var response = _httpClient.PostAsStreamAsync(_endpointProvider.ChatCompletionCreate(),
+            chatCompletionCreateRequest, cancellationToken);
         await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
         using var reader = new StreamReader(stream);
 
@@ -117,16 +122,22 @@ public partial class OpenAIService : IChatCompletionService
             // We're going to steal the partial message and squirrel it away for the time being.
             if (!IsFnAssemblyActive && isStreamingFnCall)
             {
-                FnCall = firstChoice.Message.FunctionCall;
-                firstChoice.Message.FunctionCall = null;
-                justStarted = true;
+                if (firstChoice.Message != null)
+                {
+                    FnCall = firstChoice.Message.FunctionCall;
+                    firstChoice.Message.FunctionCall = null;
+                    justStarted = true;
+                }
             }
 
             // As long as we're assembling, keep on appending those args
             // (Skip the first one, because it was already processed in the block above)
             if (IsFnAssemblyActive && !justStarted)
             {
-                FnCall.Arguments += ExtractArgsSoFar();
+                if (FnCall != null)
+                {
+                    FnCall.Arguments += ExtractArgsSoFar();
+                }
             }
 
             // If we were assembling and it just finished, fill this block with the info we've assembled, and we're done.
