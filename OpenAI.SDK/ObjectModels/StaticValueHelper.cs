@@ -10,15 +10,15 @@ public class StaticValues
             public static string Text => "text";
         }
 
-        public static class ToolChoice
-        {
-            public static string Auto => "auto";
-            public static string None => "none";
-        }
-
         public static class ToolType
         {
             public static string Function => "function";
+        }
+        public static class ToolChoiceType
+        {
+            public static string Function => ToolType.Function;
+            public static string Auto => "auto";
+            public static string None => "none";
         }
     }
     public static class ImageStatics

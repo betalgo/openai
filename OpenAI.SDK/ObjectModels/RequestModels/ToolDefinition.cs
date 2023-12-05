@@ -12,7 +12,7 @@ public class ToolDefinition
     ///     Required. The type of the tool. Currently, only function is supported.
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; } = StaticValues.CompletionStatics.ToolType.Function;
+    public string Type { get; set; }
 
   
     /// <summary>

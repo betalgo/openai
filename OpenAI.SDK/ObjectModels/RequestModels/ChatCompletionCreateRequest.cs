@@ -147,10 +147,29 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     ///     generates a message. auto means the model can pick between generating a message or calling a function. Specifying
     ///     a particular function via {"type: "function", "function": {"name": "my_function"}} forces the model to call that
     ///     function.
-    ///
     ///     none is the default when no functions are present. auto is the default if functions are present.
     /// </summary>
-    [JsonPropertyName("tool_choice")] public object? ToolChoice { get; set; }
+    [JsonIgnore]
+    public ToolChoice? ToolChoice { get; set; }
+
+    [JsonPropertyName("tool_choice")]
+    public object? ToolChoiceCalculated
+    {
+        get
+        {
+            if (ToolChoice != null && ToolChoice.Type != StaticValues.CompletionStatics.ToolChoiceType.Function && ToolChoice.Function != null)
+            {
+                throw new ValidationException("You cannot choose another type besides \"function\" while ToolChoice.Function is not null.");
+            }
+
+            if (ToolChoice?.Type == StaticValues.CompletionStatics.ToolChoiceType.Function)
+            {
+                return ToolChoice;
+            }
+
+            return ToolChoice?.Type;
+        }
+    }
 
     /// <summary>
     ///     The format that the model must output. Used to enable JSON mode.

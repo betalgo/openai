@@ -132,9 +132,9 @@ internal static class ChatCompletionTestHelper
                 },
                 Tools = new List<ToolDefinition> { new() { Function = fn1 }, new() { Function = fn2 }, new() { Function = fn3 }, new() { Function = fn4 }, new() { Function = fn4 } },
                 // optionally, to force a specific function:
-                // ToolChoice = new ToolChoiceFunction() { Function = new FunctionTool() { Name = "get_current_weather" }},
+                //ToolChoice = ToolChoice.FunctionChoice("get_current_weather"),
                 // or auto tool choice:
-                // ToolChoice = StaticValues.CompletionStatics.ToolChoice.Auto,
+                //ToolChoice = ToolChoice.Auto,
                 MaxTokens = 50,
                 Model = Models.Gpt_3_5_Turbo
             });
@@ -235,9 +235,9 @@ internal static class ChatCompletionTestHelper
                 },
                 Tools = new List<ToolDefinition> { new() { Function = fn1 }, new() { Function = fn2 }, new() { Function = fn3 }, new() { Function = fn4 }, new() { Function = fn4 } },
                 // optionally, to force a specific function:
-                // ToolChoice = new ToolChoiceFunction() { Function = new FunctionTool() { Name = "get_current_weather" }},
+                ToolChoice = ToolChoice.FunctionChoice("get_current_weather"),
                 // or auto tool choice:
-                ToolChoice = StaticValues.CompletionStatics.ToolChoice.Auto,
+                // ToolChoice = ToolChoice.Auto,
                 MaxTokens = 50,
                 Model = Models.Gpt_4_1106_preview
             });
