@@ -21,12 +21,12 @@ internal static class VisionTestHelper
                     Messages = new List<ChatMessage>
                     {
                         ChatMessage.FromSystem("You are an image analyzer assistant."),
-                        ChatMessage.FromVisionUser(
-                            new List<VisionContent>
+                        ChatMessage.FromUser(
+                            new List<MessageContent>
                             {
-                                VisionContent.TextContent("What is on the picture in details?"),
-                                VisionContent.ImageUrlContent(
-                                    "https://www.digitaltrends.com/wp-content/uploads/2016/06/1024px-Bill_Cunningham_at_Fashion_Week_photographed_by_Jiyang_Chen.jpg?p=1",
+                                MessageContent.TextContent("What is on the picture in details?"),
+                                MessageContent.ImageUrlContent(
+                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
                                     ImageStatics.ImageDetailTypes.High
                                 )
                             }
@@ -74,12 +74,12 @@ internal static class VisionTestHelper
                     Messages = new List<ChatMessage>
                     {
                         ChatMessage.FromSystem("You are an image analyzer assistant."),
-                        ChatMessage.FromVisionUser(
-                            new List<VisionContent>
+                        ChatMessage.FromUser(
+                            new List<MessageContent>
                             {
-                                VisionContent.TextContent("What is on this picture?"),
-                                VisionContent.ImageUrlContent(
-                                    "https://www.digitaltrends.com/wp-content/uploads/2016/06/1024px-Bill_Cunningham_at_Fashion_Week_photographed_by_Jiyang_Chen.jpg?p=1",
+                                MessageContent.TextContent("What’s in this image?"),
+                                MessageContent.ImageUrlContent(
+                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
                                     ImageStatics.ImageDetailTypes.Low
                                 )
                             }
@@ -142,11 +142,11 @@ internal static class VisionTestHelper
                     Messages = new List<ChatMessage>
                     {
                         ChatMessage.FromSystem("You are an image analyzer assistant."),
-                        ChatMessage.FromVisionUser(
-                            new List<VisionContent>
+                        ChatMessage.FromUser(
+                            new List<MessageContent>
                             {
-                                VisionContent.TextContent("What is on the picture in details?"),
-                                VisionContent.ImageBinaryContent(
+                                MessageContent.TextContent("What is on the picture in details?"),
+                                MessageContent.ImageBinaryContent(
                                     originalFile,
                                     ImageStatics.ImageFileTypes.Png,
                                     ImageStatics.ImageDetailTypes.High

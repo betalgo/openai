@@ -59,10 +59,10 @@ internal static class ChatCompletionTestHelper
             {
                 Messages = new List<ChatMessage>
                 {
-                    new() { Role = StaticValues.ChatMessageRoles.System, Content = "You are a helpful assistant." },
-                    new() { Role = StaticValues.ChatMessageRoles.User, Content = "Who won the world series in 2020?" },
-                    new() { Role = StaticValues.ChatMessageRoles.System, Content = "The Los Angeles Dodgers won the World Series in 2020." },
-                    new() { Role = StaticValues.ChatMessageRoles.User, Content = "Tell me a story about The Los Angeles Dodgers" }
+                    new(StaticValues.ChatMessageRoles.System, "You are a helpful assistant."),
+                    new(StaticValues.ChatMessageRoles.User, "Who won the world series in 2020?"),
+                    new(StaticValues.ChatMessageRoles.System, "The Los Angeles Dodgers won the World Series in 2020."),
+                    new(StaticValues.ChatMessageRoles.User, "Tell me a story about The Los Angeles Dodgers")
                 },
                 MaxTokens = 150,
                 Model = Models.Gpt_3_5_Turbo

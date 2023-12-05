@@ -222,11 +222,11 @@ var completionResult = await sdk.ChatCompletion.CreateCompletion(
         Messages = new List<ChatMessage>
         {
             ChatMessage.FromSystem("You are an image analyzer assistant."),
-            ChatMessage.FromVisionUser(
-                new List<VisionContent>
+            ChatMessage.FromUser(
+                new List<MessageContent>
                 {
-                    VisionContent.TextContent("What is on the picture in details?"),
-                    VisionContent.ImageUrlContent(
+                    MessageContent.TextContent("What is on the picture in details?"),
+                    MessageContent.ImageUrlContent(
                         "https://www.digitaltrends.com/wp-content/uploads/2016/06/1024px-Bill_Cunningham_at_Fashion_Week_photographed_by_Jiyang_Chen.jpg?p=1",
                         ImageStatics.ImageDetailTypes.High
                     )
@@ -256,11 +256,11 @@ var completionResult = await sdk.ChatCompletion.CreateCompletion(
         Messages = new List<ChatMessage>
         {
             ChatMessage.FromSystem("You are an image analyzer assistant."),
-            ChatMessage.FromVisionUser(
-                new List<VisionContent>
+            ChatMessage.FromUser(
+                new List<MessageContent>
                 {
-                    VisionContent.TextContent("What is on the picture in details?"),
-                    VisionContent.ImageBinaryContent(
+                    MessageContent.TextContent("What is on the picture in details?"),
+                    MessageContent.ImageBinaryContent(
                         binaryImage,
                         ImageStatics.ImageFileTypes.Png,
                         ImageStatics.ImageDetailTypes.High
