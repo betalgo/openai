@@ -57,6 +57,22 @@ public class StaticValues
             public static string Standard => "standard";
             public static string Hd => "hd";
         }
+
+        public static class ImageFileTypes
+        {
+            public static string Jpeg => "JPEG";
+            public static string Png => "PNG";
+            public static string Webp => "WEBP";
+            public static string Gif => "GIF";
+        }
+
+        public static class ImageDetailTypes
+        {
+            public static string High => "high";
+            public static string Low => "low";
+            public static string Auto => "auto";
+
+        }
     }
 
     public static class AudioStatics
