@@ -23,28 +23,6 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     public IList<ChatMessage> Messages { get; set; }
 
     /// <summary>
-    ///     A list of functions the model may generate JSON inputs for.
-    /// </summary>
-    [JsonIgnore]
-    public IList<FunctionDefinition>? Functions { get; set; }
-
-    [JsonIgnore] public object? FunctionsAsObject { get; set; }
-
-    [JsonPropertyName("functions")]
-    public object? FunctionCalculated
-    {
-        get
-        {
-            if (FunctionsAsObject != null && Functions != null)
-            {
-                throw new ValidationException("FunctionAsObject and Functions can not be assigned at the same time. One of them is should be null.");
-            }
-
-            return Functions ?? FunctionsAsObject;
-        }
-    }
-
-    /// <summary>
     ///     An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the
     ///     tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are
     ///     considered.
@@ -138,19 +116,60 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     [JsonPropertyName("logit_bias")]
     public object? LogitBias { get; set; }
 
+    /// <summary>
+    ///     A list of functions the model may generate JSON inputs for.
+    /// </summary>
+    [JsonIgnore]
+    public IList<ToolDefinition>? Tools { get; set; }
+
+
+    [JsonIgnore] public object? ToolsAsObject { get; set; }
 
     /// <summary>
-    ///     String or object. Controls how the model responds to function calls.
-    ///     "none" means the model does not call a function, and responds to the end-user.
-    ///     "auto" means the model can pick between an end-user or calling a function.
-    ///     "none" is the default when no functions are present. "auto" is the default if functions are present.
-    ///     Specifying a particular function via {"name": "my_function"} forces the model to call that function.
-    ///     (Note: in C# specify that as:
-    ///     FunctionCall = new Dictionary&lt;string, string&gt; { { "name", "my_function" } }
-    ///     ).
+    ///     A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list
+    ///     of functions the model may generate JSON inputs for.
     /// </summary>
-    [JsonPropertyName("function_call")]
-    public object? FunctionCall { get; set; }
+    [JsonPropertyName("tools")] public object? ToolsCalculated
+    {
+        get
+        {
+            if (ToolsAsObject != null && Tools != null)
+            {
+                throw new ValidationException("ToolsAsObject and Tools can not be assigned at the same time. One of them is should be null.");
+            }
+
+            return Tools ?? ToolsAsObject;
+        }
+    }
+
+    /// <summary>
+    ///     Controls which (if any) function is called by the model. none means the model will not call a function and instead
+    ///     generates a message. auto means the model can pick between generating a message or calling a function. Specifying
+    ///     a particular function via {"type: "function", "function": {"name": "my_function"}} forces the model to call that
+    ///     function.
+    ///     none is the default when no functions are present. auto is the default if functions are present.
+    /// </summary>
+    [JsonIgnore]
+    public ToolChoice? ToolChoice { get; set; }
+
+    [JsonPropertyName("tool_choice")]
+    public object? ToolChoiceCalculated
+    {
+        get
+        {
+            if (ToolChoice != null && ToolChoice.Type != StaticValues.CompletionStatics.ToolChoiceType.Function && ToolChoice.Function != null)
+            {
+                throw new ValidationException("You cannot choose another type besides \"function\" while ToolChoice.Function is not null.");
+            }
+
+            if (ToolChoice?.Type == StaticValues.CompletionStatics.ToolChoiceType.Function)
+            {
+                return ToolChoice;
+            }
+
+            return ToolChoice?.Type;
+        }
+    }
 
     /// <summary>
     ///     The format that the model must output. Used to enable JSON mode.

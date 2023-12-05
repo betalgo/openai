@@ -9,6 +9,17 @@ public class StaticValues
             public static string Json => "json_object";
             public static string Text => "text";
         }
+
+        public static class ToolType
+        {
+            public static string Function => "function";
+        }
+        public static class ToolChoiceType
+        {
+            public static string Function => ToolType.Function;
+            public static string Auto => "auto";
+            public static string None => "none";
+        }
     }
     public static class ImageStatics
     {
@@ -82,6 +93,6 @@ public class StaticValues
         public static string System => "system";
         public static string User => "user";
         public static string Assistant => "assistant";
-        public static string Function => "function";
+        public static string Tool => "tool";
     }
 }
