@@ -1,4 +1,6 @@
-﻿namespace OpenAI.Utilities.FunctionCalling;
+﻿using System;
+
+namespace OpenAI.Utilities.FunctionCalling;
 
 /// <summary>
 ///     Exception thrown when a function call is invalid

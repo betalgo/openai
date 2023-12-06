@@ -1,6 +1,13 @@
-﻿using System.Collections;
+﻿#if NET6_0_OR_GREATER
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using CsvHelper;
 using MathNet.Numerics;
 using Microsoft.Data.Analysis;
@@ -109,7 +116,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
 
     public async Task<DataFrame> ReadFilesAndCreateEmbeddingDataAsCsv(string pathToDirectoryOrFile, string outputFileName)
     {
-        return await ReadFilesAndCreateEmbeddingDataAsCsv(new[] {pathToDirectoryOrFile}, outputFileName);
+        return await ReadFilesAndCreateEmbeddingDataAsCsv(new[] { pathToDirectoryOrFile }, outputFileName);
     }
 
     public async Task<DataFrame> ReadFilesAndCreateEmbeddingDataAsCsv(IEnumerable<string> pathsToDirectoriesOrFiles, string outputFileName)
@@ -180,7 +187,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
             }
 
             // Else add it to the text that is being returned
-            returns.Add((string) row[textIndex]);
+            returns.Add((string)row[textIndex]);
         }
 
         // Return the context
@@ -200,7 +207,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
     /// <returns></returns>
     public IEnumerable<TextEmbeddingData> LoadFilesFromDirectory(string pathToDirectory)
     {
-        return !Path.Exists(pathToDirectory)
+        return !File.Exists(pathToDirectory)
             ? new List<TextEmbeddingData>()
             : Directory.EnumerateFiles(pathToDirectory).Select(LoadFile).Where(r => r != null).ToList()!;
     }
@@ -214,7 +221,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
         Directory.CreateDirectory(Path.GetDirectoryName(outputFilePath) ?? string.Empty);
         await using var writer = new StreamWriter(outputFilePath);
         await using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-        await csv.WriteRecordsAsync((IEnumerable) textEmbeddingData);
+        await csv.WriteRecordsAsync((IEnumerable)textEmbeddingData);
         await csv.DisposeAsync();
     }
 
@@ -394,7 +401,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
         var distances = new PrimitiveDataFrameColumn<double>(EmbedStaticValues.Distances, embeddingsColumn.Length);
         for (var i = 0; i < embeddingsColumn.Length; i++)
         {
-            var rowEmbeddings = embeddingsColumn[i].ToString()!.Split(",").Select(Convert.ToDouble);
+            var rowEmbeddings = embeddingsColumn[i].ToString()!.Split(',').Select(Convert.ToDouble);
             distances[i] = Distance.Cosine(qEmbeddings.Select(x => x).ToArray(), Array.ConvertAll(rowEmbeddings.ToArray(), x => x));
         }
 
@@ -440,3 +447,5 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
         return await PerformTextEmbedding(files, outputFileName);
     }
 }
+
+#endif

@@ -172,7 +172,7 @@ public static class Models
     ///     128,000 tokens	Up to Apr 2023
     /// </summary>
     public static string Gpt_4_vision_preview => "gpt-4-vision-preview";
-    
+
 
 
     public static string Ada => "ada";
@@ -262,7 +262,7 @@ public static class Models
     ///     4,096 tokens	Up to Sep 2021
     /// </summary>
     public static string Gpt_3_5_Turbo_0613 => "gpt-3.5-turbo-0613";
-    
+
     /// <summary>
     ///     The latest GPT-3.5 Turbo model with improved instruction following, JSON mode, reproducible outputs, parallel function calling, and more.
     ///     16,384 tokens	Up to Sep 2021
@@ -289,19 +289,19 @@ public static class Models
     /// </summary>
     public static string Dall_e_2 => "dall-e-2";
     /// <summary>
-    /// The latest DALL·E model released in Nov 2023. 
+    /// The latest DALL·E model released in Nov 2023.
     /// </summary>
     public static string Dall_e_3 => "dall-e-3";
 
     /// <summary>
-    /// TTS is an AI model that converts text to natural sounding spoken text. 
+    /// TTS is an AI model that converts text to natural sounding spoken text.
     /// tts-1 is optimized for real time text to speech use cases.
     /// Released in Nov 2023.
     /// </summary>
     public static string Tts_1 => "tts-1";
 
     /// <summary>
-    /// TTS is an AI model that converts text to natural sounding spoken text. 
+    /// TTS is an AI model that converts text to natural sounding spoken text.
     /// tts-1-hd is optimized for quality
     /// Released in Nov 2023.
     /// </summary>
@@ -370,9 +370,7 @@ public static class Models
             Model.CodeSearchBabbageTextV1 => CodeSearchBabbageTextV1,
             Model.TextEditDavinciV1 => TextEditDavinciV1,
             Model.CodeEditDavinciV1 => CodeEditDavinciV1,
-            Model.ChatGpt3_5Turbo => ChatGpt3_5Turbo,
             Model.Gpt_3_5_Turbo => Gpt_3_5_Turbo,
-            Model.ChatGpt3_5Turbo0301 => ChatGpt3_5Turbo0301,
             Model.Gpt_3_5_Turbo_0301 => Gpt_3_5_Turbo_0301,
             Model.Gpt_3_5_Turbo_0613 => Gpt_3_5_Turbo_0613,
             Model.Gpt_3_5_Turbo_1106 => Gpt_3_5_Turbo_1106,

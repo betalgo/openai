@@ -1,11 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0</TargetFrameworks>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<TargetFrameworks>net8.0;net7.0;net6.0;netstandard2.0</TargetFrameworks>
+		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
-
 		<Copyright>Betalgo Up Ltd.</Copyright>
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
@@ -41,9 +40,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Betalgo.OpenAI" Version="7.2.0" />
 		<PackageReference Include="CsvHelper" Version="30.0.1" />
 		<PackageReference Include="MathNet.Numerics" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Data.Analysis" Version="0.20.1" />
+		<PackageReference Include="Microsoft.Data.Analysis" Version="0.21.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\OpenAI.SDK\OpenAI.csproj" />
 	</ItemGroup>
 </Project>

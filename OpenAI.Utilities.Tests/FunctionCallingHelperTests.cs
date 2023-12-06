@@ -31,7 +31,7 @@ public class FunctionCallingHelperTests
         stringParameter.Description.ShouldBe("String Parameter");
         stringParameter.Type.ShouldBe("string");
 
-        var enumValues = new List<string> {"Value1", "Value2", "Value3"};
+        var enumValues = new List<string> { "Value1", "Value2", "Value3" };
 
         var enumParameter = functionDefinition.Parameters.Properties["enumParameter"];
         enumParameter.Description.ShouldBe("Enum Parameter");
@@ -62,7 +62,6 @@ public class FunctionCallingHelperTests
     public void VerifyGetFunctionDefinitions()
     {
         var functionDefinitions = FunctionCallingHelper.GetFunctionDefinitions<FunctionCallingTestClass>();
-
         functionDefinitions.Count.ShouldBe(3);
 
         var functionDefinition = functionDefinitions.First(x => x.Name == "TestFunction");

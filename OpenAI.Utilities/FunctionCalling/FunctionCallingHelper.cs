@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using OpenAI.Builders;
 using OpenAI.ObjectModels.RequestModels;
@@ -55,11 +58,11 @@ public static class FunctionCallingHelper
                 case ({ } t, _) when t.IsAssignableFrom(typeof(string)):
                     definition = PropertyDefinition.DefineString(description);
                     break;
-                case ({IsEnum: true}, _):
+                case ({ IsEnum: true }, _):
 
                     var enumValues = string.IsNullOrEmpty(parameterDescriptionAttribute?.Enum)
                         ? Enum.GetNames(parameter.ParameterType).ToList()
-                        : parameterDescriptionAttribute.Enum.Split(",").Select(x => x.Trim()).ToList();
+                        : parameterDescriptionAttribute.Enum.Split(',').Select(x => x.Trim()).ToList();
 
                     definition =
                         PropertyDefinition.DefineEnum(enumValues, description);
@@ -153,7 +156,7 @@ public static class FunctionCallingHelper
             throw new InvalidFunctionCallException($"Method '{functionCall.Name}' on type '{obj.GetType()}' not found");
         }
 
-        if (!methodInfo.ReturnType.IsAssignableTo(typeof(T)))
+        if (!typeof(T).IsAssignableFrom(methodInfo.ReturnType))
         {
             throw new InvalidFunctionCallException(
                 $"Method '{functionCall.Name}' on type '{obj.GetType()}' has return type '{methodInfo.ReturnType}' but expected '{typeof(T)}'");
@@ -176,12 +179,12 @@ public static class FunctionCallingHelper
                 throw new Exception($"Argument '{name}' not found");
             }
 
-            var value = parameter.ParameterType.IsEnum ? Enum.Parse(parameter.ParameterType, argument.Value.ToString()!) : ((JsonElement) argument.Value).Deserialize(parameter.ParameterType);
+            var value = parameter.ParameterType.IsEnum ? Enum.Parse(parameter.ParameterType, argument.Value.ToString()!) : ((JsonElement)argument.Value).Deserialize(parameter.ParameterType);
 
             args.Add(value);
         }
 
-        var result = (T?) methodInfo.Invoke(obj, args.ToArray());
+        var result = (T?)methodInfo.Invoke(obj, args.ToArray());
         return result;
     }
 }
