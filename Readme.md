@@ -28,7 +28,9 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 [@AnukarOP](https://github.com/AnukarOP)
 [@Removable](https://github.com/Removable)
 ## Features
-- [ ] Dev day Updates (Some updates are currently available, while others will be released soon. Please follow the changelogs for more information.)
+- [x] Dev day Updates 
+- [x] Vision Api 
+- [X] Tools
 - [X] [Function Calling](https://github.com/betalgo/openai/wiki/Function-Calling)
 - [ ] Plugins (coming soon)
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
@@ -292,6 +294,13 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 7.4.2
+- Let's start with breaking changes:
+    - OpenAI has replaced function calling with tools. We have made the necessary changes to our code. This is not a major change; now you just have a wrapper around your function calling, which is named as "tool". The Playground provides an example. Please take a look to see how you can update your code.  
+    This update was completed by @shanepowell. Many thanks to him.
+- Now we support the Vision API, which involves passing message contents to the existing chat method. It is quite easy to use, but documentation was not available in the OpenAI API documentation.  
+This feature was completed by @belaszalontai. Many thanks to them.
+
 ### 7.4.1
 - Added support for "Create Speech" thanks to @belaszalontai / @szabe74 
 ### 7.4.0
