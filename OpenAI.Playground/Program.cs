@@ -44,8 +44,8 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 
 await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 //await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
-//await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
-//await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
+await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
+await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
 //await FineTuningJobTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
