@@ -1,13 +1,8 @@
 ﻿#if NET6_0_OR_GREATER
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using CsvHelper;
 using MathNet.Numerics;
 using Microsoft.Data.Analysis;

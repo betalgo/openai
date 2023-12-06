@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OpenAI.Utilities.FunctionCalling;
+﻿namespace OpenAI.Utilities.FunctionCalling;
 
 /// <summary>
 ///     Attribute to mark a method as a function, and provide a description for the function. Can also be used to override
