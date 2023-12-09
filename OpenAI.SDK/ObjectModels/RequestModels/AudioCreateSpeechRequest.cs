@@ -27,7 +27,7 @@ public record AudioCreateSpeechRequest : IOpenAiModels.IModel
     ///     The format to audio in. Supported formats are mp3, opus, aac, and flac
     ///     Defaults to mp3
     /// </summary>
-    [JsonPropertyName("responseFormat")]
+    [JsonPropertyName("response_format")]
     public string? ResponseFormat { get; set; }
 
     /// <summary>
