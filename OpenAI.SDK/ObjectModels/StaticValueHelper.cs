@@ -9,6 +9,17 @@ public class StaticValues
             public static string Json => "json_object";
             public static string Text => "text";
         }
+
+        public static class ToolType
+        {
+            public static string Function => "function";
+        }
+        public static class ToolChoiceType
+        {
+            public static string Function => ToolType.Function;
+            public static string Auto => "auto";
+            public static string None => "none";
+        }
     }
     public static class ImageStatics
     {
@@ -39,6 +50,28 @@ public class StaticValues
         {
             public static string Vivid => "vivid";
             public static string Natural => "natural";
+        }
+
+        public static class Quality
+        {
+            public static string Standard => "standard";
+            public static string Hd => "hd";
+        }
+
+        public static class ImageFileTypes
+        {
+            public static string Jpeg => "JPEG";
+            public static string Png => "PNG";
+            public static string Webp => "WEBP";
+            public static string Gif => "GIF";
+        }
+
+        public static class ImageDetailTypes
+        {
+            public static string High => "high";
+            public static string Low => "low";
+            public static string Auto => "auto";
+
         }
     }
 
@@ -76,6 +109,6 @@ public class StaticValues
         public static string System => "system";
         public static string User => "user";
         public static string Assistant => "assistant";
-        public static string Function => "function";
+        public static string Tool => "tool";
     }
 }

@@ -24,10 +24,10 @@ public record ImageCreateRequest : SharedImageRequestBaseModel, IOpenAiModels.IU
     public string Prompt { get; set; }
 
     /// <summary>
-    ///     The quality of the image that will be generated. Must be hd. 
+    ///     The quality of the image that will be generated. Possible values are 'standard' or 'hd' (default is 'standard').
     ///     Hd creates images with finer details and greater consistency across the image. 
     ///     This param is only supported for dall-e-3 model.
-    ///     <br /><br />Check <see cref="StaticValues.ImageStatics.Size"/> for possible values
+    ///     <br /><br />Check <see cref="StaticValues.ImageStatics.Quality"/> for possible values
     /// </summary>
     [JsonPropertyName("quality")]
     public string? Quality { get; set; }
