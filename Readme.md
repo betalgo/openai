@@ -294,6 +294,12 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 7.4.3
+- Fixed the response format of AudioCreateSpeechRequest.
+- Updated Azure OpenAI version to `2023-12-01-preview`, which now supports dall-e 3.
+- Added the ability to retrieve header values from the base response, such as ratelimit, etc. Please note that this feature is experimental and may change in the future.
+- Semi-Breaking change:
+    - The SDK will now attempt to handle 500 errors and other similar errors from the OpenAI server. Previously, an exception was thrown in such cases. Now, the SDK will try to read the response and return it as an error message. This change provides more visibility to developers and helps them understand the cause of the error.
 ### 7.4.2
 - Let's start with breaking changes:
     - OpenAI has replaced function calling with tools. We have made the necessary changes to our code. This is not a major change; now you just have a wrapper around your function calling, which is named as "tool". The Playground provides an example. Please take a look to see how you can update your code.  
