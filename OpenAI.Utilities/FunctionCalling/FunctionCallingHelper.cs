@@ -78,16 +78,24 @@ public static class FunctionCallingHelper
         return result.Build();
     }
 
+    public static ToolDefinition GetToolDefinition(MethodInfo methodInfo)
+    {
+        return new ToolDefinition()
+        {
+            Type = "function",
+            Function = GetFunctionDefinition(methodInfo)
+        };
+    }
     /// <summary>
     ///     Enumerates the methods in the provided object, and a returns a <see cref="List{FunctionDefinition}" /> of
     ///     <see cref="FunctionDefinition" /> for all methods
     ///     marked with a <see cref="FunctionDescriptionAttribute" />
     /// </summary>
     /// <param name="obj">the object to analyze</param>
-    public static List<FunctionDefinition> GetFunctionDefinitions(object obj)
+    public static List<ToolDefinition> GetToolDefinitions(object obj)
     {
         var type = obj.GetType();
-        return GetFunctionDefinitions(type);
+        return GetToolDefinitions(type);
     }
 
     /// <summary>
@@ -96,9 +104,9 @@ public static class FunctionCallingHelper
     /// </summary>
     /// <typeparam name="T">The type to analyze</typeparam>
     /// <returns></returns>
-    public static List<FunctionDefinition> GetFunctionDefinitions<T>()
+    public static List<ToolDefinition> GetToolDefinitions<T>()
     {
-        return GetFunctionDefinitions(typeof(T));
+        return GetToolDefinitions(typeof(T));
     }
 
     /// <summary>
@@ -106,7 +114,7 @@ public static class FunctionCallingHelper
     ///     <see cref="FunctionDefinition" /> for all methods
     /// </summary>
     /// <param name="type">The type to analyze</param>
-    public static List<FunctionDefinition> GetFunctionDefinitions(Type type)
+    public static List<ToolDefinition> GetToolDefinitions(Type type)
     {
         var methods = type.GetMethods();
 
@@ -117,10 +125,11 @@ public static class FunctionCallingHelper
                 methodDescriptionAttribute = method.GetCustomAttribute<FunctionDescriptionAttribute>()
             })
             .Where(t => t.methodDescriptionAttribute != null)
-            .Select(t => GetFunctionDefinition(t.method)).ToList();
+            .Select(t => GetToolDefinition(t.method)).ToList();
 
         return result;
     }
+    
 
     /// <summary>
     ///     Calls the function on the provided object, using the provided <see cref="FunctionCall" /> and returns the result of
