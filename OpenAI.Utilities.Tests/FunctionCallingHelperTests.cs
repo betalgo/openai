@@ -61,23 +61,24 @@ public class FunctionCallingHelperTests
     [Fact]
     public void VerifyGetFunctionDefinitions()
     {
-        var functionDefinitions = FunctionCallingHelper.GetFunctionDefinitions<FunctionCallingTestClass>();
+        var functionDefinitions = FunctionCallingHelper.GetToolDefinitions<FunctionCallingTestClass>();
+
         functionDefinitions.Count.ShouldBe(3);
 
-        var functionDefinition = functionDefinitions.First(x => x.Name == "TestFunction");
-        functionDefinition.Description.ShouldBe("Test Function");
-        functionDefinition.Parameters.ShouldNotBeNull();
-        functionDefinition.Parameters.Properties!.Count.ShouldBe(9);
+        var functionDefinition = functionDefinitions.First(x => x.Function!.Name == "TestFunction");
+        functionDefinition.Function!.Description.ShouldBe("Test Function");
+        functionDefinition.Function!.Parameters.ShouldNotBeNull();
+        functionDefinition.Function!.Parameters.Properties!.Count.ShouldBe(9);
 
-        var functionDefinition2 = functionDefinitions.First(x => x.Name == "SecondFunction");
-        functionDefinition2.Description.ShouldBe("Second Function");
-        functionDefinition2.Parameters.ShouldNotBeNull();
-        functionDefinition2.Parameters.Properties!.Count.ShouldBe(0);
+        var functionDefinition2 = functionDefinitions.First(x => x.Function!.Name == "SecondFunction");
+        functionDefinition2.Function!.Description.ShouldBe("Second Function");
+        functionDefinition2.Function!.Parameters.ShouldNotBeNull();
+        functionDefinition2.Function!.Parameters.Properties!.Count.ShouldBe(0);
 
-        var functionDefinition3 = functionDefinitions.First(x => x.Name == "ThirdFunction");
-        functionDefinition3.Description.ShouldBe("Third Function");
-        functionDefinition3.Parameters.ShouldNotBeNull();
-        functionDefinition3.Parameters.Properties!.Count.ShouldBe(1);
+        var functionDefinition3 = functionDefinitions.First(x => x.Function!.Name == "ThirdFunction");
+        functionDefinition3.Function!.Description.ShouldBe("Third Function");
+        functionDefinition3.Function!.Parameters.ShouldNotBeNull();
+        functionDefinition3.Function!.Parameters.Properties!.Count.ShouldBe(1);
     }
 
     [Fact]

@@ -16,8 +16,8 @@ internal static class ImageTestHelper
             var imageResult = await sdk.Image.CreateImage(new ImageCreateRequest
             {
                 Prompt = "Laser cat eyes",
-                N = 2,
-                Size = StaticValues.ImageStatics.Size.Size256,
+                N = 1,
+                Size = StaticValues.ImageStatics.Size.Size1024,
                 ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
                 User = "TestUser"
             });

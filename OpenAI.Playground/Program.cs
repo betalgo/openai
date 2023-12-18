@@ -44,13 +44,16 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 
 await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 //await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
-//await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
-//await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
-//await FineTuningJobTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
+
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
 //await VisionTestHelper.RunSimpleVisionStreamTest(sdk);
 //await VisionTestHelper.RunSimpleVisionTestUsingBase64EncodedImage(sdk);
+
+// Tools
+//await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
+//await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
+
 // Whisper
 //await AudioTestHelper.RunSimpleAudioCreateTranscriptionTest(sdk);
 //await AudioTestHelper.RunSimpleAudioCreateTranslationTest(sdk);
@@ -71,9 +74,11 @@ await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 //await EmbeddingTestHelper.RunSimpleEmbeddingTest(sdk);
 //////await FileTestHelper.RunSimpleFileTest(sdk); //will delete all of your files
 //////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
+//await FineTuningJobTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 //await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 //await TokenizerTestHelper.RunTokenizerTest();
 //await TokenizerTestHelper.RunTokenizerCountTest();
 //await TokenizerTestHelper.RunTokenizerTestCrClean();
 
+Console.WriteLine("Press any key to exit...");
 Console.ReadLine();

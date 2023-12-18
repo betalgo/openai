@@ -130,7 +130,7 @@ internal static class ChatCompletionTestHelper
                     ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
                     ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days.")
                 },
-                Tools = new List<ToolDefinition> { new() { Function = fn1 }, new() { Function = fn2 }, new() { Function = fn3 }, new() { Function = fn4 }, new() { Function = fn4 } },
+                Tools = new List<ToolDefinition> { ToolDefinition.DefineFunction(fn1), ToolDefinition.DefineFunction(fn2) ,ToolDefinition.DefineFunction(fn3) ,ToolDefinition.DefineFunction(fn4) },
                 // optionally, to force a specific function:
                 //ToolChoice = ToolChoice.FunctionChoice("get_current_weather"),
                 // or auto tool choice:
@@ -233,7 +233,7 @@ internal static class ChatCompletionTestHelper
                     // or to test array functions, use this instead:
                     // ChatMessage.FromUser("The combination is: One. Two. Three. Four. Five."),
                 },
-                Tools = new List<ToolDefinition> { new() { Function = fn1 }, new() { Function = fn2 }, new() { Function = fn3 }, new() { Function = fn4 }, new() { Function = fn4 } },
+                Tools = new List<ToolDefinition> { ToolDefinition.DefineFunction(fn1), ToolDefinition.DefineFunction(fn2), ToolDefinition.DefineFunction(fn3), ToolDefinition.DefineFunction(fn4) },
                 // optionally, to force a specific function:
                 ToolChoice = ToolChoice.FunctionChoice("get_current_weather"),
                 // or auto tool choice:

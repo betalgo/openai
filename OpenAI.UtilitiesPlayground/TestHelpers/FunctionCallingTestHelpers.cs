@@ -15,7 +15,7 @@ public static class FunctionCallingTestHelpers
         {
             //Functions = FunctionCallingHelper.GetFunctionDefinitions(calculator),
             //Functions = FunctionCallingHelper.GetFunctionDefinitions(typeof(Calculator)),
-            //Functions = FunctionCallingHelper.GetFunctionDefinitions<Calculator>(),
+            Tools = FunctionCallingHelper.GetToolDefinitions<Calculator>(),
             Messages = new List<ChatMessage>
             {
                 ChatMessage.FromSystem("You are a helpful assistant."),
