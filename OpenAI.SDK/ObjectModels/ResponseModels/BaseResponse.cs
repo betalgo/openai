@@ -61,7 +61,9 @@ public record DataBaseResponse<T> : BaseResponse
 
 public class Error
 {
-    [JsonPropertyName("code")] public string? Code { get; set; }
+    [JsonPropertyName("code")] public object? CodeObject { get; set; } // in openai this is a string, in open router this is a number!
+    [JsonIgnore] public string? Code => CodeObject as string;
+    [JsonIgnore] public int? CodeAsInt => CodeObject as int?;
 
     [JsonPropertyName("param")] public string? Param { get; set; }
 

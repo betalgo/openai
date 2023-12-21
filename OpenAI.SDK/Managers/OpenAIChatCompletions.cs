@@ -45,6 +45,12 @@ public partial class OpenAIService : IChatCompletionService
                 continue;
             }
 
+            // skip SSE comments (as required by open router ai api calls)
+            if (line.StartsWith(":"))
+            {
+                continue;
+            }
+
             line = line.RemoveIfStartWith("data: ");
 
             // Exit the loop if the stream is done
