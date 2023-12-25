@@ -81,7 +81,7 @@ public partial class OpenAIService : IChatCompletionService
     }
 
     /// <summary>
-    ///     This helper class attempts to reassemble a function call response
+    ///     This helper class attempts to reassemble a tool call with type == "function" response
     ///     that was split up across several streamed chunks.
     ///     Note that this only works for the first message in each response,
     ///     and ignores the others; if OpenAI ever changes their response format
@@ -89,14 +89,15 @@ public partial class OpenAIService : IChatCompletionService
     /// </summary>
     private class ReassemblyContext
     {
-        private FunctionCall? FnCall;
+        private IList<ToolCall>? DeltaFnCallList;
+        private IList<ToolCall>? ToolCallList;
 
-        public bool IsFnAssemblyActive => FnCall != null;
+        public bool IsFnAssemblyActive => DeltaFnCallList != null;
 
 
         /// <summary>
         ///     Detects if a response block is a part of a multi-chunk
-        ///     streamed function call response. As long as that's true,
+        ///     streamed tool call response of type == "function". As long as that's true,
         ///     it keeps accumulating block contents, and once function call
         ///     streaming is done, it produces the assembled results in the final block.
         /// </summary>
@@ -117,8 +118,14 @@ public partial class OpenAIService : IChatCompletionService
             // We're going to steal the partial message and squirrel it away for the time being.
             if (!IsFnAssemblyActive && isStreamingFnCall)
             {
-                FnCall = firstChoice.Message.FunctionCall;
-                firstChoice.Message.FunctionCall = null;
+                ToolCallList = firstChoice.Message.ToolCalls;
+                DeltaFnCallList = new List<ToolCall>();
+                foreach (var t in ToolCallList!)
+                {
+                    if (t.FunctionCall != null && t.Type == "function")
+                        DeltaFnCallList.Add(t);
+                }
+
                 justStarted = true;
             }
 
@@ -126,28 +133,127 @@ public partial class OpenAIService : IChatCompletionService
             // (Skip the first one, because it was already processed in the block above)
             if (IsFnAssemblyActive && !justStarted)
             {
-                FnCall.Arguments += ExtractArgsSoFar();
+                //Handles just ToolCall type == "function"
+                var argumentsList = ExtractArgsSoFar().GetEnumerator();
+                var existItems = argumentsList.MoveNext();
+
+                if (existItems)
+                {
+                    foreach (var f in DeltaFnCallList!)
+                    {
+                        f.FunctionCall!.Arguments += argumentsList.Current;
+                        argumentsList.MoveNext();
+                    }
+                }
             }
 
             // If we were assembling and it just finished, fill this block with the info we've assembled, and we're done.
             if (IsFnAssemblyActive && !isStreamingFnCall)
             {
                 firstChoice.Message ??= ChatMessage.FromAssistant(""); // just in case? not sure it's needed
-                firstChoice.Message.FunctionCall = FnCall;
-                FnCall = null;
+                firstChoice.Message.ToolCalls = ToolCallList;
+                DeltaFnCallList = null;
             }
 
             // Returns true if we're actively streaming, and also have a partial function call in the response
             bool IsStreamingFunctionCall()
             {
                 return firstChoice.FinishReason == null && // actively streaming, and
-                       firstChoice.Message?.FunctionCall != null;
+                       firstChoice.Message?.ToolCalls?.Count > 0 &&
+                       (firstChoice.Message?.ToolCalls.Any(t => t.FunctionCall != null) ?? false);
             } // have a function call
 
-            string ExtractArgsSoFar()
+            IEnumerable<string> ExtractArgsSoFar()
             {
-                return block.Choices?.FirstOrDefault()?.Message?.FunctionCall?.Arguments ?? "";
+                var toolCalls = block.Choices?.FirstOrDefault()?.Message?.ToolCalls;
+
+                if (toolCalls != null)
+                {
+                    var functionCallList = toolCalls
+                        .Where(t => t.FunctionCall != null)
+                        .Select(t => t.FunctionCall);
+
+                    if (functionCallList != null)
+                    {
+                        foreach (var functionCall in functionCallList)
+                        {
+                            yield return functionCall!.Arguments ?? "";
+                        }
+                    }
+                }
             }
         }
+
+        #region Old ReassemblyContext class based on legacy/deprecated FunctionCall support
+        ///// <summary>
+        /////     This helper class attempts to reassemble a function call response
+        /////     that was split up across several streamed chunks.
+        /////     Note that this only works for the first message in each response,
+        /////     and ignores the others; if OpenAI ever changes their response format
+        /////     this will need to be adjusted.
+        ///// </summary>
+        //private class ReassemblyContext
+        //{
+        //    private FunctionCall? FnCall;
+
+        //    public bool IsFnAssemblyActive => FnCall != null;
+
+
+        //    /// <summary>
+        //    ///     Detects if a response block is a part of a multi-chunk
+        //    ///     streamed function call response. As long as that's true,
+        //    ///     it keeps accumulating block contents, and once function call
+        //    ///     streaming is done, it produces the assembled results in the final block.
+        //    /// </summary>
+        //    /// <param name="block"></param>
+        //    public void Process(ChatCompletionCreateResponse block)
+        //    {
+        //        var firstChoice = block.Choices?.FirstOrDefault();
+        //        if (firstChoice == null)
+        //        {
+        //            return;
+        //        } // not a valid state? nothing to do
+
+        //        var isStreamingFnCall = IsStreamingFunctionCall();
+        //        var justStarted = false;
+
+        //        // If we're not yet assembling, and we just got a streaming block that has a function_call segment,
+        //        // this is the beginning of a function call assembly.
+        //        // We're going to steal the partial message and squirrel it away for the time being.
+        //        if (!IsFnAssemblyActive && isStreamingFnCall)
+        //        {
+        //            FnCall = firstChoice.Message.FunctionCall;
+        //            firstChoice.Message.FunctionCall = null;
+        //            justStarted = true;
+        //        }
+
+        //        // As long as we're assembling, keep on appending those args
+        //        // (Skip the first one, because it was already processed in the block above)
+        //        if (IsFnAssemblyActive && !justStarted)
+        //        {
+        //            FnCall.Arguments += ExtractArgsSoFar();
+        //        }
+
+        //        // If we were assembling and it just finished, fill this block with the info we've assembled, and we're done.
+        //        if (IsFnAssemblyActive && !isStreamingFnCall)
+        //        {
+        //            firstChoice.Message ??= ChatMessage.FromAssistant(""); // just in case? not sure it's needed
+        //            firstChoice.Message.FunctionCall = FnCall;
+        //            FnCall = null;
+        //        }
+
+        //        // Returns true if we're actively streaming, and also have a partial function call in the response
+        //        bool IsStreamingFunctionCall()
+        //        {
+        //            return firstChoice.FinishReason == null && // actively streaming, and
+        //                   firstChoice.Message?.FunctionCall != null;
+        //        } // have a function call
+
+        //        string ExtractArgsSoFar()
+        //        {
+        //            return block.Choices?.FirstOrDefault()?.Message?.FunctionCall?.Arguments ?? "";
+        //        }
+        //    }
+        #endregion
     }
 }
