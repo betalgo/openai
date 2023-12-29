@@ -14,9 +14,7 @@
   //  //,"ApiVersion": "Your API Version"//optional
   // //,"ValidateApiOptions": false // if you want to skip options validation.
   //},
-
   "LaserCatEyesOptions": {
     //"AppKey":"Put your app key to here or to User Secret file" //How can I get an app key? visit here: https://portal.lasercateyes.com/
-
   }
 }
