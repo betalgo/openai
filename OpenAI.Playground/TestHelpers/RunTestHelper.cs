@@ -84,5 +84,30 @@ namespace OpenAI.Playground.TestHelpers
             }
         }
 
+
+        public static async Task RunRunCancelTest(IOpenAIService sdk)
+        {
+            ConsoleExtensions.WriteLine("Run cancel Testing is starting:", ConsoleColor.Cyan);
+
+            var threadId = "thread_H43Cyjd8LY8dQNA5N2zbepc0";
+            var lastRunId = $"run_0qyHIm4sd9Ugczv0zi5c9BLU";
+            ConsoleExtensions.WriteLine("Run Cancel Test:", ConsoleColor.DarkCyan);
+            var runResult = await sdk.Beta.Runs.RunCancel(threadId, lastRunId);
+            if (runResult.Successful)
+            {
+                ConsoleExtensions.WriteLine(runResult.ToJson());
+            }
+            else
+            {
+                if (runResult.Error == null)
+                {
+                    throw new Exception("Unknown Error");
+                }
+
+                ConsoleExtensions.WriteLine($"{runResult.Error.Code}: {runResult.Error.Message}");
+            }
+
+
+        }
     }
 }

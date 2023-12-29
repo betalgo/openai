@@ -30,6 +30,15 @@ namespace OpenAI.Interfaces
         Task<RunResponse> RunRetrieve(string threadId, string runId, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Cancels a run that is in_progress.
+        /// </summary>
+        /// <param name="threadId"></param>
+        /// <param name="runId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<RunResponse> RunCancel(string threadId, string runId, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Submit tool outputs to run
         /// <para>When a run has the status: "requires_action" and required_action.type is submit_tool_outputs, 
         /// this endpoint can be used to submit the outputs from the tool calls once they're all completed. 

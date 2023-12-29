@@ -26,5 +26,13 @@ namespace OpenAI.Interfaces
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<ThreadResponse> ThreadRetrieve(string threadId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Delete a thread.
+        /// </summary>
+        /// <param name="threadId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<DeletionStatusResponse> ThreadDelete(string threadId, CancellationToken cancellationToken = default);
     }
 }

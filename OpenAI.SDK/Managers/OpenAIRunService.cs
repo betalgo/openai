@@ -46,6 +46,21 @@ namespace OpenAI.Managers
         }
 
         /// <summary>
+        /// Cancels a run that is in_progress.
+        /// </summary>
+        /// <param name="threadId"></param>
+        /// <param name="runId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<RunResponse> RunCancel(string threadId, string runId, CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrWhiteSpace(threadId)) { throw new ArgumentNullException(nameof(threadId)); }
+
+            return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunCancel(threadId, runId), null,cancellationToken);
+        }
+
+        /// <summary>
         /// Submit tool outputs to run
         /// <para>When a run has the status: "requires_action" and required_action.type is submit_tool_outputs, 
         /// this endpoint can be used to submit the outputs from the tool calls once they're all completed. 

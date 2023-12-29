@@ -45,7 +45,7 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //await AssistantTestHelper.RunAssistantCreateTest(sdk);
 //await AssistantTestHelper.RunAssistantWorkTest(sdk);
 await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
-
+//await RunTestHelper.RunRunCancelTest(sdk);
 //await MessageTestHelper.RunMessageCreateTest(sdk);
 
 //await ThreadTestHelper.RunThreadRetrieveTest(sdk);

@@ -271,5 +271,50 @@ namespace OpenAI.Playground.TestHelpers
             }
 
         }
+
+        public static async Task RunAssistantMethodsTest(IOpenAIService sdk)
+        {
+            ConsoleExtensions.WriteLine("Assistant Create Test:", ConsoleColor.DarkCyan);
+            var assistantResult = await sdk.Beta.Assistants.AssistantCreate(new AssistantCreateRequest
+            {
+                Instructions = @"你是佳程供应链公司FAQ答疑助手，根据客户提出的问题，分步回答。
+1、所有发运问题都从“FAQ_发运要求_20231218110850.pdf”文件中获取；
+2、概括总结客户提出的问题，提取出“客户问题关键字”；
+3、用“客户问题关键字” 去文件中匹配“【问】”开头的问题；
+4、找意思最接近的“【问】”开头的问题，并标记为“命中问题”；如果没有找到，提示“不知道，你可以问我其他班列发运要求”；
+如果找到了，从“命中问题”开始找下面标记“一/二/三等”顺序的标题，进行标题罗列。
+罗列格式如下，例如：
+```
+         苏州班列的发运要求
+一、班期及截单时间
+二、装箱要求
+三、装箱照片要求
+四、加固要求
+五、进站要求
+六、报关要求
+七、化工品发运要求
+八、随车+运单要求
+以上内容，您需要具体了解哪个？
+```
+5、根据客户进一步选的项，找“命中问题”下面的对应的标题下的正文进行回复；",
+                Name = "Math Tutor",
+                Model = Models.Gpt_3_5_Turbo_1106
+            });
+
+            if (assistantResult.Successful)
+            {
+                var assistant = assistantResult;
+                ConsoleExtensions.WriteLine(assistant.ToJson());
+            }
+            else
+            {
+                if (assistantResult.Error == null)
+                {
+                    throw new Exception("Unknown Error");
+                }
+
+                ConsoleExtensions.WriteLine($"{assistantResult.Error.Code}: {assistantResult.Error.Message}");
+            }
+        }
     }
 }

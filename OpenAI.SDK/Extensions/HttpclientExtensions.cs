@@ -10,10 +10,10 @@ public static class HttpClientExtensions
 {
     public static async Task<TResponse> GetReadAsAsync<TResponse>(this HttpClient client, string uri, CancellationToken cancellationToken = default)
     {
-       var response = await client.GetFromJsonAsync<TResponse>(uri, new JsonSerializerOptions
-       {
-           DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
-       }, cancellationToken);
+        var response = await client.GetFromJsonAsync<TResponse>(uri, new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+        }, cancellationToken);
         return response ?? throw new InvalidOperationException();
     }
 
@@ -21,12 +21,12 @@ public static class HttpClientExtensions
     {
         var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
         {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault,
         }, cancellationToken);
         return await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
     }
 
-    public static async Task<TResponse> PostAndReadAsDataAsync<TResponse,TData>(this HttpClient client, string uri, object? requestModel, CancellationToken cancellationToken = default) where TResponse : DataBaseResponse<TData>, new()  
+    public static async Task<TResponse> PostAndReadAsDataAsync<TResponse, TData>(this HttpClient client, string uri, object? requestModel, CancellationToken cancellationToken = default) where TResponse : DataBaseResponse<TData>, new()
     {
         var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
         {

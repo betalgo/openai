@@ -38,5 +38,19 @@ namespace OpenAI.Managers
 
             return await _httpClient.GetReadAsAsync<ThreadResponse>(_endpointProvider.ThreadRetrieve(threadId), cancellationToken);
         }
+
+        /// <summary>
+        /// Delete a thread.
+        /// </summary>
+        /// <param name="threadId"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public async Task<DeletionStatusResponse> ThreadDelete(string threadId, CancellationToken cancellationToken = default)
+        {
+            if (string.IsNullOrWhiteSpace(threadId)) { throw new ArgumentNullException(nameof(threadId)); }
+
+            return await _httpClient.GetReadAsAsync<DeletionStatusResponse>(_endpointProvider.ThreadRetrieve(threadId), cancellationToken);
+        }
     }
 }

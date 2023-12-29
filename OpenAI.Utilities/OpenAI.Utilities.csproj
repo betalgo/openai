@@ -6,18 +6,18 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
 
-		<Copyright>Betalgo Up Ltd.</Copyright>
+		<Copyright>Betterway Ltd.</Copyright>
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Version>7.0.3</Version>
-		<Authors>Tolga Kayhan, Betalgo</Authors>
-		<Company>Betalgo Up Ltd.</Company>
-		<Product>Utility tools for Betalgo.OpenAI</Product>
-		<Description>Utility tools for Betalgo.OpenAI - Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-4 and DALL·E</Description>
+		<Authors>Magic Team</Authors>
+		<Company>Betterway Ltd.</Company>
+		<Product>Utility tools for Magic.OpenAI</Product>
+		<Description>Utility tools for Betalgo.OpenAI - Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-4, DALL·E and Beta's Assistants</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
 		<PackageTags>openAI,chatGPT,gpt-4, gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
-		<PackageId>Betalgo.OpenAI.Utilities</PackageId>
+		<PackageId>Magic.OpenAI.Utilities</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<RepositoryUrl>https://github.com/betalgo/openai.git</RepositoryUrl>

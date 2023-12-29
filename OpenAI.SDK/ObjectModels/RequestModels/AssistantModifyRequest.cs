@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 
 namespace OpenAI.ObjectModels.RequestModels
 {
-    public class AssistantCreateRequest : IOpenAiModels.IModel, IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
+    public class AssistantModifyRequest : IOpenAiModels.IModel, IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
     {
         /// <summary>
         ///  ID of the model to use
         /// </summary>
-        [Required]
         [JsonPropertyName("model")]
         public string Model { get; set; }
 
@@ -22,19 +21,19 @@ namespace OpenAI.ObjectModels.RequestModels
         /// The name of the assistant. The maximum length is 256
         /// </summary>
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
-        /// The description of the assistant.
+        /// The description of the assistant. The maximum length is 512 characters.
         /// </summary>
         [JsonPropertyName("description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
-        /// The system instructions that the assistant uses.
+        /// The system instructions that the assistant uses. The maximum length is 32768 characters.
         /// </summary>
         [JsonPropertyName("instructions")]
-        public string Instructions { get; set; }
+        public string? Instructions { get; set; }
 
         /// <summary>
         /// A list of tools enabled on the assistant.
@@ -43,7 +42,7 @@ namespace OpenAI.ObjectModels.RequestModels
         public List<ToolDefinition> Tools { get; set; }
 
         /// <summary>
-        /// A list of file IDs attached to this assistant.
+        /// A list of File IDs attached to this assistant. 
         /// </summary>
         [JsonPropertyName("file_ids")]
         public List<string> FileIds { get; set; }

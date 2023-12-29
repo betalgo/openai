@@ -95,6 +95,7 @@ public class StaticValues
             public static class Roles
             {
                 public static string User => "user";
+                public static string Assistant => "assistant";
             }
 
             public static class Content
