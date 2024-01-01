@@ -155,7 +155,15 @@ public static class FunctionCallingHelper
             throw new ArgumentNullException(nameof(obj));
         }
 
-        var methodInfo = obj.GetType().GetMethod(functionCall.Name);
+        var methods = obj.GetType().GetMethods();
+
+        var methodInfo = methods
+            .FirstOrDefault(method =>
+            {
+                var attr = method.GetCustomAttribute(typeof(FunctionDescriptionAttribute));
+                return attr != null && functionCall.Name == ((FunctionDescriptionAttribute)attr).Name;
+            })
+            ?? methods.FirstOrDefault(method => method.Name == functionCall.Name);
 
         if (methodInfo == null)
         {
