@@ -71,7 +71,7 @@ namespace OpenAI.Managers
         {
             if (string.IsNullOrWhiteSpace(assistantId)) { throw new ArgumentNullException(nameof(assistantId)); }
 
-            return await _httpClient.GetReadAsAsync<DeletionStatusResponse>(_endpointProvider.AssistantDelete(assistantId), cancellationToken);
+            return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.AssistantDelete(assistantId), cancellationToken);
         }
 
         /// <inheritdoc />
@@ -80,7 +80,7 @@ namespace OpenAI.Managers
             if (string.IsNullOrWhiteSpace(assistantId)) { throw new ArgumentNullException(nameof(assistantId)); }
             if (string.IsNullOrWhiteSpace(fileId)) { throw new ArgumentNullException(nameof(fileId)); }
 
-            return await _httpClient.GetReadAsAsync<DeletionStatusResponse>(_endpointProvider.AssistantFileDelete(assistantId, fileId), cancellationToken);
+            return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.AssistantFileDelete(assistantId, fileId), cancellationToken);
         }
 
 

@@ -50,7 +50,7 @@ namespace OpenAI.Managers
         {
             if (string.IsNullOrWhiteSpace(threadId)) { throw new ArgumentNullException(nameof(threadId)); }
 
-            return await _httpClient.GetReadAsAsync<DeletionStatusResponse>(_endpointProvider.ThreadRetrieve(threadId), cancellationToken);
+            return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.ThreadRetrieve(threadId), cancellationToken);
         }
     }
 }

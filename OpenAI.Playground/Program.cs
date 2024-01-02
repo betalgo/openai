@@ -43,6 +43,7 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |-----------------------------------------------------------------------|
 
 //Assistants
+//await AssistantTestHelper.RunAssistantAPITest(sdk);
 await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
 
 //await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);

@@ -14,47 +14,103 @@ namespace OpenAI.Playground.TestHelpers
 {
     internal static class AssistantTestHelper
     {
-        public static async Task RunAssistantCreateTest(IOpenAIService sdk)
+        /// <summary>
+        /// Test Assistant api
+        /// </summary>
+        /// <param name="sdk"></param>
+        /// <returns></returns>
+        public static async Task RunAssistantAPITest(IOpenAIService sdk)
         {
-            ConsoleExtensions.WriteLine("Assistant create Testing is starting:", ConsoleColor.Cyan);
+            ConsoleExtensions.WriteLine("Assistant APT Testing is starting:");
 
-            var func = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather")
-                .AddParameter("location", PropertyDefinition.DefineString("The city and state, e.g. San Francisco, CA"))
-                .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> { "celsius", "fahrenheit" }, "The temperature unit to use. Infer this from the users location."))
+            #region Create assistant
+            var func = new FunctionDefinitionBuilder("get_corp_location", "get location of corp")
+                .AddParameter("name", PropertyDefinition.DefineString("compary name, e.g. Betterway"))
                 .Validate()
                 .Build();
 
-            try
+            ConsoleExtensions.WriteLine("Assistant Create Test:", ConsoleColor.DarkCyan);
+            var assistantResult = await sdk.Beta.Assistants.AssistantCreate(new AssistantCreateRequest
             {
-                ConsoleExtensions.WriteLine("Assistant Create Test:", ConsoleColor.DarkCyan);
-                var assistantResult = await sdk.Beta.Assistants.AssistantCreate(new AssistantCreateRequest
-                {
-                    Instructions = "You are a personal math tutor. When asked a question, write and run Python code to answer the question.",
-                    Name = "Math Tutor",
-                    Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineRetrieval(), ToolDefinition.DefineFunction(func) },
-                    Model = Models.Gpt_3_5_Turbo_1106
-                });
-
-                if (assistantResult.Successful)
-                {
-                    var assistant = assistantResult;
-                    ConsoleExtensions.WriteLine(assistant.ToJson());
-                }
-                else
-                {
-                    if (assistantResult.Error == null)
-                    {
-                        throw new Exception("Unknown Error");
-                    }
-
-                    ConsoleExtensions.WriteLine($"{assistantResult.Error.Code}: {assistantResult.Error.Message}");
-                }
-            }
-            catch (Exception e)
+                Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
+                Name = "Qicha",
+                Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineRetrieval(), ToolDefinition.DefineFunction(func) },
+                Model = Models.Gpt_3_5_Turbo_1106
+            });
+            if (assistantResult.Successful)
             {
-                Console.WriteLine(e);
-                throw;
+                var assistant = assistantResult;
+                ConsoleExtensions.WriteLine(assistant.ToJson());
             }
+            else
+            {
+                ConsoleExtensions.WriteLine($"{assistantResult.Error?.Code}: {assistantResult.Error?.Message}");
+                return;
+            }
+            var assistantId = assistantResult.Id;
+            ConsoleExtensions.WriteLine($"assistantId:{assistantId} ");
+            #endregion
+
+
+
+            #region// Assistant List
+            ConsoleExtensions.WriteLine("Assistant list:", ConsoleColor.DarkCyan);
+            var asstListResult = await sdk.Beta.Assistants.AssistantList();
+            if (asstListResult.Successful)
+            {
+                ConsoleExtensions.WriteLine($"asst list: {asstListResult.Data?.ToJson()}");
+            }
+            else
+            {
+                ConsoleExtensions.WriteLine($"{asstListResult.Error?.Code}: {asstListResult.Error?.Message}");
+                return;
+            }
+            #endregion
+
+            #region// Assistant modify
+            ConsoleExtensions.WriteLine("Assistant modify:", ConsoleColor.DarkCyan);
+            var asstResult = await sdk.Beta.Assistants.AssistantModify(assistantId,new AssistantModifyRequest()
+            {
+                 Name= "Qicha rename"
+            });
+            if (asstResult.Successful)
+            {
+                ConsoleExtensions.WriteLine(asstResult.ToJson());
+            }
+            else
+            {
+                ConsoleExtensions.WriteLine($"{asstResult.Error?.Code}: {asstResult.Error?.Message}");
+                return;
+            }
+            #endregion
+
+            #region// Assistant retrieve
+            ConsoleExtensions.WriteLine("Assistant retrieve:", ConsoleColor.DarkCyan);
+            var asstRetrieveResult = await sdk.Beta.Assistants.AssistantRetrieve(assistantId);
+            if (asstRetrieveResult.Successful)
+            {
+                ConsoleExtensions.WriteLine(asstRetrieveResult.ToJson());
+            }
+            else
+            {
+                ConsoleExtensions.WriteLine($"{asstRetrieveResult.Error?.Code}: {asstRetrieveResult.Error?.Message}");
+                return;
+            }
+            #endregion
+
+            #region// Assistant delete
+            ConsoleExtensions.WriteLine("Assistant delete:", ConsoleColor.DarkCyan);
+            var deleteResult = await sdk.Beta.Assistants.AssistantDelete(assistantId);
+            if (deleteResult.Successful)
+            {
+                ConsoleExtensions.WriteLine(deleteResult.ToJson());
+            }
+            else
+            {
+                ConsoleExtensions.WriteLine($"{deleteResult.Error?.Code}: {deleteResult.Error?.Message}");
+                return;
+            }
+            #endregion
         }
 
         /// <summary>
@@ -65,7 +121,7 @@ namespace OpenAI.Playground.TestHelpers
         /// <returns></returns>
         public static async Task RunHowAssistantsWorkTest(IOpenAIService sdk)
         {
-            ConsoleExtensions.WriteLine("Assistant work Testing is starting:", ConsoleColor.Cyan);
+            ConsoleExtensions.WriteLine("How assistant work Testing is starting:", ConsoleColor.DarkCyan);
 
             #region//upload file
             const string fileName = "betterway_corp.csv";
@@ -88,17 +144,16 @@ namespace OpenAI.Playground.TestHelpers
             #endregion
 
             #region//create assistants
-
-            var func = new FunctionDefinitionBuilder("get_corp_location", "获取公司位置")
-                .AddParameter("name", PropertyDefinition.DefineString("公司名称，例如：佳程供应链"))
+            var func = new FunctionDefinitionBuilder("get_corp_location", "get location of corp")
+                .AddParameter("name", PropertyDefinition.DefineString("compary name, e.g. Betterway"))
                 .Validate()
                 .Build();
 
             ConsoleExtensions.WriteLine("Assistant Create Test:", ConsoleColor.DarkCyan);
             var assistantResult = await sdk.Beta.Assistants.AssistantCreate(new AssistantCreateRequest
             {
-                Name = "企查查",
-                Instructions = "你是一个专业提供公司信息的助手。公司相关数据来自上传的问题，不提供模糊不清的回答，只提供明确的答案",
+                Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
+                Name = "Qicha",
                 Model = Models.Gpt_3_5_Turbo_1106,
                 Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineRetrieval(), ToolDefinition.DefineFunction(func) },
                 FileIds = new List<string>() { uplaodFileId },
@@ -138,7 +193,7 @@ namespace OpenAI.Playground.TestHelpers
             var messageResult = await sdk.Beta.Messages.MessageCreate(threadId, new MessageCreateRequest
             {
                 Role = StaticValues.AssistatntsStatics.MessageStatics.Roles.User,
-                Content = "浙江佳程供应链有限公司具体在哪",
+                Content = "Where is Zhejiang Jiacheng Supply Chain Co., LTD.",
                 FileIds = new List<string>() { uplaodFileId },
             });
 
@@ -176,13 +231,16 @@ namespace OpenAI.Playground.TestHelpers
 
             #region//waiting for run completed
             ConsoleExtensions.WriteLine("waiting for run completed:", ConsoleColor.DarkCyan);
-            var doneStatusList = new List<string>() { StaticValues.AssistatntsStatics.RunStatus.Cancelled, StaticValues.AssistatntsStatics.RunStatus.Completed, StaticValues.AssistatntsStatics.RunStatus.Failed, StaticValues.AssistatntsStatics.RunStatus.Expired };
+            var runningStatusList = new List<string>() 
+            {             
+                StaticValues.AssistatntsStatics.RunStatus.Queued,
+                StaticValues.AssistatntsStatics.RunStatus.InProgress,
+                StaticValues.AssistatntsStatics.RunStatus.RequiresAction,
+            };
 
             //获取任务信息
             var runRetrieveResult = await sdk.Beta.Runs.RunRetrieve(threadId, runId);
-            var runStatus = runRetrieveResult.Status;
-
-            while (!doneStatusList.Contains(runStatus))
+            while (runningStatusList.Contains(runRetrieveResult.Status))
             {
                 /*
                 * When a run has the status: "requires_action" and required_action.type is submit_tool_outputs, 
@@ -190,7 +248,7 @@ namespace OpenAI.Playground.TestHelpers
                 * All outputs must be submitted in a single request.
                 */
                 var requireAction = runRetrieveResult.RequiredAction;
-                if (runStatus == StaticValues.AssistatntsStatics.RunStatus.RequiresAction
+                if (runRetrieveResult.Status == StaticValues.AssistatntsStatics.RunStatus.RequiresAction
                     && requireAction != null && requireAction.Type == StaticValues.AssistatntsStatics.RequiredActionTypes.SubmitToolOutputs)
                 {
                     var myFunc = new List<string>() { "get_corp_location" };
@@ -207,7 +265,8 @@ namespace OpenAI.Playground.TestHelpers
                             var toolOutput = new ToolOutput()
                             {
                                 ToolCallId = toolCall.Id,
-                                Output = "浙江佳程供应链有限公司,位于浙江省金华市婺城区八一北街615号佳程国际商务中心[from ToolOutput]",
+                                Output = @"Zhejiang Jiacheng Supply Chain Co., Ltd. is located in Jiacheng International Business Center, 
+No.615 Bayi North Street, Wucheng District, Jinhua City, Zhejiang Province",
                             };
                             toolOutputs.Add(toolOutput);
                         }
@@ -226,27 +285,29 @@ namespace OpenAI.Playground.TestHelpers
                 }
 
                 runRetrieveResult = await sdk.Beta.Runs.RunRetrieve(threadId, runId);
-                runStatus = runRetrieveResult.Status;
-                if (doneStatusList.Contains(runStatus)) { break; }
+                if (!runningStatusList.Contains(runRetrieveResult.Status)) { break; }
 
             }
 
             #endregion
 
-
+            #region// message list
             //获取最终消息结果
             ConsoleExtensions.WriteLine("Message list:", ConsoleColor.DarkCyan);
             var messageListResult = await sdk.Beta.Messages.MessageList(threadId);
             if (messageListResult.Successful)
             {
-                ConsoleExtensions.WriteLine(messageListResult.ToJson());
+                var msgRespList = messageListResult.Data;
+                var ask = msgRespList?.FirstOrDefault(msg => msg.Role == StaticValues.AssistatntsStatics.MessageStatics.Roles.User);
+                var replys = msgRespList?.Where(msg => msg.CreatedAt > ask?.CreatedAt && msg.Role == StaticValues.AssistatntsStatics.MessageStatics.Roles.Assistant).ToList() ?? new List<MessageResponse>();
+                ConsoleExtensions.WriteLine(replys.ToJson());
             }
             else
             {
                 ConsoleExtensions.WriteLine($"{messageListResult.Error?.Code}: {messageListResult.Error?.Message}");
                 return;
             }
-
+            #endregion
         }
 
 
