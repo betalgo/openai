@@ -11,7 +11,7 @@ namespace OpenAI.ObjectModels.SharedModels
     /// <summary>
     /// Represents a message within a thread.
     /// </summary>
-    public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt,IOpenAiModels.IMetaData
+    public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IMetaData
     {
         /// <summary>
         /// The identifier, which can be referenced in API endpoints.
@@ -41,7 +41,7 @@ namespace OpenAI.ObjectModels.SharedModels
         /// The content of the message in array of text and/or images.
         /// </summary>
         [JsonPropertyName("content")]
-        public List<MessageContent>? Content { get; set; }
+        public List<MessageResponse.MessageContent>? Content { get; set; }
 
         /// <summary>
         /// If applicable, the ID of the assistant that authored this message.
@@ -68,30 +68,30 @@ namespace OpenAI.ObjectModels.SharedModels
         /// </summary>
         [JsonPropertyName("metadata")]
         public Dictionary<string, string> MetaData { get; set; }
+
+
+        /// <summary>
+        /// The content of the message:  text and/or images.
+        /// </summary>
+        public class MessageContent
+        {
+            /// <summary>
+            ///  text and/or images. image_file、text
+            /// </summary>
+            [JsonPropertyName("type")]
+            public string Type { get; set; }
+
+            /// <summary>
+            ///  References an image File in the content of a message.
+            /// </summary>
+            [JsonPropertyName("image_file")]
+            public MessageImageFile? ImageFile { get; set; }
+
+            /// <summary>
+            ///  The text content that is part of a message.
+            /// </summary>
+            [JsonPropertyName("text")]
+            public MessageText? Text { get; set; }
+        }
     }
-
-    /// <summary>
-    /// The content of the message:  text and/or images.
-    /// </summary>
-    public record MessageContent
-    {
-        /// <summary>
-        ///  text and/or images. image_file、text
-        /// </summary>
-        [JsonPropertyName("type")]
-        public string Type {  get; set; }
-
-        /// <summary>
-        ///  References an image File in the content of a message.
-        /// </summary>
-        [JsonPropertyName("image_file")]
-        public MessageImageFile? ImageFile {  get; set; }
-
-        /// <summary>
-        ///  The text content that is part of a message.
-        /// </summary>
-        [JsonPropertyName("text")]
-        public MessageText? Text { get; set; }
-    }
-
 }
