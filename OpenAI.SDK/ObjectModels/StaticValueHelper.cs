@@ -110,5 +110,57 @@ public class StaticValues
         public static string User => "user";
         public static string Assistant => "assistant";
         public static string Tool => "tool";
+        public static string Function => "function";
+
     }
+
+    public static class AssistatntsStatics
+    {
+        public static class ToolCallTypes
+        {
+            public static string CodeInterpreter => "code_interpreter";
+            public static string Retrieval => "retrieval";
+            public static string Function => "function";
+        }
+
+        public static class MessageStatics
+        {
+            public static class Roles
+            {
+                public static string User => "user";
+                public static string Assistant => "assistant";
+            }
+
+            public static class Content
+            {
+                public static string ImageFile => "image_file";
+                public static string Text => "text";
+
+
+                public static class Annotations
+                {
+                    public static string FileCitation => "file_citation";
+                    public static string FilePath => "file_path";
+                }
+            }
+        }
+
+        public static class RunStatus
+        {
+            public static string Queued => "queued";
+            public static string InProgress => "in_progress";
+            public static string RequiresAction => "requires_action";
+            public static string Cancelling => "cancelling";
+            public static string Cancelled => "cancelled";
+            public static string Failed => "failed";
+            public static string Completed => "completed";
+            public static string Expired => "expired";
+        }
+
+        public static class RequiredActionTypes
+        {
+            public static string SubmitToolOutputs => "submit_tool_outputs";
+        }
+    }
+
 }
