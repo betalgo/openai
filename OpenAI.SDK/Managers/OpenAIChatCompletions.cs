@@ -40,7 +40,7 @@ public partial class OpenAIService : IChatCompletionService
 
             var line = await reader.ReadLineAsync();
             // Skip empty lines
-            if (string.IsNullOrEmpty(line))
+            if (string.IsNullOrEmpty(line) || line.StartsWith(": ping"))
             {
                 continue;
             }
