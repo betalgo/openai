@@ -45,8 +45,8 @@ namespace OpenAI.Playground.TestHelpers
                 var runId = runResult.Id;
                 ConsoleExtensions.WriteLine($"runId: {runId}");
 
-                var doneStatusList = new List<string>() { StaticValues.AssistatntsStatics.RunStatus.Cancelled, StaticValues.AssistatntsStatics.RunStatus.Completed, StaticValues.AssistatntsStatics.RunStatus.Failed, StaticValues.AssistatntsStatics.RunStatus.Expired };
-                var runStatus = StaticValues.AssistatntsStatics.RunStatus.Queued;
+                var doneStatusList = new List<string>() { StaticValues.AssistantsStatics.RunStatus.Cancelled, StaticValues.AssistantsStatics.RunStatus.Completed, StaticValues.AssistantsStatics.RunStatus.Failed, StaticValues.AssistantsStatics.RunStatus.Expired };
+                var runStatus = StaticValues.AssistantsStatics.RunStatus.Queued;
                 do
                 {
                     var runRetrieveResult = await sdk.Beta.Runs.RunRetrieve(threadId, runId);
@@ -59,7 +59,7 @@ namespace OpenAI.Playground.TestHelpers
                      * All outputs must be submitted in a single request.
                      */
                     var requireAction = runRetrieveResult.RequiredAction;
-                    if (runStatus == StaticValues.AssistatntsStatics.RunStatus.RequiresAction && requireAction.Type == StaticValues.AssistatntsStatics.RequiredActionTypes.SubmitToolOutputs)
+                    if (runStatus == StaticValues.AssistantsStatics.RunStatus.RequiresAction && requireAction.Type == StaticValues.AssistantsStatics.RequiredActionTypes.SubmitToolOutputs)
                     {
                         var toolCalls = requireAction.SubmitToolOutputs.ToolCalls;
                         foreach (var toolCall in toolCalls)

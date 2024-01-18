@@ -49,10 +49,10 @@ public class ToolDefinition
 
     public static ToolDefinition DefineCodeInterpreter() => new()
     {
-        Type = StaticValues.AssistatntsStatics.ToolCallTypes.CodeInterpreter,
+        Type = StaticValues.AssistantsStatics.ToolCallTypes.CodeInterpreter,
     };
     public static ToolDefinition DefineRetrieval() => new()
     {
-        Type = StaticValues.AssistatntsStatics.ToolCallTypes.Retrieval,
+        Type = StaticValues.AssistantsStatics.ToolCallTypes.Retrieval,
     };
 }

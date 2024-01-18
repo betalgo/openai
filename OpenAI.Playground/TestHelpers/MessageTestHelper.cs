@@ -39,7 +39,7 @@ namespace OpenAI.Playground.TestHelpers
 
                 var messageResult = await sdk.Beta.Messages.MessageCreate(threadId, new MessageCreateRequest
                 {
-                    Role = StaticValues.AssistatntsStatics.MessageStatics.Roles.User,
+                    Role = StaticValues.AssistantsStatics.MessageStatics.Roles.User,
                     Content = "How does AI work? Explain it in simple terms.",
                 });
 

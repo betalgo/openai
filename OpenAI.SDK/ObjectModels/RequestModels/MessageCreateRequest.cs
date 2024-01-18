@@ -17,7 +17,7 @@ namespace OpenAI.ObjectModels.RequestModels
         /// </summary>
         [Required]
         [JsonPropertyName("role")]
-        public string Role { get; set; } = StaticValues.AssistatntsStatics.MessageStatics.Roles.User;
+        public string Role { get; set; } = StaticValues.AssistantsStatics.MessageStatics.Roles.User;
 
         /// <summary>
         /// The content of the message.

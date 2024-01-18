@@ -192,7 +192,7 @@ namespace OpenAI.Playground.TestHelpers
             ConsoleExtensions.WriteLine("Message Create Test:", ConsoleColor.DarkCyan);
             var messageResult = await sdk.Beta.Messages.MessageCreate(threadId, new MessageCreateRequest
             {
-                Role = StaticValues.AssistatntsStatics.MessageStatics.Roles.User,
+                Role = StaticValues.AssistantsStatics.MessageStatics.Roles.User,
                 Content = "Where is Zhejiang Jiacheng Supply Chain Co., LTD.",
                 FileIds = new List<string>() { uplaodFileId },
             });
@@ -233,9 +233,9 @@ namespace OpenAI.Playground.TestHelpers
             ConsoleExtensions.WriteLine("waiting for run completed:", ConsoleColor.DarkCyan);
             var runningStatusList = new List<string>() 
             {             
-                StaticValues.AssistatntsStatics.RunStatus.Queued,
-                StaticValues.AssistatntsStatics.RunStatus.InProgress,
-                StaticValues.AssistatntsStatics.RunStatus.RequiresAction,
+                StaticValues.AssistantsStatics.RunStatus.Queued,
+                StaticValues.AssistantsStatics.RunStatus.InProgress,
+                StaticValues.AssistantsStatics.RunStatus.RequiresAction,
             };
 
             //获取任务信息
@@ -248,8 +248,8 @@ namespace OpenAI.Playground.TestHelpers
                 * All outputs must be submitted in a single request.
                 */
                 var requireAction = runRetrieveResult.RequiredAction;
-                if (runRetrieveResult.Status == StaticValues.AssistatntsStatics.RunStatus.RequiresAction
-                    && requireAction != null && requireAction.Type == StaticValues.AssistatntsStatics.RequiredActionTypes.SubmitToolOutputs)
+                if (runRetrieveResult.Status == StaticValues.AssistantsStatics.RunStatus.RequiresAction
+                    && requireAction != null && requireAction.Type == StaticValues.AssistantsStatics.RequiredActionTypes.SubmitToolOutputs)
                 {
                     var myFunc = new List<string>() { "get_corp_location" };
                     var toolOutputs = new List<ToolOutput>();
@@ -298,8 +298,8 @@ No.615 Bayi North Street, Wucheng District, Jinhua City, Zhejiang Province",
             if (messageListResult.Successful)
             {
                 var msgRespList = messageListResult.Data;
-                var ask = msgRespList?.FirstOrDefault(msg => msg.Role == StaticValues.AssistatntsStatics.MessageStatics.Roles.User);
-                var replys = msgRespList?.Where(msg => msg.CreatedAt > ask?.CreatedAt && msg.Role == StaticValues.AssistatntsStatics.MessageStatics.Roles.Assistant).ToList() ?? new List<MessageResponse>();
+                var ask = msgRespList?.FirstOrDefault(msg => msg.Role == StaticValues.AssistantsStatics.MessageStatics.Roles.User);
+                var replys = msgRespList?.Where(msg => msg.CreatedAt > ask?.CreatedAt && msg.Role == StaticValues.AssistantsStatics.MessageStatics.Roles.Assistant).ToList() ?? new List<MessageResponse>();
                 ConsoleExtensions.WriteLine(replys.ToJson());
             }
             else

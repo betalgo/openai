@@ -114,7 +114,7 @@ public class StaticValues
 
     }
 
-    public static class AssistatntsStatics
+    public static class AssistantsStatics
     {
         public static class ToolCallTypes
         {
