@@ -59,6 +59,13 @@ public record EmbeddingCreateRequest : IModelValidate, IOpenAiModels.IModel
     [JsonPropertyName("model")]
     public string? Model { get; set; }
 
+    /// <summary>
+    ///     The number of dimensions the resulting output embeddings should have. Only supported in text-embedding-3 and later models.
+    /// </summary>
+    /// <see href="https://platform.openai.com/docs/api-reference/embeddings/create#embeddings-create-dimensions" />
+    [JsonPropertyName("dimensions")]
+    public int? Dimensions { get; set; }
+
     public IEnumerable<ValidationResult> Validate()
     {
         throw new NotImplementedException();
