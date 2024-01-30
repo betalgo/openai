@@ -294,6 +294,9 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 7.4.4
+- Added support for new models : `TextEmbeddingV3Small`, `TextEmbeddingV3Large`, `Gpt_3_5_Turbo_0125`, `Gpt_4_0125_preview`, `Gpt_4_turbo_preview`, `Text_moderation_007`, `Text_moderation_latest`, `Text_moderation_stable`
+- Added optinal dimension and encoding for embedding thanks to @shanepowell
 ### 7.4.3
 - Fixed the response format of AudioCreateSpeechRequest.
 - Updated Azure OpenAI version to `2023-12-01-preview`, which now supports dall-e 3.
@@ -323,7 +326,3 @@ This feature was completed by @belaszalontai. Many thanks to them.
 - **Breaking Changes:**
     - Introduced the use of `EnsureStatusCode()` after making requests.Please adjust your code accordingly for handling failure cases. Thanks to @miroljub1995 for reporting.
     - Previously, we used to override paths in the base domain, but this behavior has now changed. If you were using `abc.com/mypath` as the base domain, we used to ignore `/mypath`. This will no longer be the case, and the code will now respect `/mypath`. Thanks to @Hzw576816 for reporting.
-### 7.2.0
-- Added Chatgpt Finetununig support thanks to @aghimir3 
-- Default Azure Openai version increased thanks to @mac8005
-- Fixed Azure Openai Audio endpoint thanks to @mac8005
