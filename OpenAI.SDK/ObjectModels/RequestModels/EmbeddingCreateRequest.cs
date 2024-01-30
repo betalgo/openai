@@ -66,6 +66,13 @@ public record EmbeddingCreateRequest : IModelValidate, IOpenAiModels.IModel
     [JsonPropertyName("dimensions")]
     public int? Dimensions { get; set; }
 
+    /// <summary>
+    /// The format to return the embeddings in. Can be either float or base64.
+    /// </summary>
+    /// <returns></returns>
+    [JsonPropertyName("encoding_format")]
+    public string? EncodingFormat { get; set; }
+
     public IEnumerable<ValidationResult> Validate()
     {
         throw new NotImplementedException();
