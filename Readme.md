@@ -141,6 +141,14 @@ var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current 
             .AddParameter("values", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Sequence of numbers specified by the user")))
             .Build();
 
+        var tools = new List<ToolDefinition>()
+        {
+            new ToolDefinition() { Function = fn1 },
+            new ToolDefinition() { Function = fn2 },
+            new ToolDefinition() { Function = fn3 },
+            new ToolDefinition() { Function = fn4 },
+        }
+
         ConsoleExtensions.WriteLine("Chat Function Call Test:", ConsoleColor.DarkCyan);
         var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
         {
@@ -149,7 +157,7 @@ var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current 
                     ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
                     ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days.")
                 },
-            Functions = new List<FunctionDefinition> { fn1, fn2, fn3, fn4 },
+            Tools = tools,
             MaxTokens = 50,
             Model = Models.Gpt_3_5_Turbo
         });
