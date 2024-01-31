@@ -48,7 +48,7 @@ public partial class OpenAIService : IChatCompletionService
 
             if (justDataMode && !line.StartsWith("data: "))
             {
-                ;
+                continue;
             }
 
             line = line.RemoveIfStartWith("data: ");
