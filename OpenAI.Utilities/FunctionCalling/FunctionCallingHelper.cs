@@ -155,16 +155,7 @@ public static class FunctionCallingHelper
             throw new ArgumentNullException(nameof(obj));
         }
 
-        var methods = obj.GetType().GetMethods();
-
-        var methodInfo = methods
-            .FirstOrDefault(method =>
-            {
-                var attr = method.GetCustomAttribute(typeof(FunctionDescriptionAttribute));
-                return attr != null && functionCall.Name == ((FunctionDescriptionAttribute)attr).Name;
-            })
-            ?? methods.FirstOrDefault(method => method.Name == functionCall.Name);
-
+        var methodInfo = obj.GetMethod(functionCall);
         if (methodInfo == null)
         {
             throw new InvalidFunctionCallException($"Method '{functionCall.Name}' on type '{obj.GetType()}' not found");
@@ -201,4 +192,27 @@ public static class FunctionCallingHelper
         var result = (T?) methodInfo.Invoke(obj, args.ToArray());
         return result;
     }
+
+    private static MethodInfo? GetMethod(this object obj, FunctionCall functionCall)
+    {
+        var type = obj.GetType();
+
+        // Attempt to find the method directly by name first
+        if (functionCall.Name != null)
+        {
+            var methodByName = type.GetMethod(functionCall.Name);
+            if (methodByName != null)
+            {
+                return methodByName;
+            }
+        }
+
+        // If not found, then look for methods with the custom attribute
+        var methodsWithAttributes = type
+            .GetMethods()
+            .FirstOrDefault(m => m.GetCustomAttributes(typeof(FunctionDescriptionAttribute), false).FirstOrDefault() is FunctionDescriptionAttribute attr && attr.Name == functionCall.Name);
+
+        return methodsWithAttributes;
+    }
+
 }
