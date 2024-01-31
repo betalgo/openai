@@ -180,12 +180,22 @@ public static class FunctionCallingHelper
             var name = parameterDescriptionAttribute?.Name ?? parameter.Name!;
             var argument = arguments.FirstOrDefault(x => x.Key == name);
 
+            object? value;
             if (argument.Key == null)
             {
-                throw new Exception($"Argument '{name}' not found");
+                if (parameter.IsOptional)
+                {
+                    value = parameter.DefaultValue;
+                }
+                else
+                {
+                    throw new Exception($"Argument '{name}' not found");
+                }
             }
-
-            var value = parameter.ParameterType.IsEnum ? Enum.Parse(parameter.ParameterType, argument.Value.ToString()!) : ((JsonElement) argument.Value).Deserialize(parameter.ParameterType);
+            else
+            {
+                value = parameter.ParameterType.IsEnum ? Enum.Parse(parameter.ParameterType, argument.Value.ToString()!) : ((JsonElement)argument.Value).Deserialize(parameter.ParameterType);
+            }
 
             args.Add(value);
         }
