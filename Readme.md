@@ -302,6 +302,10 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 7.4.5
+- Fixed function calling streaming bugs thanks to @David-Buyer @dogdie233 @gavi @Maracaipe611
+- Breaking Change:
+    While streaming (`CreateCompletionAsStream`), there were some unexpected incoming data chunks like `:pings` or `:events`, etc. @gavi discovered this issue. We are now ignoring these chunks. If you were using it, you need to set `justDataMode` to false.
 ### 7.4.4
 - Added support for new models : `TextEmbeddingV3Small`, `TextEmbeddingV3Large`, `Gpt_3_5_Turbo_0125`, `Gpt_4_0125_preview`, `Gpt_4_turbo_preview`, `Text_moderation_007`, `Text_moderation_latest`, `Text_moderation_stable`
 - Added optinal dimension and encoding for embedding thanks to @shanepowell
