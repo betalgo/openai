@@ -453,7 +453,7 @@ public static class Models
             Subject.Code => "code-{0}",
             Subject.CodeEdit => "code-{0}-edit",
             Subject.Edit => "text-{0}-edit",
-            Subject.TextEmbedding => "text-embedding-{0}",
+            Subject.TextEmbedding => "text-embedding",
             Subject.TextModeration => "text-moderation-{0}",
             _ => throw new ArgumentOutOfRangeException(nameof(subject), subject, null)
         }, baseModel);
