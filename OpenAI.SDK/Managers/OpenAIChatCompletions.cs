@@ -18,7 +18,7 @@ public partial class OpenAIService : IChatCompletionService
     }
 
     /// <inheritdoc />
-    public async IAsyncEnumerable<ChatCompletionCreateResponse> CreateCompletionAsStream(ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null,
+    public async IAsyncEnumerable<ChatCompletionCreateResponse> CreateCompletionAsStream(ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null, bool justDataMode = true,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         // Helper data in case we need to reassemble a multi-packet response
@@ -40,8 +40,14 @@ public partial class OpenAIService : IChatCompletionService
             cancellationToken.ThrowIfCancellationRequested();
 
             var line = await reader.ReadLineAsync();
+            
             // Skip empty lines
             if (string.IsNullOrEmpty(line))
+            {
+                continue;
+            }
+
+            if (justDataMode && !line.StartsWith("data: "))
             {
                 continue;
             }
