@@ -303,6 +303,8 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 
 ## Changelog
 ### 7.4.5
+- Fixed *again*🥲 incorrect Model Naming - `moderation` models and `ada embedding 2` model
+### 7.4.5
 - Fixed function calling streaming bugs thanks to @David-Buyer @dogdie233 @gavi @Maracaipe611
 - Breaking Change:
     While streaming (`CreateCompletionAsStream`), there were some unexpected incoming data chunks like `:pings` or `:events`, etc. @gavi discovered this issue. We are now ignoring these chunks. If you were using it, you need to set `justDataMode` to false.

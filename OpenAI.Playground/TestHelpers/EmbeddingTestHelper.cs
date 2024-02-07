@@ -16,7 +16,7 @@ internal static class EmbeddingTestHelper
             var embeddingResult = await sdk.Embeddings.CreateEmbedding(new EmbeddingCreateRequest
             {
                 InputAsList = new List<string> {"The quick brown fox jumped over the lazy dog."},
-                Model = Models.TextSearchAdaDocV1
+                Model = Models.TextEmbeddingAdaV2
             });
 
             if (embeddingResult.Successful)
