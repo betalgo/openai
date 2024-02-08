@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
+using System.Text;
 using OpenAI.ObjectModels.RequestModels;
 
 namespace OpenAI.EndpointProviders;
@@ -122,7 +124,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
                 queryParams.Add($"after={WebUtility.UrlEncode(fineTuningJobListRequest.After)}");
             if (fineTuningJobListRequest.Limit.HasValue)
                 queryParams.Add($"limit={fineTuningJobListRequest.Limit.Value}");
-        
+
             if (queryParams.Any())
                 url = $"{url}?{string.Join("&", queryParams)}";
         }
@@ -177,5 +179,187 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
     private string Files()
     {
         return $"{_apiVersion}/files";
+    }
+
+    public string AssistantCreate()
+    {
+        return $"{_apiVersion}/assistants";
+    }
+
+    public string AssistantRetrieve(string assistantId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}";
+    }
+
+    public string AssistantModify(string assistantId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}";
+    }
+
+    public string AssistantDelete(string assistantId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}";
+    }
+
+    public string AssistantList(AssistantListRequest? assistantListRequest)
+    {
+        var url = $"{_apiVersion}/assistants";
+
+        var query = assistantListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+        return url;
+    }
+
+    public string AssistantFileCreate(string assistantId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}/files";
+    }
+
+    public string AssistantFileRetrieve(string assistantId, string fileId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}/files/{fileId}";
+    }
+
+    public string AssistantFileDelete(string assistantId, string fileId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}/files/{fileId}";
+    }
+
+    public string AssistantFileList(string assistantId, AssistantFileListRequest? assistantFileListRequest)
+    {
+        var url = $"{_apiVersion}/assistants/{assistantId}/files";
+
+        var query = assistantFileListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+        return url;
+    }
+
+    public string ThreadCreate()
+    {
+        return $"{_apiVersion}/threads";
+    }
+
+    public string ThreadRetrieve(string threadId)
+    {
+        return $"{_apiVersion}/threads/{threadId}";
+    }
+
+    public string ThreadModify(string threadId)
+    {
+        return $"{_apiVersion}/threads/{threadId}";
+    }
+
+    public string ThreadDelete(string threadId)
+    {
+        return $"{_apiVersion}/threads/{threadId}";
+    }
+
+    public string MessageCreate(string threadId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/messages";
+    }
+
+    public string MessageRetrieve(string threadId, string messageId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/messages/{messageId}";
+    }
+
+    public string MessageModify(string threadId, string messageId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/messages/{messageId}";
+    }
+
+    public string MessageList(string threadId, MessageListRequest? messageListRequest)
+    {
+        var url = $"{_apiVersion}/threads/{threadId}/messages";
+
+        var query = messageListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+        return url;
+    }
+
+    public string MessageFileRetrieve(string threadId, string messageId, string fileId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/messages/{messageId}/files/{fileId}";
+    }
+
+    public string MessageFileList(string threadId, string messageId, MessageFileListRequest? messageFileListRequest)
+    {
+        var url = $"{_apiVersion}/threads/{threadId}/messages/{messageId}/files";
+
+        var query = messageFileListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+        return url;
+    }
+
+    public string RunCreate(string threadId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/runs";
+    }
+
+    public string RunRetrieve(string threadId, string runId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/runs/{runId}";
+    }
+
+    public string RunModify(string threadId, string runId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/runs/{runId}";
+    }
+
+    public string RunList(string threadId, RunListRequest? runListRequest)
+    {
+        var url= $"{_apiVersion}/threads/{threadId}/runs";
+
+        var query = runListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+        return url;
+    }
+
+    public string RunSubmitToolOutputs(string threadId, string runId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/runs/{runId}/submit_tool_outputs";
+    }
+
+    public string RunCancel(string threadId, string runId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/runs/{runId}/cancel";
+    }
+
+    public string ThreadAndRunCreate()
+    {
+        return $"{_apiVersion}/threads/runs";
+    }
+
+    public string RunStepRetrieve(string threadId, string runId, string stepId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/runs/{runId}/steps/{stepId}";
+    }
+
+    public string RunStepList(string threadId, string runId, RunStepListRequest? runStepListRequest)
+    {
+        var url= $"{_apiVersion}/threads/{threadId}/runs/{runId}/steps";
+
+        var query = runStepListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+        return url;
     }
 }

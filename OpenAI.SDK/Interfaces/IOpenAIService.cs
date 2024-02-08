@@ -55,6 +55,10 @@ public interface IOpenAIService
     /// </summary>
     public IAudioService Audio { get; }
 
+    /// <summary>
+    ///  Beta
+    /// </summary>
+    public IBetaService Beta { get; }
 
     /// <summary>
     ///     Set default model

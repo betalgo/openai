@@ -5,11 +5,13 @@ public static class UploadFilePurposes
     public enum UploadFilePurpose
     {
         FineTune,
-        FineTuneResults
+        FineTuneResults,
+        Assistants,
     }
 
     public const string FineTune = "fine-tune";
     public const string FineTuneResults = "fine-tune-results";
+    public const string Assistants = "assistants";
 
     public static string EnumToString(this UploadFilePurpose uploadFilePurpose)
     {
@@ -17,6 +19,7 @@ public static class UploadFilePurposes
         {
             UploadFilePurpose.FineTune => FineTune,
             UploadFilePurpose.FineTuneResults => FineTuneResults,
+            UploadFilePurpose.Assistants => Assistants,
             _ => throw new ArgumentOutOfRangeException(nameof(uploadFilePurpose), uploadFilePurpose, null)
         };
     }
@@ -27,6 +30,7 @@ public static class UploadFilePurposes
         {
             FineTune => UploadFilePurpose.FineTune,
             FineTuneResults => UploadFilePurpose.FineTuneResults,
+            Assistants => UploadFilePurpose.Assistants,
             _ => throw new ArgumentOutOfRangeException(nameof(filePurpose), filePurpose, null)
         };
     }
