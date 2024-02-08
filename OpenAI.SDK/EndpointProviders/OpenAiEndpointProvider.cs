@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.RequestModels.AssistantRequestModels;
 
 namespace OpenAI.EndpointProviders;
 
@@ -46,7 +47,6 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
     {
         return $"{_apiVersion}/audio/speech";
     }
-
     public string EditCreate()
     {
         return $"{_apiVersion}/edits";
@@ -177,5 +177,87 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
     private string Files()
     {
         return $"{_apiVersion}/files";
+    }
+    
+    public string AssistantCreate()
+    {
+        return $"{_apiVersion}/assistants";
+    }
+
+    public string AssistantRetrieve(string assistantId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}";
+    }
+
+    public string AssistantModify(string assistantId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}";
+    }
+
+    public string AssistantDelete(string assistantId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}";
+    }
+
+    public string AssistantList(AssistantListRequest? assistantListRequest)
+    {
+        var url = $"{_apiVersion}/assistants";
+
+        if (assistantListRequest != null)
+        {
+            var queryParams = new List<string>();
+            
+            if(assistantListRequest.Limit != null)
+                queryParams.Add($"limit={assistantListRequest.Limit.Value}");
+            if(assistantListRequest.Order != null)
+                queryParams.Add($"order={WebUtility.UrlEncode(assistantListRequest.Order.ToString())}");
+            if(assistantListRequest.After != null)
+                queryParams.Add($"after={WebUtility.UrlEncode(assistantListRequest.After)}");
+            if(assistantListRequest.Before != null)
+                queryParams.Add($"before={WebUtility.UrlEncode(assistantListRequest.Before)}");
+
+            if (queryParams.Any())
+                url = $"{url}?{string.Join("&", queryParams)}";
+        }
+
+        return url;
+    }
+
+    public string AssistantFileCreate(string assistantId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}/files";
+    }
+
+    public string AssistantFileRetrieve(string assistantId, string fileId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}/files/{fileId}";
+    }
+
+    public string AssistantFileDelete(string assistantId, string fileId)
+    {
+        return $"{_apiVersion}/assistants/{assistantId}/files/{fileId}";
+    }
+
+    public string AssistantFileList(string assistantId, AssistantFileListRequest? assistantFileListRequest)
+    {
+        var url = $"{_apiVersion}/assistants/{assistantId}/files";
+
+        if (assistantFileListRequest != null)
+        {
+            var queryParams = new List<string>();
+            
+            if(assistantFileListRequest.Limit != null)
+                queryParams.Add($"limit={assistantFileListRequest.Limit.Value}");
+            if(assistantFileListRequest.Order != null)
+                queryParams.Add($"order={WebUtility.UrlEncode(assistantFileListRequest.Order.ToString())}");
+            if(assistantFileListRequest.After != null)
+                queryParams.Add($"after={WebUtility.UrlEncode(assistantFileListRequest.After)}");
+            if(assistantFileListRequest.Before != null)
+                queryParams.Add($"before={WebUtility.UrlEncode(assistantFileListRequest.Before)}");
+
+            if (queryParams.Any())
+                url = $"{url}?{string.Join("&", queryParams)}";
+        }
+        return url;
     }
 }

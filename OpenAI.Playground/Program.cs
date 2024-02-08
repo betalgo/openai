@@ -15,6 +15,7 @@ IConfiguration configuration = builder.Build();
 var serviceCollection = new ServiceCollection();
 serviceCollection.AddScoped(_ => configuration);
 
+
 #if NET6_0_OR_GREATER
 // Laser cat eyes is a tool that shows your requests and responses between OpenAI server and your client.
 // Get your app key from https://lasercateyes.com for FREE and put it under ApiSettings.json or secrets.json.
@@ -34,6 +35,8 @@ serviceCollection.AddOpenAIService();
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
+
+
 
 //                                 CHAT GPT
 //  |-----------------------------------------------------------------------|
