@@ -13,7 +13,8 @@ public static class Models
         Babbage,
         Curie,
         Davinci,
-        Cushman
+        Cushman,
+        None
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -232,12 +233,12 @@ public static class Models
     public static string CodeSearchBabbageTextV1 => ModelNameBuilder(BaseModel.Babbage, Subject.CodeSearchText, "001");
 
     public static string TextEmbeddingAdaV2 => ModelNameBuilder(BaseModel.Ada, Subject.TextEmbedding, "002");
-    public static string TextEmbeddingV3Small => ModelNameBuilder(BaseModel.Ada, Subject.TextEmbedding, "3-small");
-    public static string TextEmbeddingV3Large => ModelNameBuilder(BaseModel.Ada, Subject.TextEmbedding, "3-large");
+    public static string TextEmbeddingV3Small => ModelNameBuilder(BaseModel.None, Subject.TextEmbedding, "3-small");
+    public static string TextEmbeddingV3Large => ModelNameBuilder(BaseModel.None, Subject.TextEmbedding, "3-large");
 
-    public static string TextModeration007 => ModelNameBuilder(BaseModel.Ada, Subject.TextModeration, "007");
-    public static string TextModerationLatest => ModelNameBuilder(BaseModel.Ada, Subject.TextModeration, "latest");
-    public static string TextModerationStable => ModelNameBuilder(BaseModel.Ada, Subject.TextModeration, "stable");
+    public static string TextModeration007 => ModelNameBuilder(BaseModel.None, Subject.TextModeration, "007");
+    public static string TextModerationLatest => ModelNameBuilder(BaseModel.None, Subject.TextModeration, "latest");
+    public static string TextModerationStable => ModelNameBuilder(BaseModel.None, Subject.TextModeration, "stable");
     /// <summary>
     ///     Most capable GPT-3.5 model and optimized for chat at 1/10th the cost of text-davinci-003. Will be updated with our
     ///     latest model iteration.
@@ -335,10 +336,10 @@ public static class Models
     /// <returns></returns>
     public static string ModelNameBuilder(this BaseModel baseModel, Subject? subject = null, string? version = null)
     {
-        return ModelNameBuilder(baseModel.EnumToString(), subject?.EnumToString(baseModel.EnumToString()), version);
+        return ModelNameBuilder(baseModel == BaseModel.None ? null : baseModel.EnumToString(), subject?.EnumToString(baseModel.EnumToString()), version);
     }
 
-    public static string ModelNameBuilder(string baseModel, string? subject, string? version)
+    public static string ModelNameBuilder(string? baseModel, string? subject, string? version)
     {
         var response = subject ?? $"{baseModel}";
 
@@ -349,7 +350,6 @@ public static class Models
 
         return response;
     }
-
 
     public static string EnumToString(this Model model)
     {
@@ -424,7 +424,7 @@ public static class Models
         };
     }
 
-    private static string EnumToString(this BaseModel baseModel)
+    private static string? EnumToString(this BaseModel baseModel)
     {
         return baseModel switch
         {
@@ -433,12 +433,23 @@ public static class Models
             BaseModel.Curie => Curie,
             BaseModel.Davinci => Davinci,
             BaseModel.Cushman => "cushman",
+            BaseModel.None => null,
             _ => throw new ArgumentOutOfRangeException(nameof(baseModel), baseModel, null)
         };
     }
 
-    public static string EnumToString(this Subject subject, string baseModel)
+    public static string EnumToString(this Subject subject, string? baseModel)
     {
+        if (baseModel == null)
+        {
+            // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+            return subject switch
+            {
+                Subject.TextEmbedding => "text-embedding",
+                Subject.TextModeration => "text-moderation",
+                _ => throw new ArgumentOutOfRangeException(nameof(subject), subject, null)
+            };
+        }
         return string.Format(subject switch
         {
             //{0}-{1}
@@ -453,8 +464,7 @@ public static class Models
             Subject.Code => "code-{0}",
             Subject.CodeEdit => "code-{0}-edit",
             Subject.Edit => "text-{0}-edit",
-            Subject.TextEmbedding => "text-embedding",
-            Subject.TextModeration => "text-moderation-{0}",
+            Subject.TextEmbedding => "text-embedding-{0}",
             _ => throw new ArgumentOutOfRangeException(nameof(subject), subject, null)
         }, baseModel);
     }
