@@ -19,8 +19,10 @@ public enum ProviderType
 public class OpenAiOptions
 {
     private const string OpenAiDefaultApiVersion = "v1";
+    private const string AiGatewayDefaultApiVersion = "v1";
     private const string OpenAiDefaultBaseDomain = "https://api.openai.com/";
     private const string AzureOpenAiDefaultApiVersion = "2023-12-01-preview";
+    private const string CloudflareAiGatewayBaseDomain = "https://gateway.ai.cloudflare.com/";
 
 
     /// <summary>
@@ -62,6 +64,8 @@ public class OpenAiOptions
     {
         get
         {
+            if (UseCloudflareGateway && ProviderType == ProviderType.OpenAi)
+                return _apiVersion ?? AiGatewayDefaultApiVersion;
             return _apiVersion ??= ProviderType switch
             {
                 ProviderType.OpenAi => OpenAiDefaultApiVersion,
@@ -84,8 +88,12 @@ public class OpenAiOptions
 #pragma warning disable CS8603
             return _baseDomain ??= ProviderType switch
             {
-                ProviderType.OpenAi => OpenAiDefaultBaseDomain,
-                ProviderType.Azure => ResourceName == null ? null : $"https://{ResourceName}.openai.azure.com/",
+                ProviderType.OpenAi => !UseCloudflareGateway ? OpenAiDefaultBaseDomain : CloudflareAiGatewayBaseDomain,
+                ProviderType.Azure => ResourceName == null
+                    ? null
+                    : (!UseCloudflareGateway
+                        ? $"https://{ResourceName}.openai.azure.com/"
+                        : $"{CloudflareAiGatewayBaseDomain}/{AiGatewayDefaultApiVersion}/{CloudflareAccountTag}/{CloudflareGatewayName}/azure-openai/{ResourceName}/"),
                 _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
 #pragma warning restore CS8603
@@ -120,6 +128,13 @@ public class OpenAiOptions
     /// </summary>
     public string? DefaultModelId { get; set; }
 
+    public string? CloudflareAccountTag { get; set; }
+
+    public string? CloudflareGatewayName { get; set; }
+
+    private bool UseCloudflareGateway => !string.IsNullOrWhiteSpace(CloudflareAccountTag) &&
+                                         !string.IsNullOrWhiteSpace(CloudflareGatewayName);
+
     /// <summary>
     ///     Create an instance of this class with the necessary information to connect to the azure open ai api
     /// </summary>
@@ -128,7 +143,8 @@ public class OpenAiOptions
     /// <param name="apiVersion">The azure open ai api version</param>
     /// <param name="apiKey">Token used for authentication</param>
     /// <returns>A valid OpenAiSettings instance configured with the method inputs</returns>
-    private static OpenAiOptions CreateAzureSettings(string apiKey, string deploymentId, string resourceName, string? apiVersion)
+    private static OpenAiOptions CreateAzureSettings(string apiKey, string deploymentId, string resourceName,
+        string? apiVersion)
     {
         return new OpenAiOptions
         {
@@ -148,7 +164,8 @@ public class OpenAiOptions
     /// <param name="apiVersion">The azure open ai api version</param>
     /// <param name="apiKey">Token used for authentication</param>
     /// <returns>A valid OpenAiSettings instance configured with the method inputs</returns>
-    private static OpenAiOptions CreateAzureSettingsWithBaseDomain(string apiKey, string deploymentId, string baseDomain, string? apiVersion)
+    private static OpenAiOptions CreateAzureSettingsWithBaseDomain(string apiKey, string deploymentId,
+        string baseDomain, string? apiVersion)
     {
         return new OpenAiOptions
         {
@@ -191,6 +208,12 @@ public class OpenAiOptions
             throw new ArgumentNullException(nameof(BaseDomain));
         }
 
+        if (string.IsNullOrWhiteSpace(CloudflareGatewayName) != string.IsNullOrWhiteSpace(CloudflareAccountTag))
+        {
+            throw new ArgumentException(
+                "CloudflareGatewayName and CloudflareAccountTag must both be set or both be null");
+        }
+
         if (ProviderType == ProviderType.Azure)
         {
             if (string.IsNullOrEmpty(DeploymentId))
@@ -207,12 +230,16 @@ public class OpenAiOptions
         {
             if (!string.IsNullOrEmpty(DeploymentId))
             {
-                throw new ArgumentException(nameof(DeploymentId) + " is not supported for OpenAi Provider. Set ProviderType to Azure or remove " + nameof(DeploymentId));
+                throw new ArgumentException(nameof(DeploymentId) +
+                                            " is not supported for OpenAi Provider. Set ProviderType to Azure or remove " +
+                                            nameof(DeploymentId));
             }
 
             if (!string.IsNullOrEmpty(ResourceName))
             {
-                throw new ArgumentException(nameof(ResourceName) + " is not supported for OpenAi Provider. Set ProviderType to Azure or remove " + nameof(ResourceName));
+                throw new ArgumentException(nameof(ResourceName) +
+                                            " is not supported for OpenAi Provider. Set ProviderType to Azure or remove " +
+                                            nameof(ResourceName));
             }
         }
     }

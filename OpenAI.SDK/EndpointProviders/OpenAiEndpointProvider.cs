@@ -7,9 +7,12 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 {
     private readonly string _apiVersion;
 
-    public OpenAiEndpointProvider(string apiVersion)
+    public OpenAiEndpointProvider(string apiVersion, string? cfAccountTag = null, string? aiGatewayName = null)
     {
-        _apiVersion = apiVersion;
+        if (string.IsNullOrWhiteSpace(cfAccountTag) || string.IsNullOrWhiteSpace(aiGatewayName))
+            _apiVersion = apiVersion;
+        else
+            _apiVersion = $"{apiVersion}/{cfAccountTag}/{aiGatewayName}/openai";
     }
 
     public string ModelRetrieve(string model)
@@ -122,10 +125,11 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
                 queryParams.Add($"after={WebUtility.UrlEncode(fineTuningJobListRequest.After)}");
             if (fineTuningJobListRequest.Limit.HasValue)
                 queryParams.Add($"limit={fineTuningJobListRequest.Limit.Value}");
-        
+
             if (queryParams.Any())
                 url = $"{url}?{string.Join("&", queryParams)}";
         }
+
         return url;
     }
 

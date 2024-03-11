@@ -53,7 +53,8 @@ public partial class OpenAIService : IOpenAIService, IDisposable
         _endpointProvider = settings.ProviderType switch
         {
             ProviderType.Azure => new AzureOpenAiEndpointProvider(settings.ApiVersion, settings.DeploymentId!),
-            _ => new OpenAiEndpointProvider(settings.ApiVersion)
+            _ => new OpenAiEndpointProvider(settings.ApiVersion, settings.CloudflareAccountTag,
+                settings.CloudflareGatewayName)
         };
 
         _defaultModelId = settings.DefaultModelId;

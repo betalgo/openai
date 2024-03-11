@@ -9,15 +9,20 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
     private const string ApiPrefix = "openai";
     private readonly string _apiVersion;
     private readonly string _deploymentId;
+    private readonly string? _aiGatewayPrefix;
 
-
-    public AzureOpenAiEndpointProvider(string apiVersion, string deploymentId)
+    public AzureOpenAiEndpointProvider(string apiVersion, string deploymentId, string? cfAccountTag = null,
+        string? aiGatewayName = null)
     {
         _apiVersion = apiVersion;
         _deploymentId = deploymentId;
+        if (!string.IsNullOrWhiteSpace(cfAccountTag) && !string.IsNullOrWhiteSpace(aiGatewayName))
+        {
+            _aiGatewayPrefix = $"{WebUtility.UrlEncode(deploymentId)}";
+        }
     }
 
-    private string Prefix => $"{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
+    private string Prefix => _aiGatewayPrefix ?? $"{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
     private string QueryString => $"?api-version={_apiVersion}";
 
 
@@ -111,10 +116,11 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
                 queryParams.Add($"after={WebUtility.UrlEncode(fineTuningJobListRequest.After)}");
             if (fineTuningJobListRequest.Limit.HasValue)
                 queryParams.Add($"limit={fineTuningJobListRequest.Limit.Value}");
-        
+
             if (queryParams.Any())
                 url = $"{url}{QueryString}&{string.Join("&", queryParams)}";
         }
+
         return url;
     }
 
