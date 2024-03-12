@@ -141,6 +141,14 @@ var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current 
             .AddParameter("values", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Sequence of numbers specified by the user")))
             .Build();
 
+        var tools = new List<ToolDefinition>()
+        {
+            new ToolDefinition() { Function = fn1 },
+            new ToolDefinition() { Function = fn2 },
+            new ToolDefinition() { Function = fn3 },
+            new ToolDefinition() { Function = fn4 },
+        }
+
         ConsoleExtensions.WriteLine("Chat Function Call Test:", ConsoleColor.DarkCyan);
         var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
         {
@@ -149,7 +157,7 @@ var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current 
                     ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
                     ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days.")
                 },
-            Functions = new List<FunctionDefinition> { fn1, fn2, fn3, fn4 },
+            Tools = tools,
             MaxTokens = 50,
             Model = Models.Gpt_3_5_Turbo
         });
@@ -294,6 +302,15 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 7.4.6
+- Fixed *again*🥲 incorrect Model Naming - `moderation` models and `ada embedding 2` model
+### 7.4.5
+- Fixed function calling streaming bugs thanks to @David-Buyer @dogdie233 @gavi @Maracaipe611
+- Breaking Change:
+    While streaming (`CreateCompletionAsStream`), there were some unexpected incoming data chunks like `:pings` or `:events`, etc. @gavi discovered this issue. We are now ignoring these chunks. If you were using it, you need to set `justDataMode` to false.
+### 7.4.4
+- Added support for new models : `TextEmbeddingV3Small`, `TextEmbeddingV3Large`, `Gpt_3_5_Turbo_0125`, `Gpt_4_0125_preview`, `Gpt_4_turbo_preview`, `Text_moderation_007`, `Text_moderation_latest`, `Text_moderation_stable`
+- Added optinal dimension and encoding for embedding thanks to @shanepowell
 ### 7.4.3
 - Fixed the response format of AudioCreateSpeechRequest.
 - Updated Azure OpenAI version to `2023-12-01-preview`, which now supports dall-e 3.
@@ -323,7 +340,3 @@ This feature was completed by @belaszalontai. Many thanks to them.
 - **Breaking Changes:**
     - Introduced the use of `EnsureStatusCode()` after making requests.Please adjust your code accordingly for handling failure cases. Thanks to @miroljub1995 for reporting.
     - Previously, we used to override paths in the base domain, but this behavior has now changed. If you were using `abc.com/mypath` as the base domain, we used to ignore `/mypath`. This will no longer be the case, and the code will now respect `/mypath`. Thanks to @Hzw576816 for reporting.
-### 7.2.0
-- Added Chatgpt Finetununig support thanks to @aghimir3 
-- Default Azure Openai version increased thanks to @mac8005
-- Fixed Azure Openai Audio endpoint thanks to @mac8005

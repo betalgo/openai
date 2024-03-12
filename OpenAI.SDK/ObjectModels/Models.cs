@@ -13,7 +13,8 @@ public static class Models
         Babbage,
         Curie,
         Davinci,
-        Cushman
+        Cushman,
+        None
     }
 
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -56,6 +57,8 @@ public static class Models
         CodeEditDavinciV1,
 
         TextEmbeddingAdaV2,
+        TextEmbeddingV3Small,
+        TextEmbeddingV3Large,
 
         CodeSearchAdaCodeV1,
         CodeSearchBabbageCodeV1,
@@ -80,6 +83,7 @@ public static class Models
         Gpt_3_5_Turbo_16k_0613,
         Gpt_3_5_Turbo_0613,
         Gpt_3_5_Turbo_1106,
+        Gpt_3_5_Turbo_0125,
         Gpt_3_5_Turbo_Instruct,
 
         Gpt_4,
@@ -89,7 +93,9 @@ public static class Models
         Gpt_4_32k_0314,
         Gpt_4_32k_0613,
         Gpt_4_1106_preview,
+        Gpt_4_0125_preview,
         Gpt_4_vision_preview,
+        Gpt_4_turbo_preview,
 
         WhisperV1,
 
@@ -97,7 +103,11 @@ public static class Models
         Dall_e_3,
 
         Tts_1,
-        Tts_1_hd
+        Tts_1_hd,
+
+        Text_moderation_007,
+        Text_moderation_latest,
+        Text_moderation_stable,
     }
 
     public enum Subject
@@ -113,7 +123,8 @@ public static class Models
         Code,
         CodeEdit,
         Edit,
-        TextEmbedding
+        TextEmbedding,
+        TextModeration
     }
 
     /// <summary>
@@ -166,13 +177,16 @@ public static class Models
     /// </summary>
     public static string Gpt_4_1106_preview => "gpt-4-1106-preview";
 
+    public static string Gpt_4_0125_preview => "gpt-4-0125-preview";
     /// <summary>
     ///     Ability to understand images, in addition to all other GPT-4 Turbo capabilties.
     ///     Returns a maximum of 4,096 output tokens. This is a preview model version and not suited yet for production traffic.
     ///     128,000 tokens	Up to Apr 2023
     /// </summary>
     public static string Gpt_4_vision_preview => "gpt-4-vision-preview";
-    
+
+    public static string Gpt_4_turbo_preview => "gpt-4-turbo-preview";
+
 
 
     public static string Ada => "ada";
@@ -219,7 +233,12 @@ public static class Models
     public static string CodeSearchBabbageTextV1 => ModelNameBuilder(BaseModel.Babbage, Subject.CodeSearchText, "001");
 
     public static string TextEmbeddingAdaV2 => ModelNameBuilder(BaseModel.Ada, Subject.TextEmbedding, "002");
+    public static string TextEmbeddingV3Small => ModelNameBuilder(BaseModel.None, Subject.TextEmbedding, "3-small");
+    public static string TextEmbeddingV3Large => ModelNameBuilder(BaseModel.None, Subject.TextEmbedding, "3-large");
 
+    public static string TextModeration007 => ModelNameBuilder(BaseModel.None, Subject.TextModeration, "007");
+    public static string TextModerationLatest => ModelNameBuilder(BaseModel.None, Subject.TextModeration, "latest");
+    public static string TextModerationStable => ModelNameBuilder(BaseModel.None, Subject.TextModeration, "stable");
     /// <summary>
     ///     Most capable GPT-3.5 model and optimized for chat at 1/10th the cost of text-davinci-003. Will be updated with our
     ///     latest model iteration.
@@ -269,6 +288,7 @@ public static class Models
     /// </summary>
     public static string Gpt_3_5_Turbo_1106 => "gpt-3.5-turbo-1106";
 
+    public static string Gpt_3_5_Turbo_0125 => "gpt-3.5-turbo-0125";
     /// <summary>
     ///     Snapshot of gpt-3.5-turbo from June 13th 2023 with function calling data. Unlike gpt-3.5-turbo,
     ///     this model will not receive updates, and will be deprecated 3 months after a new version is released.
@@ -316,10 +336,10 @@ public static class Models
     /// <returns></returns>
     public static string ModelNameBuilder(this BaseModel baseModel, Subject? subject = null, string? version = null)
     {
-        return ModelNameBuilder(baseModel.EnumToString(), subject?.EnumToString(baseModel.EnumToString()), version);
+        return ModelNameBuilder(baseModel == BaseModel.None ? null : baseModel.EnumToString(), subject?.EnumToString(baseModel.EnumToString()), version);
     }
 
-    public static string ModelNameBuilder(string baseModel, string? subject, string? version)
+    public static string ModelNameBuilder(string? baseModel, string? subject, string? version)
     {
         var response = subject ?? $"{baseModel}";
 
@@ -330,7 +350,6 @@ public static class Models
 
         return response;
     }
-
 
     public static string EnumToString(this Model model)
     {
@@ -376,11 +395,14 @@ public static class Models
             Model.Gpt_3_5_Turbo_0301 => Gpt_3_5_Turbo_0301,
             Model.Gpt_3_5_Turbo_0613 => Gpt_3_5_Turbo_0613,
             Model.Gpt_3_5_Turbo_1106 => Gpt_3_5_Turbo_1106,
+            Model.Gpt_3_5_Turbo_0125 => Gpt_3_5_Turbo_0125,
             Model.Gpt_3_5_Turbo_16k_0613 => Gpt_3_5_Turbo_16k_0613,
             Model.Gpt_3_5_Turbo_16k => Gpt_3_5_Turbo_16k,
             Model.Gpt_3_5_Turbo_Instruct => Gpt_3_5_Turbo_Instruct,
             Model.WhisperV1 => WhisperV1,
             Model.TextEmbeddingAdaV2 => TextEmbeddingAdaV2,
+            Model.TextEmbeddingV3Small => TextEmbeddingV3Small,
+            Model.TextEmbeddingV3Large => TextEmbeddingV3Large,
             Model.Gpt_4 => Gpt_4,
             Model.Gpt_4_0314 => Gpt_4_0314,
             Model.Gpt_4_32k => Gpt_4_32k,
@@ -390,14 +412,19 @@ public static class Models
             Model.Dall_e_2 => Dall_e_2,
             Model.Dall_e_3 => Dall_e_3,
             Model.Gpt_4_1106_preview => Gpt_4_1106_preview,
+            Model.Gpt_4_0125_preview => Gpt_4_0125_preview,
             Model.Gpt_4_vision_preview => Gpt_4_vision_preview,
+            Model.Gpt_4_turbo_preview => Gpt_4_turbo_preview,
             Model.Tts_1 => Tts_1,
             Model.Tts_1_hd => Tts_1_hd,
+            Model.Text_moderation_007 => TextModeration007,
+            Model.Text_moderation_latest => TextModerationLatest,
+            Model.Text_moderation_stable => TextModerationStable,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
 
-    private static string EnumToString(this BaseModel baseModel)
+    private static string? EnumToString(this BaseModel baseModel)
     {
         return baseModel switch
         {
@@ -406,12 +433,23 @@ public static class Models
             BaseModel.Curie => Curie,
             BaseModel.Davinci => Davinci,
             BaseModel.Cushman => "cushman",
+            BaseModel.None => null,
             _ => throw new ArgumentOutOfRangeException(nameof(baseModel), baseModel, null)
         };
     }
 
-    public static string EnumToString(this Subject subject, string baseModel)
+    public static string EnumToString(this Subject subject, string? baseModel)
     {
+        if (baseModel == null)
+        {
+            // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+            return subject switch
+            {
+                Subject.TextEmbedding => "text-embedding",
+                Subject.TextModeration => "text-moderation",
+                _ => throw new ArgumentOutOfRangeException(nameof(subject), subject, null)
+            };
+        }
         return string.Format(subject switch
         {
             //{0}-{1}

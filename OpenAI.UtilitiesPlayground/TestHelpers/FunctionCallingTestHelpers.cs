@@ -36,9 +36,9 @@ public static class FunctionCallingTestHelpers
 
             var response = reply.Choices.First().Message;
 
-            if (response.FunctionCall != null)
+            if (response.ToolCalls != null)
             {
-                Console.WriteLine($"Invoking {response.FunctionCall.Name} with params: {response.FunctionCall.Arguments}");
+                Console.WriteLine($"Invoking {response.ToolCalls.First().FunctionCall.Name} with params: {response.ToolCalls.First().FunctionCall.Arguments}");
             }
             else
             {
@@ -47,10 +47,10 @@ public static class FunctionCallingTestHelpers
 
             req.Messages.Add(response);
 
-            if (response.FunctionCall != null)
+            if (response.ToolCalls != null)
             {
-                var functionCall = response.FunctionCall;
-                var result = FunctionCallingHelper.CallFunction<float>(functionCall, calculator);
+                var functionCall = response.ToolCalls.First().FunctionCall;
+                var result = FunctionCallingHelper.CallFunction<float>(functionCall!, calculator);
                 response.Content = result.ToString(CultureInfo.CurrentCulture);
             }
         } while (req.Messages.Last().FunctionCall != null);

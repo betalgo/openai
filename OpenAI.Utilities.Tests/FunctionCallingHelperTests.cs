@@ -63,7 +63,7 @@ public class FunctionCallingHelperTests
     {
         var functionDefinitions = FunctionCallingHelper.GetToolDefinitions<FunctionCallingTestClass>();
 
-        functionDefinitions.Count.ShouldBe(3);
+        functionDefinitions.Count.ShouldBe(4);
 
         var functionDefinition = functionDefinitions.First(x => x.Function!.Name == "TestFunction");
         functionDefinition.Function!.Description.ShouldBe("Test Function");
@@ -79,6 +79,26 @@ public class FunctionCallingHelperTests
         functionDefinition3.Function!.Description.ShouldBe("Third Function");
         functionDefinition3.Function!.Parameters.ShouldNotBeNull();
         functionDefinition3.Function!.Parameters.Properties!.Count.ShouldBe(1);
+
+        var functionDefinition4 = functionDefinitions.First(x => x.Function!.Name == "fourth_function");
+        functionDefinition4.Function!.Description.ShouldBe("Fourth Function");
+        functionDefinition4.Function!.Name.ShouldBe("fourth_function");
+        functionDefinition4.Function!.Parameters.ShouldNotBeNull();
+        functionDefinition4.Function!.Parameters.Properties!.Count.ShouldBe(0);
+    }
+
+    [Fact]
+    public void VerifyCallFunction_CustomFunctionName()
+    {
+        var obj = new FunctionCallingTestClass();
+
+        var functionCall = new FunctionCall
+        {
+            Name = "fourth_function"
+        };
+
+        var result = FunctionCallingHelper.CallFunction<string>(functionCall, obj);
+        result.ShouldBe("Ciallo～(∠・ω< )⌒★");
     }
 
     [Fact]
@@ -267,6 +287,12 @@ internal class FunctionCallingTestClass
     public void ThirdFunction([ParameterDescription(Type = "string", Description = "Overridden type parameter")] int overriddenTypeParameter)
     {
         OverriddenTypeParameter = overriddenTypeParameter.ToString();
+    }
+
+    [FunctionDescription("Fourth Function", Name = "fourth_function")]
+    public string FourthFunction()
+    {
+        return "Ciallo～(∠・ω< )⌒★";
     }
 }
 

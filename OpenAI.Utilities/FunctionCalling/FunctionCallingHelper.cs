@@ -129,7 +129,7 @@ public static class FunctionCallingHelper
 
         return result;
     }
-    
+
 
     /// <summary>
     ///     Calls the function on the provided object, using the provided <see cref="FunctionCall" /> and returns the result of
@@ -155,8 +155,7 @@ public static class FunctionCallingHelper
             throw new ArgumentNullException(nameof(obj));
         }
 
-        var methodInfo = obj.GetType().GetMethod(functionCall.Name);
-
+        var methodInfo = obj.GetMethod(functionCall);
         if (methodInfo == null)
         {
             throw new InvalidFunctionCallException($"Method '{functionCall.Name}' on type '{obj.GetType()}' not found");
@@ -180,12 +179,22 @@ public static class FunctionCallingHelper
             var name = parameterDescriptionAttribute?.Name ?? parameter.Name!;
             var argument = arguments.FirstOrDefault(x => x.Key == name);
 
+            object? value;
             if (argument.Key == null)
             {
-                throw new Exception($"Argument '{name}' not found");
+                if (parameter.IsOptional)
+                {
+                    value = parameter.DefaultValue;
+                }
+                else
+                {
+                    throw new Exception($"Argument '{name}' not found");
+                }
             }
-
-            var value = parameter.ParameterType.IsEnum ? Enum.Parse(parameter.ParameterType, argument.Value.ToString()!) : ((JsonElement)argument.Value).Deserialize(parameter.ParameterType);
+            else
+            {
+                value = parameter.ParameterType.IsEnum ? Enum.Parse(parameter.ParameterType, argument.Value.ToString()!) : ((JsonElement)argument.Value).Deserialize(parameter.ParameterType);
+            }
 
             args.Add(value);
         }
@@ -193,4 +202,27 @@ public static class FunctionCallingHelper
         var result = (T?)methodInfo.Invoke(obj, args.ToArray());
         return result;
     }
+
+    private static MethodInfo? GetMethod(this object obj, FunctionCall functionCall)
+    {
+        var type = obj.GetType();
+
+        // Attempt to find the method directly by name first
+        if (functionCall.Name != null)
+        {
+            var methodByName = type.GetMethod(functionCall.Name);
+            if (methodByName != null)
+            {
+                return methodByName;
+            }
+        }
+
+        // If not found, then look for methods with the custom attribute
+        var methodsWithAttributes = type
+            .GetMethods()
+            .FirstOrDefault(m => m.GetCustomAttributes(typeof(FunctionDescriptionAttribute), false).FirstOrDefault() is FunctionDescriptionAttribute attr && attr.Name == functionCall.Name);
+
+        return methodsWithAttributes;
+    }
+
 }
