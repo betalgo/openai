@@ -35,6 +35,23 @@ public class OpenAiOptions
     private string? _baseDomain;
 
     /// <summary>
+    /// Gets or sets the Cloudflare account tag.
+    /// </summary>
+    /// <remarks>
+    /// <a href="https://developers.cloudflare.com/ai-gateway/get-started/connecting-applications/">Cloudflare AI Gateway</a>
+    /// </remarks>
+    public string? CloudflareAccountTag { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the Cloudflare AI Gateway.
+    /// </summary>
+    /// <remarks>
+    /// This property is used in the OpenAiOptions class to specify the name of the Cloudflare AI Gateway.
+    /// <a href="https://developers.cloudflare.com/ai-gateway/get-started/connecting-applications/">Cloudflare AI Gateway</a>
+    /// </remarks>
+    public string? CloudflareGatewayName { get; set; }
+
+    /// <summary>
     ///     Get Provider Type
     /// </summary>
     public ProviderType ProviderType { get; set; } = ProviderType.OpenAi;
@@ -127,10 +144,6 @@ public class OpenAiOptions
     ///     Default model id. If you are working with only one model, this will save you from few line extra code.
     /// </summary>
     public string? DefaultModelId { get; set; }
-
-    public string? CloudflareAccountTag { get; set; }
-
-    public string? CloudflareGatewayName { get; set; }
 
     private bool UseCloudflareGateway => !string.IsNullOrWhiteSpace(CloudflareAccountTag) &&
                                          !string.IsNullOrWhiteSpace(CloudflareGatewayName);
