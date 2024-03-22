@@ -1,4 +1,5 @@
-﻿using OpenAI.ObjectModels.RequestModels;
+﻿using System.ComponentModel;
+using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Utilities.FunctionCalling;
 
 namespace OpenAI.Utilities.Tests;
@@ -8,7 +9,8 @@ public class FunctionCallingHelperTests
     [Fact]
     public void VerifyGetFunctionDefinition()
     {
-        var functionDefinition = FunctionCallingHelper.GetFunctionDefinition(typeof(FunctionCallingTestClass).GetMethod("TestFunction")!);
+        var functionDefinition =
+            FunctionCallingHelper.GetFunctionDefinition(typeof(FunctionCallingTestClass).GetMethod("TestFunction")!);
 
         functionDefinition.Name.ShouldBe("TestFunction");
         functionDefinition.Description.ShouldBe("Test Function");
@@ -31,7 +33,7 @@ public class FunctionCallingHelperTests
         stringParameter.Description.ShouldBe("String Parameter");
         stringParameter.Type.ShouldBe("string");
 
-        var enumValues = new List<string> {"Value1", "Value2", "Value3"};
+        var enumValues = new List<string> { "Value1", "Value2", "Value3" };
 
         var enumParameter = functionDefinition.Parameters.Properties["enumParameter"];
         enumParameter.Description.ShouldBe("Enum Parameter");
@@ -51,7 +53,8 @@ public class FunctionCallingHelperTests
     [Fact]
     public void VerifyTypeOverride()
     {
-        var functionDefinition = FunctionCallingHelper.GetFunctionDefinition(typeof(FunctionCallingTestClass).GetMethod("ThirdFunction")!);
+        var functionDefinition =
+            FunctionCallingHelper.GetFunctionDefinition(typeof(FunctionCallingTestClass).GetMethod("ThirdFunction")!);
 
         var overriddenNameParameter = functionDefinition.Parameters.Properties["overriddenTypeParameter"];
         overriddenNameParameter.Type.ShouldBe("string");
@@ -150,7 +153,8 @@ public class FunctionCallingHelperTests
         var functionCall = new FunctionCall
         {
             Name = "TestFunction",
-            Arguments = "{\"intParameter\": \"invalid\", \"floatParameter\": true, \"boolParameter\": 1, \"stringParameter\": 123, \"enumParameter\": \"NonExistentValue\"}"
+            Arguments =
+                "{\"intParameter\": \"invalid\", \"floatParameter\": true, \"boolParameter\": 1, \"stringParameter\": 123, \"enumParameter\": \"NonExistentValue\"}"
         };
 
         Should.Throw<Exception>(() => FunctionCallingHelper.CallFunction<int>(functionCall, obj));
@@ -220,12 +224,114 @@ public class FunctionCallingHelperTests
 
         var functionCall = new FunctionCall
         {
-            Name = "ThirdFunction",
+            Name      = "ThirdFunction",
             Arguments = "{\"overriddenTypeParameter\": 1}"
         };
 
         FunctionCallingHelper.CallFunction<object>(functionCall, obj);
         obj.OverriddenTypeParameter.ShouldBe("1");
+    }
+
+
+    [Fact]
+    public void VerifyGetFunctionDefinition_CustomType()
+    {
+        var functionDefinition =
+            FunctionCallingHelper.GetFunctionDefinition(
+                typeof(FunctionCallingTestClass).GetMethod("FunctionWithCustomType")!);
+
+        functionDefinition.Name.ShouldBe("FunctionWithCustomType");
+        functionDefinition.Description.ShouldBe("Function with custom type parameter");
+        functionDefinition.Parameters.ShouldNotBeNull();
+        functionDefinition.Parameters.Properties!.Count.ShouldBe(1);
+
+        var customTypeParameter = functionDefinition.Parameters.Properties["customTypeParameter"];
+        customTypeParameter.Description.ShouldBe("Custom type parameter");
+        customTypeParameter.Type.ShouldBe("object");
+
+        customTypeParameter.Properties.ShouldNotBeNull();
+        customTypeParameter.Properties!.Count.ShouldBe(4);
+
+        var nameProperty = customTypeParameter.Properties["Name"];
+        nameProperty.Type.ShouldBe("string");
+        nameProperty.Description.ShouldBe("The name");
+
+        var ageProperty = customTypeParameter.Properties["Age"];
+        ageProperty.Type.ShouldBe("integer");
+        ageProperty.Description.ShouldBe("The age");
+
+        var scoreProperty = customTypeParameter.Properties["Score"];
+        scoreProperty.Type.ShouldBe("number");
+        scoreProperty.Description.ShouldBe("The score");
+
+        var isActiveProperty = customTypeParameter.Properties["IsActive"];
+        isActiveProperty.Type.ShouldBe("boolean");
+        isActiveProperty.Description.ShouldBe("The status");
+    }
+
+    [Fact]
+    public void VerifyGetFunctionDefinition_ComplexCustomType()
+    {
+        var functionDefinition =
+            FunctionCallingHelper.GetFunctionDefinition(
+                typeof(FunctionCallingTestClass).GetMethod("FunctionWithComplexCustomType")!);
+
+
+        functionDefinition.Name.ShouldBe("FunctionWithComplexCustomType");
+        functionDefinition.Description.ShouldBe("Function with complex custom type parameter");
+        functionDefinition.Parameters.ShouldNotBeNull();
+        functionDefinition.Parameters.Properties!.Count.ShouldBe(1);
+
+        var complexCustomTypeParameter = functionDefinition.Parameters.Properties["complexCustomTypeParameter"];
+        complexCustomTypeParameter.Description.ShouldBe("Complex custom type parameter");
+        complexCustomTypeParameter.Type.ShouldBe("object");
+
+        complexCustomTypeParameter.Properties.ShouldNotBeNull();
+        complexCustomTypeParameter.Properties!.Count.ShouldBe(5);
+
+        complexCustomTypeParameter.Properties.ShouldContainKey("Name");
+        complexCustomTypeParameter.Properties.ShouldContainKey("Age");
+        complexCustomTypeParameter.Properties.ShouldContainKey("Scores");
+        complexCustomTypeParameter.Properties.ShouldContainKey("IsActive");
+        complexCustomTypeParameter.Properties.ShouldContainKey("NestedCustomType");
+
+        var nestedCustomTypeProperty = complexCustomTypeParameter.Properties["NestedCustomType"];
+        nestedCustomTypeProperty.Type.ShouldBe("object");
+
+        nestedCustomTypeProperty.Properties.ShouldNotBeNull();
+        nestedCustomTypeProperty.Properties!.Count.ShouldBe(4);
+
+        nestedCustomTypeProperty.Properties.ShouldContainKey("Name");
+        nestedCustomTypeProperty.Properties.ShouldContainKey("Age");
+        nestedCustomTypeProperty.Properties.ShouldContainKey("Score");
+        nestedCustomTypeProperty.Properties.ShouldContainKey("IsActive");
+    }
+
+    [Fact]
+    public void VerifyCallFunction_ComplexCustomType()
+    {
+        var obj = new FunctionCallingTestClass();
+
+        var functionCall = new FunctionCall
+        {
+            Name = "FunctionWithComplexCustomType",
+            Arguments =
+                "{\"complexCustomTypeParameter\": {\"Name\": \"John\", \"Age\": 30, \"Scores\": [85.5, 92.0, 78.5], \"IsActive\": true, \"NestedCustomType\": {\"Name\": \"Nested\", \"Age\": 20, \"Score\": 95.0, \"IsActive\": false}}}"
+        };
+
+        FunctionCallingHelper.CallFunction<object>(functionCall, obj);
+
+        obj.ComplexCustomTypeParameter.ShouldNotBeNull();
+        obj.ComplexCustomTypeParameter.Name.ShouldBe("John");
+        obj.ComplexCustomTypeParameter.Age.ShouldBe(30);
+        obj.ComplexCustomTypeParameter.Scores.ShouldBe(new List<float> { 85.5f, 92.0f, 78.5f });
+        obj.ComplexCustomTypeParameter.IsActive.ShouldBe(true);
+
+        obj.ComplexCustomTypeParameter.NestedCustomType.ShouldNotBeNull();
+        obj.ComplexCustomTypeParameter.NestedCustomType.Name.ShouldBe("Nested");
+        obj.ComplexCustomTypeParameter.NestedCustomType.Age.ShouldBe(20);
+        obj.ComplexCustomTypeParameter.NestedCustomType.Score.ShouldBe(95.0f);
+        obj.ComplexCustomTypeParameter.NestedCustomType.IsActive.ShouldBe(false);
     }
 }
 
@@ -241,6 +347,7 @@ internal class FunctionCallingTestClass
     public string OverriddenTypeParameter = null!;
     public int RequiredIntParameter;
     public string StringParameter = null!;
+    public ComplexCustomType ComplexCustomTypeParameter { get; set; } = new ComplexCustomType();
 
     [FunctionDescription("Test Function")]
     public int TestFunction(
@@ -264,13 +371,13 @@ internal class FunctionCallingTestClass
         int overriddenNameParameter)
 
     {
-        IntParameter = intParameter;
-        FloatParameter = floatParameter;
-        BoolParameter = boolParameter;
-        StringParameter = stringParameter;
-        EnumParameter = enumParameter;
-        EnumParameter2 = enumParameter2;
-        RequiredIntParameter = requiredIntParameter;
+        IntParameter            = intParameter;
+        FloatParameter          = floatParameter;
+        BoolParameter           = boolParameter;
+        StringParameter         = stringParameter;
+        EnumParameter           = enumParameter;
+        EnumParameter2          = enumParameter2;
+        RequiredIntParameter    = requiredIntParameter;
         NotRequiredIntParameter = notRequiredIntParameter;
         OverriddenNameParameter = overriddenNameParameter;
 
@@ -284,7 +391,9 @@ internal class FunctionCallingTestClass
     }
 
     [FunctionDescription("Third Function")]
-    public void ThirdFunction([ParameterDescription(Type = "string", Description = "Overridden type parameter")] int overriddenTypeParameter)
+    public void ThirdFunction(
+        [ParameterDescription(Type = "string", Description = "Overridden type parameter")]
+        int overriddenTypeParameter)
     {
         OverriddenTypeParameter = overriddenTypeParameter.ToString();
     }
@@ -294,6 +403,37 @@ internal class FunctionCallingTestClass
     {
         return "Ciallo～(∠・ω< )⌒★";
     }
+
+    [FunctionDescription("Function with complex custom type parameter")]
+    public void FunctionWithComplexCustomType(
+        [ParameterDescription("Complex custom type parameter")] ComplexCustomType complexCustomTypeParameter)
+    {
+        ComplexCustomTypeParameter = complexCustomTypeParameter;
+    }
+}
+
+public class ComplexCustomType
+{
+    public string Name { get; set; } = string.Empty;
+
+    public int Age { get; set; }
+
+    public List<float> Scores { get; set; } = new List<float>();
+
+    public bool IsActive { get; set; }
+
+    public CustomType NestedCustomType { get; set; } = new CustomType();
+}
+
+public class CustomType
+{
+    public string Name { get; set; } = string.Empty;
+
+    public int Age { get; set; }
+
+    public float Score { get; set; }
+
+    public bool IsActive { get; set; }
 }
 
 public enum TestEnum
