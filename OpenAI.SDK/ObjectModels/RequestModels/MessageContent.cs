@@ -70,7 +70,7 @@ public class MessageContent
             ImageUrl = new()
             {
                 Url = string.Format(
-                    "data:image/{0};base64,{{{1}}}",
+                    "data:image/{0};base64,{1}",
                     imageType,
                     Convert.ToBase64String(binaryImage)
                 ),
