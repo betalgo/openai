@@ -42,8 +42,8 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
 
-await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
-//await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
+//await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
+await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);

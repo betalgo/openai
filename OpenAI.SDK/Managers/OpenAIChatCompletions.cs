@@ -35,12 +35,17 @@ public partial class OpenAIService : IChatCompletionService
         using var reader = new StreamReader(stream);
 
         // Continuously read the stream until the end of it
-        while (!reader.EndOfStream)
+        while (true)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             var line = await reader.ReadLineAsync();
-            
+
+            // Break the loop if we have reached the end of the stream
+            if (line == null)
+            {
+                break;
+            }
             // Skip empty lines
             if (string.IsNullOrEmpty(line))
             {
