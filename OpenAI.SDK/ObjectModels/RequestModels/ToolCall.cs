@@ -27,4 +27,11 @@ public class ToolCall
     /// </summary>
     [JsonPropertyName("function")]
     public FunctionCall? FunctionCall { get; set; }
+
+    public void Deconstruct(out int index, out string? id, out string? type)
+    {
+        index = this.Index;
+        id = this.Id;
+        type = this.Type;
+    }
 }

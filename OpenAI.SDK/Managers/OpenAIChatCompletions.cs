@@ -140,15 +140,22 @@ public partial class OpenAIService : IChatCompletionService
             // respecting the stream arguments sequence aligned with the last tool call main item which the arguments belong to.
             if (IsFnAssemblyActive && !justStarted)
             {
-                //Handles just ToolCall type == "function"
-                using var argumentsList = ExtractArgsSoFar().GetEnumerator();
-                var existItems = argumentsList.MoveNext();
+                //Get current toolcall metadata in order to search by index reference which to bind arguments to.
+                var tcMetadata = GetToolCallMetadata();
 
-                if (existItems)
+                if (tcMetadata.index > -1)
                 {
-                    var tc = _deltaFnCallList!.Last();
-                    tc.FunctionCall!.Arguments += argumentsList.Current;
-                    argumentsList.MoveNext();
+                    //Handles just ToolCall type == "function"
+                    using var argumentsList = ExtractArgsSoFar().GetEnumerator();
+                    var existItems = argumentsList.MoveNext();
+
+                    if (existItems)
+                    {
+                        //toolcall item must exists as added in previous steps, otherwise First() will raise an InvalidOperationException
+                        var tc = _deltaFnCallList!.Where(t => t.Index == tcMetadata.index).First();
+                        tc.FunctionCall!.Arguments += argumentsList.Current;
+                        argumentsList.MoveNext();
+                    }
                 }
             }
 
@@ -168,7 +175,20 @@ public partial class OpenAIService : IChatCompletionService
                        (firstChoice.Message?.ToolCalls.Any(t => t.FunctionCall != null 
                        && !string.IsNullOrEmpty(t.Id)
                        && t.Type == StaticValues.CompletionStatics.ToolType.Function) ?? false);
-            } 
+            }
+
+            (int index, string? id, string? type) GetToolCallMetadata()
+            {
+                var tc = block.Choices?.FirstOrDefault()?.Message?.ToolCalls?
+                        .Where(t => t.FunctionCall != null)
+                        .Select(t => t).FirstOrDefault();
+
+                return tc switch
+                {
+                    not null => (tc.Index, tc.Id, tc.Type),
+                    _ => (-1, default, default)
+                };
+            }
 
             IEnumerable<string> ExtractArgsSoFar()
             {
