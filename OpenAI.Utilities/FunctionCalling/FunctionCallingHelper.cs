@@ -31,7 +31,7 @@ public static class FunctionCallingHelper
         foreach (var parameter in parameters)
         {
             var parameterDescriptionAttribute = parameter.GetCustomAttribute<ParameterDescriptionAttribute>();
-            var description                   = parameterDescriptionAttribute?.Description;
+            var description = parameterDescriptionAttribute?.Description;
 
             PropertyDefinition definition;
 
@@ -40,7 +40,7 @@ public static class FunctionCallingHelper
                 case (_, false):
                     definition = new PropertyDefinition
                     {
-                        Type        = parameterDescriptionAttribute!.Type!,
+                        Type = parameterDescriptionAttribute!.Type!,
                         Description = description
                     };
                     break;
@@ -64,7 +64,7 @@ public static class FunctionCallingHelper
                     break;
                 default:
                     // Handling custom types
-                    var properties         = new Dictionary<string, PropertyDefinition>();
+                    var properties = new Dictionary<string, PropertyDefinition>();
                     var requiredProperties = new List<string>();
 
                     foreach (var prop in parameter.ParameterType.GetProperties())
@@ -93,18 +93,20 @@ public static class FunctionCallingHelper
     }
 
     /// <summary>
-    /// Gets the definition of a property.
+    ///     Gets the definition of a property.
     /// </summary>
     /// <param name="propertyInfo">The reflection information of the property.</param>
     /// <returns>The definition of the property.</returns>
     /// <remarks>
-    /// This method creates the appropriate property definition based on the property type. The following types are supported:
-    /// - int: Defined as an integer type.
-    /// - float: Defined as a number type.
-    /// - bool: Defined as a boolean type.
-    /// - string: Defined as a string type.
-    /// - enum: Defined as an enum type, with enum values obtained from the property's enum type.
-    /// - Custom types: Recursively processes the properties of custom types and creates an object type property definition.
+    ///     This method creates the appropriate property definition based on the property type. The following types are
+    ///     supported:
+    ///     - int: Defined as an integer type.
+    ///     - float: Defined as a number type.
+    ///     - bool: Defined as a boolean type.
+    ///     - string: Defined as a string type.
+    ///     - enum: Defined as an enum type, with enum values obtained from the property's enum type.
+    ///     - Custom types: Recursively processes the properties of custom types and creates an object type property
+    ///     definition.
     /// </remarks>
     private static PropertyDefinition GetPropertyDefinition(PropertyInfo propertyInfo)
     {
@@ -125,7 +127,7 @@ public static class FunctionCallingHelper
                 return PropertyDefinition.DefineEnum(enumValues, description);
             default:
                 // Recursive processing if the property type is a custom class
-                var properties         = new Dictionary<string, PropertyDefinition>();
+                var properties = new Dictionary<string, PropertyDefinition>();
                 var requiredProperties = new List<string>();
 
                 foreach (var prop in propertyInfo.PropertyType.GetProperties())
@@ -147,7 +149,7 @@ public static class FunctionCallingHelper
     {
         return new ToolDefinition()
         {
-            Type     = "function",
+            Type = "function",
             Function = GetFunctionDefinition(methodInfo)
         };
     }
@@ -185,13 +187,13 @@ public static class FunctionCallingHelper
         var methods = type.GetMethods();
 
         var result = methods
-                     .Select(method => new
-                     {
-                         method,
-                         methodDescriptionAttribute = method.GetCustomAttribute<FunctionDescriptionAttribute>()
-                     })
-                     .Where(t => t.methodDescriptionAttribute != null)
-                     .Select(t => GetToolDefinition(t.method)).ToList();
+            .Select(method => new
+            {
+                method,
+                methodDescriptionAttribute = method.GetCustomAttribute<FunctionDescriptionAttribute>()
+            })
+            .Where(t => t.methodDescriptionAttribute != null)
+            .Select(t => GetToolDefinition(t.method)).ToList();
 
         return result;
     }
@@ -234,15 +236,15 @@ public static class FunctionCallingHelper
         }
 
         var parameters = methodInfo.GetParameters().ToList();
-        var arguments  = functionCall.ParseArguments();
-        var args       = new List<object?>();
+        var arguments = functionCall.ParseArguments();
+        var args = new List<object?>();
 
         foreach (var parameter in parameters)
         {
             var parameterDescriptionAttribute =
                 parameter.GetCustomAttribute<ParameterDescriptionAttribute>();
 
-            var name     = parameterDescriptionAttribute?.Name ?? parameter.Name!;
+            var name = parameterDescriptionAttribute?.Name ?? parameter.Name!;
             var argument = arguments.FirstOrDefault(x => x.Key == name);
 
             object? value;
@@ -287,11 +289,11 @@ public static class FunctionCallingHelper
 
         // If not found, then look for methods with the custom attribute
         var methodsWithAttributes = type
-                                    .GetMethods()
-                                    .FirstOrDefault(m =>
-                                        m.GetCustomAttributes(typeof(FunctionDescriptionAttribute), false)
-                                         .FirstOrDefault() is FunctionDescriptionAttribute attr &&
-                                        attr.Name == functionCall.Name);
+            .GetMethods()
+            .FirstOrDefault(m =>
+                m.GetCustomAttributes(typeof(FunctionDescriptionAttribute), false)
+                    .FirstOrDefault() is FunctionDescriptionAttribute attr &&
+                attr.Name == functionCall.Name);
 
         return methodsWithAttributes;
     }
