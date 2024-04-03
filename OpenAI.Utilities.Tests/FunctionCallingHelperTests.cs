@@ -124,8 +124,7 @@ public class FunctionCallingHelperTests
         {
             Name = "TestFunction",
             // arguments is a json dictionary
-            Arguments =
-                "{\"intParameter\": 1, \"floatParameter\": 2.0, \"boolParameter\": true, \"stringParameter\": \"Hello\", \"enumParameter\": \"Value1\", \"enumParameter2\": \"Value2\", \"requiredIntParameter\": 1, \"notRequiredIntParameter\": 2, \"OverriddenName\": 3}"
+            Arguments = "{\"intParameter\": 1, \"floatParameter\": 2.0, \"boolParameter\": true, \"stringParameter\": \"Hello\", \"enumParameter\": \"Value1\", \"enumParameter2\": \"Value2\", \"requiredIntParameter\": 1, \"notRequiredIntParameter\": 2, \"OverriddenName\": 3}"
         };
 
         var result = FunctionCallingHelper.CallFunction<int>(functionCall, obj);
@@ -150,8 +149,7 @@ public class FunctionCallingHelperTests
         var functionCall = new FunctionCall
         {
             Name = "TestFunction",
-            Arguments =
-                "{\"intParameter\": \"invalid\", \"floatParameter\": true, \"boolParameter\": 1, \"stringParameter\": 123, \"enumParameter\": \"NonExistentValue\"}"
+            Arguments = "{\"intParameter\": \"invalid\", \"floatParameter\": true, \"boolParameter\": 1, \"stringParameter\": 123, \"enumParameter\": \"NonExistentValue\"}"
         };
 
         Should.Throw<Exception>(() => FunctionCallingHelper.CallFunction<int>(functionCall, obj));
