@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using OpenAI.ObjectModels.RequestModels;
+﻿using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Utilities.FunctionCalling;
 
 namespace OpenAI.Utilities.Tests;
@@ -9,8 +8,7 @@ public class FunctionCallingHelperTests
     [Fact]
     public void VerifyGetFunctionDefinition()
     {
-        var functionDefinition =
-            FunctionCallingHelper.GetFunctionDefinition(typeof(FunctionCallingTestClass).GetMethod("TestFunction")!);
+        var functionDefinition = FunctionCallingHelper.GetFunctionDefinition(typeof(FunctionCallingTestClass).GetMethod("TestFunction")!);
 
         functionDefinition.Name.ShouldBe("TestFunction");
         functionDefinition.Description.ShouldBe("Test Function");
@@ -53,8 +51,7 @@ public class FunctionCallingHelperTests
     [Fact]
     public void VerifyTypeOverride()
     {
-        var functionDefinition =
-            FunctionCallingHelper.GetFunctionDefinition(typeof(FunctionCallingTestClass).GetMethod("ThirdFunction")!);
+        var functionDefinition = FunctionCallingHelper.GetFunctionDefinition(typeof(FunctionCallingTestClass).GetMethod("ThirdFunction")!);
 
         var overriddenNameParameter = functionDefinition.Parameters.Properties["overriddenTypeParameter"];
         overriddenNameParameter.Type.ShouldBe("string");
@@ -224,7 +221,7 @@ public class FunctionCallingHelperTests
 
         var functionCall = new FunctionCall
         {
-            Name      = "ThirdFunction",
+            Name = "ThirdFunction",
             Arguments = "{\"overriddenTypeParameter\": 1}"
         };
 
@@ -347,7 +344,7 @@ internal class FunctionCallingTestClass
     public string OverriddenTypeParameter = null!;
     public int RequiredIntParameter;
     public string StringParameter = null!;
-    public ComplexCustomType ComplexCustomTypeParameter { get; set; } = new ComplexCustomType();
+    public ComplexCustomType ComplexCustomTypeParameter { get; set; } = new();
 
     [FunctionDescription("Test Function")]
     public int TestFunction(
@@ -371,13 +368,13 @@ internal class FunctionCallingTestClass
         int overriddenNameParameter)
 
     {
-        IntParameter            = intParameter;
-        FloatParameter          = floatParameter;
-        BoolParameter           = boolParameter;
-        StringParameter         = stringParameter;
-        EnumParameter           = enumParameter;
-        EnumParameter2          = enumParameter2;
-        RequiredIntParameter    = requiredIntParameter;
+        IntParameter = intParameter;
+        FloatParameter = floatParameter;
+        BoolParameter = boolParameter;
+        StringParameter = stringParameter;
+        EnumParameter = enumParameter;
+        EnumParameter2 = enumParameter2;
+        RequiredIntParameter = requiredIntParameter;
         NotRequiredIntParameter = notRequiredIntParameter;
         OverriddenNameParameter = overriddenNameParameter;
 
@@ -406,7 +403,8 @@ internal class FunctionCallingTestClass
 
     [FunctionDescription("Function with complex custom type parameter")]
     public void FunctionWithComplexCustomType(
-        [ParameterDescription("Complex custom type parameter")] ComplexCustomType complexCustomTypeParameter)
+        [ParameterDescription("Complex custom type parameter")]
+        ComplexCustomType complexCustomTypeParameter)
     {
         ComplexCustomTypeParameter = complexCustomTypeParameter;
     }
@@ -418,11 +416,11 @@ public class ComplexCustomType
 
     public int Age { get; set; }
 
-    public List<float> Scores { get; set; } = new List<float>();
+    public List<float> Scores { get; set; } = new();
 
     public bool IsActive { get; set; }
 
-    public CustomType NestedCustomType { get; set; } = new CustomType();
+    public CustomType NestedCustomType { get; set; } = new();
 }
 
 public class CustomType
