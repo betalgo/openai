@@ -161,7 +161,8 @@ public static class FunctionCallingHelper
             throw new InvalidFunctionCallException($"Method '{functionCall.Name}' on type '{obj.GetType()}' not found");
         }
 
-        if (!typeof(T).IsAssignableFrom(methodInfo.ReturnType))
+
+        if (!methodInfo.ReturnType.IsAssignableTo(typeof(T)))
         {
             throw new InvalidFunctionCallException(
                 $"Method '{functionCall.Name}' on type '{obj.GetType()}' has return type '{methodInfo.ReturnType}' but expected '{typeof(T)}'");

@@ -1,6 +1,4 @@
-﻿#if NET6_0_OR_GREATER
-
-using System.Collections;
+﻿using System.Collections;
 using System.Globalization;
 using System.Text;
 using CsvHelper;
@@ -202,7 +200,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
     /// <returns></returns>
     public IEnumerable<TextEmbeddingData> LoadFilesFromDirectory(string pathToDirectory)
     {
-        return !File.Exists(pathToDirectory)
+        return !Path.Exists(pathToDirectory)
             ? new List<TextEmbeddingData>()
             : Directory.EnumerateFiles(pathToDirectory).Select(LoadFile).Where(r => r != null).ToList()!;
     }
@@ -442,5 +440,3 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
         return await PerformTextEmbedding(files, outputFileName);
     }
 }
-
-#endif
