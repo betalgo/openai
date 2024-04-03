@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using OpenAI.Extensions;
 using OpenAI.Interfaces;
@@ -96,16 +97,14 @@ public partial class OpenAIService : IChatCompletionService
     /// </summary>
     private class ReassemblyContext
     {
-        private IList<ToolCall>? _deltaFnCallList;
-        private IList<ToolCall>? _toolCallList;
-
-        public bool IsFnAssemblyActive => _deltaFnCallList != null;
+        private IList<ToolCall> _deltaFnCallList = new List<ToolCall>();
+        public bool IsFnAssemblyActive => _deltaFnCallList.Count > 0;
 
 
         /// <summary>
         ///     Detects if a response block is a part of a multi-chunk
         ///     streamed tool call response of type == "function". As long as that's true,
-        ///     it keeps accumulating block contents, and once function call
+        ///     it keeps accumulating block contents even handling multiple parallel tool calls, and once all the function call
         ///     streaming is done, it produces the assembled results in the final block.
         /// </summary>
         /// <param name="block"></param>
@@ -118,17 +117,18 @@ public partial class OpenAIService : IChatCompletionService
             } // not a valid state? nothing to do
 
             var isStreamingFnCall = IsStreamingFunctionCall();
+            var isStreamingFnCallEnd = firstChoice.FinishReason != null;
+
             var justStarted = false;
 
-            // If we're not yet assembling, and we just got a streaming block that has a function_call segment,
-            // this is the beginning of a function call assembly.
+            // Check if the streaming block has a tool_call segment of "function" type, according to the value returned by IsStreamingFunctionCall() above.
+            // If so, this is the beginning entry point of a function call assembly for each tool_call main item, even in case of multiple parallel tool calls.
             // We're going to steal the partial message and squirrel it away for the time being.
-            if (!IsFnAssemblyActive && isStreamingFnCall)
+            if (isStreamingFnCall)
             {
-                _toolCallList = firstChoice.Message.ToolCalls;
-                _deltaFnCallList = new List<ToolCall>();
-                foreach (var t in _toolCallList!)
+                foreach (var t in firstChoice.Message.ToolCalls!)
                 {
+                    //Handles just ToolCall type == "function" as according to the value returned by IsStreamingFunctionCall() above
                     if (t.FunctionCall != null && t.Type == StaticValues.CompletionStatics.ToolType.Function)
                         _deltaFnCallList.Add(t);
                 }
@@ -136,39 +136,59 @@ public partial class OpenAIService : IChatCompletionService
                 justStarted = true;
             }
 
-            // As long as we're assembling, keep on appending those args
-            // (Skip the first one, because it was already processed in the block above)
+            // As long as we're assembling, keep on appending those args,
+            // respecting the stream arguments sequence aligned with the last tool call main item which the arguments belong to.
             if (IsFnAssemblyActive && !justStarted)
             {
-                //Handles just ToolCall type == "function"
-                using var argumentsList = ExtractArgsSoFar().GetEnumerator();
-                var existItems = argumentsList.MoveNext();
+                //Get current toolcall metadata in order to search by index reference which to bind arguments to.
+                var tcMetadata = GetToolCallMetadata();
 
-                if (existItems)
+                if (tcMetadata.index > -1)
                 {
-                    foreach (var f in _deltaFnCallList!)
+                    //Handles just ToolCall type == "function"
+                    using var argumentsList = ExtractArgsSoFar().GetEnumerator();
+                    var existItems = argumentsList.MoveNext();
+
+                    if (existItems)
                     {
-                        f.FunctionCall!.Arguments += argumentsList.Current;
+                        //toolcall item must exists as added in previous steps, otherwise First() will raise an InvalidOperationException
+                        var tc = _deltaFnCallList!.Where(t => t.Index == tcMetadata.index).First();
+                        tc.FunctionCall!.Arguments += argumentsList.Current;
                         argumentsList.MoveNext();
                     }
                 }
             }
 
             // If we were assembling and it just finished, fill this block with the info we've assembled, and we're done.
-            if (IsFnAssemblyActive && !isStreamingFnCall)
+            if (IsFnAssemblyActive && isStreamingFnCallEnd)
             {
                 firstChoice.Message ??= ChatMessage.FromAssistant(""); // just in case? not sure it's needed
-                firstChoice.Message.ToolCalls = _toolCallList;
-                _deltaFnCallList = null;
+                firstChoice.Message.ToolCalls = new List<ToolCall>(_deltaFnCallList);
+                _deltaFnCallList.Clear();
             }
 
-            // Returns true if we're actively streaming, and also have a partial function call in the response
+            // Returns true if we're actively streaming, and also have a partial tool call main item ( id != (null | "")) of type "function" in the response
             bool IsStreamingFunctionCall()
             {
-                return firstChoice.FinishReason == null && // actively streaming, and
+                return firstChoice.FinishReason == null && // actively streaming, is a tool call main item, and have a function call
                        firstChoice.Message?.ToolCalls?.Count > 0 &&
-                       (firstChoice.Message?.ToolCalls.Any(t => t.FunctionCall != null) ?? false);
-            } // have a function call
+                       (firstChoice.Message?.ToolCalls.Any(t => t.FunctionCall != null 
+                       && !string.IsNullOrEmpty(t.Id)
+                       && t.Type == StaticValues.CompletionStatics.ToolType.Function) ?? false);
+            }
+
+            (int index, string? id, string? type) GetToolCallMetadata()
+            {
+                var tc = block.Choices?.FirstOrDefault()?.Message?.ToolCalls?
+                        .Where(t => t.FunctionCall != null)
+                        .Select(t => t).FirstOrDefault();
+
+                return tc switch
+                {
+                    not null => (tc.Index, tc.Id, tc.Type),
+                    _ => (-1, default, default)
+                };
+            }
 
             IEnumerable<string> ExtractArgsSoFar()
             {
@@ -180,12 +200,9 @@ public partial class OpenAIService : IChatCompletionService
                         .Where(t => t.FunctionCall != null)
                         .Select(t => t.FunctionCall);
 
-                    if (functionCallList != null)
+                    foreach (var functionCall in functionCallList)
                     {
-                        foreach (var functionCall in functionCallList)
-                        {
-                            yield return functionCall!.Arguments ?? "";
-                        }
+                        yield return functionCall!.Arguments ?? "";
                     }
                 }
             }
