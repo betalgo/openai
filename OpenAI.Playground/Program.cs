@@ -43,7 +43,7 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |-----------------------------------------------------------------------|
 
 //await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
-await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
+//await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
@@ -52,7 +52,7 @@ await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
 // Tools
 //await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
-//await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
+await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
 
 // Whisper
 //await AudioTestHelper.RunSimpleAudioCreateTranscriptionTest(sdk);

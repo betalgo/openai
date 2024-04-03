@@ -302,7 +302,7 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
-### 7.4.5
+### 7.4.6
 - Fixed *again*🥲 incorrect Model Naming - `moderation` models and `ada embedding 2` model
 ### 7.4.5
 - Fixed function calling streaming bugs thanks to @David-Buyer @dogdie233 @gavi @Maracaipe611
