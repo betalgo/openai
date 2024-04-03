@@ -21,8 +21,8 @@
 		</Content>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
-		<PackageReference Include="LaserCatEyes.HttpClientListener" Version="6.0.0" />
+	<ItemGroup>
+		<PackageReference Include="LaserCatEyes.HttpClientListener" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
