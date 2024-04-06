@@ -304,10 +304,9 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 
 ## Changelog
 ### 7.4.7
-- Fixed a bug that was cauisng binary iamge to be sent as base64 string, Thanks to @yt3trees
-- Fixed a bug that was blocking CreateCompletionAsStream on some platforms. #331 
-- Fixed a bug that was causing an error with multiple tool calls, now we are handling index paramater #493 , thans to @David-Buyer
-
+- Fixed a bug that was causing binary image to be sent as base64 string, Thanks to @yt3trees
+- Fixed a bug that was blocking CreateCompletionAsStream on some platforms. #331
+- Fixed a bug that was causing an error with multiple tool calls, now we are handling index parameter #493, thanks to @David-Buyer
 ### 7.4.6
 - Fixed *again*🥲 incorrect Model Naming - `moderation` models and `ada embedding 2` model
 ### 7.4.5
