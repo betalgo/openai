@@ -11,10 +11,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Sleep for 15 minutes
+      run: sleep 15m
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Clean
       run: dotnet clean
     - name: Restore dependencies
