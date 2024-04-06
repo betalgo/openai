@@ -10,18 +10,14 @@ namespace OpenAI.Managers;
 public partial class OpenAIService : IChatCompletionService
 {
     /// <inheritdoc />
-    public async Task<ChatCompletionCreateResponse> CreateCompletion(
-        ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null,
-        CancellationToken cancellationToken = default)
+    public async Task<ChatCompletionCreateResponse> CreateCompletion(ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null, CancellationToken cancellationToken = default)
     {
         chatCompletionCreateRequest.ProcessModelId(modelId, _defaultModelId);
-        return await _httpClient.PostAndReadAsAsync<ChatCompletionCreateResponse>(
-            _endpointProvider.ChatCompletionCreate(), chatCompletionCreateRequest, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<ChatCompletionCreateResponse>(_endpointProvider.ChatCompletionCreate(), chatCompletionCreateRequest, cancellationToken);
     }
 
     /// <inheritdoc />
-    public async IAsyncEnumerable<ChatCompletionCreateResponse> CreateCompletionAsStream(
-        ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null,
+    public async IAsyncEnumerable<ChatCompletionCreateResponse> CreateCompletionAsStream(ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         // Helper data in case we need to reassemble a multi-packet response
@@ -33,8 +29,7 @@ public partial class OpenAIService : IChatCompletionService
         // Send the request to the CompletionCreate endpoint
         chatCompletionCreateRequest.ProcessModelId(modelId, _defaultModelId);
 
-        using var response = _httpClient.PostAsStreamAsync(_endpointProvider.ChatCompletionCreate(),
-            chatCompletionCreateRequest, cancellationToken);
+        using var response = _httpClient.PostAsStreamAsync(_endpointProvider.ChatCompletionCreate(), chatCompletionCreateRequest, cancellationToken);
         await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
         using var reader = new StreamReader(stream);
 
