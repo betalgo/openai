@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text.Json;
 using OpenAI.Builders;
 using OpenAI.ObjectModels.RequestModels;
@@ -41,7 +43,6 @@ public static class FunctionCallingHelper
                         Type = parameterDescriptionAttribute!.Type!,
                         Description = description
                     };
-
                     break;
                 case ({ } t, _) when t.IsAssignableFrom(typeof(int)):
                     definition = PropertyDefinition.DefineInteger(description);
@@ -55,18 +56,31 @@ public static class FunctionCallingHelper
                 case ({ } t, _) when t.IsAssignableFrom(typeof(string)):
                     definition = PropertyDefinition.DefineString(description);
                     break;
-                case ({IsEnum: true}, _):
-
+                case ({ IsEnum: true }, _):
                     var enumValues = string.IsNullOrEmpty(parameterDescriptionAttribute?.Enum)
                         ? Enum.GetNames(parameter.ParameterType).ToList()
                         : parameterDescriptionAttribute.Enum.Split(",").Select(x => x.Trim()).ToList();
-
-                    definition =
-                        PropertyDefinition.DefineEnum(enumValues, description);
-
+                    definition = PropertyDefinition.DefineEnum(enumValues, description);
                     break;
                 default:
-                    throw new Exception($"Parameter type '{parameter.ParameterType}' not supported");
+                    // Handling custom types
+                    var properties = new Dictionary<string, PropertyDefinition>();
+                    var requiredProperties = new List<string>();
+
+                    foreach (var prop in parameter.ParameterType.GetProperties())
+                    {
+                        var propDefinition = GetPropertyDefinition(prop);
+                        properties[prop.Name] = propDefinition;
+
+                        if (prop.GetCustomAttribute<RequiredAttribute>() != null)
+                        {
+                            requiredProperties.Add(prop.Name);
+                        }
+                    }
+
+                    definition =
+                        PropertyDefinition.DefineObject(properties, requiredProperties, false, description, null);
+                    break;
             }
 
             result.AddParameter(
@@ -78,6 +92,59 @@ public static class FunctionCallingHelper
         return result.Build();
     }
 
+    /// <summary>
+    ///     Gets the definition of a property.
+    /// </summary>
+    /// <param name="propertyInfo">The reflection information of the property.</param>
+    /// <returns>The definition of the property.</returns>
+    /// <remarks>
+    ///     This method creates the appropriate property definition based on the property type. The following types are
+    ///     supported:
+    ///     - int: Defined as an integer type.
+    ///     - float: Defined as a number type.
+    ///     - bool: Defined as a boolean type.
+    ///     - string: Defined as a string type.
+    ///     - enum: Defined as an enum type, with enum values obtained from the property's enum type.
+    ///     - Custom types: Recursively processes the properties of custom types and creates an object type property
+    ///     definition.
+    /// </remarks>
+    private static PropertyDefinition GetPropertyDefinition(PropertyInfo propertyInfo)
+    {
+        var description = propertyInfo.GetCustomAttribute<DescriptionAttribute>()?.Description;
+
+        switch (propertyInfo.PropertyType)
+        {
+            case { } t when t == typeof(int):
+                return PropertyDefinition.DefineInteger(description);
+            case { } t when t == typeof(float):
+                return PropertyDefinition.DefineNumber(description);
+            case { } t when t == typeof(bool):
+                return PropertyDefinition.DefineBoolean(description);
+            case { } t when t == typeof(string):
+                return PropertyDefinition.DefineString(description);
+            case { IsEnum: true }:
+                var enumValues = Enum.GetNames(propertyInfo.PropertyType).ToList();
+                return PropertyDefinition.DefineEnum(enumValues, description);
+            default:
+                // Recursive processing if the property type is a custom class
+                var properties = new Dictionary<string, PropertyDefinition>();
+                var requiredProperties = new List<string>();
+
+                foreach (var prop in propertyInfo.PropertyType.GetProperties())
+                {
+                    var propDefinition = GetPropertyDefinition(prop);
+                    properties[prop.Name] = propDefinition;
+
+                    if (prop.GetCustomAttribute<RequiredAttribute>() != null)
+                    {
+                        requiredProperties.Add(prop.Name);
+                    }
+                }
+
+                return PropertyDefinition.DefineObject(properties, requiredProperties, false, description, null);
+        }
+    }
+
     public static ToolDefinition GetToolDefinition(MethodInfo methodInfo)
     {
         return new ToolDefinition()
@@ -86,6 +153,7 @@ public static class FunctionCallingHelper
             Function = GetFunctionDefinition(methodInfo)
         };
     }
+
     /// <summary>
     ///     Enumerates the methods in the provided object, and a returns a <see cref="List{FunctionDefinition}" /> of
     ///     <see cref="FunctionDefinition" /> for all methods
@@ -129,7 +197,7 @@ public static class FunctionCallingHelper
 
         return result;
     }
-    
+
 
     /// <summary>
     ///     Calls the function on the provided object, using the provided <see cref="FunctionCall" /> and returns the result of
@@ -193,13 +261,15 @@ public static class FunctionCallingHelper
             }
             else
             {
-                value = parameter.ParameterType.IsEnum ? Enum.Parse(parameter.ParameterType, argument.Value.ToString()!) : ((JsonElement)argument.Value).Deserialize(parameter.ParameterType);
+                value = parameter.ParameterType.IsEnum
+                    ? Enum.Parse(parameter.ParameterType, argument.Value.ToString()!)
+                    : ((JsonElement)argument.Value).Deserialize(parameter.ParameterType);
             }
 
             args.Add(value);
         }
 
-        var result = (T?) methodInfo.Invoke(obj, args.ToArray());
+        var result = (T?)methodInfo.Invoke(obj, args.ToArray());
         return result;
     }
 
@@ -220,9 +290,11 @@ public static class FunctionCallingHelper
         // If not found, then look for methods with the custom attribute
         var methodsWithAttributes = type
             .GetMethods()
-            .FirstOrDefault(m => m.GetCustomAttributes(typeof(FunctionDescriptionAttribute), false).FirstOrDefault() is FunctionDescriptionAttribute attr && attr.Name == functionCall.Name);
+            .FirstOrDefault(m =>
+                m.GetCustomAttributes(typeof(FunctionDescriptionAttribute), false)
+                    .FirstOrDefault() is FunctionDescriptionAttribute attr &&
+                attr.Name == functionCall.Name);
 
         return methodsWithAttributes;
     }
-
 }
