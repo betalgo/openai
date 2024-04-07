@@ -55,11 +55,11 @@ public static class FunctionCallingHelper
                 case ({ } t, _) when t.IsAssignableFrom(typeof(string)):
                     definition = PropertyDefinition.DefineString(description);
                     break;
-                case ({IsEnum: true}, _):
+                case ({ IsEnum: true }, _):
 
                     var enumValues = string.IsNullOrEmpty(parameterDescriptionAttribute?.Enum)
                         ? Enum.GetNames(parameter.ParameterType).ToList()
-                        : parameterDescriptionAttribute.Enum.Split(",").Select(x => x.Trim()).ToList();
+                        : parameterDescriptionAttribute.Enum.Split(',').Select(x => x.Trim()).ToList();
 
                     definition =
                         PropertyDefinition.DefineEnum(enumValues, description);
@@ -129,7 +129,7 @@ public static class FunctionCallingHelper
 
         return result;
     }
-    
+
 
     /// <summary>
     ///     Calls the function on the provided object, using the provided <see cref="FunctionCall" /> and returns the result of
@@ -160,6 +160,7 @@ public static class FunctionCallingHelper
         {
             throw new InvalidFunctionCallException($"Method '{functionCall.Name}' on type '{obj.GetType()}' not found");
         }
+
 
         if (!methodInfo.ReturnType.IsAssignableTo(typeof(T)))
         {
@@ -199,7 +200,7 @@ public static class FunctionCallingHelper
             args.Add(value);
         }
 
-        var result = (T?) methodInfo.Invoke(obj, args.ToArray());
+        var result = (T?)methodInfo.Invoke(obj, args.ToArray());
         return result;
     }
 

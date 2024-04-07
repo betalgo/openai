@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable CS1591
 namespace OpenAI.ObjectModels;
