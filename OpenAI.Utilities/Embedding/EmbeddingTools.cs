@@ -109,7 +109,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
 
     public async Task<DataFrame> ReadFilesAndCreateEmbeddingDataAsCsv(string pathToDirectoryOrFile, string outputFileName)
     {
-        return await ReadFilesAndCreateEmbeddingDataAsCsv(new[] {pathToDirectoryOrFile}, outputFileName);
+        return await ReadFilesAndCreateEmbeddingDataAsCsv(new[] { pathToDirectoryOrFile }, outputFileName);
     }
 
     public async Task<DataFrame> ReadFilesAndCreateEmbeddingDataAsCsv(IEnumerable<string> pathsToDirectoriesOrFiles, string outputFileName)
@@ -180,7 +180,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
             }
 
             // Else add it to the text that is being returned
-            returns.Add((string) row[textIndex]);
+            returns.Add((string)row[textIndex]);
         }
 
         // Return the context
@@ -214,7 +214,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
         Directory.CreateDirectory(Path.GetDirectoryName(outputFilePath) ?? string.Empty);
         await using var writer = new StreamWriter(outputFilePath);
         await using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-        await csv.WriteRecordsAsync((IEnumerable) textEmbeddingData);
+        await csv.WriteRecordsAsync((IEnumerable)textEmbeddingData);
         await csv.DisposeAsync();
     }
 
@@ -394,7 +394,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
         var distances = new PrimitiveDataFrameColumn<double>(EmbedStaticValues.Distances, embeddingsColumn.Length);
         for (var i = 0; i < embeddingsColumn.Length; i++)
         {
-            var rowEmbeddings = embeddingsColumn[i].ToString()!.Split(",").Select(Convert.ToDouble);
+            var rowEmbeddings = embeddingsColumn[i].ToString()!.Split(',').Select(Convert.ToDouble);
             distances[i] = Distance.Cosine(qEmbeddings.Select(x => x).ToArray(), Array.ConvertAll(rowEmbeddings.ToArray(), x => x));
         }
 

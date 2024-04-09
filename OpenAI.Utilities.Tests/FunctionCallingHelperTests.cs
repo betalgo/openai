@@ -31,7 +31,7 @@ public class FunctionCallingHelperTests
         stringParameter.Description.ShouldBe("String Parameter");
         stringParameter.Type.ShouldBe("string");
 
-        var enumValues = new List<string> {"Value1", "Value2", "Value3"};
+        var enumValues = new List<string> { "Value1", "Value2", "Value3" };
 
         var enumParameter = functionDefinition.Parameters.Properties["enumParameter"];
         enumParameter.Description.ShouldBe("Enum Parameter");
