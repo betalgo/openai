@@ -303,6 +303,9 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 8.0.0
+- Added support for .NET 8.0 thanks to @BroMarduk
+- Utilities library updated to work with only .NET 8.0
 ### 7.4.7
 - Fixed a bug that was causing binary image to be sent as base64 string, Thanks to @yt3trees
 - Fixed a bug that was blocking CreateCompletionAsStream on some platforms. #331
