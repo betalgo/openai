@@ -96,6 +96,8 @@ public static class Models
         Gpt_4_0125_preview,
         Gpt_4_vision_preview,
         Gpt_4_turbo_preview,
+        Gpt_4_turbo,
+        Gpt_4_turbo_2024_04_09,
 
         WhisperV1,
 
@@ -186,7 +188,20 @@ public static class Models
     public static string Gpt_4_vision_preview => "gpt-4-vision-preview";
 
     public static string Gpt_4_turbo_preview => "gpt-4-turbo-preview";
+    
+    /// <summary>
+    ///     The latest GPT-4 Turbo model with vision capabilities. Vision requests can now use JSON mode and function calling.
+    ///     Currently points to gpt-4-turbo-2024-04-09 as of 04/09/2024.
+    ///     128,000 tokens	Up to Dec 2023
+    /// </summary>
+    public static string Gpt_4_turbo => "gpt-4-turbo";
 
+    /// <summary>
+    ///     GPT-4 Turbo with Vision model. Vision requests can now use JSON mode and function calling. 
+    ///     `gpt-4-turbo` currently points to this version.
+    ///     128,000 tokens	Up to Dec 2023
+    /// </summary>
+    public static string Gpt_4_turbo_2024_04_09 => "gpt-4-turbo-2024-04-09";
 
 
     public static string Ada => "ada";
@@ -415,6 +430,8 @@ public static class Models
             Model.Gpt_4_0125_preview => Gpt_4_0125_preview,
             Model.Gpt_4_vision_preview => Gpt_4_vision_preview,
             Model.Gpt_4_turbo_preview => Gpt_4_turbo_preview,
+            Model.Gpt_4_turbo => Gpt_4_turbo,
+            Model.Gpt_4_turbo_2024_04_09 => Gpt_4_turbo_2024_04_09,
             Model.Tts_1 => Tts_1,
             Model.Tts_1_hd => Tts_1_hd,
             Model.Text_moderation_007 => TextModeration007,
