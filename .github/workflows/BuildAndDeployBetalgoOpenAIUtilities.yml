@@ -1,9 +1,11 @@
 name: Build And Deploy Betalgo.OpenAI.Utilities
 
 on:
-  push:
-    branches: [ master ]
-
+  workflow_run:
+    workflows: ["Build And Deploy Betalgo.OpenAI"]
+    branches: [master]
+    types:
+      - completed
 jobs:
   build:
 
@@ -11,10 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Clean
       run: dotnet clean
     - name: Restore dependencies

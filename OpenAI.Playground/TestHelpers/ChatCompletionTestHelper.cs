@@ -216,6 +216,12 @@ internal static class ChatCompletionTestHelper
 
         var fn4 = new FunctionDefinitionBuilder("identify_number_sequence", "Get a sequence of numbers present in the user message")
             .AddParameter("values", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Sequence of numbers specified by the user")))
+            .Build();   
+        var fn5 = new FunctionDefinitionBuilder("google_search", "Gets a result from Google Search")
+            .AddParameter("search_term", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Search Term")))
+            .Build();
+        var fn6 = new FunctionDefinitionBuilder("getURL", "Downloads the content of given website")
+            .AddParameter("URL", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Search Term")))
             .Build();
 
         try
@@ -225,20 +231,19 @@ internal static class ChatCompletionTestHelper
             {
                 Messages = new List<ChatMessage>
                 {
-                    ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
-
+                    ChatMessage.FromSystem("You are a bot that performs internet searches and also downloads content from websites."),
                     // to test weather forecast functions:
-                    ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days.")
-
+                    ChatMessage.FromUser("I need you to first search Google for \"Cat\" and, at the same time, download the contents from https://www.wired.com."),
+                    //ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days and also current weather.")
                     // or to test array functions, use this instead:
-                    // ChatMessage.FromUser("The combination is: One. Two. Three. Four. Five."),
+                    // ChatMessage.FromUser("And also The combination is: One. Two. Three. Four. Five."),
                 },
-                Tools = new List<ToolDefinition> { ToolDefinition.DefineFunction(fn1), ToolDefinition.DefineFunction(fn2), ToolDefinition.DefineFunction(fn3), ToolDefinition.DefineFunction(fn4) },
+                Tools = new List<ToolDefinition> { ToolDefinition.DefineFunction(fn1), ToolDefinition.DefineFunction(fn2), ToolDefinition.DefineFunction(fn3), ToolDefinition.DefineFunction(fn4), ToolDefinition.DefineFunction(fn5), ToolDefinition.DefineFunction(fn6) },
                 // optionally, to force a specific function:
-                ToolChoice = ToolChoice.FunctionChoice("get_current_weather"),
+                //ToolChoice = ToolChoice.FunctionChoice("get_current_weather"),
                 // or auto tool choice:
-                // ToolChoice = ToolChoice.Auto,
-                MaxTokens = 50,
+                ToolChoice = ToolChoice.Auto,
+                //MaxTokens = 50,
                 Model = Models.Gpt_4_1106_preview
             });
 

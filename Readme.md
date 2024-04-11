@@ -12,7 +12,8 @@ Dotnet SDK for OpenAI
 
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki  
-or  [![Static Badge](https://img.shields.io/badge/API%20Docs-RobiniaDocs-43bc00?logo=readme&logoColor=white)](https://www.robiniadocs.com/d/betalgo-openai/api/OpenAI.ObjectModels.RequestModels.ChatMessage.html)
+Betalgo.OpenAI: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.OpenAiOptions.html)  
+Betalgo.OpenAI.Utilities: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.Utilities.Embedding.EmbeddingTools.html)
 ## Checkout new ***experimental*** utilities library:
 [![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
 ```
@@ -25,14 +26,15 @@ Maintenance of this project is made possible by all the bug reporters, [contribu
 
 [@tylerje](https://github.com/tylerje)
 [@oferavnery](https://github.com/oferavnery)
+[@MayDay-wpf](https://github.com/MayDay-wpf)
 [@AnukarOP](https://github.com/AnukarOP)
 [@Removable](https://github.com/Removable)
+
 ## Features
 - [x] Dev day Updates 
 - [x] Vision Api 
 - [X] Tools
 - [X] [Function Calling](https://github.com/betalgo/openai/wiki/Function-Calling)
-- [ ] Plugins (coming soon)
 - [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
 - [x] [Azure OpenAI](https://github.com/betalgo/openai/wiki/Azure-OpenAI)
 - [x] [Image DALL·E](https://github.com/betalgo/openai/wiki/Dall-E)
@@ -302,7 +304,16 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
-### 7.4.5
+### 8.0.1
+- Added support for new Models `gpt-4-turbo` and `gpt-4-turbo-2024-04-09` thanks to @ChaseIngersol
+### 8.0.0
+- Added support for .NET 8.0 thanks to @BroMarduk
+- Utilities library updated to work with only .NET 8.0
+### 7.4.7
+- Fixed a bug that was causing binary image to be sent as base64 string, Thanks to @yt3trees
+- Fixed a bug that was blocking CreateCompletionAsStream on some platforms. #331
+- Fixed a bug that was causing an error with multiple tool calls, now we are handling index parameter #493, thanks to @David-Buyer
+### 7.4.6
 - Fixed *again*🥲 incorrect Model Naming - `moderation` models and `ada embedding 2` model
 ### 7.4.5
 - Fixed function calling streaming bugs thanks to @David-Buyer @dogdie233 @gavi @Maracaipe611
@@ -335,8 +346,3 @@ This feature was completed by @belaszalontai. Many thanks to them.
     - Reverting the usage of `EnsureStatusCode()` which caused the loss of error information. Initially, I thought it would help in implementing HTTP retry tools, but now I believe it is a bad idea for two reasons.
         1. You can't simply retry if the request wasn't successful because it could fail for various reasons. For example, you might have used too many tokens in your request, causing OpenAI to reject the response, or you might have tried to use a nonexistent model. It would be better to use the Error object in your retry rules. All responses are already derived from this base object.
         2. We will lose error response data.
-### 7.3.0
-- Updated Moderation categories as reported by @dmki.
-- **Breaking Changes:**
-    - Introduced the use of `EnsureStatusCode()` after making requests.Please adjust your code accordingly for handling failure cases. Thanks to @miroljub1995 for reporting.
-    - Previously, we used to override paths in the base domain, but this behavior has now changed. If you were using `abc.com/mypath` as the base domain, we used to ignore `/mypath`. This will no longer be the case, and the code will now respect `/mypath`. Thanks to @Hzw576816 for reporting.
