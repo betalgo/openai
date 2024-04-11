@@ -304,6 +304,8 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 8.0.1
+- Added support for new Models `gpt-4-turbo` and `gpt-4-turbo-2024-04-09` thanks to @ChaseIngersol
 ### 8.0.0
 - Added support for .NET 8.0 thanks to @BroMarduk
 - Utilities library updated to work with only .NET 8.0
