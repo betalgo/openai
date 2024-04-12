@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Text;
+﻿using System.Net;
 using OpenAI.ObjectModels.RequestModels;
 
 namespace OpenAI.EndpointProviders;
@@ -61,12 +59,12 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string FilesList()
     {
-        return Files();
+        return $"{_apiVersion}/files";
     }
 
     public string FilesUpload()
     {
-        return Files();
+        return $"{_apiVersion}/files";
     }
 
     public string FileRetrieve(string fileId)
@@ -128,6 +126,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
             if (queryParams.Any())
                 url = $"{url}?{string.Join("&", queryParams)}";
         }
+
         return url;
     }
 
@@ -176,11 +175,6 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/images/variations";
     }
 
-    private string Files()
-    {
-        return $"{_apiVersion}/files";
-    }
-
     public string AssistantCreate()
     {
         return $"{_apiVersion}/assistants";
@@ -210,6 +204,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         {
             url = $"{url}?{query}";
         }
+
         return url;
     }
 
@@ -237,6 +232,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         {
             url = $"{url}?{query}";
         }
+
         return url;
     }
 
@@ -284,6 +280,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         {
             url = $"{url}?{query}";
         }
+
         return url;
     }
 
@@ -301,6 +298,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         {
             url = $"{url}?{query}";
         }
+
         return url;
     }
 
@@ -321,13 +319,14 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string RunList(string threadId, RunListRequest? runListRequest)
     {
-        var url= $"{_apiVersion}/threads/{threadId}/runs";
+        var url = $"{_apiVersion}/threads/{threadId}/runs";
 
         var query = runListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
             url = $"{url}?{query}";
         }
+
         return url;
     }
 
@@ -353,13 +352,14 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string RunStepList(string threadId, string runId, RunStepListRequest? runStepListRequest)
     {
-        var url= $"{_apiVersion}/threads/{threadId}/runs/{runId}/steps";
+        var url = $"{_apiVersion}/threads/{threadId}/runs/{runId}/steps";
 
         var query = runStepListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
             url = $"{url}?{query}";
         }
+
         return url;
     }
 }

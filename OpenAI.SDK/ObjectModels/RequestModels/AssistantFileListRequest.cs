@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace OpenAI.ObjectModels.RequestModels;
 
-namespace OpenAI.ObjectModels.RequestModels
+public class AssistantFileListRequest : BaseListRequest
 {
-    public class AssistantFileListRequest :BaseListRequest
-    {
-    }
 }
