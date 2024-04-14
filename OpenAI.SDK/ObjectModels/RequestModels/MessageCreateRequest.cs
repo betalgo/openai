@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
@@ -10,14 +9,12 @@ public class MessageCreateRequest : IOpenAiModels.IFileIds, IOpenAiModels.IMetaD
     ///     The role of the entity that is creating the message.
     ///     Currently only user is supported.
     /// </summary>
-    [Required]
     [JsonPropertyName("role")]
     public string Role { get; set; } = StaticValues.AssistantsStatics.MessageStatics.Roles.User;
 
     /// <summary>
     ///     The content of the message.
     /// </summary>
-    [Required]
     [JsonPropertyName("content")]
     public string Content { get; set; }
 
@@ -27,7 +24,7 @@ public class MessageCreateRequest : IOpenAiModels.IFileIds, IOpenAiModels.IMetaD
     ///     Useful for tools like retrieval and code_interpreter that can access and use files.
     /// </summary>
     [JsonPropertyName("file_ids")]
-    public List<string> FileIds { get; set; }
+    public List<string>? FileIds { get; set; }
 
     /// <summary>
     ///     Set of 16 key-value pairs that can be attached to an object.
@@ -35,5 +32,5 @@ public class MessageCreateRequest : IOpenAiModels.IFileIds, IOpenAiModels.IMetaD
     ///     Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
     /// </summary>
     [JsonPropertyName("metadata")]
-    public Dictionary<string, string> MetaData { get; set; }
+    public Dictionary<string, string>? MetaData { get; set; }
 }
