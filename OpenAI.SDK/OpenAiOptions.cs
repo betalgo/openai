@@ -126,6 +126,8 @@ public class OpenAiOptions
     /// </summary>
     public string? DefaultModelId { get; set; }
 
+    public bool UseBeta { get; set; } = false;
+
     /// <summary>
     ///     Create an instance of this class with the necessary information to connect to the azure open ai api
     /// </summary>
