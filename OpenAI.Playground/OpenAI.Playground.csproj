@@ -60,10 +60,10 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="SampleData\betterway_corp.csv">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="SampleData\betterway_corp.jsonl">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="SampleData\FineTuningSample1.jsonl">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
