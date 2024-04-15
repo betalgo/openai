@@ -42,6 +42,10 @@ public partial class OpenAIService : IOpenAIService, IDisposable
             case ProviderType.OpenAi:
             default:
                 _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
+                if (settings.UseBeta)
+                {
+                    _httpClient.DefaultRequestHeaders.Add("OpenAI-Beta", settings.Assistants);
+                }
                 break;
         }
 
@@ -101,6 +105,9 @@ public partial class OpenAIService : IOpenAIService, IDisposable
 
     /// <inheritdoc />
     public IAudioService Audio => this;
+
+    /// <inheritdoc />
+    public IBetaService Beta => this;
 
     /// <summary>
     ///     Sets default Model Id

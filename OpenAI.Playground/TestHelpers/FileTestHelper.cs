@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
+using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
 

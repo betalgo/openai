@@ -43,4 +43,14 @@ public interface IOpenAiModels
         public Stream FileStream { get; set; }
         public string FileName { get; set; }
     }
+
+    public interface IMetaData
+    {
+        public Dictionary<string, string> MetaData { get; set; }
+    }
+
+    public interface IFileIds
+    {
+        public List<string> FileIds { get; set;}
+    }
 }

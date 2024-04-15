@@ -21,7 +21,7 @@ public class OpenAiOptions
     private const string OpenAiDefaultApiVersion = "v1";
     private const string OpenAiDefaultBaseDomain = "https://api.openai.com/";
     private const string AzureOpenAiDefaultApiVersion = "2023-12-01-preview";
-
+    private const string OpenAiDefaultAssistantsApiVersion = "v1";
 
     /// <summary>
     ///     Setting key for Json Setting Bindings
@@ -37,6 +37,12 @@ public class OpenAiOptions
     /// </summary>
     public ProviderType ProviderType { get; set; } = ProviderType.OpenAi;
 
+    /// <summary>
+    /// Calls to the Assistants API require that you pass a beta HTTP header. 
+    /// This is handled automatically if you’re using OpenAI’s official Python or Node.js SDKs.
+    ///  <a href="https://platform.openai.com/docs/assistants/overview">assistants overview</a> page.
+    /// </summary>
+    public string? Assistants => $"assistants={OpenAiDefaultAssistantsApiVersion}";
     /// <summary>
     ///     For users who belong to multiple organizations, you can pass a header to specify which organization is used for an
     ///     API request. Usage from these API requests will count against the specified organization's subscription quota.
@@ -119,6 +125,8 @@ public class OpenAiOptions
     ///     Default model id. If you are working with only one model, this will save you from few line extra code.
     /// </summary>
     public string? DefaultModelId { get; set; }
+
+    public bool UseBeta { get; set; } = false;
 
     /// <summary>
     ///     Create an instance of this class with the necessary information to connect to the azure open ai api

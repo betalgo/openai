@@ -18,32 +18,31 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
     }
 
     private string Prefix => $"{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
-    private string QueryString => $"?api-version={_apiVersion}";
-
+    private string AzureVersionQueryString => $"?api-version={_apiVersion}";
 
     public string ModelRetrieve(string model)
     {
-        return $"{Prefix}/models/{model}{QueryString}";
+        return $"{Prefix}/models/{model}{AzureVersionQueryString}";
     }
 
     public string FileDelete(string fileId)
     {
-        return $"{Prefix}/files/{fileId}{QueryString}";
+        return $"{Prefix}/files/{fileId}{AzureVersionQueryString}";
     }
 
     public string CompletionCreate()
     {
-        return $"{Prefix}/completions{QueryString}";
+        return $"{Prefix}/completions{AzureVersionQueryString}";
     }
 
     public string EditCreate()
     {
-        return $"{Prefix}/edits{QueryString}";
+        return $"{Prefix}/edits{AzureVersionQueryString}";
     }
 
     public string ModelsList()
     {
-        return $"{Prefix}/models{QueryString}";
+        return $"{Prefix}/models{AzureVersionQueryString}";
     }
 
     public string FilesList()
@@ -58,47 +57,47 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string FileRetrieve(string fileId)
     {
-        return $"{Prefix}/files/{fileId}{QueryString}";
+        return $"{Prefix}/files/{fileId}{AzureVersionQueryString}";
     }
 
     public string FileRetrieveContent(string fileId)
     {
-        return $"{Prefix}/files/{fileId}/content{QueryString}";
+        return $"{Prefix}/files/{fileId}/content{AzureVersionQueryString}";
     }
 
     public string FineTuneCreate()
     {
-        return $"{Prefix}/fine-tunes{QueryString}";
+        return $"{Prefix}/fine-tunes{AzureVersionQueryString}";
     }
 
     public string FineTuneList()
     {
-        return $"{Prefix}/fine-tunes{QueryString}";
+        return $"{Prefix}/fine-tunes{AzureVersionQueryString}";
     }
 
     public string FineTuneRetrieve(string fineTuneId)
     {
-        return $"{Prefix}/fine-tunes/{fineTuneId}{QueryString}";
+        return $"{Prefix}/fine-tunes/{fineTuneId}{AzureVersionQueryString}";
     }
 
     public string FineTuneCancel(string fineTuneId)
     {
-        return $"{Prefix}/fine-tunes/{fineTuneId}/cancel{QueryString}";
+        return $"{Prefix}/fine-tunes/{fineTuneId}/cancel{AzureVersionQueryString}";
     }
 
     public string FineTuneListEvents(string fineTuneId)
     {
-        return $"{Prefix}/fine-tunes/{fineTuneId}/events{QueryString}";
+        return $"{Prefix}/fine-tunes/{fineTuneId}/events{AzureVersionQueryString}";
     }
 
     public string FineTuneDelete(string fineTuneId)
     {
-        return $"{Prefix}/models/{fineTuneId}{QueryString}";
+        return $"{Prefix}/models/{fineTuneId}{AzureVersionQueryString}";
     }
 
     public string FineTuningJobCreate()
     {
-        return $"{Prefix}/fine_tuning/jobs{QueryString}";
+        return $"{Prefix}/fine_tuning/jobs{AzureVersionQueryString}";
     }
 
     public string FineTuningJobList(FineTuningJobListRequest? fineTuningJobListRequest)
@@ -111,85 +110,274 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
                 queryParams.Add($"after={WebUtility.UrlEncode(fineTuningJobListRequest.After)}");
             if (fineTuningJobListRequest.Limit.HasValue)
                 queryParams.Add($"limit={fineTuningJobListRequest.Limit.Value}");
-        
+
             if (queryParams.Any())
-                url = $"{url}{QueryString}&{string.Join("&", queryParams)}";
+                url = $"{url}{AzureVersionQueryString}&{string.Join("&", queryParams)}";
         }
+
+        return url;
+    }
+
+    public string FineTuningJobRetrieve(string fineTuningJobId)
+    {
+        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}{AzureVersionQueryString}";
+    }
+
+    public string FineTuningJobCancel(string fineTuningJobId)
+    {
+        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}/cancel{AzureVersionQueryString}";
+    }
+
+    public string FineTuningJobListEvents(string fineTuningJobId)
+    {
+        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}/events{AzureVersionQueryString}";
+    }
+
+    public string ModelsDelete(string modelId)
+    {
+        return $"{Prefix}/models/{modelId}{AzureVersionQueryString}";
+    }
+
+    public string EmbeddingCreate()
+    {
+        return $"{Prefix}/embeddings{AzureVersionQueryString}";
+    }
+
+    public string ModerationCreate()
+    {
+        return $"{Prefix}/moderations{AzureVersionQueryString}";
+    }
+
+    public string ImageCreate()
+    {
+        return $"{Prefix}/images/generations{AzureVersionQueryString}";
+    }
+
+    public string ImageEditCreate()
+    {
+        return $"{Prefix}/images/edits{AzureVersionQueryString}";
+    }
+
+    public string ImageVariationCreate()
+    {
+        return $"{Prefix}/images/variations{AzureVersionQueryString}";
+    }
+
+    public string ChatCompletionCreate()
+    {
+        return $"{Prefix}/chat/completions{AzureVersionQueryString}";
+    }
+
+    public string AudioCreateTranscription()
+    {
+        return $"{Prefix}/audio/transcriptions{AzureVersionQueryString}";
+    }
+
+    public string AudioCreateTranslation()
+    {
+        return $"{Prefix}/audio/translation{AzureVersionQueryString}";
+    }
+
+    public string AudioCreateSpeech()
+    {
+        return $"{Prefix}/audio/speech{AzureVersionQueryString}";
+    }
+
+    public string AssistantCreate()
+    {
+        return $"{Prefix}/assistants{AzureVersionQueryString}";
+    }
+
+    public string AssistantRetrieve(string assistantId)
+    {
+        return $"{Prefix}/assistants/{assistantId}{AzureVersionQueryString}";
+    }
+
+    public string AssistantModify(string assistantId)
+    {
+        return $"{Prefix}/assistants/{assistantId}{AzureVersionQueryString}";
+    }
+
+    public string AssistantDelete(string assistantId)
+    {
+        return $"{Prefix}/assistants/{assistantId}{AzureVersionQueryString}";
+    }
+
+    public string AssistantList(AssistantListRequest? assistantListRequest)
+    {
+        var url = $"{Prefix}/assistants{AzureVersionQueryString}";
+
+        var query = assistantListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}{query}";
+        }
+
+        return url;
+    }
+
+    public string AssistantFileCreate(string assistantId)
+    {
+        return $"{Prefix}/assistants/{assistantId}/files{AzureVersionQueryString}";
+    }
+
+    public string AssistantFileRetrieve(string assistantId, string fileId)
+    {
+        return $"{Prefix}/assistants/{assistantId}/files/{fileId}{AzureVersionQueryString}";
+    }
+
+    public string AssistantFileDelete(string assistantId, string fileId)
+    {
+        return $"{Prefix}/assistants/{assistantId}/files/{fileId}{AzureVersionQueryString}";
+    }
+
+    public string AssistantFileList(string assistantId, AssistantFileListRequest? assistantFileListRequest)
+    {
+        var url = $"{Prefix}/assistants/files{AzureVersionQueryString}";
+
+        var query = assistantFileListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}{query}";
+        }
+
+        return url;
+    }
+
+    public string ThreadCreate()
+    {
+        return $"{Prefix}/threads{AzureVersionQueryString}";
+    }
+
+    public string ThreadRetrieve(string threadId)
+    {
+        return $"{Prefix}/threads/{threadId}{AzureVersionQueryString}";
+    }
+
+    public string ThreadModify(string threadId)
+    {
+        return $"{Prefix}/threads/{threadId}{AzureVersionQueryString}";
+    }
+
+    public string ThreadDelete(string threadId)
+    {
+        return $"{Prefix}/threads/{threadId}{AzureVersionQueryString}";
+    }
+
+    public string MessageCreate(string threadId)
+    {
+        return $"{Prefix}/threads/{threadId}/messages{AzureVersionQueryString}";
+    }
+
+    public string MessageRetrieve(string threadId, string messageId)
+    {
+        return $"{Prefix}/threads/{threadId}/messages/{messageId}{AzureVersionQueryString}";
+    }
+
+    public string MessageModify(string threadId, string messageId)
+    {
+        return $"{Prefix}/threads/{threadId}/messages/{messageId}{AzureVersionQueryString}";
+    }
+
+    public string MessageList(string threadId, MessageListRequest? messageListRequest)
+    {
+        var url = $"{Prefix}/threads/{threadId}/messages{AzureVersionQueryString}";
+
+        var query = messageListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}{query}";
+        }
+
+        return url;
+    }
+
+    public string MessageFileRetrieve(string threadId, string messageId, string fileId)
+    {
+        return $"{Prefix}/threads/{threadId}/messages/{messageId}/files/{fileId}{AzureVersionQueryString}";
+    }
+
+    public string MessageFileList(string threadId, string messageId, MessageFileListRequest? messageFileListRequest)
+    {
+        var url = $"{Prefix}/threads/{threadId}/messages/{messageId}/files{AzureVersionQueryString}";
+
+        var query = messageFileListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}{query}";
+        }
+
+        return url;
+    }
+
+    public string RunCreate(string threadId)
+    {
+        return $"{Prefix}/threads/{threadId}/runs{AzureVersionQueryString}";
+    }
+
+    public string RunRetrieve(string threadId, string runId)
+    {
+        return $"{Prefix}/threads/{threadId}/runs/{runId}{AzureVersionQueryString}";
+    }
+
+    public string RunModify(string threadId, string runId)
+    {
+        return $"{Prefix}/threads/{threadId}/runs/{runId}{AzureVersionQueryString}";
+    }
+
+    public string RunList(string threadId, RunListRequest? runListRequest)
+    {
+        var url = $"{Prefix}/threads/{threadId}/runs{AzureVersionQueryString}";
+
+        var query = runListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}{query}";
+        }
+
+        return url;
+    }
+
+    public string RunSubmitToolOutputs(string threadId, string runId)
+    {
+        return $"{Prefix}/threads/{threadId}/runs/{runId}/submit_tool_outputs{AzureVersionQueryString}";
+    }
+
+    public string RunCancel(string threadId, string runId)
+    {
+        return $"{Prefix}/threads/{threadId}/runs/{runId}/cancel{AzureVersionQueryString}";
+    }
+
+    public string ThreadAndRunCreate()
+    {
+        return $"{Prefix}/threads/runs{AzureVersionQueryString}";
+    }
+
+    public string RunStepRetrieve(string threadId, string runId, string stepId)
+    {
+        return $"{Prefix}/threads/{threadId}/runs/{runId}/steps/{stepId}{AzureVersionQueryString}";
+    }
+
+    public string RunStepList(string threadId, string runId, RunStepListRequest? runStepListRequest)
+    {
+        var url = $"{Prefix}/threads/{threadId}/runs/{runId}/steps{AzureVersionQueryString}";
+
+        var query = runStepListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}{query}";
+        }
+
         return url;
     }
 
     public string FineTuningJobList()
     {
-        return $"{Prefix}/fine_tuning/jobs{QueryString}";
-    }
-
-    public string FineTuningJobRetrieve(string fineTuningJobId)
-    {
-        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}{QueryString}";
-    }
-
-    public string FineTuningJobCancel(string fineTuningJobId)
-    {
-        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}/cancel{QueryString}";
-    }
-
-    public string FineTuningJobListEvents(string fineTuningJobId)
-    {
-        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}/events{QueryString}";
-    }
-
-    public string ModelsDelete(string modelId)
-    {
-        return $"{Prefix}/models/{modelId}{QueryString}";
-    }
-
-    public string EmbeddingCreate()
-    {
-        return $"{Prefix}/embeddings{QueryString}";
-    }
-
-    public string ModerationCreate()
-    {
-        return $"{Prefix}/moderations{QueryString}";
-    }
-
-    public string ImageCreate()
-    {
-        return $"{Prefix}/images/generations{QueryString}";
-    }
-
-    public string ImageEditCreate()
-    {
-        return $"{Prefix}/images/edits{QueryString}";
-    }
-
-    public string ImageVariationCreate()
-    {
-        return $"{Prefix}/images/variations{QueryString}";
-    }
-
-    public string ChatCompletionCreate()
-    {
-        return $"{Prefix}/chat/completions{QueryString}";
-    }
-
-    public string AudioCreateTranscription()
-    {
-        return $"{Prefix}/audio/transcriptions{QueryString}";
-    }
-
-    public string AudioCreateTranslation()
-    {
-        return $"{Prefix}/audio/translation{QueryString}";
-    }
-
-    public string AudioCreateSpeech()
-    {
-        return $"{Prefix}/audio/speech{QueryString}";
+        return $"{Prefix}/fine_tuning/jobs{AzureVersionQueryString}";
     }
 
     private string Files()
     {
-        return $"{Prefix}/files{QueryString}";
+        return $"{Prefix}/files{AzureVersionQueryString}";
     }
 }

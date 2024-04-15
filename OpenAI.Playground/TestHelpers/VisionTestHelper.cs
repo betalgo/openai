@@ -1,6 +1,7 @@
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
+using OpenAI.Playground.ExtensionsAndHelpers;
 using static OpenAI.ObjectModels.StaticValues;
 
 namespace OpenAI.Playground.TestHelpers;
