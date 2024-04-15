@@ -39,13 +39,13 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
 
-await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
+//await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 //await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
 
-//Assistants
-//await AssistantTestHelper.RunAssistantApiTest(sdk);
-//await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
+//Assistants - BETA
+await AssistantTestHelper.RunAssistantApiTest(sdk);
+await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
 
 
 // Vision
