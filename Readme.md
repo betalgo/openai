@@ -1,59 +1,36 @@
-# Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-4 and DALL·E
+# .NET SDK for OpenAI APIs
 
+## .Net SDK for OpenAI, *Community Library*: 
 [![Betalgo.OpenAI](https://img.shields.io/nuget/v/Betalgo.OpenAI?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI/)
-
 ```
 Install-Package Betalgo.OpenAI
 ```
 
-Dotnet SDK for OpenAI  
-*Unofficial*. 
-*OpenAI doesn't have any official .Net SDK.*
 
-## Checkout the wiki page: 
-https://github.com/betalgo/openai/wiki  
-Betalgo.OpenAI: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.OpenAiOptions.html)  
-Betalgo.OpenAI.Utilities: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.Utilities.Embedding.EmbeddingTools.html)
-## Checkout new ***experimental*** utilities library:
+## ***experimental*** utilities library:
 [![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
 ```
 Install-Package Betalgo.OpenAI.Utilities
 ```
+
+## Documentations and links: 
+[Wiki Page](https://github.com/betalgo/openai/wiki)
+[Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability) 
+[Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
+
+Betalgo.OpenAI: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.OpenAiOptions.html)  
+Betalgo.OpenAI.Utilities: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.Utilities.Embedding.EmbeddingTools.html)
+
+---
+
 Maintenance of this project is made possible by all the bug reporters, [contributors](https://github.com/betalgo/openai/graphs/contributors) and [sponsors](https://github.com/sponsors/kayhantolga).  
 💖 Sponsors:  
 [@betalgo](https://github.com/betalgo),
 [Laser Cat Eyes](https://lasercateyes.com/)
 
-[@tylerje](https://github.com/tylerje)
-[@oferavnery](https://github.com/oferavnery)
-[@MayDay-wpf](https://github.com/MayDay-wpf)
-[@AnukarOP](https://github.com/AnukarOP)
-[@Removable](https://github.com/Removable)
+[@tylerje](https://github.com/tylerje) ,[@oferavnery](https://github.com/oferavnery), [@MayDay-wpf](https://github.com/MayDay-wpf), [@AnukarOP](https://github.com/AnukarOP), [@Removable](https://github.com/Removable)
 
-## Features
-- [x] Dev day Updates 
-- [x] Vision Api 
-- [X] Tools
-- [X] [Function Calling](https://github.com/betalgo/openai/wiki/Function-Calling)
-- [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
-- [x] [Azure OpenAI](https://github.com/betalgo/openai/wiki/Azure-OpenAI)
-- [x] [Image DALL·E](https://github.com/betalgo/openai/wiki/Dall-E)
-- [x] [Models](https://github.com/betalgo/openai/wiki/Models)
-- [x] [Completions](https://github.com/betalgo/openai/wiki/Completions) 
-- [x] [Edit](https://github.com/betalgo/openai/wiki/Edit) 
-- [x] [Embeddings](https://github.com/betalgo/openai/wiki/Embeddings) 
-- [x] [Files](https://github.com/betalgo/openai/wiki/Files) 
-- [x] [Chatgpt Fine-Tuning](https://github.com/betalgo/openai/wiki/Chatgpt-Fine-Tuning) 
-- [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning)
-- [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
-- [x] [Tokenizer-GPT3](https://github.com/betalgo/openai/wiki/Tokenizer)
-- [ ] [Tokenizer](https://github.com/betalgo/openai/wiki/Tokenizer)
-- [x] [Whisper](https://github.com/betalgo/openai/wiki/Whisper)
-- [x] [Rate limit](https://github.com/betalgo/openai/wiki/Rate-Limit)
-- [x] [Proxy](https://github.com/betalgo/openai/wiki/Proxy)
-
-
-For changelogs please go to end of the document.
+---
 
 ## Sample Usages
 The repository contains a sample project named **OpenAI.Playground** that you can refer to for a better understanding of how the library works. However, please exercise caution while experimenting with it, as some of the test methods may result in unintended consequences such as file deletion or fine tuning.  
@@ -301,9 +278,11 @@ I initially developed this SDK for my personal use and later decided to share it
 
 I will always be using the latest libraries, and future releases will frequently include breaking changes. Please take this into consideration before deciding to use the library. I want to make it clear that I cannot accept any responsibility for any damage caused by using the library. If you feel that this is not suitable for your purposes, you are free to explore alternative libraries or the OpenAI Web-API.
 
-I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
+If I forgot your name in change logs, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 8.0.2-beta
+- Added support for beta features, such as assistants, threads, messages, and run. Still missing some of the endpoints, but good progress achieved. See complete list from here: [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability). Thanks to @CongquanHu and @alistein.
 ### 8.0.1
 - Added support for new Models `gpt-4-turbo` and `gpt-4-turbo-2024-04-09` thanks to @ChaseIngersol
 ### 8.0.0
