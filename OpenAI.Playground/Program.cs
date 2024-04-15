@@ -19,7 +19,7 @@ serviceCollection.AddScoped(_ => configuration);
 serviceCollection.AddLaserCatEyesHttpClientListener();
 
 
-serviceCollection.AddOpenAIService();
+serviceCollection.AddOpenAIService(r=>r.UseBeta = true);
 //// DeploymentId and ResourceName are only for Azure OpenAI. If you want to use Azure OpenAI services you have to set Provider type To Azure.
 //serviceCollection.AddOpenAIService(options =>
 //{
@@ -44,7 +44,7 @@ await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 
 
 //Assistants - BETA
-//await AssistantTestHelper.RunAssistantApiTest(sdk);
+await AssistantTestHelper.RunAssistantApiTest(sdk);
 //await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
 
 await MessageTestHelper.RunMessageCreateTest(sdk);
