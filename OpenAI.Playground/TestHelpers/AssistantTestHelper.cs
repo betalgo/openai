@@ -151,7 +151,7 @@ internal static class AssistantTestHelper
 
         #region //create assistants
 
-        var func = new FunctionDefinitionBuilder("get_corp_location", "get location of corp").AddParameter("name", PropertyDefinition.DefineString("compary name, e.g. Betterway"))
+        var func = new FunctionDefinitionBuilder("get_corp_location", "get location of corp").AddParameter("name", PropertyDefinition.DefineString("company name, e.g. Betterway"))
             .Validate()
             .Build();
 

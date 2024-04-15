@@ -47,7 +47,13 @@ await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 //await AssistantTestHelper.RunAssistantApiTest(sdk);
 //await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
 
+await MessageTestHelper.RunMessageCreateTest(sdk);
 
+await ThreadTestHelper.RunThreadCreateTest(sdk);
+await ThreadTestHelper.RunThreadRetrieveTest(sdk);
+
+await RunTestHelper.RunRunCreateTest(sdk);
+await RunTestHelper.RunRunCancelTest(sdk);
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
 //await VisionTestHelper.RunSimpleVisionStreamTest(sdk);
