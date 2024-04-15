@@ -2,6 +2,7 @@
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
+using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
 

@@ -1,5 +1,6 @@
 ﻿using OpenAI.Interfaces;
 using OpenAI.ObjectModels.RequestModels;
+using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
 

@@ -1,4 +1,4 @@
-﻿namespace OpenAI.Playground;
+﻿namespace OpenAI.Playground.ExtensionsAndHelpers;
 
 public static class ConsoleExtensions
 {

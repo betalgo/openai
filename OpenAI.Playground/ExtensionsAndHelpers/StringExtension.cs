@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace OpenAI.Playground;
+namespace OpenAI.Playground.ExtensionsAndHelpers;
 
 public static class StringExtension
 {
