@@ -18,8 +18,10 @@ serviceCollection.AddScoped(_ => configuration);
 // It is in Beta version, if you don't want to use it just comment out below line.
 serviceCollection.AddLaserCatEyesHttpClientListener();
 
-
+//if you want to use beta services you have to set UseBeta to true. Otherwise, it will use the stable version of OpenAI apis.
 serviceCollection.AddOpenAIService(r=>r.UseBeta = true);
+
+//serviceCollection.AddOpenAIService();
 //// DeploymentId and ResourceName are only for Azure OpenAI. If you want to use Azure OpenAI services you have to set Provider type To Azure.
 //serviceCollection.AddOpenAIService(options =>
 //{
@@ -44,16 +46,17 @@ await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 
 
 //Assistants - BETA
-await AssistantTestHelper.RunAssistantApiTest(sdk);
+//await AssistantTestHelper.RunAssistantApiTest(sdk);
 //await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
 
-await MessageTestHelper.RunMessageCreateTest(sdk);
+//await MessageTestHelper.RunMessageCreateTest(sdk);
 
-await ThreadTestHelper.RunThreadCreateTest(sdk);
-await ThreadTestHelper.RunThreadRetrieveTest(sdk);
+//await ThreadTestHelper.RunThreadCreateTest(sdk);
+//await ThreadTestHelper.RunThreadRetrieveTest(sdk);
 
-await RunTestHelper.RunRunCreateTest(sdk);
-await RunTestHelper.RunRunCancelTest(sdk);
+//await RunTestHelper.RunRunCreateTest(sdk);
+//await RunTestHelper.RunRunCancelTest(sdk);
+
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
 //await VisionTestHelper.RunSimpleVisionStreamTest(sdk);

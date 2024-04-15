@@ -54,10 +54,15 @@ var openAiService = new OpenAIService(new OpenAiOptions()
  "OpenAIServiceOptions": {
     //"ApiKey":"Your api key goes here"
     //,"Organization": "Your Organization Id goes here (optional)"
+    //,"UseBeta": "true/false (optional)"
   },
 ```
 *(How to use [user secret](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows) ?  
 Right click your project name in "solution explorer" then click "Manage User Secret", it is a good way to keep your api keys)*
+
+### For Beta Features:
+- Use `"UseBeta": true` in your config file or  `serviceCollection.AddOpenAIService(r=>r.UseBeta = true);` or `new OpenAiOptions { UseBeta = true }` in your service registration.
+
 
 #### Program.cs
 ```csharp
@@ -283,6 +288,7 @@ If I forgot your name in change logs, please accept my apologies and let me know
 ## Changelog
 ### 8.0.2-beta
 - Added support for beta features, such as assistants, threads, messages, and run. Still missing some of the endpoints, but good progress achieved. See complete list from here: [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability). Thanks to @CongquanHu and @alistein.
+- Use `"UseBeta": true` in your config file or  `serviceCollection.AddOpenAIService(r=>r.UseBeta = true);` or `new OpenAiOptions { UseBeta = true }` in your service registration.
 ### 8.0.1
 - Added support for new Models `gpt-4-turbo` and `gpt-4-turbo-2024-04-09` thanks to @ChaseIngersol
 ### 8.0.0
