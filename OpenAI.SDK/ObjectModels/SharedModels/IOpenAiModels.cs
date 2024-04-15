@@ -44,11 +44,6 @@ public interface IOpenAiModels
         public string FileName { get; set; }
     }
 
-    public interface ISystemFingerPrint
-    {
-        public string SystemFingerPrint { get; set; }
-    }
-
     public interface IMetaData
     {
         public Dictionary<string, string> MetaData { get; set; }
