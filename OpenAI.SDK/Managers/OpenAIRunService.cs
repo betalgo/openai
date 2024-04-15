@@ -23,7 +23,7 @@ public partial class OpenAIService : IRunService
             throw new ArgumentNullException(nameof(threadId));
         }
 
-        request.ProcessModelId(modelId, _defaultModelId);
+        request.ProcessModelId(modelId, _defaultModelId,true);
         return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunCreate(threadId), request, cancellationToken);
     }
 

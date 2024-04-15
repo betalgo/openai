@@ -4,8 +4,15 @@ namespace OpenAI.Extensions;
 
 public static class ModelExtension
 {
-    public static void ProcessModelId(this IOpenAiModels.IModel modelFromObject, string? modelFromParameter, string? defaultModelId)
+    public static void ProcessModelId(this IOpenAiModels.IModel modelFromObject, string? modelFromParameter, string? defaultModelId,bool allowNull =false)
     {
-        modelFromObject.Model = modelFromParameter ?? modelFromObject.Model ?? defaultModelId ?? throw new ArgumentNullException("Model Id");
+        if (allowNull)
+        {
+            modelFromObject.Model = modelFromParameter ?? modelFromObject.Model ?? defaultModelId;
+        }
+        else
+        {
+            modelFromObject.Model = modelFromParameter ?? modelFromObject.Model ?? defaultModelId ?? throw new ArgumentNullException("Model Id");
+        }
     }
 }
