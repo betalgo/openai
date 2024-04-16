@@ -378,17 +378,17 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string BatchCreate()
     {
-        return $"{Prefix}/batches{QueryString}";
+        return $"{Prefix}/batches{AzureVersionQueryString}";
     }
 
     public string BatchRetrieve(string batchId)
     {
-        return $"{Prefix}/batches/{batchId}{QueryString}";
+        return $"{Prefix}/batches/{batchId}{AzureVersionQueryString}";
     }
 
     public string BatchCancel(string batchId)
     {
-        return $"{Prefix}/batches/{batchId}/cancel{QueryString}";
+        return $"{Prefix}/batches/{batchId}/cancel{AzureVersionQueryString}";
     }
 
     private string Files()
