@@ -49,8 +49,8 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 
 // Tools
 //await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
-await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
-
+//await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
+await BatchTestHelper.RunBatchOperationsTest(sdk);
 // Whisper
 //await AudioTestHelper.RunSimpleAudioCreateTranscriptionTest(sdk);
 //await AudioTestHelper.RunSimpleAudioCreateTranslationTest(sdk);

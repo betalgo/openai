@@ -67,6 +67,8 @@ public class Error
 
     [JsonPropertyName("type")] public string? Type { get; set; }
 
+    [JsonPropertyName("line")]
+    public int? Line { get; set; }
     [JsonIgnore] public string? Message { get; private set; }
 
     [JsonIgnore] public List<string?> Messages { get; private set; }

@@ -101,6 +101,9 @@ public partial class OpenAIService : IOpenAIService, IDisposable
 
     /// <inheritdoc />
     public IAudioService Audio => this;
+    
+    /// <inheritdoc />
+    public IBatchService Batch => this;
 
     /// <summary>
     ///     Sets default Model Id

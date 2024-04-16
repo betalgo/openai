@@ -54,6 +54,10 @@ public interface IOpenAIService
     ///     Given an audio file, the model will return a transcription of the audio.
     /// </summary>
     public IAudioService Audio { get; }
+    /// <summary>
+    /// Create large batches of API requests to run asynchronously.
+    /// </summary>
+    public IBatchService Batch{ get; }
 
 
     /// <summary>

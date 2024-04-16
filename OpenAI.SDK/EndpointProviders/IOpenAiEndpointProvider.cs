@@ -34,4 +34,7 @@ internal interface IOpenAiEndpointProvider
     string AudioCreateTranscription();
     string AudioCreateTranslation();
     string AudioCreateSpeech();
+    string BatchCreate();
+    string BatchRetrieve(string batchId);
+    string BatchCancel(string batchId);
 }
