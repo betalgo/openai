@@ -188,6 +188,21 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/audio/speech{QueryString}";
     }
 
+    public string BatchCreate()
+    {
+        return $"{Prefix}/batches{QueryString}";
+    }
+
+    public string BatchRetrieve(string batchId)
+    {
+        return $"{Prefix}/batches/{batchId}{QueryString}";
+    }
+
+    public string BatchCancel(string batchId)
+    {
+        return $"{Prefix}/batches/{batchId}/cancel{QueryString}";
+    }
+
     private string Files()
     {
         return $"{Prefix}/files{QueryString}";
