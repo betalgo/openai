@@ -105,6 +105,9 @@ public partial class OpenAIService : IOpenAIService, IDisposable
 
     /// <inheritdoc />
     public IAudioService Audio => this;
+    
+    /// <inheritdoc />
+    public IBatchService Batch => this;
 
     /// <inheritdoc />
     public IBetaService Beta => this;

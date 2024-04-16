@@ -47,6 +47,21 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/audio/speech";
     }
 
+    public string BatchCreate()
+    {
+        return $"{_apiVersion}/batches";
+    }
+
+    public string BatchRetrieve(string batchId)
+    {
+        return $"{_apiVersion}/batches/{batchId}";
+    }
+
+    public string BatchCancel(string batchId)
+    {
+        return $"{_apiVersion}/batches/{batchId}/cancel";
+    }
+
     public string EditCreate()
     {
         return $"{_apiVersion}/edits";
