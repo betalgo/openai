@@ -1,59 +1,36 @@
-# Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-4 and DALL·E
+# .NET SDK for OpenAI APIs
 
+## .Net SDK for OpenAI, *Community Library*: 
 [![Betalgo.OpenAI](https://img.shields.io/nuget/v/Betalgo.OpenAI?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI/)
-
 ```
 Install-Package Betalgo.OpenAI
 ```
 
-Dotnet SDK for OpenAI  
-*Unofficial*. 
-*OpenAI doesn't have any official .Net SDK.*
 
-## Checkout the wiki page: 
-https://github.com/betalgo/openai/wiki  
-Betalgo.OpenAI: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.OpenAiOptions.html)  
-Betalgo.OpenAI.Utilities: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.Utilities.Embedding.EmbeddingTools.html)
-## Checkout new ***experimental*** utilities library:
+## ***experimental*** utilities library:
 [![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
 ```
 Install-Package Betalgo.OpenAI.Utilities
 ```
+
+## Documentations and links: 
+[Wiki Page](https://github.com/betalgo/openai/wiki)
+[Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability) 
+[Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
+
+Betalgo.OpenAI: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.OpenAiOptions.html)  
+Betalgo.OpenAI.Utilities: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.Utilities.Embedding.EmbeddingTools.html)
+
+---
+
 Maintenance of this project is made possible by all the bug reporters, [contributors](https://github.com/betalgo/openai/graphs/contributors) and [sponsors](https://github.com/sponsors/kayhantolga).  
 💖 Sponsors:  
 [@betalgo](https://github.com/betalgo),
 [Laser Cat Eyes](https://lasercateyes.com/)
 
-[@tylerje](https://github.com/tylerje)
-[@oferavnery](https://github.com/oferavnery)
-[@MayDay-wpf](https://github.com/MayDay-wpf)
-[@AnukarOP](https://github.com/AnukarOP)
-[@Removable](https://github.com/Removable)
+[@tylerje](https://github.com/tylerje) ,[@oferavnery](https://github.com/oferavnery), [@MayDay-wpf](https://github.com/MayDay-wpf), [@AnukarOP](https://github.com/AnukarOP), [@Removable](https://github.com/Removable)
 
-## Features
-- [x] Dev day Updates 
-- [x] Vision Api 
-- [X] Tools
-- [X] [Function Calling](https://github.com/betalgo/openai/wiki/Function-Calling)
-- [x] [Chat GPT](https://github.com/betalgo/openai/wiki/Chat-GPT)
-- [x] [Azure OpenAI](https://github.com/betalgo/openai/wiki/Azure-OpenAI)
-- [x] [Image DALL·E](https://github.com/betalgo/openai/wiki/Dall-E)
-- [x] [Models](https://github.com/betalgo/openai/wiki/Models)
-- [x] [Completions](https://github.com/betalgo/openai/wiki/Completions) 
-- [x] [Edit](https://github.com/betalgo/openai/wiki/Edit) 
-- [x] [Embeddings](https://github.com/betalgo/openai/wiki/Embeddings) 
-- [x] [Files](https://github.com/betalgo/openai/wiki/Files) 
-- [x] [Chatgpt Fine-Tuning](https://github.com/betalgo/openai/wiki/Chatgpt-Fine-Tuning) 
-- [x] [Fine-tunes](https://github.com/betalgo/openai/wiki/Fine-Tuning)
-- [x] [Moderation](https://github.com/betalgo/openai/wiki/Moderation)
-- [x] [Tokenizer-GPT3](https://github.com/betalgo/openai/wiki/Tokenizer)
-- [ ] [Tokenizer](https://github.com/betalgo/openai/wiki/Tokenizer)
-- [x] [Whisper](https://github.com/betalgo/openai/wiki/Whisper)
-- [x] [Rate limit](https://github.com/betalgo/openai/wiki/Rate-Limit)
-- [x] [Proxy](https://github.com/betalgo/openai/wiki/Proxy)
-
-
-For changelogs please go to end of the document.
+---
 
 ## Sample Usages
 The repository contains a sample project named **OpenAI.Playground** that you can refer to for a better understanding of how the library works. However, please exercise caution while experimenting with it, as some of the test methods may result in unintended consequences such as file deletion or fine tuning.  
@@ -77,10 +54,15 @@ var openAiService = new OpenAIService(new OpenAiOptions()
  "OpenAIServiceOptions": {
     //"ApiKey":"Your api key goes here"
     //,"Organization": "Your Organization Id goes here (optional)"
+    //,"UseBeta": "true/false (optional)"
   },
 ```
 *(How to use [user secret](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows) ?  
 Right click your project name in "solution explorer" then click "Manage User Secret", it is a good way to keep your api keys)*
+
+### For Beta Features:
+- Use `"UseBeta": true` in your config file or  `serviceCollection.AddOpenAIService(r=>r.UseBeta = true);` or `new OpenAiOptions { UseBeta = true }` in your service registration.
+
 
 #### Program.cs
 ```csharp
@@ -301,9 +283,13 @@ I initially developed this SDK for my personal use and later decided to share it
 
 I will always be using the latest libraries, and future releases will frequently include breaking changes. Please take this into consideration before deciding to use the library. I want to make it clear that I cannot accept any responsibility for any damage caused by using the library. If you feel that this is not suitable for your purposes, you are free to explore alternative libraries or the OpenAI Web-API.
 
-I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
+If I forgot your name in change logs, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 8.2.0-beta
+- Added support for beta features, such as assistants, threads, messages, and run. Still missing some of the endpoints, but good progress achieved. See complete list from here: [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability). Thanks to @CongquanHu , @alistein, @hucongquan.
+- Use `"UseBeta": true` in your config file or  `serviceCollection.AddOpenAIService(r=>r.UseBeta = true);` or `new OpenAiOptions { UseBeta = true }` in your service registration.
+
 ### 8.1.1
 - Fixed incorrect mapping for batch API error response.
 ### 8.1.0
@@ -317,24 +303,3 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
 - Fixed a bug that was causing binary image to be sent as base64 string, Thanks to @yt3trees
 - Fixed a bug that was blocking CreateCompletionAsStream on some platforms. #331
 - Fixed a bug that was causing an error with multiple tool calls, now we are handling index parameter #493, thanks to @David-Buyer
-### 7.4.6
-- Fixed *again*🥲 incorrect Model Naming - `moderation` models and `ada embedding 2` model
-### 7.4.5
-- Fixed function calling streaming bugs thanks to @David-Buyer @dogdie233 @gavi @Maracaipe611
-- Breaking Change:
-    While streaming (`CreateCompletionAsStream`), there were some unexpected incoming data chunks like `:pings` or `:events`, etc. @gavi discovered this issue. We are now ignoring these chunks. If you were using it, you need to set `justDataMode` to false.
-### 7.4.4
-- Added support for new models : `TextEmbeddingV3Small`, `TextEmbeddingV3Large`, `Gpt_3_5_Turbo_0125`, `Gpt_4_0125_preview`, `Gpt_4_turbo_preview`, `Text_moderation_007`, `Text_moderation_latest`, `Text_moderation_stable`
-- Added optinal dimension and encoding for embedding thanks to @shanepowell
-### 7.4.3
-- Fixed the response format of AudioCreateSpeechRequest.
-- Updated Azure OpenAI version to `2023-12-01-preview`, which now supports dall-e 3.
-- Added the ability to retrieve header values from the base response, such as ratelimit, etc. Please note that this feature is experimental and may change in the future.
-- Semi-Breaking change:
-    - The SDK will now attempt to handle 500 errors and other similar errors from the OpenAI server. Previously, an exception was thrown in such cases. Now, the SDK will try to read the response and return it as an error message. This change provides more visibility to developers and helps them understand the cause of the error.
-### 7.4.2
-- Let's start with breaking changes:
-    - OpenAI has replaced function calling with tools. We have made the necessary changes to our code. This is not a major change; now you just have a wrapper around your function calling, which is named as "tool". The Playground provides an example. Please take a look to see how you can update your code.  
-    This update was completed by @shanepowell. Many thanks to him.
-- Now we support the Vision API, which involves passing message contents to the existing chat method. It is quite easy to use, but documentation was not available in the OpenAI API documentation.  
-This feature was completed by @belaszalontai. Many thanks to them.

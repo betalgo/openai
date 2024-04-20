@@ -1,8 +1,9 @@
 ﻿using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
 
-public record BatchResponse : BaseResponse
+public record BatchResponse : BaseResponse,IOpenAiModels.IMetaData
 {
     /// <summary>
     ///  

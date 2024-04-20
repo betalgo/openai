@@ -37,4 +37,33 @@ internal interface IOpenAiEndpointProvider
     string BatchCreate();
     string BatchRetrieve(string batchId);
     string BatchCancel(string batchId);
+
+    string AssistantCreate();
+    string AssistantRetrieve(string assistantId);
+    string AssistantModify(string assistantId);
+    string AssistantDelete(string assistantId);
+    string AssistantList(AssistantListRequest? assistantListRequest);
+    string AssistantFileCreate(string assistantId);
+    string AssistantFileRetrieve(string assistantId, string fileId);
+    string AssistantFileDelete(string assistantId, string fileId);
+    string AssistantFileList(string assistantId, AssistantFileListRequest? assistantFileListRequest);
+    string ThreadCreate();
+    string ThreadRetrieve(string threadId);
+    string ThreadModify(string threadId);
+    string ThreadDelete(string threadId);
+    string MessageCreate(string threadId);
+    string MessageRetrieve(string threadId,string messageId);
+    string MessageModify(string threadId, string messageId);
+    string MessageList(string threadId, MessageListRequest? messageListRequest);
+    string MessageFileRetrieve(string threadId, string messageId, string fileId);
+    string MessageFileList(string threadId, string messageId, MessageFileListRequest? messageFileListRequest);
+    string RunCreate(string threadId);
+    string RunRetrieve(string threadId, string runId);
+    string RunModify(string threadId, string runId);
+    string RunList(string threadId, RunListRequest? runListRequest);
+    string RunSubmitToolOutputs(string threadId, string runId);
+    string RunCancel(string threadId, string runId);
+    string ThreadAndRunCreate();
+    string RunStepRetrieve(string threadId, string runId,string stepId);
+    string RunStepList(string threadId, string runId, RunStepListRequest? runStepListRequest);
 }

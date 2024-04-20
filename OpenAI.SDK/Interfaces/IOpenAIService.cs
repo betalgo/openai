@@ -59,6 +59,10 @@ public interface IOpenAIService
     /// </summary>
     public IBatchService Batch{ get; }
 
+    /// <summary>
+    ///  Beta
+    /// </summary>
+    public IBetaService Beta { get; }
 
     /// <summary>
     ///     Set default model

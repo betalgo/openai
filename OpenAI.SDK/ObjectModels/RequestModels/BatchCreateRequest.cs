@@ -1,8 +1,9 @@
 ﻿using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
-public record BatchCreateRequest
+public record BatchCreateRequest : IOpenAiModels.IMetaData
 {
     /// <summary>
     ///     The ID of an uploaded file that contains requests for the new batch.
