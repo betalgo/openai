@@ -59,6 +59,9 @@ public record DataBaseResponse<T> : BaseResponse
     [JsonPropertyName("data")] public T? Data { get; set; }
 }
 
+public record ErrorList: DataBaseResponse<List<Error>>
+{
+}
 public class Error
 {
     [JsonPropertyName("code")] public string? Code { get; set; }
