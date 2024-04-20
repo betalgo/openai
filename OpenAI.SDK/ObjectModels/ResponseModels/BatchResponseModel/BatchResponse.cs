@@ -17,7 +17,7 @@ public record BatchResponse : BaseResponse
     public string Endpoint { get; set; }
 
     [JsonPropertyName("errors")]
-    public List<Error>? Errors { get; set; }
+    public ErrorList? Errors { get; set; }
 
     /// <summary>
     ///     The ID of the input file for the batch.

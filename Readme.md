@@ -304,6 +304,8 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 8.1.1
+- Fixed incorrect mapping for batch API error response.
 ### 8.1.0
 - Added support for Batch API
 ### 8.0.1
@@ -336,15 +338,3 @@ I am incredibly busy. If I forgot your name, please accept my apologies and let 
     This update was completed by @shanepowell. Many thanks to him.
 - Now we support the Vision API, which involves passing message contents to the existing chat method. It is quite easy to use, but documentation was not available in the OpenAI API documentation.  
 This feature was completed by @belaszalontai. Many thanks to them.
-
-### 7.4.1
-- Added support for "Create Speech" thanks to @belaszalontai / @szabe74 
-### 7.4.0
-- Added support for Dall-e 3, thanks to @belaszalontai and @szabe74
-- Added support for GPT-4-Turbo/Vision thanks to @ChaseIngersol
-- Models are updated with latest.
-### 7.3.1
-- **Reverting a breking change which will be also Breaking Changes(only for 7.3.0):**
-    - Reverting the usage of `EnsureStatusCode()` which caused the loss of error information. Initially, I thought it would help in implementing HTTP retry tools, but now I believe it is a bad idea for two reasons.
-        1. You can't simply retry if the request wasn't successful because it could fail for various reasons. For example, you might have used too many tokens in your request, causing OpenAI to reject the response, or you might have tried to use a nonexistent model. It would be better to use the Error object in your retry rules. All responses are already derived from this base object.
-        2. We will lose error response data.
