@@ -6,6 +6,17 @@
 Install-Package Betalgo.OpenAI
 ```
 
+# Beta:
+### **Assistant features are available only in the beta version.**
+To check avaliable features: [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability)
+
+Beta version Nuget: [V8.2.0-beta](https://www.nuget.org/packages/Betalgo.OpenAI/8.2.0-beta)
+```
+Install-Package Betalgo.OpenAI -Version 8.2.0-beta
+```
+Use `"UseBeta": true` in your config file or  
+`serviceCollection.AddOpenAIService(r=>r.UseBeta = true);` or  
+`new OpenAiOptions { UseBeta = true }` in your service registration.
 
 ## ***experimental*** utilities library:
 [![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
