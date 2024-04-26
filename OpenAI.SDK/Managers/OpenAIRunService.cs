@@ -1,6 +1,7 @@
 ﻿using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.ResponseModels;
 using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.Managers;
@@ -95,5 +96,44 @@ public partial class OpenAIService : IRunService
         }
 
         return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunSubmitToolOutputs(threadId, runId), request, cancellationToken);
+    }
+
+    /// <summary>
+    ///     Retrieves the list of run steps belonging to a run.
+    /// </summary>
+    /// <param name="threadId"></param>
+    /// <param name="runId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<RunStepListResponse> RunStepList(string threadId, string runId, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(threadId))
+            throw new ArgumentNullException(nameof(threadId));
+
+        if (string.IsNullOrWhiteSpace(runId))
+            throw new ArgumentNullException(nameof(runId));
+
+        return await _httpClient.GetReadAsAsync<RunStepListResponse>(_endpointProvider.RunStepList(threadId, runId, null), cancellationToken);
+    }
+
+    /// <summary>
+    ///     Retrieve a run step.
+    /// </summary>
+    /// <param name="threadId"></param>
+    /// <param name="runId"></param>
+    /// /// <param name="stepId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<RunStepResponse> RunStepRetrieve(string threadId, string runId, string stepId, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(threadId))
+            throw new ArgumentNullException(nameof(threadId));
+
+        if (string.IsNullOrWhiteSpace(runId))
+            throw new ArgumentNullException(nameof(runId));
+
+        return await _httpClient.GetReadAsAsync<RunStepResponse>(_endpointProvider.RunStepRetrieve(threadId, runId, stepId), cancellationToken);
     }
 }

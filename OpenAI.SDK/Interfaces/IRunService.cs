@@ -1,4 +1,5 @@
 ﻿using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.ResponseModels;
 using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.Interfaces;
@@ -47,4 +48,24 @@ public interface IRunService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<RunResponse> RunSubmitToolOutputs(string threadId, string runId, SubmitToolOutputsToRunRequest request, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Retrieve list of run steps belonging to a run.
+    /// </summary>
+    /// <param name="threadId"></param>
+    /// <param name="runId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<RunStepListResponse> RunStepList(string threadId, string runId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Retrieve a run step.
+    /// </summary>
+    /// <param name="threadId"></param>
+    /// <param name="runId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<RunStepResponse> RunStepRetrieve(string threadId, string runId, string stepId, CancellationToken cancellationToken = default);
+
+
 }

@@ -6,7 +6,6 @@ namespace OpenAI.ObjectModels.SharedModels;
 
 public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IModel, IOpenAiModels.ICreatedAt, IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
 {
-
     /// <summary>
     ///     The ID of the thread that was executed on as a part of this run.
     /// </summary>
@@ -44,7 +43,7 @@ public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IMode
     ///     Details on why the run is incomplete. Will be null if the run is not incomplete.
     /// </summary>
     [JsonPropertyName("incomplete_details")]
-    public IncompleteDetails? IncompleteDetails { get; set; }
+    public RunIncompleteDetails? IncompleteDetails { get; set; }
 
     /// <summary>
     ///     The Unix timestamp (in seconds) for when the run will expire.
@@ -163,14 +162,15 @@ public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IMode
     /// </summary>
     [JsonPropertyName("model")]
     public string Model { get; set; }
+
+    public class RunIncompleteDetails
+    {
+        /// <summary>
+        ///     The reason why the run is incomplete.
+        ///     This will point to which specific token limit was reached over the course of the run.
+        /// </summary>
+        [JsonPropertyName("reason")]
+        public string Reason { get; set; }
+    }
 }
 
-public class IncompleteDetails
-{
-    /// <summary>
-    ///     The reason why the run is incomplete.
-    ///     This will point to which specific token limit was reached over the course of the run.
-    /// </summary>
-    [JsonPropertyName("reason")]
-    public string Reason { get; set; }
-}

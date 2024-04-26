@@ -23,4 +23,13 @@ public interface IMessageService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<MessageListResponse> MessageList(string threadId, MessageListRequest? request = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Retrieve a message.
+    /// </summary>
+    /// <param name="threadId"></param>
+    /// <param name="messageId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<MessageResponse> MessageRetrieve(string threadId, string messageId, CancellationToken cancellationToken = default);
 }

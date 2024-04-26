@@ -43,4 +43,22 @@ public partial class OpenAIService : IMessageService
 
         return await _httpClient.GetReadAsAsync<MessageListResponse>(_endpointProvider.MessageList(threadId, request), cancellationToken);
     }
+
+    /// <summary>
+    ///     Retrieve a message.
+    /// </summary>
+    /// <param name="threadId"></param>
+    /// <param name="messageId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<MessageResponse> MessageRetrieve(string threadId, string messageId, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(threadId))
+            throw new ArgumentNullException(nameof(threadId));
+
+        if (string.IsNullOrWhiteSpace(messageId))
+            throw new ArgumentNullException(nameof(messageId));
+
+        return await _httpClient.GetReadAsAsync<MessageResponse>(_endpointProvider.MessageRetrieve(threadId, messageId), cancellationToken);
+    }
 }
