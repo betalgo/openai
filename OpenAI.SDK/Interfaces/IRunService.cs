@@ -47,4 +47,24 @@ public interface IRunService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<RunResponse> RunSubmitToolOutputs(string threadId, string runId, SubmitToolOutputsToRunRequest request, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    ///     Modifies a run.
+    /// </summary>
+    /// <param name="threadId">The ID of the [thread](/docs/api-reference/threads) that was run.</param>
+    /// <param name="runId">The ID of the run to modify.</param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<RunResponse> RunModify(string threadId, string runId, RunModifyRequest request, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Create a thread and run it in one request.
+    /// </summary>
+    Task<RunResponse> CreateThreadAndRun(CreateThreadAndRunRequest requestBody, CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Returns a list of runs belonging to a thread.
+    /// </summary>
+    Task<RunListResponse> ListRuns(string threadId, RunListRequest runListRequest, CancellationToken cancellationToken = default);
 }

@@ -26,6 +26,20 @@ public partial class OpenAIService : IRunService
         request.ProcessModelId(modelId, _defaultModelId,true);
         return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunCreate(threadId), request, cancellationToken);
     }
+    
+    /// <inheritdoc />
+    public async Task<RunResponse> RunModify(string threadId, string runId, RunModifyRequest request, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(threadId))
+        {
+            throw new ArgumentNullException(nameof(threadId));
+        }
+        if (string.IsNullOrWhiteSpace(runId))
+        {
+            throw new ArgumentNullException(nameof(runId));
+        }
+        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunModify(threadId, runId), request, cancellationToken);
+    }
 
     /// <summary>
     ///     Retrieves a run.
@@ -96,4 +110,17 @@ public partial class OpenAIService : IRunService
 
         return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunSubmitToolOutputs(threadId, runId), request, cancellationToken);
     }
+
+    /// <inheritdoc />
+    public async Task<RunResponse> CreateThreadAndRun(CreateThreadAndRunRequest requestBody, CancellationToken cancellationToken = default)
+    {
+        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.ThreadAndRunCreate(), requestBody, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<List<RunListResponse>> ListRuns(string threadId, RunListRequest runListRequest, CancellationToken cancellationToken = default)
+    {
+        return await _httpClient.GetReadAsAsync<RunListResponse>(_endpointProvider.RunList(threadId, runListRequest), cancellationToken);
+    }
+
 }
