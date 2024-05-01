@@ -55,8 +55,6 @@ internal interface IOpenAiEndpointProvider
     string MessageRetrieve(string threadId,string messageId);
     string MessageModify(string threadId, string messageId);
     string MessageList(string threadId, MessageListRequest? messageListRequest);
-    string MessageFileRetrieve(string threadId, string messageId, string fileId);
-    string MessageFileList(string threadId, string messageId, MessageFileListRequest? messageFileListRequest);
     string RunCreate(string threadId);
     string RunRetrieve(string threadId, string runId);
     string RunModify(string threadId, string runId);
@@ -66,4 +64,18 @@ internal interface IOpenAiEndpointProvider
     string ThreadAndRunCreate();
     string RunStepRetrieve(string threadId, string runId,string stepId);
     string RunStepList(string threadId, string runId, RunStepListRequest? runStepListRequest);
+    string VectorStoreCreate();
+    string VectorStoreList(BaseListRequest baseListRequest);
+    string VectorStoreRetrieve(string vectorStoreId);
+    string VectorStoreModify(string vectorStoreId);
+    string VectorStoreDelete(string vectorStoreId);
+    string VectorStoreFileCreate(string vectorStoreId);
+    string VectorStoreFileRetrieve(string vectorStoreId, string fileId);
+    string VectorStoreFileDelete(string vectorStoreId, string fileId);
+    string VectorStoreFileList(string vectorStoreId, BaseListRequest? baseListRequest);
+    string VectorStoreFileBatchCreate(string vectorStoreId);
+    string VectorStoreFileBatchRetrieve(string vectorStoreId, string batchId);
+    string VectorStoreFileBatchCancel(string vectorStoreId, string batchId);
+    string VectorStoreFileBatchList(string vectorStoreId, string batchId, BaseListRequest? baseListRequest);
+
 }

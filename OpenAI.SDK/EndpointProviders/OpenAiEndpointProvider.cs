@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Threading;
 using OpenAI.ObjectModels.RequestModels;
 
 namespace OpenAI.EndpointProviders;
@@ -298,25 +299,6 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
         return url;
     }
-
-    public string MessageFileRetrieve(string threadId, string messageId, string fileId)
-    {
-        return $"{_apiVersion}/threads/{threadId}/messages/{messageId}/files/{fileId}";
-    }
-
-    public string MessageFileList(string threadId, string messageId, MessageFileListRequest? messageFileListRequest)
-    {
-        var url = $"{_apiVersion}/threads/{threadId}/messages/{messageId}/files";
-
-        var query = messageFileListRequest?.GetQueryParameters();
-        if (!string.IsNullOrWhiteSpace(query))
-        {
-            url = $"{url}?{query}";
-        }
-
-        return url;
-    }
-
     public string RunCreate(string threadId)
     {
         return $"{_apiVersion}/threads/{threadId}/runs";
@@ -370,6 +352,95 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         var url = $"{_apiVersion}/threads/{threadId}/runs/{runId}/steps";
 
         var query = runStepListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+
+        return url;
+    }
+
+    public string VectorStoreCreate()
+    {
+        return $"{_apiVersion}/vector_stores";
+    }
+
+    public string VectorStoreList(BaseListRequest baseListRequest)
+    {
+        var url = $"{_apiVersion}/vector_stores";
+
+        var query = baseListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+
+        return url;
+    }
+
+    public string VectorStoreRetrieve(string vectorStoreId)
+    {
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}";
+    }
+
+    public string VectorStoreModify(string vectorStoreId)
+    {
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}";
+    }
+
+    public string VectorStoreDelete(string vectorStoreId)
+    {
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}";
+    }
+
+    public string VectorStoreFileCreate(string vectorStoreId)
+    {
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}/files";
+    }
+
+    public string VectorStoreFileRetrieve(string vectorStoreId, string fileId)
+    {
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}/files/{fileId}";
+    }
+
+    public string VectorStoreFileDelete(string vectorStoreId, string fileId)
+    {
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}/files/{fileId}";
+    }
+
+    public string VectorStoreFileList(string vectorStoreId, BaseListRequest? baseListRequest)
+    {
+        var url = $"{_apiVersion}/vector_stores/{vectorStoreId}/files";
+
+        var query = baseListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+
+        return url;
+    }
+
+    public string VectorStoreFileBatchCreate(string vectorStoreId)
+    {
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}/files/batches";
+    }
+
+    public string VectorStoreFileBatchRetrieve(string vectorStoreId, string batchId)
+    {
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}/files/batches/{batchId}";
+    }
+
+    public string VectorStoreFileBatchCancel(string vectorStoreId, string batchId)
+    {
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}/files/batches/{batchId}/cancel";
+    }
+
+    public string VectorStoreFileBatchList(string vectorStoreId, string batchId,BaseListRequest? baseListRequest)
+    {
+        var url = $"{_apiVersion}/vector_stores/{vectorStoreId}/files/batches";
+
+        var query = baseListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
             url = $"{url}?{query}";

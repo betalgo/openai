@@ -28,4 +28,9 @@ public interface IThreadService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DeletionStatusResponse> ThreadDelete(string threadId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Modifies a thread.
+    /// </summary>
+    Task<ThreadResponse> ModifyThread(string threadId, ModifyThreadRequest requestBody, CancellationToken cancellationToken = default);
 }
