@@ -4,6 +4,11 @@ using OpenAI.ObjectModels.ResponseModels;
 
 namespace OpenAI.ObjectModels.SharedModels;
 
+public record RunListResponse : DataBaseResponse<List<RunResponse>>
+{
+
+}
+
 public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IModel, IOpenAiModels.ICreatedAt, IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
 {
 

@@ -21,7 +21,7 @@ public class OpenAiOptions
     private const string OpenAiDefaultApiVersion = "v1";
     private const string OpenAiDefaultBaseDomain = "https://api.openai.com/";
     private const string AzureOpenAiDefaultApiVersion = "2023-12-01-preview";
-    private const string OpenAiDefaultAssistantsApiVersion = "v1";
+    private const string OpenAiDefaultAssistantsApiVersion = "v2";
 
     /// <summary>
     ///     Setting key for Json Setting Bindings
