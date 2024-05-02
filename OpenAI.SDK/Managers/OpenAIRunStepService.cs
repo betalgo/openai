@@ -8,7 +8,7 @@ namespace OpenAI.Managers;
 public partial class OpenAIService : IRunStepService
 {
     /// <inheritdoc />
-    public async Task<RunStepListResponse> RunStepsList(string threadId, string runId, RunStepListRequest request, CancellationToken cancellationToken = default)
+    public async Task<RunStepListResponse> RunStepsList(string threadId, string runId, RunStepListRequest? request = null, CancellationToken cancellationToken = default)
     {
         return await _httpClient.GetReadAsAsync<RunStepListResponse>(_endpointProvider.RunStepList(threadId, runId,request), cancellationToken);
     }

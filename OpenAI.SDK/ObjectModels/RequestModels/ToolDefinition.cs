@@ -51,8 +51,16 @@ public class ToolDefinition
     {
         Type = StaticValues.AssistantsStatics.ToolCallTypes.CodeInterpreter,
     };
+
+    [Obsolete("Retrieval is now called FileSearch")]
     public static ToolDefinition DefineRetrieval() => new()
     {
-        Type = StaticValues.AssistantsStatics.ToolCallTypes.Retrieval,
+        Type = StaticValues.AssistantsStatics.ToolCallTypes.FileSearch,
     };
+
+    public static ToolDefinition DefineFileSearch() => new()
+    {
+        Type = StaticValues.AssistantsStatics.ToolCallTypes.FileSearch,
+    };
+
 }
