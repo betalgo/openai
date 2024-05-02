@@ -14,4 +14,6 @@ public partial class OpenAIService : IBetaService
     public IThreadService Threads => this;
 
     public IRunService Runs => this;
+
+    public IRunStepService RunSteps => this;
 }

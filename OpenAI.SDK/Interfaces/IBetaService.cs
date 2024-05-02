@@ -9,4 +9,6 @@ public interface IBetaService
     public IThreadService Threads { get; }
 
     public IRunService Runs { get; }
+
+    public IRunStepService RunSteps { get; }
 }

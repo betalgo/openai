@@ -26,7 +26,7 @@ internal static class RunTestHelper
             {
                 Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
                 Name = "Qicha",
-                Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineRetrieval(), ToolDefinition.DefineFunction(func) },
+                Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func) },
                 Model = Models.Gpt_3_5_Turbo_1106
             });
             var runResult = await sdk.Beta.Runs.RunCreate(threadId, new RunCreateRequest()
@@ -110,7 +110,7 @@ internal static class RunTestHelper
         {
             Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
             Name = "Qicha",
-            Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineRetrieval(), ToolDefinition.DefineFunction(func) },
+            Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func) },
             Model = Models.Gpt_3_5_Turbo_1106
         });
         var runCreateResult = await sdk.Beta.Runs.RunCreate(threadId, new RunCreateRequest()

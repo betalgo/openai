@@ -64,26 +64,13 @@ public record RunStepResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     public string Type { get; set; }
 
     /// <summary>
-    /// The status of the run step, which can be either `in_progress`, `cancelled`, `failed`, `completed`, or `expired`.
+    /// The status of the run step, which can be either `in_progress`, `cancelled`, `failed`, `completed`, `expired`, or 'incomplete'.
     /// </summary>
     [JsonPropertyName("status")]
     public string Status { get; set; }
 
-    public class StepDetailsComplexType
-    {
-        [JsonIgnore]
-        public StepDetails StepDetails1 { get; set; }
-
-        [JsonIgnore]
-        public StepDetails StepDetails2 { get; set; }
-    }
-
-    /// <summary>
-    /// The details of the run step.
-    /// </summary>
-    [JsonConverter(typeof(ComplexTypeConverter<StepDetailsComplexType>))]
     [JsonPropertyName("step_details")]
-    public StepDetailsComplexType StepDetails { get; set; }
+    public RunStepDetails? StepDetails { get; set; }
 
     /// <summary>
     /// The last error associated with this run step. Will be `null` if there are no errors.
@@ -127,17 +114,25 @@ public record RunStepResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     [JsonPropertyName("usage")]
     public UsageResponse? Usage { get; set; }
 }
-public record StepDetails
+
+public record RunStepDetails
 {
     /// <summary>
-    /// Always `tool_calls`.
+    /// Always message_creation.
     /// </summary>
     [JsonPropertyName("type")]
     public string Type { get; set; }
 
-    /// <summary>
-    /// An array of tool calls the run step was involved in. These can be associated with one of three types of tools: `code_interpreter`, `file_search`, or `function`.
-    /// </summary>
-    [JsonPropertyName("tool_calls")]
-    public List<ToolCall> ToolCalls { get; set; }
+    [JsonPropertyName("message_creation")]
+    public RunStepMessageCreation MessageCreation { get; set; }
+
+    public class RunStepMessageCreation
+    {
+        [JsonPropertyName("message_id")]
+        public string MessageId { get; set; }
+    }
 }
+
+
+
+
