@@ -292,23 +292,6 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return url;
     }
 
-    public string MessageFileRetrieve(string threadId, string messageId, string fileId)
-    {
-        return $"{Prefix}/threads/{threadId}/messages/{messageId}/files/{fileId}{AzureVersionQueryString}";
-    }
-
-    public string MessageFileList(string threadId, string messageId, MessageFileListRequest? messageFileListRequest)
-    {
-        var url = $"{Prefix}/threads/{threadId}/messages/{messageId}/files{AzureVersionQueryString}";
-
-        var query = messageFileListRequest?.GetQueryParameters();
-        if (!string.IsNullOrWhiteSpace(query))
-        {
-            url = $"{url}{query}";
-        }
-
-        return url;
-    }
 
     public string RunCreate(string threadId)
     {
@@ -371,6 +354,96 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return url;
     }
 
+
+    public string VectorStoreCreate()
+    {
+        return $"{Prefix}/vector_stores{AzureVersionQueryString}";
+    }
+
+    public string VectorStoreList(BaseListRequest baseListRequest)
+    {
+        var url = $"{Prefix}/vector_stores{AzureVersionQueryString}";
+
+        var query = baseListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+
+        return url;
+    }
+
+    public string VectorStoreRetrieve(string vectorStoreId)
+    {
+        return $"{Prefix}/vector_stores/{vectorStoreId}{AzureVersionQueryString}";
+    }
+
+    public string VectorStoreModify(string vectorStoreId)
+    {
+        return $"{Prefix}/vector_stores/{vectorStoreId}{AzureVersionQueryString}";
+    }
+
+    public string VectorStoreDelete(string vectorStoreId)
+    {
+        return $"{Prefix}/vector_stores/{vectorStoreId}{AzureVersionQueryString}";
+    }
+
+    public string VectorStoreFileCreate(string vectorStoreId)
+    {
+        return $"{Prefix}/vector_stores/{vectorStoreId}/files{AzureVersionQueryString}";
+    }
+
+    public string VectorStoreFileRetrieve(string vectorStoreId, string fileId)
+    {
+        return $"{Prefix}/vector_stores/{vectorStoreId}/files/{fileId}{AzureVersionQueryString}";
+    }
+
+    public string VectorStoreFileDelete(string vectorStoreId, string fileId)
+    {
+        return $"{Prefix}/vector_stores/{vectorStoreId}/files/{fileId}{AzureVersionQueryString}";
+    }
+
+    public string VectorStoreFileList(string vectorStoreId, BaseListRequest? baseListRequest)
+    {
+        var url = $"{Prefix}/vector_stores/{vectorStoreId}/files{AzureVersionQueryString}";
+
+        var query = baseListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+
+        return url;
+    }
+
+    public string VectorStoreFileBatchCreate(string vectorStoreId)
+    {
+        return $"{Prefix}/vector_stores/{vectorStoreId}/files/batches{AzureVersionQueryString}";
+    }
+
+    public string VectorStoreFileBatchRetrieve(string vectorStoreId, string batchId)
+    {
+        return $"{Prefix}/vector_stores/{vectorStoreId}/files/batches/{batchId}{AzureVersionQueryString}";
+    }
+
+    public string VectorStoreFileBatchCancel(string vectorStoreId, string batchId)
+    {
+        return $"{Prefix}/vector_stores/{vectorStoreId}/files/batches/{batchId}/cancel{AzureVersionQueryString}";
+    }
+
+    public string VectorStoreFileBatchList(string vectorStoreId, string batchId, BaseListRequest? baseListRequest)
+    {
+        var url = $"{Prefix}/vector_stores/{vectorStoreId}/files/batches{AzureVersionQueryString}";
+
+        var query = baseListRequest?.GetQueryParameters();
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            url = $"{url}?{query}";
+        }
+
+        return url;
+    }
+
     public string FineTuningJobList()
     {
         return $"{Prefix}/fine_tuning/jobs{AzureVersionQueryString}";
@@ -395,4 +468,6 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
     {
         return $"{Prefix}/files{AzureVersionQueryString}";
     }
+
+
 }

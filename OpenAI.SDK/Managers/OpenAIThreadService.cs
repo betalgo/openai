@@ -50,6 +50,12 @@ public partial class OpenAIService : IThreadService
             throw new ArgumentNullException(nameof(threadId));
         }
 
-        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.ThreadRetrieve(threadId), cancellationToken);
+        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.ThreadDelete(threadId), cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<ThreadResponse> ModifyThread(string threadId, ModifyThreadRequest requestBody, CancellationToken cancellationToken = default)
+    {
+        return await _httpClient.PostAndReadAsAsync<ThreadResponse>(_endpointProvider.ThreadModify(threadId), requestBody, cancellationToken);
     }
 }

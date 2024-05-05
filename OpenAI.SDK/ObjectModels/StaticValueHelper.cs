@@ -119,7 +119,7 @@ public class StaticValues
         public static class ToolCallTypes
         {
             public static string CodeInterpreter => "code_interpreter";
-            public static string Retrieval => "retrieval";
+            public static string FileSearch => "file_search";
             public static string Function => "function";
         }
 
