@@ -155,6 +155,7 @@ public class StaticValues
             public static string Failed => "failed";
             public static string Completed => "completed";
             public static string Expired => "expired";
+            public static string Incomplete => "incomplete";
         }
 
         public static class RequiredActionTypes
