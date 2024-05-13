@@ -145,7 +145,7 @@ var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current 
         }
 
         ConsoleExtensions.WriteLine("Chat Function Call Test:", ConsoleColor.DarkCyan);
-        var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+        var completionResult = await openAiService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
         {
             Messages = new List<ChatMessage>
                 {
@@ -221,7 +221,7 @@ if (imageResult.Successful)
 
 ## VISION Sample
 ```csharp
-var completionResult = await sdk.ChatCompletion.CreateCompletion(
+var completionResult = await openAiService.ChatCompletion.CreateCompletion(
     new ChatCompletionCreateRequest
     {
         Messages = new List<ChatMessage>
@@ -255,7 +255,7 @@ if (completionResult.Successful)
 const string fileName = "image.png";
 var binaryImage = await FileExtensions.ReadAllBytesAsync(fileName);
 
-var completionResult = await sdk.ChatCompletion.CreateCompletion(
+var completionResult = await openAiService.ChatCompletion.CreateCompletion(
     new ChatCompletionCreateRequest
     {
         Messages = new List<ChatMessage>
