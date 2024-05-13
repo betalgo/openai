@@ -291,7 +291,10 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
         return url;
     }
-
+    public string MessageDelete(string threadId, string messageId)
+    {
+        return $"{Prefix}/threads/{threadId}/messages/{messageId}{AzureVersionQueryString}";
+    }
 
     public string RunCreate(string threadId)
     {

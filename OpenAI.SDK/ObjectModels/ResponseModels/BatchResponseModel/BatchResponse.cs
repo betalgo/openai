@@ -116,5 +116,5 @@ public record BatchResponse : BaseResponse,IOpenAiModels.IMetaData
     ///     Keys can be a maximum of 64 characters long and values can be a maximum of 512 characters long.
     /// </summary>
     [JsonPropertyName("metadata")]
-    public Dictionary<string, string>? MetaData { get; set; }
+    public Dictionary<string, string>? Metadata { get; set; }
 }

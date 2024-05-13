@@ -1,5 +1,6 @@
 ﻿using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
+using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.Interfaces;
 
@@ -25,5 +26,5 @@ public interface IVectorStores
     /// <summary>
     /// Delete a vector store.
     /// </summary>
-    Task<VectorStoreObjectResponse> DeleteVectorStore(string vectorStoreId, CancellationToken cancellationToken = default);
+    Task<DeletionStatusResponse> DeleteVectorStore(string vectorStoreId, CancellationToken cancellationToken = default);
 }

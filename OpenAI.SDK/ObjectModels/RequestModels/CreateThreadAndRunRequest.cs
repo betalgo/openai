@@ -12,7 +12,7 @@ public class CreateThreadAndRunRequest
     public string AssistantId { get; set; }
 
     [JsonPropertyName("thread")]
-    public Thread Thread { get; set; }
+    public ThreadCreateRequest Thread { get; set; }
 
     /// <summary>
     ///     The ID of the [Model](/docs/api-reference/models) to be used to execute this run. If a value is provided here, it

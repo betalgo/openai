@@ -46,7 +46,7 @@ public interface IOpenAiModels
 
     public interface IMetaData
     {
-        public Dictionary<string, string> MetaData { get; set; }
+        public Dictionary<string, string> Metadata { get; set; }
     }
 
     public interface IFileIds

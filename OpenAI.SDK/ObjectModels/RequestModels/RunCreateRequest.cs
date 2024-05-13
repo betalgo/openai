@@ -89,7 +89,7 @@ public class RunCreateRequest : IOpenAiModels.IModel, IOpenAiModels.IMetaData, I
     ///     Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
     /// </summary>
     [JsonPropertyName("metadata")]
-    public Dictionary<string, string>? MetaData { get; set; }
+    public Dictionary<string, string>? Metadata { get; set; }
 
     /// <summary>
     ///     The ID of the Model to be used to execute this run.

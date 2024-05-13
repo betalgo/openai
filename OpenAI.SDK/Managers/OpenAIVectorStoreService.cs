@@ -2,6 +2,7 @@
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
+using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.Managers;
 public partial class OpenAIService : IVectorStores
@@ -30,9 +31,9 @@ public partial class OpenAIService : IVectorStores
     }
 
     /// <inheritdoc/>
-    public async Task<VectorStoreObjectResponse> DeleteVectorStore(string vectorStoreId, CancellationToken cancellationToken = default)
+    public async Task<DeletionStatusResponse> DeleteVectorStore(string vectorStoreId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.DeleteAndReadAsAsync<VectorStoreObjectResponse>(_endpointProvider.VectorStoreDelete(vectorStoreId), cancellationToken);
+        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.VectorStoreDelete(vectorStoreId), cancellationToken);
     }
 }
 public partial class OpenAIService : IVectorStoreFiles
@@ -55,9 +56,9 @@ public partial class OpenAIService : IVectorStoreFiles
     }
 
     /// <inheritdoc/>
-    public async Task<VectorStoreFileObject> DeleteVectorStoreFile(string vectorStoreId, string fileId, CancellationToken cancellationToken = default)
+    public async Task<DeletionStatusResponse> DeleteVectorStoreFile(string vectorStoreId, string fileId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.DeleteAndReadAsAsync<VectorStoreFileObject>(_endpointProvider.VectorStoreFileDelete(vectorStoreId, fileId), cancellationToken);
+        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.VectorStoreFileDelete(vectorStoreId, fileId), cancellationToken);
     }
 
     public async Task<VectorStoreFileBatchObject> CreateVectorStoreFileBatch(string vectorStoreId, CreateVectorStoreFileBatchRequest requestBody, CancellationToken cancellationToken = default)

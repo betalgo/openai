@@ -299,6 +299,10 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
         return url;
     }
+    public string MessageDelete(string threadId, string messageId)
+    {
+        return $"{_apiVersion}/threads/{threadId}/messages/{messageId}";
+    }
     public string RunCreate(string threadId)
     {
         return $"{_apiVersion}/threads/{threadId}/runs";
@@ -423,22 +427,22 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string VectorStoreFileBatchCreate(string vectorStoreId)
     {
-        return $"{_apiVersion}/vector_stores/{vectorStoreId}/files/batches";
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}/file_batches";
     }
 
     public string VectorStoreFileBatchRetrieve(string vectorStoreId, string batchId)
     {
-        return $"{_apiVersion}/vector_stores/{vectorStoreId}/files/batches/{batchId}";
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}/file_batches/{batchId}";
     }
 
     public string VectorStoreFileBatchCancel(string vectorStoreId, string batchId)
     {
-        return $"{_apiVersion}/vector_stores/{vectorStoreId}/files/batches/{batchId}/cancel";
+        return $"{_apiVersion}/vector_stores/{vectorStoreId}/file_batches/{batchId}/cancel";
     }
 
     public string VectorStoreFileBatchList(string vectorStoreId, string batchId,BaseListRequest? baseListRequest)
     {
-        var url = $"{_apiVersion}/vector_stores/{vectorStoreId}/files/batches";
+        var url = $"{_apiVersion}/vector_stores/{vectorStoreId}/file_batches/{batchId}/files";
 
         var query = baseListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
@@ -448,4 +452,6 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
         return url;
     }
+
+
 }

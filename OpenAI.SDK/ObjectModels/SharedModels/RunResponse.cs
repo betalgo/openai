@@ -4,7 +4,7 @@ using OpenAI.ObjectModels.ResponseModels;
 
 namespace OpenAI.ObjectModels.SharedModels;
 
-public record RunListResponse : DataBaseResponse<List<RunResponse>>
+public record RunListResponse : DataWithPagingBaseResponse<List<RunResponse>>
 {
 
 }
@@ -161,7 +161,7 @@ public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IMode
     ///     Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
     /// </summary>
     [JsonPropertyName("metadata")]
-    public Dictionary<string, string>? MetaData { get; set; }
+    public Dictionary<string, string>? Metadata { get; set; }
 
     /// <summary>
     ///     The model that the assistant used for this run.

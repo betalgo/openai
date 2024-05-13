@@ -1,5 +1,6 @@
 ﻿using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
+using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.Interfaces;
 
@@ -20,7 +21,7 @@ public interface IVectorStoreFiles
     /// <summary>
     /// Delete a vector store file. This will remove the file from the vector store but the file itself will not be deleted. To delete the file, use the [delete file](/docs/api-reference/files/delete) endpoint.
     /// </summary>
-    Task<VectorStoreFileObject> DeleteVectorStoreFile(string vectorStoreId, string fileId, CancellationToken cancellationToken = default);
+    Task<DeletionStatusResponse> DeleteVectorStoreFile(string vectorStoreId, string fileId, CancellationToken cancellationToken = default);
     /// <summary>
     /// Create a vector store file batch.
     /// </summary>

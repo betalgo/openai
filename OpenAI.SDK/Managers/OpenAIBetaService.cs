@@ -16,4 +16,8 @@ public partial class OpenAIService : IBetaService
     public IRunService Runs => this;
 
     public IRunStepService RunSteps => this;
+
+    public IVectorStores VectorStores => this;
+
+    public IVectorStoreFiles VectorStoreFiles => this;
 }

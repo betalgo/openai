@@ -56,7 +56,7 @@ public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels
     ///     Set of 16 key-value pairs that can be attached to an object.
     /// </summary>
     [JsonPropertyName("metadata")]
-    public Dictionary<string, string> MetaData { get; set; }
+    public Dictionary<string, string> Metadata { get; set; }
 
     /// <summary>
     ///     ID of the model to use

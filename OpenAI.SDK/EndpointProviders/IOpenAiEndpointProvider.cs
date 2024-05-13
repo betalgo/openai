@@ -77,5 +77,5 @@ internal interface IOpenAiEndpointProvider
     string VectorStoreFileBatchRetrieve(string vectorStoreId, string batchId);
     string VectorStoreFileBatchCancel(string vectorStoreId, string batchId);
     string VectorStoreFileBatchList(string vectorStoreId, string batchId, BaseListRequest? baseListRequest);
-
+    string MessageDelete(string threadId, string messageId);
 }

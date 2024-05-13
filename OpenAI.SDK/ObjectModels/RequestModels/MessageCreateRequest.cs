@@ -5,6 +5,17 @@ namespace OpenAI.ObjectModels.RequestModels;
 
 public class MessageCreateRequest : IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
 {
+    public MessageCreateRequest()
+    {
+    }
+
+    public MessageCreateRequest(string role, string content, List<string>? fileIds = null, Dictionary<string, string>? metaData = null)
+    {
+        Role = role;
+        Content = content;
+        FileIds = fileIds;
+        Metadata = metaData;
+    }
     /// <summary>
     ///     The role of the entity that is creating the message.
     ///     Currently only user is supported.
@@ -32,5 +43,5 @@ public class MessageCreateRequest : IOpenAiModels.IFileIds, IOpenAiModels.IMetaD
     ///     Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
     /// </summary>
     [JsonPropertyName("metadata")]
-    public Dictionary<string, string>? MetaData { get; set; }
+    public Dictionary<string, string>? Metadata { get; set; }
 }

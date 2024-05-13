@@ -4,6 +4,7 @@ using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.Playground.TestHelpers;
 using LaserCatEyes.HttpClientListener;
+using OpenAI.Playground.TestHelpers.AssistantHelpers;
 
 var builder = new ConfigurationBuilder()
     .AddJsonFile("ApiSettings.json")
@@ -40,14 +41,19 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |   /|\    |     /\   ___\o   \o    |    o/    o/__   /\     |    /|\   |
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
+await AssistantTestHelper.BasicsTestHelper.RunTests(sdk);
+await AssistantTestHelper.ThreadsTestHelper.RunTests(sdk);
+await AssistantTestHelper.MessagesTestHelper.RunTests(sdk);
+await AssistantTestHelper.RunTestHelper.RunTests(sdk);
+await AssistantTestHelper.VectorTestHelper.RunTests(sdk);
 
-await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
+//await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 //await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
 
 //Assistants - BETA
-//await AssistantTestHelper.RunAssistantApiTest(sdk);
-//await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
+//await AssistantTestHelper3.RunAssistantApiTest(sdk);
+//await AssistantTestHelper3.RunHowAssistantsWorkTest(sdk);
 
 //await MessageTestHelper.RunMessageCreateTest(sdk);
 
