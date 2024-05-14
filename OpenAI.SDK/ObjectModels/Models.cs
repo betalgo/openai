@@ -98,6 +98,8 @@ public static class Models
         Gpt_4_turbo_preview,
         Gpt_4_turbo,
         Gpt_4_turbo_2024_04_09,
+        Gpt_4_omni,
+        Gpt_4_omni_2024_05_13,
 
         WhisperV1,
 
@@ -202,6 +204,19 @@ public static class Models
     ///     128,000 tokens	Up to Dec 2023
     /// </summary>
     public static string Gpt_4_turbo_2024_04_09 => "gpt-4-turbo-2024-04-09";
+
+    /// <summary>
+    ///     The latest GPT-4 omni model. Most advanced, multimodal flagship model that’s cheaper and faster than GPT-4 Turbo.
+    ///     Currently points to gpt-4o-2024-05-13 as of 05/14/2024.
+    ///     128,000 tokens	Up to Oct 2023
+    /// </summary>
+    public static string Gpt_4_omni => "gpt-4o";
+
+    /// <summary>
+    ///     The latest GPT-4 omni model. Most advanced, multimodal flagship model that’s cheaper and faster than GPT-4 Turbo.
+    ///     128,000 tokens	Up to Oct 2023
+    /// </summary>
+    public static string Gpt_4_omni_2024_05_13 => "gpt-4o-2024-05-13";
 
 
     public static string Ada => "ada";
@@ -432,6 +447,8 @@ public static class Models
             Model.Gpt_4_turbo_preview => Gpt_4_turbo_preview,
             Model.Gpt_4_turbo => Gpt_4_turbo,
             Model.Gpt_4_turbo_2024_04_09 => Gpt_4_turbo_2024_04_09,
+            Model.Gpt_4_omni => Gpt_4_omni,
+            Model.Gpt_4_omni_2024_05_13 => Gpt_4_omni_2024_05_13,
             Model.Tts_1 => Tts_1,
             Model.Tts_1_hd => Tts_1_hd,
             Model.Text_moderation_007 => TextModeration007,
