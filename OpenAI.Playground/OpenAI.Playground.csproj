@@ -56,6 +56,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="ApiSettings.Development.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="ApiSettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>

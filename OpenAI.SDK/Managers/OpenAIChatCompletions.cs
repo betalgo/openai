@@ -32,6 +32,17 @@ public partial class OpenAIService : IChatCompletionService
         chatCompletionCreateRequest.ProcessModelId(modelId, _defaultModelId);
 
         using var response = _httpClient.PostAsStreamAsync(_endpointProvider.ChatCompletionCreate(), chatCompletionCreateRequest, cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            yield return await response.HandleResponseContent<ChatCompletionCreateResponse>(cancellationToken);
+            yield break;
+        }
+
+        // Ensure that we parse headers only once to improve performance a little bit.
+        var httpStatusCode = response.StatusCode;
+        var headerValues = response.ParseHeaders();
+
         await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
         using var reader = new StreamReader(stream);
 
@@ -87,6 +98,8 @@ public partial class OpenAIService : IChatCompletionService
 
                 if (!ctx.IsFnAssemblyActive)
                 {
+                    block.HttpStatusCode = httpStatusCode;
+                    block.HeaderValues = headerValues;
                     yield return block;
                 }
             }
@@ -123,6 +136,9 @@ public partial class OpenAIService : IChatCompletionService
 
             var isStreamingFnCall = IsStreamingFunctionCall();
             var isStreamingFnCallEnd = firstChoice.FinishReason != null;
+
+            // For some reason OpenAI does not set the role here.
+            firstChoice.Message.Role ??= "assistant";
 
             var justStarted = false;
 
