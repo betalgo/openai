@@ -7,6 +7,7 @@ using LaserCatEyes.HttpClientListener;
 
 var builder = new ConfigurationBuilder()
     .AddJsonFile("ApiSettings.json")
+    .AddJsonFile("ApiSettings.Development.json")
     .AddUserSecrets<Program>();
 
 IConfiguration configuration = builder.Build();
@@ -41,6 +42,8 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
 
+await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
+return;
 await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 //await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
