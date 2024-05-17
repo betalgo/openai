@@ -6,9 +6,9 @@ using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.SharedModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
-namespace OpenAI.Playground.TestHelpers;
+namespace OpenAI.Playground.TestHelpers.AssistantHelpers;
 
-internal static class AssistantTestHelper
+internal static class AssistantTestHelper3
 {
     /// <summary>
     ///     Test Assistant api
@@ -203,11 +203,11 @@ internal static class AssistantTestHelper
         #region //create thread message
 
         ConsoleExtensions.WriteLine("Message Create Test:", ConsoleColor.DarkCyan);
-        var messageResult = await sdk.Beta.Messages.MessageCreate(threadId, new MessageCreateRequest
+        var messageResult = await sdk.Beta.Messages.CreateMessage(threadId, new MessageCreateRequest
         {
             Role = StaticValues.AssistantsStatics.MessageStatics.Roles.User,
-            Content = "Where is Zhejiang Jiacheng Supply Chain Co., LTD.",
-            FileIds = new List<string>() { uplaodFileId }
+            Content =new("Where is Zhejiang Jiacheng Supply Chain Co., LTD."),
+            Attachments = [new() { FileId = uplaodFileId }]
         });
 
         if (messageResult.Successful)
@@ -314,7 +314,7 @@ No.615 Bayi North Street, Wucheng District, Jinhua City, Zhejiang Province"
 
         //Get the final message result
         ConsoleExtensions.WriteLine("Message list:", ConsoleColor.DarkCyan);
-        var messageListResult = await sdk.Beta.Messages.MessageList(threadId);
+        var messageListResult = await sdk.Beta.Messages.ListMessages(threadId);
         if (messageListResult.Successful)
         {
             var msgRespList = messageListResult.Data;

@@ -10,58 +10,31 @@ public interface IAssistantService
     ///     Create an assistant with a model and instructions.
     /// </summary>
     /// <param name="request"></param>
-    /// <param name="modelId"></param>
+    /// <param name="modelId">ID of the model to use. You can use the List models API to see all of your available models, or see our Model overview for descriptions of them.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<AssistantResponse> AssistantCreate(AssistantCreateRequest request, string? modelId = null, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    ///     Create an assistant file by attaching a File to an assistant.
-    /// </summary>
-    /// <param name="assistantId"></param>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<AssistantFileResponse> AssistantFileCreate(string assistantId, AssistantFileCreateRequest request, CancellationToken cancellationToken = default);
-
+    
     /// <summary>
     ///     Returns a list of assistants.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<AssistantListResponse> AssistantList(AssistantListRequest? request = null, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    ///     Returns a list of assistant files.
-    /// </summary>
-    /// <param name="assistantId"></param>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<AssistantFileListResponse> AssistantFileList(string assistantId, AssistantFileListRequest? request = null, CancellationToken cancellationToken = default);
+    Task<AssistantListResponse> AssistantList(PaginationRequest? request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Retrieves an assistant.
     /// </summary>
-    /// <param name="assistantId"></param>
+    /// <param name="assistantId">The ID of the assistant to retrieve.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<AssistantResponse> AssistantRetrieve(string assistantId, CancellationToken cancellationToken = default);
 
     /// <summary>
-    ///     Retrieves an AssistantFile.
-    /// </summary>
-    /// <param name="assistantId"></param>
-    /// <param name="fileId"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<AssistantFileResponse> AssistantFileRetrieve(string assistantId, string fileId, CancellationToken cancellationToken = default);
-
-    /// <summary>
     ///     Modifies an assistant.
     /// </summary>
-    /// <param name="assistantId"></param>
+    /// <param name="assistantId">The ID of the assistant to modify.</param>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
@@ -70,17 +43,8 @@ public interface IAssistantService
     /// <summary>
     ///     Delete an assistant.
     /// </summary>
-    /// <param name="assistantId"></param>
+    /// <param name="assistantId">The ID of the assistant to delete.</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<DeletionStatusResponse> AssistantDelete(string assistantId, CancellationToken cancellationToken = default);
-
-    /// <summary>
-    ///     Delete an assistant file.
-    /// </summary>
-    /// <param name="assistantId"></param>
-    /// <param name="fileId"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    Task<DeletionStatusResponse> AssistantFileDelete(string assistantId, string fileId, CancellationToken cancellationToken = default);
 }

@@ -30,7 +30,7 @@ public interface IThreadService
     Task<DeletionStatusResponse> ThreadDelete(string threadId, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Modifies a thread.
+    ///     Modifies a thread.
     /// </summary>
     Task<ThreadResponse> ModifyThread(string threadId, ModifyThreadRequest requestBody, CancellationToken cancellationToken = default);
 }

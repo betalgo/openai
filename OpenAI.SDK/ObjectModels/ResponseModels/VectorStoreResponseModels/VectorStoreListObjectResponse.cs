@@ -1,5 +1,5 @@
 ﻿namespace OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 
-public record VectorStoreListObjectResponse : DataBaseResponse<List<VectorStoreObjectResponse>>
+public record VectorStoreListObjectResponse : DataWithPagingBaseResponse<List<VectorStoreObjectResponse>>
 {
 }
