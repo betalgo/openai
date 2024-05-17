@@ -13,7 +13,7 @@ public interface IRunStepService
     /// <param name="request">Paging</param>
     /// <param name="cancellationToken"></param>
     /// <returns>A list of [run step](/docs/api-reference/runs/step-object) objects.</returns>
-    Task<RunStepListResponse> RunStepsList(string threadId, string runId, RunStepListRequest request, CancellationToken cancellationToken = default);
+    Task<RunStepListResponse> RunStepsList(string threadId, string runId, PaginationRequest? request = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Retrieves a run step.

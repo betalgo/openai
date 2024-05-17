@@ -16,26 +16,9 @@ public partial class OpenAIService : IAssistantService
     }
 
     /// <inheritdoc />
-    public async Task<AssistantFileResponse> AssistantFileCreate(string assistantId, AssistantFileCreateRequest request, CancellationToken cancellationToken = default)
-    {
-        return await _httpClient.PostAndReadAsAsync<AssistantFileResponse>(_endpointProvider.AssistantFileCreate(assistantId), request, cancellationToken);
-    }
-
-    /// <inheritdoc />
-    public async Task<AssistantListResponse> AssistantList(AssistantListRequest? request = null, CancellationToken cancellationToken = default)
+    public async Task<AssistantListResponse> AssistantList(PaginationRequest? request = null, CancellationToken cancellationToken = default)
     {
         return await _httpClient.GetReadAsAsync<AssistantListResponse>(_endpointProvider.AssistantList(request), cancellationToken);
-    }
-
-    /// <inheritdoc />
-    public async Task<AssistantFileListResponse> AssistantFileList(string assistantId, AssistantFileListRequest? request = null, CancellationToken cancellationToken = default)
-    {
-        if (string.IsNullOrWhiteSpace(assistantId))
-        {
-            throw new ArgumentNullException(nameof(assistantId));
-        }
-
-        return await _httpClient.GetReadAsAsync<AssistantFileListResponse>(_endpointProvider.AssistantFileList(assistantId, request), cancellationToken);
     }
 
     /// <inheritdoc />
@@ -47,22 +30,6 @@ public partial class OpenAIService : IAssistantService
         }
 
         return await _httpClient.GetReadAsAsync<AssistantResponse>(_endpointProvider.AssistantRetrieve(assistantId), cancellationToken);
-    }
-
-    /// <inheritdoc />
-    public async Task<AssistantFileResponse> AssistantFileRetrieve(string assistantId, string fileId, CancellationToken cancellationToken = default)
-    {
-        if (string.IsNullOrWhiteSpace(assistantId))
-        {
-            throw new ArgumentNullException(nameof(assistantId));
-        }
-
-        if (string.IsNullOrWhiteSpace(fileId))
-        {
-            throw new ArgumentNullException(nameof(fileId));
-        }
-
-        return await _httpClient.GetReadAsAsync<AssistantFileResponse>(_endpointProvider.AssistantFileRetrieve(assistantId, fileId), cancellationToken);
     }
 
     /// <inheritdoc />
@@ -85,21 +52,5 @@ public partial class OpenAIService : IAssistantService
         }
 
         return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.AssistantDelete(assistantId), cancellationToken);
-    }
-
-    /// <inheritdoc />
-    public async Task<DeletionStatusResponse> AssistantFileDelete(string assistantId, string fileId, CancellationToken cancellationToken = default)
-    {
-        if (string.IsNullOrWhiteSpace(assistantId))
-        {
-            throw new ArgumentNullException(nameof(assistantId));
-        }
-
-        if (string.IsNullOrWhiteSpace(fileId))
-        {
-            throw new ArgumentNullException(nameof(fileId));
-        }
-
-        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.AssistantFileDelete(assistantId, fileId), cancellationToken);
     }
 }

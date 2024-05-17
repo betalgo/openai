@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
-public record VectorStoreFileListObject : DataBaseResponse<List<VectorStoreFileObject>>
+public record VectorStoreFileListObject : DataWithPagingBaseResponse<List<VectorStoreFileObject>>
 {
 }
-public record VectorStoreFileObject: BaseResponse
+public record VectorStoreFileObject : BaseResponse
 {
     /// <summary>
     /// The identifier, which can be referenced in API endpoints.

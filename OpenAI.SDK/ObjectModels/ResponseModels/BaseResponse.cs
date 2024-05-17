@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections;
+using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -49,11 +50,23 @@ public record ResponseHeaderValues
     public string? CF_RAY { get; set; }
     public string? AltSvc { get; set; }
     public Dictionary<string, IEnumerable<string>>? All { get; set; }
-
     public RateLimitInfo? RateLimits { get; set; }
     public OpenAIInfo? OpenAI { get; set; }
 }
 
+public record DataWithPagingBaseResponse<T> : BaseResponse where T :IList
+{
+    [JsonPropertyName("data")] public T? Data { get; set; }
+
+    [JsonPropertyName("first_id")]
+    public string FirstId { get; set; }
+
+    [JsonPropertyName("last_id")]
+    public string LastId { get; set; }
+
+    [JsonPropertyName("has_more")]
+    public bool HasMore { get; set; }
+}
 public record DataBaseResponse<T> : BaseResponse
 {
     [JsonPropertyName("data")] public T? Data { get; set; }

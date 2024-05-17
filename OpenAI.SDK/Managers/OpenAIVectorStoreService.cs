@@ -2,12 +2,13 @@
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
+using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.Managers;
 public partial class OpenAIService : IVectorStores
 {
     /// <inheritdoc/>
-    public async Task<VectorStoreListObjectResponse> ListVectorStores(BaseListRequest request, CancellationToken cancellationToken = default)
+    public async Task<VectorStoreListObjectResponse> ListVectorStores(PaginationRequest request, CancellationToken cancellationToken = default)
     {
         return await _httpClient.GetReadAsAsync<VectorStoreListObjectResponse>(_endpointProvider.VectorStoreList(request), cancellationToken);
     }
@@ -18,7 +19,7 @@ public partial class OpenAIService : IVectorStores
         return await _httpClient.PostAndReadAsAsync<VectorStoreObjectResponse>(_endpointProvider.VectorStoreCreate(), requestBody, cancellationToken);
     }
 
-    public async Task<VectorStoreObjectResponse> GetVectorStore(string vectorStoreId, CancellationToken cancellationToken = default)
+    public async Task<VectorStoreObjectResponse> RetrieveVectorStore(string vectorStoreId, CancellationToken cancellationToken = default)
     {
         return await _httpClient.GetReadAsAsync<VectorStoreObjectResponse>(_endpointProvider.VectorStoreRetrieve(vectorStoreId), cancellationToken);
     }
@@ -30,16 +31,16 @@ public partial class OpenAIService : IVectorStores
     }
 
     /// <inheritdoc/>
-    public async Task<VectorStoreObjectResponse> DeleteVectorStore(string vectorStoreId, CancellationToken cancellationToken = default)
+    public async Task<DeletionStatusResponse> DeleteVectorStore(string vectorStoreId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.DeleteAndReadAsAsync<VectorStoreObjectResponse>(_endpointProvider.VectorStoreDelete(vectorStoreId), cancellationToken);
+        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.VectorStoreDelete(vectorStoreId), cancellationToken);
     }
 }
 public partial class OpenAIService : IVectorStoreFiles
 {
-    public async Task<VectorStoreFileListObject> ListVectorStoreFiles(string vectorStoreId, BaseListRequest baseListRequest, CancellationToken cancellationToken = default)
+    public async Task<VectorStoreFileListObject> ListVectorStoreFiles(string vectorStoreId, VectorStoreFileListRequest vectorStoreFileListRequest, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.GetReadAsAsync<VectorStoreFileListObject>(_endpointProvider.VectorStoreFileList(vectorStoreId, baseListRequest), cancellationToken);
+        return await _httpClient.GetReadAsAsync<VectorStoreFileListObject>(_endpointProvider.VectorStoreFileList(vectorStoreId, vectorStoreFileListRequest), cancellationToken);
     }
 
     /// <inheritdoc/>
@@ -55,9 +56,9 @@ public partial class OpenAIService : IVectorStoreFiles
     }
 
     /// <inheritdoc/>
-    public async Task<VectorStoreFileObject> DeleteVectorStoreFile(string vectorStoreId, string fileId, CancellationToken cancellationToken = default)
+    public async Task<DeletionStatusResponse> DeleteVectorStoreFile(string vectorStoreId, string fileId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.DeleteAndReadAsAsync<VectorStoreFileObject>(_endpointProvider.VectorStoreFileDelete(vectorStoreId, fileId), cancellationToken);
+        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.VectorStoreFileDelete(vectorStoreId, fileId), cancellationToken);
     }
 
     public async Task<VectorStoreFileBatchObject> CreateVectorStoreFileBatch(string vectorStoreId, CreateVectorStoreFileBatchRequest requestBody, CancellationToken cancellationToken = default)
@@ -79,7 +80,7 @@ public partial class OpenAIService : IVectorStoreFiles
     }
 
     /// <inheritdoc/>
-    public async Task<VectorStoreFileBatchListObjectResponse> ListFilesInVectorStoreBatch(string vectorStoreId, string batchId, BaseListRequest baseListRequest, CancellationToken cancellationToken = default)
+    public async Task<VectorStoreFileBatchListObjectResponse> ListFilesInVectorStoreBatch(string vectorStoreId, string batchId, PaginationRequest baseListRequest, CancellationToken cancellationToken = default)
     {
         return await _httpClient.GetReadAsAsync<VectorStoreFileBatchListObjectResponse>(_endpointProvider.VectorStoreFileBatchList(vectorStoreId, batchId, baseListRequest), cancellationToken);
     }

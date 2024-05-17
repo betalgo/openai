@@ -5,15 +5,15 @@ using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.SharedModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
-namespace OpenAI.Playground.TestHelpers;
+namespace OpenAI.Playground.TestHelpers.AssistantHelpers;
 
-internal static class RunTestHelper
+internal static class RunTestHelper2
 {
     public static async Task RunRunCreateTest(IOpenAIService sdk)
     {
         ConsoleExtensions.WriteLine("Run create Testing is starting:", ConsoleColor.Cyan);
 
-  
+
         try
         {
             ConsoleExtensions.WriteLine("Run Create Test:", ConsoleColor.DarkCyan);
@@ -26,7 +26,7 @@ internal static class RunTestHelper
             {
                 Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
                 Name = "Qicha",
-                Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineRetrieval(), ToolDefinition.DefineFunction(func) },
+                Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func) },
                 Model = Models.Gpt_3_5_Turbo_1106
             });
             var runResult = await sdk.Beta.Runs.RunCreate(threadId, new RunCreateRequest()
@@ -107,12 +107,12 @@ internal static class RunTestHelper
         var func = new FunctionDefinitionBuilder("get_corp_location", "get location of corp").AddParameter("name", PropertyDefinition.DefineString("company name, e.g. Betterway"))
             .Validate()
             .Build(); var assistantResult = await sdk.Beta.Assistants.AssistantCreate(new AssistantCreateRequest
-        {
-            Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
-            Name = "Qicha",
-            Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineRetrieval(), ToolDefinition.DefineFunction(func) },
-            Model = Models.Gpt_3_5_Turbo_1106
-        });
+            {
+                Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
+                Name = "Qicha",
+                Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func) },
+                Model = Models.Gpt_3_5_Turbo_1106
+            });
         var runCreateResult = await sdk.Beta.Runs.RunCreate(threadId, new RunCreateRequest()
         {
             AssistantId = assistantResult.Id,

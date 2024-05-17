@@ -9,4 +9,10 @@ public interface IBetaService
     public IThreadService Threads { get; }
 
     public IRunService Runs { get; }
+
+    public IRunStepService RunSteps { get; }
+
+    public IVectorStores VectorStores { get; }
+
+    public IVectorStoreFiles VectorStoreFiles { get; }
 }

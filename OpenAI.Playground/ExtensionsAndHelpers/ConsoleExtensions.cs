@@ -1,4 +1,6 @@
-﻿namespace OpenAI.Playground.ExtensionsAndHelpers;
+﻿using OpenAI.ObjectModels.ResponseModels;
+
+namespace OpenAI.Playground.ExtensionsAndHelpers;
 
 public static class ConsoleExtensions
 {
@@ -8,5 +10,14 @@ public static class ConsoleExtensions
         Console.ForegroundColor = color;
         Console.WriteLine(value);
         Console.ForegroundColor = defaultColor;
+    }
+
+    public static void WriteError(Error? error)
+    {
+        if (error == null)
+        {
+            throw new Exception("Unknown Error");
+        }
+        WriteLine($"{error.Code}: {error.Message}", ConsoleColor.Red);
     }
 }
