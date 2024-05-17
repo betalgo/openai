@@ -25,7 +25,10 @@ public class MessageContent
     ///     If the value of Type property is "image_url" then ImageUrl property must contain a valid image url object
     /// </summary>
     [JsonPropertyName("image_url")]
-    public VisionImageUrl? ImageUrl { get; set; }
+    public MessageImageUrl? ImageUrl { get; set; }
+
+    [JsonPropertyName("image_file")]
+    public MessageImageFile? ImageFile { get; set; }
 
     /// <summary>
     ///    Static helper method to create MessageContent Text
@@ -51,6 +54,14 @@ public class MessageContent
         };
     }
 
+    public static MessageContent ImageFileContent(string fileId, string detail)
+    {
+        return new()
+        {
+            Type = "image_file",
+            ImageFile = new() { FileId = fileId, Detail = detail }
+        };
+    }
     /// <summary>
     ///    Static helper method to create MessageContent from binary image
     ///    OpenAI currently supports PNG, JPEG, WEBP, and non-animated GIF

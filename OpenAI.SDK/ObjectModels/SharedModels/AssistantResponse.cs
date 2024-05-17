@@ -4,7 +4,7 @@ using OpenAI.ObjectModels.ResponseModels;
 
 namespace OpenAI.ObjectModels.SharedModels;
 
-public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IModel, IOpenAiModels.IMetaData
+public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IModel, IOpenAiModels.IMetaData,IOpenAiModels.ITools
 {
     /// <summary>
     ///     The name of the assistant. The maximum length is 256 characters.
@@ -37,7 +37,7 @@ public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels
     ///     Files are ordered by their creation date in ascending order.
     /// </summary>
     [JsonPropertyName("file_ids")]
-    public List<string> FileIDs { get; set; }
+    public List<string> FileIds { get; set; }
 
     /// <summary>
     ///     The Unix timestamp (in seconds) for when the assistant was created.

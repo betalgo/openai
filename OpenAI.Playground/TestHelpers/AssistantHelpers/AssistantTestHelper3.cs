@@ -206,8 +206,8 @@ internal static class AssistantTestHelper3
         var messageResult = await sdk.Beta.Messages.CreateMessage(threadId, new MessageCreateRequest
         {
             Role = StaticValues.AssistantsStatics.MessageStatics.Roles.User,
-            Content = "Where is Zhejiang Jiacheng Supply Chain Co., LTD.",
-            FileIds = new List<string>() { uplaodFileId }
+            Content =new("Where is Zhejiang Jiacheng Supply Chain Co., LTD."),
+            Attachments = [new() { FileId = uplaodFileId }]
         });
 
         if (messageResult.Successful)

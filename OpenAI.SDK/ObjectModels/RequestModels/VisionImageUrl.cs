@@ -5,7 +5,7 @@ namespace OpenAI.ObjectModels.RequestModels;
 /// <summary>
 ///     The image_url object of vision message content
 /// </summary>
-public class VisionImageUrl
+public class MessageImageUrl
 {
     /// <summary>
     ///     The Url property
@@ -34,4 +34,18 @@ public class VisionImageUrl
     [JsonPropertyName("detail")]
     public string? Detail { get; set; }
 
+}
+
+public class MessageImageFile
+{
+    /// <summary>
+    /// The File ID of the image in the message content. Set purpose="vision" when uploading the File if you need to later display the file content.
+    /// </summary>
+    [JsonPropertyName("file_Id")]
+    public string FileId { get; set; }
+    /// <summary>
+    /// Specifies the detail level of the image if specified by the user. low uses fewer tokens, you can opt in to high resolution using high.
+    /// </summary>
+    [JsonPropertyName("detail")]
+    public string Detail { get; set; }
 }

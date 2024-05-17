@@ -9,7 +9,7 @@ public interface IVectorStoreFiles
     /// <summary>
     /// Returns a list of vector store files.
     /// </summary>
-    Task<VectorStoreFileListObject> ListVectorStoreFiles(string vectorStoreId, BaseListRequest baseListRequest, CancellationToken cancellationToken = default);
+    Task<VectorStoreFileListObject> ListVectorStoreFiles(string vectorStoreId, VectorStoreFileListRequest baseListRequest, CancellationToken cancellationToken = default);
     /// <summary>
     /// Create a vector store file by attaching a [File](/docs/api-reference/files) to a [vector store](/docs/api-reference/vector-stores/object).
     /// </summary>
@@ -37,5 +37,5 @@ public interface IVectorStoreFiles
     /// <summary>
     /// Returns a list of vector store files in a batch.
     /// </summary>
-    Task<VectorStoreFileBatchListObjectResponse> ListFilesInVectorStoreBatch(string vectorStoreId, string batchId, BaseListRequest baseListRequest, CancellationToken cancellationToken = default);
+    Task<VectorStoreFileBatchListObjectResponse> ListFilesInVectorStoreBatch(string vectorStoreId, string batchId, PaginationRequest baseListRequest, CancellationToken cancellationToken = default);
 }

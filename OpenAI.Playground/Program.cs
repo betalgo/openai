@@ -4,6 +4,7 @@ using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.Playground.TestHelpers;
 using LaserCatEyes.HttpClientListener;
+using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.TestHelpers.AssistantHelpers;
 
 var builder = new ConfigurationBuilder()
@@ -41,10 +42,10 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |   /|\    |     /\   ___\o   \o    |    o/    o/__   /\     |    /|\   |
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
-await AssistantTestHelper.BasicsTestHelper.RunTests(sdk);
-await AssistantTestHelper.ThreadsTestHelper.RunTests(sdk);
-await AssistantTestHelper.MessagesTestHelper.RunTests(sdk);
-await AssistantTestHelper.RunTestHelper.RunTests(sdk);
+//await AssistantTestHelper.BasicsTestHelper.RunTests(sdk);
+//await AssistantTestHelper.ThreadsTestHelper.RunTests(sdk);
+//await AssistantTestHelper.MessagesTestHelper.RunTests(sdk);
+//await AssistantTestHelper.RunTestHelper.RunTests(sdk);
 await AssistantTestHelper.VectorTestHelper.RunTests(sdk);
 
 //await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);

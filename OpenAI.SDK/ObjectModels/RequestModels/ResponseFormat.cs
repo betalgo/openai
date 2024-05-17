@@ -18,3 +18,27 @@ public class ResponseFormat
     [JsonPropertyName("type")]
     public string? Type { get; set; }
 }
+
+[JsonConverter(typeof(ResponseFormatOptionConverter))]
+public class ResponseFormatOneOfType
+{
+    public ResponseFormatOneOfType()
+    {
+    }
+
+    public ResponseFormatOneOfType(string asString)
+    {
+        AsString = asString;
+    }
+
+    public ResponseFormatOneOfType(ResponseFormat asObject)
+    {
+        AsObject = asObject;
+    }
+
+    [JsonIgnore]
+    public string? AsString { get; set; }
+
+    [JsonIgnore]
+    public ResponseFormat? AsObject { get; set; }
+}

@@ -9,7 +9,7 @@ public interface IVectorStores
     /// <summary>
     /// Returns a list of vector stores.
     /// </summary>
-    Task<VectorStoreListObjectResponse> ListVectorStores(BaseListRequest request, CancellationToken cancellationToken = default);
+    Task<VectorStoreListObjectResponse> ListVectorStores(PaginationRequest request, CancellationToken cancellationToken = default);
     /// <summary>
     /// Create a vector store.
     /// </summary>
@@ -18,7 +18,7 @@ public interface IVectorStores
     /// <summary>
     /// Retrieves a vector store.
     /// </summary>
-    Task<VectorStoreObjectResponse> GetVectorStore(string vectorStoreId, CancellationToken cancellationToken = default);
+    Task<VectorStoreObjectResponse> RetrieveVectorStore(string vectorStoreId, CancellationToken cancellationToken = default);
     /// <summary>
     /// Modifies a vector store.
     /// </summary>

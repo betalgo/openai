@@ -12,7 +12,9 @@ public class ThreadCreateRequest : IOpenAiModels.IMetaData
     public List<MessageCreateRequest>? Messages { get; set; }
 
     /// <summary>
-    /// A set of resources that are made available to the assistant&apos;s tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+    ///     A set of resources that are made available to the assistant's tools in this thread. The resources are specific to
+    ///     the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool
+    ///     requires a list of vector store IDs.
     /// </summary>
     [JsonPropertyName("tool_resources")]
     public ToolResources? ToolResources { get; set; }

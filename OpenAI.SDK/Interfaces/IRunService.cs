@@ -66,5 +66,5 @@ public interface IRunService
     /// <summary>
     /// Returns a list of runs belonging to a thread.
     /// </summary>
-    Task<RunListResponse> ListRuns(string threadId, RunListRequest runListRequest, CancellationToken cancellationToken = default);
+    Task<RunListResponse> ListRuns(string threadId, PaginationRequest runListRequest, CancellationToken cancellationToken = default);
 }

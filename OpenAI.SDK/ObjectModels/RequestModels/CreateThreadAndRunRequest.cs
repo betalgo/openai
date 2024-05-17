@@ -3,7 +3,7 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
-public class CreateThreadAndRunRequest
+public class CreateThreadAndRunRequest : IOpenAiModels.IAssistantId
 {
     /// <summary>
     ///     The ID of the [assistant](/docs/api-reference/assistants) to use to execute this run.
@@ -42,7 +42,7 @@ public class CreateThreadAndRunRequest
     /// </summary>
     [JsonPropertyName("tool_resources")]
     public ToolResources? ToolResources { get; set; }
-    
+
     /// <summary>
     ///     Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information
     ///     about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of
@@ -106,9 +106,9 @@ public class CreateThreadAndRunRequest
     ///     function&quot;, &quot;function&quot;: {&quot;name&quot;: &quot;my_function&quot;}}` forces the model to call that
     ///     tool.
     /// </summary>
-    [JsonConverter(typeof(ComplexTypeConverter<AssistantsApiToolChoiceOptionComplexType>))]
+    
     [JsonPropertyName("tool_choice")]
-    public AssistantsApiToolChoiceOptionComplexType ToolChoice { get; set; }
+    public AssistantsApiToolChoiceOneOfType ToolChoice { get; set; }
 
     /// <summary>
     ///     Specifies the format that the model must output. Compatible with [GPT-4 Turbo](/docs/models/gpt-4-and-gpt-4-turbo)
@@ -121,28 +121,21 @@ public class CreateThreadAndRunRequest
     ///     content may be partially cut off if `finish_reason=&quot;length&quot;`, which indicates the generation exceeded
     ///     `max_tokens` or the conversation exceeded the max context length.
     /// </summary>
-    [JsonConverter(typeof(ComplexTypeConverter<AssistantsApiResponseFormatOptionComplexType>))]
     [JsonPropertyName("response_format")]
-    public AssistantsApiResponseFormatOptionComplexType ResponseFormat { get; set; }
+    public ResponseFormatOneOfType ResponseFormat { get; set; }
 
-    public class AssistantsApiToolChoiceOptionComplexType
-    {
-        [JsonIgnore]
-        public string ToolChoice1 { get; set; }
-
-        [JsonIgnore]
-        public ToolChoice ToolChoice2 { get; set; }
-    }
-
-    public class AssistantsApiResponseFormatOptionComplexType
-    {
-        [JsonIgnore]
-        public string ResponseFormat1 { get; set; }
-
-        [JsonIgnore]
-        public ResponseFormat ResponseFormat2 { get; set; }
-    }
+    
 }
+[JsonConverter(typeof(AssistantsApiToolChoiceConverter))]
+public class AssistantsApiToolChoiceOneOfType
+{
+    [JsonIgnore]
+    public string? AsString { get; set; }
+
+    [JsonIgnore]
+    public ToolChoice? AsObject{ get; set; }
+}
+
 public class ToolResources
 {
     [JsonPropertyName("code_interpreter")]
@@ -155,18 +148,37 @@ public class ToolResources
 public class FileSearch
 {
     /// <summary>
-    /// The [vector store](/docs/api-reference/vector-stores/object) attached to this thread. There can be a maximum of 1 vector store attached to the thread.
+    /// The vector store attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
     /// </summary>
     [JsonPropertyName("vector_store_ids")]
-    public List<string> VectorStoreIds { get; set; }
+    public List<string>? VectorStoreIds { get; set; }
+    /// <summary>
+    /// A helper to create a vector store with file_ids and attach it to this assistant. There can be a maximum of 1 vector store attached to the assistant.
+    /// </summary>
+    [JsonPropertyName("vector_stores")]
+    public List<VectorStores>? VectorStores { get; set; }
 }
-public class CodeInterpreter
+
+public class VectorStores : IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
 {
     /// <summary>
-    /// The input to the Code Interpreter tool call.
+    /// A list of file IDs to add to the vector store. There can be a maximum of 10000 files in a vector store.
     /// </summary>
-    [JsonPropertyName("input")]
-    public string Input { get; set; }
+    [JsonPropertyName("file_ids")]
+    public List<string>? FileIds { get; set; }
+    /// <summary>
+    /// Set of 16 key-value pairs that can be attached to a vector store. This can be useful for storing additional information about the vector store in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
+    /// </summary>
+    [JsonPropertyName("metadata")]
+    public Dictionary<string, string>? Metadata { get; set; }
+}
+public class CodeInterpreter : IOpenAiModels.IFileIds
+{
+    /// <summary>
+    /// A list of file IDs made available to the code_interpreter tool. There can be a maximum of 20 files associated with the tool.
+    /// </summary>
+    [JsonPropertyName("file_ids")]
+    public List<string>? FileIds { get; set; }
 }
 public class ToolsItem
 {

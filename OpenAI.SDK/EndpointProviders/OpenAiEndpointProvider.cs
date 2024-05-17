@@ -211,7 +211,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/assistants/{assistantId}";
     }
 
-    public string AssistantList(AssistantListRequest? assistantListRequest)
+    public string AssistantList(PaginationRequest? assistantListRequest)
     {
         var url = $"{_apiVersion}/assistants";
 
@@ -239,7 +239,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/assistants/{assistantId}/files/{fileId}";
     }
 
-    public string AssistantFileList(string assistantId, AssistantFileListRequest? assistantFileListRequest)
+    public string AssistantFileList(string assistantId, PaginationRequest? assistantFileListRequest)
     {
         var url = $"{_apiVersion}/assistants/{assistantId}/files";
 
@@ -287,7 +287,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/threads/{threadId}/messages/{messageId}";
     }
 
-    public string MessageList(string threadId, MessageListRequest? messageListRequest)
+    public string MessageList(string threadId, PaginationRequest? messageListRequest)
     {
         var url = $"{_apiVersion}/threads/{threadId}/messages";
 
@@ -318,7 +318,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/threads/{threadId}/runs/{runId}";
     }
 
-    public string RunList(string threadId, RunListRequest? runListRequest)
+    public string RunList(string threadId, PaginationRequest? runListRequest)
     {
         var url = $"{_apiVersion}/threads/{threadId}/runs";
 
@@ -351,7 +351,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/threads/{threadId}/runs/{runId}/steps/{stepId}";
     }
 
-    public string RunStepList(string threadId, string runId, RunStepListRequest? runStepListRequest)
+    public string RunStepList(string threadId, string runId, PaginationRequest? runStepListRequest)
     {
         var url = $"{_apiVersion}/threads/{threadId}/runs/{runId}/steps";
 
@@ -369,7 +369,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/vector_stores";
     }
 
-    public string VectorStoreList(BaseListRequest baseListRequest)
+    public string VectorStoreList(PaginationRequest baseListRequest)
     {
         var url = $"{_apiVersion}/vector_stores";
 
@@ -412,7 +412,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/vector_stores/{vectorStoreId}/files/{fileId}";
     }
 
-    public string VectorStoreFileList(string vectorStoreId, BaseListRequest? baseListRequest)
+    public string VectorStoreFileList(string vectorStoreId, VectorStoreFileListRequest? baseListRequest)
     {
         var url = $"{_apiVersion}/vector_stores/{vectorStoreId}/files";
 
@@ -440,7 +440,7 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{_apiVersion}/vector_stores/{vectorStoreId}/file_batches/{batchId}/cancel";
     }
 
-    public string VectorStoreFileBatchList(string vectorStoreId, string batchId,BaseListRequest? baseListRequest)
+    public string VectorStoreFileBatchList(string vectorStoreId, string batchId, PaginationRequest? baseListRequest)
     {
         var url = $"{_apiVersion}/vector_stores/{vectorStoreId}/file_batches/{batchId}/files";
 

@@ -39,7 +39,7 @@ internal static partial class AssistantTestHelper
             }
 
             CreatedThreadId = thread.Id;
-            var result = await openAI.Beta.Messages.CreateMessage(CreatedThreadId, new(StaticValues.AssistantsStatics.MessageStatics.Roles.User, "How does AI work? Explain it in simple terms."));
+            var result = await openAI.Beta.Messages.CreateMessage(CreatedThreadId, new(StaticValues.AssistantsStatics.MessageStatics.Roles.User, new("How does AI work? Explain it in simple terms.")));
             if (result.Successful)
             {
                 CreatedMessageId = result.Id;

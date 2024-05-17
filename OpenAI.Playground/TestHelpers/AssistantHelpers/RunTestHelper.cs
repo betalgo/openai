@@ -134,7 +134,7 @@ internal static partial class AssistantTestHelper
 
             var threadResult = await openAI.Beta.Threads.ThreadCreate(new()
             {
-                Messages = [new(StaticValues.AssistantsStatics.MessageStatics.Roles.User, "How is the weather in London")]
+                Messages = [new(StaticValues.AssistantsStatics.MessageStatics.Roles.User, new("How is the weather in London"))]
             });
             if (threadResult.Successful)
             {
@@ -472,7 +472,7 @@ internal static partial class AssistantTestHelper
                         new()
                         {
                             Role = StaticValues.AssistantsStatics.MessageStatics.Roles.User,
-                            Content = "Explain deep learning to a 5 year old."
+                            Content = new("Explain deep learning to a 5 year old.")
                         }
                     ]
                 }

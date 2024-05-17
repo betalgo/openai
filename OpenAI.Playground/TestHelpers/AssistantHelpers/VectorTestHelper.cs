@@ -123,7 +123,7 @@ internal static partial class AssistantTestHelper
                 return;
             }
 
-            var result = await openAI.Beta.VectorStores.GetVectorStore(CreatedVectorId);
+            var result = await openAI.Beta.VectorStores.RetrieveVectorStore(CreatedVectorId);
             if (result.Successful)
             {
                 ConsoleExtensions.WriteLine("Retrieve Vector Test is successful.", ConsoleColor.Green);

@@ -3,7 +3,27 @@ using System.Text.Json.Serialization;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
-public class BaseListRequest
+public class VectorStoreFileListRequest : PaginationRequest
+{
+    /// <summary>
+    ///     Filter by file status. One of in_progress, completed, failed, cancelled.
+    /// </summary>
+    [JsonPropertyName("filter")]
+    public string? Filter { get; set; }
+
+    public override string? GetQueryParameters()
+    {
+        var querystring = base.GetQueryParameters();
+        if (Filter == null)
+        {
+            return querystring;
+        }
+
+        return querystring == null ? $"filter={WebUtility.UrlEncode(Filter)}" : $"{querystring}&filter={WebUtility.UrlEncode(Filter)}";
+    }
+}
+
+public class PaginationRequest
 {
     /// <summary>
     ///     A limit on the number of objects to be returned.
@@ -36,7 +56,7 @@ public class BaseListRequest
     [JsonPropertyName("before")]
     public string? Before { get; set; }
 
-    public string? GetQueryParameters()
+    public virtual string? GetQueryParameters()
     {
         var build = new List<string>();
         if (Limit != null)

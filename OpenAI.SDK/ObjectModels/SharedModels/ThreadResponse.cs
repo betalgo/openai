@@ -1,10 +1,19 @@
 ﻿using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels;
 
 namespace OpenAI.ObjectModels.SharedModels;
 
 public record ThreadResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IMetaData
 {
+    /// <summary>
+    ///     A set of resources that are made available to the assistant's tools in this thread. The resources are specific to
+    ///     the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool
+    ///     requires a list of vector store IDs.
+    /// </summary>
+    [JsonPropertyName("tool_resources")]
+    public ToolResources? ToolResources { get; set; }
+
     /// <summary>
     ///     The Unix timestamp (in seconds) for when the assistant was created.
     /// </summary>
