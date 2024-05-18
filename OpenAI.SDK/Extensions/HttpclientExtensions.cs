@@ -123,7 +123,7 @@ internal static class HttpClientExtensions
         return await HandleResponseContent<TResponse>(response, cancellationToken);
     }
 
-    private static async Task<TResponse> HandleResponseContent<TResponse>(this HttpResponseMessage response, CancellationToken cancellationToken) where TResponse : BaseResponse, new()
+    public static async Task<TResponse> HandleResponseContent<TResponse>(this HttpResponseMessage response, CancellationToken cancellationToken) where TResponse : BaseResponse, new()
     {
         TResponse result;
 
@@ -144,7 +144,14 @@ internal static class HttpClientExtensions
         }
 
         result.HttpStatusCode = response.StatusCode;
-        result.HeaderValues = new()
+        result.HeaderValues = response.ParseHeaders();
+
+        return result;
+    }
+
+    public static ResponseHeaderValues ParseHeaders(this HttpResponseMessage response)
+    {
+        return new ResponseHeaderValues()
         {
             Date = response.Headers.Date,
             Connection = response.Headers.Connection?.ToString(),
@@ -181,7 +188,6 @@ internal static class HttpClientExtensions
                 Version = response.Headers.GetHeaderValue("openai-version")
             }
         };
-        return result;
     }
 
 #if NETSTANDARD2_0

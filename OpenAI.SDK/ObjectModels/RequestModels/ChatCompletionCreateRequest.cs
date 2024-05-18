@@ -45,6 +45,12 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     public bool? Stream { get; set; }
 
     /// <summary>
+    ///     Options for streaming response. Only set this when you set <see cref="Stream"/>: <c>true</c>.
+    /// </summary>
+    [JsonPropertyName("stream_options")]
+    public StreamOptions? StreamOptions { get; set; }
+
+    /// <summary>
     ///     Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop
     ///     sequence.
     /// </summary>

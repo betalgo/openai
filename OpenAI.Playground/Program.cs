@@ -58,6 +58,7 @@ await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 // Tools
 //await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
 //await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
+//await ChatCompletionTestHelper.RunSimpleCompletionStreamWithUsageTest(sdk);
 //await BatchTestHelper.RunBatchOperationsTest(sdk);
 
 // Whisper
