@@ -53,5 +53,5 @@ public record AudioCreateTranscriptionRequest : IOpenAiModels.IModel, IOpenAiMod
     /// Granularity of timestamps for the transcript.
     /// Currently, it is either "word" or "segment" and defaults to "segment".
     /// </summary>
-    public string? TimestampGranularity { get; set; }
+    public string[]? TimestampGranularities { get; set; }
 }

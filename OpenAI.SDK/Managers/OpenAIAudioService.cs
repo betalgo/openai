@@ -1,4 +1,6 @@
-﻿using OpenAI.Extensions;
+﻿using System.Text;
+using System.Text.Json;
+using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
@@ -55,9 +57,12 @@ public partial class OpenAIService : IAudioService
 
         multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Model), "model");
         
-        if (audioCreateTranscriptionRequest.TimestampGranularity != null)
+        if (audioCreateTranscriptionRequest.TimestampGranularities != null)
         {
-            multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.TimestampGranularity), "timestamp_granularities[]");
+            foreach (string granularity in audioCreateTranscriptionRequest.TimestampGranularities)
+            {
+                multipartContent.Add(new StringContent(granularity), "timestamp_granularities[]");
+            }
         }
 
         if (audioCreateTranscriptionRequest.Language != null)

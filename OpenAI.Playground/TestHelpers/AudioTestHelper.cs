@@ -24,15 +24,20 @@ internal static class AudioTestHelper
                 FileName = fileName,
                 File = sampleFile,
                 Model = Models.WhisperV1,
-                TimestampGranularity = StaticValues.AudioStatics.TimestampGranularity.Word,
+                TimestampGranularities = 
+                [
+                    StaticValues.AudioStatics.TimestampGranularity.Word, 
+                    StaticValues.AudioStatics.TimestampGranularity.Segment
+                ],
                 ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson
             });
 
 
             if (audioResult.Successful)
             {
-                Console.WriteLine(string.Join("\n", audioResult.Text));
+                Console.WriteLine($"Segments: {audioResult.Segments.Count}");
                 Console.WriteLine($"Words: {audioResult.Words.Count}");
+                Console.WriteLine(string.Join("\n", audioResult.Text));
             }
             else
             {
