@@ -24,9 +24,9 @@ internal static class AudioTestHelper
                 FileName = fileName,
                 File = sampleFile,
                 Model = Models.WhisperV1,
-                TimestampGranularities = 
+                TimestampGranularities =
                 [
-                    StaticValues.AudioStatics.TimestampGranularity.Word, 
+                    StaticValues.AudioStatics.TimestampGranularity.Word,
                     StaticValues.AudioStatics.TimestampGranularity.Segment
                 ],
                 ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson

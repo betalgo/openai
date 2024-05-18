@@ -59,7 +59,7 @@ public partial class OpenAIService : IAudioService
         
         if (audioCreateTranscriptionRequest.TimestampGranularities != null)
         {
-            foreach (string granularity in audioCreateTranscriptionRequest.TimestampGranularities)
+            foreach (var granularity in audioCreateTranscriptionRequest.TimestampGranularities)
             {
                 multipartContent.Add(new StringContent(granularity), "timestamp_granularities[]");
             }
