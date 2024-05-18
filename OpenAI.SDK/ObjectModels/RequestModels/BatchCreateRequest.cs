@@ -29,5 +29,5 @@ public record BatchCreateRequest : IOpenAiModels.IMetaData
     ///     Optional custom metadata for the batch.
     /// </summary>
     [JsonPropertyName("metadata")]
-    public Dictionary<string, string>? MetaData { get; set; }
+    public Dictionary<string, string>? Metadata { get; set; }
 }

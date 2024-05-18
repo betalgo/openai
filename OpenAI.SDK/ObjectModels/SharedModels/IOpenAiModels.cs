@@ -1,4 +1,7 @@
-﻿namespace OpenAI.ObjectModels.SharedModels;
+﻿using OpenAI.ObjectModels.RequestModels;
+using System.Text.Json.Serialization;
+
+namespace OpenAI.ObjectModels.SharedModels;
 
 public interface IOpenAiModels
 {
@@ -25,11 +28,21 @@ public interface IOpenAiModels
     public interface ITemperature
     {
         float? Temperature { get; set; }
+    } 
+
+    public interface IAssistantId
+    {
+        string AssistantId { get; set; }
     }
 
     public interface ICreatedAt
     {
         public int CreatedAt { get; set; }
+    }
+
+    public interface ICompletedAt
+    {
+        public int CompletedAt { get; set; }
     }
 
     public interface IUser
@@ -46,11 +59,16 @@ public interface IOpenAiModels
 
     public interface IMetaData
     {
-        public Dictionary<string, string> MetaData { get; set; }
+        public Dictionary<string, string> Metadata { get; set; }
     }
 
     public interface IFileIds
     {
         public List<string> FileIds { get; set;}
+    }
+
+    public interface ITools
+    {
+        public List<ToolDefinition> Tools { get; set; }
     }
 }

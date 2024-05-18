@@ -118,7 +118,7 @@ public partial class OpenAIService : IRunService
     }
 
     /// <inheritdoc/>
-    public async Task<RunListResponse> ListRuns(string threadId, RunListRequest runListRequest, CancellationToken cancellationToken = default)
+    public async Task<RunListResponse> ListRuns(string threadId, PaginationRequest runListRequest, CancellationToken cancellationToken = default)
     {
         return await _httpClient.GetReadAsAsync<RunListResponse>(_endpointProvider.RunList(threadId, runListRequest), cancellationToken);
     }

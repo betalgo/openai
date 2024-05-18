@@ -96,6 +96,65 @@ internal static class ChatCompletionTestHelper
         }
     }
 
+    public static async Task RunSimpleCompletionStreamWithUsageTest(IOpenAIService sdk)
+    {
+        ConsoleExtensions.WriteLine("Chat Completion Stream Testing is starting:", ConsoleColor.Cyan);
+        try
+        {
+            ConsoleExtensions.WriteLine("Chat Completion Stream Test:", ConsoleColor.DarkCyan);
+            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest
+            {
+                Messages = new List<ChatMessage>
+                {
+                    new(StaticValues.ChatMessageRoles.System, "You are a helpful assistant."),
+                    new(StaticValues.ChatMessageRoles.User, "Who won the world series in 2020?"),
+                    new(StaticValues.ChatMessageRoles.System, "The Los Angeles Dodgers won the World Series in 2020."),
+                    new(StaticValues.ChatMessageRoles.User, "Tell me a story about The Los Angeles Dodgers")
+                },
+                StreamOptions = new StreamOptions
+                {
+                    IncludeUsage = true,
+                },
+                MaxTokens = 150,
+                Model = Models.Gpt_3_5_Turbo
+            });
+
+            await foreach (var completion in completionResult)
+            {
+                if (completion.Successful)
+                {
+                    if (completion.Usage != null)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine($"Usage: {completion.Usage.TotalTokens}");
+                    }
+                    else
+                    {
+                        Console.Write(completion.Choices.First().Message.Content);
+                    }
+                }
+                else
+                {
+                    if (completion.Error == null)
+                    {
+                        throw new Exception("Unknown Error");
+                    }
+
+                    Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
+                }
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("Complete");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
     public static async Task RunChatFunctionCallTest(IOpenAIService sdk)
     {
         ConsoleExtensions.WriteLine("Chat Tool Functions Call Testing is starting:", ConsoleColor.Cyan);
@@ -124,21 +183,24 @@ internal static class ChatCompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Chat Function Call Test:", ConsoleColor.DarkCyan);
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+
+            var request = new ChatCompletionCreateRequest
             {
                 Messages = new List<ChatMessage>
                 {
                     ChatMessage.FromSystem("Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous."),
                     ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days.")
                 },
-                Tools = new List<ToolDefinition> { ToolDefinition.DefineFunction(fn1), ToolDefinition.DefineFunction(fn2) ,ToolDefinition.DefineFunction(fn3) ,ToolDefinition.DefineFunction(fn4) },
+                Tools = new List<ToolDefinition> { ToolDefinition.DefineFunction(fn1), ToolDefinition.DefineFunction(fn2), ToolDefinition.DefineFunction(fn3), ToolDefinition.DefineFunction(fn4) },
                 // optionally, to force a specific function:
                 //ToolChoice = ToolChoice.FunctionChoice("get_current_weather"),
                 // or auto tool choice:
                 //ToolChoice = ToolChoice.Auto,
                 MaxTokens = 50,
                 Model = Models.Gpt_3_5_Turbo
-            });
+            };
+
+            var completionResult = await sdk.ChatCompletion.CreateCompletion(request);
 
             /*  expected output along the lines of:
              
@@ -158,6 +220,8 @@ internal static class ChatCompletionTestHelper
                 var tools = choice.Message.ToolCalls;
                 if (tools != null)
                 {
+                    request.Messages.Add(choice.Message);
+
                     Console.WriteLine($"Tools: {tools.Count}");
                     foreach (var toolCall in tools)
                     {
@@ -171,6 +235,11 @@ internal static class ChatCompletionTestHelper
                             {
                                 Console.WriteLine($"    {entry.Key}: {entry.Value}");
                             }
+
+                            if (fn.Name == "get_n_day_weather_forecast")
+                            {
+                                request.Messages.Add(ChatMessage.FromTool("10 Degrees", toolCall.Id!));
+                            }
                         }
                     }
                 }
@@ -183,6 +252,22 @@ internal static class ChatCompletionTestHelper
                 }
 
                 Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
+            }
+
+            var completionResultAfterTool = await sdk.ChatCompletion.CreateCompletion(request); 
+            
+            if (completionResultAfterTool.Successful)
+            {
+                Console.WriteLine(completionResultAfterTool.Choices.First().Message.Content);
+            }
+            else
+            {
+                if (completionResultAfterTool.Error == null)
+                {
+                    throw new Exception("Unknown Error");
+                }
+
+                Console.WriteLine($"{completionResultAfterTool.Error.Code}: {completionResultAfterTool.Error.Message}");
             }
         }
         catch (Exception e)
@@ -228,7 +313,8 @@ internal static class ChatCompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Chat Function Call Test:", ConsoleColor.DarkCyan);
-            var completionResults = sdk.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest
+
+            var request = new ChatCompletionCreateRequest
             {
                 Messages = new List<ChatMessage>
                 {
@@ -246,7 +332,9 @@ internal static class ChatCompletionTestHelper
                 ToolChoice = ToolChoice.Auto,
                 //MaxTokens = 50,
                 Model = Models.Gpt_4_1106_preview
-            });
+            };
+
+            var completionResults = sdk.ChatCompletion.CreateCompletionAsStream(request);
 
             /*  when testing weather forecasts, expected output should be along the lines of:
              
@@ -274,6 +362,8 @@ internal static class ChatCompletionTestHelper
                     var tools = choice.Message.ToolCalls;
                     if (tools != null)
                     {
+                        request.Messages.Add(choice.Message);
+
                         Console.WriteLine($"Tools: {tools.Count}");
                         for (int i = 0; i < tools.Count; i++)
                         {
@@ -313,6 +403,16 @@ internal static class ChatCompletionTestHelper
                                         // ignore
                                     }
                                 }
+
+                                if (fn.Name == "google_search")
+                                {
+                                    request.Messages.Add(ChatMessage.FromTool("Tom", toolCall.Id!));
+                                }
+
+                                if (fn.Name == "getURL")
+                                {
+                                    request.Messages.Add(ChatMessage.FromTool("News", toolCall.Id!));
+                                }
                             }
                         }
                     }
@@ -325,6 +425,25 @@ internal static class ChatCompletionTestHelper
                     }
 
                     Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
+                }
+            }
+
+            var completionResultsAfterTool = sdk.ChatCompletion.CreateCompletionAsStream(request);
+
+            await foreach (var completion in completionResultsAfterTool)
+            {
+                if (completion.Successful)
+                {
+                    Console.Write(completion.Choices.First().Message.Content);
+                }
+                else
+                {
+                    if (completion.Error == null)
+                    {
+                        throw new Exception("Unknown Error");
+                    }
+
+                    Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
                 }
             }
         }

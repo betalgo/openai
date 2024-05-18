@@ -12,7 +12,18 @@ public record AudioCreateTranscriptionResponse : BaseResponse
 
     [JsonPropertyName("duration")] public float Duration { get; set; }
 
+    [JsonPropertyName("words")] public List<WordSegment> Words { get; set; }
+
     [JsonPropertyName("segments")] public List<Segment> Segments { get; set; }
+    
+    public class WordSegment
+    {
+        [JsonPropertyName("word")] public string Word { get; set; }
+
+        [JsonPropertyName("start")] public float Start { get; set; }
+
+        [JsonPropertyName("end")] public float End { get; set; }
+    }
 
     public class Segment
     {

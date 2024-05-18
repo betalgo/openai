@@ -26,7 +26,22 @@ public partial class OpenAIService : ICompletionService
         createCompletionRequest.ProcessModelId(modelId, _defaultModelId);
 
         using var response = _httpClient.PostAsStreamAsync(_endpointProvider.CompletionCreate(), createCompletionRequest, cancellationToken);
-        await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            yield return await response.HandleResponseContent<CompletionCreateResponse>(cancellationToken);
+            yield break;
+        }
+
+        // Ensure that we parse headers only once to improve performance a little bit.
+        var httpStatusCode = response.StatusCode;
+        var headerValues = response.ParseHeaders();
+
+#if NET7_0_OR_GREATER
+        await using var stream = await response.Content.ReadAsStreamAsync();
+#else
+        using var stream = await response.Content.ReadAsStreamAsync();
+#endif
         using var reader = new StreamReader(stream);
         // Continuously read the stream until the end of it
         while (!reader.EndOfStream)
@@ -65,6 +80,8 @@ public partial class OpenAIService : ICompletionService
 
             if (null != block)
             {
+                block.HttpStatusCode = httpStatusCode;
+                block.HeaderValues = headerValues;
                 yield return block;
             }
         }

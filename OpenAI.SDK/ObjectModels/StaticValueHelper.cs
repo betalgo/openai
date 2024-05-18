@@ -85,6 +85,13 @@ public class StaticValues
             public static string VerboseJson => "verbose_json";
             public static string Vtt => "vtt";
         }
+        
+        public static class TimestampGranularity
+        {
+            public static string Word => "word";
+            public static string Segment => "segment";
+        }
+        
         public static class CreateSpeechResponseFormat
         {
             public static string Mp3 => "mp3";
@@ -119,7 +126,7 @@ public class StaticValues
         public static class ToolCallTypes
         {
             public static string CodeInterpreter => "code_interpreter";
-            public static string Retrieval => "retrieval";
+            public static string FileSearch => "file_search";
             public static string Function => "function";
         }
 
@@ -155,6 +162,7 @@ public class StaticValues
             public static string Failed => "failed";
             public static string Completed => "completed";
             public static string Expired => "expired";
+            public static string Incomplete => "incomplete";
         }
 
         public static class RequiredActionTypes

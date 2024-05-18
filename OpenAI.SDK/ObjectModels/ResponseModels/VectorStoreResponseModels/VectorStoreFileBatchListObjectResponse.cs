@@ -1,5 +1,5 @@
 ﻿namespace OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 
-public record VectorStoreFileBatchListObjectResponse : DataBaseResponse<List<VectorStoreFileBatchObject>>
+public record VectorStoreFileBatchListObjectResponse : DataWithPagingBaseResponse<List<VectorStoreFileBatchObject>>
 {
 }
