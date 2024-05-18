@@ -6,9 +6,9 @@ using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.SharedModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
-namespace OpenAI.Playground.TestHelpers;
+namespace OpenAI.Playground.TestHelpers.AssistantHelpers;
 
-internal static class AssistantTestHelper
+internal static class AssistantTestHelper3
 {
     /// <summary>
     ///     Test Assistant api
@@ -30,7 +30,7 @@ internal static class AssistantTestHelper
         {
             Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
             Name = "Qicha",
-            Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineRetrieval(), ToolDefinition.DefineFunction(func) },
+            Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func) },
             Model = Models.Gpt_3_5_Turbo_1106
         });
         if (assistantResult.Successful)
@@ -162,7 +162,7 @@ internal static class AssistantTestHelper
             Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
             Name = "Qicha",
             Model = Models.Gpt_3_5_Turbo_1106,
-            Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineRetrieval(), ToolDefinition.DefineFunction(func) },
+            Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func) },
             FileIds = new List<string>() { uplaodFileId }
         });
 
@@ -203,11 +203,11 @@ internal static class AssistantTestHelper
         #region //create thread message
 
         ConsoleExtensions.WriteLine("Message Create Test:", ConsoleColor.DarkCyan);
-        var messageResult = await sdk.Beta.Messages.MessageCreate(threadId, new MessageCreateRequest
+        var messageResult = await sdk.Beta.Messages.CreateMessage(threadId, new MessageCreateRequest
         {
             Role = StaticValues.AssistantsStatics.MessageStatics.Roles.User,
-            Content = "Where is Zhejiang Jiacheng Supply Chain Co., LTD.",
-            FileIds = new List<string>() { uplaodFileId }
+            Content =new("Where is Zhejiang Jiacheng Supply Chain Co., LTD."),
+            Attachments = [new() { FileId = uplaodFileId }]
         });
 
         if (messageResult.Successful)
@@ -314,7 +314,7 @@ No.615 Bayi North Street, Wucheng District, Jinhua City, Zhejiang Province"
 
         //Get the final message result
         ConsoleExtensions.WriteLine("Message list:", ConsoleColor.DarkCyan);
-        var messageListResult = await sdk.Beta.Messages.MessageList(threadId);
+        var messageListResult = await sdk.Beta.Messages.ListMessages(threadId);
         if (messageListResult.Successful)
         {
             var msgRespList = messageListResult.Data;

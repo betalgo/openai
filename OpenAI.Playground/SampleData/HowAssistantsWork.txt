@@ -1,0 +1,17 @@
+How Assistants work Beta
+The Assistants API is designed to help developers build powerful AI assistants capable of performing a variety of tasks.
+
+The Assistants API is in beta and we are actively working on adding more functionality. Share your feedback in our Developer Forum!
+Assistants can call OpenAI’s models with specific instructions to tune their personality and capabilities.
+Assistants can access multiple tools in parallel. These can be both OpenAI-hosted tools — like code_interpreter and file_search — or tools you build / host (via function calling).
+Assistants can access persistent Threads. Threads simplify AI application development by storing message history and truncating it when the conversation gets too long for the model’s context length. You create a Thread once, and simply append Messages to it as your users reply.
+Assistants can access files in several formats — either as part of their creation or as part of Threads between Assistants and users. When using tools, Assistants can also create files (e.g., images, spreadsheets, etc) and cite files they reference in the Messages they create.
+Objects
+Assistants object architecture diagram
+
+OBJECT	WHAT IT REPRESENTS
+Assistant	Purpose-built AI that uses OpenAI’s models and calls tools
+Thread	A conversation session between an Assistant and a user. Threads store Messages and automatically handle truncation to fit content into a model’s context.
+Message	A message created by an Assistant or a user. Messages can include text, images, and other files. Messages stored as a list on the Thread.
+Run	An invocation of an Assistant on a Thread. The Assistant uses its configuration and the Thread’s Messages to perform tasks by calling models and tools. As part of a Run, the Assistant appends Messages to the Thread.
+Run Step	A detailed list of steps the Assistant took as part of a Run. An Assistant can call tools or create Messages during its run. Examining Run Steps allows you to introspect how the Assistant is getting to its final results.

@@ -16,7 +16,7 @@ public partial class OpenAIService : IMessageService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
-    public async Task<MessageResponse> MessageCreate(string threadId, MessageCreateRequest request, CancellationToken cancellationToken = default)
+    public async Task<MessageResponse> CreateMessage(string threadId, MessageCreateRequest request, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(threadId))
         {
@@ -34,7 +34,7 @@ public partial class OpenAIService : IMessageService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public async Task<MessageListResponse> MessageList(string threadId, MessageListRequest? request = null, CancellationToken cancellationToken = default)
+    public async Task<MessageListResponse> ListMessages(string threadId, PaginationRequest? request = null, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(threadId))
         {
@@ -45,7 +45,7 @@ public partial class OpenAIService : IMessageService
     }
 
     /// <inheritdoc/>
-    public async Task<MessageResponse> GetMessage(string threadId, string messageId, CancellationToken cancellationToken = default)
+    public async Task<MessageResponse> RetrieveMessage(string threadId, string messageId, CancellationToken cancellationToken = default)
     {
         return await _httpClient.GetReadAsAsync<MessageResponse>(_endpointProvider.MessageRetrieve(threadId, messageId), cancellationToken);
     }
@@ -54,5 +54,11 @@ public partial class OpenAIService : IMessageService
     public async Task<MessageResponse> ModifyMessage(string threadId, string messageId, ModifyMessageRequest requestBody, CancellationToken cancellationToken = default)
     {
         return await _httpClient.PostAndReadAsAsync<MessageResponse>(_endpointProvider.MessageModify(threadId, messageId), requestBody, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<DeletionStatusResponse> DeleteMessage(string threadId, string messageId, CancellationToken cancellationToken = default)
+    {
+        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.MessageDelete(threadId, messageId), cancellationToken);
     }
 }

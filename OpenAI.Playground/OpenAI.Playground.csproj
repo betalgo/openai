@@ -59,6 +59,9 @@
 		<None Update="ApiSettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+		<None Update="SampleData\Assistants-overview.html">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="SampleData\betterway_corp.csv">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -73,6 +76,12 @@
 		</None>
 		<None Update="SampleData\FineTuningJobSample2.jsonl">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="SampleData\How-Assistants-work.html">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="SampleData\HowAssistantsWork.txt">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="SampleData\image_edit_mask.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

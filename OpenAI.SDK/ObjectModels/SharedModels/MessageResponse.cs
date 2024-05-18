@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels;
 
 namespace OpenAI.ObjectModels.SharedModels;
@@ -6,7 +7,7 @@ namespace OpenAI.ObjectModels.SharedModels;
 /// <summary>
 ///     Represents a message within a thread.
 /// </summary>
-public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IMetaData
+public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IMetaData,IOpenAiModels.IAssistantId
 {
     /// <summary>
     ///     The thread ID that this message belongs to.
@@ -24,7 +25,32 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     ///     The content of the message in array of text and/or images.
     /// </summary>
     [JsonPropertyName("content")]
-    public List<MessageContent>? Content { get; set; }
+    public List<MessageContentResponse>? Content { get; set; }
+
+    /// <summary>
+    ///     The status of the message, which can be either in_progress, incomplete, or completed.
+    /// </summary>
+    [JsonPropertyName("status")]
+    public string Status { get; set; }
+
+
+    /// <summary>
+    ///    On an incomplete message, details about why the message is incomplete.
+    /// </summary>
+    [JsonPropertyName("incomplete_details")]
+    public IncompleteDetails? IncompleteDetails { get; set; }
+
+    /// <summary>
+    ///     The Unix timestamp (in seconds) for when the run was completed.
+    /// </summary>
+    [JsonPropertyName("completed_at")]
+    public int? CompletedAt { get; set; }
+    
+    /// <summary>
+    ///     The Unix timestamp (in seconds) for when the run was completed.
+    /// </summary>
+    [JsonPropertyName("incomplete_at")]
+    public int? IncompleteAt { get; set; }
 
     /// <summary>
     ///     If applicable, the ID of the assistant that authored this message.
@@ -33,7 +59,7 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     public string? AssistantId { get; set; }
 
     /// <summary>
-    ///     If applicable, the ID of the run associated with the authoring of this message.
+    ///    The ID of the run associated with the creation of this message. Value is null when messages are created manually using the create message or create thread endpoints.
     /// </summary>
     [JsonPropertyName("run_id")]
     public string? RunId { get; set; }
@@ -43,8 +69,8 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     ///     Useful for tools like retrieval and code_interpreter that can access files.
     ///     A maximum of 10 files can be attached to a message.
     /// </summary>
-    [JsonPropertyName("file_ids")]
-    public List<string> FileIds { get; set; }
+    [JsonPropertyName("attachments")]
+    public List<Attachment> Attachments { get; set; }
 
     /// <summary>
     ///     The Unix timestamp (in seconds) for when the message was created.
@@ -62,16 +88,16 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     ///     Set of 16 key-value pairs that can be attached to an object.
     /// </summary>
     [JsonPropertyName("metadata")]
-    public Dictionary<string, string> MetaData { get; set; }
+    public Dictionary<string, string>? Metadata { get; set; }
 
 
     /// <summary>
     ///     The content of the message:  text and/or images.
     /// </summary>
-    public class MessageContent
+    public record MessageContentResponse
     {
         /// <summary>
-        ///     text and/or images. image_file、text
+        ///     text and/or images. image_file text
         /// </summary>
         [JsonPropertyName("type")]
         public string Type { get; set; }
@@ -87,5 +113,11 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
         /// </summary>
         [JsonPropertyName("text")]
         public MessageText? Text { get; set; }
+
+        /// <summary>
+        ///  References an image URL in the content of a message.
+        /// </summary>
+        [JsonPropertyName("image_url")]
+        public MessageImageUrl? ImageUrl { get; set; }
     }
 }

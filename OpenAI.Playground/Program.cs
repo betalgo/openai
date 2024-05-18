@@ -1,12 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using LaserCatEyes.HttpClientListener;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.Playground.TestHelpers;
-using LaserCatEyes.HttpClientListener;
 
-var builder = new ConfigurationBuilder()
-    .AddJsonFile("ApiSettings.json")
+var builder = new ConfigurationBuilder().AddJsonFile("ApiSettings.json")
     .AddUserSecrets<Program>();
 
 IConfiguration configuration = builder.Build();
@@ -19,7 +18,7 @@ serviceCollection.AddScoped(_ => configuration);
 serviceCollection.AddLaserCatEyesHttpClientListener();
 
 //if you want to use beta services you have to set UseBeta to true. Otherwise, it will use the stable version of OpenAI apis.
-serviceCollection.AddOpenAIService(r=>r.UseBeta = true);
+serviceCollection.AddOpenAIService(r => r.UseBeta = true);
 
 //serviceCollection.AddOpenAIService();
 //// DeploymentId and ResourceName are only for Azure OpenAI. If you want to use Azure OpenAI services you have to set Provider type To Azure.
@@ -42,20 +41,14 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |-----------------------------------------------------------------------|
 
 await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
-//await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
-
+await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
 //Assistants - BETA
-//await AssistantTestHelper.RunAssistantApiTest(sdk);
-//await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
-
-//await MessageTestHelper.RunMessageCreateTest(sdk);
-
-//await ThreadTestHelper.RunThreadCreateTest(sdk);
-//await ThreadTestHelper.RunThreadRetrieveTest(sdk);
-
-//await RunTestHelper.RunRunCreateTest(sdk);
-//await RunTestHelper.RunRunCancelTest(sdk);
+//await AssistantTestHelper.BasicsTestHelper.RunTests(sdk);
+//await AssistantTestHelper.ThreadsTestHelper.RunTests(sdk);
+//await AssistantTestHelper.MessagesTestHelper.RunTests(sdk);
+//await AssistantTestHelper.RunTestHelper.RunTests(sdk);
+//await AssistantTestHelper.VectorTestHelper.RunTests(sdk);
 
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
