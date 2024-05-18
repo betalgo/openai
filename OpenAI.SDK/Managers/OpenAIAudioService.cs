@@ -54,6 +54,11 @@ public partial class OpenAIService : IAudioService
         }
 
         multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Model), "model");
+        
+        if (audioCreateTranscriptionRequest.TimestampGranularity != null)
+        {
+            multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.TimestampGranularity), "timestamp_granularities[]");
+        }
 
         if (audioCreateTranscriptionRequest.Language != null)
         {

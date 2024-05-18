@@ -48,4 +48,10 @@ public record AudioCreateTranscriptionRequest : IOpenAiModels.IModel, IOpenAiMod
     ///     automatically increase the temperature until certain thresholds are hit.
     /// </summary>
     public float? Temperature { get; set; }
+    
+    /// <summary>
+    /// Granularity of timestamps for the transcript.
+    /// Currently, it is either "word" or "segment" and defaults to "segment".
+    /// </summary>
+    public string? TimestampGranularity { get; set; }
 }

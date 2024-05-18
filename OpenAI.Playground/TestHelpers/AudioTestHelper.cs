@@ -24,6 +24,7 @@ internal static class AudioTestHelper
                 FileName = fileName,
                 File = sampleFile,
                 Model = Models.WhisperV1,
+                TimestampGranularity = StaticValues.AudioStatics.TimestampGranularity.Word,
                 ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson
             });
 
@@ -31,6 +32,7 @@ internal static class AudioTestHelper
             if (audioResult.Successful)
             {
                 Console.WriteLine(string.Join("\n", audioResult.Text));
+                Console.WriteLine($"Words: {audioResult.Words.Count}");
             }
             else
             {
