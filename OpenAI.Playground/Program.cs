@@ -1,13 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using LaserCatEyes.HttpClientListener;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.Playground.TestHelpers;
-using LaserCatEyes.HttpClientListener;
 
-var builder = new ConfigurationBuilder()
-    .AddJsonFile("ApiSettings.json")
-    .AddJsonFile("ApiSettings.Development.json")
+var builder = new ConfigurationBuilder().AddJsonFile("ApiSettings.json")
     .AddUserSecrets<Program>();
 
 IConfiguration configuration = builder.Build();
@@ -20,7 +18,7 @@ serviceCollection.AddScoped(_ => configuration);
 serviceCollection.AddLaserCatEyesHttpClientListener();
 
 //if you want to use beta services you have to set UseBeta to true. Otherwise, it will use the stable version of OpenAI apis.
-serviceCollection.AddOpenAIService(r=>r.UseBeta = true);
+serviceCollection.AddOpenAIService(r => r.UseBeta = true);
 
 //serviceCollection.AddOpenAIService();
 //// DeploymentId and ResourceName are only for Azure OpenAI. If you want to use Azure OpenAI services you have to set Provider type To Azure.
@@ -42,8 +40,6 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
 
-await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
-return;
 await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 //await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
@@ -68,6 +64,7 @@ await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 // Tools
 //await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
 //await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
+//await ChatCompletionTestHelper.RunSimpleCompletionStreamWithUsageTest(sdk);
 //await BatchTestHelper.RunBatchOperationsTest(sdk);
 
 // Whisper

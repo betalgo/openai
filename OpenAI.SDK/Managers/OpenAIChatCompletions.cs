@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
 using OpenAI.Extensions;
 using OpenAI.Interfaces;
@@ -52,12 +51,12 @@ public partial class OpenAIService : IChatCompletionService
             cancellationToken.ThrowIfCancellationRequested();
 
             var line = await reader.ReadLineAsync();
-
             // Break the loop if we have reached the end of the stream
             if (line == null)
             {
                 break;
             }
+
             // Skip empty lines
             if (string.IsNullOrEmpty(line))
             {
@@ -137,9 +136,6 @@ public partial class OpenAIService : IChatCompletionService
             var isStreamingFnCall = IsStreamingFunctionCall();
             var isStreamingFnCallEnd = firstChoice.FinishReason != null;
 
-            // For some reason OpenAI does not set the role here.
-            firstChoice.Message.Role ??= "assistant";
-
             var justStarted = false;
 
             // Check if the streaming block has a tool_call segment of "function" type, according to the value returned by IsStreamingFunctionCall() above.
@@ -167,13 +163,14 @@ public partial class OpenAIService : IChatCompletionService
                 if (tcMetadata.index > -1)
                 {
                     //Handles just ToolCall type == "function"
-                    using var argumentsList = ExtractArgsSoFar().GetEnumerator();
+                    using var argumentsList = ExtractArgsSoFar()
+                        .GetEnumerator();
                     var existItems = argumentsList.MoveNext();
 
                     if (existItems)
                     {
                         //toolcall item must exists as added in previous steps, otherwise First() will raise an InvalidOperationException
-                        var tc = _deltaFnCallList!.Where(t => t.Index == tcMetadata.index).First();
+                        var tc = _deltaFnCallList!.First(t => t.Index == tcMetadata.index);
                         tc.FunctionCall!.Arguments += argumentsList.Current;
                         argumentsList.MoveNext();
                     }
@@ -184,6 +181,9 @@ public partial class OpenAIService : IChatCompletionService
             if (IsFnAssemblyActive && isStreamingFnCallEnd)
             {
                 firstChoice.Message ??= ChatMessage.FromAssistant(""); // just in case? not sure it's needed
+                // TODO When more than one function call is in a single index, OpenAI only returns the role delta at the beginning, which causes an issue.
+                // TODO The current solution addresses this problem, but we need to fix it by using the role of the index.
+                firstChoice.Message.Role ??= "assistant";
                 firstChoice.Message.ToolCalls = new List<ToolCall>(_deltaFnCallList);
                 _deltaFnCallList.Clear();
             }
@@ -192,17 +192,18 @@ public partial class OpenAIService : IChatCompletionService
             bool IsStreamingFunctionCall()
             {
                 return firstChoice.FinishReason == null && // actively streaming, is a tool call main item, and have a function call
-                       firstChoice.Message?.ToolCalls?.Count > 0 &&
-                       (firstChoice.Message?.ToolCalls.Any(t => t.FunctionCall != null 
-                       && !string.IsNullOrEmpty(t.Id)
-                       && t.Type == StaticValues.CompletionStatics.ToolType.Function) ?? false);
+                       firstChoice.Message?.ToolCalls?.Count > 0 && (firstChoice.Message?.ToolCalls.Any(t => t.FunctionCall != null && !string.IsNullOrEmpty(t.Id) && t.Type == StaticValues.CompletionStatics.ToolType.Function) ?? false);
             }
 
             (int index, string? id, string? type) GetToolCallMetadata()
             {
-                var tc = block.Choices?.FirstOrDefault()?.Message?.ToolCalls?
-                        .Where(t => t.FunctionCall != null)
-                        .Select(t => t).FirstOrDefault();
+                var tc = block.Choices
+                    ?.FirstOrDefault()
+                    ?.Message
+                    ?.ToolCalls
+                    ?.Where(t => t.FunctionCall != null)
+                    .Select(t => t)
+                    .FirstOrDefault();
 
                 return tc switch
                 {
@@ -213,12 +214,12 @@ public partial class OpenAIService : IChatCompletionService
 
             IEnumerable<string> ExtractArgsSoFar()
             {
-                var toolCalls = block.Choices?.FirstOrDefault()?.Message?.ToolCalls;
+                var toolCalls = block.Choices?.FirstOrDefault()
+                    ?.Message?.ToolCalls;
 
                 if (toolCalls != null)
                 {
-                    var functionCallList = toolCalls
-                        .Where(t => t.FunctionCall != null)
+                    var functionCallList = toolCalls.Where(t => t.FunctionCall != null)
                         .Select(t => t.FunctionCall);
 
                     foreach (var functionCall in functionCallList)
