@@ -23,6 +23,15 @@ public record AudioCreateTranscriptionRequest : IOpenAiModels.IModel, IOpenAiMod
     public string? Language { get; set; }
 
     /// <summary>
+    ///     The timestamp granularities to populate for this transcription. response_format must be set verbose_json to use
+    ///     timestamp granularities. Either or both of these options are supported:
+    ///     <a cref="StaticValues.AudioStatics.TimestampGranularity.Word">word</a>, or
+    ///     <a cref="StaticValues.AudioStatics.TimestampGranularity.Segment">segment</a>. Note: There is no
+    ///     additional latency for segment timestamps, but generating word timestamps incurs additional latency.
+    /// </summary>
+    public List<string>? TimestampGranularities { get; set; }
+
+    /// <summary>
     ///     The audio file to transcribe, in one of these formats: mp3, mp4, mpeg, mpga, m4a, wav, or webm.
     /// </summary>
     public byte[]? File { get; set; }

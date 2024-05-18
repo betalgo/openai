@@ -85,6 +85,13 @@ public class StaticValues
             public static string VerboseJson => "verbose_json";
             public static string Vtt => "vtt";
         }
+        
+        public static class TimestampGranularity
+        {
+            public static string Word => "word";
+            public static string Segment => "segment";
+        }
+        
         public static class CreateSpeechResponseFormat
         {
             public static string Mp3 => "mp3";
