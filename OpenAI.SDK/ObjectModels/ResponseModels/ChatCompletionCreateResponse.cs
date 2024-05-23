@@ -42,7 +42,7 @@ public record ChatCompletionCreateResponse : BaseResponse, IOpenAIModels.IId, IO
     ///     The Unix timestamp (in seconds) of when the chat completion was created.
     /// </summary>
     [JsonPropertyName("created")]
-    public int CreatedAt { get; set; }
+    public long CreatedAt { get; set; }
 
     /// <summary>
     ///     A unique identifier for the chat completion.
