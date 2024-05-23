@@ -143,7 +143,7 @@ public record RunResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.IMode
     ///     The Unix timestamp (in seconds) for when the run was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAt { get; set; }
 
     /// <summary>
     ///     The list of File IDs the assistant used for this run.

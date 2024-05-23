@@ -14,6 +14,5 @@ public record EditCreateResponse : BaseResponse, IOpenAIModels.ICreatedAt
     [JsonPropertyName("usage")]
     public UsageResponse Usage { get; set; }
 
-    [JsonPropertyName("created")]
-    public int CreatedAt { get; set; }
+    [JsonPropertyName("created")] public long CreatedAt { get; set; }
 }

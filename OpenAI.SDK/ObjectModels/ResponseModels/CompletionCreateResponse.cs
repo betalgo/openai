@@ -14,8 +14,7 @@ public record CompletionCreateResponse : BaseResponse, IOpenAIModels.IId, IOpenA
     [JsonPropertyName("usage")]
     public UsageResponse Usage { get; set; }
 
-    [JsonPropertyName("created")]
-    public int CreatedAt { get; set; }
+    [JsonPropertyName("created")] public long CreatedAt { get; set; }
 
     [JsonPropertyName("id")]
     public string Id { get; set; }
