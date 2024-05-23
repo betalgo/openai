@@ -15,7 +15,7 @@ public record AssistantFileResponse : BaseResponse, IOpenAIModels.IId, IOpenAIMo
     ///     The Unix timestamp (in seconds) for when the assistant file was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAt { get; set; }
 
     /// <summary>
     ///     The identifier, which can be referenced in API endpoints.
