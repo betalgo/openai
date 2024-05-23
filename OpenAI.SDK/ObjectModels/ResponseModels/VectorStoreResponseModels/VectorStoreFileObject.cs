@@ -23,7 +23,7 @@ public record VectorStoreFileObject : BaseResponse
     /// The Unix timestamp (in seconds) for when the vector store file was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAt { get; set; }
 
     /// <summary>
     /// The ID of the [vector store](/docs/api-reference/vector-stores/object) that the [File](/docs/api-reference/files) is attached to.

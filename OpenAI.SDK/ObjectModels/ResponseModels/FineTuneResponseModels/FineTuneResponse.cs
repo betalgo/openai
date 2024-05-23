@@ -23,7 +23,7 @@ public record FineTuneResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.
 
     [JsonPropertyName("updated_at")] public int? UpdatedAt { get; set; }
 
-    [JsonPropertyName("created_at")] public int CreatedAt { get; set; }
+    [JsonPropertyName("created_at")] public long CreatedAt { get; set; }
     [JsonPropertyName("id")] public string Id { get; set; }
 
     [JsonPropertyName("model")] public string Model { get; set; }
