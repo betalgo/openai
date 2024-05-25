@@ -42,7 +42,7 @@ public record AudioCreateTranscriptionRequest : IOpenAiModels.IModel, IOpenAiMod
     public Stream? FileStream { get; set; }
 
     /// <summary>
-    ///     FileName
+    ///     FileName.  Note the API keys off the extension of the FileName to know the format.
     /// </summary>
     public string FileName { get; set; }
 
