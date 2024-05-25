@@ -4,22 +4,30 @@ public static class UploadFilePurposes
 {
     public enum UploadFilePurpose
     {
-        FineTune,
-        FineTuneResults,
         Assistants,
+        Vision,
+        Batch,
+        FineTune,
+        [Obsolete("Not supported by the API")]
+        FineTuneResults
     }
 
-    public const string FineTune = "fine-tune";
-    public const string FineTuneResults = "fine-tune-results";
+    // REF: https://platform.openai.com/docs/api-reference/files/create
     public const string Assistants = "assistants";
+    public const string Vision = "vision";
+    public const string Batch = "batch";
+    public const string FineTune = "fine-tune";
+    [Obsolete("Not supported by the API")]
+    public const string FineTuneResults = "fine-tune-results";
 
     public static string EnumToString(this UploadFilePurpose uploadFilePurpose)
     {
         return uploadFilePurpose switch
         {
-            UploadFilePurpose.FineTune => FineTune,
-            UploadFilePurpose.FineTuneResults => FineTuneResults,
             UploadFilePurpose.Assistants => Assistants,
+            UploadFilePurpose.Vision => Vision,
+            UploadFilePurpose.Batch => Batch,
+            UploadFilePurpose.FineTune => FineTune,
             _ => throw new ArgumentOutOfRangeException(nameof(uploadFilePurpose), uploadFilePurpose, null)
         };
     }
@@ -28,9 +36,10 @@ public static class UploadFilePurposes
     {
         return filePurpose switch
         {
-            FineTune => UploadFilePurpose.FineTune,
-            FineTuneResults => UploadFilePurpose.FineTuneResults,
             Assistants => UploadFilePurpose.Assistants,
+            Vision => UploadFilePurpose.Vision,
+            Batch => UploadFilePurpose.Batch,
+            FineTune => UploadFilePurpose.FineTune,
             _ => throw new ArgumentOutOfRangeException(nameof(filePurpose), filePurpose, null)
         };
     }
