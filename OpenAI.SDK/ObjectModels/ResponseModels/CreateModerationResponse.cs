@@ -9,7 +9,7 @@ public record CreateModerationResponse : BaseResponse, IOpenAiModels.IModel, IOp
 
     [JsonPropertyName("id")] public string Id { get; set; }
 
-    [JsonPropertyName("model")] public string Model { get; set; }
+    [JsonPropertyName("model")] public string? Model { get; set; }
 }
 
 public record Result
