@@ -2,6 +2,8 @@ using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using static OpenAI.ObjectModels.StaticValues;
 
 namespace OpenAI.Playground.TestHelpers;
@@ -127,6 +129,9 @@ internal static class VisionTestHelper
 
         try
         {
+
+            ConsoleExtensions.WriteLine("Vision Test With EncodedImage:", ConsoleColor.DarkCyan);
+
             ConsoleExtensions.WriteLine(
                 "Vision with base64 encoded image Test:",
                 ConsoleColor.DarkCyan
@@ -137,10 +142,7 @@ internal static class VisionTestHelper
                 $"SampleData/{originalFileName}"
             );
 
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(
-                new ChatCompletionCreateRequest
-                {
-                    Messages = new List<ChatMessage>
+            var messages = new List<ChatMessage>
                     {
                         ChatMessage.FromSystem("You are an image analyzer assistant."),
                         ChatMessage.FromUser(
@@ -154,7 +156,22 @@ internal static class VisionTestHelper
                                 )
                             }
                         ),
-                    },
+                    };
+
+            /* DEBUG
+            var options = new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            };
+
+            var serialized = JsonSerializer.Serialize(messages, options);
+            ConsoleExtensions.WriteLine($"MessageRequest: {serialized}", ConsoleColor.White);
+            */
+
+            var completionResult = await sdk.ChatCompletion.CreateCompletion(
+                new ChatCompletionCreateRequest
+                {
+                    Messages = messages,
                     MaxTokens = 300,
                     Model = Models.Gpt_4_vision_preview,
                     N = 1

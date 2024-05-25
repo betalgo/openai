@@ -54,6 +54,7 @@ await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
+//await VisionTestHelper.RunSimpleVisionTestUsingBase64EncodedImage(sdk);
 //await VisionTestHelper.RunSimpleVisionStreamTest(sdk);
 //await VisionTestHelper.RunSimpleVisionTestUsingBase64EncodedImage(sdk);
 
