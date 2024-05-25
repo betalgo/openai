@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.Playground.TestHelpers;
+using OpenAI.Playground.TestHelpers.AssistantHelpers;
 
 var builder = new ConfigurationBuilder().AddJsonFile("ApiSettings.json")
     .AddUserSecrets<Program>();
@@ -48,7 +49,8 @@ await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 //await AssistantTestHelper.ThreadsTestHelper.RunTests(sdk);
 //await AssistantTestHelper.MessagesTestHelper.RunTests(sdk);
 //await AssistantTestHelper.RunTestHelper.RunTests(sdk);
-//await AssistantTestHelper.VectorTestHelper.RunTests(sdk);
+//await AssistantTestHelper.VectorTestHelper.RunTests(sd
+//await AssistantTestHelper3.RunTests(sdk);
 
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
