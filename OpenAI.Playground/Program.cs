@@ -40,8 +40,8 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
 
-//await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
-//await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
+await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
+await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
 //Assistants - BETA
 //await AssistantTestHelper.BasicsTestHelper.RunTests(sdk);
@@ -72,7 +72,7 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //await ImageTestHelper.RunSimpleCreateImageTest(sdk);
 //await ImageTestHelper.RunSimpleCreateImageEditTest(sdk);
 //await ImageTestHelper.RunSimpleCreateImageVariationTest(sdk);
-await ModerationTestHelper.CreateModerationTest(sdk);
+//await ModerationTestHelper.CreateModerationTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest2(sdk);
 //await CompletionTestHelper.RunSimpleCompletionTest3(sdk);
