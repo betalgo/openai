@@ -16,7 +16,7 @@ internal static class VisionTestHelper
         {
             ConsoleExtensions.WriteLine("Vision Test:", ConsoleColor.DarkCyan);
 
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+            var completionResult = await sdk.ChatCompletion.CreateCompletion(new()
             {
                 Messages = new List<ChatMessage>
                 {
@@ -26,7 +26,7 @@ internal static class VisionTestHelper
                         MessageContent.TextContent("What is on the picture in details?"),
                         MessageContent.ImageUrlContent("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
                             ImageStatics.ImageDetailTypes.High)
-                    }),
+                    })
                 },
                 MaxTokens = 300,
                 Model = Models.Gpt_4_vision_preview,
@@ -35,14 +35,13 @@ internal static class VisionTestHelper
 
             if (completionResult.Successful)
             {
-                Console.WriteLine(completionResult.Choices.First()
-                    .Message.Content);
+                Console.WriteLine(completionResult.Choices.First().Message.Content);
             }
             else
             {
                 if (completionResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
@@ -62,7 +61,7 @@ internal static class VisionTestHelper
         {
             ConsoleExtensions.WriteLine("Vision Stream Test:", ConsoleColor.DarkCyan);
 
-            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest
+            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(new()
             {
                 Messages = new List<ChatMessage>
                 {
@@ -72,7 +71,7 @@ internal static class VisionTestHelper
                         MessageContent.TextContent("What’s in this image?"),
                         MessageContent.ImageUrlContent("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
                             ImageStatics.ImageDetailTypes.Low)
-                    }),
+                    })
                 },
                 MaxTokens = 300,
                 Model = Models.Gpt_4_vision_preview,
@@ -83,14 +82,13 @@ internal static class VisionTestHelper
             {
                 if (completion.Successful)
                 {
-                    Console.Write(completion.Choices.First()
-                        .Message.Content);
+                    Console.Write(completion.Choices.First().Message.Content);
                 }
                 else
                 {
                     if (completion.Error == null)
                     {
-                        throw new Exception("Unknown Error");
+                        throw new("Unknown Error");
                     }
 
                     Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
@@ -118,7 +116,7 @@ internal static class VisionTestHelper
             const string originalFileName = "image_edit_original.png";
             var originalFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{originalFileName}");
 
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+            var completionResult = await sdk.ChatCompletion.CreateCompletion(new()
             {
                 Messages = new List<ChatMessage>
                 {
@@ -127,7 +125,7 @@ internal static class VisionTestHelper
                     {
                         MessageContent.TextContent("What is on the picture in details?"),
                         MessageContent.ImageBinaryContent(originalFile, ImageStatics.ImageFileTypes.Png, ImageStatics.ImageDetailTypes.High)
-                    }),
+                    })
                 },
                 MaxTokens = 300,
                 Model = Models.Gpt_4_vision_preview,
@@ -136,14 +134,13 @@ internal static class VisionTestHelper
 
             if (completionResult.Successful)
             {
-                Console.WriteLine(completionResult.Choices.First()
-                    .Message.Content);
+                Console.WriteLine(completionResult.Choices.First().Message.Content);
             }
             else
             {
                 if (completionResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
