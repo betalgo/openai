@@ -3,7 +3,6 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
-// REMOVED: drp052424 - IOpenAiModels.IFileIds property is no longer in the API reference, and will not work if you use it
 public class AssistantCreateRequest : IOpenAiModels.IModel, IOpenAiModels.IMetaData, IOpenAiModels.ITemperature
 {
     /// <summary>
@@ -67,18 +66,11 @@ public class AssistantCreateRequest : IOpenAiModels.IModel, IOpenAiModels.IMetaD
     public ResponseFormatOneOfType? ResponseFormat { get; set; }
 
     /// <summary>
-    ///     A list of file IDs attached to this assistant.
-    /// </summary>
-    [JsonPropertyName("file_ids")]
-    [Obsolete("This field is no longer supported by the API.")]
-    public List<string>? FileIds { get; set; }
-
-    /// <summary>
     ///     Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information
     ///     about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of
     ///     512 characters long.
     /// </summary>
-    [JsonPropertyName("metadata")]
+    [JsonPropertyName("metadata")]  
     public Dictionary<string, string>? Metadata { get; set; }
 
     /// <summary>

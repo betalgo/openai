@@ -49,13 +49,13 @@ public class MessageCreateRequest : IOpenAiModels.IMetaData
 public class Attachment
 {
     /// <summary>
-    /// The ID of the file to attach to. See https://platform.openai.com/docs/assistants/tools/file-search/supported-files for a list of supported file extensions.
+    /// The ID of the file to attach. <a href="https://platform.openai.com/docs/assistants/tools/file-search/supported-files">See list of supported file extensions </a>.
     /// </summary>
     [JsonPropertyName("file_id")]
     public string FileId { get; set; }
 
     /// <summary>
-    /// The tools to add this file to.  This is required and may contain CodeInterpreter and/or FileSearch
+    /// The tools to add this file to.
     /// </summary>
     [JsonPropertyName("tools")]
     public List<ToolDefinition> Tools { get; set; }

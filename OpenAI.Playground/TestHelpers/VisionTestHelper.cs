@@ -2,8 +2,6 @@ using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 using static OpenAI.ObjectModels.StaticValues;
 
 namespace OpenAI.Playground.TestHelpers;
@@ -12,38 +10,33 @@ internal static class VisionTestHelper
 {
     public static async Task RunSimpleVisionTest(IOpenAIService sdk)
     {
-        ConsoleExtensions.WriteLine("VIsion Testing is starting:", ConsoleColor.Cyan);
+        ConsoleExtensions.WriteLine("Vision Testing is starting:", ConsoleColor.Cyan);
 
         try
         {
             ConsoleExtensions.WriteLine("Vision Test:", ConsoleColor.DarkCyan);
 
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(
-                new ChatCompletionCreateRequest
+            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+            {
+                Messages = new List<ChatMessage>
                 {
-                    Messages = new List<ChatMessage>
+                    ChatMessage.FromSystem("You are an image analyzer assistant."),
+                    ChatMessage.FromUser(new List<MessageContent>
                     {
-                        ChatMessage.FromSystem("You are an image analyzer assistant."),
-                        ChatMessage.FromUser(
-                            new List<MessageContent>
-                            {
-                                MessageContent.TextContent("What is on the picture in details?"),
-                                MessageContent.ImageUrlContent(
-                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-                                    ImageStatics.ImageDetailTypes.High
-                                )
-                            }
-                        ),
-                    },
-                    MaxTokens = 300,
-                    Model = Models.Gpt_4_vision_preview,
-                    N = 1
-                }
-            );
+                        MessageContent.TextContent("What is on the picture in details?"),
+                        MessageContent.ImageUrlContent("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+                            ImageStatics.ImageDetailTypes.High)
+                    }),
+                },
+                MaxTokens = 300,
+                Model = Models.Gpt_4_vision_preview,
+                N = 1
+            });
 
             if (completionResult.Successful)
             {
-                Console.WriteLine(completionResult.Choices.First().Message.Content);
+                Console.WriteLine(completionResult.Choices.First()
+                    .Message.Content);
             }
             else
             {
@@ -52,9 +45,7 @@ internal static class VisionTestHelper
                     throw new Exception("Unknown Error");
                 }
 
-                Console.WriteLine(
-                    $"{completionResult.Error.Code}: {completionResult.Error.Message}"
-                );
+                Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
             }
         }
         catch (Exception e)
@@ -71,34 +62,29 @@ internal static class VisionTestHelper
         {
             ConsoleExtensions.WriteLine("Vision Stream Test:", ConsoleColor.DarkCyan);
 
-            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(
-                new ChatCompletionCreateRequest
+            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest
+            {
+                Messages = new List<ChatMessage>
                 {
-                    Messages = new List<ChatMessage>
+                    ChatMessage.FromSystem("You are an image analyzer assistant."),
+                    ChatMessage.FromUser(new List<MessageContent>
                     {
-                        ChatMessage.FromSystem("You are an image analyzer assistant."),
-                        ChatMessage.FromUser(
-                            new List<MessageContent>
-                            {
-                                MessageContent.TextContent("What’s in this image?"),
-                                MessageContent.ImageUrlContent(
-                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-                                    ImageStatics.ImageDetailTypes.Low
-                                )
-                            }
-                        ),
-                    },
-                    MaxTokens = 300,
-                    Model = Models.Gpt_4_vision_preview,
-                    N = 1
-                }
-            );
+                        MessageContent.TextContent("What’s in this image?"),
+                        MessageContent.ImageUrlContent("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+                            ImageStatics.ImageDetailTypes.Low)
+                    }),
+                },
+                MaxTokens = 300,
+                Model = Models.Gpt_4_vision_preview,
+                N = 1
+            });
 
             await foreach (var completion in completionResult)
             {
                 if (completion.Successful)
                 {
-                    Console.Write(completion.Choices.First().Message.Content);
+                    Console.Write(completion.Choices.First()
+                        .Message.Content);
                 }
                 else
                 {
@@ -107,9 +93,7 @@ internal static class VisionTestHelper
                         throw new Exception("Unknown Error");
                     }
 
-                    Console.WriteLine(
-                        $"{completion.Error.Code}: {completion.Error.Message}"
-                    );
+                    Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
                 }
             }
 
@@ -129,58 +113,31 @@ internal static class VisionTestHelper
 
         try
         {
-
-            ConsoleExtensions.WriteLine("Vision Test With EncodedImage:", ConsoleColor.DarkCyan);
-
-            ConsoleExtensions.WriteLine(
-                "Vision with base64 encoded image Test:",
-                ConsoleColor.DarkCyan
-            );
+            ConsoleExtensions.WriteLine("Vision with base64 encoded image Test:", ConsoleColor.DarkCyan);
 
             const string originalFileName = "image_edit_original.png";
-            var originalFile = await FileExtensions.ReadAllBytesAsync(
-                $"SampleData/{originalFileName}"
-            );
+            var originalFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{originalFileName}");
 
-            var messages = new List<ChatMessage>
-                    {
-                        ChatMessage.FromSystem("You are an image analyzer assistant."),
-                        ChatMessage.FromUser(
-                            new List<MessageContent>
-                            {
-                                MessageContent.TextContent("What is on the picture in details?"),
-                                MessageContent.ImageBinaryContent(
-                                    originalFile,
-                                    ImageStatics.ImageFileTypes.Png,
-                                    ImageStatics.ImageDetailTypes.High
-                                )
-                            }
-                        ),
-                    };
-
-            /* DEBUG
-            var options = new JsonSerializerOptions
+            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
             {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-            };
-
-            var serialized = JsonSerializer.Serialize(messages, options);
-            ConsoleExtensions.WriteLine($"MessageRequest: {serialized}", ConsoleColor.White);
-            */
-
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(
-                new ChatCompletionCreateRequest
+                Messages = new List<ChatMessage>
                 {
-                    Messages = messages,
-                    MaxTokens = 300,
-                    Model = Models.Gpt_4_vision_preview,
-                    N = 1
-                }
-            );
+                    ChatMessage.FromSystem("You are an image analyzer assistant."),
+                    ChatMessage.FromUser(new List<MessageContent>
+                    {
+                        MessageContent.TextContent("What is on the picture in details?"),
+                        MessageContent.ImageBinaryContent(originalFile, ImageStatics.ImageFileTypes.Png, ImageStatics.ImageDetailTypes.High)
+                    }),
+                },
+                MaxTokens = 300,
+                Model = Models.Gpt_4_vision_preview,
+                N = 1
+            });
 
             if (completionResult.Successful)
             {
-                Console.WriteLine(completionResult.Choices.First().Message.Content);
+                Console.WriteLine(completionResult.Choices.First()
+                    .Message.Content);
             }
             else
             {
@@ -189,9 +146,7 @@ internal static class VisionTestHelper
                     throw new Exception("Unknown Error");
                 }
 
-                Console.WriteLine(
-                    $"{completionResult.Error.Code}: {completionResult.Error.Message}"
-                );
+                Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
             }
         }
         catch (Exception e)
