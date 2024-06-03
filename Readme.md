@@ -117,19 +117,16 @@ Please be aware that future releases may frequently include breaking changes. Co
 
 
 ## Changelog
-### 8.2.2
-- Assistant (Beta) feature is now available in the main package. Be aware there might still be bugs due to the beta status of the feature and the SDK itself. Please report any issues you encounter.
-- Use `"UseBeta": true` in your config file or `serviceCollection.AddOpenAIService(r => r.UseBeta = true);` or `new OpenAiOptions { UseBeta = true }` in your service registration to enable Assistant features.
-- Expect more frequent breaking changes around the assistant API due to its beta nature.
-- All Assistant endpoints are implemented except for streaming functionality, which will be added soon.
-- The Playground has samples for every endpoint usage, but lacks a complete implementation for the Assistant APIs. Refer to [Assistants overview - OpenAI API](https://platform.openai.com/docs/assistants/overview) for more details.
-- Special thanks to all contributors for making this version possible!
+### 8.3.0
+- Updated Assistant tests, added sample for CreateMessageWithImage
+- Azure Assistant endpoints are updated since documentation reference still earlier version (Assistant v1). I am not sure if Azure supports all Assistant v2 features. So, feedback is much appreciated.
+- Fixed error handling and response parsing for audio transcription result in text mode.
+- Fixed Culture issue for number conversions (Audio Temperature and Image N)
+- Removed file_ids from Create Assistant
+- Added Support for Chat LogProbs
+- Fixed File_Id Typo in file VisionImageUrl
+- Updated File purpose enum list
 
-#### Other Changes:
-- Fixed a bug with multiple tools calling in stream mode.
-- Added error handling for streaming.
-- Added usage information for streaming (use `StreamOptions = new(){IncludeUsage = true,}` to get usage information).
-- Added **timestamp_granularities[]** for Create transcription to provide the timestamp of every word.
 
 ### [More Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
 ---
