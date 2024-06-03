@@ -1,4 +1,5 @@
-﻿using OpenAI.Extensions;
+﻿using System.Globalization;
+using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
@@ -42,7 +43,7 @@ public partial class OpenAIService : IImageService
 
         if (imageEditCreateRequest.N != null)
         {
-            multipartContent.Add(new StringContent(imageEditCreateRequest.N.ToString()!), "n");
+            multipartContent.Add(new StringContent(imageEditCreateRequest.N.Value.ToString(CultureInfo.InvariantCulture)), "n");
         }
 
         if (imageEditCreateRequest.Model != null)
@@ -86,7 +87,7 @@ public partial class OpenAIService : IImageService
 
         if (imageEditCreateRequest.N != null)
         {
-            multipartContent.Add(new StringContent(imageEditCreateRequest.N.ToString()!), "n");
+            multipartContent.Add(new StringContent(imageEditCreateRequest.N.Value.ToString(CultureInfo.InvariantCulture)), "n");
         }
 
         if (imageEditCreateRequest.Model != null)

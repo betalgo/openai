@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Text.Json;
+﻿using System.Globalization;
 using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
@@ -82,7 +81,7 @@ public partial class OpenAIService : IAudioService
 
         if (audioCreateTranscriptionRequest.Temperature != null)
         {
-            multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Temperature.ToString()!), "temperature");
+            multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Temperature.Value.ToString(CultureInfo.InvariantCulture)), "temperature");
         }
 
 
