@@ -270,6 +270,7 @@ public static class Models
     public static string TextModeration007 => ModelNameBuilder(BaseModel.None, Subject.TextModeration, "007");
     public static string TextModerationLatest => ModelNameBuilder(BaseModel.None, Subject.TextModeration, "latest");
     public static string TextModerationStable => ModelNameBuilder(BaseModel.None, Subject.TextModeration, "stable");
+
     /// <summary>
     ///     Most capable GPT-3.5 model and optimized for chat at 1/10th the cost of text-davinci-003. Will be updated with our
     ///     latest model iteration.
