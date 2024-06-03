@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.Utilities", "OpenAI.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.UtilitiesPlayground", "OpenAI.UtilitiesPlayground\OpenAI.UtilitiesPlayground.csproj", "{A2CEF336-DE84-41A2-880E-84B2871FF929}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAI.Utilities.Tests", "OpenAI.Utilities.Tests\OpenAI.Utilities.Tests.csproj", "{8BC7E997-8591-4ED4-BA4A-486B21419A3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI.Utilities.Tests", "OpenAI.Utilities.Tests\OpenAI.Utilities.Tests.csproj", "{8BC7E997-8591-4ED4-BA4A-486B21419A3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

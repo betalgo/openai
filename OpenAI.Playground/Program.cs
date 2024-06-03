@@ -49,11 +49,12 @@ await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 //await AssistantTestHelper.MessagesTestHelper.RunTests(sdk);
 //await AssistantTestHelper.RunTestHelper.RunTests(sdk);
 //await AssistantTestHelper.VectorTestHelper.RunTests(sdk);
+//await AssistantTestHelper3.RunTests(sdk);
 
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
-//await VisionTestHelper.RunSimpleVisionStreamTest(sdk);
 //await VisionTestHelper.RunSimpleVisionTestUsingBase64EncodedImage(sdk);
+//await VisionTestHelper.RunSimpleVisionStreamTest(sdk);
 
 // Tools
 //await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
