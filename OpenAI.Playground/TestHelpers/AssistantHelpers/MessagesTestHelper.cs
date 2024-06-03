@@ -1,7 +1,9 @@
 ﻿using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
+using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.SharedModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
+using static OpenAI.ObjectModels.StaticValues;
 
 namespace OpenAI.Playground.TestHelpers.AssistantHelpers;
 
@@ -11,11 +13,13 @@ internal static partial class AssistantTestHelper
     {
         private static string? CreatedMessageId { get; set; }
         private static string? CreatedThreadId { get; set; }
+        private static string? CreatedFileId { get; set; }
 
         public static async Task RunTests(IOpenAIService openAI)
         {
             ConsoleExtensions.WriteLine("Message Basics Testing is starting:", ConsoleColor.Blue);
             await CreateMessage(openAI);
+            await CreateMessageWithImage(openAI);
             await ListMessages(openAI);
             await RetrieveMessage(openAI);
             await ModifyMessage(openAI);
@@ -39,7 +43,62 @@ internal static partial class AssistantTestHelper
             }
 
             CreatedThreadId = thread.Id;
-            var result = await openAI.Beta.Messages.CreateMessage(CreatedThreadId, new(StaticValues.AssistantsStatics.MessageStatics.Roles.User, new("How does AI work? Explain it in simple terms.")));
+            var result = await openAI.Beta.Messages.CreateMessage(CreatedThreadId, new(AssistantsStatics.MessageStatics.Roles.User, new("How does AI work? Explain it in simple terms.")));
+            if (result.Successful)
+            {
+                CreatedMessageId = result.Id;
+                ConsoleExtensions.WriteLine($"Message Created Successfully with ID: {result.Id}", ConsoleColor.Green);
+            }
+            else
+            {
+                ConsoleExtensions.WriteError(result.Error);
+            }
+        }
+
+        public static async Task CreateMessageWithImage(IOpenAIService openAI)
+        {
+            ConsoleExtensions.WriteLine("Create MessageWithImage Testing is starting:", ConsoleColor.Cyan);
+
+            var prompt = "Tell me about this image";
+            var filename = "image_edit_original.png";
+            var filePath = $"SampleData/{filename}";
+
+            var sampleBytes = await FileExtensions.ReadAllBytesAsync(filePath);
+
+            // Upload File
+            ConsoleExtensions.WriteLine("Upload File Test", ConsoleColor.DarkCyan);
+
+            ConsoleExtensions.WriteLine($"Uploading file: {filename}", ConsoleColor.DarkCyan);
+            var uploadFilesResponse = await openAI.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.Vision, sampleBytes, filename);
+            if (uploadFilesResponse.Successful)
+            {
+                ConsoleExtensions.WriteLine($"{filename} uploaded", ConsoleColor.DarkGreen);
+            }
+            else
+            {
+                ConsoleExtensions.WriteLine($"{filename} failed", ConsoleColor.DarkRed);
+                return;
+            }
+
+            var uploadFileId = uploadFilesResponse.Id;
+            ConsoleExtensions.WriteLine($"uploadFileId:{uploadFileId}, purpose:{uploadFilesResponse.Purpose}");
+
+
+            // Message.ImageFileContent
+            ConsoleExtensions.WriteLine("Message with ImageFileContent Test:", ConsoleColor.DarkCyan);
+
+            MessageContentOneOfType content = new([
+                MessageContent.TextContent(prompt),
+                MessageContent.ImageFileContent(uploadFileId, ImageStatics.ImageDetailTypes.High)
+            ]);
+
+            MessageCreateRequest request = new()
+            {
+                Role = AssistantsStatics.MessageStatics.Roles.User,
+                Content = content
+            };
+
+            var result = await openAI.Beta.Messages.CreateMessage(CreatedThreadId!, request);
             if (result.Successful)
             {
                 CreatedMessageId = result.Id;
@@ -202,6 +261,11 @@ internal static partial class AssistantTestHelper
             if (!string.IsNullOrWhiteSpace(CreatedThreadId))
             {
                 await sdk.Beta.Threads.ThreadDelete(CreatedThreadId);
+            }
+
+            if (!string.IsNullOrWhiteSpace(CreatedFileId))
+            {
+                await sdk.Files.DeleteFile(CreatedFileId);
             }
         }
     }

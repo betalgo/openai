@@ -10,6 +10,12 @@ namespace OpenAI.Playground.TestHelpers.AssistantHelpers;
 
 internal static class AssistantTestHelper3
 {
+    public static async Task RunTests(IOpenAIService sdk)
+    {
+        await RunAssistantApiTest(sdk);
+        await RunHowAssistantsWorkTest(sdk);
+    }
+
     /// <summary>
     ///     Test Assistant api
     /// </summary>
@@ -133,8 +139,11 @@ internal static class AssistantTestHelper3
         var sampleFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{fileName}");
         var sampleFileAsString = Encoding.UTF8.GetString(sampleFile);
 
+        // HACK: drp052424 - CSV format is not supported for Assistant, so we tell OpenAI it's a TXT. A better solution would be to update the test asset.
+        var fileNameForOpenAI = Path.ChangeExtension(fileName, ".txt");
+
         ConsoleExtensions.WriteLine($"Uploading file: {fileName}", ConsoleColor.DarkCyan);
-        var uploadFilesResponse = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.Assistants, sampleFile, fileName);
+        var uploadFilesResponse = await sdk.Files.FileUpload(UploadFilePurposes.UploadFilePurpose.Assistants, sampleFile, fileNameForOpenAI);
         if (uploadFilesResponse.Successful)
         {
             ConsoleExtensions.WriteLine($"{fileName} uploaded", ConsoleColor.DarkGreen);
@@ -145,8 +154,8 @@ internal static class AssistantTestHelper3
             return;
         }
 
-        var uplaodFileId = uploadFilesResponse.Id;
-        ConsoleExtensions.WriteLine($"uplaodFileId:{uplaodFileId}, purpose:{uploadFilesResponse.Purpose}");
+        var uploadFileId = uploadFilesResponse.Id;
+        ConsoleExtensions.WriteLine($"uploadFileId:{uploadFileId}, purpose:{uploadFilesResponse.Purpose}");
 
         #endregion
 
@@ -163,7 +172,6 @@ internal static class AssistantTestHelper3
             Name = "Qicha",
             Model = Models.Gpt_3_5_Turbo_1106,
             Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func) },
-            FileIds = new List<string>() { uplaodFileId }
         });
 
         if (assistantResult.Successful)
@@ -207,7 +215,12 @@ internal static class AssistantTestHelper3
         {
             Role = StaticValues.AssistantsStatics.MessageStatics.Roles.User,
             Content =new("Where is Zhejiang Jiacheng Supply Chain Co., LTD."),
-            Attachments = [new() { FileId = uplaodFileId }]
+            // Tools must be specified for Attachments
+            Attachments = [new() 
+            { 
+                FileId = uploadFileId,
+                Tools = [ ToolDefinition.DefineFileSearch() ]
+            }]
         });
 
         if (messageResult.Successful)
