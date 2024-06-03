@@ -1,6 +1,4 @@
-﻿using System.Text;
-using System.Text.Json;
-using OpenAI.Extensions;
+﻿using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
