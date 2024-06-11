@@ -1,6 +1,6 @@
 
 # .NET SDK for OpenAI
-
+⭐ We appreciate your star, it helps!
 ## Overview
 A .NET SDK for accessing OpenAI's API, provided as a community library. This SDK allows you to integrate OpenAI's capabilities into your .NET applications with ease.
 
