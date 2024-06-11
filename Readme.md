@@ -32,7 +32,8 @@ Install-Package Betalgo.OpenAI.Utilities
 Maintenance of this project is made possible by all the bug reporters, [contributors](https://github.com/betalgo/openai/graphs/contributors), and [sponsors](https://github.com/sponsors/kayhantolga).
 
 💖 Sponsors:  
-[@betalgo](https://github.com/betalgo), [Laser Cat Eyes](https://lasercateyes.com/), [@tylerje](https://github.com/tylerje), [@oferavnery](https://github.com/oferavnery), [@MayDay-wpf](https://github.com/MayDay-wpf), [@AnukarOP](https://github.com/AnukarOP), [@Removable](https://github.com/Removable), [@Scar11](https://github.com/Scar11)
+[@betalgo](https://github.com/betalgo), [Laser Cat Eyes](https://lasercateyes.com/)   
+[@tylerje](https://github.com/tylerje), [@oferavnery](https://github.com/oferavnery), [@MayDay-wpf](https://github.com/MayDay-wpf), [@AnukarOP](https://github.com/AnukarOP), [@Removable](https://github.com/Removable), [@Scar11](https://github.com/Scar11)
 
 ---
 
@@ -106,29 +107,22 @@ if (completionResult.Successful)
 
 ---
 ## Notes
-#### Library Renaming
-This library was previously known as `Betalgo.OpenAI.GPT3`, and now it has a new package ID: `Betalgo.OpenAI`.
-
 Due to time constraints, not all methods have been thoroughly tested or fully documented. If you encounter any issues, please report them or submit a pull request. Your contributions are always appreciated.
 
-I initially developed this SDK for my personal use and decided to share it with the community. As I have not maintained open-source projects before, any assistance or feedback would be greatly appreciated. Feel free to reach out with your suggestions.
-
-Please be aware that future releases may frequently include breaking changes. Consider this before deciding to use the library. I cannot accept responsibility for any damage caused by using the library. You are free to explore alternative libraries or the OpenAI Web-API if you feel this is not suitable for your purposes.
-
+Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
-### 8.3.0
-- Updated Assistant tests, added sample for CreateMessageWithImage
-- Azure Assistant endpoints are updated since documentation reference still earlier version (Assistant v1). I am not sure if Azure supports all Assistant v2 features. So, feedback is much appreciated.
-- Fixed error handling and response parsing for audio transcription result in text mode.
-- Fixed Culture issue for number conversions (Audio Temperature and Image N)
-- Removed file_ids from Create Assistant
-- Added Support for Chat LogProbs
-- Fixed File_Id Typo in file VisionImageUrl
-- Updated File purpose enum list
+### 8.4.0
+- Added Stream support for submitToolOutputsToRun, createRun, and createThreadAndRun
+- 🎉 With this update, we are now in sync with OpenAI's latest API changes. We shouldn't have any missing features as of now. 
 
 
 ### [More Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
 ---
 
 For any issues, contributions, or feedback, feel free to reach out or submit a pull request.
+
+Betalgo X: [Betalgo (@Betalgo) / X (twitter.com)](https://twitter.com/Betalgo)  
+Betalgo Linkedin:  [Betalgo | LinkedIn](https://www.linkedin.com/company/betalgo-up )  
+Tolga X: [Tolga Kayhan (@kayhantolga) / X (twitter.com)](https://twitter.com/kayhantolga)  
+Tolga Linkedin: [Tolga Kayhan | LinkedIn](https://www.linkedin.com/in/kayhantolga/)  
