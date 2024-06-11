@@ -11,6 +11,12 @@ public class SubmitToolOutputsToRunRequest
     [Required]
     [JsonPropertyName("tool_outputs")]
     public List<ToolOutput> ToolOutputs { get; set; }
+
+    /// <summary>
+    ///     If true, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a data: [DONE] message.
+    /// </summary>
+    [JsonPropertyName("stream")]
+    public bool? Stream { get; set; }
 }
 
 /// <summary>

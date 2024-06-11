@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.Playground.TestHelpers;
+using OpenAI.Playground.TestHelpers.AssistantHelpers;
 
 var builder = new ConfigurationBuilder().AddJsonFile("ApiSettings.json")
     .AddUserSecrets<Program>();
