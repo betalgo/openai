@@ -3,7 +3,7 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
-public class CreateThreadAndRunRequest : IOpenAiModels.IAssistantId
+public class CreateThreadAndRunRequest : IOpenAiModels.IAssistantId,IOpenAiModels.IModel
 {
     /// <summary>
     ///     The ID of the [assistant](/docs/api-reference/assistants) to use to execute this run.
