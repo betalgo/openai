@@ -2,6 +2,7 @@
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.SharedModels;
+using System.Runtime.CompilerServices;
 
 namespace OpenAI.Managers;
 
@@ -26,6 +27,37 @@ public partial class OpenAIService : IRunService
         request.ProcessModelId(modelId, _defaultModelId,true);
         return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunCreate(threadId), request, cancellationToken);
     }
+
+    /// <summary>
+    ///  
+    /// </summary>
+    /// <param name="threadId"></param>
+    /// <param name="request"></param>
+    /// <param name="modelId"></param>
+    /// <param name="justDataMode"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async IAsyncEnumerable<RunResponse> RunCreateAsStream(string threadId, RunCreateRequest request, string? modelId = null, bool justDataMode = true,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        // Mark the request as streaming
+        request.Stream = true;
+
+        // Send the request to the CompletionCreate endpoint
+        request.ProcessModelId(modelId, _defaultModelId,true);
+
+        using var response = _httpClient.PostAsStreamAsync(_endpointProvider.RunCreate(threadId), request, cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            yield return await response.HandleResponseContent<RunResponse>(cancellationToken);
+            yield break;
+        }
+
+        await foreach (var baseResponse in response.AsStream<RunResponse>(cancellationToken: cancellationToken)) yield return baseResponse;
+
+    }
+
     
     /// <inheritdoc />
     public async Task<RunResponse> RunModify(string threadId, string runId, RunModifyRequest request, CancellationToken cancellationToken = default)
@@ -111,10 +143,48 @@ public partial class OpenAIService : IRunService
         return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunSubmitToolOutputs(threadId, runId), request, cancellationToken);
     }
 
+    public async IAsyncEnumerable<RunResponse> RunSubmitToolOutputsAsStream(string threadId, string runId, SubmitToolOutputsToRunRequest request, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        // Mark the request as streaming
+        request.Stream = true;
+
+        // Send the request to the CompletionCreate endpoint
+        using var response = _httpClient.PostAsStreamAsync(_endpointProvider.RunSubmitToolOutputs(threadId, runId), request, cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            yield return await response.HandleResponseContent<RunResponse>(cancellationToken);
+            yield break;
+        }
+
+        await foreach (var baseResponse in response.AsStream<RunResponse>(cancellationToken: cancellationToken)) yield return baseResponse;
+    }
+
     /// <inheritdoc />
     public async Task<RunResponse> CreateThreadAndRun(CreateThreadAndRunRequest requestBody, CancellationToken cancellationToken = default)
     {
         return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.ThreadAndRunCreate(), requestBody, cancellationToken);
+    }
+    
+    public async IAsyncEnumerable<RunResponse> CreateThreadAndRunAsStream(CreateThreadAndRunRequest createThreadAndRunRequest, string? modelId = null, bool justDataMode = true,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        // Mark the request as streaming
+        createThreadAndRunRequest.Stream = true;
+
+        // Send the request to the CompletionCreate endpoint
+        createThreadAndRunRequest.ProcessModelId(modelId, _defaultModelId,allowNull:true);
+
+        using var response = _httpClient.PostAsStreamAsync(_endpointProvider.ThreadAndRunCreate(), createThreadAndRunRequest, cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            yield return await response.HandleResponseContent<RunResponse>(cancellationToken);
+            yield break;
+        }
+
+        await foreach (var baseResponse in response.AsStream<RunResponse>(cancellationToken: cancellationToken)) yield return baseResponse;
+
     }
 
     /// <inheritdoc/>

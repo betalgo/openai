@@ -22,6 +22,7 @@ internal static partial class AssistantTestHelper
             await RunCancelTests(openAI);
             await RunToolTests(openAI);
             await RunThreadAndRunTests(openAI);
+            await RunStreamTests(openAI);
             await Cleanup(openAI);
         }
 
@@ -56,11 +57,28 @@ internal static partial class AssistantTestHelper
             await Cleanup(openAI);
         }
 
+        public static async Task RunStreamTests(IOpenAIService openAI)
+        {
+            ConsoleExtensions.WriteLine("Run Stream Testing is starting:", ConsoleColor.Blue);
+            await CreateRunAsStreamTest(openAI);
+            await Cleanup(openAI);
+            await CreateThreadAndRunAsStream(openAI);
+            await Cleanup(openAI);
+            await CreateToolRunTest(openAI);
+            await ListRunsTest(openAI);
+            await RetrieveRunTest(openAI);
+            await ModifyRunTest(openAI);
+            await WaitUntil(openAI, "requires_action");
+            await SubmitToolOutputsAsStreamToRunTest(openAI);
+            await Cleanup(openAI);
+        }
+
         public static async Task RunThreadAndRunTests(IOpenAIService openAI)
         {
             ConsoleExtensions.WriteLine("Run Thread and Run Testing is starting:", ConsoleColor.Blue);
             await CreateThreadAndRun(openAI);
         }
+      
 
         public static async Task CreateRunTest(IOpenAIService openAI)
         {
@@ -109,6 +127,65 @@ internal static partial class AssistantTestHelper
             {
                 ConsoleExtensions.WriteError(result.Error);
             }
+        }
+
+        public static async Task CreateRunAsStreamTest(IOpenAIService openAI)
+        {
+            ConsoleExtensions.WriteLine("Run Create As Stream Testing is starting:", ConsoleColor.Cyan);
+            var assistantResult = await openAI.Beta.Assistants.AssistantCreate(new()
+            {
+                Instructions = "You are a personal math tutor. When asked a question, write and run Python code to answer the question.",
+                Name = "Math Tutor",
+                Tools = [ToolDefinition.DefineCodeInterpreter()],
+                Model = Models.Gpt_4_turbo
+            });
+            if (assistantResult.Successful)
+            {
+                CreatedAssistantId = assistantResult.Id;
+                ConsoleExtensions.WriteLine($"Assistant Created Successfully with ID: {assistantResult.Id}", ConsoleColor.Green);
+            }
+            else
+            {
+                ConsoleExtensions.WriteError(assistantResult.Error);
+                return;
+            }
+
+            var threadResult = await openAI.Beta.Threads.ThreadCreate();
+            if (threadResult.Successful)
+            {
+                CreatedThreadId = threadResult.Id;
+                ConsoleExtensions.WriteLine($"Thread Created Successfully with ID: {threadResult.Id}", ConsoleColor.Green);
+            }
+            else
+            {
+                ConsoleExtensions.WriteError(threadResult.Error);
+                return;
+            }
+
+            var result = openAI.Beta.Runs.RunCreateAsStream(CreatedThreadId, new()
+            {
+                AssistantId = assistantResult.Id
+            });
+
+            await foreach (var run in result)
+            {
+                if (run.Successful)
+                {
+                    if (string.IsNullOrEmpty(run.Status))
+                    {
+                        Console.Write(".");
+                    }
+                    else
+                    {
+                        ConsoleExtensions.WriteLine($"Run Id: {run.Id}, Status: {run.Status}");
+                    }
+                }
+                else
+                {
+                    ConsoleExtensions.WriteError(run.Error);
+                }
+            }
+
         }
 
         public static async Task CreateToolRunTest(IOpenAIService openAI)
@@ -343,6 +420,55 @@ internal static partial class AssistantTestHelper
             }
         }
 
+        public static async Task SubmitToolOutputsAsStreamToRunTest(IOpenAIService openAI)
+        {
+            ConsoleExtensions.WriteLine("Submit Tool Outputs To Run Testing is starting:", ConsoleColor.Cyan);
+            if (string.IsNullOrWhiteSpace(CreatedRunId))
+            {
+                ConsoleExtensions.WriteLine("Run Id is not found. Please create a run first.", ConsoleColor.Red);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(CreatedThreadId))
+            {
+                ConsoleExtensions.WriteLine("Thread Id is not found. Please create a thread first.", ConsoleColor.Red);
+                return;
+            }
+
+            var retrieveResult = await openAI.Beta.Runs.RunRetrieve(CreatedThreadId, CreatedRunId);
+            var result = openAI.Beta.Runs.RunSubmitToolOutputsAsStream(CreatedThreadId, CreatedRunId, new()
+            {
+                ToolOutputs =
+                [
+                    new()
+                    {
+                        ToolCallId = retrieveResult.RequiredAction!.SubmitToolOutputs.ToolCalls.First()
+                            .Id,
+                        Output = "70 degrees and sunny."
+                    }
+                ]
+            });
+
+            await foreach (var run in result)
+            {
+                if (run.Successful)
+                {
+                    if (string.IsNullOrEmpty(run.Status))
+                    {
+                        Console.Write(".");
+                    }
+                    else
+                    {
+                        ConsoleExtensions.WriteLine($"Run Id: {run.Id}, Status: {run.Status}");
+                    }
+                }
+                else
+                {
+                    ConsoleExtensions.WriteError(run.Error);
+                }
+            }
+        }
+
         public static async Task CancelRunTest(IOpenAIService openAI)
         {
             ConsoleExtensions.WriteLine("Run Cancel Testing is starting:", ConsoleColor.Cyan);
@@ -488,6 +614,56 @@ internal static partial class AssistantTestHelper
             }
         }
 
+        public static async Task CreateThreadAndRunAsStream(IOpenAIService sdk)
+        {
+            ConsoleExtensions.WriteLine("Create Thread and Run As Stream Testing is starting:", ConsoleColor.Cyan);
+            var assistantResult = await sdk.Beta.Assistants.AssistantCreate(new()
+            {
+                Instructions = "You are a personal math tutor. When asked a question, write and run Python code to answer the question.",
+                Name = "Math Tutor",
+                Tools = [ToolDefinition.DefineCodeInterpreter()],
+                Model = Models.Gpt_4_turbo
+            });
+            CreatedAssistantId = assistantResult.Id;
+            var runResult = sdk.Beta.Runs.CreateThreadAndRunAsStream(new()
+            {
+                AssistantId = assistantResult.Id,
+                Thread = new()
+                {
+                    Messages =
+                    [
+                        new()
+                        {
+                            Role = StaticValues.AssistantsStatics.MessageStatics.Roles.User,
+                            Content = new("Explain deep learning to a 5 year old.")
+                        }
+                    ]
+                }
+            });
+            
+            await foreach (var run in runResult)
+            {
+                if (run.Successful)
+                {
+                    if (string.IsNullOrEmpty(run.Status))
+                    {
+                        Console.Write(".");
+                    }
+                    else
+                    {
+                        ConsoleExtensions.WriteLine($"Run Id: {run.Id}, Status: {run.Status}");
+                    }
+                }
+                else
+                {
+                    ConsoleExtensions.WriteError(run.Error);
+                }
+            }
+            ConsoleExtensions.WriteLine("Create Thread and Run  As Stream Test is successful.", ConsoleColor.Green);
+
+
+        }
+
         public static async Task Cleanup(IOpenAIService sdk)
         {
             ConsoleExtensions.WriteLine("Cleanup Testing is starting:", ConsoleColor.Cyan);
@@ -496,6 +672,7 @@ internal static partial class AssistantTestHelper
                 var threadResult = await sdk.Beta.Threads.ThreadDelete(CreatedThreadId);
                 if (threadResult.Successful)
                 {
+                    CreatedThreadId = null;
                     ConsoleExtensions.WriteLine("Thread Deleted Successfully.", ConsoleColor.Green);
                 }
                 else
@@ -509,6 +686,7 @@ internal static partial class AssistantTestHelper
                 var assistantResult = await sdk.Beta.Assistants.AssistantDelete(CreatedAssistantId);
                 if (assistantResult.Successful)
                 {
+                    CreatedAssistantId = null;
                     ConsoleExtensions.WriteLine("Assistant Deleted Successfully.", ConsoleColor.Green);
                 }
                 else
