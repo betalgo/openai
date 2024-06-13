@@ -78,7 +78,7 @@ internal static partial class AssistantTestHelper
             ConsoleExtensions.WriteLine("Run Thread and Run Testing is starting:", ConsoleColor.Blue);
             await CreateThreadAndRun(openAI);
         }
-      
+
 
         public static async Task CreateRunTest(IOpenAIService openAI)
         {
@@ -185,7 +185,6 @@ internal static partial class AssistantTestHelper
                     ConsoleExtensions.WriteError(run.Error);
                 }
             }
-
         }
 
         public static async Task CreateToolRunTest(IOpenAIService openAI)
@@ -404,8 +403,7 @@ internal static partial class AssistantTestHelper
                 [
                     new()
                     {
-                        ToolCallId = retrieveResult.RequiredAction!.SubmitToolOutputs.ToolCalls.First()
-                            .Id,
+                        ToolCallId = retrieveResult.RequiredAction!.SubmitToolOutputs.ToolCalls.First().Id,
                         Output = "70 degrees and sunny."
                     }
                 ]
@@ -442,8 +440,7 @@ internal static partial class AssistantTestHelper
                 [
                     new()
                     {
-                        ToolCallId = retrieveResult.RequiredAction!.SubmitToolOutputs.ToolCalls.First()
-                            .Id,
+                        ToolCallId = retrieveResult.RequiredAction!.SubmitToolOutputs.ToolCalls.First().Id,
                         Output = "70 degrees and sunny."
                     }
                 ]
@@ -485,6 +482,7 @@ internal static partial class AssistantTestHelper
             {
                 CreatedAssistantId = assistantResult.Id;
             }
+
             var createRunResult = await openAI.Beta.Runs.RunCreate(createThreadResult.Id, new() { AssistantId = assistantResult.Id });
             var result = await openAI.Beta.Runs.RunCancel(createThreadResult.Id, createRunResult.Id);
 
@@ -565,8 +563,7 @@ internal static partial class AssistantTestHelper
             }
 
             var resultStepsList = await openAI.Beta.RunSteps.RunStepsList(CreatedThreadId, CreatedRunId);
-            var result = await openAI.Beta.RunSteps.RunStepRetrieve(CreatedThreadId, CreatedRunId, resultStepsList.Data!.First()
-                .Id);
+            var result = await openAI.Beta.RunSteps.RunStepRetrieve(CreatedThreadId, CreatedRunId, resultStepsList.Data!.First().Id);
             if (result.Successful)
             {
                 ConsoleExtensions.WriteLine("Retrieve Run Step Test is successful.", ConsoleColor.Green);
@@ -640,7 +637,7 @@ internal static partial class AssistantTestHelper
                     ]
                 }
             });
-            
+
             await foreach (var run in runResult)
             {
                 if (run.Successful)
@@ -659,9 +656,8 @@ internal static partial class AssistantTestHelper
                     ConsoleExtensions.WriteError(run.Error);
                 }
             }
+
             ConsoleExtensions.WriteLine("Create Thread and Run  As Stream Test is successful.", ConsoleColor.Green);
-
-
         }
 
         public static async Task Cleanup(IOpenAIService sdk)

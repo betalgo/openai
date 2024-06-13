@@ -68,8 +68,8 @@ public class AssistantsApiToolChoiceConverter : JsonConverter<AssistantsApiToolC
     {
         return reader.TokenType switch
         {
-            JsonTokenType.String => new() { AsString= reader.GetString() },
-            JsonTokenType.StartObject => new() { AsObject= JsonSerializer.Deserialize<ToolChoice>(ref reader, options) },
+            JsonTokenType.String => new() { AsString = reader.GetString() },
+            JsonTokenType.StartObject => new() { AsObject = JsonSerializer.Deserialize<ToolChoice>(ref reader, options) },
             _ => throw new JsonException()
         };
     }

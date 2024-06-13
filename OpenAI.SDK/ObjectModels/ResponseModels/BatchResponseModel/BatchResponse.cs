@@ -3,10 +3,9 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
 
-public record BatchResponse : BaseResponse,IOpenAiModels.IMetaData
+public record BatchResponse : BaseResponse, IOpenAiModels.IMetaData
 {
     /// <summary>
-    ///  
     /// </summary>
     [JsonPropertyName("id")]
     public string Id { get; set; }

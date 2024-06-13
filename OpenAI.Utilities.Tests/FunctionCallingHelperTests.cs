@@ -243,25 +243,10 @@ internal class FunctionCallingTestClass
     public string StringParameter = null!;
 
     [FunctionDescription("Test Function")]
-    public int TestFunction(
-        [ParameterDescription("Int Parameter")]
-        int intParameter,
-        [ParameterDescription("Float Parameter")]
-        float floatParameter,
-        [ParameterDescription("Bool Parameter")]
-        bool boolParameter,
-        [ParameterDescription("String Parameter")]
-        string stringParameter,
-        [ParameterDescription(Description = "Enum Parameter", Enum = "Value1, Value2, Value3")]
-        TestEnum enumParameter,
-        [ParameterDescription("Enum Parameter 2")]
-        TestEnum enumParameter2,
-        [ParameterDescription(Description = "Required Int Parameter", Required = true)]
-        int requiredIntParameter,
-        [ParameterDescription(Description = "Not required Int Parameter", Required = false)]
-        int notRequiredIntParameter,
-        [ParameterDescription(Name = "OverriddenName", Description = "Overridden")]
-        int overriddenNameParameter)
+    public int TestFunction([ParameterDescription("Int Parameter")] int intParameter, [ParameterDescription("Float Parameter")] float floatParameter, [ParameterDescription("Bool Parameter")] bool boolParameter,
+        [ParameterDescription("String Parameter")] string stringParameter, [ParameterDescription(Description = "Enum Parameter", Enum = "Value1, Value2, Value3")] TestEnum enumParameter,
+        [ParameterDescription("Enum Parameter 2")] TestEnum enumParameter2, [ParameterDescription(Description = "Required Int Parameter", Required = true)] int requiredIntParameter,
+        [ParameterDescription(Description = "Not required Int Parameter", Required = false)] int notRequiredIntParameter, [ParameterDescription(Name = "OverriddenName", Description = "Overridden")] int overriddenNameParameter)
 
     {
         IntParameter = intParameter;

@@ -23,7 +23,7 @@ internal static class ThreadTestHelper
             {
                 if (threadResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 ConsoleExtensions.WriteLine($"{threadResult.Error.Code}: {threadResult.Error.Message}");
@@ -55,7 +55,7 @@ internal static class ThreadTestHelper
             {
                 if (threadResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 ConsoleExtensions.WriteLine($"{threadResult.Error.Code}: {threadResult.Error.Message}");

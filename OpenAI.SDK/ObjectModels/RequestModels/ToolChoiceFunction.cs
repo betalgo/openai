@@ -7,14 +7,6 @@ public class ToolChoice
 {
     public static ToolChoice None => new() { Type = StaticValues.CompletionStatics.ToolChoiceType.None };
     public static ToolChoice Auto => new() { Type = StaticValues.CompletionStatics.ToolChoiceType.Auto };
-    public static ToolChoice FunctionChoice(string functionName) => new()
-    {
-        Type = StaticValues.CompletionStatics.ToolChoiceType.Function,
-        Function = new FunctionTool()
-        {
-            Name = functionName
-        }
-    };
 
     /// <summary>
     ///     "none" is the default when no functions are present.  <br />
@@ -26,21 +18,34 @@ public class ToolChoice
     [JsonPropertyName("type")]
     public string Type { get; set; }
 
-    [JsonPropertyName("function")] public FunctionTool? Function { get; set; }
+    [JsonPropertyName("function")]
+    public FunctionTool? Function { get; set; }
+
+    public static ToolChoice FunctionChoice(string functionName)
+    {
+        return new()
+        {
+            Type = StaticValues.CompletionStatics.ToolChoiceType.Function,
+            Function = new()
+            {
+                Name = functionName
+            }
+        };
+    }
 
     public class FunctionTool
     {
-        [JsonPropertyName("name")] public string Name { get; set; }
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
     }
 }
-
 
 [JsonConverter(typeof(ToolChoiceOneOfTypeConverter))]
 public class ToolChoiceOneOfType
 {
     public ToolChoiceOneOfType(string toolChoiceAsString)
     {
-        AsString =  toolChoiceAsString;
+        AsString = toolChoiceAsString;
     }
 
     public ToolChoiceOneOfType(ToolChoice toolChoiceAsObject)
@@ -87,4 +92,3 @@ public class ToolChoiceOneOfType
         }
     }
 }
-

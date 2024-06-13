@@ -14,6 +14,7 @@ public class StaticValues
         {
             public static string Function => "function";
         }
+
         public static class ToolChoiceType
         {
             public static string Function => ToolType.Function;
@@ -21,6 +22,7 @@ public class StaticValues
             public static string None => "none";
         }
     }
+
     public static class ImageStatics
     {
         public static class Size
@@ -28,11 +30,13 @@ public class StaticValues
             public static string Size256 => "256x256";
             public static string Size512 => "512x512";
             public static string Size1024 => "1024x1024";
+
             /// <summary>
             ///     Only dall-e-3 model
             /// </summary>
             // ReSharper disable once InconsistentNaming
             public static string Size1792x1024 => "1792x1024";
+
             /// <summary>
             ///     Only dall-e-3 model
             /// </summary>
@@ -71,7 +75,6 @@ public class StaticValues
             public static string High => "high";
             public static string Low => "low";
             public static string Auto => "auto";
-
         }
     }
 
@@ -85,13 +88,13 @@ public class StaticValues
             public static string VerboseJson => "verbose_json";
             public static string Vtt => "vtt";
         }
-        
+
         public static class TimestampGranularity
         {
             public static string Word => "word";
             public static string Segment => "segment";
         }
-        
+
         public static class CreateSpeechResponseFormat
         {
             public static string Mp3 => "mp3";
@@ -118,7 +121,6 @@ public class StaticValues
         public static string Assistant => "assistant";
         public static string Tool => "tool";
         public static string Function => "function";
-
     }
 
     public static class AssistantsStatics
@@ -170,5 +172,4 @@ public class StaticValues
             public static string SubmitToolOutputs => "submit_tool_outputs";
         }
     }
-
 }

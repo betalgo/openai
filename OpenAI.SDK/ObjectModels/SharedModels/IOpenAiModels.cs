@@ -1,5 +1,4 @@
 ﻿using OpenAI.ObjectModels.RequestModels;
-using System.Text.Json.Serialization;
 
 namespace OpenAI.ObjectModels.SharedModels;
 
@@ -28,7 +27,7 @@ public interface IOpenAiModels
     public interface ITemperature
     {
         float? Temperature { get; set; }
-    } 
+    }
 
     public interface IAssistantId
     {
@@ -64,7 +63,7 @@ public interface IOpenAiModels
 
     public interface IFileIds
     {
-        public List<string> FileIds { get; set;}
+        public List<string> FileIds { get; set; }
     }
 
     public interface ITools

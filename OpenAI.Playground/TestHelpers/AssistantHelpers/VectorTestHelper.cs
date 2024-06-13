@@ -219,7 +219,7 @@ internal static partial class AssistantTestHelper
             CreatedFileId1 = uploadFilesResponse.Id;
             var result = await openAI.Beta.VectorStoreFiles.CreateVectorStoreFile(CreatedVectorId, new()
             {
-                FileId = CreatedFileId1,
+                FileId = CreatedFileId1
             });
 
             if (result.Successful)

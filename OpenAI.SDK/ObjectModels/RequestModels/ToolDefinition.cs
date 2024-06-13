@@ -14,14 +14,14 @@ public class ToolDefinition
     [JsonPropertyName("type")]
     public string Type { get; set; }
 
-  
+
     /// <summary>
     ///     A list of functions the model may generate JSON inputs for.
     /// </summary>
     [JsonIgnore]
     public FunctionDefinition? Function { get; set; }
 
-    [JsonIgnore] 
+    [JsonIgnore]
     public object? FunctionsAsObject { get; set; }
 
     /// <summary>
@@ -41,26 +41,37 @@ public class ToolDefinition
         }
     }
 
-    public static ToolDefinition DefineFunction(FunctionDefinition function) => new()
+    public static ToolDefinition DefineFunction(FunctionDefinition function)
     {
-        Type = StaticValues.CompletionStatics.ToolType.Function,
-        Function = function
-    };
+        return new()
+        {
+            Type = StaticValues.CompletionStatics.ToolType.Function,
+            Function = function
+        };
+    }
 
-    public static ToolDefinition DefineCodeInterpreter() => new()
+    public static ToolDefinition DefineCodeInterpreter()
     {
-        Type = StaticValues.AssistantsStatics.ToolCallTypes.CodeInterpreter,
-    };
+        return new()
+        {
+            Type = StaticValues.AssistantsStatics.ToolCallTypes.CodeInterpreter
+        };
+    }
 
     [Obsolete("Retrieval is now called FileSearch")]
-    public static ToolDefinition DefineRetrieval() => new()
+    public static ToolDefinition DefineRetrieval()
     {
-        Type = StaticValues.AssistantsStatics.ToolCallTypes.FileSearch,
-    };
+        return new()
+        {
+            Type = StaticValues.AssistantsStatics.ToolCallTypes.FileSearch
+        };
+    }
 
-    public static ToolDefinition DefineFileSearch() => new()
+    public static ToolDefinition DefineFileSearch()
     {
-        Type = StaticValues.AssistantsStatics.ToolCallTypes.FileSearch,
-    };
-
+        return new()
+        {
+            Type = StaticValues.AssistantsStatics.ToolCallTypes.FileSearch
+        };
+    }
 }

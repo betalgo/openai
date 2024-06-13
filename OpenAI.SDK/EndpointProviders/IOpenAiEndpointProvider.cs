@@ -52,7 +52,7 @@ internal interface IOpenAiEndpointProvider
     string ThreadModify(string threadId);
     string ThreadDelete(string threadId);
     string MessageCreate(string threadId);
-    string MessageRetrieve(string threadId,string messageId);
+    string MessageRetrieve(string threadId, string messageId);
     string MessageModify(string threadId, string messageId);
     string MessageList(string threadId, PaginationRequest? messageListRequest);
     string RunCreate(string threadId);
@@ -62,7 +62,7 @@ internal interface IOpenAiEndpointProvider
     string RunSubmitToolOutputs(string threadId, string runId);
     string RunCancel(string threadId, string runId);
     string ThreadAndRunCreate();
-    string RunStepRetrieve(string threadId, string runId,string stepId);
+    string RunStepRetrieve(string threadId, string runId, string stepId);
     string RunStepList(string threadId, string runId, PaginationRequest? runStepListRequest);
     string VectorStoreCreate();
     string VectorStoreList(PaginationRequest baseListRequest);

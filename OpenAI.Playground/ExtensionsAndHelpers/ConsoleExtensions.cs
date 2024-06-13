@@ -16,8 +16,9 @@ public static class ConsoleExtensions
     {
         if (error == null)
         {
-            throw new Exception("Unknown Error");
+            throw new("Unknown Error");
         }
+
         WriteLine($"{error.Code}: {error.Message}", ConsoleColor.Red);
     }
 }

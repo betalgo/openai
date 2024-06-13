@@ -35,7 +35,7 @@ public static class IModerationServiceExtension
     /// <returns></returns>
     public static Task<CreateModerationResponse> CreateModeration(this IModerationService service, string input, string? model = null, CancellationToken cancellationToken = default)
     {
-        return service.CreateModeration(new CreateModerationRequest
+        return service.CreateModeration(new()
         {
             Input = input,
             Model = model

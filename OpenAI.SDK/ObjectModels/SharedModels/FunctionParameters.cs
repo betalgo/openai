@@ -80,7 +80,7 @@ public class PropertyDefinition
 
     public static PropertyDefinition DefineArray(PropertyDefinition? arrayItems = null)
     {
-        return new PropertyDefinition
+        return new()
         {
             Items = arrayItems,
             Type = ConvertTypeToString(FunctionObjectTypes.Array)
@@ -89,7 +89,7 @@ public class PropertyDefinition
 
     public static PropertyDefinition DefineEnum(List<string> enumList, string? description = null)
     {
-        return new PropertyDefinition
+        return new()
         {
             Description = description,
             Enum = enumList,
@@ -99,7 +99,7 @@ public class PropertyDefinition
 
     public static PropertyDefinition DefineInteger(string? description = null)
     {
-        return new PropertyDefinition
+        return new()
         {
             Description = description,
             Type = ConvertTypeToString(FunctionObjectTypes.Integer)
@@ -108,7 +108,7 @@ public class PropertyDefinition
 
     public static PropertyDefinition DefineNumber(string? description = null)
     {
-        return new PropertyDefinition
+        return new()
         {
             Description = description,
             Type = ConvertTypeToString(FunctionObjectTypes.Number)
@@ -117,7 +117,7 @@ public class PropertyDefinition
 
     public static PropertyDefinition DefineString(string? description = null)
     {
-        return new PropertyDefinition
+        return new()
         {
             Description = description,
             Type = ConvertTypeToString(FunctionObjectTypes.String)
@@ -126,7 +126,7 @@ public class PropertyDefinition
 
     public static PropertyDefinition DefineBoolean(string? description = null)
     {
-        return new PropertyDefinition
+        return new()
         {
             Description = description,
             Type = ConvertTypeToString(FunctionObjectTypes.Boolean)
@@ -135,7 +135,7 @@ public class PropertyDefinition
 
     public static PropertyDefinition DefineNull(string? description = null)
     {
-        return new PropertyDefinition
+        return new()
         {
             Description = description,
             Type = ConvertTypeToString(FunctionObjectTypes.Null)
@@ -144,7 +144,7 @@ public class PropertyDefinition
 
     public static PropertyDefinition DefineObject(IDictionary<string, PropertyDefinition>? properties, IList<string>? required, bool? additionalProperties, string? description, IList<string>? @enum)
     {
-        return new PropertyDefinition
+        return new()
         {
             Properties = properties,
             Required = required,

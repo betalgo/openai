@@ -8,11 +8,12 @@ namespace OpenAI.Extensions;
 
 public static class StreamHandleExtension
 {
-    public static async IAsyncEnumerable<TResponse> AsStream<TResponse>(this HttpResponseMessage response, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default) where TResponse : BaseResponse, new()
+    public static async IAsyncEnumerable<TResponse> AsStream<TResponse>(this HttpResponseMessage response, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        where TResponse : BaseResponse, new()
     {
         // Helper data in case we need to reassemble a multi-packet response
         ReassemblyContext ctx = new();
-        
+
         // Ensure that we parse headers only once to improve performance a little bit.
         var httpStatusCode = response.StatusCode;
         var headerValues = response.ParseHeaders();
