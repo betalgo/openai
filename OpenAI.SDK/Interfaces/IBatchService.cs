@@ -28,5 +28,4 @@ public interface IBatchService
     /// <param name="cancellationToken"></param>
     /// <returns>The Batch object matching the specified ID.</returns>
     Task<BatchResponse> BatchCancel(string batchId, CancellationToken cancellationToken = default);
-
 }

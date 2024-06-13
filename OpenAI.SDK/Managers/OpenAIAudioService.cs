@@ -39,19 +39,11 @@ public partial class OpenAIService : IAudioService
 
         if (audioCreateTranscriptionRequest.File != null)
         {
-            multipartContent.Add(
-                new ByteArrayContent(audioCreateTranscriptionRequest.File),
-                "file",
-                audioCreateTranscriptionRequest.FileName
-            );
+            multipartContent.Add(new ByteArrayContent(audioCreateTranscriptionRequest.File), "file", audioCreateTranscriptionRequest.FileName);
         }
         else if (audioCreateTranscriptionRequest.FileStream != null)
         {
-            multipartContent.Add(
-                new StreamContent(audioCreateTranscriptionRequest.FileStream),
-                "file",
-                audioCreateTranscriptionRequest.FileName
-            );
+            multipartContent.Add(new StreamContent(audioCreateTranscriptionRequest.FileStream), "file", audioCreateTranscriptionRequest.FileName);
         }
 
         multipartContent.Add(new StringContent(audioCreateTranscriptionRequest.Model), "model");
@@ -85,8 +77,7 @@ public partial class OpenAIService : IAudioService
         }
 
 
-        if (null == audioCreateTranscriptionRequest.ResponseFormat ||
-            StaticValues.AudioStatics.ResponseFormat.Json == audioCreateTranscriptionRequest.ResponseFormat ||
+        if (null == audioCreateTranscriptionRequest.ResponseFormat || StaticValues.AudioStatics.ResponseFormat.Json == audioCreateTranscriptionRequest.ResponseFormat ||
             StaticValues.AudioStatics.ResponseFormat.VerboseJson == audioCreateTranscriptionRequest.ResponseFormat)
         {
             return await _httpClient.PostFileAndReadAsAsync<AudioCreateTranscriptionResponse>(uri, multipartContent, cancellationToken);
@@ -99,6 +90,5 @@ public partial class OpenAIService : IAudioService
         }
 
         return response.baseResponse;
-
     }
 }

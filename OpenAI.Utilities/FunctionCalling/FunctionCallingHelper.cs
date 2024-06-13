@@ -21,8 +21,7 @@ public static class FunctionCallingHelper
     {
         var methodDescriptionAttribute = methodInfo.GetCustomAttribute<FunctionDescriptionAttribute>();
 
-        var result = new FunctionDefinitionBuilder(
-            methodDescriptionAttribute?.Name ?? methodInfo.Name, methodDescriptionAttribute?.Description);
+        var result = new FunctionDefinitionBuilder(methodDescriptionAttribute?.Name ?? methodInfo.Name, methodDescriptionAttribute?.Description);
 
         var parameters = methodInfo.GetParameters().ToList();
 
@@ -36,7 +35,7 @@ public static class FunctionCallingHelper
             switch (parameter.ParameterType, parameterDescriptionAttribute?.Type == null)
             {
                 case (_, false):
-                    definition = new PropertyDefinition
+                    definition = new()
                     {
                         Type = parameterDescriptionAttribute!.Type!,
                         Description = description
@@ -57,22 +56,16 @@ public static class FunctionCallingHelper
                     break;
                 case ({ IsEnum: true }, _):
 
-                    var enumValues = string.IsNullOrEmpty(parameterDescriptionAttribute?.Enum)
-                        ? Enum.GetNames(parameter.ParameterType).ToList()
-                        : parameterDescriptionAttribute.Enum.Split(',').Select(x => x.Trim()).ToList();
+                    var enumValues = string.IsNullOrEmpty(parameterDescriptionAttribute?.Enum) ? Enum.GetNames(parameter.ParameterType).ToList() : parameterDescriptionAttribute.Enum.Split(',').Select(x => x.Trim()).ToList();
 
-                    definition =
-                        PropertyDefinition.DefineEnum(enumValues, description);
+                    definition = PropertyDefinition.DefineEnum(enumValues, description);
 
                     break;
                 default:
-                    throw new Exception($"Parameter type '{parameter.ParameterType}' not supported");
+                    throw new($"Parameter type '{parameter.ParameterType}' not supported");
             }
 
-            result.AddParameter(
-                parameterDescriptionAttribute?.Name ?? parameter.Name!,
-                definition,
-                parameterDescriptionAttribute?.Required ?? true);
+            result.AddParameter(parameterDescriptionAttribute?.Name ?? parameter.Name!, definition, parameterDescriptionAttribute?.Required ?? true);
         }
 
         return result.Build();
@@ -80,12 +73,13 @@ public static class FunctionCallingHelper
 
     public static ToolDefinition GetToolDefinition(MethodInfo methodInfo)
     {
-        return new ToolDefinition()
+        return new()
         {
             Type = "function",
             Function = GetFunctionDefinition(methodInfo)
         };
     }
+
     /// <summary>
     ///     Enumerates the methods in the provided object, and a returns a <see cref="List{FunctionDefinition}" /> of
     ///     <see cref="FunctionDefinition" /> for all methods
@@ -118,14 +112,14 @@ public static class FunctionCallingHelper
     {
         var methods = type.GetMethods();
 
-        var result = methods
-            .Select(method => new
+        var result = methods.Select(method => new
             {
                 method,
                 methodDescriptionAttribute = method.GetCustomAttribute<FunctionDescriptionAttribute>()
             })
             .Where(t => t.methodDescriptionAttribute != null)
-            .Select(t => GetToolDefinition(t.method)).ToList();
+            .Select(t => GetToolDefinition(t.method))
+            .ToList();
 
         return result;
     }
@@ -164,8 +158,7 @@ public static class FunctionCallingHelper
 
         if (!methodInfo.ReturnType.IsAssignableTo(typeof(T)))
         {
-            throw new InvalidFunctionCallException(
-                $"Method '{functionCall.Name}' on type '{obj.GetType()}' has return type '{methodInfo.ReturnType}' but expected '{typeof(T)}'");
+            throw new InvalidFunctionCallException($"Method '{functionCall.Name}' on type '{obj.GetType()}' has return type '{methodInfo.ReturnType}' but expected '{typeof(T)}'");
         }
 
         var parameters = methodInfo.GetParameters().ToList();
@@ -174,8 +167,7 @@ public static class FunctionCallingHelper
 
         foreach (var parameter in parameters)
         {
-            var parameterDescriptionAttribute =
-                parameter.GetCustomAttribute<ParameterDescriptionAttribute>();
+            var parameterDescriptionAttribute = parameter.GetCustomAttribute<ParameterDescriptionAttribute>();
 
             var name = parameterDescriptionAttribute?.Name ?? parameter.Name!;
             var argument = arguments.FirstOrDefault(x => x.Key == name);
@@ -189,7 +181,7 @@ public static class FunctionCallingHelper
                 }
                 else
                 {
-                    throw new Exception($"Argument '{name}' not found");
+                    throw new($"Argument '{name}' not found");
                 }
             }
             else
@@ -219,11 +211,8 @@ public static class FunctionCallingHelper
         }
 
         // If not found, then look for methods with the custom attribute
-        var methodsWithAttributes = type
-            .GetMethods()
-            .FirstOrDefault(m => m.GetCustomAttributes(typeof(FunctionDescriptionAttribute), false).FirstOrDefault() is FunctionDescriptionAttribute attr && attr.Name == functionCall.Name);
+        var methodsWithAttributes = type.GetMethods().FirstOrDefault(m => m.GetCustomAttributes(typeof(FunctionDescriptionAttribute), false).FirstOrDefault() is FunctionDescriptionAttribute attr && attr.Name == functionCall.Name);
 
         return methodsWithAttributes;
     }
-
 }

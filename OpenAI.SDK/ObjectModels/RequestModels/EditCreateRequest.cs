@@ -43,7 +43,8 @@ public record EditCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IO
     public float? TopP { get; set; }
 
 
-    [JsonPropertyName("model")] public string? Model { get; set; }
+    [JsonPropertyName("model")]
+    public string? Model { get; set; }
 
     public IEnumerable<ValidationResult> Validate()
     {

@@ -1,6 +1,5 @@
 ﻿using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
@@ -14,7 +13,7 @@ internal static class CompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Completion Test:", ConsoleColor.DarkCyan);
-            var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest
+            var completionResult = await sdk.Completions.CreateCompletion(new()
             {
                 Prompt = "Once upon a time",
                 //    PromptAsList = new []{"Once upon a time"},
@@ -30,7 +29,7 @@ internal static class CompletionTestHelper
             {
                 if (completionResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
@@ -65,7 +64,7 @@ internal static class CompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Completion Test:", ConsoleColor.DarkCyan);
-            var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest
+            var completionResult = await sdk.Completions.CreateCompletion(new()
             {
                 Prompt = "Once upon a time",
                 //    PromptAsList = new []{"Once upon a time"},
@@ -82,7 +81,7 @@ internal static class CompletionTestHelper
             {
                 if (completionResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
@@ -105,7 +104,7 @@ internal static class CompletionTestHelper
         {
             ConsoleExtensions.WriteLine("Completion Test:", ConsoleColor.DarkCyan);
             //Parameter Model should override the Model in the ObjectModel
-            var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest
+            var completionResult = await sdk.Completions.CreateCompletion(new()
             {
                 Prompt = "Once upon a time",
                 //    PromptAsList = new []{"Once upon a time"},
@@ -122,7 +121,7 @@ internal static class CompletionTestHelper
             {
                 if (completionResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
@@ -143,7 +142,7 @@ internal static class CompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Completion Stream Test:", ConsoleColor.DarkCyan);
-            var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest
+            var completionResult = sdk.Completions.CreateCompletionAsStream(new()
             {
                 Prompt = "Once upon a time",
                 MaxTokens = 500
@@ -159,7 +158,7 @@ internal static class CompletionTestHelper
                 {
                     if (completion.Error == null)
                     {
-                        throw new Exception("Unknown Error");
+                        throw new("Unknown Error");
                     }
 
                     Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
@@ -185,7 +184,7 @@ internal static class CompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Completion Stream Test:", ConsoleColor.DarkCyan);
-            var completionResult = sdk.Completions.CreateCompletionAsStream(new CompletionCreateRequest
+            var completionResult = sdk.Completions.CreateCompletionAsStream(new()
             {
                 Prompt = "Once upon a time",
                 MaxTokens = 100
@@ -203,7 +202,7 @@ internal static class CompletionTestHelper
                     {
                         if (completion.Error == null)
                         {
-                            throw new Exception("Unknown Error");
+                            throw new("Unknown Error");
                         }
 
                         Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");

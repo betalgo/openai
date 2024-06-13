@@ -6,12 +6,10 @@ namespace OpenAI.ObjectModels.SharedModels;
 
 public record RunListResponse : DataWithPagingBaseResponse<List<RunResponse>>
 {
-
 }
 
 public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IModel, IOpenAiModels.ICreatedAt, IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
 {
-
     /// <summary>
     ///     The ID of the thread that was executed on as a part of this run.
     /// </summary>
@@ -43,7 +41,7 @@ public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IMode
     /// </summary>
     [JsonPropertyName("last_error")]
     public Error? LastError { get; set; }
-    
+
 
     /// <summary>
     ///     Details on why the run is incomplete. Will be null if the run is not incomplete.
@@ -94,7 +92,8 @@ public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IMode
     public List<ToolDefinition>? Tools { get; set; }
 
     /// <summary>
-    ///     Usage statistics related to the run. This value will be null if the run is not in a terminal state (i.e. in_progress, queued, etc.).
+    ///     Usage statistics related to the run. This value will be null if the run is not in a terminal state (i.e.
+    ///     in_progress, queued, etc.).
     /// </summary>
     [JsonPropertyName("usage")]
     public UsageResponse? Usage { get; set; }
@@ -124,15 +123,18 @@ public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IMode
     public TruncationStrategy? TruncationStrategy { get; set; }
 
     /// <summary>
-    ///     Controls which (if any) tool is called by the model. none means the model will not call any tools and instead generates a message.
+    ///     Controls which (if any) tool is called by the model. none means the model will not call any tools and instead
+    ///     generates a message.
     ///     auto is the default value and means the model can pick between generating a message or calling a tool.
-    ///     Specifying a particular tool like {"type": "TOOL_TYPE"} or {"type": "function", "function": {"name": "my_function"}} forces the model to call that tool.
+    ///     Specifying a particular tool like {"type": "TOOL_TYPE"} or {"type": "function", "function": {"name":
+    ///     "my_function"}} forces the model to call that tool.
     /// </summary>
     [JsonPropertyName("tool_choice")]
     public object? ToolChoice { get; set; }
 
     /// <summary>
-    ///     Specifies the format that the model must output. Compatible with GPT-4 Turbo and all GPT-3.5 Turbo models newer than gpt-3.5-turbo-1106.
+    ///     Specifies the format that the model must output. Compatible with GPT-4 Turbo and all GPT-3.5 Turbo models newer
+    ///     than gpt-3.5-turbo-1106.
     /// </summary>
     [JsonPropertyName("response_format")]
     public object? ResponseFormat { get; set; }

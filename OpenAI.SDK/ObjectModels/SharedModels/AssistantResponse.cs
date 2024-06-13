@@ -4,7 +4,7 @@ using OpenAI.ObjectModels.ResponseModels;
 
 namespace OpenAI.ObjectModels.SharedModels;
 
-public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IModel, IOpenAiModels.IMetaData,IOpenAiModels.ITools
+public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IModel, IOpenAiModels.IMetaData, IOpenAiModels.ITools
 {
     /// <summary>
     ///     The name of the assistant. The maximum length is 256 characters.
@@ -24,12 +24,6 @@ public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels
     /// </summary>
     [JsonPropertyName("instructions")]
     public string? Instructions { get; set; }
-
-    /// <summary>
-    ///     A list of tools enabled on the assistant.
-    /// </summary>
-    [JsonPropertyName("tools")]
-    public List<ToolDefinition> Tools { get; set; }
 
     /// <summary>
     ///     A list of file IDs attached to this assistant.
@@ -63,4 +57,10 @@ public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels
     /// </summary>
     [JsonPropertyName("model")]
     public string Model { get; set; }
+
+    /// <summary>
+    ///     A list of tools enabled on the assistant.
+    /// </summary>
+    [JsonPropertyName("tools")]
+    public List<ToolDefinition> Tools { get; set; }
 }

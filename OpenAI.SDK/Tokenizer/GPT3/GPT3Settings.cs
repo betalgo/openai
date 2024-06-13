@@ -18,13 +18,13 @@ internal static class TokenizerGpt3Settings
     private static Dictionary<Tuple<string, string>, int> BuildBpeRanks()
     {
         var lines = EmbeddedResource.Read("vocab.bpe").Split('\n');
-        var bpeMerges = new ArraySegment<string>(lines, 1, lines.Length - 1)
-            .Where(x => x.Trim().Length > 0)
+        var bpeMerges = new ArraySegment<string>(lines, 1, lines.Length - 1).Where(x => x.Trim().Length > 0)
             .Select(x =>
             {
                 var y = x.Split(' ');
                 return new Tuple<string, string>(y[0], y[1]);
-            }).ToList();
+            })
+            .ToList();
         return DictZip(bpeMerges, Range(0, bpeMerges.Count));
     }
 

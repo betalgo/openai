@@ -3,24 +3,10 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
-public class CreateThreadAndRunRequest : IOpenAiModels.IAssistantId,IOpenAiModels.IModel
+public class CreateThreadAndRunRequest : IOpenAiModels.IAssistantId, IOpenAiModels.IModel
 {
-    /// <summary>
-    ///     The ID of the [assistant](/docs/api-reference/assistants) to use to execute this run.
-    /// </summary>
-    [JsonPropertyName("assistant_id")]
-    public string AssistantId { get; set; }
-
     [JsonPropertyName("thread")]
     public ThreadCreateRequest Thread { get; set; }
-
-    /// <summary>
-    ///     The ID of the [Model](/docs/api-reference/models) to be used to execute this run. If a value is provided here, it
-    ///     will override the model associated with the assistant. If not, the model associated with the assistant will be
-    ///     used.
-    /// </summary>
-    [JsonPropertyName("model")]
-    public string Model { get; set; }
 
     /// <summary>
     ///     Override the default system message of the assistant. This is useful for modifying the behavior on a per-run basis.
@@ -106,7 +92,7 @@ public class CreateThreadAndRunRequest : IOpenAiModels.IAssistantId,IOpenAiModel
     ///     function&quot;, &quot;function&quot;: {&quot;name&quot;: &quot;my_function&quot;}}` forces the model to call that
     ///     tool.
     /// </summary>
-    
+
     [JsonPropertyName("tool_choice")]
     public AssistantsApiToolChoiceOneOfType ToolChoice { get; set; }
 
@@ -124,8 +110,21 @@ public class CreateThreadAndRunRequest : IOpenAiModels.IAssistantId,IOpenAiModel
     [JsonPropertyName("response_format")]
     public ResponseFormatOneOfType ResponseFormat { get; set; }
 
-    
+    /// <summary>
+    ///     The ID of the [assistant](/docs/api-reference/assistants) to use to execute this run.
+    /// </summary>
+    [JsonPropertyName("assistant_id")]
+    public string AssistantId { get; set; }
+
+    /// <summary>
+    ///     The ID of the [Model](/docs/api-reference/models) to be used to execute this run. If a value is provided here, it
+    ///     will override the model associated with the assistant. If not, the model associated with the assistant will be
+    ///     used.
+    /// </summary>
+    [JsonPropertyName("model")]
+    public string Model { get; set; }
 }
+
 [JsonConverter(typeof(AssistantsApiToolChoiceConverter))]
 public class AssistantsApiToolChoiceOneOfType
 {
@@ -133,7 +132,7 @@ public class AssistantsApiToolChoiceOneOfType
     public string? AsString { get; set; }
 
     [JsonIgnore]
-    public ToolChoice? AsObject{ get; set; }
+    public ToolChoice? AsObject { get; set; }
 }
 
 public class ToolResources
@@ -143,17 +142,19 @@ public class ToolResources
 
     [JsonPropertyName("file_search")]
     public FileSearch FileSearch { get; set; }
-
 }
+
 public class FileSearch
 {
     /// <summary>
-    /// The vector store attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
+    ///     The vector store attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
     /// </summary>
     [JsonPropertyName("vector_store_ids")]
     public List<string>? VectorStoreIds { get; set; }
+
     /// <summary>
-    /// A helper to create a vector store with file_ids and attach it to this assistant. There can be a maximum of 1 vector store attached to the assistant.
+    ///     A helper to create a vector store with file_ids and attach it to this assistant. There can be a maximum of 1 vector
+    ///     store attached to the assistant.
     /// </summary>
     [JsonPropertyName("vector_stores")]
     public List<VectorStores>? VectorStores { get; set; }
@@ -162,28 +163,34 @@ public class FileSearch
 public class VectorStores : IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
 {
     /// <summary>
-    /// A list of file IDs to add to the vector store. There can be a maximum of 10000 files in a vector store.
+    ///     A list of file IDs to add to the vector store. There can be a maximum of 10000 files in a vector store.
     /// </summary>
     [JsonPropertyName("file_ids")]
     public List<string>? FileIds { get; set; }
+
     /// <summary>
-    /// Set of 16 key-value pairs that can be attached to a vector store. This can be useful for storing additional information about the vector store in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
+    ///     Set of 16 key-value pairs that can be attached to a vector store. This can be useful for storing additional
+    ///     information about the vector store in a structured format. Keys can be a maximum of 64 characters long and values
+    ///     can be a maxium of 512 characters long.
     /// </summary>
     [JsonPropertyName("metadata")]
     public Dictionary<string, string>? Metadata { get; set; }
 }
+
 public class CodeInterpreter : IOpenAiModels.IFileIds
 {
     /// <summary>
-    /// A list of file IDs made available to the code_interpreter tool. There can be a maximum of 20 files associated with the tool.
+    ///     A list of file IDs made available to the code_interpreter tool. There can be a maximum of 20 files associated with
+    ///     the tool.
     /// </summary>
     [JsonPropertyName("file_ids")]
     public List<string>? FileIds { get; set; }
 }
+
 public class ToolsItem
 {
     /// <summary>
-    /// The type of the tool. Currently, only `function` is supported.
+    ///     The type of the tool. Currently, only `function` is supported.
     /// </summary>
     [JsonPropertyName("type")]
     public string Type { get; set; }
@@ -195,19 +202,20 @@ public class ToolsItem
 public class Function
 {
     /// <summary>
-    /// The name of the function.
+    ///     The name of the function.
     /// </summary>
     [JsonPropertyName("name")]
     public string Name { get; set; }
 
     /// <summary>
-    /// The arguments passed to the function.
+    ///     The arguments passed to the function.
     /// </summary>
     [JsonPropertyName("arguments")]
     public string Arguments { get; set; }
 
     /// <summary>
-    /// The output of the function. This will be `null` if the outputs have not been [submitted](/docs/api-reference/runs/submitToolOutputs) yet.
+    ///     The output of the function. This will be `null` if the outputs have not been
+    ///     [submitted](/docs/api-reference/runs/submitToolOutputs) yet.
     /// </summary>
     [JsonPropertyName("output")]
     public string? Output { get; set; }

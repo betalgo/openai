@@ -5,7 +5,8 @@ namespace OpenAI.ObjectModels.SharedModels;
 
 public record HyperParametersResponse
 {
-    [JsonPropertyName("batch_size")] public int? BatchSize { get; set; }
+    [JsonPropertyName("batch_size")]
+    public int? BatchSize { get; set; }
 
     [JsonPropertyName("learning_rate_multiplier")]
     public float? LearningRateMultiplier { get; set; }

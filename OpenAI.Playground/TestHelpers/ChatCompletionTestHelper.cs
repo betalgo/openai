@@ -16,7 +16,7 @@ internal static class ChatCompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Chat Completion Test:", ConsoleColor.DarkCyan);
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+            var completionResult = await sdk.ChatCompletion.CreateCompletion(new()
             {
                 Messages = new List<ChatMessage>
                 {
@@ -37,7 +37,7 @@ internal static class ChatCompletionTestHelper
             {
                 if (completionResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
@@ -56,7 +56,7 @@ internal static class ChatCompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Chat Completion Stream Test:", ConsoleColor.DarkCyan);
-            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest
+            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(new()
             {
                 Messages = new List<ChatMessage>
                 {
@@ -79,7 +79,7 @@ internal static class ChatCompletionTestHelper
                 {
                     if (completion.Error == null)
                     {
-                        throw new Exception("Unknown Error");
+                        throw new("Unknown Error");
                     }
 
                     Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
@@ -102,7 +102,7 @@ internal static class ChatCompletionTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Chat Completion Stream Test:", ConsoleColor.DarkCyan);
-            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(new ChatCompletionCreateRequest
+            var completionResult = sdk.ChatCompletion.CreateCompletionAsStream(new()
             {
                 Messages = new List<ChatMessage>
                 {
@@ -111,9 +111,9 @@ internal static class ChatCompletionTestHelper
                     new(StaticValues.ChatMessageRoles.System, "The Los Angeles Dodgers won the World Series in 2020."),
                     new(StaticValues.ChatMessageRoles.User, "Tell me a story about The Los Angeles Dodgers")
                 },
-                StreamOptions = new StreamOptions
+                StreamOptions = new()
                 {
-                    IncludeUsage = true,
+                    IncludeUsage = true
                 },
                 MaxTokens = 150,
                 Model = Models.Gpt_3_5_Turbo
@@ -138,7 +138,7 @@ internal static class ChatCompletionTestHelper
                 {
                     if (completion.Error == null)
                     {
-                        throw new Exception("Unknown Error");
+                        throw new("Unknown Error");
                     }
 
                     Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");
@@ -162,20 +162,17 @@ internal static class ChatCompletionTestHelper
         // example taken from:
         // https://github.com/openai/openai-cookbook/blob/main/examples/How_to_call_functions_with_chat_models.ipynb
 
-        var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather")
-            .AddParameter("location", PropertyDefinition.DefineString("The city and state, e.g. San Francisco, CA"))
-            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"}, "The temperature unit to use. Infer this from the users location."))
+        var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather").AddParameter("location", PropertyDefinition.DefineString("The city and state, e.g. San Francisco, CA"))
+            .AddParameter("format", PropertyDefinition.DefineEnum(new() { "celsius", "fahrenheit" }, "The temperature unit to use. Infer this from the users location."))
             .Validate()
             .Build();
 
-        var fn2 = new FunctionDefinitionBuilder("get_n_day_weather_forecast", "Get an N-day weather forecast")
-            .AddParameter("location", new PropertyDefinition {Type = "string", Description = "The city and state, e.g. San Francisco, CA"})
-            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"}, "The temperature unit to use. Infer this from the users location."))
+        var fn2 = new FunctionDefinitionBuilder("get_n_day_weather_forecast", "Get an N-day weather forecast").AddParameter("location", new() { Type = "string", Description = "The city and state, e.g. San Francisco, CA" })
+            .AddParameter("format", PropertyDefinition.DefineEnum(new() { "celsius", "fahrenheit" }, "The temperature unit to use. Infer this from the users location."))
             .AddParameter("num_days", PropertyDefinition.DefineInteger("The number of days to forecast"))
             .Validate()
             .Build();
-        var fn3 = new FunctionDefinitionBuilder("get_current_datetime", "Get the current date and time, e.g. 'Saturday, June 24, 2023 6:14:14 PM'")
-            .Build();
+        var fn3 = new FunctionDefinitionBuilder("get_current_datetime", "Get the current date and time, e.g. 'Saturday, June 24, 2023 6:14:14 PM'").Build();
 
         var fn4 = new FunctionDefinitionBuilder("identify_number_sequence", "Get a sequence of numbers present in the user message")
             .AddParameter("values", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Sequence of numbers specified by the user")))
@@ -203,7 +200,7 @@ internal static class ChatCompletionTestHelper
             var completionResult = await sdk.ChatCompletion.CreateCompletion(request);
 
             /*  expected output along the lines of:
-             
+
                 Message:
                 Function call:  get_n_day_weather_forecast
                   location: Chicago, USA
@@ -248,14 +245,14 @@ internal static class ChatCompletionTestHelper
             {
                 if (completionResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
             }
 
-            var completionResultAfterTool = await sdk.ChatCompletion.CreateCompletion(request); 
-            
+            var completionResultAfterTool = await sdk.ChatCompletion.CreateCompletion(request);
+
             if (completionResultAfterTool.Successful)
             {
                 Console.WriteLine(completionResultAfterTool.Choices.First().Message.Content);
@@ -264,7 +261,7 @@ internal static class ChatCompletionTestHelper
             {
                 if (completionResultAfterTool.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{completionResultAfterTool.Error.Code}: {completionResultAfterTool.Error.Message}");
@@ -284,31 +281,24 @@ internal static class ChatCompletionTestHelper
         // example taken from:
         // https://github.com/openai/openai-cookbook/blob/main/examples/How_to_call_functions_with_chat_models.ipynb
 
-        var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather")
-            .AddParameter("location", PropertyDefinition.DefineString("The city and state, e.g. San Francisco, CA"))
-            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"}, "The temperature unit to use. Infer this from the users location."))
+        var fn1 = new FunctionDefinitionBuilder("get_current_weather", "Get the current weather").AddParameter("location", PropertyDefinition.DefineString("The city and state, e.g. San Francisco, CA"))
+            .AddParameter("format", PropertyDefinition.DefineEnum(new() { "celsius", "fahrenheit" }, "The temperature unit to use. Infer this from the users location."))
             .Validate()
             .Build();
 
-        var fn2 = new FunctionDefinitionBuilder("get_n_day_weather_forecast", "Get an N-day weather forecast")
-            .AddParameter("location", new PropertyDefinition {Type = "string", Description = "The city and state, e.g. San Francisco, CA"})
-            .AddParameter("format", PropertyDefinition.DefineEnum(new List<string> {"celsius", "fahrenheit"}, "The temperature unit to use. Infer this from the users location."))
+        var fn2 = new FunctionDefinitionBuilder("get_n_day_weather_forecast", "Get an N-day weather forecast").AddParameter("location", new() { Type = "string", Description = "The city and state, e.g. San Francisco, CA" })
+            .AddParameter("format", PropertyDefinition.DefineEnum(new() { "celsius", "fahrenheit" }, "The temperature unit to use. Infer this from the users location."))
             .AddParameter("num_days", PropertyDefinition.DefineInteger("The number of days to forecast"))
             .Validate()
             .Build();
 
-        var fn3 = new FunctionDefinitionBuilder("get_current_datetime", "Get the current date and time, e.g. 'Saturday, June 24, 2023 6:14:14 PM'")
-            .Build();
+        var fn3 = new FunctionDefinitionBuilder("get_current_datetime", "Get the current date and time, e.g. 'Saturday, June 24, 2023 6:14:14 PM'").Build();
 
         var fn4 = new FunctionDefinitionBuilder("identify_number_sequence", "Get a sequence of numbers present in the user message")
             .AddParameter("values", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Sequence of numbers specified by the user")))
-            .Build();   
-        var fn5 = new FunctionDefinitionBuilder("google_search", "Gets a result from Google Search")
-            .AddParameter("search_term", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Search Term")))
             .Build();
-        var fn6 = new FunctionDefinitionBuilder("getURL", "Downloads the content of given website")
-            .AddParameter("URL", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Search Term")))
-            .Build();
+        var fn5 = new FunctionDefinitionBuilder("google_search", "Gets a result from Google Search").AddParameter("search_term", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Search Term"))).Build();
+        var fn6 = new FunctionDefinitionBuilder("getURL", "Downloads the content of given website").AddParameter("URL", PropertyDefinition.DefineArray(PropertyDefinition.DefineNumber("Search Term"))).Build();
 
         try
         {
@@ -320,12 +310,13 @@ internal static class ChatCompletionTestHelper
                 {
                     ChatMessage.FromSystem("You are a bot that performs internet searches and also downloads content from websites."),
                     // to test weather forecast functions:
-                    ChatMessage.FromUser("I need you to first search Google for \"Cat\" and, at the same time, download the contents from https://www.wired.com."),
+                    ChatMessage.FromUser("I need you to first search Google for \"Cat\" and, at the same time, download the contents from https://www.wired.com.")
                     //ChatMessage.FromUser("Give me a weather report for Chicago, USA, for the next 5 days and also current weather.")
                     // or to test array functions, use this instead:
                     // ChatMessage.FromUser("And also The combination is: One. Two. Three. Four. Five."),
                 },
-                Tools = new List<ToolDefinition> { ToolDefinition.DefineFunction(fn1), ToolDefinition.DefineFunction(fn2), ToolDefinition.DefineFunction(fn3), ToolDefinition.DefineFunction(fn4), ToolDefinition.DefineFunction(fn5), ToolDefinition.DefineFunction(fn6) },
+                Tools = new List<ToolDefinition>
+                    { ToolDefinition.DefineFunction(fn1), ToolDefinition.DefineFunction(fn2), ToolDefinition.DefineFunction(fn3), ToolDefinition.DefineFunction(fn4), ToolDefinition.DefineFunction(fn5), ToolDefinition.DefineFunction(fn6) },
                 // optionally, to force a specific function:
                 //ToolChoice = ToolChoice.FunctionChoice("get_current_weather"),
                 // or auto tool choice:
@@ -337,7 +328,7 @@ internal static class ChatCompletionTestHelper
             var completionResults = sdk.ChatCompletion.CreateCompletionAsStream(request);
 
             /*  when testing weather forecasts, expected output should be along the lines of:
-             
+
                 Message:
                 Function call:  get_n_day_weather_forecast
                   location: Chicago, USA
@@ -346,7 +337,7 @@ internal static class ChatCompletionTestHelper
             */
 
             /*  when testing array functions, expected output should be along the lines of:
-             
+
                 Message:
                 Function call:  identify_number_sequence
                   values: [1, 2, 3, 4, 5]
@@ -365,7 +356,7 @@ internal static class ChatCompletionTestHelper
                         request.Messages.Add(choice.Message);
 
                         Console.WriteLine($"Tools: {tools.Count}");
-                        for (int i = 0; i < tools.Count; i++)
+                        for (var i = 0; i < tools.Count; i++)
                         {
                             var toolCall = tools[i];
                             Console.WriteLine($"  {toolCall.Id}: {toolCall.FunctionCall}");
@@ -377,7 +368,7 @@ internal static class ChatCompletionTestHelper
                                 {
                                     Console.WriteLine($"  Function call:  {fn.Name}");
                                 }
-                                
+
                                 if (!string.IsNullOrEmpty(fn.Arguments))
                                 {
                                     if (functionArguments.TryGetValue(i, out var currentArguments))
@@ -388,6 +379,7 @@ internal static class ChatCompletionTestHelper
                                     {
                                         currentArguments = fn.Arguments;
                                     }
+
                                     functionArguments[i] = currentArguments;
                                     fn.Arguments = currentArguments;
 
@@ -421,7 +413,7 @@ internal static class ChatCompletionTestHelper
                 {
                     if (completionResult.Error == null)
                     {
-                        throw new Exception("Unknown Error");
+                        throw new("Unknown Error");
                     }
 
                     Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
@@ -440,7 +432,7 @@ internal static class ChatCompletionTestHelper
                 {
                     if (completion.Error == null)
                     {
-                        throw new Exception("Unknown Error");
+                        throw new("Unknown Error");
                     }
 
                     Console.WriteLine($"{completion.Error.Code}: {completion.Error.Message}");

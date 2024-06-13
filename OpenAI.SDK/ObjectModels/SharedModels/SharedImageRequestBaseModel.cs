@@ -12,10 +12,10 @@ public record SharedImageRequestBaseModel
     public int? N { get; set; }
 
     /// <summary>
-    ///     The size of the generated images. 
-    ///     Must be one of 256x256, 512x512, or 1024x1024 for dall-e-2. 
+    ///     The size of the generated images.
+    ///     Must be one of 256x256, 512x512, or 1024x1024 for dall-e-2.
     ///     Must be one of 1024x1024, 1792x1024, or 1024x1792 for dall-e-3 models.
-    ///     <br /><br />Check <see cref="StaticValues.ImageStatics.Size"/> for possible values
+    ///     <br /><br />Check <see cref="StaticValues.ImageStatics.Size" /> for possible values
     /// </summary>
     [JsonPropertyName("size")]
     public string? Size { get; set; }

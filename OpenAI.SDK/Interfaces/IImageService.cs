@@ -45,6 +45,6 @@ public static class IImageServiceExtension
     /// <returns></returns>
     public static Task<ImageCreateResponse> CreateImage(this IImageService service, string prompt, CancellationToken cancellationToken = default)
     {
-        return service.CreateImage(new ImageCreateRequest(prompt), cancellationToken);
+        return service.CreateImage(new(prompt), cancellationToken);
     }
 }

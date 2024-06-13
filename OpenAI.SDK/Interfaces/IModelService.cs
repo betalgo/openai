@@ -25,9 +25,9 @@ public interface IModelService
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
     Task<ModelRetrieveResponse> RetrieveModel(string model, CancellationToken cancellationToken = default);
-    
+
     /// <summary>
-    /// Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.
+    ///     Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.
     /// </summary>
     /// <param name="modelId">The model to delete</param>
     /// <param name="cancellationToken"></param>
