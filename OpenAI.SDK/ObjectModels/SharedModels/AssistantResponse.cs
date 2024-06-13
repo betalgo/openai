@@ -43,7 +43,7 @@ public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels
     ///     The Unix timestamp (in seconds) for when the assistant was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAt { get; set; }
 
     /// <summary>
     ///     The identifier, which can be referenced in API endpoints.

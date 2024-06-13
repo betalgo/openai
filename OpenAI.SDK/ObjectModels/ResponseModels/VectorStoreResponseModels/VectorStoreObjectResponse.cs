@@ -14,7 +14,7 @@ public record VectorStoreObjectResponse:BaseResponse
     /// The Unix timestamp (in seconds) for when the vector store was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAt { get; set; }
 
     /// <summary>
     /// The name of the vector store.
