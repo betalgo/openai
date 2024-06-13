@@ -38,11 +38,12 @@ public class OpenAiOptions
     public ProviderType ProviderType { get; set; } = ProviderType.OpenAi;
 
     /// <summary>
-    /// Calls to the Assistants API require that you pass a beta HTTP header. 
-    /// This is handled automatically if you’re using OpenAI’s official Python or Node.js SDKs.
-    ///  <a href="https://platform.openai.com/docs/assistants/overview">assistants overview</a> page.
+    ///     Calls to the Assistants API require that you pass a beta HTTP header.
+    ///     This is handled automatically if you’re using OpenAI’s official Python or Node.js SDKs.
+    ///     <a href="https://platform.openai.com/docs/assistants/overview">assistants overview</a> page.
     /// </summary>
     public string? Assistants => $"assistants={OpenAiDefaultAssistantsApiVersion}";
+
     /// <summary>
     ///     For users who belong to multiple organizations, you can pass a header to specify which organization is used for an
     ///     API request. Usage from these API requests will count against the specified organization's subscription quota.
@@ -138,7 +139,7 @@ public class OpenAiOptions
     /// <returns>A valid OpenAiSettings instance configured with the method inputs</returns>
     private static OpenAiOptions CreateAzureSettings(string apiKey, string deploymentId, string resourceName, string? apiVersion)
     {
-        return new OpenAiOptions
+        return new()
         {
             ProviderType = ProviderType.Azure,
             ResourceName = resourceName,
@@ -158,7 +159,7 @@ public class OpenAiOptions
     /// <returns>A valid OpenAiSettings instance configured with the method inputs</returns>
     private static OpenAiOptions CreateAzureSettingsWithBaseDomain(string apiKey, string deploymentId, string baseDomain, string? apiVersion)
     {
-        return new OpenAiOptions
+        return new()
         {
             ProviderType = ProviderType.Azure,
             BaseDomain = baseDomain,

@@ -4,7 +4,7 @@ namespace OpenAI.Extensions;
 
 public static class ModelExtension
 {
-    public static void ProcessModelId(this IOpenAiModels.IModel modelFromObject, string? modelFromParameter, string? defaultModelId,bool allowNull =false)
+    public static void ProcessModelId(this IOpenAiModels.IModel modelFromObject, string? modelFromParameter, string? defaultModelId, bool allowNull = false)
     {
         if (allowNull)
         {

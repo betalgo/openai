@@ -1,6 +1,5 @@
 ﻿using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
@@ -19,7 +18,7 @@ internal static class AudioTestHelper
             var sampleFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{fileName}");
 
             ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
-            var audioResult = await sdk.Audio.CreateTranscription(new AudioCreateTranscriptionRequest
+            var audioResult = await sdk.Audio.CreateTranscription(new()
             {
                 FileName = fileName,
                 File = sampleFile,
@@ -43,7 +42,7 @@ internal static class AudioTestHelper
             {
                 if (audioResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{audioResult.Error.Code}: {audioResult.Error.Message}");
@@ -68,7 +67,7 @@ internal static class AudioTestHelper
             var sampleFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{fileName}");
 
             ConsoleExtensions.WriteLine($"Uploading file {fileName}", ConsoleColor.DarkCyan);
-            var audioResult = await sdk.Audio.CreateTranslation(new AudioCreateTranscriptionRequest
+            var audioResult = await sdk.Audio.CreateTranslation(new()
             {
                 FileName = fileName,
                 File = sampleFile,
@@ -84,7 +83,7 @@ internal static class AudioTestHelper
             {
                 if (audioResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{audioResult.Error.Code}: {audioResult.Error.Message}");
@@ -97,14 +96,14 @@ internal static class AudioTestHelper
         }
     }
 
-     public static async Task RunSimpleAudioCreateSpeechTest(IOpenAIService sdk)
+    public static async Task RunSimpleAudioCreateSpeechTest(IOpenAIService sdk)
     {
         ConsoleExtensions.WriteLine("Create Speech Testing is starting:", ConsoleColor.Cyan);
 
         try
         {
             ConsoleExtensions.WriteLine("Audio Create Speech Test:", ConsoleColor.DarkCyan);
-            var audioResult = await sdk.Audio.CreateSpeech<Stream>(new AudioCreateSpeechRequest
+            var audioResult = await sdk.Audio.CreateSpeech<Stream>(new()
             {
                 Model = Models.Tts_1,
                 Input = "The sixth sick sheikh's sixth sheep's sick",
@@ -116,7 +115,7 @@ internal static class AudioTestHelper
             if (audioResult.Successful)
             {
 #if NET6_0_OR_GREATER
-                var audio =audioResult.Data!;
+                var audio = audioResult.Data!;
                 // save stream data as mp3 file
                 await using var fileStream = File.Create("SampleData/speech.mp3");
                 await audio.CopyToAsync(fileStream);
@@ -128,7 +127,7 @@ internal static class AudioTestHelper
             {
                 if (audioResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{audioResult.Error.Code}: {audioResult.Error.Message}");

@@ -1,6 +1,5 @@
 ﻿using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
@@ -28,7 +27,7 @@ internal static class FineTuningTestHelper
                 ConsoleExtensions.WriteLine($"{fileName} failed", ConsoleColor.DarkRed);
             }
 
-            var createFineTuneResponse = await sdk.FineTunes.CreateFineTune(new FineTuneCreateRequest
+            var createFineTuneResponse = await sdk.FineTunes.CreateFineTune(new()
             {
                 TrainingFile = uploadFilesResponse.Id,
                 Model = Models.Ada
@@ -57,7 +56,7 @@ internal static class FineTuningTestHelper
 
             do
             {
-                var completionResult = await sdk.Completions.CreateCompletion(new CompletionCreateRequest
+                var completionResult = await sdk.Completions.CreateCompletion(new()
                 {
                     MaxTokens = 1,
                     Prompt = @"https://t.co/f93xEd2 Excited to share my latest blog post! ->",

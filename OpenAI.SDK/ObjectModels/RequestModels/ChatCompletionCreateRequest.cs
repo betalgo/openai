@@ -45,7 +45,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     public bool? Stream { get; set; }
 
     /// <summary>
-    ///     Options for streaming response. Only set this when you set <see cref="Stream"/>: <c>true</c>.
+    ///     Options for streaming response. Only set this when you set <see cref="Stream" />: <c>true</c>.
     /// </summary>
     [JsonPropertyName("stream_options")]
     public StreamOptions? StreamOptions { get; set; }
@@ -129,13 +129,15 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     public IList<ToolDefinition>? Tools { get; set; }
 
 
-    [JsonIgnore] public object? ToolsAsObject { get; set; }
+    [JsonIgnore]
+    public object? ToolsAsObject { get; set; }
 
     /// <summary>
     ///     A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list
     ///     of functions the model may generate JSON inputs for.
     /// </summary>
-    [JsonPropertyName("tools")] public object? ToolsCalculated
+    [JsonPropertyName("tools")]
+    public object? ToolsCalculated
     {
         get
         {
@@ -219,7 +221,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
                 throw new ValidationException("ResponseFormat and ChatResponseFormat can not be assigned at the same time. One of them is should be null.");
             }
 
-            ResponseFormat = new ResponseFormat
+            ResponseFormat = new()
             {
                 Type = value switch
                 {
@@ -238,6 +240,21 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// </summary>
     [JsonPropertyName("seed")]
     public int? Seed { get; set; }
+
+    /// <summary>
+    ///     Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each
+    ///     output token returned in the content of message.
+    /// </summary>
+    [JsonPropertyName("logprobs")]
+    public bool? LogProbs { get; set; }
+
+
+    /// <summary>
+    ///     An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with
+    ///     an associated log probability. logprobs must be set to true if this parameter is used.
+    /// </summary>
+    [JsonPropertyName("top_logprobs")]
+    public int? TopLogprobs { get; set; }
 
     /// <summary>
     ///     ID of the model to use. For models supported see <see cref="OpenAI.ObjectModels.Models" /> start with <c>Gpt_</c>
@@ -263,17 +280,4 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// </summary>
     [JsonPropertyName("user")]
     public string User { get; set; }
-
-    /// <summary>
-    ///   Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message.
-    /// </summary>
-    [JsonPropertyName("logprobs")]
-    public bool? LogProbs { get; set; }
-
-
-    /// <summary>
-    /// An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used.
-    /// </summary>
-    [JsonPropertyName("top_logprobs")]
-    public int? TopLogprobs { get; set; }
 }

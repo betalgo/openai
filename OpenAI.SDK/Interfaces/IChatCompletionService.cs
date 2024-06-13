@@ -23,10 +23,13 @@ public interface IChatCompletionService
     /// </summary>
     /// <param name="modelId">The ID of the model to use for this request</param>
     /// <param name="chatCompletionCreate"></param>
-    /// <param name="justDataMode">Ignore stream lines if they don’t start with "data:". If you don't know what it means, probably you shouldn't change this.</param>
+    /// <param name="justDataMode">
+    ///     Ignore stream lines if they don’t start with "data:". If you don't know what it means,
+    ///     probably you shouldn't change this.
+    /// </param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    IAsyncEnumerable<ChatCompletionCreateResponse> CreateCompletionAsStream(ChatCompletionCreateRequest chatCompletionCreate, string? modelId = null, bool justDataMode = true,CancellationToken cancellationToken = default);
+    IAsyncEnumerable<ChatCompletionCreateResponse> CreateCompletionAsStream(ChatCompletionCreateRequest chatCompletionCreate, string? modelId = null, bool justDataMode = true, CancellationToken cancellationToken = default);
 }
 
 public static class IChatCompletionServiceExtension

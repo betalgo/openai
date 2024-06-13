@@ -10,4 +10,3 @@ public record FineTuningJobListResponse : BaseResponse
     [JsonPropertyName("has_more")]
     public bool HasMore { get; set; }
 }
-

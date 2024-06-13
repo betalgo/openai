@@ -58,9 +58,11 @@ public class ChatMessage
     [JsonPropertyName("role")]
     public string Role { get; set; }
 
-    [JsonIgnore] public string? Content { get; set; }
+    [JsonIgnore]
+    public string? Content { get; set; }
 
-    [JsonIgnore] public IList<MessageContent>? Contents { get; set; }
+    [JsonIgnore]
+    public IList<MessageContent>? Contents { get; set; }
 
     /// <summary>
     ///     The contents of the message.
@@ -72,9 +74,7 @@ public class ChatMessage
         {
             if (Content is not null && Contents is not null)
             {
-                throw new ValidationException(
-                    "Content and Contents can not be assigned at the same time. One of them must be null."
-                );
+                throw new ValidationException("Content and Contents can not be assigned at the same time. One of them must be null.");
             }
 
             if (Content is not null)

@@ -29,7 +29,7 @@ public interface IOpenAIService
     public IFineTuneService FineTunes { get; }
 
     /// <summary>
-    /// Manage fine-tuning jobs to tailor a model to your specific training data.
+    ///     Manage fine-tuning jobs to tailor a model to your specific training data.
     /// </summary>
     public IFineTuningJobService FineTuningJob { get; }
 
@@ -54,13 +54,14 @@ public interface IOpenAIService
     ///     Given an audio file, the model will return a transcription of the audio.
     /// </summary>
     public IAudioService Audio { get; }
-    /// <summary>
-    /// Create large batches of API requests to run asynchronously.
-    /// </summary>
-    public IBatchService Batch{ get; }
 
     /// <summary>
-    ///  Beta
+    ///     Create large batches of API requests to run asynchronously.
+    /// </summary>
+    public IBatchService Batch { get; }
+
+    /// <summary>
+    ///     Beta
     /// </summary>
     public IBetaService Beta { get; }
 

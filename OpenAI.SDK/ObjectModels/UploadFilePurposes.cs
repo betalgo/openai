@@ -5,7 +5,10 @@
 ///     Use "assistants" for Assistants and Message files, "vision" for Assistants image file inputs, "batch" for Batch
 ///     API, and "fine-tune" for Fine-tuning.
 ///     <a href="https://platform.openai.com/docs/api-reference/files/create#files-create-purpose">Upload File Purposes</a>
-///     <a href="https://platform.openai.com/docs/api-reference/files/object#files/object-purpose">Upload File Purpose Responses</a>
+///     <a href="https://platform.openai.com/docs/api-reference/files/object#files/object-purpose">
+///         Upload File Purpose
+///         Responses
+///     </a>
 /// </summary>
 public static class UploadFilePurposes
 {
@@ -17,7 +20,7 @@ public static class UploadFilePurposes
         AssistantsOutput,
         Vision,
         Batch,
-        BatchOutput,
+        BatchOutput
     }
 
     public const string Assistants = "assistants";

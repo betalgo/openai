@@ -25,7 +25,7 @@ public interface IFineTuningJobService
     /// <param name="fineTuningJobListRequest"></param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<FineTuningJobListResponse> ListFineTuningJobs(FineTuningJobListRequest? fineTuningJobListRequest =null,CancellationToken cancellationToken = default);
+    Task<FineTuningJobListResponse> ListFineTuningJobs(FineTuningJobListRequest? fineTuningJobListRequest = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Gets info about the fine-tuning job.
@@ -48,7 +48,8 @@ public interface IFineTuningJobService
     /// </summary>
     /// <param name="model"></param>
     /// <param name="stream">
-    ///     Whether to stream events for the fine-tuning job. If set to true, events will be sent as data-only server-sent events
+    ///     Whether to stream events for the fine-tuning job. If set to true, events will be sent as data-only server-sent
+    ///     events
     ///     as they become available. The stream will terminate with a data: [DONE] message when the job is finished
     ///     (succeeded, cancelled, or failed).
     ///     If set to false, only events generated so far will be returned.

@@ -1,6 +1,5 @@
 ﻿using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
@@ -14,9 +13,9 @@ internal static class EmbeddingTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Embedding Test:", ConsoleColor.DarkCyan);
-            var embeddingResult = await sdk.Embeddings.CreateEmbedding(new EmbeddingCreateRequest
+            var embeddingResult = await sdk.Embeddings.CreateEmbedding(new()
             {
-                InputAsList = new List<string> {"The quick brown fox jumped over the lazy dog."},
+                InputAsList = new() { "The quick brown fox jumped over the lazy dog." },
                 Model = Models.TextEmbeddingAdaV2
             });
 
@@ -28,7 +27,7 @@ internal static class EmbeddingTestHelper
             {
                 if (embeddingResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{embeddingResult.Error.Code}: {embeddingResult.Error.Message}");

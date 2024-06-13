@@ -70,7 +70,7 @@ public class AssistantCreateRequest : IOpenAiModels.IModel, IOpenAiModels.IMetaD
     ///     about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of
     ///     512 characters long.
     /// </summary>
-    [JsonPropertyName("metadata")]  
+    [JsonPropertyName("metadata")]
     public Dictionary<string, string>? Metadata { get; set; }
 
     /// <summary>

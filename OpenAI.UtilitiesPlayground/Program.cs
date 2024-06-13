@@ -5,8 +5,7 @@ using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.UtilitiesPlayground.TestHelpers;
 
-var builder = new ConfigurationBuilder()
-    .AddUserSecrets<Program>();
+var builder = new ConfigurationBuilder().AddUserSecrets<Program>();
 
 IConfiguration configuration = builder.Build();
 var serviceCollection = new ServiceCollection();

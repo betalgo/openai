@@ -1,8 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
 using OpenAI.Extensions;
 using OpenAI.Interfaces;
-using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels;
 
@@ -35,9 +33,6 @@ public partial class OpenAIService : IChatCompletionService
             yield break;
         }
 
-        await foreach (var baseResponse in response.AsStream<ChatCompletionCreateResponse>(cancellationToken: cancellationToken)) yield return  baseResponse;
-      
+        await foreach (var baseResponse in response.AsStream<ChatCompletionCreateResponse>(cancellationToken: cancellationToken)) yield return baseResponse;
     }
-
-  
 }
