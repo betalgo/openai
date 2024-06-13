@@ -1,6 +1,10 @@
 
 # .NET SDK for OpenAI
-⭐ We appreciate your star, it helps!
+⭐ We appreciate your star, it helps!  
+
+![Discord Shield](https://discord.com/api/guilds/1250841506785529916/widget.png?style=shield)   
+We have a very new Discord channel. Please come and help us build the .NET AI community.
+
 ## Overview
 A .NET SDK for accessing OpenAI's API, provided as a community library. This SDK allows you to integrate OpenAI's capabilities into your .NET applications with ease.
 
