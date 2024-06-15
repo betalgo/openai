@@ -116,9 +116,9 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
-### 8.4.0
-- Added Stream support for submitToolOutputsToRun, createRun, and createThreadAndRun
-- 🎉 With this update, we are now in sync with OpenAI's latest API changes. We shouldn't have any missing features as of now. 
+### 8.5.0
+- Assistant Stream now returns the `BaseResponse` type, but they can be cast to the appropriate types(`RunStepResponse`,`RunResponse`,`MessageResponse`). The reason for this change is that we realized the stream API returns multiple different object types rather than returning a single object type.
+- The Base Response now has a `StreamEvent` field, which can be used to determine the type of event while streaming.
 
 
 ### [More Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
