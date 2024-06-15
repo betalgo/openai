@@ -9,6 +9,11 @@ namespace OpenAI.ObjectModels.SharedModels;
 /// </summary>
 public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IMetaData, IOpenAiModels.IAssistantId
 {
+    [JsonPropertyName("delta")]
+    public MessageResponse Delta
+    {
+        set => Content = value.Content;
+    }
     /// <summary>
     ///     The thread ID that this message belongs to.
     /// </summary>

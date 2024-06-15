@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using OpenAI.ObjectModels.RequestModels;
+using OpenAI.ObjectModels.ResponseModels;
 using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.Interfaces;
@@ -24,8 +25,8 @@ public interface IRunService
     /// <param name="modelId"></param>
     /// <param name="justDataMode"></param>
     /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    IAsyncEnumerable<RunResponse> RunCreateAsStream(string threadId, RunCreateRequest request, string? modelId = null, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default);
+    /// <returns><see cref="BaseResponse"/> also returns <see cref="RunResponse"/>,<see cref="RunStepResponse"/>, <see cref="MessageResponse"/> </returns>
+    IAsyncEnumerable<BaseResponse> RunCreateAsStream(string threadId, RunCreateRequest request, string? modelId = null, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Retrieves a run.
@@ -71,9 +72,10 @@ public interface IRunService
     /// <param name="threadId"></param>
     /// <param name="runId"></param>
     /// <param name="request"></param>
+    /// <param name="justDataMode"></param>
     /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    IAsyncEnumerable<RunResponse> RunSubmitToolOutputsAsStream(string threadId, string runId, SubmitToolOutputsToRunRequest request, [EnumeratorCancellation] CancellationToken cancellationToken = default);
+    /// <returns><see cref="BaseResponse"/> also returns <see cref="RunResponse"/>,<see cref="RunStepResponse"/>, <see cref="MessageResponse"/> </returns>
+    IAsyncEnumerable<BaseResponse> RunSubmitToolOutputsAsStream(string threadId, string runId, SubmitToolOutputsToRunRequest request, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Modifies a run.
@@ -93,7 +95,8 @@ public interface IRunService
     /// <summary>
     ///     Create a thread and run it in one request as Stream.
     /// </summary>
-    IAsyncEnumerable<RunResponse> CreateThreadAndRunAsStream(CreateThreadAndRunRequest createThreadAndRunRequest, string? modelId = null, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default);
+    /// <returns><see cref="BaseResponse"/> also returns <see cref="RunResponse"/>,<see cref="RunStepResponse"/>, <see cref="MessageResponse"/> </returns>
+    IAsyncEnumerable<BaseResponse> CreateThreadAndRunAsStream(CreateThreadAndRunRequest createThreadAndRunRequest, string? modelId = null, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Returns a list of runs belonging to a thread.

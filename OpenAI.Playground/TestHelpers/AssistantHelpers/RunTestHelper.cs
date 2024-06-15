@@ -165,19 +165,58 @@ internal static partial class AssistantTestHelper
             var result = openAI.Beta.Runs.RunCreateAsStream(CreatedThreadId, new()
             {
                 AssistantId = assistantResult.Id
-            });
+            },justDataMode:false);
 
             await foreach (var run in result)
             {
                 if (run.Successful)
                 {
-                    if (string.IsNullOrEmpty(run.Status))
+                    Console.WriteLine($"Event:{run.StreamEvent}");
+                    if (run is RunResponse runResponse)
                     {
-                        Console.Write(".");
+                        if (string.IsNullOrEmpty(runResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Id: {runResponse.Id}, Status: {runResponse.Status}");
+                        }
+                    }
+
+                    else if (run is RunStepResponse runStepResponse)
+                    {
+                        if (string.IsNullOrEmpty(runStepResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Step Id: {runStepResponse.Id}, Status: {runStepResponse.Status}");
+                        }
+                    }
+
+                    else if (run is MessageResponse messageResponse)
+                    {
+                        if (string.IsNullOrEmpty(messageResponse.Id))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Message Id: {messageResponse.Id}, Message: {messageResponse.Content?.FirstOrDefault()?.Text?.Value}");
+                        }
                     }
                     else
                     {
-                        ConsoleExtensions.WriteLine($"Run Id: {run.Id}, Status: {run.Status}");
+                        if (run.StreamEvent!=null)
+                        {
+                            Console.WriteLine(run.StreamEvent);
+                        }
+                        else
+                        {
+                            Console.Write(".");
+                        }
                     }
                 }
                 else
@@ -450,13 +489,52 @@ internal static partial class AssistantTestHelper
             {
                 if (run.Successful)
                 {
-                    if (string.IsNullOrEmpty(run.Status))
+                    Console.WriteLine($"Event:{run.StreamEvent}");
+                    if (run is RunResponse runResponse)
                     {
-                        Console.Write(".");
+                        if (string.IsNullOrEmpty(runResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Id: {runResponse.Id}, Status: {runResponse.Status}");
+                        }
+                    }
+
+                    else if (run is RunStepResponse runStepResponse)
+                    {
+                        if (string.IsNullOrEmpty(runStepResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Step Id: {runStepResponse.Id}, Status: {runStepResponse.Status}");
+                        }
+                    }
+
+                    else if (run is MessageResponse messageResponse)
+                    {
+                        if (string.IsNullOrEmpty(messageResponse.Id))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Message Id: {messageResponse.Id}, Message: {messageResponse.Content?.FirstOrDefault()?.Text?.Value}");
+                        }
                     }
                     else
                     {
-                        ConsoleExtensions.WriteLine($"Run Id: {run.Id}, Status: {run.Status}");
+                        if (run.StreamEvent != null)
+                        {
+                            Console.WriteLine(run.StreamEvent);
+                        }
+                        else
+                        {
+                            Console.Write(".");
+                        }
                     }
                 }
                 else
@@ -642,13 +720,52 @@ internal static partial class AssistantTestHelper
             {
                 if (run.Successful)
                 {
-                    if (string.IsNullOrEmpty(run.Status))
+                    Console.WriteLine($"Event:{run.StreamEvent}");
+                    if (run is RunResponse runResponse)
                     {
-                        Console.Write(".");
+                        if (string.IsNullOrEmpty(runResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Id: {runResponse.Id}, Status: {runResponse.Status}");
+                        }
+                    }
+
+                    else if (run is RunStepResponse runStepResponse)
+                    {
+                        if (string.IsNullOrEmpty(runStepResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Step Id: {runStepResponse.Id}, Status: {runStepResponse.Status}");
+                        }
+                    }
+
+                    else if (run is MessageResponse messageResponse)
+                    {
+                        if (string.IsNullOrEmpty(messageResponse.Id))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Message Id: {messageResponse.Id}, Message: {messageResponse.Content?.FirstOrDefault()?.Text?.Value}");
+                        }
                     }
                     else
                     {
-                        ConsoleExtensions.WriteLine($"Run Id: {run.Id}, Status: {run.Status}");
+                        if (run.StreamEvent != null)
+                        {
+                            Console.WriteLine(run.StreamEvent);
+                        }
+                        else
+                        {
+                            Console.Write(".");
+                        }
                     }
                 }
                 else
