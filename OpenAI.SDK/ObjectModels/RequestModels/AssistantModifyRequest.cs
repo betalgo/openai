@@ -38,25 +38,6 @@ public class AssistantModifyRequest : IOpenAiModels.IModel, IOpenAiModels.IMetaD
     public ToolResources? ToolResources { get; set; }
 
     /// <summary>
-    ///     Set of 16 key-value pairs that can be attached to an object.
-    /// </summary>
-    [JsonPropertyName("metadata")]
-    public Dictionary<string, string>? Metadata { get; set; }
-
-    /// <summary>
-    ///     ID of the model to use
-    /// </summary>
-    [JsonPropertyName("model")]
-    public string Model { get; set; }
-
-    /// <summary>
-    ///     What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while
-    ///     lower values like 0.2 will make it more focused and deterministic.
-    /// </summary>
-    [JsonPropertyName("temperature")]
-    public float? Temperature { get; set; }
-
-    /// <summary>
     ///     An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the
     ///     tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are
     ///     considered.
@@ -81,4 +62,23 @@ public class AssistantModifyRequest : IOpenAiModels.IModel, IOpenAiModels.IMetaD
     /// </summary>
     [JsonPropertyName("response_format")]
     public ResponseFormatOneOfType? ResponseFormat { get; set; }
+
+    /// <summary>
+    ///     Set of 16 key-value pairs that can be attached to an object.
+    /// </summary>
+    [JsonPropertyName("metadata")]
+    public Dictionary<string, string>? Metadata { get; set; }
+
+    /// <summary>
+    ///     ID of the model to use
+    /// </summary>
+    [JsonPropertyName("model")]
+    public string Model { get; set; }
+
+    /// <summary>
+    ///     What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while
+    ///     lower values like 0.2 will make it more focused and deterministic.
+    /// </summary>
+    [JsonPropertyName("temperature")]
+    public float? Temperature { get; set; }
 }

@@ -27,16 +27,14 @@ internal static class AssistantTestHelper3
 
         #region Create assistant
 
-        var func = new FunctionDefinitionBuilder("get_corp_location", "get location of corp").AddParameter("name", PropertyDefinition.DefineString("company name, e.g. Betterway"))
-            .Validate()
-            .Build();
+        var func = new FunctionDefinitionBuilder("get_corp_location", "get location of corp").AddParameter("name", PropertyDefinition.DefineString("company name, e.g. Betterway")).Validate().Build();
 
         ConsoleExtensions.WriteLine("Assistant Create Test:", ConsoleColor.DarkCyan);
-        var assistantResult = await sdk.Beta.Assistants.AssistantCreate(new AssistantCreateRequest
+        var assistantResult = await sdk.Beta.Assistants.AssistantCreate(new()
         {
             Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
             Name = "Qicha",
-            Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func) },
+            Tools = new() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func) },
             Model = Models.Gpt_3_5_Turbo_1106
         });
         if (assistantResult.Successful)
@@ -75,7 +73,7 @@ internal static class AssistantTestHelper3
         #region // Assistant modify
 
         ConsoleExtensions.WriteLine("Assistant modify:", ConsoleColor.DarkCyan);
-        var asstResult = await sdk.Beta.Assistants.AssistantModify(assistantId, new AssistantModifyRequest()
+        var asstResult = await sdk.Beta.Assistants.AssistantModify(assistantId, new()
         {
             Name = "Qicha rename"
         });
@@ -161,17 +159,15 @@ internal static class AssistantTestHelper3
 
         #region //create assistants
 
-        var func = new FunctionDefinitionBuilder("get_corp_location", "get location of corp").AddParameter("name", PropertyDefinition.DefineString("company name, e.g. Betterway"))
-            .Validate()
-            .Build();
+        var func = new FunctionDefinitionBuilder("get_corp_location", "get location of corp").AddParameter("name", PropertyDefinition.DefineString("company name, e.g. Betterway")).Validate().Build();
 
         ConsoleExtensions.WriteLine("Assistant Create Test:", ConsoleColor.DarkCyan);
-        var assistantResult = await sdk.Beta.Assistants.AssistantCreate(new AssistantCreateRequest
+        var assistantResult = await sdk.Beta.Assistants.AssistantCreate(new()
         {
             Instructions = "You are a professional assistant who provides company information. Company-related data comes from uploaded questions and does not provide vague answers, only clear answers.",
             Name = "Qicha",
             Model = Models.Gpt_3_5_Turbo_1106,
-            Tools = new List<ToolDefinition>() { ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func) },
+            Tools = [ToolDefinition.DefineCodeInterpreter(), ToolDefinition.DefineFileSearch(), ToolDefinition.DefineFunction(func)]
         });
 
         if (assistantResult.Successful)
@@ -211,16 +207,19 @@ internal static class AssistantTestHelper3
         #region //create thread message
 
         ConsoleExtensions.WriteLine("Message Create Test:", ConsoleColor.DarkCyan);
-        var messageResult = await sdk.Beta.Messages.CreateMessage(threadId, new MessageCreateRequest
+        var messageResult = await sdk.Beta.Messages.CreateMessage(threadId, new()
         {
             Role = StaticValues.AssistantsStatics.MessageStatics.Roles.User,
-            Content =new("Where is Zhejiang Jiacheng Supply Chain Co., LTD."),
+            Content = new("Where is Zhejiang Jiacheng Supply Chain Co., LTD."),
             // Tools must be specified for Attachments
-            Attachments = [new() 
-            { 
-                FileId = uploadFileId,
-                Tools = [ ToolDefinition.DefineFileSearch() ]
-            }]
+            Attachments =
+            [
+                new()
+                {
+                    FileId = uploadFileId,
+                    Tools = [ToolDefinition.DefineFileSearch()]
+                }
+            ]
         });
 
         if (messageResult.Successful)
@@ -240,7 +239,7 @@ internal static class AssistantTestHelper3
         #region //create run
 
         ConsoleExtensions.WriteLine("Run Create Test:", ConsoleColor.DarkCyan);
-        var runResult = await sdk.Beta.Runs.RunCreate(threadId, new RunCreateRequest()
+        var runResult = await sdk.Beta.Runs.RunCreate(threadId, new()
         {
             AssistantId = assistantId
         });
@@ -305,7 +304,7 @@ No.615 Bayi North Street, Wucheng District, Jinhua City, Zhejiang Province"
                 //All outputs must be submitted in a single request.
                 if (toolOutputs.Any())
                 {
-                    await sdk.Beta.Runs.RunSubmitToolOutputs(threadId, runId, new SubmitToolOutputsToRunRequest()
+                    await sdk.Beta.Runs.RunSubmitToolOutputs(threadId, runId, new()
                     {
                         ToolOutputs = toolOutputs
                     });
@@ -332,8 +331,7 @@ No.615 Bayi North Street, Wucheng District, Jinhua City, Zhejiang Province"
         {
             var msgRespList = messageListResult.Data;
             var ask = msgRespList?.FirstOrDefault(msg => msg.Role == StaticValues.AssistantsStatics.MessageStatics.Roles.User);
-            var replys = msgRespList?.Where(msg => msg.CreatedAt > ask?.CreatedAt && msg.Role == StaticValues.AssistantsStatics.MessageStatics.Roles.Assistant)
-                .ToList() ?? new List<MessageResponse>();
+            var replys = msgRespList?.Where(msg => msg.CreatedAt > ask?.CreatedAt && msg.Role == StaticValues.AssistantsStatics.MessageStatics.Roles.Assistant).ToList() ?? new List<MessageResponse>();
             ConsoleExtensions.WriteLine(replys.ToJson());
         }
         else

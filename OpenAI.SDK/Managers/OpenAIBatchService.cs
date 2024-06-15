@@ -1,8 +1,8 @@
-﻿using OpenAI.Extensions;
+﻿using System.Net.Http.Json;
+using OpenAI.Extensions;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
-using System.Net.Http.Json;
 
 namespace OpenAI.Managers;
 
@@ -23,6 +23,6 @@ public partial class OpenAIService : IBatchService
     /// <inheritdoc />
     public async Task<BatchResponse> BatchCancel(string batchId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<BatchResponse>(_endpointProvider.BatchCancel(batchId),null, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<BatchResponse>(_endpointProvider.BatchCancel(batchId), null, cancellationToken);
     }
 }

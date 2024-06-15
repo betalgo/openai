@@ -5,7 +5,8 @@ using OpenAI.ObjectModels.SharedModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers.AssistantHelpers;
-internal  static partial class AssistantTestHelper
+
+internal static partial class AssistantTestHelper
 {
     internal static class BasicsTestHelper
     {
@@ -128,9 +129,7 @@ internal  static partial class AssistantTestHelper
 
             if (result.Successful)
             {
-                if (result is { Name: newName, Instructions: newInstructions } && result.Tools.First()
-                        .Type == ToolDefinition.DefineFileSearch()
-                        .Type)
+                if (result is { Name: newName, Instructions: newInstructions } && result.Tools.First().Type == ToolDefinition.DefineFileSearch().Type)
                 {
                     ConsoleExtensions.WriteLine("Modify Assistant Test is successful.", ConsoleColor.Green);
                 }

@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
@@ -8,24 +9,31 @@ namespace OpenAI.Extensions;
 
 public static class StreamHandleExtension
 {
-    public static async IAsyncEnumerable<TResponse> AsStream<TResponse>(this HttpResponseMessage response, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default) where TResponse : BaseResponse, new()
+    public static async IAsyncEnumerable<BaseResponse> AsStream(this HttpResponseMessage response, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        await foreach (var baseResponse in AsStream<BaseResponse>(response, justDataMode, cancellationToken)) yield return baseResponse;
+    }
+    public static async IAsyncEnumerable<TResponse> AsStream<TResponse>(this HttpResponseMessage response, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        where TResponse : BaseResponse, new()
     {
         // Helper data in case we need to reassemble a multi-packet response
         ReassemblyContext ctx = new();
-        
+
         // Ensure that we parse headers only once to improve performance a little bit.
         var httpStatusCode = response.StatusCode;
         var headerValues = response.ParseHeaders();
 
         await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
         using var reader = new StreamReader(stream);
-
+        string? tempStreamEvent = null;
+        bool isEventDelta;
         // Continuously read the stream until the end of it
         while (true)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             var line = await reader.ReadLineAsync();
+         //   Console.WriteLine("---" + line);
             // Break the loop if we have reached the end of the stream
             if (line == null)
             {
@@ -38,8 +46,25 @@ public static class StreamHandleExtension
                 continue;
             }
 
+            if (line.StartsWith("event: "))
+            {
+                line = line.RemoveIfStartWith("event: ");
+                tempStreamEvent = line;
+                isEventDelta = true;
+            }
+            else
+            {
+                isEventDelta = false;
+            }
+
             if (justDataMode && !line.StartsWith("data: "))
             {
+                continue;
+            }
+
+            if (!justDataMode && isEventDelta )
+            {
+                yield return new(){ObjectTypeName = "base.stream.event",StreamEvent = tempStreamEvent};
                 continue;
             }
 
@@ -55,7 +80,14 @@ public static class StreamHandleExtension
             try
             {
                 // When the response is good, each line is a serializable CompletionCreateRequest
-                block = JsonSerializer.Deserialize<TResponse>(line);
+                if (typeof(TResponse) == typeof(BaseResponse))
+                {
+                   block =JsonSerializer.Deserialize(line, JsonToObjectRouterExtension.Route(line), new JsonSerializerOptions()) as TResponse;
+                }
+                else
+                {
+                    block = JsonSerializer.Deserialize<TResponse>(line);
+                }
             }
             catch (Exception)
             {
@@ -77,6 +109,8 @@ public static class StreamHandleExtension
                 {
                     block.HttpStatusCode = httpStatusCode;
                     block.HeaderValues = headerValues;
+                    block.StreamEvent = tempStreamEvent;
+                    tempStreamEvent = null;
                     yield return block;
                 }
             }

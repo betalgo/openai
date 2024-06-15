@@ -7,8 +7,13 @@ namespace OpenAI.ObjectModels.SharedModels;
 /// <summary>
 ///     Represents a message within a thread.
 /// </summary>
-public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IMetaData,IOpenAiModels.IAssistantId
+public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IMetaData, IOpenAiModels.IAssistantId
 {
+    [JsonPropertyName("delta")]
+    public MessageResponse Delta
+    {
+        set => Content = value.Content;
+    }
     /// <summary>
     ///     The thread ID that this message belongs to.
     /// </summary>
@@ -35,7 +40,7 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
 
 
     /// <summary>
-    ///    On an incomplete message, details about why the message is incomplete.
+    ///     On an incomplete message, details about why the message is incomplete.
     /// </summary>
     [JsonPropertyName("incomplete_details")]
     public IncompleteDetails? IncompleteDetails { get; set; }
@@ -45,7 +50,7 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     /// </summary>
     [JsonPropertyName("completed_at")]
     public int? CompletedAt { get; set; }
-    
+
     /// <summary>
     ///     The Unix timestamp (in seconds) for when the run was completed.
     /// </summary>
@@ -53,13 +58,8 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     public int? IncompleteAt { get; set; }
 
     /// <summary>
-    ///     If applicable, the ID of the assistant that authored this message.
-    /// </summary>
-    [JsonPropertyName("assistant_id")]
-    public string? AssistantId { get; set; }
-
-    /// <summary>
-    ///    The ID of the run associated with the creation of this message. Value is null when messages are created manually using the create message or create thread endpoints.
+    ///     The ID of the run associated with the creation of this message. Value is null when messages are created manually
+    ///     using the create message or create thread endpoints.
     /// </summary>
     [JsonPropertyName("run_id")]
     public string? RunId { get; set; }
@@ -71,6 +71,12 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     /// </summary>
     [JsonPropertyName("attachments")]
     public List<Attachment> Attachments { get; set; }
+
+    /// <summary>
+    ///     If applicable, the ID of the assistant that authored this message.
+    /// </summary>
+    [JsonPropertyName("assistant_id")]
+    public string? AssistantId { get; set; }
 
     /// <summary>
     ///     The Unix timestamp (in seconds) for when the message was created.
@@ -115,7 +121,7 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
         public MessageText? Text { get; set; }
 
         /// <summary>
-        ///  References an image URL in the content of a message.
+        ///     References an image URL in the content of a message.
         /// </summary>
         [JsonPropertyName("image_url")]
         public MessageImageUrl? ImageUrl { get; set; }

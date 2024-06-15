@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Threading;
 using OpenAI.ObjectModels.RequestModels;
 
 namespace OpenAI.EndpointProviders;
@@ -299,10 +298,12 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
         return url;
     }
+
     public string MessageDelete(string threadId, string messageId)
     {
         return $"{_apiVersion}/threads/{threadId}/messages/{messageId}";
     }
+
     public string RunCreate(string threadId)
     {
         return $"{_apiVersion}/threads/{threadId}/runs";
@@ -452,6 +453,4 @@ internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
 
         return url;
     }
-
-
 }

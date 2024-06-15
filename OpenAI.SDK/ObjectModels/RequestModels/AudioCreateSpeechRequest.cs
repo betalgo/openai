@@ -6,12 +6,6 @@ namespace OpenAI.ObjectModels.RequestModels;
 public record AudioCreateSpeechRequest : IOpenAiModels.IModel
 {
     /// <summary>
-    ///     ID of the model to use. One of the available TTS models: tts-1 or tts-1-hd
-    /// </summary>
-    [JsonPropertyName("model")]
-    public string Model { get; set; }
-
-    /// <summary>
     ///     The text to generate audio for. The maximum length is 4096 characters.
     /// </summary>
     [JsonPropertyName("input")]
@@ -36,4 +30,10 @@ public record AudioCreateSpeechRequest : IOpenAiModels.IModel
     /// </summary>
     [JsonPropertyName("speed")]
     public float? Speed { get; set; }
+
+    /// <summary>
+    ///     ID of the model to use. One of the available TTS models: tts-1 or tts-1-hd
+    /// </summary>
+    [JsonPropertyName("model")]
+    public string Model { get; set; }
 }

@@ -5,11 +5,20 @@ using System.Text.Json.Serialization;
 
 namespace OpenAI.ObjectModels.ResponseModels;
 
-public record BaseResponse
+public record ObjectBaseResponse
 {
-    [JsonPropertyName("object")] public string? ObjectTypeName { get; set; }
+    [JsonPropertyName("object")]
+    public string? ObjectTypeName { get; set; }
+}
+public record BaseResponse: ObjectBaseResponse
+{
+    [JsonPropertyName("StreamEvent")]
+    public string? StreamEvent { get; set; }
     public bool Successful => Error == null;
-    [JsonPropertyName("error")] public Error? Error { get; set; }
+
+    [JsonPropertyName("error")]
+    public Error? Error { get; set; }
+
     public HttpStatusCode HttpStatusCode { get; set; }
     public ResponseHeaderValues? HeaderValues { get; set; }
 }
@@ -54,9 +63,10 @@ public record ResponseHeaderValues
     public OpenAIInfo? OpenAI { get; set; }
 }
 
-public record DataWithPagingBaseResponse<T> : BaseResponse where T :IList
+public record DataWithPagingBaseResponse<T> : BaseResponse where T : IList
 {
-    [JsonPropertyName("data")] public T? Data { get; set; }
+    [JsonPropertyName("data")]
+    public T? Data { get; set; }
 
     [JsonPropertyName("first_id")]
     public string FirstId { get; set; }
@@ -67,27 +77,36 @@ public record DataWithPagingBaseResponse<T> : BaseResponse where T :IList
     [JsonPropertyName("has_more")]
     public bool HasMore { get; set; }
 }
+
 public record DataBaseResponse<T> : BaseResponse
 {
-    [JsonPropertyName("data")] public T? Data { get; set; }
+    [JsonPropertyName("data")]
+    public T? Data { get; set; }
 }
 
-public record ErrorList: DataBaseResponse<List<Error>>
+public record ErrorList : DataBaseResponse<List<Error>>
 {
 }
+
 public class Error
 {
-    [JsonPropertyName("code")] public string? Code { get; set; }
+    [JsonPropertyName("code")]
+    public string? Code { get; set; }
 
-    [JsonPropertyName("param")] public string? Param { get; set; }
+    [JsonPropertyName("param")]
+    public string? Param { get; set; }
 
-    [JsonPropertyName("type")] public string? Type { get; set; }
+    [JsonPropertyName("type")]
+    public string? Type { get; set; }
 
     [JsonPropertyName("line")]
     public int? Line { get; set; }
-    [JsonIgnore] public string? Message { get; private set; }
 
-    [JsonIgnore] public List<string?> Messages { get; private set; }
+    [JsonIgnore]
+    public string? Message { get; private set; }
+
+    [JsonIgnore]
+    public List<string?> Messages { get; private set; }
 
     [JsonPropertyName("message")]
     [JsonConverter(typeof(MessageConverter))]

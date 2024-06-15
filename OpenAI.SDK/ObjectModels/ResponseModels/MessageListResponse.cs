@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+﻿using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.ResponseModels;
 

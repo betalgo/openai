@@ -31,7 +31,7 @@ public record CreateModerationRequest : IOpenAiModels.IModel
 
             if (Input != null)
             {
-                return new List<string> {Input};
+                return new List<string> { Input };
             }
 
             return InputAsList;

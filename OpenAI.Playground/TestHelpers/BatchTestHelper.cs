@@ -1,5 +1,4 @@
 ﻿using OpenAI.Interfaces;
-using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
@@ -22,10 +21,10 @@ internal static class BatchTestHelper
 
             if (!fileUploadResult.Successful)
             {
-                throw new Exception("File upload failed");
+                throw new("File upload failed");
             }
 
-            var batchCreateResult = await sdk.Batch.BatchCreate(new BatchCreateRequest
+            var batchCreateResult = await sdk.Batch.BatchCreate(new()
             {
                 InputFileId = fileUploadResult.Id,
                 Endpoint = "/v1/chat/completions",
@@ -34,7 +33,7 @@ internal static class BatchTestHelper
 
             if (!batchCreateResult.Successful)
             {
-                throw new Exception("Batch creation failed");
+                throw new("Batch creation failed");
             }
 
             ConsoleExtensions.WriteLine($"Batch ID: {batchCreateResult.Id}", ConsoleColor.Green);
@@ -46,7 +45,7 @@ internal static class BatchTestHelper
 
             if (!batchRetrieveResult.Successful)
             {
-                throw new Exception("Batch retrieval failed");
+                throw new("Batch retrieval failed");
             }
 
             ConsoleExtensions.WriteLine($"Batch ID: {batchRetrieveResult.Id}", ConsoleColor.Green);
@@ -62,7 +61,7 @@ internal static class BatchTestHelper
 
             if (!batchCancelResult.Successful)
             {
-                throw new Exception("Batch cancellation failed");
+                throw new("Batch cancellation failed");
             }
 
             ConsoleExtensions.WriteLine($"Batch ID: {batchCancelResult.Id}", ConsoleColor.Green);

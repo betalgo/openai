@@ -17,7 +17,7 @@ internal static class FineTuningJobTestHelper
         foreach (var job in jobs.Data)
         {
             Console.WriteLine(job.FineTunedModel);
-        } 
+        }
 
         try
         {
@@ -38,13 +38,13 @@ internal static class FineTuningJobTestHelper
             ConsoleExtensions.WriteLine($"Wait 5 seconds for the file to be ready", ConsoleColor.DarkYellow);
             await Task.Delay(5_000);
 
-            var createFineTuningJobResponse = await sdk.FineTuningJob.CreateFineTuningJob(new FineTuningJobCreateRequest
+            var createFineTuningJobResponse = await sdk.FineTuningJob.CreateFineTuningJob(new()
             {
                 TrainingFile = uploadFilesResponse.Id,
                 Model = Models.Gpt_3_5_Turbo
             });
 
-            var listFineTuningJobEventsStream = await sdk.FineTuningJob.ListFineTuningJobEvents(new FineTuningJobListEventsRequest
+            var listFineTuningJobEventsStream = await sdk.FineTuningJob.ListFineTuningJobEvents(new()
             {
                 FineTuningJobId = createFineTuningJobResponse.Id
             }, true);
@@ -71,12 +71,12 @@ internal static class FineTuningJobTestHelper
 
             do
             {
-                var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+                var completionResult = await sdk.ChatCompletion.CreateCompletion(new()
                 {
                     Messages = new List<ChatMessage>
                     {
                         ChatMessage.FromSystem("You are Marv, a chatbot that reluctantly answers questions with sarcastic responses."),
-                        ChatMessage.FromUser("How many pounds are in a kilogram?"),
+                        ChatMessage.FromUser("How many pounds are in a kilogram?")
                     },
                     MaxTokens = 50,
                     Model = retrieveFineTuningJobResponse.FineTunedModel

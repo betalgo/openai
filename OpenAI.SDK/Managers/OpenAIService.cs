@@ -13,8 +13,7 @@ public partial class OpenAIService : IOpenAIService, IDisposable
     private string? _defaultModelId;
 
     [ActivatorUtilitiesConstructor]
-    public OpenAIService(IOptions<OpenAiOptions> settings, HttpClient httpClient)
-        : this(settings.Value, httpClient)
+    public OpenAIService(IOptions<OpenAiOptions> settings, HttpClient httpClient) : this(settings.Value, httpClient)
     {
     }
 
@@ -25,14 +24,14 @@ public partial class OpenAIService : IOpenAIService, IDisposable
         if (httpClient == null)
         {
             _disposeHttpClient = true;
-            _httpClient = new HttpClient();
+            _httpClient = new();
         }
         else
         {
             _httpClient = httpClient;
         }
 
-        _httpClient.BaseAddress = new Uri(settings.BaseDomain);
+        _httpClient.BaseAddress = new(settings.BaseDomain);
 
         switch (settings.ProviderType)
         {
@@ -46,6 +45,7 @@ public partial class OpenAIService : IOpenAIService, IDisposable
                 {
                     _httpClient.DefaultRequestHeaders.Add("OpenAI-Beta", settings.Assistants);
                 }
+
                 break;
         }
 
@@ -105,7 +105,7 @@ public partial class OpenAIService : IOpenAIService, IDisposable
 
     /// <inheritdoc />
     public IAudioService Audio => this;
-    
+
     /// <inheritdoc />
     public IBatchService Batch => this;
 

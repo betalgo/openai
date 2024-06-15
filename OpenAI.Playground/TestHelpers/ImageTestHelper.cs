@@ -1,6 +1,5 @@
 ﻿using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
@@ -14,7 +13,7 @@ internal static class ImageTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Image Create Test:", ConsoleColor.DarkCyan);
-            var imageResult = await sdk.Image.CreateImage(new ImageCreateRequest
+            var imageResult = await sdk.Image.CreateImage(new()
             {
                 Prompt = "Laser cat eyes",
                 N = 1,
@@ -32,7 +31,7 @@ internal static class ImageTestHelper
             {
                 if (imageResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{imageResult.Error.Code}: {imageResult.Error.Message}");
@@ -59,7 +58,7 @@ internal static class ImageTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Image  Edit Create Test:", ConsoleColor.DarkCyan);
-            var imageResult = await sdk.Image.CreateImageEdit(new ImageEditCreateRequest
+            var imageResult = await sdk.Image.CreateImageEdit(new()
             {
                 Image = originalFile,
                 ImageName = originalFileName,
@@ -81,7 +80,7 @@ internal static class ImageTestHelper
             {
                 if (imageResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{imageResult.Error.Code}: {imageResult.Error.Message}");
@@ -104,7 +103,7 @@ internal static class ImageTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Image Variation Create Test:", ConsoleColor.DarkCyan);
-            var imageResult = await sdk.Image.CreateImageVariation(new ImageVariationCreateRequest
+            var imageResult = await sdk.Image.CreateImageVariation(new()
             {
                 Image = originalFile,
                 ImageName = originalFileName,
@@ -123,7 +122,7 @@ internal static class ImageTestHelper
             {
                 if (imageResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{imageResult.Error.Code}: {imageResult.Error.Message}");

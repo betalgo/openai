@@ -44,19 +44,19 @@ public partial class OpenAIService : IMessageService
         return await _httpClient.GetReadAsAsync<MessageListResponse>(_endpointProvider.MessageList(threadId, request), cancellationToken);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public async Task<MessageResponse> RetrieveMessage(string threadId, string messageId, CancellationToken cancellationToken = default)
     {
         return await _httpClient.GetReadAsAsync<MessageResponse>(_endpointProvider.MessageRetrieve(threadId, messageId), cancellationToken);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public async Task<MessageResponse> ModifyMessage(string threadId, string messageId, ModifyMessageRequest requestBody, CancellationToken cancellationToken = default)
     {
         return await _httpClient.PostAndReadAsAsync<MessageResponse>(_endpointProvider.MessageModify(threadId, messageId), requestBody, cancellationToken);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public async Task<DeletionStatusResponse> DeleteMessage(string threadId, string messageId, CancellationToken cancellationToken = default)
     {
         return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.MessageDelete(threadId, messageId), cancellationToken);

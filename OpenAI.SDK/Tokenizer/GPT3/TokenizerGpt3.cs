@@ -86,12 +86,9 @@ public static class TokenizerGpt3
 
     private static ConcurrentDictionary<int, char> InitializeBytesToUnicodeCache()
     {
-        var bytes = Enumerable.Range(Ord("!"), Ord("~") + 1 - Ord("!"))
-            .Concat(Enumerable.Range(Ord("¡"), Ord("¬") + 1 - Ord("¡")))
-            .Concat(Enumerable.Range(Ord("®"), Ord("ÿ") + 1 - Ord("®")))
-            .ToList();
+        var bytes = Enumerable.Range(Ord("!"), Ord("~") + 1 - Ord("!")).Concat(Enumerable.Range(Ord("¡"), Ord("¬") + 1 - Ord("¡"))).Concat(Enumerable.Range(Ord("®"), Ord("ÿ") + 1 - Ord("®"))).ToList();
 
-        var chars = (from x in bytes select (char) x).ToList();
+        var chars = (from x in bytes select (char)x).ToList();
 
         var n = 0;
         for (var b = 0; b < 256; b++)
@@ -102,12 +99,10 @@ public static class TokenizerGpt3
             }
 
             bytes.Add(b);
-            chars.Add((char) (256 + n++));
+            chars.Add((char)(256 + n++));
         }
 
-        return new ConcurrentDictionary<int, char>(bytes
-            .Zip(chars, (k, v) => new {k, v})
-            .ToDictionary(x => x.k, x => x.v));
+        return new(bytes.Zip(chars, (k, v) => new { k, v }).ToDictionary(x => x.k, x => x.v));
     }
 
     private static string BytePairEncoding(string token)
@@ -204,7 +199,7 @@ public static class TokenizerGpt3
             var currentChar = word[i];
             if (!result.ContainsKey(prevChar))
             {
-                result[prevChar] = new List<string>();
+                result[prevChar] = new();
             }
 
             result[prevChar].Add(currentChar);

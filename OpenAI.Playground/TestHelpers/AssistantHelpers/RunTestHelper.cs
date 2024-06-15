@@ -78,7 +78,7 @@ internal static partial class AssistantTestHelper
             ConsoleExtensions.WriteLine("Run Thread and Run Testing is starting:", ConsoleColor.Blue);
             await CreateThreadAndRun(openAI);
         }
-      
+
 
         public static async Task CreateRunTest(IOpenAIService openAI)
         {
@@ -165,19 +165,58 @@ internal static partial class AssistantTestHelper
             var result = openAI.Beta.Runs.RunCreateAsStream(CreatedThreadId, new()
             {
                 AssistantId = assistantResult.Id
-            });
+            },justDataMode:false);
 
             await foreach (var run in result)
             {
                 if (run.Successful)
                 {
-                    if (string.IsNullOrEmpty(run.Status))
+                    Console.WriteLine($"Event:{run.StreamEvent}");
+                    if (run is RunResponse runResponse)
                     {
-                        Console.Write(".");
+                        if (string.IsNullOrEmpty(runResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Id: {runResponse.Id}, Status: {runResponse.Status}");
+                        }
+                    }
+
+                    else if (run is RunStepResponse runStepResponse)
+                    {
+                        if (string.IsNullOrEmpty(runStepResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Step Id: {runStepResponse.Id}, Status: {runStepResponse.Status}");
+                        }
+                    }
+
+                    else if (run is MessageResponse messageResponse)
+                    {
+                        if (string.IsNullOrEmpty(messageResponse.Id))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Message Id: {messageResponse.Id}, Message: {messageResponse.Content?.FirstOrDefault()?.Text?.Value}");
+                        }
                     }
                     else
                     {
-                        ConsoleExtensions.WriteLine($"Run Id: {run.Id}, Status: {run.Status}");
+                        if (run.StreamEvent!=null)
+                        {
+                            Console.WriteLine(run.StreamEvent);
+                        }
+                        else
+                        {
+                            Console.Write(".");
+                        }
                     }
                 }
                 else
@@ -185,7 +224,6 @@ internal static partial class AssistantTestHelper
                     ConsoleExtensions.WriteError(run.Error);
                 }
             }
-
         }
 
         public static async Task CreateToolRunTest(IOpenAIService openAI)
@@ -404,8 +442,7 @@ internal static partial class AssistantTestHelper
                 [
                     new()
                     {
-                        ToolCallId = retrieveResult.RequiredAction!.SubmitToolOutputs.ToolCalls.First()
-                            .Id,
+                        ToolCallId = retrieveResult.RequiredAction!.SubmitToolOutputs.ToolCalls.First().Id,
                         Output = "70 degrees and sunny."
                     }
                 ]
@@ -442,8 +479,7 @@ internal static partial class AssistantTestHelper
                 [
                     new()
                     {
-                        ToolCallId = retrieveResult.RequiredAction!.SubmitToolOutputs.ToolCalls.First()
-                            .Id,
+                        ToolCallId = retrieveResult.RequiredAction!.SubmitToolOutputs.ToolCalls.First().Id,
                         Output = "70 degrees and sunny."
                     }
                 ]
@@ -453,13 +489,52 @@ internal static partial class AssistantTestHelper
             {
                 if (run.Successful)
                 {
-                    if (string.IsNullOrEmpty(run.Status))
+                    Console.WriteLine($"Event:{run.StreamEvent}");
+                    if (run is RunResponse runResponse)
                     {
-                        Console.Write(".");
+                        if (string.IsNullOrEmpty(runResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Id: {runResponse.Id}, Status: {runResponse.Status}");
+                        }
+                    }
+
+                    else if (run is RunStepResponse runStepResponse)
+                    {
+                        if (string.IsNullOrEmpty(runStepResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Step Id: {runStepResponse.Id}, Status: {runStepResponse.Status}");
+                        }
+                    }
+
+                    else if (run is MessageResponse messageResponse)
+                    {
+                        if (string.IsNullOrEmpty(messageResponse.Id))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Message Id: {messageResponse.Id}, Message: {messageResponse.Content?.FirstOrDefault()?.Text?.Value}");
+                        }
                     }
                     else
                     {
-                        ConsoleExtensions.WriteLine($"Run Id: {run.Id}, Status: {run.Status}");
+                        if (run.StreamEvent != null)
+                        {
+                            Console.WriteLine(run.StreamEvent);
+                        }
+                        else
+                        {
+                            Console.Write(".");
+                        }
                     }
                 }
                 else
@@ -485,6 +560,7 @@ internal static partial class AssistantTestHelper
             {
                 CreatedAssistantId = assistantResult.Id;
             }
+
             var createRunResult = await openAI.Beta.Runs.RunCreate(createThreadResult.Id, new() { AssistantId = assistantResult.Id });
             var result = await openAI.Beta.Runs.RunCancel(createThreadResult.Id, createRunResult.Id);
 
@@ -565,8 +641,7 @@ internal static partial class AssistantTestHelper
             }
 
             var resultStepsList = await openAI.Beta.RunSteps.RunStepsList(CreatedThreadId, CreatedRunId);
-            var result = await openAI.Beta.RunSteps.RunStepRetrieve(CreatedThreadId, CreatedRunId, resultStepsList.Data!.First()
-                .Id);
+            var result = await openAI.Beta.RunSteps.RunStepRetrieve(CreatedThreadId, CreatedRunId, resultStepsList.Data!.First().Id);
             if (result.Successful)
             {
                 ConsoleExtensions.WriteLine("Retrieve Run Step Test is successful.", ConsoleColor.Green);
@@ -640,18 +715,57 @@ internal static partial class AssistantTestHelper
                     ]
                 }
             });
-            
+
             await foreach (var run in runResult)
             {
                 if (run.Successful)
                 {
-                    if (string.IsNullOrEmpty(run.Status))
+                    Console.WriteLine($"Event:{run.StreamEvent}");
+                    if (run is RunResponse runResponse)
                     {
-                        Console.Write(".");
+                        if (string.IsNullOrEmpty(runResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Id: {runResponse.Id}, Status: {runResponse.Status}");
+                        }
+                    }
+
+                    else if (run is RunStepResponse runStepResponse)
+                    {
+                        if (string.IsNullOrEmpty(runStepResponse.Status))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Run Step Id: {runStepResponse.Id}, Status: {runStepResponse.Status}");
+                        }
+                    }
+
+                    else if (run is MessageResponse messageResponse)
+                    {
+                        if (string.IsNullOrEmpty(messageResponse.Id))
+                        {
+                            Console.Write(".");
+                        }
+                        else
+                        {
+                            ConsoleExtensions.WriteLine($"Message Id: {messageResponse.Id}, Message: {messageResponse.Content?.FirstOrDefault()?.Text?.Value}");
+                        }
                     }
                     else
                     {
-                        ConsoleExtensions.WriteLine($"Run Id: {run.Id}, Status: {run.Status}");
+                        if (run.StreamEvent != null)
+                        {
+                            Console.WriteLine(run.StreamEvent);
+                        }
+                        else
+                        {
+                            Console.Write(".");
+                        }
                     }
                 }
                 else
@@ -659,9 +773,8 @@ internal static partial class AssistantTestHelper
                     ConsoleExtensions.WriteError(run.Error);
                 }
             }
+
             ConsoleExtensions.WriteLine("Create Thread and Run  As Stream Test is successful.", ConsoleColor.Green);
-
-
         }
 
         public static async Task Cleanup(IOpenAIService sdk)

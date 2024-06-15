@@ -21,8 +21,8 @@ public partial class OpenAIService : IFileService
     {
         var multipartContent = new MultipartFormDataContent
         {
-            {new StringContent(purpose), "purpose"},
-            {new ByteArrayContent(file), "file", fileName}
+            { new StringContent(purpose), "purpose" },
+            { new ByteArrayContent(file), "file", fileName }
         };
 
         return await _httpClient.PostFileAndReadAsAsync<FileUploadResponse>(_endpointProvider.FilesUpload(), multipartContent, cancellationToken);
@@ -47,29 +47,29 @@ public partial class OpenAIService : IFileService
 
         if (typeof(T) == typeof(string))
         {
-            return new FileContentResponse<T?>
+            return new()
             {
-                Content = (T) (object) await response.Content.ReadAsStringAsync(cancellationToken)
+                Content = (T)(object)await response.Content.ReadAsStringAsync(cancellationToken)
             };
         }
 
         if (typeof(T) == typeof(byte[]))
         {
-            return new FileContentResponse<T?>
+            return new()
             {
-                Content = (T) (object) await response.Content.ReadAsByteArrayAsync(cancellationToken)
+                Content = (T)(object)await response.Content.ReadAsByteArrayAsync(cancellationToken)
             };
         }
 
         if (typeof(T) == typeof(Stream))
         {
-            return new FileContentResponse<T?>
+            return new()
             {
-                Content = (T) (object) await response.Content.ReadAsStreamAsync(cancellationToken)
+                Content = (T)(object)await response.Content.ReadAsStreamAsync(cancellationToken)
             };
         }
 
-        return new FileContentResponse<T?>
+        return new()
         {
             Content = await response.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken)
         };

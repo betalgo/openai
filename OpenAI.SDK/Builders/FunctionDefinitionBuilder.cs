@@ -11,10 +11,7 @@ public class FunctionDefinitionBuilder
     /// <summary>
     ///     String constant for validation of function name.
     /// </summary>
-    private const string ValidNameChars =
-        "abcdefghijklmnopqrstuvwxyz" +
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-        "0123456789-_";
+    private const string ValidNameChars = "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789-_";
 
     private readonly FunctionDefinition _definition;
 
@@ -25,11 +22,11 @@ public class FunctionDefinitionBuilder
     /// <param name="description">The optional description of the function</param>
     public FunctionDefinitionBuilder(string name, string? description = null)
     {
-        _definition = new FunctionDefinition
+        _definition = new()
         {
             Name = name,
             Description = description,
-            Parameters = new PropertyDefinition
+            Parameters = new()
             {
                 Properties = new Dictionary<string, PropertyDefinition>()
             }

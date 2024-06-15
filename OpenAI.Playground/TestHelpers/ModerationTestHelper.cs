@@ -1,5 +1,4 @@
 ﻿using OpenAI.Interfaces;
-using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
@@ -13,7 +12,7 @@ public class ModerationTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Create Moderation test", ConsoleColor.DarkCyan);
-            var moderationResponse = await sdk.Moderation.CreateModeration(new CreateModerationRequest
+            var moderationResponse = await sdk.Moderation.CreateModeration(new()
             {
                 Input = "I want to kill them."
             });

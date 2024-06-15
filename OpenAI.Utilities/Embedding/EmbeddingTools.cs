@@ -5,7 +5,6 @@ using CsvHelper;
 using MathNet.Numerics;
 using Microsoft.Data.Analysis;
 using OpenAI.Interfaces;
-using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.ResponseModels;
 using OpenAI.Tokenizer.GPT3;
 
@@ -134,7 +133,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
 
         if (!files.Any())
         {
-            throw new Exception("No files found.");
+            throw new("No files found.");
         }
 
         return await PerformTextEmbedding(files, outputFileName);
@@ -143,15 +142,16 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
     public string CreateContext(string question, DataFrame df, int maxLen = 1800)
     {
         // Get the embeddings for the question
-        var questionEmbeddingResult = _sdk.Embeddings.CreateEmbedding(new EmbeddingCreateRequest
-        {
-            Input = question,
-            Model = _embeddingModel
-        }).Result;
+        var questionEmbeddingResult = _sdk.Embeddings.CreateEmbedding(new()
+            {
+                Input = question,
+                Model = _embeddingModel
+            })
+            .Result;
 
         if (!questionEmbeddingResult.Successful)
         {
-            throw new Exception($"Error creating question embedding: {questionEmbeddingResult.Error?.Code}: {questionEmbeddingResult.Error?.Message}");
+            throw new($"Error creating question embedding: {questionEmbeddingResult.Error?.Code}: {questionEmbeddingResult.Error?.Message}");
         }
 
         var qEmbeddings = questionEmbeddingResult.Data[0].Embedding;
@@ -200,9 +200,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
     /// <returns></returns>
     public IEnumerable<TextEmbeddingData> LoadFilesFromDirectory(string pathToDirectory)
     {
-        return !Path.Exists(pathToDirectory)
-            ? new List<TextEmbeddingData>()
-            : Directory.EnumerateFiles(pathToDirectory).Select(LoadFile).Where(r => r != null).ToList()!;
+        return !Path.Exists(pathToDirectory) ? new() : Directory.EnumerateFiles(pathToDirectory).Select(LoadFile).Where(r => r != null).ToList()!;
     }
 
     /// <summary>
@@ -268,11 +266,12 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
     /// </summary>
     public async Task<List<EmbeddingCreateResponse>> GetEmbeddings(IEnumerable<string> texts)
     {
-        var embeddingTasks = texts.Select(async text => await _sdk.Embeddings.CreateEmbedding(new EmbeddingCreateRequest
-        {
-            Input = text,
-            Model = _embeddingModel
-        })).ToList();
+        var embeddingTasks = texts.Select(async text => await _sdk.Embeddings.CreateEmbedding(new()
+            {
+                Input = text,
+                Model = _embeddingModel
+            }))
+            .ToList();
 
         return (await Task.WhenAll(embeddingTasks)).ToList();
     }
@@ -292,7 +291,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
             var failedResult = embeddingResults.FirstOrDefault(result => !result.Successful);
             if (failedResult?.Error == null)
             {
-                throw new Exception("Unknown Error");
+                throw new("Unknown Error");
             }
 
             Console.WriteLine($"{failedResult.Error.Code}: {failedResult.Error.Message}");
@@ -358,7 +357,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
                 if (currentChunk.Length > 0)
                 {
                     chunks.Add(currentChunk);
-                    currentChunk = new StringBuilder();
+                    currentChunk = new();
                     tokensInCurrentChunk = 0;
                 }
 
@@ -414,9 +413,7 @@ public class EmbeddingTools : IEmbeddingTools, IEmbeddingToolsAdvanced
 
         var text = File.ReadAllText(file, Encoding.UTF8);
 
-        var fileName = Path.GetFileNameWithoutExtension(file)
-            .Replace('-', ' ')
-            .Replace('_', ' ');
+        var fileName = Path.GetFileNameWithoutExtension(file).Replace('-', ' ').Replace('_', ' ');
 
         var textFile = new TextEmbeddingData
         {

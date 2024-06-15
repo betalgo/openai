@@ -3,7 +3,7 @@ using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
-public class RunModifyRequest:IOpenAiModels.IMetaData
+public class RunModifyRequest : IOpenAiModels.IMetaData
 {
     /// <summary>
     ///     Set of 16 key-value pairs that can be attached to an object.

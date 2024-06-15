@@ -1,6 +1,5 @@
 ﻿using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
@@ -14,7 +13,7 @@ internal static class EditTestHelper
         try
         {
             ConsoleExtensions.WriteLine("Edit Create Test:", ConsoleColor.DarkCyan);
-            var completionResult = await sdk.Edit.CreateEdit(new EditCreateRequest
+            var completionResult = await sdk.Edit.CreateEdit(new()
             {
                 Input = "What day of the wek is it?",
                 Instruction = "Fix the spelling mistakes"
@@ -28,7 +27,7 @@ internal static class EditTestHelper
             {
                 if (completionResult.Error == null)
                 {
-                    throw new Exception("Unknown Error");
+                    throw new("Unknown Error");
                 }
 
                 Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
