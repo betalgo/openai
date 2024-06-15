@@ -5,11 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace OpenAI.ObjectModels.ResponseModels;
 
-public record BaseResponse
+public record ObjectBaseResponse
 {
     [JsonPropertyName("object")]
     public string? ObjectTypeName { get; set; }
-
+}
+public record BaseResponse: ObjectBaseResponse
+{
+    [JsonPropertyName("StreamEvent")]
+    public string? StreamEvent { get; set; }
     public bool Successful => Error == null;
 
     [JsonPropertyName("error")]
