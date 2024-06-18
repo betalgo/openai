@@ -14,6 +14,8 @@ public record BaseResponse: ObjectBaseResponse
 {
     [JsonPropertyName("StreamEvent")]
     public string? StreamEvent { get; set; }
+    public bool IsDelta  => StreamEvent?.EndsWith("delta") ?? false;
+
     public bool Successful => Error == null;
 
     [JsonPropertyName("error")]
