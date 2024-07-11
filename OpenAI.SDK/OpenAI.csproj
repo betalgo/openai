@@ -7,7 +7,7 @@
 		<LangVersion>Latest</LangVersion>
 		<Copyright>Betalgo Up Ltd.</Copyright>
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
-		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
+		<PackageIcon>Betalgo-Ranul-OpenAI-icon.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Title>OpenAI SDK by Betalgo</Title>
 		<Version>8.6.0</Version>
@@ -44,10 +44,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\Readme.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="OpenAI-Betalgo.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
