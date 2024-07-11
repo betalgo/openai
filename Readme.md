@@ -116,13 +116,10 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
-### 8.5.1
-- Introduced `IsDelta` into BaseResponseModel, which can help to determine if incoming data is part of the delta.
-- 
-### 8.5.0
-- Assistant Stream now returns the `BaseResponse` type, but they can be cast to the appropriate types(`RunStepResponse`,`RunResponse`,`MessageResponse`). The reason for this change is that we realized the stream API returns multiple different object types rather than returning a single object type.
-- The Base Response now has a `StreamEvent` field, which can be used to determine the type of event while streaming.
-
+### 8.6.0
+- Fixed Azure Assistant URLs.
+- Updated library logo.
+- Added support for tool resources in Assistant response.
 
 ### [More Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
 ---
