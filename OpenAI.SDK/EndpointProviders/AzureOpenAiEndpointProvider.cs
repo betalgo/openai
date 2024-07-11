@@ -211,7 +211,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         var query = assistantListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
-            url = $"{url}{query}";
+            url = $"{url}&{query}";
         }
 
         return url;
@@ -239,7 +239,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         var query = assistantFileListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
-            url = $"{url}{query}";
+            url = $"{url}&{query}";
         }
 
         return url;
@@ -287,7 +287,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         var query = messageListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
-            url = $"{url}{query}";
+            url = $"{url}&{query}";
         }
 
         return url;
@@ -320,7 +320,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         var query = runListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
-            url = $"{url}{query}";
+            url = $"{url}&{query}";
         }
 
         return url;
@@ -353,7 +353,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         var query = runStepListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
-            url = $"{url}{query}";
+            url = $"{url}&{query}";
         }
 
         return url;
@@ -372,7 +372,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         var query = baseListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
-            url = $"{url}?{query}";
+            url = $"{url}&{query}";
         }
 
         return url;
@@ -415,7 +415,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         var query = baseListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
-            url = $"{url}?{query}";
+            url = $"{url}&{query}";
         }
 
         return url;
@@ -443,7 +443,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         var query = baseListRequest?.GetQueryParameters();
         if (!string.IsNullOrWhiteSpace(query))
         {
-            url = $"{url}?{query}";
+            url = $"{url}&{query}";
         }
 
         return url;
