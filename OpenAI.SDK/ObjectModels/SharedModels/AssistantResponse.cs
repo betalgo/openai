@@ -63,4 +63,10 @@ public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels
     /// </summary>
     [JsonPropertyName("tools")]
     public List<ToolDefinition> Tools { get; set; }
+
+    /// <summary>
+    /// A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the code_interpreter tool requires a list of file IDs, while the file_search tool requires a list of vector store IDs.
+    /// </summary>
+    [JsonPropertyName("tool_resources")]
+    public ToolResources? ToolResources { get; set; }
 }
