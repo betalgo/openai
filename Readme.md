@@ -2,7 +2,7 @@
 # .NET SDK for OpenAI
 ⭐ We appreciate your star, it helps!  
  
-[![Discord Shield](https://discord.com/api/guilds/1250841506785529916/widget.png?style=shield)](https://discord.gg/rHEu5THg) *(If the invite link doesn't work, ping me in discussions.)*  
+[![Discord Shield](https://discord.com/api/guilds/1250841506785529916/widget.png?style=shield)](https://discord.gg/rE9uVp52) *(If the invite link doesn't work, ping me in discussions.)*  
 We have a very new Discord channel. Please come and help us build the .NET AI community.
 
 ## Overview
