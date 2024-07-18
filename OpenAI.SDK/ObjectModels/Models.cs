@@ -221,12 +221,12 @@ public static class Models
     ///     128,000 tokens	Up to Oct 2023
     /// </summary>
     public static string Gpt_4o_2024_05_13 => "gpt-4o-2024-05-13";
-    
+
     /// <summary>
     ///    Our affordable and intelligent small model for fast, lightweight tasks. 
     ///    GPT-4o mini is cheaper and more capable than GPT-3.5 Turbo. 
     ///    Currently points to gpt-4o-mini-2024-07-18.
-    ///     128,000 tokens Up to Oct 2023
+    ///    128,000 tokens Up to Oct 2023
     /// </summary>
     public static string Gpt_4o_mini => "gpt-4o-mini";
 
@@ -234,7 +234,7 @@ public static class Models
     ///    Our affordable and intelligent small model for fast, lightweight tasks. 
     ///    GPT-4o mini is cheaper and more capable than GPT-3.5 Turbo. 
     ///    Currently points to gpt-4o-mini-2024-07-18.
-    ///     128,000 tokens Up to Oct 2023
+    ///    128,000 tokens Up to Oct 2023
     /// </summary>
     public static string Gpt_4o_mini_2024_07_18 => "gpt-4o-mini-2024-07-18";
 
