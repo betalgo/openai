@@ -2,7 +2,7 @@
 # .NET SDK for OpenAI
 ⭐ We appreciate your star, it helps!  
  
-[![Discord Shield](https://discord.com/api/guilds/1250841506785529916/widget.png?style=shield)](https://discord.gg/rE9uVp52) *(If the invite link doesn't work, ping me in discussions.)*  
+[![Discord Shield](https://discord.com/api/guilds/1250841506785529916/widget.png?style=shield)](https://discord.gg/R2XcBC8E) *(If the invite link doesn't work, ping me in discussions.)*  
 We have a very new Discord channel. Please come and help us build the .NET AI community.
 
 ## Overview
@@ -116,6 +116,9 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+
+### 8.6.1
+- Updated Models with new GPT-4o mini model.
 ### 8.6.0
 - Fixed Azure Assistant URLs.
 - Updated library logo.
