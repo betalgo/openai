@@ -1,4 +1,6 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
@@ -17,6 +19,24 @@ public class ResponseFormat
 
     [JsonPropertyName("type")]
     public string? Type { get; set; }
+    
+    [JsonPropertyName("json_schema")]
+    public JsonSchema JsonSchema { get; set; }
+}
+
+public class JsonSchema
+{
+    [JsonPropertyName("description")]
+    public string? Description { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    [JsonPropertyName("strict")]
+    public bool? Strict { get; set; }
+
+    [JsonPropertyName("schema")]
+    public PropertyDefinition? Schema { get; set; }
 }
 
 [JsonConverter(typeof(ResponseFormatOptionConverter))]

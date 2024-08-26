@@ -6,6 +6,7 @@ public class StaticValues
     {
         public static class ResponseFormat
         {
+            public static string JsonSchema => "json_schema";
             public static string Json => "json_object";
             public static string Text => "text";
         }
