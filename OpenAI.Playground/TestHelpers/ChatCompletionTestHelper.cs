@@ -445,4 +445,77 @@ internal static class ChatCompletionTestHelper
             throw;
         }
     }
+
+    //https://platform.openai.com/docs/guides/structured-outputs/how-to-use
+    public static async Task RunChatWithJsonSchemaResponseFormat(IOpenAIService sdk)
+    {
+        ConsoleExtensions.WriteLine("Chat Completion Testing is starting:", ConsoleColor.Cyan);
+        try
+        {
+            var completionResult = await sdk.ChatCompletion.CreateCompletion(new()
+            {
+                Messages = new List<ChatMessage>
+                {
+                    ChatMessage.FromSystem("You are a helpful math tutor. Guide the user through the solution step by step."),
+                    ChatMessage.FromUser("how can I solve 8x + 7 = -23"),
+                },
+                Model = "gpt-4o-2024-08-06",
+                ResponseFormat = new ResponseFormat()
+                {
+                    Type = StaticValues.CompletionStatics.ResponseFormat.JsonSchema,
+                    JsonSchema = new()
+                    {
+                        Name = "math_response",
+                        Strict = true,
+                        Schema = PropertyDefinition.DefineObject(
+                            new Dictionary<string, PropertyDefinition>
+                            {
+                                {
+                                    "steps", PropertyDefinition.DefineArray(
+                                        PropertyDefinition.DefineObject(
+                                            new Dictionary<string, PropertyDefinition>
+                                            {
+                                                { "explanation", PropertyDefinition.DefineString("The explanation of the step") },
+                                                { "output", PropertyDefinition.DefineString("The output of the step") }
+                                            },
+                                            new List<string> { "explanation", "output" },
+                                            false,
+                                            "A step in the mathematical process",
+                                            null
+                                        )
+                                    )
+                                },
+                                {
+                                    "final_answer", PropertyDefinition.DefineString("The final answer of the mathematical process")
+                                }
+                            },
+                            new List<string> { "steps", "final_answer" },
+                            false,
+                            "Response containing steps and final answer of a mathematical process",
+                            null
+                        )
+                    }
+                }
+            });
+
+            if (completionResult.Successful)
+            {
+                Console.WriteLine(completionResult.Choices.First().Message.Content);
+            }
+            else
+            {
+                if (completionResult.Error == null)
+                {
+                    throw new("Unknown Error");
+                }
+
+                Console.WriteLine($"{completionResult.Error.Code}: {completionResult.Error.Message}");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }
