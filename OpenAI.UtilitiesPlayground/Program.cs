@@ -24,7 +24,8 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 
 
 //await EmbeddingTestHelpers.ExerciseEmbeddingTools(sdk);
-await FunctionCallingTestHelpers.ExerciseFunctionCalling(sdk);
+//await FunctionCallingTestHelpers.ExerciseFunctionCalling(sdk);
+await JsonSchemaResponseTypeTestHelpers.RunChatWithJsonSchemaResponseFormat2(sdk);
 
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();
