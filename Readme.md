@@ -115,6 +115,8 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 8.6.2
+- Added support for Structured Outputs, here is the link for samples: [Wiki, Structured Outputs ](https://github.com/betalgo/openai/wiki/Structured-Outputs)
 ### 8.6.1
 - Updated Models with new GPT-4o mini model.
 ### 8.6.0
