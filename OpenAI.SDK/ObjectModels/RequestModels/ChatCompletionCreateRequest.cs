@@ -10,7 +10,8 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     public enum ResponseFormats
     {
         Text,
-        Json
+        Json,
+        JsonSchema
     }
 
     /// <summary>
@@ -227,6 +228,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
                 {
                     ResponseFormats.Json => StaticValues.CompletionStatics.ResponseFormat.Json,
                     ResponseFormats.Text => StaticValues.CompletionStatics.ResponseFormat.Text,
+                    ResponseFormats.JsonSchema => StaticValues.CompletionStatics.ResponseFormat.JsonSchema,
                     _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
                 }
             };
