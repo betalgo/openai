@@ -21,6 +21,7 @@ public class StaticValues
             public static string Function => ToolType.Function;
             public static string Auto => "auto";
             public static string None => "none";
+            public static string Required => "required";
         }
     }
 
