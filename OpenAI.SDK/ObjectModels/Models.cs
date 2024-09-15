@@ -391,17 +391,17 @@ public static class Models
     ///     Reasoning model designed to solve hard problems across domains.
     ///     Released in Sep 2024.
     /// </summary>
-    public static string O1_Preview => "O1_Preview";
+    public static string O1_Preview => "o1-preview";
 
     /// <summary>
     ///     Faster and cheaper reasoning model particularly good at coding, math, and science.  
     ///     Released in Sep 2024.
     /// </summary>
-    public static string O1_mini => "O1_mini";
+    public static string O1_mini => "o1-mini";
 
-    private static string O1_Preview_2024_09_12 => "O1_preview_2024_09_12";
+    public static string O1_Preview_2024_09_12 => "o1-preview-2024-09-12";
 
-    private static string O1_mini_2024_09_12 => "O1_mini_2024_09_12";
+    public static string O1_mini_2024_09_12 => "o1-mini-2024-09-12";
 
     /// <summary>
     ///     This method does not guarantee returned model exists.
