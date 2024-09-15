@@ -111,7 +111,11 @@ public static class Models
 
         Text_moderation_007,
         Text_moderation_latest,
-        Text_moderation_stable
+        Text_moderation_stable,
+        O1_Preview,
+        O1_Preview_2024_09_12,
+        O1_mini,
+        O1_mini_2024_09_12
     }
 
     public enum Subject
@@ -384,6 +388,22 @@ public static class Models
     public static string Tts_1_hd => "tts-1-hd";
 
     /// <summary>
+    ///     Reasoning model designed to solve hard problems across domains.
+    ///     Released in Sep 2024.
+    /// </summary>
+    public static string O1_Preview => "  O1_Preview";
+
+    /// <summary>
+    ///     Faster and cheaper reasoning model particularly good at coding, math, and science.  
+    ///     Released in Sep 2024.
+    /// </summary>
+    public static string O1_mini => "O1_mini";
+
+    private static string O1_Preview_2024_09_12 => "O1_preview_2024_09_12";
+
+    private static string O1_mini_2024_09_12 => "O1_mini_2024_09_12";
+
+    /// <summary>
     ///     This method does not guarantee returned model exists.
     /// </summary>
     /// <param name="subject"></param>
@@ -482,6 +502,10 @@ public static class Models
             Model.Text_moderation_007 => TextModeration007,
             Model.Text_moderation_latest => TextModerationLatest,
             Model.Text_moderation_stable => TextModerationStable,
+            Model.O1_mini => O1_mini,
+            Model.O1_mini_2024_09_12 => O1_mini_2024_09_12,
+            Model.O1_Preview => O1_Preview,
+            Model.O1_Preview_2024_09_12 => O1_Preview_2024_09_12,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
