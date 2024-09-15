@@ -391,7 +391,7 @@ public static class Models
     ///     Reasoning model designed to solve hard problems across domains.
     ///     Released in Sep 2024.
     /// </summary>
-    public static string O1_Preview => "  O1_Preview";
+    public static string O1_Preview => "O1_Preview";
 
     /// <summary>
     ///     Faster and cheaper reasoning model particularly good at coding, math, and science.  
