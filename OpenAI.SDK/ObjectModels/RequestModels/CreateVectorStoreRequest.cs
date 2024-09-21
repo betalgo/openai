@@ -31,4 +31,43 @@ public class CreateVectorStoreRequest
     /// </summary>
     [JsonPropertyName("metadata")]
     public Dictionary<string, string>? Metadata { get; set; }
+
+    /// <summary>
+    ///     The chunking strategy used to chunk the file(s). If not set, will use the auto strategy.
+    ///     Only applicable if file_ids is non-empty.
+    /// </summary>
+    [JsonPropertyName("chunking_strategy")]
+    public ChunkingStrategy? ChunkingStrategy { get; set; }
+}
+
+public class ChunkingStrategy
+{
+    /// <summary>
+    ///     The type of chunking strategy. Must be either "auto" or "static".
+    /// </summary>
+    [JsonPropertyName("type")]
+    public string Type { get; set; }
+
+    /// <summary>
+    ///     The static chunking parameters. Required if type is "static".
+    /// </summary>
+    [JsonPropertyName("static")]
+    public StaticChunkingParameters? StaticParameters { get; set; }
+}
+
+public class StaticChunkingParameters
+{
+    /// <summary>
+    ///     The maximum number of tokens in each chunk. The default value is 800.
+    ///     The minimum value is 100 and the maximum value is 4096.
+    /// </summary>
+    [JsonPropertyName("max_chunk_size_tokens")]
+    public int MaxChunkSizeTokens { get; set; }
+
+    /// <summary>
+    ///     The number of tokens that overlap between chunks. The default value is 400.
+    ///     Note that the overlap must not exceed half of max_chunk_size_tokens.
+    /// </summary>
+    [JsonPropertyName("chunk_overlap_tokens")]
+    public int ChunkOverlapTokens { get; set; }
 }

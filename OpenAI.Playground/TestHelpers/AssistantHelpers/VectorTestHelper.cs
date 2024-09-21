@@ -73,6 +73,34 @@ internal static partial class AssistantTestHelper
             }
         }
 
+        public static async Task CreateVectorWithChunkingStrategy(IOpenAIService openAI)
+        {
+            ConsoleExtensions.WriteLine("Create Vector Testing is starting:", ConsoleColor.Cyan);
+            var result = await openAI.Beta.VectorStores.CreateVectorStore(new()
+            {
+                Name = "Support FAQ",
+                ChunkingStrategy = new()
+                {
+                    Type = StaticValues.VectorStoreStatics.ChunkingStrategyType.Static,
+                    StaticParameters = new()
+                    {
+                        ChunkOverlapTokens = 400,
+                        MaxChunkSizeTokens = 800
+                    }
+                }
+            });
+
+            if (result.Successful)
+            {
+                CreatedVectorId = result.Id;
+                ConsoleExtensions.WriteLine($"Vector Created Successfully with ID: {result.Id}", ConsoleColor.Green);
+            }
+            else
+            {
+                ConsoleExtensions.WriteError(result.Error);
+            }
+        }
+
         public static async Task ListVectors(IOpenAIService openAI)
         {
             ConsoleExtensions.WriteLine("List Vectors Testing is starting:", ConsoleColor.Cyan);

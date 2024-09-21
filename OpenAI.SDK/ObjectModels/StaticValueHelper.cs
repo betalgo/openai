@@ -174,4 +174,13 @@ public class StaticValues
             public static string SubmitToolOutputs => "submit_tool_outputs";
         }
     }
+
+    public static class VectorStoreStatics
+    {
+        public static class ChunkingStrategyType
+        {
+            public static string Auto => "auto";
+            public static string Static => "static";
+        }
+    }
 }
