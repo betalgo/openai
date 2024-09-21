@@ -14,6 +14,12 @@ public class ToolDefinition
     [JsonPropertyName("type")]
     public string Type { get; set; }
 
+    /// <summary>
+    /// Structured Outputs for function calling can be enabled with a single parameter, just by supplying strict: true.
+    /// Please note: This field is not mentioned in the API documentation but is referenced in other documents.
+    /// </summary>
+    [JsonPropertyName("strict")]
+    public bool? Strict { get; set; }
 
     /// <summary>
     ///     A list of functions the model may generate JSON inputs for.
