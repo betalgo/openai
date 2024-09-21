@@ -92,6 +92,15 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     [JsonPropertyName("max_tokens")]
     public int? MaxTokens { get; set; }
 
+
+    /// <summary>
+    ///     An upper bound for the number of tokens that can be generated for a completion, 
+    ///     including visible output tokens and reasoning tokens.
+    /// </summary>
+    /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-max_completion_tokens" />
+    [JsonPropertyName("max_completion_tokens")]
+    public int? MaxCompletionTokens { get; set; }
+
     /// <summary>
     ///     Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far,
     ///     increasing the model's likelihood to talk about new topics.

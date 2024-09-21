@@ -67,6 +67,7 @@ await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 //await AudioTestHelper.RunSimpleAudioCreateTranslationTest(sdk);
 //await AudioTestHelper.RunSimpleAudioCreateSpeechTest(sdk);
 
+//await ChatCompletionTestHelper.RunChatReasoningModel(sdk);
 //await ModelTestHelper.FetchModelsTest(sdk);
 //await EditTestHelper.RunSimpleEditCreateTest(sdk);
 //await ImageTestHelper.RunSimpleCreateImageTest(sdk);

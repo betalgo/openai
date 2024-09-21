@@ -111,7 +111,11 @@ public static class Models
 
         Text_moderation_007,
         Text_moderation_latest,
-        Text_moderation_stable
+        Text_moderation_stable,
+        O1_preview,
+        O1_preview_2024_09_12,
+        O1_mini,
+        O1_mini_2024_09_12
     }
 
     public enum Subject
@@ -223,18 +227,18 @@ public static class Models
     public static string Gpt_4o_2024_05_13 => "gpt-4o-2024-05-13";
 
     /// <summary>
-    ///    Our affordable and intelligent small model for fast, lightweight tasks. 
-    ///    GPT-4o mini is cheaper and more capable than GPT-3.5 Turbo. 
-    ///    Currently points to gpt-4o-mini-2024-07-18.
-    ///    128,000 tokens Up to Oct 2023
+    ///     Our affordable and intelligent small model for fast, lightweight tasks.
+    ///     GPT-4o mini is cheaper and more capable than GPT-3.5 Turbo.
+    ///     Currently points to gpt-4o-mini-2024-07-18.
+    ///     128,000 tokens Up to Oct 2023
     /// </summary>
     public static string Gpt_4o_mini => "gpt-4o-mini";
 
     /// <summary>
-    ///    Our affordable and intelligent small model for fast, lightweight tasks. 
-    ///    GPT-4o mini is cheaper and more capable than GPT-3.5 Turbo. 
-    ///    Currently points to gpt-4o-mini-2024-07-18.
-    ///    128,000 tokens Up to Oct 2023
+    ///     Our affordable and intelligent small model for fast, lightweight tasks.
+    ///     GPT-4o mini is cheaper and more capable than GPT-3.5 Turbo.
+    ///     Currently points to gpt-4o-mini-2024-07-18.
+    ///     128,000 tokens Up to Oct 2023
     /// </summary>
     public static string Gpt_4o_mini_2024_07_18 => "gpt-4o-mini-2024-07-18";
 
@@ -384,6 +388,22 @@ public static class Models
     public static string Tts_1_hd => "tts-1-hd";
 
     /// <summary>
+    ///     Reasoning model designed to solve hard problems across domains.
+    ///     Released in Sep 2024.
+    /// </summary>
+    public static string O1_preview => "o1-preview";
+
+    /// <summary>
+    ///     Faster and cheaper reasoning model particularly good at coding, math, and science.
+    ///     Released in Sep 2024.
+    /// </summary>
+    public static string O1_mini => "o1-mini";
+
+    public static string O1_preview_2024_09_12 => "o1-preview-2024-09-12";
+
+    public static string O1_mini_2024_09_12 => "o1-mini-2024-09-12";
+
+    /// <summary>
     ///     This method does not guarantee returned model exists.
     /// </summary>
     /// <param name="subject"></param>
@@ -482,6 +502,10 @@ public static class Models
             Model.Text_moderation_007 => TextModeration007,
             Model.Text_moderation_latest => TextModerationLatest,
             Model.Text_moderation_stable => TextModerationStable,
+            Model.O1_mini => O1_mini,
+            Model.O1_mini_2024_09_12 => O1_mini_2024_09_12,
+            Model.O1_preview => O1_preview,
+            Model.O1_preview_2024_09_12 => O1_preview_2024_09_12,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
