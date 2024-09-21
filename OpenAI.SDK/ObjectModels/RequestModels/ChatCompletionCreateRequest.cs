@@ -94,7 +94,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
 
 
     /// <summary>
-    ///     An upper bound for the number of tokens that can be generated for a completion, 
+    ///     An upper bound for the number of tokens that can be generated for a completion,
     ///     including visible output tokens and reasoning tokens.
     /// </summary>
     /// <see href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-max_completion_tokens" />
@@ -268,6 +268,12 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     public int? TopLogprobs { get; set; }
 
     /// <summary>
+    ///     Whether to enable parallel <a href="https://platform.openai.com/docs/guides/function-calling/parallel-function-calling">function calling</a> during tool use.
+    /// </summary>
+    [JsonPropertyName("parallel_tool_calls")]
+    public bool? ParallelToolCalls { get; set; }
+
+    /// <summary>
     ///     ID of the model to use. For models supported see <see cref="OpenAI.ObjectModels.Models" /> start with <c>Gpt_</c>
     /// </summary>
     [JsonPropertyName("model")]
@@ -291,4 +297,15 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// </summary>
     [JsonPropertyName("user")]
     public string User { get; set; }
+
+    /// <summary>
+    /// Specifies the latency tier to use for processing the request. This parameter is relevant for customers subscribed to the scale tier service:
+    /// If set to 'auto', and the Project is Scale tier enabled, the system will utilize scale tier credits until they are exhausted.
+    /// If set to 'auto', and the Project is not Scale tier enabled, the request will be processed using the default service tier with a lower uptime SLA and no latency guarentee.
+    /// If set to 'default', the request will be processed using the default service tier with a lower uptime SLA and no latency guarentee.
+    /// When not set, the default behavior is 'auto'.
+    /// When this parameter is set, the response body will include the service_tier utilized.
+    /// </summary>
+    [JsonPropertyName("service_tier")]
+    public string? ServiceTier { get; set; }
 }
