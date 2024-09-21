@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.RequestModels;
 
 namespace OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 
@@ -46,4 +47,10 @@ public record VectorStoreFileObject : BaseResponse
     /// </summary>
     [JsonPropertyName("last_error")]
     public Error? LastError { get; set; }
+
+    /// <summary>
+    ///     The strategy used to chunk the file.
+    /// </summary>
+    [JsonPropertyName("chunking_strategy")]
+    public ChunkingStrategy? ChunkingStrategy { get; set; }
 }
