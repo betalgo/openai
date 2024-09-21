@@ -10,4 +10,11 @@ public class CreateVectorStoreFileBatchRequest
     /// </summary>
     [JsonPropertyName("file_ids")]
     public List<string> FileIds { get; set; }
+
+    /// <summary>
+    ///     The chunking strategy used to chunk the file(s). If not set, will use the auto strategy.
+    ///     Only applicable if file_ids is non-empty.
+    /// </summary>
+    [JsonPropertyName("chunking_strategy")]
+    public ChunkingStrategy? ChunkingStrategy { get; set; }
 }
