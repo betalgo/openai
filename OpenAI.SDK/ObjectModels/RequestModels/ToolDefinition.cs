@@ -130,5 +130,5 @@ public class RankingOptions
     ///     The score threshold for the file search. All values must be a floating point number between 0 and 1.
     /// </summary>
     [JsonPropertyName("score_threshold")]
-    public int ScoreThreshold { get; set; }
+    public float ScoreThreshold { get; set; }
 }
