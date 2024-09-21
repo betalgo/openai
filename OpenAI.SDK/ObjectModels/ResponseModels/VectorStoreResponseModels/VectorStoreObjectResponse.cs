@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using OpenAI.ObjectModels.RequestModels;
 
 namespace OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 
@@ -63,4 +64,11 @@ public record VectorStoreObjectResponse : BaseResponse
     /// </summary>
     [JsonPropertyName("metadata")]
     public Dictionary<string, string>? Metadata { get; set; }
+
+    /// <summary>
+    ///     The chunking strategy used to chunk the file(s). If not set, will use the auto strategy.
+    ///     Only applicable if file_ids is non-empty.
+    /// </summary>
+    [JsonPropertyName("chunking_strategy")]
+    public ChunkingStrategy? ChunkingStrategy { get; set; }
 }
