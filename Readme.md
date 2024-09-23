@@ -118,6 +118,8 @@ Needless to say, I cannot accept responsibility for any damage caused by using t
 ### 8.7.0
 - Added Support for o1 reasing models (`o1-mini` and `o1-preview`). 
 - Added `MaxCompletionTokens` for `chat completions`.
+- Added support for `ParallelToolCalls` for `chat completions`.
+- Added support for `ServiceTier` for `chat completions`.
 - Added support for `ChunkingStrategy` in `Vector Store` and `Vector Store Files`.
 - Added support for `Strict` in `ToolDefinition`.
 - Added support for `MaxNumberResults` and `RankingOptions` for `FileSearchTool`.
