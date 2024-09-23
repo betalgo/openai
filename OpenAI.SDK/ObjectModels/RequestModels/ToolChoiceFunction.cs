@@ -7,6 +7,7 @@ public class ToolChoice
 {
     public static ToolChoice None => new() { Type = StaticValues.CompletionStatics.ToolChoiceType.None };
     public static ToolChoice Auto => new() { Type = StaticValues.CompletionStatics.ToolChoiceType.Auto };
+    public static ToolChoice Required => new() { Type = StaticValues.CompletionStatics.ToolChoiceType.Required };
 
     /// <summary>
     ///     "none" is the default when no functions are present.  <br />

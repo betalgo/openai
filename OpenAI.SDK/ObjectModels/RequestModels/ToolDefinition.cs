@@ -14,6 +14,18 @@ public class ToolDefinition
     [JsonPropertyName("type")]
     public string Type { get; set; }
 
+    /// <summary>
+    ///     Structured Outputs for function calling can be enabled with a single parameter, just by supplying strict: true.
+    ///     Please note: This field is not mentioned in the API documentation but is referenced in other documents.
+    /// </summary>
+    [JsonPropertyName("strict")]
+    public bool? Strict { get; set; }
+
+    /// <summary>
+    ///     Overrides for the file search tool.
+    /// </summary>
+    [JsonPropertyName("file_search")]
+    public FileSearchTool? FileSearchTool { get; set; }
 
     /// <summary>
     ///     A list of functions the model may generate JSON inputs for.
@@ -67,11 +79,56 @@ public class ToolDefinition
         };
     }
 
-    public static ToolDefinition DefineFileSearch()
+    public static ToolDefinition DefineFileSearch(FileSearchTool? fileSearchTool = null)
     {
         return new()
         {
-            Type = StaticValues.AssistantsStatics.ToolCallTypes.FileSearch
+            Type = StaticValues.AssistantsStatics.ToolCallTypes.FileSearch,
+            FileSearchTool = fileSearchTool
         };
     }
+}
+
+public class FileSearchTool
+{
+    /// <summary>
+    ///     The maximum number of results the file search tool should output. The default is 20 for gpt-4* models and 5 for
+    ///     gpt-3.5-turbo. This number should be between 1 and 50 inclusive.
+    ///     Note that the file search tool may output fewer than max_num_results results.
+    ///     <a href="https://platform.openai.com/docs/assistants/tools/file-search/customizing-file-search-settings">
+    ///         See the
+    ///         file search tool documentation
+    ///     </a>
+    ///     for more information.
+    /// </summary>
+    [JsonPropertyName("max_num_results")]
+    public int? MaxNumberResults { get; set; }
+
+    /// <summary>
+    ///     The ranking options for the file search. If not specified, the file search tool will use the auto ranker and a
+    ///     score_threshold of 0.
+    ///     See the
+    ///     <a href="https://platform.openai.com/docs/assistants/tools/file-search/customizing-file-search-settings">
+    ///         file
+    ///         search tool documentation
+    ///     </a>
+    ///     for more information.
+    /// </summary>
+    [JsonPropertyName("ranking_options")]
+    public RankingOptions? RankingOptions { get; set; }
+}
+
+public class RankingOptions
+{
+    /// <summary>
+    ///     The ranker to use for the file search. If not specified will use the auto ranker.
+    /// </summary>
+    [JsonPropertyName("ranker")]
+    public string? Ranker { get; set; }
+
+    /// <summary>
+    ///     The score threshold for the file search. All values must be a floating point number between 0 and 1.
+    /// </summary>
+    [JsonPropertyName("score_threshold")]
+    public float ScoreThreshold { get; set; }
 }

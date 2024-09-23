@@ -21,6 +21,7 @@ public class StaticValues
             public static string Function => ToolType.Function;
             public static string Auto => "auto";
             public static string None => "none";
+            public static string Required => "required";
         }
     }
 
@@ -171,6 +172,15 @@ public class StaticValues
         public static class RequiredActionTypes
         {
             public static string SubmitToolOutputs => "submit_tool_outputs";
+        }
+    }
+
+    public static class VectorStoreStatics
+    {
+        public static class ChunkingStrategyType
+        {
+            public static string Auto => "auto";
+            public static string Static => "static";
         }
     }
 }
