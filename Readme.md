@@ -1,7 +1,7 @@
 ![Betalgo Ranul OpenAI Github Readme banner](https://github.com/user-attachments/assets/ca87b21f-e2a3-4bf2-88ad-4610bda6dfd6)
 
 ## Overview
-A .NET SDK for accessing OpenAI's API, provided as a community library. This SDK allows you to integrate OpenAI's capabilities into your .NET applications with ease.
+A .NET Library for accessing OpenAI's API, provided as a community library. This Library allows you to integrate OpenAI's capabilities into your .NET applications with ease.
 
 ⭐ We appreciate your star, it helps! ![GitHub Repo stars](https://img.shields.io/github/stars/betalgo/openai)  
  #### Community Links
@@ -115,14 +115,14 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
-### 8.6.2
-- Added support for Structured Outputs, here is the link for samples: [Wiki, Structured Outputs ](https://github.com/betalgo/openai/wiki/Structured-Outputs)
-### 8.6.1
-- Updated Models with new GPT-4o mini model.
-### 8.6.0
-- Fixed Azure Assistant URLs.
-- Updated library logo.
-- Added support for tool resources in Assistant response.
+### 8.7.0
+- Added Support for o1 reasing models (`o1-mini` and `o1-preview`). 
+- Added `MaxCompletionTokens` for `chat completions`.
+- Added support for `ChunkingStrategy` in `Vector Store` and `Vector Store Files`.
+- Added support for `Strict` in `ToolDefinition`.
+- Added support for `MaxNumberResults` and `RankingOptions` for `FileSearchTool`.
+- Added support for `ReasoningTokens` for `token usage`.
+- Added support for `ResponseFormatOneOfType` for `AssistantResponse.cs`.
 
 ### [More Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
 ---
