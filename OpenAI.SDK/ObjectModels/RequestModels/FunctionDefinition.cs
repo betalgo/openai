@@ -29,4 +29,13 @@ public class FunctionDefinition
     /// </summary>
     [JsonPropertyName("parameters")]
     public PropertyDefinition Parameters { get; set; }
+
+
+    /// <summary>
+    ///     Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow
+    ///     the exact schema defined in the parameters field. Only a subset of JSON Schema is supported when strict is true.
+    ///     Learn more about Structured Outputs in the <a href="https://platform.openai.com/docs/api-reference/chat/docs/guides/function-calling">function calling guide</a>.
+    /// </summary>
+    [JsonPropertyName("strict")]
+    public bool? Strict { get; set; }
 }

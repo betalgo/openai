@@ -115,6 +115,8 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 8.7.1 
+- moved `strict ` paremeter from `ToolDefinition` to `FunctionDefinition`
 ### 8.7.0
 - Added Support for o1 reasing models (`o1-mini` and `o1-preview`). 
 - Added `MaxCompletionTokens` for `chat completions`.

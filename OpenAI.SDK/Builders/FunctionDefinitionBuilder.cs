@@ -20,12 +20,14 @@ public class FunctionDefinitionBuilder
     /// </summary>
     /// <param name="name">The name of the function</param>
     /// <param name="description">The optional description of the function</param>
-    public FunctionDefinitionBuilder(string name, string? description = null)
+    /// <param name="strict">Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the parameters field. Only a subset of JSON Schema is supported when strict is true. Learn more about Structured Outputs in the function calling guide.</param>
+    public FunctionDefinitionBuilder(string name, string? description = null, bool? strict =null)
     {
         _definition = new()
         {
             Name = name,
             Description = description,
+            Strict = strict,
             Parameters = new()
             {
                 Properties = new Dictionary<string, PropertyDefinition>()
