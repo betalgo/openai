@@ -20,15 +20,16 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
     private string Prefix => $"{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
     private string AzureVersionQueryString => $"?api-version={_apiVersion}";
     private string AssistantPrefix => $"{ApiPrefix}/";
+    private string DataPlanePrefix => $"{ApiPrefix}/";
 
     public string ModelRetrieve(string model)
     {
-        return $"{Prefix}/models/{model}{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/models/{model}{AzureVersionQueryString}";
     }
 
     public string FileDelete(string fileId)
     {
-        return $"{Prefix}/files/{fileId}{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/files/{fileId}{AzureVersionQueryString}";
     }
 
     public string CompletionCreate()
@@ -43,7 +44,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string ModelsList()
     {
-        return $"{Prefix}/models{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/models{AzureVersionQueryString}";
     }
 
     public string FilesList()
@@ -58,12 +59,12 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string FileRetrieve(string fileId)
     {
-        return $"{Prefix}/files/{fileId}{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/files/{fileId}{AzureVersionQueryString}";
     }
 
     public string FileRetrieveContent(string fileId)
     {
-        return $"{Prefix}/files/{fileId}/content{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/files/{fileId}/content{AzureVersionQueryString}";
     }
 
     public string FineTuneCreate()
@@ -93,17 +94,17 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string FineTuneDelete(string fineTuneId)
     {
-        return $"{Prefix}/models/{fineTuneId}{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/fine_tuning/jobs/{fineTuneId}{AzureVersionQueryString}";
     }
 
     public string FineTuningJobCreate()
     {
-        return $"{Prefix}/fine_tuning/jobs{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/fine_tuning/jobs{AzureVersionQueryString}";
     }
 
     public string FineTuningJobList(FineTuningJobListRequest? fineTuningJobListRequest)
     {
-        var url = $"{Prefix}/fine_tuning/jobs";
+        var url = $"{DataPlanePrefix}/fine_tuning/jobs";
         if (fineTuningJobListRequest != null)
         {
             var queryParams = new List<string>();
@@ -121,22 +122,22 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string FineTuningJobRetrieve(string fineTuningJobId)
     {
-        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/fine_tuning/jobs/{fineTuningJobId}{AzureVersionQueryString}";
     }
 
     public string FineTuningJobCancel(string fineTuningJobId)
     {
-        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}/cancel{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/fine_tuning/jobs/{fineTuningJobId}/cancel{AzureVersionQueryString}";
     }
 
     public string FineTuningJobListEvents(string fineTuningJobId)
     {
-        return $"{Prefix}/fine_tuning/jobs/{fineTuningJobId}/events{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/fine_tuning/jobs/{fineTuningJobId}/events{AzureVersionQueryString}";
     }
 
     public string ModelsDelete(string modelId)
     {
-        return $"{Prefix}/models/{modelId}{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/models/{modelId}{AzureVersionQueryString}";
     }
 
     public string EmbeddingCreate()
@@ -451,26 +452,26 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
     public string BatchCreate()
     {
-        return $"{Prefix}/batches{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/batches{AzureVersionQueryString}";
     }
 
     public string BatchRetrieve(string batchId)
     {
-        return $"{Prefix}/batches/{batchId}{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/batches/{batchId}{AzureVersionQueryString}";
     }
 
     public string BatchCancel(string batchId)
     {
-        return $"{Prefix}/batches/{batchId}/cancel{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/batches/{batchId}/cancel{AzureVersionQueryString}";
     }
 
     public string FineTuningJobList()
     {
-        return $"{Prefix}/fine_tuning/jobs{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/fine_tuning/jobs{AzureVersionQueryString}";
     }
 
     private string Files()
     {
-        return $"{Prefix}/files{AzureVersionQueryString}";
+        return $"{DataPlanePrefix}/files{AzureVersionQueryString}";
     }
 }
