@@ -15,13 +15,6 @@ public class ToolDefinition
     public string Type { get; set; }
 
     /// <summary>
-    ///     Structured Outputs for function calling can be enabled with a single parameter, just by supplying strict: true.
-    ///     Please note: This field is not mentioned in the API documentation but is referenced in other documents.
-    /// </summary>
-    [JsonPropertyName("strict")]
-    public bool? Strict { get; set; }
-
-    /// <summary>
     ///     Overrides for the file search tool.
     /// </summary>
     [JsonPropertyName("file_search")]
