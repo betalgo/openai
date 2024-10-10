@@ -15,4 +15,8 @@ public record UsageResponse
 
     [JsonPropertyName("completion_tokens_details")]
     public CompletionTokensDetails? CompletionTokensDetails { get; set; }
+
+    [JsonPropertyName("prompt_tokens_details")]
+    public PromptTokensDetails? PromptTokensDetails { get; set; }
+
 }

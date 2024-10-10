@@ -115,8 +115,14 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 8.7.2
+- Fixed incorrect Azure Urls. 
+- Token usage response extended with `PromptTokensDetails`, `audio_tokens` and `cached_tokens`.
+- Model list extended with `Gpt_4o_2024_08_06` and `Chatgpt_4o_latest`.
+
 ### 8.7.1 
-- moved `strict ` paremeter from `ToolDefinition` to `FunctionDefinition`
+- moved `strict` paremeter from `ToolDefinition` to `FunctionDefinition`
+
 ### 8.7.0
 - Added Support for o1 reasing models (`o1-mini` and `o1-preview`). 
 - Added `MaxCompletionTokens` for `chat completions`.
