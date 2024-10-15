@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
-using OpenAI.ObjectModels.ResponseModels;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.Extensions;
+namespace Betalgo.OpenAI.Extensions;
 
 public static class JsonToObjectRouterExtension
 {

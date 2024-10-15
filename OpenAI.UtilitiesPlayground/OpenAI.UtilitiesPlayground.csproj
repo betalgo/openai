@@ -24,6 +24,7 @@
     <PackageReference Include="LaserCatEyes.HttpClientListener" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OpenAI.Utilities\Betalgo.OpenAI.Utilities.csproj" />
     <ProjectReference Include="..\OpenAI.Utilities\OpenAI.Utilities.csproj" />
   </ItemGroup>
 

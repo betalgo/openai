@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels;
+using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.OpenAI.ObjectModels.SharedModels;
 
-public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IModel, IOpenAiModels.IMetaData, IOpenAiModels.ITools
+public record AssistantResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt, IOpenAIModels.IModel, IOpenAIModels.IMetaData, IOpenAIModels.ITools
 {
     /// <summary>
     ///     The name of the assistant. The maximum length is 256 characters.

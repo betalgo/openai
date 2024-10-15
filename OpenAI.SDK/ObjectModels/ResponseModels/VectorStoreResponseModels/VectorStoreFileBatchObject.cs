@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
+namespace Betalgo.OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 
 public record VectorStoreFileBatchObject : BaseResponse
 {

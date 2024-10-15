@@ -1,7 +1,7 @@
-﻿using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
+﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
 
-namespace OpenAI.Interfaces;
+namespace Betalgo.OpenAI.Interfaces;
 
 /// <summary>
 ///     Manage fine-tuning jobs to tailor a model to your specific training data.

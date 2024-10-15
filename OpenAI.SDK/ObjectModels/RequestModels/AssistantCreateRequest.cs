@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.OpenAI.ObjectModels.RequestModels;
 
-public class AssistantCreateRequest : IOpenAiModels.IModel, IOpenAiModels.IMetaData, IOpenAiModels.ITemperature
+public class AssistantCreateRequest : IOpenAIModels.IModel, IOpenAIModels.IMetaData, IOpenAIModels.ITemperature
 {
     /// <summary>
     ///     The name of the assistant. The maximum length is 256 characters.

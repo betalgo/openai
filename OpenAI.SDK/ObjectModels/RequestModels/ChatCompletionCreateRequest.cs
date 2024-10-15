@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.Interfaces;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.OpenAI.ObjectModels.RequestModels;
 
-public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.IModel, IOpenAiModels.IUser
+public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemperature, IOpenAIModels.IModel, IOpenAIModels.IUser
 {
     public enum ResponseFormats
     {

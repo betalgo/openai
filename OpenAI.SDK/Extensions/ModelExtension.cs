@@ -1,10 +1,10 @@
-﻿using OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.Extensions;
+namespace Betalgo.OpenAI.Extensions;
 
 public static class ModelExtension
 {
-    public static void ProcessModelId(this IOpenAiModels.IModel modelFromObject, string? modelFromParameter, string? defaultModelId, bool allowNull = false)
+    public static void ProcessModelId(this IOpenAIModels.IModel modelFromObject, string? modelFromParameter, string? defaultModelId, bool allowNull = false)
     {
         if (allowNull)
         {

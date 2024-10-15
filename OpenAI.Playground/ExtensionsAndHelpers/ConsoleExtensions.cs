@@ -1,4 +1,4 @@
-﻿using OpenAI.ObjectModels.ResponseModels;
+﻿using Betalgo.OpenAI.ObjectModels.ResponseModels;
 
 namespace OpenAI.Playground.ExtensionsAndHelpers;
 

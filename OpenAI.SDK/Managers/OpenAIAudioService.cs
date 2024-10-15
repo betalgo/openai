@@ -1,10 +1,11 @@
-﻿using OpenAI.Extensions;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels;
+﻿using System.Globalization;
+using Betalgo.OpenAI.Extensions;
+using Betalgo.OpenAI.Interfaces;
+using Betalgo.OpenAI.ObjectModels;
+using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.Managers;
+namespace Betalgo.OpenAI.Managers;
 
 // ReSharper disable once InheritdocInvalidUsage
 /// <inheritdoc />

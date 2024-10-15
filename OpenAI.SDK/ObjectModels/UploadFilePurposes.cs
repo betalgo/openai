@@ -1,4 +1,4 @@
-﻿namespace OpenAI.ObjectModels;
+﻿namespace Betalgo.OpenAI.ObjectModels;
 
 /// <summary>
 ///     The intended purpose of the uploaded file.

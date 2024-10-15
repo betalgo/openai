@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels;
+namespace Betalgo.OpenAI.ObjectModels.ResponseModels;
 
-public record EditCreateResponse : BaseResponse, IOpenAiModels.ICreatedAt
+public record EditCreateResponse : BaseResponse, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("model")]
     public string Model { get; set; }

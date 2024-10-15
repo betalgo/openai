@@ -1,4 +1,4 @@
-﻿using OpenAI.Interfaces;
+﻿using Betalgo.OpenAI.Interfaces;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;

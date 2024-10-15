@@ -1,9 +1,9 @@
-﻿using OpenAI.Extensions;
-using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.ResponseModels.FileResponseModels;
-using OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.OpenAI.Extensions;
+using Betalgo.OpenAI.ObjectModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels.FileResponseModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.Interfaces;
+namespace Betalgo.OpenAI.Interfaces;
 
 public interface IFileService
 {
