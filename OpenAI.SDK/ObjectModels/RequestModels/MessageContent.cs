@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.OpenAI.ObjectModels.RequestModels;
 
 /// <summary>
 ///     The content of a message.

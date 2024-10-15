@@ -1,7 +1,7 @@
-﻿using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.Interfaces;
+namespace Betalgo.OpenAI.Interfaces;
 
 public interface IThreadService
 {

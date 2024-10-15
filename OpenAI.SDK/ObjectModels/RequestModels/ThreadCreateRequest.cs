@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.OpenAI.ObjectModels.RequestModels;
 
-public class ThreadCreateRequest : IOpenAiModels.IMetaData
+public class ThreadCreateRequest : IOpenAIModels.IMetaData
 {
     /// <summary>
     ///     A list of messages to start the thread with.

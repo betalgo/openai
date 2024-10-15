@@ -1,6 +1,6 @@
-﻿using OpenAI.Interfaces;
+﻿using Betalgo.OpenAI.Interfaces;
 
-namespace OpenAI.Managers;
+namespace Betalgo.OpenAI.Managers;
 
 /// <summary>
 ///     Beta service for OpenAI.

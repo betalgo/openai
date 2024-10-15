@@ -2,7 +2,7 @@
 
 using System.Text.Json;
 
-namespace OpenAI.Tokenizer.GPT3;
+namespace Betalgo.OpenAI.Tokenizer.GPT3;
 
 /// <summary>
 ///     GPT3 Settings.

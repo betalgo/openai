@@ -1,4 +1,4 @@
-﻿namespace OpenAI.Interfaces;
+﻿namespace Betalgo.OpenAI.Interfaces;
 
 public interface IOpenAIService
 {

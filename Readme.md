@@ -26,7 +26,7 @@ Install-Package Betalgo.OpenAI.Utilities
 - [Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
 
 ### API Documentation
-- Betalgo.OpenAI: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.OpenAiOptions.html)
+- Betalgo.OpenAI: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.OpenAIOptions.html)
 - Betalgo.OpenAI.Utilities: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.Utilities.Embedding.EmbeddingTools.html)
 
 ---
@@ -50,7 +50,7 @@ Your Organization ID can be found here: https://platform.openai.com/account/org-
 
 ### Without Using Dependency Injection
 ```csharp
-var openAiService = new OpenAIService(new OpenAiOptions()
+var openAIService = new OpenAIService(new OpenAIOptions()
 {
     ApiKey = Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY")
 });

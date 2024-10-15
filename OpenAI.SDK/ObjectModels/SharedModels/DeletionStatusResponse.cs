@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.ResponseModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.OpenAI.ObjectModels.SharedModels;
 
-public record DeletionStatusResponse : BaseResponse, IOpenAiModels.IId
+public record DeletionStatusResponse : BaseResponse, IOpenAIModels.IId
 {
     /// <summary>
     ///     Deletion state

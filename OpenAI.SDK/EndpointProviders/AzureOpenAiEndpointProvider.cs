@@ -1,9 +1,9 @@
 using System.Net;
-using OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.RequestModels;
 
-namespace OpenAI.EndpointProviders;
+namespace Betalgo.OpenAI.EndpointProviders;
 
-internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
+internal class AzureOpenAIEndpointProvider : IOpenAIEndpointProvider
 {
     private const string DeploymentsPrefix = "deployments";
     private const string ApiPrefix = "openai";
@@ -11,7 +11,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
     private readonly string _deploymentId;
 
 
-    public AzureOpenAiEndpointProvider(string apiVersion, string deploymentId)
+    public AzureOpenAIEndpointProvider(string apiVersion, string deploymentId)
     {
         _apiVersion = apiVersion;
         _deploymentId = deploymentId;

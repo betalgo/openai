@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.OpenAI.ObjectModels.SharedModels;
 
-public record ChoiceResponse : IOpenAiModels.ILogProbsResponse
+public record ChoiceResponse : IOpenAIModels.ILogProbsResponse
 {
     [JsonPropertyName("text")]
     public string Text { get; set; }

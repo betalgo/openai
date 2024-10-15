@@ -1,8 +1,8 @@
-﻿using OpenAI.ObjectModels.RequestModels;
+﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
 
-namespace OpenAI.EndpointProviders;
+namespace Betalgo.OpenAI.EndpointProviders;
 
-internal interface IOpenAiEndpointProvider
+internal interface IOpenAIEndpointProvider
 {
     string ModelRetrieve(string model);
     string CompletionCreate();

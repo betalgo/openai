@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
+namespace Betalgo.OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
 
 public record RequestCountsResponse
 {
