@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
+namespace Betalgo.OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
 
 public record FineTuneListEventsResponse : BaseResponse
 {

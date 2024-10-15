@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
+namespace Betalgo.OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
 
-public record ImageCreateResponse : BaseResponse, IOpenAiModels.ICreatedAt
+public record ImageCreateResponse : BaseResponse, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("data")]
     public List<ImageDataResult> Results { get; set; }

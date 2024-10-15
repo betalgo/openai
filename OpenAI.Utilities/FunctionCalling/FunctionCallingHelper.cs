@@ -4,7 +4,7 @@ using OpenAI.Builders;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.Utilities.FunctionCalling;
+namespace Betalgo.OpenAI.Utilities.FunctionCalling;
 
 /// <summary>
 ///     Helper methods for Function Calling

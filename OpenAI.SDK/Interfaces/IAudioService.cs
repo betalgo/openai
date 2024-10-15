@@ -1,7 +1,7 @@
-﻿using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels;
+﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.Interfaces;
+namespace Betalgo.OpenAI.Interfaces;
 
 /// <summary>
 ///     Learn how to turn audio into text.

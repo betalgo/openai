@@ -1,5 +1,5 @@
-﻿using OpenAI.Interfaces;
-using OpenAI.ObjectModels;
+﻿using Betalgo.OpenAI.Interfaces;
+using Betalgo.OpenAI.ObjectModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;

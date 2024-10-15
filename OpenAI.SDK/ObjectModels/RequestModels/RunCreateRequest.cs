@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.OpenAI.ObjectModels.RequestModels;
 
-public class RunCreateRequest : IOpenAiModels.IModel, IOpenAiModels.IMetaData, IOpenAiModels.ITemperature, IOpenAiModels.IAssistantId
+public class RunCreateRequest : IOpenAIModels.IModel, IOpenAIModels.IMetaData, IOpenAIModels.ITemperature, IOpenAIModels.IAssistantId
 {
     /// <summary>
     ///     Override the default system message of the assistant. This is useful for modifying the behavior on a per-run basis.

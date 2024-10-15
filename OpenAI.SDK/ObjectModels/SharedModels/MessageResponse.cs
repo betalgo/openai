@@ -1,13 +1,13 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels;
+using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.OpenAI.ObjectModels.SharedModels;
 
 /// <summary>
 ///     Represents a message within a thread.
 /// </summary>
-public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IMetaData, IOpenAiModels.IAssistantId
+public record MessageResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt, IOpenAIModels.IMetaData, IOpenAIModels.IAssistantId
 {
     [JsonPropertyName("delta")]
     public MessageResponse Delta

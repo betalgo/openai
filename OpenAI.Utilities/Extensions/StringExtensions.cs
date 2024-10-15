@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace OpenAI.Utilities;
+namespace Betalgo.OpenAI.Utilities.Extensions;
 
 public static partial class StringExtensions
 {

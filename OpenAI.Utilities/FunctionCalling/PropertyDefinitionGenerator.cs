@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.Utilities.FunctionCalling;
+namespace Betalgo.OpenAI.Utilities.FunctionCalling;
 
 public class PropertyDefinitionGenerator
 {

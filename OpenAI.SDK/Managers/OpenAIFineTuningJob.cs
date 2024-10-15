@@ -1,10 +1,10 @@
 ﻿using System.Net.Http.Json;
-using OpenAI.Extensions;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
+using Betalgo.OpenAI.Extensions;
+using Betalgo.OpenAI.Interfaces;
+using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
 
-namespace OpenAI.Managers;
+namespace Betalgo.OpenAI.Managers;
 
 public partial class OpenAIService : IFineTuningJobService
 {

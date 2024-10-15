@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.FileResponseModels;
+namespace Betalgo.OpenAI.ObjectModels.ResponseModels.FileResponseModels;
 
-public record FileUploadResponse : BaseResponse, IOpenAiModels.ICreatedAt
+public record FileUploadResponse : BaseResponse, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("id")]
     public string Id { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace OpenAI.Extensions;
+﻿namespace Betalgo.OpenAI.Extensions;
 
 internal static class FileExtensions
 {

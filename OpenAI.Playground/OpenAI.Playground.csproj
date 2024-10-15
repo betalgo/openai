@@ -52,7 +52,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\OpenAI.SDK\OpenAI.csproj" />
+		<ProjectReference Include="..\OpenAI.SDK\Betalgo.OpenAI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

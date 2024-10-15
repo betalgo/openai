@@ -1,8 +1,8 @@
-﻿using OpenAI.ObjectModels.RequestModels;
+﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.OpenAI.ObjectModels.SharedModels;
 
-public interface IOpenAiModels
+public interface IOpenAIModels
 {
     public interface IId
     {

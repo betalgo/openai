@@ -1,7 +1,7 @@
-﻿using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
+﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
 
-namespace OpenAI.Interfaces;
+namespace Betalgo.OpenAI.Interfaces;
 
 /// <summary>
 ///     Given a prompt and/or an input image, the model will generate a new image.

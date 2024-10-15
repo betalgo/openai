@@ -1,4 +1,4 @@
-﻿namespace OpenAI.Utilities.Embedding;
+﻿namespace Betalgo.OpenAI.Utilities.Embedding;
 
 public class TextEmbeddingData
 {

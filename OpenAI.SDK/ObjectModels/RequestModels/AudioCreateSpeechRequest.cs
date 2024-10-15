@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.OpenAI.ObjectModels.RequestModels;
 
-public record AudioCreateSpeechRequest : IOpenAiModels.IModel
+public record AudioCreateSpeechRequest : IOpenAIModels.IModel
 {
     /// <summary>
     ///     The text to generate audio for. The maximum length is 4096 characters.

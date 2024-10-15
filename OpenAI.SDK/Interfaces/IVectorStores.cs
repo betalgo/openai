@@ -1,8 +1,8 @@
-﻿using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
-using OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.Interfaces;
+namespace Betalgo.OpenAI.Interfaces;
 
 public interface IVectorStores
 {

@@ -1,8 +1,8 @@
-﻿using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels;
+﻿using Betalgo.OpenAI.ObjectModels;
+using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.Interfaces;
+namespace Betalgo.OpenAI.Interfaces;
 
 /// <summary>
 ///     Given a chat conversation, the model will return a chat completion response.

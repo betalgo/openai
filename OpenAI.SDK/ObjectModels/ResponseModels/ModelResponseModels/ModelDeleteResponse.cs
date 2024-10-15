@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.ResponseModels.ModelResponseModels;
+namespace Betalgo.OpenAI.ObjectModels.ResponseModels.ModelResponseModels;
 
 public record ModelDeleteResponse : BaseResponse
 {

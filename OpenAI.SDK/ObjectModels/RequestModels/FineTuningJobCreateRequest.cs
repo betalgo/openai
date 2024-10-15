@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.OpenAI.ObjectModels.RequestModels;
 
-public record FineTuningJobCreateRequest : IOpenAiModels.IModel
+public record FineTuningJobCreateRequest : IOpenAIModels.IModel
 {
     /// <summary>
     ///     The ID of an uploaded file that contains training data.

@@ -1,4 +1,4 @@
-﻿namespace OpenAI.Utilities.FunctionCalling;
+﻿namespace Betalgo.OpenAI.Utilities.FunctionCalling;
 
 /// <summary>
 ///     Attribute to describe a parameter of a function. Can also be used to override the Name of the parameter

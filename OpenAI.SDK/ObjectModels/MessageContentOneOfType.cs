@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.RequestModels;
+using Betalgo.OpenAI.ObjectModels.RequestModels;
 
-namespace OpenAI.ObjectModels;
+namespace Betalgo.OpenAI.ObjectModels;
 
 [JsonConverter(typeof(MessageContentConverter))]
 public class MessageContentOneOfType

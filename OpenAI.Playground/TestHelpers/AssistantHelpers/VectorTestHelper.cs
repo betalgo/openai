@@ -1,6 +1,6 @@
-﻿using OpenAI.Interfaces;
-using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
+﻿using Betalgo.OpenAI.Interfaces;
+using Betalgo.OpenAI.ObjectModels;
+using Betalgo.OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers.AssistantHelpers;

@@ -1,15 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using OpenAI.Interfaces;
-using OpenAI.Managers;
+﻿using Betalgo.OpenAI.Interfaces;
+using Betalgo.OpenAI.Managers;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace OpenAI.Extensions;
+namespace Betalgo.OpenAI.Extensions;
 
 public static class OpenAIServiceCollectionExtensions
 {
-    public static IHttpClientBuilder AddOpenAIService(this IServiceCollection services, Action<OpenAiOptions>? setupAction = null)
+    public static IHttpClientBuilder AddOpenAIService(this IServiceCollection services, Action<OpenAIOptions>? setupAction = null)
     {
-        var optionsBuilder = services.AddOptions<OpenAiOptions>();
-        optionsBuilder.BindConfiguration(OpenAiOptions.SettingKey);
+        var optionsBuilder = services.AddOptions<OpenAIOptions>();
+        optionsBuilder.BindConfiguration(OpenAIOptions.SettingKey);
         if (setupAction != null)
         {
             optionsBuilder.Configure(setupAction);
@@ -18,10 +18,10 @@ public static class OpenAIServiceCollectionExtensions
         return services.AddHttpClient<IOpenAIService, OpenAIService>();
     }
 
-    public static IHttpClientBuilder AddOpenAIService<TServiceInterface>(this IServiceCollection services, string name, Action<OpenAiOptions>? setupAction = null) where TServiceInterface : class, IOpenAIService
+    public static IHttpClientBuilder AddOpenAIService<TServiceInterface>(this IServiceCollection services, string name, Action<OpenAIOptions>? setupAction = null) where TServiceInterface : class, IOpenAIService
     {
-        var optionsBuilder = services.AddOptions<OpenAiOptions>(name);
-        optionsBuilder.BindConfiguration($"{OpenAiOptions.SettingKey}:{name}");
+        var optionsBuilder = services.AddOptions<OpenAIOptions>(name);
+        optionsBuilder.BindConfiguration($"{OpenAIOptions.SettingKey}:{name}");
         if (setupAction != null)
         {
             optionsBuilder.Configure(setupAction);

@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.OpenAI.Interfaces;
+using Betalgo.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.OpenAI.ObjectModels.RequestModels;
 
 //TODO add model validation
 //TODO check what is string or array for prompt,..
-public record EmbeddingCreateRequest : IModelValidate, IOpenAiModels.IModel
+public record EmbeddingCreateRequest : IModelValidate, IOpenAIModels.IModel
 {
     /// <summary>
     ///     Input text to get embeddings for, encoded as a string or array of tokens. To get embeddings for multiple inputs
