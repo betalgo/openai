@@ -1,6 +1,6 @@
-﻿using Betalgo.OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace Betalgo.OpenAI.Extensions;
+namespace Betalgo.Ranul.OpenAI.Extensions;
 
 public static class ModelExtension
 {

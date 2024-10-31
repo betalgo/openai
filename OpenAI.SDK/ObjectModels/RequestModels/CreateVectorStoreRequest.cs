@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using Betalgo.OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 
-namespace Betalgo.OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 public class CreateVectorStoreRequest
 {

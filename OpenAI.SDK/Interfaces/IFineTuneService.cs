@@ -1,7 +1,7 @@
-﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
-using Betalgo.OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
 
-namespace Betalgo.OpenAI.Interfaces;
+namespace Betalgo.Ranul.OpenAI.Interfaces;
 
 /// <summary>
 ///     Manage fine-tuning jobs to tailor a model to your specific training data.

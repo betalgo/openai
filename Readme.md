@@ -5,13 +5,18 @@ A .NET Library for accessing OpenAI's API, provided as a community library. This
 
 ⭐ We appreciate your star, it helps! ![GitHub Repo stars](https://img.shields.io/github/stars/betalgo/openai)  
  #### Community Links
- We have a very new [![Discord](https://img.shields.io/discord/1250841506785529916?label=Discord)](https://discord.gg/gfgHsWnGxy) and [![Static Badge](https://img.shields.io/badge/Reddit-BetalgoDevelopers-orange)](https://www.reddit.com/r/BetalgoDevelopers) channel. Please come and help us build the .NET AI community.
+- [![Discord](https://img.shields.io/discord/1250841506785529916?label=Discord)](https://discord.gg/gfgHsWnGxy) Please come and help us build the .NET AI community  
+- [![Static Badge](https://img.shields.io/badge/Reddit-Betalgo%20Developers-orange)](https://www.reddit.com/r/BetalgoDevelopers)
+- [![Static Badge](https://img.shields.io/badge/Github-Discussions-black)](https://github.com/betalgo/openai/discussions)
  
 ### Install Packages
 #### Core Library
-[![Betalgo.OpenAI](https://img.shields.io/nuget/v/Betalgo.OpenAI?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI/)
+⚠️ We now have new PackageId and new Namespace. ⚠️  
+⚠️ `Betalgo.OpenAI` is now `Betalgo.Ranul.OpenAI` ⚠️  
+
+[![Betalgo.Ranul.OpenAI](https://img.shields.io/nuget/v/Betalgo.Ranul.OpenAI?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.Ranul.OpenAI/)
 ```shell
-Install-Package Betalgo.OpenAI
+Install-Package Betalgo.Ranul.OpenAI
 ```
 
 #### Experimental Utilities Library
@@ -24,11 +29,6 @@ Install-Package Betalgo.OpenAI.Utilities
 - [Wiki Page](https://github.com/betalgo/openai/wiki)
 - [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability)
 - [Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
-
-### API Documentation
-- Betalgo.OpenAI: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.OpenAIOptions.html)
-- Betalgo.OpenAI.Utilities: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.Utilities.Embedding.EmbeddingTools.html)
-
 ---
 
 ## Acknowledgements

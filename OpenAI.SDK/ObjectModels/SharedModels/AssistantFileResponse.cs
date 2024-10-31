@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using Betalgo.OpenAI.ObjectModels.ResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace Betalgo.OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 public record AssistantFileResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt
 {

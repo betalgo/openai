@@ -1,6 +1,6 @@
-﻿using Betalgo.OpenAI.ObjectModels.ResponseModels.ModelResponseModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.ModelResponseModels;
 
-namespace Betalgo.OpenAI.Interfaces;
+namespace Betalgo.Ranul.OpenAI.Interfaces;
 
 /// <summary>
 ///     List and describe the various models available in the API. You can refer to the

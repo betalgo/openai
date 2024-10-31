@@ -1,9 +1,8 @@
-﻿using Betalgo.OpenAI.Interfaces;
-using Betalgo.OpenAI.ObjectModels;
-using Betalgo.OpenAI.ObjectModels.RequestModels;
-using Betalgo.OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
-using static Betalgo.OpenAI.ObjectModels.StaticValues;
 
 namespace OpenAI.Playground.TestHelpers.AssistantHelpers;
 

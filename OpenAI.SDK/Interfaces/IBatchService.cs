@@ -1,7 +1,7 @@
-﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
-using Betalgo.OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
 
-namespace Betalgo.OpenAI.Interfaces;
+namespace Betalgo.Ranul.OpenAI.Interfaces;
 
 public interface IBatchService
 {

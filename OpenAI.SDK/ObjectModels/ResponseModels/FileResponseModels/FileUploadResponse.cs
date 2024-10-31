@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using Betalgo.OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace Betalgo.OpenAI.ObjectModels.ResponseModels.FileResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FileResponseModels;
 
 public record FileUploadResponse : BaseResponse, IOpenAIModels.ICreatedAt
 {

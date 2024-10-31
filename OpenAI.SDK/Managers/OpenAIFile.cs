@@ -1,10 +1,10 @@
 ﻿using System.Net.Http.Json;
-using Betalgo.OpenAI.Extensions;
-using Betalgo.OpenAI.Interfaces;
-using Betalgo.OpenAI.ObjectModels.ResponseModels.FileResponseModels;
-using Betalgo.OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.Extensions;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FileResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace Betalgo.OpenAI.Managers;
+namespace Betalgo.Ranul.OpenAI.Managers;
 
 #pragma warning disable CS1591
 public partial class OpenAIService : IFileService

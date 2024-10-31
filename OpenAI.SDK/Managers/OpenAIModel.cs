@@ -1,8 +1,8 @@
 ﻿using System.Net.Http.Json;
-using Betalgo.OpenAI.Interfaces;
-using Betalgo.OpenAI.ObjectModels.ResponseModels.ModelResponseModels;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.ModelResponseModels;
 
-namespace Betalgo.OpenAI.Managers;
+namespace Betalgo.Ranul.OpenAI.Managers;
 
 public partial class OpenAIService : IModelService
 {

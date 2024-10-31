@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Betalgo.OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 public class CreateVectorStoreFileBatchRequest
 {

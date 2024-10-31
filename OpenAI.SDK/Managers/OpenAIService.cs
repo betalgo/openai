@@ -1,9 +1,9 @@
-﻿using Betalgo.OpenAI.EndpointProviders;
-using Betalgo.OpenAI.Interfaces;
+﻿using Betalgo.Ranul.OpenAI.EndpointProviders;
+using Betalgo.Ranul.OpenAI.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Betalgo.OpenAI.Managers;
+namespace Betalgo.Ranul.OpenAI.Managers;
 
 public partial class OpenAIService : IOpenAIService, IDisposable
 {
