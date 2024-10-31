@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Betalgo.OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 public record LogProbsResponse
 {

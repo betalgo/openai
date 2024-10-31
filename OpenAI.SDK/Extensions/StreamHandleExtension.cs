@@ -1,10 +1,10 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
-using Betalgo.OpenAI.ObjectModels;
-using Betalgo.OpenAI.ObjectModels.RequestModels;
-using Betalgo.OpenAI.ObjectModels.ResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace Betalgo.OpenAI.Extensions;
+namespace Betalgo.Ranul.OpenAI.Extensions;
 
 public static class StreamHandleExtension
 {

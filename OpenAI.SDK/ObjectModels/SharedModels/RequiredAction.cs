@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
-namespace Betalgo.OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 /// <summary>
 ///     Details on the action required to continue the run.

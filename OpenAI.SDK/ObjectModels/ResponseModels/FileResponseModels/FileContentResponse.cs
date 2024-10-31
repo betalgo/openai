@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Betalgo.OpenAI.ObjectModels.ResponseModels.FileResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FileResponseModels;
 
 /// <summary>
 ///     File content response

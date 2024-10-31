@@ -1,4 +1,4 @@
-﻿namespace Betalgo.OpenAI.Interfaces;
+﻿namespace Betalgo.Ranul.OpenAI.Interfaces;
 
 public interface IBetaService
 {

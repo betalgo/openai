@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Betalgo.OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
 
 public record FineTuneListResponse : BaseResponse
 {

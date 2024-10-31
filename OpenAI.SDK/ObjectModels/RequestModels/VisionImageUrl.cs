@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Betalgo.OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 /// <summary>
 ///     The image_url object of vision message content

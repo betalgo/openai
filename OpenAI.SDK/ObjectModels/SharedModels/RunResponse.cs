@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
-using Betalgo.OpenAI.ObjectModels.RequestModels;
-using Betalgo.OpenAI.ObjectModels.ResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace Betalgo.OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 public record RunListResponse : DataWithPagingBaseResponse<List<RunResponse>>
 {

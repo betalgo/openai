@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable CS1591
-namespace Betalgo.OpenAI.ObjectModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels;
 
 [SuppressMessage("ReSharper", "InconsistentNaming")]
 [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]

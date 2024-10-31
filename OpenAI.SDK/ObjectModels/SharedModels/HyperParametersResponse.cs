@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using Betalgo.OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
 
-namespace Betalgo.OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 public record HyperParametersResponse
 {

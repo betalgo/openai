@@ -1,5 +1,5 @@
-﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
-using Betalgo.OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 namespace OpenAI.Playground.TestHelpers;
 

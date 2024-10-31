@@ -1,5 +1,5 @@
 ﻿#if NETSTANDARD2_0
-namespace Betalgo.OpenAI.Extensions
+namespace Betalgo.Ranul.OpenAI.Extensions
 {
     public class AsyncDisposableStream : Stream, IAsyncDisposable
     {

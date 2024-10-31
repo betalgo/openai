@@ -1,7 +1,7 @@
-﻿using Betalgo.OpenAI.ObjectModels.RequestModels;
-using Betalgo.OpenAI.ObjectModels.ResponseModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace Betalgo.OpenAI.Interfaces;
+namespace Betalgo.Ranul.OpenAI.Interfaces;
 
 /// <summary>
 ///     Given a input text, outputs if the model classifies it as violating OpenAI's content policy.

@@ -1,4 +1,4 @@
-﻿namespace Betalgo.OpenAI;
+﻿namespace Betalgo.Ranul.OpenAI;
 
 /// <summary>
 ///     Provider Type

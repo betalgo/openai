@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using Betalgo.OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace Betalgo.OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
 
 public record FineTuningJobResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.IModel, IOpenAIModels.ICreatedAt
 {

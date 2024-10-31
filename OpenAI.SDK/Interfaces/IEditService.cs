@@ -1,8 +1,8 @@
-﻿using Betalgo.OpenAI.ObjectModels;
-using Betalgo.OpenAI.ObjectModels.RequestModels;
-using Betalgo.OpenAI.ObjectModels.ResponseModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace Betalgo.OpenAI.Interfaces;
+namespace Betalgo.Ranul.OpenAI.Interfaces;
 
 /// <summary>
 ///     Given a prompt and an instruction, the model will return an edited version of the prompt.

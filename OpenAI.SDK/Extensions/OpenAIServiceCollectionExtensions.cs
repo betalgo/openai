@@ -1,8 +1,8 @@
-﻿using Betalgo.OpenAI.Interfaces;
-using Betalgo.OpenAI.Managers;
+﻿using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.Managers;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Betalgo.OpenAI.Extensions;
+namespace Betalgo.Ranul.OpenAI.Extensions;
 
 public static class OpenAIServiceCollectionExtensions
 {

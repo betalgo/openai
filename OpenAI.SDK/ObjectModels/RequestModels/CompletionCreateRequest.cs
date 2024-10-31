@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Betalgo.OpenAI.Interfaces;
-using Betalgo.OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace Betalgo.OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 //TODO add model validation
 /// <summary>

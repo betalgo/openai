@@ -1,6 +1,6 @@
-﻿using Betalgo.OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace Betalgo.OpenAI.ObjectModels.ResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
 public record AssistantFileListResponse : DataWithPagingBaseResponse<List<AssistantFileResponse>>
 {

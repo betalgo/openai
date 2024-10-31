@@ -1,7 +1,7 @@
 using System.Net;
-using Betalgo.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
-namespace Betalgo.OpenAI.EndpointProviders;
+namespace Betalgo.Ranul.OpenAI.EndpointProviders;
 
 internal class AzureOpenAIEndpointProvider : IOpenAIEndpointProvider
 {

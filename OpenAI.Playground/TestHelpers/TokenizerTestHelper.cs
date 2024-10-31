@@ -1,4 +1,4 @@
-﻿using Betalgo.OpenAI.Tokenizer.GPT3;
+﻿using Betalgo.Ranul.OpenAI.Tokenizer.GPT3;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;
