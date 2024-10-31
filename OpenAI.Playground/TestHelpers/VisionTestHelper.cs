@@ -1,8 +1,7 @@
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
-using static OpenAI.ObjectModels.StaticValues;
 
 namespace OpenAI.Playground.TestHelpers;
 
@@ -25,7 +24,7 @@ internal static class VisionTestHelper
                     {
                         MessageContent.TextContent("What is on the picture in details?"),
                         MessageContent.ImageUrlContent("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-                            ImageStatics.ImageDetailTypes.High)
+                            StaticValues.ImageStatics.ImageDetailTypes.High)
                     })
                 },
                 MaxTokens = 300,
@@ -70,7 +69,7 @@ internal static class VisionTestHelper
                     {
                         MessageContent.TextContent("What’s in this image?"),
                         MessageContent.ImageUrlContent("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-                            ImageStatics.ImageDetailTypes.Low)
+                            StaticValues.ImageStatics.ImageDetailTypes.Low)
                     })
                 },
                 MaxTokens = 300,
@@ -124,7 +123,7 @@ internal static class VisionTestHelper
                     ChatMessage.FromUser(new List<MessageContent>
                     {
                         MessageContent.TextContent("What is on the picture in details?"),
-                        MessageContent.ImageBinaryContent(originalFile, ImageStatics.ImageFileTypes.Png, ImageStatics.ImageDetailTypes.High)
+                        MessageContent.ImageBinaryContent(originalFile, StaticValues.ImageStatics.ImageFileTypes.Png, StaticValues.ImageStatics.ImageDetailTypes.High)
                     })
                 },
                 MaxTokens = 300,

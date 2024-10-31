@@ -1,4 +1,4 @@
-﻿namespace OpenAI.ObjectModels.ResponseModels;
+﻿namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
 /// <summary>
 ///     File content response

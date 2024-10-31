@@ -9,10 +9,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
-    <PackageReference Include="LaserCatEyes.HttpClientListener" Version="6.0.0" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.1" />
@@ -24,7 +20,7 @@
     <PackageReference Include="LaserCatEyes.HttpClientListener" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenAI.Utilities\OpenAI.Utilities.csproj" />
+    <ProjectReference Include="..\OpenAI.Utilities\Betalgo.OpenAI.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.ResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-public record AssistantFileResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt
+public record AssistantFileResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt
 {
     /// <summary>
     ///     The Unix timestamp (in seconds) for when the assistant file was created.

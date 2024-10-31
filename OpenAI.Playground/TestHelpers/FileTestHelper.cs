@@ -1,6 +1,6 @@
 ﻿using System.Text;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
 namespace OpenAI.Playground.TestHelpers;

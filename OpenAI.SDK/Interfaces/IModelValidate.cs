@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OpenAI.Interfaces;
+namespace Betalgo.Ranul.OpenAI.Interfaces;
 
 public interface IModelValidate
 {

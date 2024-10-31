@@ -1,4 +1,4 @@
-﻿namespace OpenAI.Extensions;
+﻿namespace Betalgo.Ranul.OpenAI.Extensions;
 
 /// <summary>
 ///     Extension methods for string manipulation
