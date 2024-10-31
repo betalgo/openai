@@ -115,6 +115,26 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 8.8.0
+
+- **Compatibility Enhancement**: You can now use this library alongside the official OpenAI library and/or Semantic Kernel within the same project. The name changes in this update support this feature.
+
+- **Namespace and Package ID Update**: The namespace and PackageId have been changed from `Betalgo.OpenAI` to `Betalgo.Ranul.OpenAI`.
+
+- **OpenAI Naming Consistency**: We've standardized the use of "OpenAI" throughout the library, replacing any instances of "OpenAi" or other variations.
+
+- **Migration Instructions**: Intellisense should assist you in updating your code. If it doesn't, please make the following changes manually:
+  - Switch to the new NuGet package: `Betalgo.Ranul.OpenAI` instead of `Betalgo.OpenAI`.
+  - Update all namespaces from `OpenAI` to `Betalgo.Ranul.OpenAI`.
+  - Replace all occurrences of "OpenAi", "Openai", or any other variations with "OpenAI".
+
+- **Need Help?**: If you encounter any issues, feel free to reach out via our Discord channel, Reddit channel, or GitHub discussions. We're happy to assist.
+
+- **Feedback Welcomed**: If you notice any mistakes or missing name changes, please create an issue to let us know.
+
+- **Utilities Library Status**: Please note that the Utilities library might remain broken for a while. I will focus on fixing it after completing the real-time API implementation.
+
+
 ### 8.7.2
 - Fixed incorrect Azure Urls. 
 - Token usage response extended with `PromptTokensDetails`, `audio_tokens` and `cached_tokens`.
