@@ -1,7 +1,7 @@
-﻿using OpenAI.Interfaces;
+﻿using Betalgo.OpenAI.Utilities.Embedding;
+using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
-using OpenAI.Utilities.Embedding;
 
 namespace OpenAI.UtilitiesPlayground.TestHelpers;
 

@@ -1,9 +1,9 @@
-﻿using OpenAI.Extensions;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.Ranul.OpenAI.Extensions;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.Managers;
+namespace Betalgo.Ranul.OpenAI.Managers;
 
 public partial class OpenAIService : IThreadService
 {

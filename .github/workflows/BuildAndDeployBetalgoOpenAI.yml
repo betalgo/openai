@@ -1,4 +1,4 @@
-name: Build And Deploy Betalgo.OpenAI
+name: Build And Deploy Betalgo.Ranul.OpenAI
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
       id: publish_nuget_OpenAI
       uses: alirezanet/publish-nuget@v3.1.0
       with:
-          PROJECT_FILE_PATH: OpenAI.SDK\OpenAI.csproj
+          PROJECT_FILE_PATH: OpenAI.SDK\Betalgo.Ranul.OpenAI.csproj
           NUGET_KEY: ${{secrets.NUGET_KEY}}
           INCLUDE_SYMBOLS: true
-          PACKAGE_NAME: Betalgo.OpenAI
+          PACKAGE_NAME: Betalgo.Ranul.OpenAI

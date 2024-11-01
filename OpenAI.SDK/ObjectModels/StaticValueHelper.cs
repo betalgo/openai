@@ -1,4 +1,4 @@
-﻿namespace OpenAI.ObjectModels;
+﻿namespace Betalgo.Ranul.OpenAI.ObjectModels;
 
 public class StaticValues
 {

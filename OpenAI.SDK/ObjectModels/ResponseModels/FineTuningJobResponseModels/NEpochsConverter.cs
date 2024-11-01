@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
 
 public class NEpochsConverter : JsonConverter<int?>
 {

@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using Betalgo.OpenAI.Utilities.FunctionCalling;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels;
 using OpenAI.ObjectModels.RequestModels;
-using OpenAI.Utilities.FunctionCalling;
 
 namespace OpenAI.UtilitiesPlayground.TestHelpers;
 

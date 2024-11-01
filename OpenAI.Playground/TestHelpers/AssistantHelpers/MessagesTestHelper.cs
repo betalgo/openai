@@ -1,9 +1,8 @@
-﻿using OpenAI.Interfaces;
-using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
-using static OpenAI.ObjectModels.StaticValues;
 
 namespace OpenAI.Playground.TestHelpers.AssistantHelpers;
 
@@ -43,7 +42,7 @@ internal static partial class AssistantTestHelper
             }
 
             CreatedThreadId = thread.Id;
-            var result = await openAI.Beta.Messages.CreateMessage(CreatedThreadId, new(AssistantsStatics.MessageStatics.Roles.User, new("How does AI work? Explain it in simple terms.")));
+            var result = await openAI.Beta.Messages.CreateMessage(CreatedThreadId, new(StaticValues.AssistantsStatics.MessageStatics.Roles.User, new("How does AI work? Explain it in simple terms.")));
             if (result.Successful)
             {
                 CreatedMessageId = result.Id;
@@ -89,12 +88,12 @@ internal static partial class AssistantTestHelper
 
             MessageContentOneOfType content = new([
                 MessageContent.TextContent(prompt),
-                MessageContent.ImageFileContent(uploadFileId, ImageStatics.ImageDetailTypes.High)
+                MessageContent.ImageFileContent(uploadFileId, StaticValues.ImageStatics.ImageDetailTypes.High)
             ]);
 
             MessageCreateRequest request = new()
             {
-                Role = AssistantsStatics.MessageStatics.Roles.User,
+                Role = StaticValues.AssistantsStatics.MessageStatics.Roles.User,
                 Content = content
             };
 

@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
-public class CreateThreadAndRunRequest : IOpenAiModels.IAssistantId, IOpenAiModels.IModel
+public class CreateThreadAndRunRequest : IOpenAIModels.IAssistantId, IOpenAIModels.IModel
 {
     [JsonPropertyName("thread")]
     public ThreadCreateRequest Thread { get; set; }
@@ -160,7 +160,7 @@ public class FileSearch
     public List<VectorStores>? VectorStores { get; set; }
 }
 
-public class VectorStores : IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
+public class VectorStores : IOpenAIModels.IFileIds, IOpenAIModels.IMetaData
 {
     /// <summary>
     ///     A list of file IDs to add to the vector store. There can be a maximum of 10000 files in a vector store.
@@ -177,7 +177,7 @@ public class VectorStores : IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
     public Dictionary<string, string>? Metadata { get; set; }
 }
 
-public class CodeInterpreter : IOpenAiModels.IFileIds
+public class CodeInterpreter : IOpenAIModels.IFileIds
 {
     /// <summary>
     ///     A list of file IDs made available to the code_interpreter tool. There can be a maximum of 20 files associated with

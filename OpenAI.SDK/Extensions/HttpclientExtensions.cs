@@ -2,9 +2,9 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.ResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.Extensions;
+namespace Betalgo.Ranul.OpenAI.Extensions;
 
 internal static class HttpClientExtensions
 {

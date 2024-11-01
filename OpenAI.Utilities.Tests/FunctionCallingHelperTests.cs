@@ -1,5 +1,5 @@
-﻿using OpenAI.ObjectModels.RequestModels;
-using OpenAI.Utilities.FunctionCalling;
+﻿using Betalgo.OpenAI.Utilities.FunctionCalling;
+using OpenAI.ObjectModels.RequestModels;
 
 namespace OpenAI.Utilities.Tests;
 

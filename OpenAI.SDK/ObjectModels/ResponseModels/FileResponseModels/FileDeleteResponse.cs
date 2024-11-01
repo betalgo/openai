@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.FileResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FileResponseModels;
 
-public record FileDeleteResponse : BaseResponse, IOpenAiModels.IId
+public record FileDeleteResponse : BaseResponse, IOpenAIModels.IId
 {
     [JsonPropertyName("deleted")]
     public bool Deleted { get; set; }

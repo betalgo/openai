@@ -1,6 +1,6 @@
-﻿using OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 public record ImageVariationCreateRequest : SharedImageRequestBaseModel
 {

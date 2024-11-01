@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.ResponseModels
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels
 {
     public class PromptTokensDetails
     {
