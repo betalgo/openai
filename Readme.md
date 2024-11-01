@@ -29,6 +29,7 @@ Install-Package Betalgo.OpenAI.Utilities
 - [Wiki Page](https://github.com/betalgo/openai/wiki)
 - [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability)
 - [Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
+- [Migration Guide for Breaking Changes](https://github.com/betalgo/openai/wiki/Migration-Guides-for-breaking-changes)
 ---
 
 ## Acknowledgements
