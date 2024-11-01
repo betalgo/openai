@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.AI;
 
-namespace OpenAI.Managers;
+namespace Betalgo.Ranul.OpenAI.Managers;
 
 public partial class OpenAIService : IEmbeddingGenerator<string, Embedding<float>>
 {
