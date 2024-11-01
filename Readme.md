@@ -1,4 +1,4 @@
-![Betalgo Ranul OpenAI Github Readme banner](https://github.com/user-attachments/assets/ca87b21f-e2a3-4bf2-88ad-4610bda6dfd6)
+![Betalgo Ranul OpenAI Github readme banner](https://github.com/user-attachments/assets/3a76387f-e033-4ee2-a9c7-2ebf047c4d90)
 
 ## Overview
 A .NET Library for accessing OpenAI's API, provided as a community library. This Library allows you to integrate OpenAI's capabilities into your .NET applications with ease.
