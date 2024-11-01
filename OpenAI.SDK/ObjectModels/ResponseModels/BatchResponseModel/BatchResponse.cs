@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
 
-public record BatchResponse : BaseResponse, IOpenAiModels.IMetaData
+public record BatchResponse : BaseResponse, IOpenAIModels.IMetaData
 {
     /// <summary>
     /// </summary>

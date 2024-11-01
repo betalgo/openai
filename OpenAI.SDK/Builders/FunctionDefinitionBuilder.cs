@@ -1,7 +1,7 @@
-﻿using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.Builders;
+namespace Betalgo.Ranul.OpenAI.Builders;
 
 /// <summary>
 ///     FunctionDefinitionBuilder is used to build and validate a FunctionDefinition object.

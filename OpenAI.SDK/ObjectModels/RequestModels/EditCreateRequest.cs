@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 //TODO add model validation
 //TODO check what is string or array for prompt,..
 /// <summary>
 ///     Create Edit Request Model
 /// </summary>
-public record EditCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.IModel
+public record EditCreateRequest : IModelValidate, IOpenAIModels.ITemperature, IOpenAIModels.IModel
 {
     /// <summary>
     ///     The input text to use as a starting point for the edit.

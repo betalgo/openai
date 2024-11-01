@@ -1,15 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 //TODO add model validation
 /// <summary>
 ///     Create Completion Request Model
 /// </summary>
-public record CompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.IModel, IOpenAiModels.ILogProbsRequest, IOpenAiModels.IUser
+public record CompletionCreateRequest : IModelValidate, IOpenAIModels.ITemperature, IOpenAIModels.IModel, IOpenAIModels.ILogProbsRequest, IOpenAIModels.IUser
 {
     /// <summary>
     ///     The prompt(s) to generate completions for, encoded as a string, a list of strings, or a list of token lists.

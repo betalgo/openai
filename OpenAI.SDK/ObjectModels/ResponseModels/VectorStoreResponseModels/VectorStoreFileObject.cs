@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 
 public record VectorStoreFileListObject : DataWithPagingBaseResponse<List<VectorStoreFileObject>>
 {

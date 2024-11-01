@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FineTuneResponseModels;
 
-public record FineTuneResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IModel, IOpenAiModels.ICreatedAt
+public record FineTuneResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.IModel, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("events")]
     public List<EventResponse> Events { get; set; }

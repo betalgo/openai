@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
-public class RunModifyRequest : IOpenAiModels.IMetaData
+public class RunModifyRequest : IOpenAIModels.IMetaData
 {
     /// <summary>
     ///     Set of 16 key-value pairs that can be attached to an object.

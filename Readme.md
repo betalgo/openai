@@ -1,17 +1,22 @@
-![Betalgo Ranul OpenAI Github Readme banner](https://github.com/user-attachments/assets/ca87b21f-e2a3-4bf2-88ad-4610bda6dfd6)
+![Betalgo Ranul OpenAI Github readme banner](https://github.com/user-attachments/assets/3a76387f-e033-4ee2-a9c7-2ebf047c4d90)
 
 ## Overview
 A .NET Library for accessing OpenAI's API, provided as a community library. This Library allows you to integrate OpenAI's capabilities into your .NET applications with ease.
 
 ⭐ We appreciate your star, it helps! ![GitHub Repo stars](https://img.shields.io/github/stars/betalgo/openai)  
  #### Community Links
- We have a very new [![Discord](https://img.shields.io/discord/1250841506785529916?label=Discord)](https://discord.gg/gfgHsWnGxy) and [![Static Badge](https://img.shields.io/badge/Reddit-BetalgoDevelopers-orange)](https://www.reddit.com/r/BetalgoDevelopers) channel. Please come and help us build the .NET AI community.
+- [![Discord](https://img.shields.io/discord/1250841506785529916?label=Discord)](https://discord.gg/gfgHsWnGxy) Please come and help us build the .NET AI community  
+- [![Static Badge](https://img.shields.io/badge/Reddit-Betalgo%20Developers-orange)](https://www.reddit.com/r/BetalgoDevelopers)
+- [![Static Badge](https://img.shields.io/badge/Github-Discussions-black)](https://github.com/betalgo/openai/discussions)
  
 ### Install Packages
 #### Core Library
-[![Betalgo.OpenAI](https://img.shields.io/nuget/v/Betalgo.OpenAI?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI/)
+⚠️ We now have new PackageId and new Namespace. ⚠️  
+⚠️ `Betalgo.OpenAI` is now `Betalgo.Ranul.OpenAI` ⚠️  
+
+[![Betalgo.Ranul.OpenAI](https://img.shields.io/nuget/v/Betalgo.Ranul.OpenAI?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.Ranul.OpenAI/)
 ```shell
-Install-Package Betalgo.OpenAI
+Install-Package Betalgo.Ranul.OpenAI
 ```
 
 #### Experimental Utilities Library
@@ -24,11 +29,7 @@ Install-Package Betalgo.OpenAI.Utilities
 - [Wiki Page](https://github.com/betalgo/openai/wiki)
 - [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability)
 - [Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
-
-### API Documentation
-- Betalgo.OpenAI: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.OpenAiOptions.html)
-- Betalgo.OpenAI.Utilities: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.Utilities.Embedding.EmbeddingTools.html)
-
+- [Migration Guide for Breaking Changes](https://github.com/betalgo/openai/wiki/Migration-Guides-for-breaking-changes)
 ---
 
 ## Acknowledgements
@@ -50,7 +51,7 @@ Your Organization ID can be found here: https://platform.openai.com/account/org-
 
 ### Without Using Dependency Injection
 ```csharp
-var openAiService = new OpenAIService(new OpenAiOptions()
+var openAIService = new OpenAIService(new OpenAIOptions()
 {
     ApiKey = Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY")
 });
@@ -115,6 +116,26 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 8.8.0
+
+- **Compatibility Enhancement**: You can now use this library alongside the official OpenAI library and/or Semantic Kernel within the same project. The name changes in this update support this feature.
+
+- **Namespace and Package ID Update**: The namespace and PackageId have been changed from `Betalgo.OpenAI` to `Betalgo.Ranul.OpenAI`.
+
+- **OpenAI Naming Consistency**: We've standardized the use of "OpenAI" throughout the library, replacing any instances of "OpenAi" or other variations.
+
+- **Migration Instructions**: Intellisense should assist you in updating your code. If it doesn't, please make the following changes manually:
+  - Switch to the new NuGet package: `Betalgo.Ranul.OpenAI` instead of `Betalgo.OpenAI`.
+  - Update all namespaces from `OpenAI` to `Betalgo.Ranul.OpenAI`.
+  - Replace all occurrences of "OpenAi", "Openai", or any other variations with "OpenAI".
+
+- **Need Help?**: If you encounter any issues, feel free to reach out via our Discord channel, Reddit channel, or GitHub discussions. We're happy to assist.
+
+- **Feedback Welcomed**: If you notice any mistakes or missing name changes, please create an issue to let us know.
+
+- **Utilities Library Status**: Please note that the Utilities library might remain broken for a while. I will focus on fixing it after completing the real-time API implementation.
+
+
 ### 8.7.2
 - Fixed incorrect Azure Urls. 
 - Token usage response extended with `PromptTokensDetails`, `audio_tokens` and `cached_tokens`.
