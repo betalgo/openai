@@ -15,18 +15,79 @@ using System.Text.Json.Serialization;
 
 namespace Betalgo.Ranul.OpenAI.Managers;
 
+/// <summary>
+/// WebSocket client wrapper for OpenAI Realtime API connections.
+/// </summary>
 public class OpenAIWebSocketClient
 {
+    /// <summary>
+    /// Gets the underlying WebSocket client instance.
+    /// </summary>
     public ClientWebSocket WebSocket { get; } = new();
 
+    /// <summary>
+    /// Configures the WebSocket client with custom settings.
+    /// </summary>
+    /// <param name="configure">Action to configure the WebSocket client.</param>
     public void ConfigureWebSocket(Action<ClientWebSocket> configure)
     {
         configure(WebSocket);
     }
 }
+/// <summary>
+/// Service interface for interacting with the OpenAI Realtime API over WebSocket.
+/// Provides real-time communication capabilities for text and audio interactions.
+/// </summary>
+public interface IOpenAIRealtimeService : IDisposable, IAsyncDisposable
+{
+    /// <summary>
+    /// Gets a value indicating whether the service is currently connected to the OpenAI Realtime API.
+    /// </summary>
+    /// <value>True if connected to the WebSocket server, otherwise false.</value>
+    bool IsConnected { get; }
 
+    /// <summary>
+    /// Gets the client events interface for sending events to the OpenAI Realtime API.
+    /// These events include session updates, audio buffer operations, conversation management, and response generation.
+    /// </summary>
+    IOpenAIRealtimeServiceClientEvents ClientEvents { get; }
+
+    /// <summary>
+    /// Gets the server events interface for receiving events from the OpenAI Realtime API.
+    /// These events include status updates, content streaming, and error notifications.
+    /// </summary>
+    IOpenAIRealtimeServiceServerEvents ServerEvents { get; }
+
+    /// <summary>
+    /// Establishes a WebSocket connection to the OpenAI Realtime API.
+    /// </summary>
+    /// <param name="cancellationToken">Optional cancellation token to cancel the connection attempt.</param>
+    /// <returns>A task that represents the asynchronous connection operation.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when already connected or when connection fails.</exception>
+    /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
+    Task ConnectAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Gracefully closes the WebSocket connection to the OpenAI Realtime API.
+    /// </summary>
+    /// <param name="cancellationToken">Optional cancellation token to cancel the disconnection attempt.</param>
+    /// <returns>A task that represents the asynchronous disconnection operation.</returns>
+    /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
+    Task DisconnectAsync(CancellationToken cancellationToken = default);
+}
+
+/// <summary>
+/// Main implementation of the OpenAI Realtime service providing WebSocket-based communication.
+/// Supports real-time text and audio interactions with GPT-4 and related models.
+/// </summary>
 public partial class OpenAIRealtimeService : IOpenAIRealtimeService
 {
+    /// <summary>
+    /// Initializes a new instance of the OpenAIRealtimeService with dependency injection support.
+    /// </summary>
+    /// <param name="settings">OpenAI API configuration options.</param>
+    /// <param name="logger">Logger instance for service diagnostics.</param>
+    /// <param name="webSocketClient">WebSocket client for API communication.</param>
     public OpenAIRealtimeService(IOptions<OpenAIOptions> settings, ILogger<OpenAIRealtimeService> logger, OpenAIWebSocketClient webSocketClient)
     {
         _openAIOptions = settings.Value;
@@ -37,14 +98,28 @@ public partial class OpenAIRealtimeService : IOpenAIRealtimeService
         ConfigureBaseWebSocket();
     }
 
+    /// <summary>
+    /// Initializes a new instance of the OpenAIRealtimeService with minimal configuration.
+    /// </summary>
+    /// <param name="options">OpenAI API configuration options.</param>
     public OpenAIRealtimeService(OpenAIOptions options) : this(Options.Create(options), NullLogger<OpenAIRealtimeService>.Instance, new())
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the OpenAIRealtimeService with logging support.
+    /// </summary>
+    /// <param name="options">OpenAI API configuration options.</param>
+    /// <param name="logger">Logger instance for service diagnostics.</param>
     public OpenAIRealtimeService(OpenAIOptions options, ILogger<OpenAIRealtimeService> logger) : this(Options.Create(options), logger, new())
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the OpenAIRealtimeService with custom WebSocket configuration.
+    /// </summary>
+    /// <param name="options">OpenAI API configuration options.</param>
+    /// <param name="configureWebSocket">Optional action to configure the WebSocket client.</param>
     public OpenAIRealtimeService(OpenAIOptions options, Action<ClientWebSocket>? configureWebSocket = null) : this(options)
     {
         if (configureWebSocket != null)
@@ -53,21 +128,37 @@ public partial class OpenAIRealtimeService : IOpenAIRealtimeService
         }
     }
 
+    /// <summary>
+    /// Initializes a new instance of the OpenAIRealtimeService with just an API key.
+    /// </summary>
+    /// <param name="apiKey">OpenAI API key for authentication.</param>
     public OpenAIRealtimeService(string apiKey) : this(new OpenAIOptions { ApiKey = apiKey })
     {
     }
 
+    /// <summary>
+    /// Creates a new OpenAIRealtimeService builder instance using an API key.
+    /// </summary>
+    /// <param name="apiKey">OpenAI API key for authentication.</param>
+    /// <returns>A builder instance for configuring the service.</returns>
     public static OpenAIRealtimeServiceBuilder Create(string apiKey)
     {
         return new(apiKey);
     }
 
+    /// <summary>
+    /// Creates a new OpenAIRealtimeService builder instance using configuration options.
+    /// </summary>
+    /// <param name="options">OpenAI API configuration options.</param>
+    /// <returns>A builder instance for configuring the service.</returns>
     public static OpenAIRealtimeServiceBuilder Create(OpenAIOptions options)
     {
         return new(options);
     }
 
-
+    /// <summary>
+    /// Configures the base WebSocket connection with authentication headers.
+    /// </summary>
     private void ConfigureBaseWebSocket()
     {
         var headers = new Dictionary<string, string>
@@ -82,7 +173,9 @@ public partial class OpenAIRealtimeService : IOpenAIRealtimeService
 
         _webSocketClient.ConfigureWebSocket(ws => WebSocketConfigurationHelper.ConfigureWebSocket(ws, headers: headers));
     }
+
 }
+
 
 public partial class OpenAIRealtimeService : IOpenAIRealtimeService
 {
@@ -488,17 +581,4 @@ public partial class OpenAIRealtimeService : IOpenAIRealtimeService
         _sendLock.Dispose();
         _disposeCts.Dispose();
     }
-}
-
-public interface IOpenAIRealtimeService : IDisposable, IAsyncDisposable
-{
-    bool IsConnected { get; }
-
-    IOpenAIRealtimeServiceClientEvents ClientEvents { get; }
-
-    IOpenAIRealtimeServiceServerEvents ServerEvents { get; }
-
-    Task ConnectAsync(CancellationToken cancellationToken = default);
-
-    Task DisconnectAsync(CancellationToken cancellationToken = default);
 }
