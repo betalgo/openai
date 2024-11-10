@@ -129,6 +129,11 @@ public class Error
             }
         }
     }
+       /// <summary>
+    ///     The event_id of the client event that caused the error, if applicable.
+    /// </summary>
+    [JsonPropertyName("event_id")]
+    public string? EventId { get; set; }
 
     public class MessageConverter : JsonConverter<object>
     {
