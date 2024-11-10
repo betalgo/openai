@@ -2,103 +2,6 @@
 
 namespace Betalgo.Ranul.OpenAI.Managers;
 
-public interface IOpenAIRealtimeServiceServerEvents
-{
-    ISession Session { get; }
-    IConversation Conversation { get; }
-    IInputAudioBuffer InputAudioBuffer { get; }
-    IResponse Response { get; }
-    IRateLimits RateLimits { get; }
-    event EventHandler<ErrorEvent>? OnError;
-    event EventHandler<string>? OnAll;
-
-    public interface ISession
-    {
-        event EventHandler<SessionEvent>? OnCreated;
-        event EventHandler<SessionEvent>? OnUpdated;
-    }
-
-    public interface IConversation
-    {
-        IItem Item { get; }
-        event EventHandler<ConversationCreatedEvent>? OnCreated;
-
-        public interface IItem
-        {
-            IInputAudioTranscription InputAudioTranscription { get; }
-            event EventHandler<ConversationItemCreatedEvent>? OnCreated;
-            event EventHandler<ConversationItemTruncatedEvent>? OnTruncated;
-            event EventHandler<ConversationItemDeletedEvent>? OnDeleted;
-
-            public interface IInputAudioTranscription
-            {
-                event EventHandler<InputAudioTranscriptionCompletedEvent>? OnCompleted;
-                event EventHandler<InputAudioTranscriptionFailedEvent>? OnFailed;
-            }
-        }
-    }
-
-    public interface IInputAudioBuffer
-    {
-        event EventHandler<AudioBufferCommittedEvent>? OnCommitted;
-        event EventHandler<AudioBufferClearedEvent>? OnCleared;
-        event EventHandler<AudioBufferSpeechStartedEvent>? OnSpeechStarted;
-        event EventHandler<AudioBufferSpeechStoppedEvent>? OnSpeechStopped;
-    }
-
-    public interface IResponse
-    {
-        IOutputItem OutputItem { get; }
-        IContentPart ContentPart { get; }
-        IText Text { get; }
-        IAudioTranscript AudioTranscript { get; }
-        IAudio Audio { get; }
-        IFunctionCallArguments FunctionCallArguments { get; }
-        event EventHandler<ResponseEvent>? OnCreated;
-        event EventHandler<ResponseEvent>? OnDone;
-
-        public interface IOutputItem
-        {
-            event EventHandler<ResponseOutputItemAddedEvent>? OnAdded;
-            event EventHandler<ResponseOutputItemDoneEvent>? OnDone;
-        }
-
-        public interface IContentPart
-        {
-            event EventHandler<ResponseContentPartEvent>? OnAdded;
-            event EventHandler<ResponseContentPartEvent>? OnDone;
-        }
-
-        public interface IText
-        {
-            event EventHandler<TextStreamEvent>? OnDelta;
-            event EventHandler<TextStreamEvent>? OnDone;
-        }
-
-        public interface IAudioTranscript
-        {
-            event EventHandler<AudioTranscriptStreamEvent>? OnDelta;
-            event EventHandler<AudioTranscriptStreamEvent>? OnDone;
-        }
-
-        public interface IAudio
-        {
-            event EventHandler<AudioStreamEvent>? OnDelta;
-            event EventHandler<AudioStreamEvent>? OnDone;
-        }
-
-        public interface IFunctionCallArguments
-        {
-            event EventHandler<FunctionCallStreamEvent>? OnDelta;
-            event EventHandler<FunctionCallStreamEvent>? OnDone;
-        }
-    }
-
-    public interface IRateLimits
-    {
-        event EventHandler<RateLimitsEvent>? OnUpdated;
-    }
-}
 
 public class OpenAIRealtimeServiceServerEvents : IOpenAIRealtimeServiceServerEvents
 {
@@ -357,5 +260,308 @@ public class OpenAIRealtimeServiceServerEvents : IOpenAIRealtimeServiceServerEve
         {
             OnUpdated?.Invoke(sender, e);
         }
+    }
+}
+
+
+
+
+/// <summary>
+/// Interface for handling OpenAI Realtime WebSocket server events.
+/// Provides access to various components of the realtime communication system.
+/// </summary>
+public interface IOpenAIRealtimeServiceServerEvents
+{
+    /// <summary>
+    /// Provides access to session-related events and functionality.
+    /// </summary>
+    ISession Session { get; }
+
+    /// <summary>
+    /// Provides access to conversation-related events and functionality.
+    /// </summary>
+    IConversation Conversation { get; }
+
+    /// <summary>
+    /// Provides access to input audio buffer events and functionality.
+    /// </summary>
+    IInputAudioBuffer InputAudioBuffer { get; }
+
+    /// <summary>
+    /// Provides access to response-related events and functionality.
+    /// </summary>
+    IResponse Response { get; }
+
+    /// <summary>
+    /// Provides access to rate limits events and functionality.
+    /// </summary>
+    IRateLimits RateLimits { get; }
+
+    /// <summary>
+    /// Event raised when an error occurs during realtime communication.
+    /// </summary>
+    event EventHandler<ErrorEvent>? OnError;
+
+    /// <summary>
+    /// Event raised for all server events, providing raw event data.
+    /// </summary>
+    event EventHandler<string>? OnAll;
+
+    /// <summary>
+    /// Interface for handling session-related events.
+    /// </summary>
+    public interface ISession
+    {
+        /// <summary>
+        /// Event raised when a new session is created. Emitted automatically when a new connection is established.
+        /// </summary>
+        event EventHandler<SessionEvent>? OnCreated;
+
+        /// <summary>
+        /// Event raised when a session is updated with new configuration.
+        /// </summary>
+        event EventHandler<SessionEvent>? OnUpdated;
+    }
+
+    /// <summary>
+    /// Interface for handling conversation-related events.
+    /// </summary>
+    public interface IConversation
+    {
+        /// <summary>
+        /// Provides access to conversation item-related events.
+        /// </summary>
+        IItem Item { get; }
+
+        /// <summary>
+        /// Event raised when a conversation is created. Emitted right after session creation.
+        /// </summary>
+        event EventHandler<ConversationCreatedEvent>? OnCreated;
+
+        /// <summary>
+        /// Interface for handling conversation item events.
+        /// </summary>
+        public interface IItem
+        {
+            /// <summary>
+            /// Provides access to input audio transcription events.
+            /// </summary>
+            IInputAudioTranscription InputAudioTranscription { get; }
+
+            /// <summary>
+            /// Event raised when a conversation item is created.
+            /// </summary>
+            event EventHandler<ConversationItemCreatedEvent>? OnCreated;
+
+            /// <summary>
+            /// Event raised when an earlier assistant audio message item is truncated by the client.
+            /// </summary>
+            event EventHandler<ConversationItemTruncatedEvent>? OnTruncated;
+
+            /// <summary>
+            /// Event raised when an item in the conversation is deleted.
+            /// </summary>
+            event EventHandler<ConversationItemDeletedEvent>? OnDeleted;
+
+            /// <summary>
+            /// Interface for handling input audio transcription events.
+            /// </summary>
+            public interface IInputAudioTranscription
+            {
+                /// <summary>
+                /// Event raised when input audio transcription is enabled and a transcription succeeds.
+                /// </summary>
+                event EventHandler<InputAudioTranscriptionCompletedEvent>? OnCompleted;
+
+                /// <summary>
+                /// Event raised when input audio transcription is configured, and a transcription request for a user message failed.
+                /// </summary>
+                event EventHandler<InputAudioTranscriptionFailedEvent>? OnFailed;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Interface for handling input audio buffer events.
+    /// </summary>
+    public interface IInputAudioBuffer
+    {
+        /// <summary>
+        /// Event raised when an input audio buffer is committed, either by the client or automatically in server VAD mode.
+        /// </summary>
+        event EventHandler<AudioBufferCommittedEvent>? OnCommitted;
+
+        /// <summary>
+        /// Event raised when the input audio buffer is cleared by the client.
+        /// </summary>
+        event EventHandler<AudioBufferClearedEvent>? OnCleared;
+
+        /// <summary>
+        /// Event raised in server turn detection mode when speech is detected.
+        /// </summary>
+        event EventHandler<AudioBufferSpeechStartedEvent>? OnSpeechStarted;
+
+        /// <summary>
+        /// Event raised in server turn detection mode when speech stops.
+        /// </summary>
+        event EventHandler<AudioBufferSpeechStoppedEvent>? OnSpeechStopped;
+    }
+
+    /// <summary>
+    /// Interface for handling response-related events.
+    /// </summary>
+    public interface IResponse
+    {
+        /// <summary>
+        /// Provides access to response output item events.
+        /// </summary>
+        IOutputItem OutputItem { get; }
+
+        /// <summary>
+        /// Provides access to content part events.
+        /// </summary>
+        IContentPart ContentPart { get; }
+
+        /// <summary>
+        /// Provides access to text stream events.
+        /// </summary>
+        IText Text { get; }
+
+        /// <summary>
+        /// Provides access to audio transcript stream events.
+        /// </summary>
+        IAudioTranscript AudioTranscript { get; }
+
+        /// <summary>
+        /// Provides access to audio stream events.
+        /// </summary>
+        IAudio Audio { get; }
+
+        /// <summary>
+        /// Provides access to function call arguments stream events.
+        /// </summary>
+        IFunctionCallArguments FunctionCallArguments { get; }
+
+        /// <summary>
+        /// Event raised when a new Response is created. The first event of response creation, where the response is in an initial state of "in_progress".
+        /// </summary>
+        event EventHandler<ResponseEvent>? OnCreated;
+
+        /// <summary>
+        /// Event raised when a Response is done streaming. Always emitted, no matter the final state.
+        /// </summary>
+        event EventHandler<ResponseEvent>? OnDone;
+
+        /// <summary>
+        /// Interface for handling response output item events.
+        /// </summary>
+        public interface IOutputItem
+        {
+            /// <summary>
+            /// Event raised when a new Item is created during response generation.
+            /// </summary>
+            event EventHandler<ResponseOutputItemAddedEvent>? OnAdded;
+
+            /// <summary>
+            /// Event raised when an Item is done streaming. Also emitted when a Response is interrupted, incomplete, or cancelled.
+            /// </summary>
+            event EventHandler<ResponseOutputItemDoneEvent>? OnDone;
+        }
+
+        /// <summary>
+        /// Interface for handling content part events.
+        /// </summary>
+        public interface IContentPart
+        {
+            /// <summary>
+            /// Event raised when a new content part is added to an assistant message item during response generation.
+            /// </summary>
+            event EventHandler<ResponseContentPartEvent>? OnAdded;
+
+            /// <summary>
+            /// Event raised when a content part is done streaming in an assistant message item.
+            /// Also emitted when a Response is interrupted, incomplete, or cancelled.
+            /// </summary>
+            event EventHandler<ResponseContentPartEvent>? OnDone;
+        }
+
+        /// <summary>
+        /// Interface for handling text stream events.
+        /// </summary>
+        public interface IText
+        {
+            /// <summary>
+            /// Event raised when the text value of a "text" content part is updated.
+            /// </summary>
+            event EventHandler<TextStreamEvent>? OnDelta;
+
+            /// <summary>
+            /// Event raised when the text value of a "text" content part is done streaming.
+            /// Also emitted when a Response is interrupted, incomplete, or cancelled.
+            /// </summary>
+            event EventHandler<TextStreamEvent>? OnDone;
+        }
+
+        /// <summary>
+        /// Interface for handling audio transcript stream events.
+        /// </summary>
+        public interface IAudioTranscript
+        {
+            /// <summary>
+            /// Event raised when the model-generated transcription of audio output is updated.
+            /// </summary>
+            event EventHandler<AudioTranscriptStreamEvent>? OnDelta;
+
+            /// <summary>
+            /// Event raised when the model-generated transcription of audio output is done streaming.
+            /// Also emitted when a Response is interrupted, incomplete, or cancelled.
+            /// </summary>
+            event EventHandler<AudioTranscriptStreamEvent>? OnDone;
+        }
+
+        /// <summary>
+        /// Interface for handling audio stream events.
+        /// </summary>
+        public interface IAudio
+        {
+            /// <summary>
+            /// Event raised when the model-generated audio is updated.
+            /// </summary>
+            event EventHandler<AudioStreamEvent>? OnDelta;
+
+            /// <summary>
+            /// Event raised when the model-generated audio is done.
+            /// Also emitted when a Response is interrupted, incomplete, or cancelled.
+            /// </summary>
+            event EventHandler<AudioStreamEvent>? OnDone;
+        }
+
+        /// <summary>
+        /// Interface for handling function call arguments stream events.
+        /// </summary>
+        public interface IFunctionCallArguments
+        {
+            /// <summary>
+            /// Event raised when the model-generated function call arguments are updated.
+            /// </summary>
+            event EventHandler<FunctionCallStreamEvent>? OnDelta;
+
+            /// <summary>
+            /// Event raised when the model-generated function call arguments are done streaming.
+            /// Also emitted when a Response is interrupted, incomplete, or cancelled.
+            /// </summary>
+            event EventHandler<FunctionCallStreamEvent>? OnDone;
+        }
+    }
+
+    /// <summary>
+    /// Interface for handling rate limits events.
+    /// </summary>
+    public interface IRateLimits
+    {
+        /// <summary>
+        /// Event raised after every "response.done" event to indicate the updated rate limits.
+        /// </summary>
+        event EventHandler<RateLimitsEvent>? OnUpdated;
     }
 }
