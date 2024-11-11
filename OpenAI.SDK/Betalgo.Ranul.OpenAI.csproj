@@ -10,13 +10,13 @@
 		<PackageIcon>Betalgo-Ranul-OpenAI-icon.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Title>OpenAI SDK by Betalgo</Title>
-		<Version>8.8.0</Version>
+		<Version>8.9.0</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>OpenAI .NET library by Betalgo Ranul</Product>
-		<Description>.NET library for the OpenAI service API by Betalgo Ranul</Description>
+		<Description>.NET library for the OpenAI services by Betalgo Ranul</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
-		<PackageTags>openAI,chatGPT,gpt-4, gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
+		<PackageTags>openAI,realtime,chatGPT,gpt-4, gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
 		<PackageId>Betalgo.Ranul.OpenAI</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -56,18 +56,22 @@
 		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+				<PackageReference Include="System.Text.Json" Version="8.0.5" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
 		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' != 'net8.0' And '$(TargetFramework)' != 'net7.0'">
 		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
 		<PackageReference Include="System.Net.Http.Json" Version="8.0.1" />
+		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 	</ItemGroup>
 </Project>

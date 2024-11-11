@@ -26,6 +26,7 @@ Install-Package Betalgo.OpenAI.Utilities
 ```
 
 ## Documentation and Links
+- [Realtime API](https://github.com/betalgo/openai/wiki/realtime) ✨NEW
 - [Wiki Page](https://github.com/betalgo/openai/wiki)
 - [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability)
 - [Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
@@ -116,6 +117,10 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 8.9.0
+- Realtime API implementation is completed. As usual this is the first version and it may contain bugs. Please report any issues you encounter.
+- [Realtime Sample](https://github.com/betalgo/openai/wiki/realtime)
+
 ### 8.8.0
 
 - **Compatibility Enhancement**: You can now use this library alongside the official OpenAI library and/or Semantic Kernel within the same project. The name changes in this update support this feature.
@@ -134,26 +139,6 @@ Needless to say, I cannot accept responsibility for any damage caused by using t
 - **Feedback Welcomed**: If you notice any mistakes or missing name changes, please create an issue to let us know.
 
 - **Utilities Library Status**: Please note that the Utilities library might remain broken for a while. I will focus on fixing it after completing the real-time API implementation.
-
-
-### 8.7.2
-- Fixed incorrect Azure Urls. 
-- Token usage response extended with `PromptTokensDetails`, `audio_tokens` and `cached_tokens`.
-- Model list extended with `Gpt_4o_2024_08_06` and `Chatgpt_4o_latest`.
-
-### 8.7.1 
-- moved `strict` paremeter from `ToolDefinition` to `FunctionDefinition`
-
-### 8.7.0
-- Added Support for o1 reasing models (`o1-mini` and `o1-preview`). 
-- Added `MaxCompletionTokens` for `chat completions`.
-- Added support for `ParallelToolCalls` for `chat completions`.
-- Added support for `ServiceTier` for `chat completions`.
-- Added support for `ChunkingStrategy` in `Vector Store` and `Vector Store Files`.
-- Added support for `Strict` in `ToolDefinition`.
-- Added support for `MaxNumberResults` and `RankingOptions` for `FileSearchTool`.
-- Added support for `ReasoningTokens` for `token usage`.
-- Added support for `ResponseFormatOneOfType` for `AssistantResponse.cs`.
 
 ### [More Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
 ---
