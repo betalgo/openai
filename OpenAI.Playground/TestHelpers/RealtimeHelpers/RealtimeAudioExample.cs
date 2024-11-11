@@ -294,6 +294,12 @@ public class RealtimeAudioExample : IDisposable
         _ai.ServerEvents.OnError += (sender, args) => {
             Console.WriteLine($"Error: {args.Error.Message}");
         };
+
+        // Debug event handler for all server events
+        //_ai.ServerEvents.OnAll += (sender, args) =>
+        //{
+        //    Console.WriteLine($"Debug: {args}");
+        //};
     }
 
     /// <summary>
