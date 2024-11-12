@@ -117,7 +117,9 @@ public static class Models
         O1_preview,
         O1_preview_2024_09_12,
         O1_mini,
-        O1_mini_2024_09_12
+        O1_mini_2024_09_12,
+
+        Gpt_4o_realtime_preview_2024_10_01
     }
 
     public enum Subject
@@ -257,6 +259,9 @@ public static class Models
     ///     Dynamic model continuously updated to the current version of GPT-4o in ChatGPT. <a href="https://platform.openai.com/docs/models#4ofootnote">Intended for research and evaluation [1]</a>.
     /// </summary>
     public static string Chatgpt_4o_latest => "chatgpt-4o-latest";
+    
+
+    public static string Gpt_4o_realtime_preview_2024_10_01 => "gpt-4o-realtime-preview-2024-10-01";
 
 
     public static string Ada => "ada";
@@ -524,6 +529,7 @@ public static class Models
             Model.O1_mini_2024_09_12 => O1_mini_2024_09_12,
             Model.O1_preview => O1_preview,
             Model.O1_preview_2024_09_12 => O1_preview_2024_09_12,
+            Model.Gpt_4o_realtime_preview_2024_10_01 => Gpt_4o_realtime_preview_2024_10_01,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
