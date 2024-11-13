@@ -38,11 +38,10 @@ public record ChatCompletionCreateResponse : BaseResponse, IOpenAIModels.IId, IO
     [JsonPropertyName("service_tier")]
     public string? ServiceTier { get; set; }
 
-    /// <summary>
-    ///     The Unix timestamp (in seconds) of when the chat completion was created.
-    /// </summary>
     [JsonPropertyName("created")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     A unique identifier for the chat completion.

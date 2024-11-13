@@ -36,7 +36,8 @@ public interface IOpenAIModels
 
     public interface ICreatedAt
     {
-        public int CreatedAt { get; set; }
+        public long CreatedAtUnix { get; set; }
+        public DateTimeOffset CreatedAt { get; }
     }
 
     public interface ICompletedAt

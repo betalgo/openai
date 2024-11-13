@@ -15,7 +15,9 @@ public record CompletionCreateResponse : BaseResponse, IOpenAIModels.IId, IOpenA
     public UsageResponse Usage { get; set; }
 
     [JsonPropertyName("created")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     [JsonPropertyName("id")]
     public string Id { get; set; }
