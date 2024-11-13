@@ -18,7 +18,12 @@ public record ThreadResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.IC
     ///     The Unix timestamp (in seconds) for when the assistant was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public long CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    /// <summary>
+    ///    for when the assistant was created.
+    /// </summary>
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The identifier, which can be referenced in API endpoints.

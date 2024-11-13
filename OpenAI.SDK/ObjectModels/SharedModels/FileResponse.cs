@@ -12,8 +12,18 @@ public record FileResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICre
     public string FileName { get; set; }
 
     public UploadFilePurposes.UploadFilePurpose PurposeEnum => UploadFilePurposes.ToEnum(Purpose);
-    [JsonPropertyName("purpose")] public string Purpose { get; set; }
-    [JsonPropertyName("status")] public string Status { get; set; }
-    [JsonPropertyName("created_at")] public long CreatedAt { get; set; }
-    [JsonPropertyName("id")] public string Id { get; set; }
+
+    [JsonPropertyName("purpose")]
+    public string Purpose { get; set; }
+
+    [JsonPropertyName("status")]
+    public string Status { get; set; }
+
+    [JsonPropertyName("created_at")]
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
 }
