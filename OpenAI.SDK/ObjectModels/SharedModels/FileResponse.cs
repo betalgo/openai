@@ -20,7 +20,9 @@ public record FileResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICre
     public string Status { get; set; }
 
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     [JsonPropertyName("id")]
     public string Id { get; set; }

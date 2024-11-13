@@ -117,6 +117,14 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 8.10.0
+- Added support for `Microsoft.Extensions.AI` `IChatClient` and `IEmbeddingGenerator` (more information will be coming soon to the Wiki).
+- Added missing `Temperature` and `TopP` parameters to `AssistantResponse`.
+- Added missing `Store` parameter to `ChatCompletionCreateRequest`.
+
+- Breaking Changes:
+   - ⚠️ `CreatedAt` parameter renamed to `CreatedAtUnix` and converted to `long` instead of `int`. Added `CreatedAt` parameter as `DateTimeOffset` type, which will automatically convert Unix time to `DateTime`.
+
 ### 8.9.0
 - Realtime API implementation is completed. As usual this is the first version and it may contain bugs. Please report any issues you encounter.
 - [Realtime Sample](https://github.com/betalgo/openai/wiki/realtime)
