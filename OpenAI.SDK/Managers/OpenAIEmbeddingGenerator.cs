@@ -25,7 +25,7 @@ public partial class OpenAIService : IEmbeddingGenerator<string, Embedding<float
         {
             throw new InvalidOperationException(response.Error is { } error ?
                 $"{response.Error.Code}: {response.Error.Message}" :
-                "Unknown error");
+                "Betalgo.Ranul Unknown error");
         }
 
         return new(response.Data.Select(e => new Embedding<float>(e.Embedding.Select(d => (float)d).ToArray()) { ModelId = response.Model }))

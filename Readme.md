@@ -118,7 +118,7 @@ Needless to say, I cannot accept responsibility for any damage caused by using t
 
 ## Changelog
 ### 8.10.0
-- Added support for `Microsoft.Extensions.AI` IChatClient (more information will be coming soon to the Wiki).
+- Added support for `Microsoft.Extensions.AI` `IChatClient` and `IEmbeddingGenerator` (more information will be coming soon to the Wiki).
 - Added missing `Temperature` and `TopP` parameters to `AssistantResponse`.
 - Added missing `Store` parameter to `ChatCompletionCreateRequest`.
 
