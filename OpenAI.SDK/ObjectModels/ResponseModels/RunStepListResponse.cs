@@ -93,7 +93,9 @@ public record RunStepResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.I
     ///     The Unix timestamp (in seconds) for when the run step was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public long CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The identifier of the run step, which can be referenced in API endpoints.

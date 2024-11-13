@@ -33,10 +33,12 @@ public record FineTuneResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.
     public int? UpdatedAt { get; set; }
 
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
 
-    [JsonPropertyName("created_at")] public long CreatedAt { get; set; }
-    [JsonPropertyName("id")] public string Id { get; set; }
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
 
     [JsonPropertyName("model")]
     public string Model { get; set; }

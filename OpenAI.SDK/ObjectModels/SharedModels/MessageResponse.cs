@@ -14,6 +14,7 @@ public record MessageResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.I
     {
         set => Content = value.Content;
     }
+
     /// <summary>
     ///     The thread ID that this message belongs to.
     /// </summary>
@@ -82,7 +83,11 @@ public record MessageResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.I
     ///     The Unix timestamp (in seconds) for when the message was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public long CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+    /// <summary>
+    ///    for when the message was created.
+    /// </summary>
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The identifier, which can be referenced in API endpoints.

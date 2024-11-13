@@ -8,7 +8,9 @@ public record ImageCreateResponse : BaseResponse, IOpenAIModels.ICreatedAt
     [JsonPropertyName("data")]
     public List<ImageDataResult> Results { get; set; }
 
-    [JsonPropertyName("created")] public long CreatedAt { get; set; }
+    [JsonPropertyName("created")]
+    public long CreatedAtUnix { get; set; }  
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     public record ImageDataResult
     {

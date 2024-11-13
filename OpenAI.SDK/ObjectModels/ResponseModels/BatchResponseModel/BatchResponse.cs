@@ -53,7 +53,12 @@ public record BatchResponse : BaseResponse, IOpenAIModels.IMetaData
     ///     The Unix timestamp (in seconds) for when the batch was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public long CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    /// <summary>
+    ///    DateTimeOffset for when the batch was created.
+    /// </summary>
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The Unix timestamp (in seconds) for when the batch started processing.

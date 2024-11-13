@@ -17,5 +17,8 @@ public record FileUploadResponse : BaseResponse, IOpenAIModels.ICreatedAt
     [JsonPropertyName("purpose")]
     public string Purpose { get; set; }
 
-    [JsonPropertyName("created_at")] public long CreatedAt { get; set; }
+    [JsonPropertyName("created_at")]
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 }
