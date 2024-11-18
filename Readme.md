@@ -117,6 +117,11 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 9.0.0
+- .NET 9 support added.
+- ⚠️ Support for .NET 6 and .NET 7 has ended.
+- Fixed utility library issues and synced with latest version.
+
 ### 8.10.1
 - Fixed an issue with the `Store` parameter being included in requests by default, causing errors with Azure OpenAI models. The parameter is now optional and excluded from serialization unless explicitly set.
 
