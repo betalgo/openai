@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
 using Betalgo.OpenAI.Utilities.FunctionCalling;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 namespace OpenAI.UtilitiesPlayground.TestHelpers;
 
