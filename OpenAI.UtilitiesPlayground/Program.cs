@@ -1,8 +1,8 @@
-﻿using LaserCatEyes.HttpClientListener;
+﻿using Betalgo.Ranul.OpenAI.Extensions;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using LaserCatEyes.HttpClientListener;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenAI.Extensions;
-using OpenAI.Interfaces;
 using OpenAI.UtilitiesPlayground.TestHelpers;
 
 var builder = new ConfigurationBuilder().AddUserSecrets<Program>();

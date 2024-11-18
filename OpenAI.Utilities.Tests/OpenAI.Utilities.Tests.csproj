@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
@@ -25,7 +25,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\OpenAI.Utilities\Betalgo.OpenAI.Utilities.csproj" />
-		<ProjectReference Include="..\OpenAI.Utilities\OpenAI.Utilities.csproj" />
 	</ItemGroup>
 
 </Project>
