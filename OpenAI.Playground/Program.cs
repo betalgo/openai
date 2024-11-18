@@ -51,7 +51,7 @@ var realtimeSdk = serviceProvider.GetRequiredService<IOpenAIRealtimeService>();
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
 
-//await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
+await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 //await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
 await (new RealtimeAudioExample(realtimeSdk)).Run();
