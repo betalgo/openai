@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 namespace Betalgo.OpenAI.Utilities.FunctionCalling;
 
