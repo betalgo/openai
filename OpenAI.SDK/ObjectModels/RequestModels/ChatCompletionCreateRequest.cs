@@ -320,5 +320,5 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     /// more about evals: https://platform.openai.com/docs/guides/evals
     /// </summary>
     [JsonPropertyName("store")]
-    public bool? Store { get; set; } = false;
+    public bool? Store { get; set; }
 }
