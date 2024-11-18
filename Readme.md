@@ -117,6 +117,9 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 8.10.1
+- Fixed an issue with the `Store` parameter being included in requests by default, causing errors with Azure OpenAI models. The parameter is now optional and excluded from serialization unless explicitly set.
+
 ### 8.10.0
 - Added support for `Microsoft.Extensions.AI` `IChatClient` and `IEmbeddingGenerator` (more information will be coming soon to the Wiki).
 - Added missing `Temperature` and `TopP` parameters to `AssistantResponse`.
