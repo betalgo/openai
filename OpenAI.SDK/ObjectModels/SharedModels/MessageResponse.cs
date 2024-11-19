@@ -1,19 +1,20 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 /// <summary>
 ///     Represents a message within a thread.
 /// </summary>
-public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IMetaData, IOpenAiModels.IAssistantId
+public record MessageResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt, IOpenAIModels.IMetaData, IOpenAIModels.IAssistantId
 {
     [JsonPropertyName("delta")]
     public MessageResponse Delta
     {
         set => Content = value.Content;
     }
+
     /// <summary>
     ///     The thread ID that this message belongs to.
     /// </summary>
@@ -82,7 +83,11 @@ public record MessageResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     ///     The Unix timestamp (in seconds) for when the message was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+    /// <summary>
+    ///    for when the message was created.
+    /// </summary>
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The identifier, which can be referenced in API endpoints.

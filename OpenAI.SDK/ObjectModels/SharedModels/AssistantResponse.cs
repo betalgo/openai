@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt, IOpenAiModels.IModel, IOpenAiModels.IMetaData, IOpenAiModels.ITools
+public record AssistantResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt, IOpenAIModels.IModel, IOpenAIModels.IMetaData, IOpenAIModels.ITools
 {
     /// <summary>
     ///     The name of the assistant. The maximum length is 256 characters.
@@ -59,10 +59,28 @@ public record AssistantResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels
     public ResponseFormatOneOfType ResponseFormatOneOfType { get; set; }
 
     /// <summary>
+    ///     What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while
+    ///     lower values like 0.2 will make it more focused and deterministic.
+    /// </summary>
+    [JsonPropertyName("temperature")]
+    public float? Temperature { get; set; }
+
+    /// <summary>
+    ///     An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the
+    ///     tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are
+    ///     considered.
+    ///     We generally recommend altering this or temperature but not both.
+    /// </summary>
+    [JsonPropertyName("top_p")]
+    public double? TopP { get; set; }
+
+    /// <summary>
     ///     The Unix timestamp (in seconds) for when the assistant was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The identifier, which can be referenced in API endpoints.

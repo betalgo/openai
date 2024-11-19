@@ -1,9 +1,16 @@
-﻿using LaserCatEyes.HttpClientListener;
+﻿using Betalgo.Ranul.OpenAI;
+using Betalgo.Ranul.OpenAI.Extensions;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.Managers;
+using LaserCatEyes.HttpClientListener;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OpenAI.Extensions;
-using OpenAI.Interfaces;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using OpenAI.Playground.TestHelpers;
+using OpenAI.Playground.TestHelpers.RealtimeHelpers;
+
+using Microsoft.Extensions.Logging.Console;
 
 var builder = new ConfigurationBuilder().AddJsonFile("ApiSettings.json").AddUserSecrets<Program>();
 
@@ -18,6 +25,7 @@ serviceCollection.AddLaserCatEyesHttpClientListener();
 
 //if you want to use beta services you have to set UseBeta to true. Otherwise, it will use the stable version of OpenAI apis.
 serviceCollection.AddOpenAIService(r => r.UseBeta = true);
+serviceCollection.AddOpenAIRealtimeService();
 
 //serviceCollection.AddOpenAIService();
 //// DeploymentId and ResourceName are only for Azure OpenAI. If you want to use Azure OpenAI services you have to set Provider type To Azure.
@@ -29,8 +37,12 @@ serviceCollection.AddOpenAIService(r => r.UseBeta = true);
 //    options.ResourceName = "MyResourceName";
 //});
 
-var serviceProvider = serviceCollection.BuildServiceProvider();
+var serviceProvider = serviceCollection.AddLogging((loggingBuilder) => loggingBuilder
+    .SetMinimumLevel(LogLevel.Debug)
+    .AddConsole()
+).BuildServiceProvider();
 var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
+var realtimeSdk = serviceProvider.GetRequiredService<IOpenAIRealtimeService>();
 
 //                                 CHAT GPT
 //  |-----------------------------------------------------------------------|
@@ -40,7 +52,9 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |-----------------------------------------------------------------------|
 
 await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
-await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
+//await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
+
+await (new RealtimeAudioExample(realtimeSdk)).Run();
 
 //Assistants - BETA
 //await AssistantTestHelper.BasicsTestHelper.RunTests(sdk);

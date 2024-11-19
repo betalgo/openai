@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
 using System.Text.Json;
-using OpenAI.Builders;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.Builders;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.Utilities.FunctionCalling;
+namespace Betalgo.OpenAI.Utilities.FunctionCalling;
 
 /// <summary>
 ///     Helper methods for Function Calling

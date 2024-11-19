@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-public record ChatCompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt
+public record ChatCompletionCreateResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt
 {
     /// <summary>
     ///     The model used for the chat completion.
@@ -38,11 +38,10 @@ public record ChatCompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IO
     [JsonPropertyName("service_tier")]
     public string? ServiceTier { get; set; }
 
-    /// <summary>
-    ///     The Unix timestamp (in seconds) of when the chat completion was created.
-    /// </summary>
     [JsonPropertyName("created")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     A unique identifier for the chat completion.

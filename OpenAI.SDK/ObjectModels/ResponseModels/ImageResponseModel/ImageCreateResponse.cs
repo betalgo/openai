@@ -1,15 +1,16 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
 
-public record ImageCreateResponse : BaseResponse, IOpenAiModels.ICreatedAt
+public record ImageCreateResponse : BaseResponse, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("data")]
     public List<ImageDataResult> Results { get; set; }
 
     [JsonPropertyName("created")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }  
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     public record ImageDataResult
     {

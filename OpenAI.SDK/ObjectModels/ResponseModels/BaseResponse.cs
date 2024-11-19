@@ -3,7 +3,7 @@ using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.ResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
 public record ObjectBaseResponse
 {
@@ -129,6 +129,11 @@ public class Error
             }
         }
     }
+       /// <summary>
+    ///     The event_id of the client event that caused the error, if applicable.
+    /// </summary>
+    [JsonPropertyName("event_id")]
+    public string? EventId { get; set; }
 
     public class MessageConverter : JsonConverter<object>
     {

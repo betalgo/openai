@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Globalization;
 using System.Text;
+using Betalgo.OpenAI.Utilities.Extensions;
 using CsvHelper;
 using MathNet.Numerics;
-using Microsoft.Data.Analysis;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels.ResponseModels;
-using OpenAI.Tokenizer.GPT3;
+using Microsoft.Data.Analysis;  
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
+using Betalgo.Ranul.OpenAI.Tokenizer.GPT3;
 
-namespace OpenAI.Utilities.Embedding;
+namespace Betalgo.OpenAI.Utilities.Embedding;
 
 // ReSharper disable MemberCanBePrivate.Global
 public interface IEmbeddingTools

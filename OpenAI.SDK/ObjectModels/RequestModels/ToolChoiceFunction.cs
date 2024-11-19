@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 public class ToolChoice
 {

@@ -1,8 +1,8 @@
-﻿using OpenAI.ObjectModels.RequestModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-public interface IOpenAiModels
+public interface IOpenAIModels
 {
     public interface IId
     {
@@ -36,7 +36,8 @@ public interface IOpenAiModels
 
     public interface ICreatedAt
     {
-        public int CreatedAt { get; set; }
+        public long CreatedAtUnix { get; set; }
+        public DateTimeOffset CreatedAt { get; }
     }
 
     public interface ICompletedAt

@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 public class VectorStoreFileListRequest : PaginationRequest
 {

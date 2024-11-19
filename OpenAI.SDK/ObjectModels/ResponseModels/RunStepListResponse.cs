@@ -1,13 +1,13 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
 public record RunStepListResponse : DataWithPagingBaseResponse<List<RunStepResponse>>
 {
 }
 
-public record RunStepResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt
+public record RunStepResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt
 {
     /// <summary>
     ///     The ID of the [assistant](/docs/api-reference/assistants) associated with the run step.
@@ -93,7 +93,9 @@ public record RunStepResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.I
     ///     The Unix timestamp (in seconds) for when the run step was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The identifier of the run step, which can be referenced in API endpoints.

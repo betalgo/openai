@@ -1,14 +1,14 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.RequestModels;
-using OpenAI.ObjectModels.ResponseModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 public record RunListResponse : DataWithPagingBaseResponse<List<RunResponse>>
 {
 }
 
-public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IModel, IOpenAiModels.ICreatedAt, IOpenAiModels.IFileIds, IOpenAiModels.IMetaData
+public record RunResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.IModel, IOpenAIModels.ICreatedAt, IOpenAIModels.IFileIds, IOpenAIModels.IMetaData
 {
     /// <summary>
     ///     The ID of the thread that was executed on as a part of this run.
@@ -143,7 +143,12 @@ public record RunResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IMode
     ///     The Unix timestamp (in seconds) for when the run was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    /// <summary>
+    ///    for when the run was created.
+    /// </summary>
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The list of File IDs the assistant used for this run.

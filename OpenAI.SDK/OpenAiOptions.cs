@@ -1,4 +1,4 @@
-﻿namespace OpenAI;
+﻿namespace Betalgo.Ranul.OpenAI;
 
 /// <summary>
 ///     Provider Type
@@ -6,9 +6,9 @@
 public enum ProviderType
 {
     /// <summary>
-    ///     OpenAi Provider
+    ///     OpenAI Provider
     /// </summary>
-    OpenAi = 1,
+    OpenAI = 1,
 
     /// <summary>
     ///     Azure Provider
@@ -16,12 +16,12 @@ public enum ProviderType
     Azure = 2
 }
 
-public class OpenAiOptions
+public class OpenAIOptions
 {
-    private const string OpenAiDefaultApiVersion = "v1";
-    private const string OpenAiDefaultBaseDomain = "https://api.openai.com/";
-    private const string AzureOpenAiDefaultApiVersion = "2023-12-01-preview";
-    private const string OpenAiDefaultAssistantsApiVersion = "v2";
+    private const string OpenAIDefaultApiVersion = "v1";
+    private const string OpenAIDefaultBaseDomain = "https://api.openai.com/";
+    private const string AzureOpenAIDefaultApiVersion = "2023-12-01-preview";
+    private const string OpenAIDefaultAssistantsApiVersion = "v2";
 
     /// <summary>
     ///     Setting key for Json Setting Bindings
@@ -35,14 +35,14 @@ public class OpenAiOptions
     /// <summary>
     ///     Get Provider Type
     /// </summary>
-    public ProviderType ProviderType { get; set; } = ProviderType.OpenAi;
+    public ProviderType ProviderType { get; set; } = ProviderType.OpenAI;
 
     /// <summary>
     ///     Calls to the Assistants API require that you pass a beta HTTP header.
     ///     This is handled automatically if you’re using OpenAI’s official Python or Node.js SDKs.
     ///     <a href="https://platform.openai.com/docs/assistants/overview">assistants overview</a> page.
     /// </summary>
-    public string? Assistants => $"assistants={OpenAiDefaultAssistantsApiVersion}";
+    public string? Assistants => $"assistants={OpenAIDefaultAssistantsApiVersion}";
 
     /// <summary>
     ///     For users who belong to multiple organizations, you can pass a header to specify which organization is used for an
@@ -71,13 +71,18 @@ public class OpenAiOptions
         {
             return _apiVersion ??= ProviderType switch
             {
-                ProviderType.OpenAi => OpenAiDefaultApiVersion,
-                ProviderType.Azure => AzureOpenAiDefaultApiVersion,
+                ProviderType.OpenAI => OpenAIDefaultApiVersion,
+                ProviderType.Azure => AzureOpenAIDefaultApiVersion,
                 _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
         }
         set => _apiVersion = value;
     }
+
+    /// <summary>
+    ///    Base Real Time Socket Url
+    /// </summary>
+    public string BaseRealTimeSocketUrl { get; set; } = "wss://api.openai.com/v1/realtime";
 
     /// <summary>
     ///     Base Domain
@@ -91,7 +96,7 @@ public class OpenAiOptions
 #pragma warning disable CS8603
             return _baseDomain ??= ProviderType switch
             {
-                ProviderType.OpenAi => OpenAiDefaultBaseDomain,
+                ProviderType.OpenAI => OpenAIDefaultBaseDomain,
                 ProviderType.Azure => ResourceName == null ? null : $"https://{ResourceName}.openai.azure.com/",
                 _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
@@ -136,8 +141,8 @@ public class OpenAiOptions
     /// <param name="deploymentId">The id of your deployment of OpenAI</param>
     /// <param name="apiVersion">The azure open ai api version</param>
     /// <param name="apiKey">Token used for authentication</param>
-    /// <returns>A valid OpenAiSettings instance configured with the method inputs</returns>
-    private static OpenAiOptions CreateAzureSettings(string apiKey, string deploymentId, string resourceName, string? apiVersion)
+    /// <returns>A valid OpenAISettings instance configured with the method inputs</returns>
+    private static OpenAIOptions CreateAzureSettings(string apiKey, string deploymentId, string resourceName, string? apiVersion)
     {
         return new()
         {
@@ -145,7 +150,7 @@ public class OpenAiOptions
             ResourceName = resourceName,
             DeploymentId = deploymentId,
             ApiKey = apiKey,
-            ApiVersion = apiVersion ?? AzureOpenAiDefaultApiVersion
+            ApiVersion = apiVersion ?? AzureOpenAIDefaultApiVersion
         };
     }
 
@@ -156,8 +161,8 @@ public class OpenAiOptions
     /// <param name="baseDomain">Base Domain of your Azure OpenAI service</param>
     /// <param name="apiVersion">The azure open ai api version</param>
     /// <param name="apiKey">Token used for authentication</param>
-    /// <returns>A valid OpenAiSettings instance configured with the method inputs</returns>
-    private static OpenAiOptions CreateAzureSettingsWithBaseDomain(string apiKey, string deploymentId, string baseDomain, string? apiVersion)
+    /// <returns>A valid OpenAISettings instance configured with the method inputs</returns>
+    private static OpenAIOptions CreateAzureSettingsWithBaseDomain(string apiKey, string deploymentId, string baseDomain, string? apiVersion)
     {
         return new()
         {
@@ -165,7 +170,7 @@ public class OpenAiOptions
             BaseDomain = baseDomain,
             DeploymentId = deploymentId,
             ApiKey = apiKey,
-            ApiVersion = apiVersion ?? AzureOpenAiDefaultApiVersion
+            ApiVersion = apiVersion ?? AzureOpenAIDefaultApiVersion
         };
     }
 
@@ -212,16 +217,16 @@ public class OpenAiOptions
                 throw new ArgumentNullException(nameof(ResourceName));
             }
         }
-        else if (ProviderType == ProviderType.OpenAi)
+        else if (ProviderType == ProviderType.OpenAI)
         {
             if (!string.IsNullOrEmpty(DeploymentId))
             {
-                throw new ArgumentException(nameof(DeploymentId) + " is not supported for OpenAi Provider. Set ProviderType to Azure or remove " + nameof(DeploymentId));
+                throw new ArgumentException(nameof(DeploymentId) + " is not supported for OpenAI Provider. Set ProviderType to Azure or remove " + nameof(DeploymentId));
             }
 
             if (!string.IsNullOrEmpty(ResourceName))
             {
-                throw new ArgumentException(nameof(ResourceName) + " is not supported for OpenAi Provider. Set ProviderType to Azure or remove " + nameof(ResourceName));
+                throw new ArgumentException(nameof(ResourceName) + " is not supported for OpenAI Provider. Set ProviderType to Azure or remove " + nameof(ResourceName));
             }
         }
     }

@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using OpenAI.Interfaces;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
-public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemperature, IOpenAiModels.IModel, IOpenAiModels.IUser
+public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemperature, IOpenAIModels.IModel, IOpenAIModels.IUser
 {
     public enum ResponseFormats
     {
@@ -308,4 +308,17 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// </summary>
     [JsonPropertyName("service_tier")]
     public string? ServiceTier { get; set; }
+
+
+    /// <summary>
+    /// Whether or not to store the output of this chat completion request for use in our model distillation or evals products.
+    /// https://platform.openai.com/docs/api-reference/chat/create?lang=python#chat-create-store
+    /// 
+    /// <para /> 
+    /// more about distillation: https://platform.openai.com/docs/guides/distillation
+    /// <para /> 
+    /// more about evals: https://platform.openai.com/docs/guides/evals
+    /// </summary>
+    [JsonPropertyName("store")]
+    public bool? Store { get; set; }
 }

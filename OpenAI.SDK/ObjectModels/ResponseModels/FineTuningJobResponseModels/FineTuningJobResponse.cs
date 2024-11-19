@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FineTuningJobResponseModels;
 
-public record FineTuningJobResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.IModel, IOpenAiModels.ICreatedAt
+public record FineTuningJobResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.IModel, IOpenAIModels.ICreatedAt
 {
     /// <summary>
     ///     The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the
@@ -67,7 +67,12 @@ public record FineTuningJobResponse : BaseResponse, IOpenAiModels.IId, IOpenAiMo
     ///     The Unix timestamp (in seconds) for when the fine-tuning job was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    /// <summary>
+    ///     for when the fine-tuning job was created.
+    /// </summary>
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The object identifier, which can be referenced in the API endpoints.

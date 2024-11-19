@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.SharedModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-public record EventResponse
+public record EventResponse:IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("object")]
     public string? ObjectTypeName { get; set; }
@@ -11,7 +11,9 @@ public record EventResponse
     public string? Id { get; set; }
 
     [JsonPropertyName("created_at")]
-    public int? CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
+
 
     [JsonPropertyName("level")]
     public string Level { get; set; }

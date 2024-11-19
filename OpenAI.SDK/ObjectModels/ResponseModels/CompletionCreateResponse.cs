@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-public record CompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt
+public record CompletionCreateResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("model")]
     public string Model { get; set; }
@@ -15,7 +15,9 @@ public record CompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IOpenA
     public UsageResponse Usage { get; set; }
 
     [JsonPropertyName("created")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     [JsonPropertyName("id")]
     public string Id { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 
 public record VectorStoreObjectResponse : BaseResponse
 {
@@ -15,7 +15,12 @@ public record VectorStoreObjectResponse : BaseResponse
     ///     The Unix timestamp (in seconds) for when the vector store was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    /// <summary>
+    ///     for when the vector store was created.
+    /// </summary>
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The name of the vector store.

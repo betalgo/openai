@@ -1,13 +1,13 @@
 ﻿using System.Net;
-using OpenAI.ObjectModels.RequestModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
-namespace OpenAI.EndpointProviders;
+namespace Betalgo.Ranul.OpenAI.EndpointProviders;
 
-internal class OpenAiEndpointProvider : IOpenAiEndpointProvider
+internal class OpenAIEndpointProvider : IOpenAIEndpointProvider
 {
     private readonly string _apiVersion;
 
-    public OpenAiEndpointProvider(string apiVersion)
+    public OpenAIEndpointProvider(string apiVersion)
     {
         _apiVersion = apiVersion;
     }

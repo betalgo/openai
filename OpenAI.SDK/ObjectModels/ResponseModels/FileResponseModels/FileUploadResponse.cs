@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.FileResponseModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.FileResponseModels;
 
-public record FileUploadResponse : BaseResponse, IOpenAiModels.ICreatedAt
+public record FileUploadResponse : BaseResponse, IOpenAIModels.ICreatedAt
 {
     [JsonPropertyName("id")]
     public string Id { get; set; }
@@ -18,5 +18,7 @@ public record FileUploadResponse : BaseResponse, IOpenAiModels.ICreatedAt
     public string Purpose { get; set; }
 
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 }

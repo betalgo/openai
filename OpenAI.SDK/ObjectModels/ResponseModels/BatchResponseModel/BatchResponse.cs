@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using OpenAI.ObjectModels.SharedModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
-namespace OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.BatchResponseModel;
 
-public record BatchResponse : BaseResponse, IOpenAiModels.IMetaData
+public record BatchResponse : BaseResponse, IOpenAIModels.IMetaData
 {
     /// <summary>
     /// </summary>
@@ -53,7 +53,12 @@ public record BatchResponse : BaseResponse, IOpenAiModels.IMetaData
     ///     The Unix timestamp (in seconds) for when the batch was created.
     /// </summary>
     [JsonPropertyName("created_at")]
-    public int CreatedAt { get; set; }
+    public long CreatedAtUnix { get; set; }
+
+    /// <summary>
+    ///    DateTimeOffset for when the batch was created.
+    /// </summary>
+    public DateTimeOffset CreatedAt => DateTimeOffset.FromUnixTimeSeconds(CreatedAtUnix);
 
     /// <summary>
     ///     The Unix timestamp (in seconds) for when the batch started processing.

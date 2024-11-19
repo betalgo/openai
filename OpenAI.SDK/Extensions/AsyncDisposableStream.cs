@@ -1,10 +1,5 @@
 ﻿#if NETSTANDARD2_0
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace OpenAI.Extensions
+namespace Betalgo.Ranul.OpenAI.Extensions
 {
     public class AsyncDisposableStream : Stream, IAsyncDisposable
     {
