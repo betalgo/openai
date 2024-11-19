@@ -54,7 +54,7 @@ internal interface IOpenAiEndpointProvider
     string MessageCreate(string threadId);
     string MessageRetrieve(string threadId, string messageId);
     string MessageModify(string threadId, string messageId);
-    string MessageList(string threadId, PaginationRequest? messageListRequest);
+    string MessageList(string threadId, MessageListRequest? messageListRequest);
     string RunCreate(string threadId);
     string RunRetrieve(string threadId, string runId);
     string RunModify(string threadId, string runId);

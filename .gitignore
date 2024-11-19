@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # JetBrains IDEs
 .idea
+/OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj

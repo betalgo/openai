@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace OpenAI.ObjectModels.RequestModels;
@@ -83,4 +84,27 @@ public class PaginationRequest
 
         return string.Join("&", build);
     }
+}
+
+public class MessageListRequest:PaginationRequest
+{
+    /// <summary>
+    ///     extension to base PaginationRequest to add supported runID parameter
+    ///     Filter messages by the run ID that generated them.
+    ///     https://platform.openai.com/docs/api-reference/messages/listMessages#messages-listmessages-run_id
+    /// </summary>
+    [JsonPropertyName("run_ID")]
+    public string? RunID { get; set; }
+
+    public override string? GetQueryParameters()
+    {
+        // get querystring from base class
+        var querystring = base.GetQueryParameters();
+        if (string.IsNullOrWhiteSpace(RunID))
+        {
+            return querystring;
+        }
+        return querystring == null ? $"run_id={WebUtility.UrlEncode(RunID)}" : $"{querystring}&run_id={WebUtility.UrlEncode(RunID)}";
+    }
+
 }
