@@ -34,7 +34,7 @@ public partial class OpenAIService : IMessageService
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public async Task<MessageListResponse> ListMessages(string threadId, PaginationRequest? request = null, CancellationToken cancellationToken = default)
+    public async Task<MessageListResponse> ListMessages(string threadId, MessageListRequest? request = null, CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrWhiteSpace(threadId))
         {
