@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # JetBrains IDEs
+.idea
