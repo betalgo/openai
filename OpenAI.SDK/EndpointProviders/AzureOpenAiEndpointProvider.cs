@@ -281,7 +281,7 @@ internal class AzureOpenAIEndpointProvider : IOpenAIEndpointProvider
         return $"{AssistantPrefix}/threads/{threadId}/messages/{messageId}{AzureVersionQueryString}";
     }
 
-    public string MessageList(string threadId, PaginationRequest? messageListRequest)
+    public string MessageList(string threadId, MessageListRequest? messageListRequest)
     {
         var url = $"{AssistantPrefix}/threads/{threadId}/messages{AzureVersionQueryString}";
 

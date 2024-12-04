@@ -286,7 +286,7 @@ internal class OpenAIEndpointProvider : IOpenAIEndpointProvider
         return $"{_apiVersion}/threads/{threadId}/messages/{messageId}";
     }
 
-    public string MessageList(string threadId, PaginationRequest? messageListRequest)
+    public string MessageList(string threadId, MessageListRequest? messageListRequest)
     {
         var url = $"{_apiVersion}/threads/{threadId}/messages";
 
