@@ -17,10 +17,8 @@ public partial class OpenAIService : IChatClient
     ChatClientMetadata IChatClient.Metadata => _chatMetadata ??= new(nameof(OpenAIService), _httpClient.BaseAddress, _defaultModelId);
 
     /// <inheritdoc />
-    TService? IChatClient.GetService<TService>(object? key) where TService : class
-    {
-        return this as TService;
-    }
+    object? IChatClient.GetService(Type serviceType, object? serviceKey) =>
+        serviceKey is null && serviceType?.IsInstanceOfType(this) is true ? this : null;
 
     /// <inheritdoc />
     void IDisposable.Dispose()
@@ -155,6 +153,7 @@ public partial class OpenAIService : IChatClient
             request.TopP = options.TopP;
             request.FrequencyPenalty = options.FrequencyPenalty;
             request.PresencePenalty = options.PresencePenalty;
+            request.Seed = (int?)options.Seed;
             request.StopAsList = options.StopSequences;
 
             // Non-strongly-typed properties from additional properties
@@ -162,7 +161,6 @@ public partial class OpenAIService : IChatClient
             request.LogProbs = options.AdditionalProperties?.TryGetValue(nameof(request.LogProbs), out bool logProbs) is true ? logProbs : null;
             request.N = options.AdditionalProperties?.TryGetValue(nameof(request.N), out int n) is true ? n : null;
             request.ParallelToolCalls = options.AdditionalProperties?.TryGetValue(nameof(request.ParallelToolCalls), out bool parallelToolCalls) is true ? parallelToolCalls : null;
-            request.Seed = options.AdditionalProperties?.TryGetValue(nameof(request.Seed), out int seed) is true ? seed : null;
             request.ServiceTier = options.AdditionalProperties?.TryGetValue(nameof(request.ServiceTier), out string? serviceTier) is true ? serviceTier : null!;
             request.User = options.AdditionalProperties?.TryGetValue(nameof(request.User), out string? user) is true ? user : null!;
             request.TopLogprobs = options.AdditionalProperties?.TryGetValue(nameof(request.TopLogprobs), out int topLogprobs) is true ? topLogprobs : null;
