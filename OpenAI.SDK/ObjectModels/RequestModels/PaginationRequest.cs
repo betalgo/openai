@@ -94,17 +94,17 @@ public class MessageListRequest:PaginationRequest
     ///     https://platform.openai.com/docs/api-reference/messages/listMessages#messages-listmessages-run_id
     /// </summary>
     [JsonPropertyName("run_ID")]
-    public string? RunID { get; set; }
+    public string? RunId { get; set; }
 
     public override string? GetQueryParameters()
     {
         // get querystring from base class
         var querystring = base.GetQueryParameters();
-        if (string.IsNullOrWhiteSpace(RunID))
+        if (string.IsNullOrWhiteSpace(RunId))
         {
             return querystring;
         }
-        return querystring == null ? $"run_id={WebUtility.UrlEncode(RunID)}" : $"{querystring}&run_id={WebUtility.UrlEncode(RunID)}";
+        return querystring == null ? $"run_id={WebUtility.UrlEncode(RunId)}" : $"{querystring}&run_id={WebUtility.UrlEncode(RunId)}";
     }
 
 }
