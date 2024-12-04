@@ -117,6 +117,10 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 9.0.1
+- Message list now accept RunId
+- Upgraded to Microsoft.Extensions.AI version 9.0.1, which resolves the "Method not found: '!!0" error when used alongside other SDKs with different versions.
+
 ### 9.0.0
 - .NET 9 support added.
 - ⚠️ Support for .NET 6 and .NET 7 has ended.

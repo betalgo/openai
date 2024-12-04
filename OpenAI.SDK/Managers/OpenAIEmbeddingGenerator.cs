@@ -6,12 +6,15 @@ public partial class OpenAIService : IEmbeddingGenerator<string, Embedding<float
 {
     private EmbeddingGeneratorMetadata? _embeddingMetadata;
 
+    /// <inheritdoc />
     EmbeddingGeneratorMetadata IEmbeddingGenerator<string, Embedding<float>>.Metadata =>
         _embeddingMetadata ??= new(nameof(OpenAIService), _httpClient.BaseAddress, _defaultModelId);
 
-    TService? IEmbeddingGenerator<string, Embedding<float>>.GetService<TService>(object? key) where TService : class =>
-        this as TService;
+    /// <inheritdoc />
+    object? IEmbeddingGenerator<string, Embedding<float>>.GetService(Type serviceType, object? serviceKey) =>
+        serviceKey is null && serviceType?.IsInstanceOfType(this) is true ? this : null;
 
+    /// <inheritdoc />
     async Task<GeneratedEmbeddings<Embedding<float>>> IEmbeddingGenerator<string, Embedding<float>>.GenerateAsync(IEnumerable<string> values, EmbeddingGenerationOptions? options, CancellationToken cancellationToken)
     {
         var response = await this.Embeddings.CreateEmbedding(new()
