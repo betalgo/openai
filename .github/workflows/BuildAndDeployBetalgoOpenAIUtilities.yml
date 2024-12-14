@@ -2,7 +2,7 @@ name: Build And Deploy Betalgo.OpenAI.Utilities
 
 on:
   workflow_run:
-    workflows: ["Build And Deploy Betalgo.OpenAI"]
+    workflows: ["Build And Deploy Betalgo.Ranul.OpenAI"]
     branches: [master]
     types:
       - completed
