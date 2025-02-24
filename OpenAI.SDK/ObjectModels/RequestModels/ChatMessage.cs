@@ -60,6 +60,9 @@ public class ChatMessage
 
     [JsonIgnore]
     public string? Content { get; set; }
+    
+    [JsonPropertyName("reasoning_content")]
+    public string? ReasoningContent { get; set; }
 
     [JsonIgnore]
     public IList<MessageContent>? Contents { get; set; }
