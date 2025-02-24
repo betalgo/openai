@@ -14,6 +14,13 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
         JsonSchema
     }
 
+    public enum ReasoningEfforts
+    {
+        Low,
+        Medium,
+        High
+    }
+
     /// <summary>
     ///     The messages to generate chat completions for, in the chat format.
     ///     The main input is the messages parameter. Messages must be an array of message objects, where each object has a
@@ -278,6 +285,47 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     /// </summary>
     [JsonPropertyName("model")]
     public string? Model { get; set; }
+
+    /// <summary>
+    ///     Constrains effort on reasoning for reasoning models. Currently supported values are low, medium, and high.
+    ///     Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    /// </summary>
+    [JsonPropertyName("reasoning_effort")]
+    public string? ReasoningEffort { get; set; }
+
+    /// <summary>
+    ///     Constrains effort on reasoning for reasoning models. Currently supported values are low, medium, and high.
+    ///     Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">
+    ///     Thrown when an unsupported <see cref="ReasoningEfforts" /> value is provided.
+    /// </exception>
+    /// <exception cref="ValidationException">
+    ///     Thrown when <see cref="ReasoningEffort" /> is already set.
+    /// </exception>
+    [JsonIgnore]
+    public ReasoningEfforts? ChatReasoningEffort
+    {
+        set
+        {
+            if (value == null) return;
+            if (ReasoningEffort != null)
+            {
+                throw new ValidationException(
+                    "ReasoningEffort and ChatReasoningEffort can not be assigned at the sametime. One of them " +
+                        "should be null."
+                );
+            }
+
+            ReasoningEffort = value switch
+            {
+                ReasoningEfforts.Low => StaticValues.CompletionStatics.ReasoningEffort.Low,
+                ReasoningEfforts.Medium => StaticValues.CompletionStatics.ReasoningEffort.Medium,
+                ReasoningEfforts.High => StaticValues.CompletionStatics.ReasoningEffort.High,
+                _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
+            };
+        }
+    }
 
     public IEnumerable<ValidationResult> Validate()
     {
