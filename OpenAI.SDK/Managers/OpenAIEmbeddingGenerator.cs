@@ -7,7 +7,7 @@ public partial class OpenAIService : IEmbeddingGenerator<string, Embedding<float
     private EmbeddingGeneratorMetadata? _embeddingMetadata;
 
     /// <inheritdoc />
-    object? IEmbeddingGenerator<string, Embedding<float>>.GetService(Type serviceType, object? serviceKey) =>
+    object? IEmbeddingGenerator.GetService(Type serviceType, object? serviceKey) =>
         serviceKey is not null ? null :
         serviceType == typeof(EmbeddingGeneratorMetadata) ? (_embeddingMetadata ??= new(nameof(OpenAIService), _httpClient.BaseAddress, _defaultModelId)) :
         serviceType?.IsInstanceOfType(this) is true ? this : 

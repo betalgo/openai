@@ -26,9 +26,9 @@ public partial class OpenAIService : IChatClient
     }
 
     /// <inheritdoc />
-    async Task<ChatResponse> IChatClient.GetResponseAsync(IList<ChatMessage> chatMessages, ChatOptions? options, CancellationToken cancellationToken)
+    async Task<ChatResponse> IChatClient.GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options, CancellationToken cancellationToken)
     {
-        var request = CreateRequest(chatMessages, options);
+        var request = CreateRequest(messages, options);
 
         var response = await ChatCompletion.CreateCompletion(request, options?.ModelId, cancellationToken);
         ThrowIfNotSuccessful(response);
@@ -73,9 +73,9 @@ public partial class OpenAIService : IChatClient
     }
 
     /// <inheritdoc />
-    async IAsyncEnumerable<ChatResponseUpdate> IChatClient.GetStreamingResponseAsync(IList<ChatMessage> chatMessages, ChatOptions? options, [EnumeratorCancellation] CancellationToken cancellationToken)
+    async IAsyncEnumerable<ChatResponseUpdate> IChatClient.GetStreamingResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        var request = CreateRequest(chatMessages, options);
+        var request = CreateRequest(messages, options);
 
         await foreach (var response in ChatCompletion.CreateCompletionAsStream(request, options?.ModelId, cancellationToken: cancellationToken))
         {
@@ -93,11 +93,6 @@ public partial class OpenAIService : IChatClient
                     ResponseId = response.Id,
                     Role = choice.Delta.Role is not null ? new(choice.Delta.Role) : null
                 };
-
-                if (choice.Index is not null)
-                {
-                    update.ChoiceIndex = choice.Index.Value;
-                }
 
                 if (response.ServiceTier is string serviceTier)
                 {
@@ -138,7 +133,7 @@ public partial class OpenAIService : IChatClient
         }
     }
 
-    private ChatCompletionCreateRequest CreateRequest(IList<ChatMessage> chatMessages, ChatOptions? options)
+    private ChatCompletionCreateRequest CreateRequest(IEnumerable<ChatMessage> chatMessages, ChatOptions? options)
     {
         ChatCompletionCreateRequest request = new()
         {
@@ -223,12 +218,33 @@ public partial class OpenAIService : IChatClient
         {
             foreach (var content in message.Contents)
             {
+                string? detail;
                 switch (content)
                 {
                     case TextContent tc:
                         request.Messages.Add(new()
                         {
                             Content = tc.Text,
+                            Name = message.AuthorName,
+                            Role = message.Role.ToString()
+                        });
+                        break;
+
+                    case UriContent uc:
+                        request.Messages.Add(new()
+                        {
+                            Contents =
+                            [
+                                new()
+                                {
+                                    Type = "image_url",
+                                    ImageUrl = new()
+                                    {
+                                        Url = uc.Uri.ToString(),
+                                        Detail = uc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out detail) is true ? detail : null
+                                    }
+                                }
+                            ],
                             Name = message.AuthorName,
                             Role = message.Role.ToString()
                         });
@@ -244,8 +260,8 @@ public partial class OpenAIService : IChatClient
                                     Type = "image_url",
                                     ImageUrl = new()
                                     {
-                                        Url = dc.Uri,
-                                        Detail = dc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out string? detail) is true ? detail : null
+                                        Url = dc.Uri.ToString(),
+                                        Detail = dc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out detail) is true ? detail : null
                                     }
                                 }
                             ],
@@ -314,7 +330,7 @@ public partial class OpenAIService : IChatClient
 
                 if (content.ImageUrl is { } url)
                 {
-                    destination.Add(new DataContent(url.Url));
+                    destination.Add(new UriContent(url.Url, "image/*"));
                 }
             }
         }
