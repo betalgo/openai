@@ -312,7 +312,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
             if (ReasoningEffort != null)
             {
                 throw new ValidationException(
-                    "ReasoningEffort and ChatReasoningEffort can not be assigned at the sametime. One of them " +
+                    "ReasoningEffort and ChatReasoningEffort can not be assigned at the same time. One of them " +
                         "should be null."
                 );
             }
