@@ -114,10 +114,15 @@ public static class Models
         Text_moderation_007,
         Text_moderation_latest,
         Text_moderation_stable,
+        O1,
+        O1_2024_12_17,
         O1_preview,
         O1_preview_2024_09_12,
         O1_mini,
         O1_mini_2024_09_12,
+
+        O3_mini,
+        O3_mini_2025_01_31,
 
         Gpt_4o_realtime_preview_2024_10_01
     }
@@ -425,6 +430,30 @@ public static class Models
     public static string O1_mini_2024_09_12 => "o1-mini-2024-09-12";
 
     /// <summary>
+    ///    Reasoning model designed to solve hard problems across domains.
+    ///    Released in Dec 2024.
+    /// </summary>
+    public static string O1 => "o1";
+
+    /// <summary>
+    ///    Reasoning model designed to solve hard problems across domains.
+    ///    Released in Dec 2024.
+    /// </summary>
+    public static string O1_2024_12_17 => "o1-2024-12-17";
+
+    /// <summary>
+    ///    Faster and cheaper reasoning model particularly good at coding, math, and science.
+    ///    Released in Jan 2025.
+    /// </summary>
+    public static string O3_mini => "o3-mini";
+
+    /// <summary>
+    ///    Faster and cheaper reasoning model particularly good at coding, math, and science.
+    ///    Released in Jan 2025.
+    /// </summary>
+    public static string O3_mini_2025_01_31 => "o3-mini-2025-01-31";
+
+    /// <summary>
     ///     This method does not guarantee returned model exists.
     /// </summary>
     /// <param name="subject"></param>
@@ -529,6 +558,10 @@ public static class Models
             Model.O1_mini_2024_09_12 => O1_mini_2024_09_12,
             Model.O1_preview => O1_preview,
             Model.O1_preview_2024_09_12 => O1_preview_2024_09_12,
+            Model.O1 => O1,
+            Model.O1_2024_12_17 => O1_2024_12_17,
+            Model.O3_mini => O3_mini,
+            Model.O3_mini_2025_01_31 => O3_mini_2025_01_31,
             Model.Gpt_4o_realtime_preview_2024_10_01 => Gpt_4o_realtime_preview_2024_10_01,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };

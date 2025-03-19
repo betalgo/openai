@@ -516,7 +516,8 @@ internal static class ChatCompletionTestHelper
                     ChatMessage.FromUser("Write a bash script that takes a matrix represented as a string with format '[1,2],[3,4],[5,6]' and prints the transpose in the same format.")
                 ],
                 MaxCompletionTokens = 2000,
-                Model = Models.O1_preview
+                Model = Models.O3_mini,
+                ChatReasoningEffort = ChatCompletionCreateRequest.ReasoningEfforts.Low
             });
 
             if (completionResult.Successful)
