@@ -14,11 +14,11 @@ public partial class OpenAIService : IChatClient
     private ChatClientMetadata? _chatMetadata;
 
     /// <inheritdoc />
-    ChatClientMetadata IChatClient.Metadata => _chatMetadata ??= new(nameof(OpenAIService), _httpClient.BaseAddress, _defaultModelId);
-
-    /// <inheritdoc />
     object? IChatClient.GetService(Type serviceType, object? serviceKey) =>
-        serviceKey is null && serviceType?.IsInstanceOfType(this) is true ? this : null;
+        serviceKey is not null ? null :
+        serviceType == typeof(ChatClientMetadata) ? (_chatMetadata ??= new(nameof(OpenAIService), _httpClient.BaseAddress, _defaultModelId)) :
+        serviceType?.IsInstanceOfType(this) is true ? this : 
+        null;
 
     /// <inheritdoc />
     void IDisposable.Dispose()
@@ -26,9 +26,9 @@ public partial class OpenAIService : IChatClient
     }
 
     /// <inheritdoc />
-    async Task<ChatCompletion> IChatClient.CompleteAsync(IList<ChatMessage> chatMessages, ChatOptions? options, CancellationToken cancellationToken)
+    async Task<ChatResponse> IChatClient.GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options, CancellationToken cancellationToken)
     {
-        var request = CreateRequest(chatMessages, options);
+        var request = CreateRequest(messages, options);
 
         var response = await ChatCompletion.CreateCompletion(request, options?.ModelId, cancellationToken);
         ThrowIfNotSuccessful(response);
@@ -64,18 +64,18 @@ public partial class OpenAIService : IChatClient
         return new(responseMessages)
         {
             CreatedAt = response.CreatedAt,
-            CompletionId = response.Id,
             FinishReason = finishReason is not null ? new(finishReason) : null,
             ModelId = response.Model,
             RawRepresentation = response,
+            ResponseId = response.Id,
             Usage = response.Usage is { } usage ? GetUsageDetails(usage) : null
         };
     }
 
     /// <inheritdoc />
-    async IAsyncEnumerable<StreamingChatCompletionUpdate> IChatClient.CompleteStreamingAsync(IList<ChatMessage> chatMessages, ChatOptions? options, [EnumeratorCancellation] CancellationToken cancellationToken)
+    async IAsyncEnumerable<ChatResponseUpdate> IChatClient.GetStreamingResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        var request = CreateRequest(chatMessages, options);
+        var request = CreateRequest(messages, options);
 
         await foreach (var response in ChatCompletion.CreateCompletionAsStream(request, options?.ModelId, cancellationToken: cancellationToken))
         {
@@ -83,21 +83,16 @@ public partial class OpenAIService : IChatClient
 
             foreach (var choice in response.Choices)
             {
-                StreamingChatCompletionUpdate update = new()
+                ChatResponseUpdate update = new()
                 {
                     AuthorName = choice.Delta.Name,
-                    CompletionId = response.Id,
                     CreatedAt = response.CreatedAt,
                     FinishReason = choice.FinishReason is not null ? new(choice.FinishReason) : null,
                     ModelId = response.Model,
                     RawRepresentation = response,
+                    ResponseId = response.Id,
                     Role = choice.Delta.Role is not null ? new(choice.Delta.Role) : null
                 };
-
-                if (choice.Index is not null)
-                {
-                    update.ChoiceIndex = choice.Index.Value;
-                }
 
                 if (response.ServiceTier is string serviceTier)
                 {
@@ -118,11 +113,11 @@ public partial class OpenAIService : IChatClient
                     yield return new()
                     {
                         AuthorName = choice.Delta.Name,
-                        CompletionId = response.Id,
                         Contents = [new UsageContent(GetUsageDetails(usage))],
                         CreatedAt = response.CreatedAt,
                         FinishReason = choice.FinishReason is not null ? new(choice.FinishReason) : null,
                         ModelId = response.Model,
+                        ResponseId = response.Id,
                         Role = choice.Delta.Role is not null ? new(choice.Delta.Role) : null
                     };
                 }
@@ -138,7 +133,7 @@ public partial class OpenAIService : IChatClient
         }
     }
 
-    private ChatCompletionCreateRequest CreateRequest(IList<ChatMessage> chatMessages, ChatOptions? options)
+    private ChatCompletionCreateRequest CreateRequest(IEnumerable<ChatMessage> chatMessages, ChatOptions? options)
     {
         ChatCompletionCreateRequest request = new()
         {
@@ -179,7 +174,7 @@ public partial class OpenAIService : IChatClient
                         JsonSchema = new()
                         {
                             Name = json.SchemaName ?? "JsonSchema",
-                            Schema = JsonSerializer.Deserialize<PropertyDefinition>(json.Schema),
+                            Schema = JsonSerializer.Deserialize<PropertyDefinition>(json.Schema.Value),
                             Description = json.SchemaDescription
                         }
                     };
@@ -197,8 +192,8 @@ public partial class OpenAIService : IChatClient
                 {
                     return ToolDefinition.DefineFunction(new()
                     {
-                        Name = f.Metadata.Name,
-                        Description = f.Metadata.Description,
+                        Name = f.Name,
+                        Description = f.Description,
                         Parameters = CreateParameters(f)
                     });
                 })
@@ -212,7 +207,8 @@ public partial class OpenAIService : IChatClient
                         Type = StaticValues.CompletionStatics.ToolChoiceType.Required,
                         Function = r.RequiredFunctionName is null ? null : new ToolChoice.FunctionTool() { Name = r.RequiredFunctionName }
                     } :
-                    options.ToolMode is AutoChatToolMode ? new() { Type = StaticValues.CompletionStatics.ToolChoiceType.Auto } : new ToolChoice() { Type = StaticValues.CompletionStatics.ToolChoiceType.None };
+                    options.ToolMode is AutoChatToolMode or null ? new() { Type = StaticValues.CompletionStatics.ToolChoiceType.Auto } :
+                    new ToolChoice() { Type = StaticValues.CompletionStatics.ToolChoiceType.None };
             }
         }
 
@@ -222,6 +218,7 @@ public partial class OpenAIService : IChatClient
         {
             foreach (var content in message.Contents)
             {
+                string? detail;
                 switch (content)
                 {
                     case TextContent tc:
@@ -233,7 +230,7 @@ public partial class OpenAIService : IChatClient
                         });
                         break;
 
-                    case ImageContent ic:
+                    case UriContent uc:
                         request.Messages.Add(new()
                         {
                             Contents =
@@ -243,8 +240,28 @@ public partial class OpenAIService : IChatClient
                                     Type = "image_url",
                                     ImageUrl = new()
                                     {
-                                        Url = ic.Uri,
-                                        Detail = ic.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out string? detail) is true ? detail : null
+                                        Url = uc.Uri.ToString(),
+                                        Detail = uc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out detail) is true ? detail : null
+                                    }
+                                }
+                            ],
+                            Name = message.AuthorName,
+                            Role = message.Role.ToString()
+                        });
+                        break;
+
+                    case DataContent dc:
+                        request.Messages.Add(new()
+                        {
+                            Contents =
+                            [
+                                new()
+                                {
+                                    Type = "image_url",
+                                    ImageUrl = new()
+                                    {
+                                        Url = dc.Uri.ToString(),
+                                        Detail = dc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out detail) is true ? detail : null
                                     }
                                 }
                             ],
@@ -292,22 +309,7 @@ public partial class OpenAIService : IChatClient
 
     private static PropertyDefinition CreateParameters(AIFunction f)
     {
-        List<string> required = [];
-        Dictionary<string, PropertyDefinition> properties = [];
-
-        var parameters = f.Metadata.Parameters;
-
-        foreach (var parameter in parameters)
-        {
-            properties.Add(parameter.Name, parameter.Schema is JsonElement e ? e.Deserialize<PropertyDefinition>()! : PropertyDefinition.DefineObject(null, null, null, null, null));
-
-            if (parameter.IsRequired)
-            {
-                required.Add(parameter.Name);
-            }
-        }
-
-        return PropertyDefinition.DefineObject(properties, required, null, null, null);
+        return JsonSerializer.Deserialize<PropertyDefinition>(f.JsonSchema) ?? new();
     }
 
     private static void PopulateContents(ObjectModels.RequestModels.ChatMessage source, IList<AIContent> destination)
@@ -328,7 +330,7 @@ public partial class OpenAIService : IChatClient
 
                 if (content.ImageUrl is { } url)
                 {
-                    destination.Add(new ImageContent(url.Url));
+                    destination.Add(new UriContent(url.Url, "image/*"));
                 }
             }
         }
@@ -353,33 +355,27 @@ public partial class OpenAIService : IChatClient
 
         if (usage.PromptTokensDetails is { } promptDetails)
         {
-            Dictionary<string, object?> d = new(StringComparer.OrdinalIgnoreCase);
-            (details.AdditionalProperties ??= [])[nameof(usage.PromptTokensDetails)] = d;
-
             if (promptDetails.CachedTokens is int cachedTokens)
             {
-                d[nameof(promptDetails.CachedTokens)] = cachedTokens;
+                (details.AdditionalCounts ??= [])[$"{nameof(usage.PromptTokensDetails)}.{nameof(promptDetails.CachedTokens)}"] = cachedTokens;
             }
 
             if (promptDetails.AudioTokens is int audioTokens)
             {
-                d[nameof(promptDetails.AudioTokens)] = audioTokens;
+                (details.AdditionalCounts ??= [])[$"{nameof(usage.PromptTokensDetails)}.{nameof(promptDetails.AudioTokens)}"] = audioTokens;
             }
         }
 
         if (usage.CompletionTokensDetails is { } completionDetails)
         {
-            Dictionary<string, object?> d = new(StringComparer.OrdinalIgnoreCase);
-            (details.AdditionalProperties ??= [])[nameof(usage.CompletionTokensDetails)] = d;
-
             if (completionDetails.ReasoningTokens is int reasoningTokens)
             {
-                d[nameof(completionDetails.ReasoningTokens)] = reasoningTokens;
+                (details.AdditionalCounts ??= [])[$"{nameof(usage.CompletionTokensDetails)}.{nameof(completionDetails.ReasoningTokens)}"] = reasoningTokens;
             }
 
             if (completionDetails.AudioTokens is int audioTokens)
             {
-                d[nameof(promptDetails.AudioTokens)] = audioTokens;
+                (details.AdditionalCounts ??= [])[$"{nameof(usage.CompletionTokensDetails)}.{nameof(completionDetails.AudioTokens)}"] = audioTokens;
             }
         }
 

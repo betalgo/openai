@@ -11,6 +11,13 @@ public class StaticValues
             public static string Text => "text";
         }
 
+        public static class ReasoningEffort
+        {
+            public static string Low => "low";
+            public static string Medium => "medium";
+            public static string High => "high";
+        }
+
         public static class ToolType
         {
             public static string Function => "function";

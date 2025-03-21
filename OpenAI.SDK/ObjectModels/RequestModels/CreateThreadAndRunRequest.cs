@@ -97,6 +97,13 @@ public class CreateThreadAndRunRequest : IOpenAIModels.IAssistantId, IOpenAIMode
     public AssistantsApiToolChoiceOneOfType ToolChoice { get; set; }
 
     /// <summary>
+    ///     Constrains effort on reasoning for reasoning models. Currently supported values are low, medium, and high.
+    ///     Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    /// </summary>
+    [JsonPropertyName("reasoning_effort")]
+    public string? ReasoningEffort { get; set; }
+
+    /// <summary>
     ///     Specifies the format that the model must output. Compatible with [GPT-4 Turbo](/docs/models/gpt-4-and-gpt-4-turbo)
     ///     and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
     ///     Setting to `{ &quot;type&quot;: &quot;json_object&quot; }` enables JSON mode, which guarantees the message the
