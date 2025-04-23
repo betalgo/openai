@@ -128,10 +128,13 @@ public static class Models
         O1_preview_2024_09_12,
         O1_mini,
         O1_mini_2024_09_12,
+        O1_pro_2025_03_19,
 
+        O3_2025_04_16,
         O3_mini,
         O3_mini_2025_01_31,
-
+        
+        O4_mini_2025_04_16,
         Gpt_4o_realtime_preview_2024_10_01
     }
 
@@ -510,6 +513,36 @@ public static class Models
     public static string O3_mini_2025_01_31 => "o3-mini-2025-01-31";
 
     /// <summary>
+    ///     O1-pro is available in the Responses API only to enable support for multi-turn model interactions before responding to API requests, 
+    ///     and other advanced API features in the future.
+    ///     200,000 context window
+    ///     100,000 max output tokens
+    ///     Oct 01, 2023 knowledge cutoff
+    ///     Reasoning token support
+    /// </summary>
+    public static string O1_pro_2025_03_19 => "o1-pro-2025-03-19";
+
+    /// <summary>
+    ///     O3 is a well-rounded and powerful model across domains. It sets a new standard for math, science, coding, 
+    ///     and visual reasoning tasks. It also excels at technical writing and instruction-following.
+    ///     200,000 context window
+    ///     100,000 max output tokens
+    ///     Jun 01, 2024 knowledge cutoff
+    ///     Reasoning token support
+    /// </summary>
+    public static string O3_2025_04_16 => "o3-2025-04-16";
+
+    /// <summary>
+    ///     O4-mini is the latest small o-series model. It's optimized for fast, effective reasoning 
+    ///     with exceptionally efficient performance in coding and visual tasks.
+    ///     200,000 context window
+    ///     100,000 max output tokens
+    ///     Jun 01, 2024 knowledge cutoff
+    ///     Reasoning token support
+    /// </summary>
+    public static string O4_mini_2025_04_16 => "o4-mini-2025-04-16";
+
+    /// <summary>
     ///     This method does not guarantee returned model exists.
     /// </summary>
     /// <param name="subject"></param>
@@ -625,6 +658,9 @@ public static class Models
             Model.O3_mini => O3_mini,
             Model.O3_mini_2025_01_31 => O3_mini_2025_01_31,
             Model.Gpt_4o_realtime_preview_2024_10_01 => Gpt_4o_realtime_preview_2024_10_01,
+            Model.O1_pro_2025_03_19 => O1_pro_2025_03_19,
+            Model.O3_2025_04_16 => O3_2025_04_16,
+            Model.O4_mini_2025_04_16 => O4_mini_2025_04_16,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
