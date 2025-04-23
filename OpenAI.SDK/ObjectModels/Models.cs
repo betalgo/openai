@@ -96,6 +96,14 @@ public static class Models
         Gpt_4_turbo_preview,
         Gpt_4_turbo,
         Gpt_4_turbo_2024_04_09,
+
+        Gpt_4_1,
+        Gpt_4_1_2025_04_14,
+        Gpt_4_1_mini,
+        Gpt_4_1_mini_2025_04_14,
+        Gpt_4_1_nano,
+        Gpt_4_1_nano_2025_04_14,
+
         Gpt_4o,
         Gpt_4o_2024_05_13,
         Gpt_4o_2024_08_06,
@@ -120,10 +128,13 @@ public static class Models
         O1_preview_2024_09_12,
         O1_mini,
         O1_mini_2024_09_12,
+        O1_pro_2025_03_19,
 
+        O3_2025_04_16,
         O3_mini,
         O3_mini_2025_01_31,
-
+        
+        O4_mini_2025_04_16,
         Gpt_4o_realtime_preview_2024_10_01
     }
 
@@ -222,7 +233,55 @@ public static class Models
     public static string Gpt_4_turbo_2024_04_09 => "gpt-4-turbo-2024-04-09";
 
     /// <summary>
-    ///    GPT-4o: Our high-intelligence flagship model for complex, multi-step tasks. GPT-4o is cheaper and faster than GPT-4 Turbo. Currently points to gpt-4o-2024-08-06.
+    /// GPT-4.1: The flagship model with superior performance in coding, instruction following, and long-context understanding.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1 => "gpt-4.1";
+
+    /// <summary>
+    /// Original snapshot of GPT-4.1 from April 14th 2025. Has the same capabilities as the base GPT-4.1 model.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1_2025_04_14 => "gpt-4.1-2025-04-14";
+
+    /// <summary>
+    /// GPT-4.1 Mini: A cost-effective medium-sized model with excellent performance rivaling the full GPT-4.1 model. Optimized for better speed while maintaining high quality results.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1_mini => "gpt-4.1-mini";
+
+    /// <summary>
+    /// Original snapshot of GPT-4.1-mini from April 14th 2025. Has the same capabilities as the base GPT-4.1-mini model.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1_mini_2025_04_14 => "gpt-4.1-mini-2025-04-14";
+
+    /// <summary>
+    /// GPT-4.1 Nano: The smallest and most cost-effective model in the GPT-4.1 family. Approximately 75% cheaper than GPT-4.1-mini while still excellent for simpler tasks.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1_nano => "gpt-4.1-nano";
+
+    /// <summary>
+    /// Snapshot of GPT-4.1-nano from April 14th 2025. Has the same capabilities as the base GPT-4.1-nano model.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1_nano_2025_04_14 => "gpt-4.1-nano-2025-04-14";
+
+    /// <summary>
+    /// GPT-4o: Our high-intelligence flagship model for complex, multi-step tasks. GPT-4o is cheaper and faster than GPT-4 Turbo. Currently points to gpt-4o-2024-08-06.
     /// Context Window: 128,000 tokens
     /// Max output tokens: 16,384 tokens
     /// Training data: Up to Oct 2023
@@ -454,6 +513,36 @@ public static class Models
     public static string O3_mini_2025_01_31 => "o3-mini-2025-01-31";
 
     /// <summary>
+    ///     O1-pro is available in the Responses API only to enable support for multi-turn model interactions before responding to API requests, 
+    ///     and other advanced API features in the future.
+    ///     200,000 context window
+    ///     100,000 max output tokens
+    ///     Oct 01, 2023 knowledge cutoff
+    ///     Reasoning token support
+    /// </summary>
+    public static string O1_pro_2025_03_19 => "o1-pro-2025-03-19";
+
+    /// <summary>
+    ///     O3 is a well-rounded and powerful model across domains. It sets a new standard for math, science, coding, 
+    ///     and visual reasoning tasks. It also excels at technical writing and instruction-following.
+    ///     200,000 context window
+    ///     100,000 max output tokens
+    ///     Jun 01, 2024 knowledge cutoff
+    ///     Reasoning token support
+    /// </summary>
+    public static string O3_2025_04_16 => "o3-2025-04-16";
+
+    /// <summary>
+    ///     O4-mini is the latest small o-series model. It's optimized for fast, effective reasoning 
+    ///     with exceptionally efficient performance in coding and visual tasks.
+    ///     200,000 context window
+    ///     100,000 max output tokens
+    ///     Jun 01, 2024 knowledge cutoff
+    ///     Reasoning token support
+    /// </summary>
+    public static string O4_mini_2025_04_16 => "o4-mini-2025-04-16";
+
+    /// <summary>
     ///     This method does not guarantee returned model exists.
     /// </summary>
     /// <param name="subject"></param>
@@ -543,6 +632,12 @@ public static class Models
             Model.Gpt_4_turbo_preview => Gpt_4_turbo_preview,
             Model.Gpt_4_turbo => Gpt_4_turbo,
             Model.Gpt_4_turbo_2024_04_09 => Gpt_4_turbo_2024_04_09,
+            Model.Gpt_4_1 => Gpt_4_1,
+            Model.Gpt_4_1_2025_04_14 => Gpt_4_1_2025_04_14,
+            Model.Gpt_4_1_mini => Gpt_4_1_mini,
+            Model.Gpt_4_1_mini_2025_04_14 => Gpt_4_1_mini_2025_04_14,
+            Model.Gpt_4_1_nano => Gpt_4_1_nano,
+            Model.Gpt_4_1_nano_2025_04_14 => Gpt_4_1_nano_2025_04_14,
             Model.Gpt_4o => Gpt_4o,
             Model.Gpt_4o_2024_05_13 => Gpt_4o_2024_05_13,
             Model.Gpt_4o_2024_08_06 => Gpt_4o_2024_08_06,
@@ -563,6 +658,9 @@ public static class Models
             Model.O3_mini => O3_mini,
             Model.O3_mini_2025_01_31 => O3_mini_2025_01_31,
             Model.Gpt_4o_realtime_preview_2024_10_01 => Gpt_4o_realtime_preview_2024_10_01,
+            Model.O1_pro_2025_03_19 => O1_pro_2025_03_19,
+            Model.O3_2025_04_16 => O3_2025_04_16,
+            Model.O4_mini_2025_04_16 => O4_mini_2025_04_16,
             _ => throw new ArgumentOutOfRangeException(nameof(model), model, null)
         };
     }
