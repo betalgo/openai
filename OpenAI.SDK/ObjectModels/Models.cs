@@ -96,6 +96,14 @@ public static class Models
         Gpt_4_turbo_preview,
         Gpt_4_turbo,
         Gpt_4_turbo_2024_04_09,
+
+        Gpt_4_1,
+        Gpt_4_1_2025_04_14,
+        Gpt_4_1_mini,
+        Gpt_4_1_mini_2025_04_14,
+        Gpt_4_1_nano,
+        Gpt_4_1_nano_2025_04_14,
+
         Gpt_4o,
         Gpt_4o_2024_05_13,
         Gpt_4o_2024_08_06,
@@ -222,7 +230,55 @@ public static class Models
     public static string Gpt_4_turbo_2024_04_09 => "gpt-4-turbo-2024-04-09";
 
     /// <summary>
-    ///    GPT-4o: Our high-intelligence flagship model for complex, multi-step tasks. GPT-4o is cheaper and faster than GPT-4 Turbo. Currently points to gpt-4o-2024-08-06.
+    /// GPT-4.1: The flagship model with superior performance in coding, instruction following, and long-context understanding.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1 => "gpt-4.1";
+
+    /// <summary>
+    /// Original snapshot of GPT-4.1 from April 14th 2025. Has the same capabilities as the base GPT-4.1 model.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1_2025_04_14 => "gpt-4.1-2025-04-14";
+
+    /// <summary>
+    /// GPT-4.1 Mini: A cost-effective medium-sized model with excellent performance rivaling the full GPT-4.1 model. Optimized for better speed while maintaining high quality results.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1_mini => "gpt-4.1-mini";
+
+    /// <summary>
+    /// Original snapshot of GPT-4.1-mini from April 14th 2025. Has the same capabilities as the base GPT-4.1-mini model.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1_mini_2025_04_14 => "gpt-4.1-mini-2025-04-14";
+
+    /// <summary>
+    /// GPT-4.1 Nano: The smallest and most cost-effective model in the GPT-4.1 family. Approximately 75% cheaper than GPT-4.1-mini while still excellent for simpler tasks.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1_nano => "gpt-4.1-nano";
+
+    /// <summary>
+    /// Snapshot of GPT-4.1-nano from April 14th 2025. Has the same capabilities as the base GPT-4.1-nano model.
+    /// Context Window: 1,047,576 tokens
+    /// Max output tokens: 32,768 tokens
+    /// Training data: Up to May 31, 2024
+    /// </summary>
+    public static string Gpt_4_1_nano_2025_04_14 => "gpt-4.1-nano-2025-04-14";
+
+    /// <summary>
+    /// GPT-4o: Our high-intelligence flagship model for complex, multi-step tasks. GPT-4o is cheaper and faster than GPT-4 Turbo. Currently points to gpt-4o-2024-08-06.
     /// Context Window: 128,000 tokens
     /// Max output tokens: 16,384 tokens
     /// Training data: Up to Oct 2023
@@ -543,6 +599,12 @@ public static class Models
             Model.Gpt_4_turbo_preview => Gpt_4_turbo_preview,
             Model.Gpt_4_turbo => Gpt_4_turbo,
             Model.Gpt_4_turbo_2024_04_09 => Gpt_4_turbo_2024_04_09,
+            Model.Gpt_4_1 => Gpt_4_1,
+            Model.Gpt_4_1_2025_04_14 => Gpt_4_1_2025_04_14,
+            Model.Gpt_4_1_mini => Gpt_4_1_mini,
+            Model.Gpt_4_1_mini_2025_04_14 => Gpt_4_1_mini_2025_04_14,
+            Model.Gpt_4_1_nano => Gpt_4_1_nano,
+            Model.Gpt_4_1_nano_2025_04_14 => Gpt_4_1_nano_2025_04_14,
             Model.Gpt_4o => Gpt_4o,
             Model.Gpt_4o_2024_05_13 => Gpt_4o_2024_05_13,
             Model.Gpt_4o_2024_08_06 => Gpt_4o_2024_08_06,
