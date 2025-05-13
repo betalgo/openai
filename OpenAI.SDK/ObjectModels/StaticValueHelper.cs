@@ -121,6 +121,44 @@ public class StaticValues
             public static string Onyx => "onyx";
             public static string Shimmer => "shimmer";
         }
+
+        /// <summary>
+        /// An enum list of the voices available with the Text-to-Speech (TTS) endpoint.
+        /// </summary>
+        /// <remarks>
+        /// See https://platform.openai.com/docs/guides/text-to-speech#voice-options.
+        /// </remarks>
+        public enum VoicesTextToSpeechEnum
+        {
+            alloy,
+            ash,
+            ballad,
+            coral,
+            echo,
+            fable,
+            nova,
+            onyx,
+            sage,
+            shimmer
+        }
+
+        /// <summary>
+        /// An enum list of the voices available with the Realtime endpoint.
+        /// </summary>
+        /// <remarks>
+        /// See https://platform.openai.com/docs/api-reference/realtime-sessions/create.
+        /// </remarks>
+        public enum VoicesRealtimeEnum
+        {
+            alloy,
+            ash,
+            ballad,
+            coral,
+            echo,
+            sage,
+            shimmer,
+            verse
+        }
     }
 
     public static class ChatMessageRoles
