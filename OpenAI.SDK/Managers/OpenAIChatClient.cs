@@ -11,6 +11,14 @@ namespace Betalgo.Ranul.OpenAI.Managers;
 
 public partial class OpenAIService : IChatClient
 {
+    private static readonly AIJsonSchemaTransformCache s_schemaTransformCache = new(new()
+    {
+        // https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#supported-schemas
+        DisallowAdditionalProperties = true,
+        RequireAllProperties = true,
+        MoveDefaultKeywordToDescription = true,
+    });
+
     private ChatClientMetadata? _chatMetadata;
 
     /// <inheritdoc />
@@ -312,7 +320,8 @@ public partial class OpenAIService : IChatClient
 
     private static PropertyDefinition CreateParameters(AIFunction f)
     {
-        return JsonSerializer.Deserialize<PropertyDefinition>(f.JsonSchema) ?? new();
+        JsonElement openAISchema = s_schemaTransformCache.GetOrCreateTransformedSchema(f);
+        return JsonSerializer.Deserialize<PropertyDefinition>(openAISchema) ?? new();
     }
 
     private static void PopulateContents(ObjectModels.RequestModels.ChatMessage source, IList<AIContent> destination)
