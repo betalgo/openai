@@ -117,7 +117,7 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
-### 9.0.3
+### 9.0.4
 - Updated `Microsoft.Extensions.AI` to version `9.5.0`  
 
 ### 9.0.3
