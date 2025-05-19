@@ -11,6 +11,14 @@ namespace Betalgo.Ranul.OpenAI.Managers;
 
 public partial class OpenAIService : IChatClient
 {
+    private static readonly AIJsonSchemaTransformCache s_schemaTransformCache = new(new()
+    {
+        // https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses#supported-schemas
+        DisallowAdditionalProperties = true,
+        RequireAllProperties = true,
+        MoveDefaultKeywordToDescription = true,
+    });
+
     private ChatClientMetadata? _chatMetadata;
 
     /// <inheritdoc />
@@ -43,7 +51,8 @@ public partial class OpenAIService : IChatClient
             {
                 Role = new(choice.Message.Role),
                 AuthorName = choice.Message.Name,
-                RawRepresentation = choice
+                RawRepresentation = choice,
+                MessageId = response.Id
             };
 
             PopulateContents(choice.Message, m.Contents);
@@ -91,6 +100,7 @@ public partial class OpenAIService : IChatClient
                     ModelId = response.Model,
                     RawRepresentation = response,
                     ResponseId = response.Id,
+                    MessageId = response.Id,
                     Role = choice.Delta.Role is not null ? new(choice.Delta.Role) : null
                 };
 
@@ -118,6 +128,7 @@ public partial class OpenAIService : IChatClient
                         FinishReason = choice.FinishReason is not null ? new(choice.FinishReason) : null,
                         ModelId = response.Model,
                         ResponseId = response.Id,
+                        MessageId = response.Id,
                         Role = choice.Delta.Role is not null ? new(choice.Delta.Role) : null
                     };
                 }
@@ -150,12 +161,12 @@ public partial class OpenAIService : IChatClient
             request.PresencePenalty = options.PresencePenalty;
             request.Seed = (int?)options.Seed;
             request.StopAsList = options.StopSequences;
+            request.ParallelToolCalls = options.AllowMultipleToolCalls;
 
             // Non-strongly-typed properties from additional properties
             request.LogitBias = options.AdditionalProperties?.TryGetValue(nameof(request.LogitBias), out var logitBias) is true ? logitBias : null;
             request.LogProbs = options.AdditionalProperties?.TryGetValue(nameof(request.LogProbs), out bool logProbs) is true ? logProbs : null;
             request.N = options.AdditionalProperties?.TryGetValue(nameof(request.N), out int n) is true ? n : null;
-            request.ParallelToolCalls = options.AdditionalProperties?.TryGetValue(nameof(request.ParallelToolCalls), out bool parallelToolCalls) is true ? parallelToolCalls : null;
             request.ServiceTier = options.AdditionalProperties?.TryGetValue(nameof(request.ServiceTier), out string? serviceTier) is true ? serviceTier : null!;
             request.User = options.AdditionalProperties?.TryGetValue(nameof(request.User), out string? user) is true ? user : null!;
             request.TopLogprobs = options.AdditionalProperties?.TryGetValue(nameof(request.TopLogprobs), out int topLogprobs) is true ? topLogprobs : null;
@@ -309,7 +320,8 @@ public partial class OpenAIService : IChatClient
 
     private static PropertyDefinition CreateParameters(AIFunction f)
     {
-        return JsonSerializer.Deserialize<PropertyDefinition>(f.JsonSchema) ?? new();
+        JsonElement openAISchema = s_schemaTransformCache.GetOrCreateTransformedSchema(f);
+        return JsonSerializer.Deserialize<PropertyDefinition>(openAISchema) ?? new();
     }
 
     private static void PopulateContents(ObjectModels.RequestModels.ChatMessage source, IList<AIContent> destination)
