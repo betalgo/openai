@@ -117,4 +117,11 @@ public class RunCreateRequest : IOpenAIModels.IModel, IOpenAIModels.IMetaData, I
     /// </summary>
     [JsonPropertyName("temperature")]
     public float? Temperature { get; set; }
+
+    /// <summary>
+    /// Constrains effort on reasoning for <see href="https://platform.openai.com/docs/guides/reasoning">reasoning models</see>. Currently supported values are low, medium, and high. 
+    /// Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+    /// </summary>
+    [JsonPropertyName("reasoning_effort")]
+    public string? ReasoningEffort { get; set; }
 }
