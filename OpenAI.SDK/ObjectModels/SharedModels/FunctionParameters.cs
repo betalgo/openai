@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
@@ -77,6 +77,33 @@ public class PropertyDefinition
     /// </summary>
     [JsonPropertyName("items")]
     public PropertyDefinition? Items { get; set; }
+    
+    /// <summary>
+    ///     Definitions of schemas (draft-07 specification).
+    ///     For more details, see https://json-schema.org/understanding-json-schema/structuring#defs
+    /// </summary>
+    [JsonPropertyName("$defs")]
+    public IDictionary<string, PropertyDefinition>? Defs { get; set; }
+    
+    /// <summary>
+    ///     Definitions of schemas (draft-07 specification).
+    /// </summary>
+    [JsonPropertyName("definitions")]
+    public IDictionary<string, PropertyDefinition>? Definitions { get; set; }
+    
+    /// <summary>
+    ///     Reference to another schema definition.
+    ///     For more details, see https://json-schema.org/understanding-json-schema/structuring#dollarref
+    /// </summary>
+    [JsonPropertyName("$ref")]
+    public string? Ref { get; set; }
+    
+    /// <summary>
+    ///     To validate against anyOf, the given data must be valid against any (one or more) of the given subschemas.
+    ///     For more details, see https://json-schema.org/understanding-json-schema/reference/combining#anyOf
+    /// </summary>
+    [JsonPropertyName("anyOf")]
+    public IList<PropertyDefinition>? AnyOf { get; set; }
 
     public static PropertyDefinition DefineArray(PropertyDefinition? arrayItems = null)
     {
