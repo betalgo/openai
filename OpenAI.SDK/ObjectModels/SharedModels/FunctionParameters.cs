@@ -79,7 +79,7 @@ public class PropertyDefinition
     public PropertyDefinition? Items { get; set; }
     
     /// <summary>
-    ///     Definitions of schemas (draft-07 specification).
+    ///     Definitions of schemas (2020-12 and newer specifications).
     ///     For more details, see https://json-schema.org/understanding-json-schema/structuring#defs
     /// </summary>
     [JsonPropertyName("$defs")]
