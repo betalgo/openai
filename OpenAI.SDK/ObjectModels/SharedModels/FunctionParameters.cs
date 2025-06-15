@@ -23,7 +23,14 @@ public class PropertyDefinition
     ///     Required. Function parameter object type. Default value is "object".
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; } = "object";
+    public string? Type { get; set; }
+    
+    /// <summary>
+    ///     An instance validates successfully against this keyword if its value is equal to the value of the keyword
+    ///     https://json-schema.org/draft/2020-12/json-schema-validation#name-const
+    /// </summary>
+    [JsonPropertyName("const")]
+    public string? Constant { get; set; }
 
     /// <summary>
     ///     Optional. List of "function arguments", as a dictionary that maps from argument name
@@ -45,7 +52,15 @@ public class PropertyDefinition
     public bool? AdditionalProperties { get; set; }
 
     /// <summary>
-    ///     Optional. Argument description.
+    ///     Optional. Title of the schema.
+    ///     https://json-schema.org/draft/2020-12/json-schema-validation#name-title-and-description
+    /// </summary>
+    [JsonPropertyName("title")]
+    public string? Title { get; set; }
+    
+    /// <summary>
+    ///     Optional. Description of the schema.
+    ///     https://json-schema.org/draft/2020-12/json-schema-validation#name-title-and-description
     /// </summary>
     [JsonPropertyName("description")]
     public string? Description { get; set; }
@@ -69,6 +84,20 @@ public class PropertyDefinition
     /// </summary>
     [JsonPropertyName("maxProperties")]
     public int? MaxProperties { get; set; }
+    
+    /// <summary>
+    ///     The value of "minimum" MUST be a number, representing an inclusive lower limit for a numeric instance.
+    ///     https://json-schema.org/draft/2020-12/json-schema-validation#name-minimum
+    /// </summary>
+    [JsonPropertyName("minimum")]
+    public float? Minimum { get; set; }
+    
+    /// <summary>
+    ///     The value of "maximum" MUST be a number, representing an inclusive upper limit for a numeric instance.
+    ///     https://json-schema.org/draft/2020-12/json-schema-validation#name-maximum
+    /// </summary>
+    [JsonPropertyName("maximum")]
+    public float? Maximum { get; set; }
 
     /// <summary>
     ///     If type is "array", this specifies the element type for all items in the array.
@@ -104,6 +133,13 @@ public class PropertyDefinition
     /// </summary>
     [JsonPropertyName("anyOf")]
     public IList<PropertyDefinition>? AnyOf { get; set; }
+    
+    /// <summary>
+    ///     To validate against oneOf, the given data must be valid against exactly one of the given subschemas.
+    ///     For more details, see https://json-schema.org/understanding-json-schema/reference/combining#oneOf
+    /// </summary>
+    [JsonPropertyName("oneOf")]
+    public IList<PropertyDefinition>? OneOf { get; set; }
 
     public static PropertyDefinition DefineArray(PropertyDefinition? arrayItems = null)
     {
