@@ -86,6 +86,14 @@ public class PropertyDefinition
     public int? MaxProperties { get; set; }
     
     /// <summary>
+    ///     The value of "multipleOf" MUST be a number, strictly greater than 0.
+    ///     A numeric instance is valid only if division by this keyword's value results in an integer.
+    ///     https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-00#rfc.section.6.2.1
+    /// </summary>
+    [JsonPropertyName("multipleOf")]
+    public int? MultipleOf { get; set; }
+    
+    /// <summary>
     ///     The value of "minimum" MUST be a number, representing an inclusive lower limit for a numeric instance.
     ///     https://json-schema.org/draft/2020-12/json-schema-validation#name-minimum
     /// </summary>
@@ -93,11 +101,57 @@ public class PropertyDefinition
     public float? Minimum { get; set; }
     
     /// <summary>
+    ///     The value of "exclusiveMinimum" MUST be a number, representing an exclusive lower limit for a numeric
+    ///     instance. If the instance is a number, then the instance is valid only if it has a value strictly greater
+    ///     than (not equal to) "exclusiveMinimum".
+    ///     https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-00#rfc.section.6.2.5
+    /// </summary>
+    [JsonPropertyName("exclusiveMinimum")]
+    public float? ExclusiveMinimum { get; set; }
+    
+    /// <summary>
     ///     The value of "maximum" MUST be a number, representing an inclusive upper limit for a numeric instance.
     ///     https://json-schema.org/draft/2020-12/json-schema-validation#name-maximum
     /// </summary>
     [JsonPropertyName("maximum")]
     public float? Maximum { get; set; }
+    
+    /// <summary>
+    ///     The value of "exclusiveMaximum" MUST be a number, representing an exclusive upper limit for a numeric
+    ///     instance. If the instance is a number, then the instance is valid only if it has a value strictly less than
+    ///     (not equal to) "exclusiveMaximum". 
+    ///     https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-00#rfc.section.6.2.3
+    /// </summary>
+    [JsonPropertyName("exclusiveMaximum")]
+    public float? ExclusiveMaximum { get; set; }
+    
+    /// <summary>
+    ///     Predefined formats for strings. Currently supported:
+    ///     date-time, time, date, duration, email, hostname, ipv4, ipv6, uuid
+    /// </summary>
+    [JsonPropertyName("format")]
+    public string? Format { get; set; }
+    
+    /// <summary>
+    ///     A regular expression that the string must match.
+    ///     https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-00#pattern
+    /// </summary>
+    [JsonPropertyName("pattern")]
+    public string? Pattern { get; set; }
+    
+    /// <summary>
+    ///     The array must have at least this many items.
+    ///     https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-00#rfc.section.6.4.2
+    /// </summary>
+    [JsonPropertyName("minItems")]
+    public int? MinItems { get; set; }
+    
+    /// <summary>
+    ///     The array must have at most this many items.
+    ///     https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-00#rfc.section.6.4.4
+    /// </summary>
+    [JsonPropertyName("maxItems")]
+    public int? MaxItems { get; set; }
 
     /// <summary>
     ///     If type is "array", this specifies the element type for all items in the array.
