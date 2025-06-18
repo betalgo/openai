@@ -9,18 +9,18 @@
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>Betalgo-Ranul-OpenAI-icon.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Title>Fork fo OpenAI SDK by Betalgo</Title>
-		<Version>9.0.4.7</Version>
+		<Title>OpenAI SDK by Betalgo</Title>
+		<Version>9.0.4</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
-		<Product>Fork for OpenAI .NET library by Betalgo Ranul</Product>
+		<Product>OpenAI .NET library by Betalgo Ranul</Product>
 		<Description>.NET library for the OpenAI services by Betalgo Ranul</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
 		<PackageTags>openAI,realtime,chatGPT,gpt-4, gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
-		<PackageId>Betalgo.Ranul.OpenAI.Fork</PackageId>
+		<PackageId>Betalgo.Ranul.OpenAI</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<RepositoryUrl>https://github.com/repko-artem/betalgo_openai_json_schemas_support.git</RepositoryUrl>
+		<RepositoryUrl>https://github.com/betalgo/openai.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
