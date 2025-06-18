@@ -20,7 +20,7 @@ public class PropertyDefinition
     }
 
     /// <summary>
-    ///     Required. Function parameter object type. Default value is "object".
+    ///     Function parameter object type. Default value is "object".
     /// </summary>
     [JsonPropertyName("type")]
     public string? Type { get; set; }
@@ -91,7 +91,7 @@ public class PropertyDefinition
     ///     https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-00#rfc.section.6.2.1
     /// </summary>
     [JsonPropertyName("multipleOf")]
-    public int? MultipleOf { get; set; }
+    public float? MultipleOf { get; set; }
     
     /// <summary>
     ///     The value of "minimum" MUST be a number, representing an inclusive lower limit for a numeric instance.
