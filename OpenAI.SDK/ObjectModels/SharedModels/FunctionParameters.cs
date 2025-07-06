@@ -20,10 +20,26 @@ public class PropertyDefinition
     }
 
     /// <summary>
-    ///     Function parameter object type. Default value is "object".
+    ///     Property's type as a string. Only one: <see cref="TypeList"/> or <see cref="Type"/> should be set.
+    /// </summary>
+    [JsonIgnore]
+    public string? Type {
+        get => TypeList?.Count != 1 ? null : TypeList[0];
+        set {
+            if (value == null) {
+                TypeList = null;
+                return;
+            }
+            TypeList = [value];
+        }
+    }
+
+    /// <summary>
+    ///     Property's type as a list of strings. Only one: <see cref="TypeList"/> or <see cref="Type"/> should be set.
     /// </summary>
     [JsonPropertyName("type")]
-    public string? Type { get; set; }
+    [JsonConverter(typeof(SingleOrArrayToListConverter))]
+    public IList<string?>? TypeList { get; set; }
     
     /// <summary>
     ///     An instance validates successfully against this keyword if its value is equal to the value of the keyword
