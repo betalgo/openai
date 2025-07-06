@@ -91,9 +91,9 @@ public class AssistantsApiToolChoiceConverter : JsonConverter<AssistantsApiToolC
     }
 }
 
-public class SingleOrArrayToListConverter : JsonConverter<List<string?>>
+public class SingleOrArrayToListConverter : JsonConverter<IList<string?>>
 {
-    public override List<string?>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
+    public override IList<string?>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
         switch (reader.TokenType) {
             case JsonTokenType.String:
                 return [reader.GetString()];
@@ -119,7 +119,7 @@ public class SingleOrArrayToListConverter : JsonConverter<List<string?>>
         }
     }
 
-    public override void Write(Utf8JsonWriter writer, List<string?>? value, JsonSerializerOptions options) {
+    public override void Write(Utf8JsonWriter writer, IList<string?>? value, JsonSerializerOptions options) {
         if (value == null || value.Count == 0) {
             writer.WriteNullValue();
         } else if (value.Count == 1) {
