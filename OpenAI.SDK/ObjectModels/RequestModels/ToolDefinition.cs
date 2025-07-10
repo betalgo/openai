@@ -109,6 +109,14 @@ public class FileSearchTool
     /// </summary>
     [JsonPropertyName("ranking_options")]
     public RankingOptions? RankingOptions { get; set; }
+
+    /// <summary>
+    /// Use comparison filters to compare a specific key in a file's attributes with a given value, 
+    /// and compound filters to combine multiple filters using and and or.
+    /// <see href="https://platform.openai.com/docs/guides/retrieval#attribute-filtering">Attribute filtering</see>
+    /// </summary>
+    [JsonPropertyName("filters")]
+    public FileSearchFilter? Filters { get; set; }
 }
 
 public class RankingOptions
@@ -124,4 +132,59 @@ public class RankingOptions
     /// </summary>
     [JsonPropertyName("score_threshold")]
     public float ScoreThreshold { get; set; }
+}
+
+public class FileSearchFilter
+{
+    [JsonPropertyName("type")]
+    public string Type { get; set; }
+
+    [JsonPropertyName("key")]
+    public string? Key { get; set; }
+
+    [JsonPropertyName("value")]
+    public object? Value { get; set; }
+
+    [JsonPropertyName("filters")]
+    public List<FileSearchFilter>? Filters { get; set; }
+
+    public FileSearchFilter(string type)
+    {
+        Type = type;
+    }
+
+    public static FileSearchFilter DefineComparisonFilter(string property, string condition, object value)
+    {
+        return new FileSearchFilter(condition)
+        {
+            Key = property,
+            Value = value
+        };
+    }
+
+    public static FileSearchFilter DefineCompoundFilter(List<FileSearchFilter> filters, string condition)
+    {
+        return new FileSearchFilter(condition)
+        {
+            Filters = filters
+        };
+    }
+}
+
+public static class ComparisonFilter
+{
+    //Types
+    public static string Equal = "eq";
+    public static string NotEqual = "ne";
+    public static string Greater = "gt";
+    public static string GreaterOrEqual = "gte";
+    public static string Less = "lt";
+    public static string LessOrEqual = "lte";
+}
+
+public static class CompoundFilter
+{
+    //Types
+    public static string And = "and";
+    public static string Or = "or";
 }
