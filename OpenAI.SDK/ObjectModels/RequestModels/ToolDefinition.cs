@@ -112,7 +112,7 @@ public class FileSearchTool
 
     /// <summary>
     /// Use comparison filters to compare a specific key in a file's attributes with a given value, 
-    /// and compound filters to combine multiple filters using and and or.
+    /// and compound filters to combine multiple filters using `and` and `or`.
     /// <see href="https://platform.openai.com/docs/guides/retrieval#attribute-filtering">Attribute filtering</see>
     /// </summary>
     [JsonPropertyName("filters")]
@@ -139,12 +139,21 @@ public class FileSearchFilter
     [JsonPropertyName("type")]
     public string Type { get; set; }
 
+    /// <summary>
+    /// The key to compare against the value.
+    /// </summary>
     [JsonPropertyName("key")]
     public string? Key { get; set; }
 
+    /// <summary>
+    /// The value to compare against the attribute key; supports string, number, or boolean types.
+    /// </summary>
     [JsonPropertyName("value")]
     public object? Value { get; set; }
 
+    /// <summary>
+    /// Array of filters to combine. Items can be ComparisonFilter or CompoundFilter.
+    /// </summary>
     [JsonPropertyName("filters")]
     public List<FileSearchFilter>? Filters { get; set; }
 
@@ -155,7 +164,7 @@ public class FileSearchFilter
 
     public static FileSearchFilter DefineComparisonFilter(string property, string condition, object value)
     {
-        return new FileSearchFilter(condition)
+        return new(condition)
         {
             Key = property,
             Value = value
@@ -164,7 +173,7 @@ public class FileSearchFilter
 
     public static FileSearchFilter DefineCompoundFilter(List<FileSearchFilter> filters, string condition)
     {
-        return new FileSearchFilter(condition)
+        return new(condition)
         {
             Filters = filters
         };
@@ -174,17 +183,17 @@ public class FileSearchFilter
 public static class ComparisonFilter
 {
     //Types
-    public static string Equal = "eq";
-    public static string NotEqual = "ne";
-    public static string Greater = "gt";
-    public static string GreaterOrEqual = "gte";
-    public static string Less = "lt";
-    public static string LessOrEqual = "lte";
+    public const string Equal = "eq";
+    public const string NotEqual = "ne";
+    public const string Greater = "gt";
+    public const string GreaterOrEqual = "gte";
+    public const string Less = "lt";
+    public const string LessOrEqual = "lte";
 }
 
 public static class CompoundFilter
 {
     //Types
-    public static string And = "and";
-    public static string Or = "or";
+    public const string And = "and";
+    public const string Or = "or";
 }
