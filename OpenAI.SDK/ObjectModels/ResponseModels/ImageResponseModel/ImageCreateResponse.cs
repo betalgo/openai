@@ -16,7 +16,7 @@ public record ImageCreateResponse : BaseResponse, IOpenAIModels.ICreatedAt
     ///     For <c>gpt-image-1</c> only, the token usage information for the image generation.
     /// </summary>
     [JsonPropertyName("usage")]
-    public UsageModel Usage { get; set; }
+    public UsageModel? Usage { get; set; }
 
     public record ImageDataResult
     {
