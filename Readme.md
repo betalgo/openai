@@ -119,19 +119,22 @@ Needless to say, I cannot accept responsibility for any damage caused by using t
 ## Changelog
 ### 9.1.0
 
-### Image Generation Enhancements:
-* [`OpenAI.SDK/ObjectModels/ResponseModels/ImageResponseModel/ImageCreateResponse.cs`](diffhunk://#diff-4b2fc8a8f9d3378fda1ecc2d1a431bb34036298f21d4b11e4246af32728c677bR15-R20): Added a new `UsageModel` class to include token usage information for image generation. Introduced detailed token usage tracking with the `InputTokensDetailsModel` class. [[1]](diffhunk://#diff-4b2fc8a8f9d3378fda1ecc2d1a431bb34036298f21d4b11e4246af32728c677bR15-R20) [[2]](diffhunk://#diff-4b2fc8a8f9d3378fda1ecc2d1a431bb34036298f21d4b11e4246af32728c677bR32-R137)
+### Image Generation
+- Added `UsageModel` to include detailed token usage tracking for image generation responses.
 
-### JSON Schema Validation Improvements:
-* [`OpenAI.SDK/ObjectModels/SharedModels/FunctionParameters.cs`](diffhunk://#diff-3a87e4db9d2cb385852bd7ceb92b936d143d039c4f67b20655b4a7257059e733L23-R49): Added new properties such as `MultipleOf`, `Minimum`, `Maximum`, and `Pattern` to enhance JSON schema validation. Introduced a `SingleOrArrayToListConverter` to handle properties that can be single values or arrays. [[1]](diffhunk://#diff-3a87e4db9d2cb385852bd7ceb92b936d143d039c4f67b20655b4a7257059e733L23-R49) [[2]](diffhunk://#diff-3a87e4db9d2cb385852bd7ceb92b936d143d039c4f67b20655b4a7257059e733R104-R171) [[3]](diffhunk://#diff-b4757103bb80daa8cc9579adfbc24a1d7f625fbcf1284de638dd08a11a520f45R93-R139)
+### JSON Schema Validation
+- Enhanced `FunctionParameters` with `MultipleOf`, `Minimum`, `Maximum`, and `Pattern` support.
+- Added `SingleOrArrayToListConverter` to handle single values or arrays.
 
-### Code Simplification and Optimization:
-* [`OpenAI.SDK/ObjectModels/RequestModels/MessageContent.cs`](diffhunk://#diff-aea6b68999dc649fc1ed80e91b131923198d195e358a500c29f33809388652bdR32-L63): Refactored static helper methods to use expression-bodied syntax. Added support for binary file content with the new `FileBinaryContent` method and `MessageFile` class. [[1]](diffhunk://#diff-aea6b68999dc649fc1ed80e91b131923198d195e358a500c29f33809388652bdR32-L63) [[2]](diffhunk://#diff-aea6b68999dc649fc1ed80e91b131923198d195e358a500c29f33809388652bdL72-R142)
-* [`OpenAI.SDK/ObjectModels/RequestModels/ToolDefinition.cs`](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dL177-R198): Converted comparison and compound filter type definitions from `static string` to `const string` for better performance and clarity. Simplified filter creation methods. [[1]](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dL177-R198) [[2]](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dL158-R167)
+### Code Improvements
+- Refactored `MessageContent` with expression-bodied helpers and added binary file support.
+- Converted filter type definitions in `ToolDefinition` from `static string` to `const string` for clarity and performance.
+- Simplified filter creation methods.
 
-### Minor Documentation and Formatting Updates:
-* [`OpenAI.SDK/ObjectModels/RequestModels/ToolDefinition.cs`](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dL115-R115): Improved documentation for filter attributes and corrected formatting in comments. [[1]](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dL115-R115) [[2]](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dR142-R156)
-* [`OpenAI.SDK/ObjectModels/SharedModels/FunctionParameters.cs`](diffhunk://#diff-3a87e4db9d2cb385852bd7ceb92b936d143d039c4f67b20655b4a7257059e733L1-R1): Fixed unnecessary BOM character in the file header.
+### Documentation and Formatting
+- Improved comments and formatting in `ToolDefinition`.
+- Fixed BOM character issue in `FunctionParameters`.
+
 ### 9.0.4
 - Updated `Microsoft.Extensions.AI` to version `9.5.0`  
 
@@ -152,40 +155,6 @@ Needless to say, I cannot accept responsibility for any damage caused by using t
 - .NET 9 support added.
 - ⚠️ Support for .NET 6 and .NET 7 has ended.
 - Fixed utility library issues and synced with latest version.
-
-### 8.10.1
-- Fixed an issue with the `Store` parameter being included in requests by default, causing errors with Azure OpenAI models. The parameter is now optional and excluded from serialization unless explicitly set.
-
-### 8.10.0
-- Added support for `Microsoft.Extensions.AI` `IChatClient` and `IEmbeddingGenerator` (more information will be coming soon to the Wiki).
-- Added missing `Temperature` and `TopP` parameters to `AssistantResponse`.
-- Added missing `Store` parameter to `ChatCompletionCreateRequest`.
-
-- Breaking Changes:
-   - ⚠️ `CreatedAt` parameter renamed to `CreatedAtUnix` and converted to `long` instead of `int`. Added `CreatedAt` parameter as `DateTimeOffset` type, which will automatically convert Unix time to `DateTime`.
-
-### 8.9.0
-- Realtime API implementation is completed. As usual this is the first version and it may contain bugs. Please report any issues you encounter.
-- [Realtime Sample](https://github.com/betalgo/openai/wiki/realtime)
-
-### 8.8.0
-
-- **Compatibility Enhancement**: You can now use this library alongside the official OpenAI library and/or Semantic Kernel within the same project. The name changes in this update support this feature.
-
-- **Namespace and Package ID Update**: The namespace and PackageId have been changed from `Betalgo.OpenAI` to `Betalgo.Ranul.OpenAI`.
-
-- **OpenAI Naming Consistency**: We've standardized the use of "OpenAI" throughout the library, replacing any instances of "OpenAi" or other variations.
-
-- **Migration Instructions**: Intellisense should assist you in updating your code. If it doesn't, please make the following changes manually:
-  - Switch to the new NuGet package: `Betalgo.Ranul.OpenAI` instead of `Betalgo.OpenAI`.
-  - Update all namespaces from `OpenAI` to `Betalgo.Ranul.OpenAI`.
-  - Replace all occurrences of "OpenAi", "Openai", or any other variations with "OpenAI".
-
-- **Need Help?**: If you encounter any issues, feel free to reach out via our Discord channel, Reddit channel, or GitHub discussions. We're happy to assist.
-
-- **Feedback Welcomed**: If you notice any mistakes or missing name changes, please create an issue to let us know.
-
-- **Utilities Library Status**: Please note that the Utilities library might remain broken for a while. I will focus on fixing it after completing the real-time API implementation.
 
 ### [More Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
 ---
