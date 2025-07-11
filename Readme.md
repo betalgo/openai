@@ -117,6 +117,21 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 9.1.0
+
+### Image Generation Enhancements:
+* [`OpenAI.SDK/ObjectModels/ResponseModels/ImageResponseModel/ImageCreateResponse.cs`](diffhunk://#diff-4b2fc8a8f9d3378fda1ecc2d1a431bb34036298f21d4b11e4246af32728c677bR15-R20): Added a new `UsageModel` class to include token usage information for image generation. Introduced detailed token usage tracking with the `InputTokensDetailsModel` class. [[1]](diffhunk://#diff-4b2fc8a8f9d3378fda1ecc2d1a431bb34036298f21d4b11e4246af32728c677bR15-R20) [[2]](diffhunk://#diff-4b2fc8a8f9d3378fda1ecc2d1a431bb34036298f21d4b11e4246af32728c677bR32-R137)
+
+### JSON Schema Validation Improvements:
+* [`OpenAI.SDK/ObjectModels/SharedModels/FunctionParameters.cs`](diffhunk://#diff-3a87e4db9d2cb385852bd7ceb92b936d143d039c4f67b20655b4a7257059e733L23-R49): Added new properties such as `MultipleOf`, `Minimum`, `Maximum`, and `Pattern` to enhance JSON schema validation. Introduced a `SingleOrArrayToListConverter` to handle properties that can be single values or arrays. [[1]](diffhunk://#diff-3a87e4db9d2cb385852bd7ceb92b936d143d039c4f67b20655b4a7257059e733L23-R49) [[2]](diffhunk://#diff-3a87e4db9d2cb385852bd7ceb92b936d143d039c4f67b20655b4a7257059e733R104-R171) [[3]](diffhunk://#diff-b4757103bb80daa8cc9579adfbc24a1d7f625fbcf1284de638dd08a11a520f45R93-R139)
+
+### Code Simplification and Optimization:
+* [`OpenAI.SDK/ObjectModels/RequestModels/MessageContent.cs`](diffhunk://#diff-aea6b68999dc649fc1ed80e91b131923198d195e358a500c29f33809388652bdR32-L63): Refactored static helper methods to use expression-bodied syntax. Added support for binary file content with the new `FileBinaryContent` method and `MessageFile` class. [[1]](diffhunk://#diff-aea6b68999dc649fc1ed80e91b131923198d195e358a500c29f33809388652bdR32-L63) [[2]](diffhunk://#diff-aea6b68999dc649fc1ed80e91b131923198d195e358a500c29f33809388652bdL72-R142)
+* [`OpenAI.SDK/ObjectModels/RequestModels/ToolDefinition.cs`](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dL177-R198): Converted comparison and compound filter type definitions from `static string` to `const string` for better performance and clarity. Simplified filter creation methods. [[1]](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dL177-R198) [[2]](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dL158-R167)
+
+### Minor Documentation and Formatting Updates:
+* [`OpenAI.SDK/ObjectModels/RequestModels/ToolDefinition.cs`](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dL115-R115): Improved documentation for filter attributes and corrected formatting in comments. [[1]](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dL115-R115) [[2]](diffhunk://#diff-083e780c9420a22d08abb5c2c517e9c06292bcbf10bc39903405a877e0d6b85dR142-R156)
+* [`OpenAI.SDK/ObjectModels/SharedModels/FunctionParameters.cs`](diffhunk://#diff-3a87e4db9d2cb385852bd7ceb92b936d143d039c4f67b20655b4a7257059e733L1-R1): Fixed unnecessary BOM character in the file header.
 ### 9.0.4
 - Updated `Microsoft.Extensions.AI` to version `9.5.0`  
 
