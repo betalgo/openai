@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
@@ -27,7 +28,7 @@ public record RunResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.IMode
     ///     completed, or expired.
     /// </summary>
     [JsonPropertyName("status")]
-    public string Status { get; set; }
+    public RunStatusEnum Status { get; set; }
 
     /// <summary>
     ///     Details on the action required to continue the run.

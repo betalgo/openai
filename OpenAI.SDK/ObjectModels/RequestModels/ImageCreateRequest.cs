@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
@@ -28,18 +29,16 @@ public record ImageCreateRequest : SharedImageRequestBaseModel, IOpenAIModels.IU
     ///     The quality of the image that will be generated. Possible values are 'standard' or 'hd' (default is 'standard').
     ///     Hd creates images with finer details and greater consistency across the image.
     ///     This param is only supported for dall-e-3 model.
-    ///     <br /><br />Check <see cref="StaticValues.ImageStatics.Quality" /> for possible values
     /// </summary>
     [JsonPropertyName("quality")]
-    public string? Quality { get; set; }
+    public ImageQualityEnum? Quality { get; set; }
 
     /// <summary>
     ///     The style of the generated images. Must be one of vivid or natural.
     ///     Vivid causes the model to lean towards generating hyper-real and dramatic images.
     ///     Natural causes the model to produce more natural, less hyper-real looking images. This param is only supported for
     ///     dall-e-3.
-    ///     <br /><br />Check <see cref="StaticValues.ImageStatics.Style" /> for possible values
     /// </summary>
     [JsonPropertyName("style")]
-    public string? Style { get; set; }
+    public ImageStyleEnum? Style { get; set; }
 }

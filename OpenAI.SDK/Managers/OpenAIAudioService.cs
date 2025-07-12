@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.Extensions;
 using Betalgo.Ranul.OpenAI.Interfaces;
-using Betalgo.Ranul.OpenAI.ObjectModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
@@ -12,21 +12,15 @@ namespace Betalgo.Ranul.OpenAI.Managers;
 public partial class OpenAIService : IAudioService
 {
     /// <inheritdoc />
-    public async Task<AudioCreateTranscriptionResponse> CreateTranscription(AudioCreateTranscriptionRequest audioCreateTranscriptionRequest, CancellationToken cancellationToken = default)
-    {
-        return await Create(audioCreateTranscriptionRequest, _endpointProvider.AudioCreateTranscription(), cancellationToken);
-    }
+    public async Task<AudioCreateTranscriptionResponse> CreateTranscription(AudioCreateTranscriptionRequest audioCreateTranscriptionRequest, CancellationToken cancellationToken = default) =>
+        await Create(audioCreateTranscriptionRequest, _endpointProvider.AudioCreateTranscription(), cancellationToken);
 
     /// <inheritdoc />
-    public async Task<AudioCreateTranscriptionResponse> CreateTranslation(AudioCreateTranscriptionRequest audioCreateTranscriptionRequest, CancellationToken cancellationToken = default)
-    {
-        return await Create(audioCreateTranscriptionRequest, _endpointProvider.AudioCreateTranslation(), cancellationToken);
-    }
+    public async Task<AudioCreateTranscriptionResponse> CreateTranslation(AudioCreateTranscriptionRequest audioCreateTranscriptionRequest, CancellationToken cancellationToken = default) =>
+        await Create(audioCreateTranscriptionRequest, _endpointProvider.AudioCreateTranslation(), cancellationToken);
 
-    public async Task<AudioCreateSpeechResponse<T>> CreateSpeech<T>(AudioCreateSpeechRequest audioCreateSpeechRequest, CancellationToken cancellationToken = default)
-    {
-        return await _httpClient.PostAndReadAsDataAsync<AudioCreateSpeechResponse<T>, T>(_endpointProvider.AudioCreateSpeech(), audioCreateSpeechRequest, cancellationToken);
-    }
+    public async Task<AudioCreateSpeechResponse<T>> CreateSpeech<T>(AudioCreateSpeechRequest audioCreateSpeechRequest, CancellationToken cancellationToken = default) =>
+        await _httpClient.PostAndReadAsDataAsync<AudioCreateSpeechResponse<T>, T>(_endpointProvider.AudioCreateSpeech(), audioCreateSpeechRequest, cancellationToken);
 
     private async Task<AudioCreateTranscriptionResponse> Create(AudioCreateTranscriptionRequest audioCreateTranscriptionRequest, string uri, CancellationToken cancellationToken = default)
     {
@@ -77,8 +71,8 @@ public partial class OpenAIService : IAudioService
         }
 
 
-        if (null == audioCreateTranscriptionRequest.ResponseFormat || StaticValues.AudioStatics.ResponseFormat.Json == audioCreateTranscriptionRequest.ResponseFormat ||
-            StaticValues.AudioStatics.ResponseFormat.VerboseJson == audioCreateTranscriptionRequest.ResponseFormat)
+        if (null == audioCreateTranscriptionRequest.ResponseFormat || AudioCreateTranscriptionResponseFormat.Json == audioCreateTranscriptionRequest.ResponseFormat ||
+            AudioCreateTranscriptionResponseFormat.VerboseJson == audioCreateTranscriptionRequest.ResponseFormat)
         {
             return await _httpClient.PostFileAndReadAsAsync<AudioCreateTranscriptionResponse>(uri, multipartContent, cancellationToken);
         }

@@ -1,23 +1,23 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 public class ToolChoice
 {
-    public static ToolChoice None => new() { Type = StaticValues.CompletionStatics.ToolChoiceType.None };
-    public static ToolChoice Auto => new() { Type = StaticValues.CompletionStatics.ToolChoiceType.Auto };
-    public static ToolChoice Required => new() { Type = StaticValues.CompletionStatics.ToolChoiceType.Required };
+    public static ToolChoice None => new() { Type = ToolChoiceTypeEnum.None };
+    public static ToolChoice Auto => new() { Type = ToolChoiceTypeEnum.Auto };
+    public static ToolChoice Required => new() { Type = ToolChoiceTypeEnum.Required };
 
     /// <summary>
     ///     "none" is the default when no functions are present.  <br />
     ///     "auto" is the default if functions are present.  <br />
     ///     "function" has to be assigned if user Function is not null<br />
     ///     <br />
-    ///     Check <see cref="StaticValues.CompletionStatics.ToolChoiceType" /> for possible values.
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public ToolChoiceTypeEnum Type { get; set; }
 
     [JsonPropertyName("function")]
     public FunctionTool? Function { get; set; }
@@ -26,7 +26,7 @@ public class ToolChoice
     {
         return new()
         {
-            Type = StaticValues.CompletionStatics.ToolChoiceType.Function,
+            Type = ToolChoiceTypeEnum.Function,
             Function = new()
             {
                 Name = functionName

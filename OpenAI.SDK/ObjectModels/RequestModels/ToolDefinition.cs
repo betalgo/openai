@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
@@ -12,7 +13,7 @@ public class ToolDefinition
     ///     Required. The type of the tool. Currently, only function is supported.
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public ToolCallTypeEnum Type { get; set; }
 
     /// <summary>
     ///     Overrides for the file search tool.
@@ -50,7 +51,7 @@ public class ToolDefinition
     {
         return new()
         {
-            Type = StaticValues.CompletionStatics.ToolType.Function,
+            Type = ToolCallTypeEnum.Function,
             Function = function
         };
     }
@@ -59,7 +60,7 @@ public class ToolDefinition
     {
         return new()
         {
-            Type = StaticValues.AssistantsStatics.ToolCallTypes.CodeInterpreter
+            Type = ToolCallTypeEnum.CodeInterpreter
         };
     }
 
@@ -68,7 +69,7 @@ public class ToolDefinition
     {
         return new()
         {
-            Type = StaticValues.AssistantsStatics.ToolCallTypes.FileSearch
+            Type = ToolCallTypeEnum.FileSearch
         };
     }
 
@@ -76,7 +77,7 @@ public class ToolDefinition
     {
         return new()
         {
-            Type = StaticValues.AssistantsStatics.ToolCallTypes.FileSearch,
+            Type = ToolCallTypeEnum.FileSearch,
             FileSearchTool = fileSearchTool
         };
     }

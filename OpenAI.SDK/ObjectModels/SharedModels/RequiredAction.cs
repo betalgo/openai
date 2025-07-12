@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
@@ -12,7 +13,7 @@ public class RequiredAction
     ///     For now, this is always submit_tool_outputs.
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public RequiredActionTypeEnum Type { get; set; }
 
     /// <summary>
     ///     Details on the tool outputs needed for this run to continue.

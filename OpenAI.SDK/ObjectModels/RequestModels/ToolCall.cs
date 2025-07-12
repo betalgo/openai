@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
@@ -20,7 +21,7 @@ public class ToolCall
     ///     The type of the tool. Currently, only function is supported.
     /// </summary>
     [JsonPropertyName("type")]
-    public string? Type { get; set; }
+    public ToolCallTypeEnum? Type { get; set; }
 
     /// <summary>
     ///     The function that the model called.

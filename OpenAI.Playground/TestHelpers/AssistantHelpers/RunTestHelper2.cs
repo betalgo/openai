@@ -1,4 +1,5 @@
 ﻿using Betalgo.Ranul.OpenAI.Builders;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.Interfaces;
 using Betalgo.Ranul.OpenAI.ObjectModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
@@ -48,9 +49,9 @@ internal static class RunTestHelper2
             var runId = runResult.Id;
             ConsoleExtensions.WriteLine($"runId: {runId}");
 
-            var doneStatusList = new List<string>()
-                { StaticValues.AssistantsStatics.RunStatus.Cancelled, StaticValues.AssistantsStatics.RunStatus.Completed, StaticValues.AssistantsStatics.RunStatus.Failed, StaticValues.AssistantsStatics.RunStatus.Expired };
-            var runStatus = StaticValues.AssistantsStatics.RunStatus.Queued;
+            var doneStatusList = new List<RunStatusEnum>()
+                { RunStatusEnum.Cancelled, RunStatusEnum.Completed, RunStatusEnum.Failed, RunStatusEnum.Expired };
+            var runStatus = RunStatusEnum.Queued;
             var attemptCount = 0;
             var maxAttempts = 10;
 
@@ -64,7 +65,7 @@ internal static class RunTestHelper2
                 }
 
                 var requireAction = runRetrieveResult.RequiredAction;
-                if (runStatus == StaticValues.AssistantsStatics.RunStatus.RequiresAction && requireAction.Type == StaticValues.AssistantsStatics.RequiredActionTypes.SubmitToolOutputs)
+                if (runStatus == RunStatusEnum.RequiresAction && requireAction.Type == RequiredActionTypeEnum.SubmitToolOutputs)
                 {
                     var toolCalls = requireAction.SubmitToolOutputs.ToolCalls;
                     foreach (var toolCall in toolCalls)

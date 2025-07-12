@@ -1,4 +1,5 @@
 ﻿using Betalgo.Ranul.OpenAI.Builders;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.Interfaces;
 using Betalgo.Ranul.OpenAI.ObjectModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
@@ -60,10 +61,10 @@ internal static class ChatCompletionTestHelper
             {
                 Messages = new List<ChatMessage>
                 {
-                    new(StaticValues.ChatMessageRoles.System, "You are a helpful assistant."),
-                    new(StaticValues.ChatMessageRoles.User, "Who won the world series in 2020?"),
-                    new(StaticValues.ChatMessageRoles.System, "The Los Angeles Dodgers won the World Series in 2020."),
-                    new(StaticValues.ChatMessageRoles.User, "Tell me a story about The Los Angeles Dodgers")
+                    new(ChatMessageRoleEnum.System, "You are a helpful assistant."),
+                    new(ChatMessageRoleEnum.User, "Who won the world series in 2020?"),
+                    new(ChatMessageRoleEnum.System, "The Los Angeles Dodgers won the World Series in 2020."),
+                    new(ChatMessageRoleEnum.User, "Tell me a story about The Los Angeles Dodgers")
                 },
                 MaxTokens = 150,
                 Model = Models.Gpt_3_5_Turbo
@@ -106,10 +107,10 @@ internal static class ChatCompletionTestHelper
             {
                 Messages = new List<ChatMessage>
                 {
-                    new(StaticValues.ChatMessageRoles.System, "You are a helpful assistant."),
-                    new(StaticValues.ChatMessageRoles.User, "Who won the world series in 2020?"),
-                    new(StaticValues.ChatMessageRoles.System, "The Los Angeles Dodgers won the World Series in 2020."),
-                    new(StaticValues.ChatMessageRoles.User, "Tell me a story about The Los Angeles Dodgers")
+                    new(ChatMessageRoleEnum.System, "You are a helpful assistant."),
+                    new(ChatMessageRoleEnum.User, "Who won the world series in 2020?"),
+                    new(ChatMessageRoleEnum.System, "The Los Angeles Dodgers won the World Series in 2020."),
+                    new(ChatMessageRoleEnum.User, "Tell me a story about The Los Angeles Dodgers")
                 },
                 StreamOptions = new()
                 {
@@ -462,7 +463,7 @@ internal static class ChatCompletionTestHelper
                 Model = "gpt-4o-2024-08-06",
                 ResponseFormat = new()
                 {
-                    Type = StaticValues.CompletionStatics.ResponseFormat.JsonSchema,
+                    Type = ResponseFormatEnum.JsonSchema,
                     JsonSchema = new()
                     {
                         Name = "math_response",
@@ -517,7 +518,7 @@ internal static class ChatCompletionTestHelper
                 ],
                 MaxCompletionTokens = 2000,
                 Model = Models.O3_mini,
-                ChatReasoningEffort = ChatCompletionCreateRequest.ReasoningEfforts.Low
+                ReasoningEffort = ReasoningEffortEnum.Low
             });
 
             if (completionResult.Successful)

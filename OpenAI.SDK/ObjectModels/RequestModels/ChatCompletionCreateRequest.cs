@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.Interfaces;
 using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
@@ -14,12 +15,6 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
         JsonSchema
     }
 
-    public enum ReasoningEfforts
-    {
-        Low,
-        Medium,
-        High
-    }
 
     /// <summary>
     ///     The messages to generate chat completions for, in the chat format.
@@ -182,12 +177,12 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     {
         get
         {
-            if (ToolChoice != null && ToolChoice.Type != StaticValues.CompletionStatics.ToolChoiceType.Function && ToolChoice.Function != null)
+            if (ToolChoice != null && ToolChoice.Type != ToolChoiceTypeEnum.Function && ToolChoice.Function != null)
             {
                 throw new ValidationException("You cannot choose another type besides \"function\" while ToolChoice.Function is not null.");
             }
 
-            if (ToolChoice?.Type == StaticValues.CompletionStatics.ToolChoiceType.Function)
+            if (ToolChoice?.Type == ToolChoiceTypeEnum.Function)
             {
                 return ToolChoice;
             }
@@ -199,57 +194,9 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     /// <summary>
     ///     The format that the model must output. Used to enable JSON mode.
     ///     Must be one of "text" or "json_object".<br />
-    ///     <see cref="StaticValues.CompletionStatics.ResponseFormat" /><br />
-    ///     <example>
-    ///         Sample Usage:<br />
-    ///         new ResponseFormat { Type = StaticValues.CompletionStatics.ResponseFormat.Json }
-    ///     </example>
     /// </summary>
     [JsonPropertyName("response_format")]
     public ResponseFormat? ResponseFormat { get; set; }
-
-    /// <summary>
-    ///     The format that the model must output. Used to enable JSON mode.
-    ///     Must be one of "text" or "json_object".
-    /// </summary>
-    /// <example>
-    ///     This example shows how to set the ChatResponseFormat to JSON:
-    ///     <code>
-    ///         var chatResponse = new ChatResponse
-    ///         {
-    ///             ChatResponseFormat = ChatResponseFormats.Json
-    ///         };
-    ///     </code>
-    /// </example>
-    /// <exception cref="ArgumentOutOfRangeException">
-    ///     Thrown when an unsupported <see cref="ResponseFormats" /> value is provided.
-    /// </exception>
-    /// <exception cref="ValidationException">
-    ///     Thrown when <see cref="ResponseFormat" /> is already set.
-    /// </exception>
-    [JsonIgnore]
-    public ResponseFormats? ChatResponseFormat
-    {
-        set
-        {
-            if (value == null) return;
-            if (ResponseFormat?.Type != null)
-            {
-                throw new ValidationException("ResponseFormat and ChatResponseFormat can not be assigned at the same time. One of them is should be null.");
-            }
-
-            ResponseFormat = new()
-            {
-                Type = value switch
-                {
-                    ResponseFormats.Json => StaticValues.CompletionStatics.ResponseFormat.Json,
-                    ResponseFormats.Text => StaticValues.CompletionStatics.ResponseFormat.Text,
-                    ResponseFormats.JsonSchema => StaticValues.CompletionStatics.ResponseFormat.JsonSchema,
-                    _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
-                }
-            };
-        }
-    }
 
     /// <summary>
     ///     This feature is in Beta. If specified, our system will make a best effort to sample deterministically, such that
@@ -291,41 +238,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     ///     Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
     /// </summary>
     [JsonPropertyName("reasoning_effort")]
-    public string? ReasoningEffort { get; set; }
-
-    /// <summary>
-    ///     Constrains effort on reasoning for reasoning models. Currently supported values are low, medium, and high.
-    ///     Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
-    /// </summary>
-    /// <exception cref="ArgumentOutOfRangeException">
-    ///     Thrown when an unsupported <see cref="ReasoningEfforts" /> value is provided.
-    /// </exception>
-    /// <exception cref="ValidationException">
-    ///     Thrown when <see cref="ReasoningEffort" /> is already set.
-    /// </exception>
-    [JsonIgnore]
-    public ReasoningEfforts? ChatReasoningEffort
-    {
-        set
-        {
-            if (value == null) return;
-            if (ReasoningEffort != null)
-            {
-                throw new ValidationException(
-                    "ReasoningEffort and ChatReasoningEffort can not be assigned at the same time. One of them " +
-                        "should be null."
-                );
-            }
-
-            ReasoningEffort = value switch
-            {
-                ReasoningEfforts.Low => StaticValues.CompletionStatics.ReasoningEffort.Low,
-                ReasoningEfforts.Medium => StaticValues.CompletionStatics.ReasoningEffort.Medium,
-                ReasoningEfforts.High => StaticValues.CompletionStatics.ReasoningEffort.High,
-                _ => throw new ArgumentOutOfRangeException(nameof(value), value, null)
-            };
-        }
-    }
+    public ReasoningEffortEnum? ReasoningEffort { get; set; }
 
     public IEnumerable<ValidationResult> Validate()
     {

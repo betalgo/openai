@@ -77,7 +77,7 @@ public partial class OpenAIService : IImageService
 
         if (imageEditCreateRequest.ResponseFormat != null)
         {
-            multipartContent.Add(new StringContent(imageEditCreateRequest.ResponseFormat), "response_format");
+            multipartContent.Add(new StringContent(imageEditCreateRequest.ResponseFormat.ToString()), "response_format");
         }
 
         if (imageEditCreateRequest.Size != null)

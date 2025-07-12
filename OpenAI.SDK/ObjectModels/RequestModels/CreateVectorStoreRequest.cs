@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
@@ -46,7 +47,7 @@ public class ChunkingStrategy
     ///     The type of chunking strategy. Must be either "auto" or "static".
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public VectorStoreChunkingStrategyTypeEnum Type { get; set; }
 
     /// <summary>
     ///     The static chunking parameters. Required if type is "static".

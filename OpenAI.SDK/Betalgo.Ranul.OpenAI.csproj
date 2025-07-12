@@ -73,4 +73,7 @@
 		<PackageReference Include="Microsoft.Extensions.AI.Abstractions" Version="9.5.0" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Betalgo.Ranul.OpenAI.Contracts\Betalgo.Ranul.OpenAI.Contracts.csproj" />
+	</ItemGroup>
 </Project>

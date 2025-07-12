@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
@@ -25,7 +26,7 @@ public record MessageResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.I
     ///     The entity that produced the message. One of user or assistant.
     /// </summary>
     [JsonPropertyName("role")]
-    public string Role { get; set; }
+    public AssistantMessageRoleEnum Role { get; set; }
 
     /// <summary>
     ///     The content of the message in array of text and/or images.

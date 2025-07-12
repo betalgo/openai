@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
@@ -17,7 +18,7 @@ public class ResponseFormat
     /// </summary>
 
     [JsonPropertyName("type")]
-    public string? Type { get; set; }
+    public ResponseFormatEnum? Type { get; set; }
     
     [JsonPropertyName("json_schema")]
     public JsonSchema JsonSchema { get; set; }

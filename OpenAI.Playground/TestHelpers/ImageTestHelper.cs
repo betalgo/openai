@@ -1,4 +1,5 @@
-﻿using Betalgo.Ranul.OpenAI.Interfaces;
+﻿using Betalgo.Ranul.OpenAI.Contracts.Enums;
+using Betalgo.Ranul.OpenAI.Interfaces;
 using Betalgo.Ranul.OpenAI.ObjectModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
@@ -17,8 +18,8 @@ internal static class ImageTestHelper
             {
                 Prompt = "Laser cat eyes",
                 N = 1,
-                Size = StaticValues.ImageStatics.Size.Size1024,
-                ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
+                Size = ImageSizeEnum.Size256,
+                ResponseFormat = ImageResponseFormatEnum.Url,
                 User = "TestUser"
             });
 
@@ -66,8 +67,8 @@ internal static class ImageTestHelper
                 MaskName = maskFileName,
                 Prompt = "A sunlit indoor lounge area with a pool containing a cat",
                 N = 4,
-                Size = StaticValues.ImageStatics.Size.Size1024,
-                ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
+                Size = ImageSizeEnum.Size1024,
+                ResponseFormat = ImageResponseFormatEnum.Url,
                 User = "TestUser"
             });
 
@@ -108,8 +109,8 @@ internal static class ImageTestHelper
                 Image = originalFile,
                 ImageName = originalFileName,
                 N = 2,
-                Size = StaticValues.ImageStatics.Size.Size1024,
-                ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,
+                Size = ImageSizeEnum.Size256,
+                ResponseFormat = ImageResponseFormatEnum.Url,
                 User = "TestUser"
             });
 
