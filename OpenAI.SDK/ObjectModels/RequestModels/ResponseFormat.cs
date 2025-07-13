@@ -18,7 +18,7 @@ public class ResponseFormat
     /// </summary>
 
     [JsonPropertyName("type")]
-    public ResponseFormatEnum? Type { get; set; }
+    public Contracts.Enums.ResponseFormat? Type { get; set; }
     
     [JsonPropertyName("json_schema")]
     public JsonSchema JsonSchema { get; set; }

@@ -82,7 +82,7 @@ internal static partial class AssistantTestHelper
                 Name = "Support FAQ",
                 ChunkingStrategy = new()
                 {
-                    Type = VectorStoreChunkingStrategyTypeEnum.Static,
+                    Type = VectorStoreChunkingStrategyType.Static,
                     StaticParameters = new()
                     {
                         ChunkOverlapTokens = 400,

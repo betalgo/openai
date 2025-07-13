@@ -45,7 +45,7 @@ public class MessageContent
     ///     <param name="imageUrl">The url of an image</param>
     ///     <param name="detail">The detail property</param>
     /// </summary>
-    public static MessageContent ImageUrlContent(string imageUrl, ImageDetailTypeEnum? detail = null)
+    public static MessageContent ImageUrlContent(string imageUrl, ImageDetailType? detail = null)
     {
         return new()
         {
@@ -54,7 +54,7 @@ public class MessageContent
         };
     }
 
-    public static MessageContent ImageFileContent(string fileId, ImageDetailTypeEnum detail)
+    public static MessageContent ImageFileContent(string fileId, ImageDetailType detail)
     {
         return new()
         {
@@ -70,7 +70,7 @@ public class MessageContent
     ///     <param name="imageType">The type of image</param>
     ///     <param name="detail">The detail property</param>
     /// </summary>
-    public static MessageContent ImageBinaryContent(byte[] binaryImage, ImageFileTypeEnum imageType, ImageDetailTypeEnum? detail)
+    public static MessageContent ImageBinaryContent(byte[] binaryImage, ImageFileType imageType, ImageDetailType? detail)
     {
         return new()
         {
@@ -78,7 +78,7 @@ public class MessageContent
             ImageUrl = new()
             {
                 Url = string.Format("data:image/{0};base64,{1}", imageType, Convert.ToBase64String(binaryImage)),
-                Detail = detail?? ImageDetailTypeEnum.Auto
+                Detail = detail?? ImageDetailType.Auto
             }
         };
     }

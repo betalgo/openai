@@ -26,10 +26,10 @@ internal static class AudioTestHelper
                 Model = Models.WhisperV1,
                 TimestampGranularities =
                 [
-                    TimestampGranularityEnum.Word,
-                    TimestampGranularityEnum.Segment
+                    TimestampGranularity.Word,
+                    TimestampGranularity.Segment
                 ],
-                ResponseFormat = AudioCreateTranscriptionResponseFormat.VerboseJson
+                ResponseFormat = AudioResponseFormat.VerboseJson
             });
 
 
@@ -73,7 +73,7 @@ internal static class AudioTestHelper
                 FileName = fileName,
                 File = sampleFile,
                 Model = Models.WhisperV1,
-                ResponseFormat = AudioCreateTranscriptionResponseFormat.VerboseJson
+                ResponseFormat = AudioResponseFormat.VerboseJson
             });
 
             if (audioResult.Successful)
@@ -109,7 +109,7 @@ internal static class AudioTestHelper
                 Model = Models.Tts_1,
                 Input = "The sixth sick sheikh's sixth sheep's sick",
                 Voice = VoiceEnum.Alloy,
-                ResponseFormat = CreateSpeechResponseFormatEnum.Mp3,
+                ResponseFormat = CreateSpeechResponseFormat.Mp3,
                 Speed = 1.1f
             });
 

@@ -47,7 +47,7 @@ public class ChunkingStrategy
     ///     The type of chunking strategy. Must be either "auto" or "static".
     /// </summary>
     [JsonPropertyName("type")]
-    public VectorStoreChunkingStrategyTypeEnum Type { get; set; }
+    public VectorStoreChunkingStrategyType Type { get; set; }
 
     /// <summary>
     ///     The static chunking parameters. Required if type is "static".

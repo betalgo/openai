@@ -36,7 +36,7 @@ public class MessageImageUrl
     ///     as 512px squares based on the input image size.
     /// </summary>
     [JsonPropertyName("detail")]
-    public ImageDetailTypeEnum? Detail { get; set; }
+    public ImageDetailType? Detail { get; set; }
 }
 
 public class MessageImageFile
@@ -53,5 +53,5 @@ public class MessageImageFile
     ///     resolution using high.
     /// </summary>
     [JsonPropertyName("detail")]
-    public ImageDetailTypeEnum Detail { get; set; }
+    public ImageDetailType Detail { get; set; }
 }

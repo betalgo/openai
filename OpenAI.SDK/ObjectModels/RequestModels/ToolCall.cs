@@ -21,7 +21,7 @@ public class ToolCall
     ///     The type of the tool. Currently, only function is supported.
     /// </summary>
     [JsonPropertyName("type")]
-    public ToolCallTypeEnum? Type { get; set; }
+    public ToolCallType? Type { get; set; }
 
     /// <summary>
     ///     The function that the model called.

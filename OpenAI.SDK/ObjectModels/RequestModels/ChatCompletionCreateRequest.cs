@@ -177,12 +177,12 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     {
         get
         {
-            if (ToolChoice != null && ToolChoice.Type != ToolChoiceTypeEnum.Function && ToolChoice.Function != null)
+            if (ToolChoice != null && ToolChoice.Type != ToolChoiceType.Function && ToolChoice.Function != null)
             {
                 throw new ValidationException("You cannot choose another type besides \"function\" while ToolChoice.Function is not null.");
             }
 
-            if (ToolChoice?.Type == ToolChoiceTypeEnum.Function)
+            if (ToolChoice?.Type == ToolChoiceType.Function)
             {
                 return ToolChoice;
             }
@@ -238,7 +238,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     ///     Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
     /// </summary>
     [JsonPropertyName("reasoning_effort")]
-    public ReasoningEffortEnum? ReasoningEffort { get; set; }
+    public ReasoningEffort? ReasoningEffort { get; set; }
 
     public IEnumerable<ValidationResult> Validate()
     {

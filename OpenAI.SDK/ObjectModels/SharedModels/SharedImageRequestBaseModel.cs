@@ -20,13 +20,13 @@ public record SharedImageRequestBaseModel
     ///     <br /><br />Check <see cref="System.Drawing.Size" /> for possible values
     /// </summary>
     [JsonPropertyName("size")]
-    public ImageSizeEnum? Size { get; set; }
+    public ImageSize? Size { get; set; }
 
     /// <summary>
     ///     The format in which the generated images are returned. Must be one of url or b64_json
     /// </summary>
     [JsonPropertyName("response_format")]
-    public ImageResponseFormatEnum? ResponseFormat { get; set; }
+    public ImageResponseFormat? ResponseFormat { get; set; }
 
     /// <summary>
     ///     A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.

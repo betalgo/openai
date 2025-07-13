@@ -26,7 +26,7 @@ public record MessageResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.I
     ///     The entity that produced the message. One of user or assistant.
     /// </summary>
     [JsonPropertyName("role")]
-    public AssistantMessageRoleEnum Role { get; set; }
+    public AssistantMessageRole Role { get; set; }
 
     /// <summary>
     ///     The content of the message in array of text and/or images.

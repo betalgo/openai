@@ -210,7 +210,7 @@ internal static class AssistantTestHelper3
         ConsoleExtensions.WriteLine("Message Create Test:", ConsoleColor.DarkCyan);
         var messageResult = await sdk.Beta.Messages.CreateMessage(threadId, new()
         {
-            Role = AssistantMessageRoleEnum.User,
+            Role = AssistantMessageRole.User,
             Content = new("Where is Zhejiang Jiacheng Supply Chain Co., LTD."),
             // Tools must be specified for Attachments
             Attachments =
@@ -262,11 +262,11 @@ internal static class AssistantTestHelper3
         #region //waiting for run completed
 
         ConsoleExtensions.WriteLine("waiting for run completed:", ConsoleColor.DarkCyan);
-        var runningStatusList = new List<RunStatusEnum>()
+        var runningStatusList = new List<RunStatus>()
         {
-            RunStatusEnum.Queued,
-            RunStatusEnum.InProgress,
-            RunStatusEnum.RequiresAction
+            RunStatus.Queued,
+            RunStatus.InProgress,
+            RunStatus.RequiresAction
         };
 
         //Get task information
@@ -279,7 +279,7 @@ internal static class AssistantTestHelper3
              * All outputs must be submitted in a single request.
              */
             var requireAction = runRetrieveResult.RequiredAction;
-            if (runRetrieveResult.Status == RunStatusEnum.RequiresAction && requireAction != null && requireAction.Type == RequiredActionTypeEnum.SubmitToolOutputs)
+            if (runRetrieveResult.Status == RunStatus.RequiresAction && requireAction != null && requireAction.Type == RequiredActionType.SubmitToolOutputs)
             {
                 var myFunc = new List<string>() { "get_corp_location" };
                 var toolOutputs = new List<ToolOutput>();
@@ -331,8 +331,8 @@ No.615 Bayi North Street, Wucheng District, Jinhua City, Zhejiang Province"
         if (messageListResult.Successful)
         {
             var msgRespList = messageListResult.Data;
-            var ask = msgRespList?.FirstOrDefault(msg => msg.Role == AssistantMessageRoleEnum.User);
-            var replys = msgRespList?.Where(msg => msg.CreatedAt > ask?.CreatedAt && msg.Role == AssistantMessageRoleEnum.Assistant).ToList() ?? new List<MessageResponse>();
+            var ask = msgRespList?.FirstOrDefault(msg => msg.Role == AssistantMessageRole.User);
+            var replys = msgRespList?.Where(msg => msg.CreatedAt > ask?.CreatedAt && msg.Role == AssistantMessageRole.Assistant).ToList() ?? new List<MessageResponse>();
             ConsoleExtensions.WriteLine(replys.ToJson());
         }
         else

@@ -13,7 +13,7 @@ public class RequiredAction
     ///     For now, this is always submit_tool_outputs.
     /// </summary>
     [JsonPropertyName("type")]
-    public RequiredActionTypeEnum Type { get; set; }
+    public RequiredActionType Type { get; set; }
 
     /// <summary>
     ///     Details on the tool outputs needed for this run to continue.

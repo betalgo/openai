@@ -25,7 +25,7 @@ internal static class VisionTestHelper
                     {
                         MessageContent.TextContent("What is on the picture in details?"),
                         MessageContent.ImageUrlContent("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-                            ImageDetailTypeEnum.High)
+                            ImageDetailType.High)
                     })
                 },
                 MaxTokens = 300,
@@ -70,7 +70,7 @@ internal static class VisionTestHelper
                     {
                         MessageContent.TextContent("What’s in this image?"),
                         MessageContent.ImageUrlContent("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-                            ImageDetailTypeEnum.Low)
+                            ImageDetailType.Low)
                     })
                 },
                 MaxTokens = 300,
@@ -124,7 +124,7 @@ internal static class VisionTestHelper
                     ChatMessage.FromUser(new List<MessageContent>
                     {
                         MessageContent.TextContent("What is on the picture in details?"),
-                        MessageContent.ImageBinaryContent(originalFile, ImageFileTypeEnum.Png, ImageDetailTypeEnum.High)
+                        MessageContent.ImageBinaryContent(originalFile, ImageFileType.Png, ImageDetailType.High)
                     })
                 },
                 MaxTokens = 300,

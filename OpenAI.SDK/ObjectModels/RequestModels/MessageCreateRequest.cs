@@ -10,7 +10,7 @@ public class MessageCreateRequest : IOpenAIModels.IMetaData
     {
     }
 
-    public MessageCreateRequest(AssistantMessageRoleEnum role, MessageContentOneOfType content, List<Attachment>? attachments = null, Dictionary<string, string>? metaData = null)
+    public MessageCreateRequest(AssistantMessageRole role, MessageContentOneOfType content, List<Attachment>? attachments = null, Dictionary<string, string>? metaData = null)
     {
         Role = role;
         Content = content;
@@ -23,7 +23,7 @@ public class MessageCreateRequest : IOpenAIModels.IMetaData
     ///     Currently only user is supported.
     /// </summary>
     [JsonPropertyName("role")]
-    public AssistantMessageRoleEnum Role { get; set; } = AssistantMessageRoleEnum.User;
+    public AssistantMessageRole Role { get; set; } = AssistantMessageRole.User;
 
     /// <summary>
     ///     The content of the message.

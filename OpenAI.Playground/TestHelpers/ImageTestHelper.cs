@@ -18,8 +18,8 @@ internal static class ImageTestHelper
             {
                 Prompt = "Laser cat eyes",
                 N = 1,
-                Size = ImageSizeEnum.Size256,
-                ResponseFormat = ImageResponseFormatEnum.Url,
+                Size = ImageSize.Size256,
+                ResponseFormat = ImageResponseFormat.Url,
                 User = "TestUser"
             });
 
@@ -67,8 +67,8 @@ internal static class ImageTestHelper
                 MaskName = maskFileName,
                 Prompt = "A sunlit indoor lounge area with a pool containing a cat",
                 N = 4,
-                Size = ImageSizeEnum.Size1024,
-                ResponseFormat = ImageResponseFormatEnum.Url,
+                Size = ImageSize.Size1024,
+                ResponseFormat = ImageResponseFormat.Url,
                 User = "TestUser"
             });
 
@@ -109,8 +109,8 @@ internal static class ImageTestHelper
                 Image = originalFile,
                 ImageName = originalFileName,
                 N = 2,
-                Size = ImageSizeEnum.Size256,
-                ResponseFormat = ImageResponseFormatEnum.Url,
+                Size = ImageSize.Size256,
+                ResponseFormat = ImageResponseFormat.Url,
                 User = "TestUser"
             });
 

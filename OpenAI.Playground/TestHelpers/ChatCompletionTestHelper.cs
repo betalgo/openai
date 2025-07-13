@@ -61,10 +61,10 @@ internal static class ChatCompletionTestHelper
             {
                 Messages = new List<ChatMessage>
                 {
-                    new(ChatMessageRoleEnum.System, "You are a helpful assistant."),
-                    new(ChatMessageRoleEnum.User, "Who won the world series in 2020?"),
-                    new(ChatMessageRoleEnum.System, "The Los Angeles Dodgers won the World Series in 2020."),
-                    new(ChatMessageRoleEnum.User, "Tell me a story about The Los Angeles Dodgers")
+                    new(ChatCompletionRole.System, "You are a helpful assistant."),
+                    new(ChatCompletionRole.User, "Who won the world series in 2020?"),
+                    new(ChatCompletionRole.System, "The Los Angeles Dodgers won the World Series in 2020."),
+                    new(ChatCompletionRole.User, "Tell me a story about The Los Angeles Dodgers")
                 },
                 MaxTokens = 150,
                 Model = Models.Gpt_3_5_Turbo
@@ -107,10 +107,10 @@ internal static class ChatCompletionTestHelper
             {
                 Messages = new List<ChatMessage>
                 {
-                    new(ChatMessageRoleEnum.System, "You are a helpful assistant."),
-                    new(ChatMessageRoleEnum.User, "Who won the world series in 2020?"),
-                    new(ChatMessageRoleEnum.System, "The Los Angeles Dodgers won the World Series in 2020."),
-                    new(ChatMessageRoleEnum.User, "Tell me a story about The Los Angeles Dodgers")
+                    new(ChatCompletionRole.System, "You are a helpful assistant."),
+                    new(ChatCompletionRole.User, "Who won the world series in 2020?"),
+                    new(ChatCompletionRole.System, "The Los Angeles Dodgers won the World Series in 2020."),
+                    new(ChatCompletionRole.User, "Tell me a story about The Los Angeles Dodgers")
                 },
                 StreamOptions = new()
                 {
@@ -463,7 +463,7 @@ internal static class ChatCompletionTestHelper
                 Model = "gpt-4o-2024-08-06",
                 ResponseFormat = new()
                 {
-                    Type = ResponseFormatEnum.JsonSchema,
+                    Type = Betalgo.Ranul.OpenAI.Contracts.Enums.ResponseFormat.JsonSchema,
                     JsonSchema = new()
                     {
                         Name = "math_response",
@@ -518,7 +518,7 @@ internal static class ChatCompletionTestHelper
                 ],
                 MaxCompletionTokens = 2000,
                 Model = Models.O3_mini,
-                ReasoningEffort = ReasoningEffortEnum.Low
+                ReasoningEffort = ReasoningEffort.Low
             });
 
             if (completionResult.Successful)

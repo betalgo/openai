@@ -13,7 +13,7 @@ public class ToolDefinition
     ///     Required. The type of the tool. Currently, only function is supported.
     /// </summary>
     [JsonPropertyName("type")]
-    public ToolCallTypeEnum Type { get; set; }
+    public ToolCallType Type { get; set; }
 
     /// <summary>
     ///     Overrides for the file search tool.
@@ -51,7 +51,7 @@ public class ToolDefinition
     {
         return new()
         {
-            Type = ToolCallTypeEnum.Function,
+            Type = ToolCallType.Function,
             Function = function
         };
     }
@@ -60,7 +60,7 @@ public class ToolDefinition
     {
         return new()
         {
-            Type = ToolCallTypeEnum.CodeInterpreter
+            Type = ToolCallType.CodeInterpreter
         };
     }
 
@@ -69,7 +69,7 @@ public class ToolDefinition
     {
         return new()
         {
-            Type = ToolCallTypeEnum.FileSearch
+            Type = ToolCallType.FileSearch
         };
     }
 
@@ -77,7 +77,7 @@ public class ToolDefinition
     {
         return new()
         {
-            Type = ToolCallTypeEnum.FileSearch,
+            Type = ToolCallType.FileSearch,
             FileSearchTool = fileSearchTool
         };
     }

@@ -114,7 +114,7 @@ public class SessionConfig
     ///     How the model chooses tools.
     /// </summary>
     [JsonPropertyName("tool_choice")]
-    public ToolChoiceTypeEnum? ToolChoice { get; set; }
+    public ToolChoiceType? ToolChoice { get; set; }
 
     /// <summary>
     ///     Sampling temperature for the model.
@@ -494,7 +494,7 @@ public class ResponseConfig
     ///     How the model chooses tools.
     /// </summary>
     [JsonPropertyName("tool_choice")]
-    public ToolChoiceTypeEnum? ToolChoice { get; set; }
+    public ToolChoiceType? ToolChoice { get; set; }
 
     /// <summary>
     ///     Sampling temperature.
@@ -611,7 +611,7 @@ public class SessionResource
     ///     How the model chooses tools.
     /// </summary>
     [JsonPropertyName("tool_choice")]
-    public ToolChoiceTypeEnum ToolChoice { get; set; }
+    public ToolChoiceType ToolChoice { get; set; }
 
     /// <summary>
     ///     Sampling temperature.

@@ -71,8 +71,8 @@ public partial class OpenAIService : IAudioService
         }
 
 
-        if (null == audioCreateTranscriptionRequest.ResponseFormat || AudioCreateTranscriptionResponseFormat.Json == audioCreateTranscriptionRequest.ResponseFormat ||
-            AudioCreateTranscriptionResponseFormat.VerboseJson == audioCreateTranscriptionRequest.ResponseFormat)
+        if (null == audioCreateTranscriptionRequest.ResponseFormat || AudioResponseFormat.Json == audioCreateTranscriptionRequest.ResponseFormat ||
+            AudioResponseFormat.VerboseJson == audioCreateTranscriptionRequest.ResponseFormat)
         {
             return await _httpClient.PostFileAndReadAsAsync<AudioCreateTranscriptionResponse>(uri, multipartContent, cancellationToken);
         }

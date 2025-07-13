@@ -33,7 +33,7 @@ internal static partial class AssistantTestHelper
             await CreateRunTest(openAI);
             await ListRunsTest(openAI);
             await RetrieveRunTest(openAI);
-            await WaitUntil(openAI, RunStatusEnum.Completed);
+            await WaitUntil(openAI, RunStatus.Completed);
             await ListRunStepsTest(openAI);
             await RetrieveRunStepTest(openAI);
             await Cleanup(openAI);
@@ -53,7 +53,7 @@ internal static partial class AssistantTestHelper
             await ListRunsTest(openAI);
             await RetrieveRunTest(openAI);
             await ModifyRunTest(openAI);
-            await WaitUntil(openAI, RunStatusEnum.RequiresAction);
+            await WaitUntil(openAI, RunStatus.RequiresAction);
             await SubmitToolOutputsToRunTest(openAI);
             await Cleanup(openAI);
         }
@@ -69,7 +69,7 @@ internal static partial class AssistantTestHelper
             await ListRunsTest(openAI);
             await RetrieveRunTest(openAI);
             await ModifyRunTest(openAI);
-            await WaitUntil(openAI, RunStatusEnum.RequiresAction);
+            await WaitUntil(openAI, RunStatus.RequiresAction);
             await SubmitToolOutputsAsStreamToRunTest(openAI);
             await Cleanup(openAI);
         }
@@ -250,7 +250,7 @@ internal static partial class AssistantTestHelper
 
             var threadResult = await openAI.Beta.Threads.ThreadCreate(new()
             {
-                Messages = [new(AssistantMessageRoleEnum.User, new("How is the weather in London"))]
+                Messages = [new(AssistantMessageRole.User, new("How is the weather in London"))]
             });
             if (threadResult.Successful)
             {
@@ -354,7 +354,7 @@ internal static partial class AssistantTestHelper
             }
         }
 
-        public static async Task WaitUntil(IOpenAIService openAI, RunStatusEnum status)
+        public static async Task WaitUntil(IOpenAIService openAI, RunStatus status)
         {
             ConsoleExtensions.WriteLine("Wait Until Run is completed Testing is starting:", ConsoleColor.Cyan);
             if (string.IsNullOrWhiteSpace(CreatedRunId))
@@ -567,7 +567,7 @@ internal static partial class AssistantTestHelper
 
             if (result.Successful)
             {
-                if (result.Status == RunStatusEnum.Cancelling)
+                if (result.Status == RunStatus.Cancelling)
                 {
                     ConsoleExtensions.WriteLine("Run Cancel Test is successful.", ConsoleColor.Green);
                 }
@@ -673,7 +673,7 @@ internal static partial class AssistantTestHelper
                     [
                         new()
                         {
-                            Role = AssistantMessageRoleEnum.User,
+                            Role = AssistantMessageRole.User,
                             Content = new("Explain deep learning to a 5 year old.")
                         }
                     ]
@@ -710,7 +710,7 @@ internal static partial class AssistantTestHelper
                     [
                         new()
                         {
-                            Role = AssistantMessageRoleEnum.User,
+                            Role = AssistantMessageRole.User,
                             Content = new("Explain deep learning to a 5 year old.")
                         }
                     ]

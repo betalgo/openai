@@ -31,7 +31,7 @@ public record ImageCreateRequest : SharedImageRequestBaseModel, IOpenAIModels.IU
     ///     This param is only supported for dall-e-3 model.
     /// </summary>
     [JsonPropertyName("quality")]
-    public ImageQualityEnum? Quality { get; set; }
+    public ImageQuality? Quality { get; set; }
 
     /// <summary>
     ///     The style of the generated images. Must be one of vivid or natural.
@@ -40,5 +40,5 @@ public record ImageCreateRequest : SharedImageRequestBaseModel, IOpenAIModels.IU
     ///     dall-e-3.
     /// </summary>
     [JsonPropertyName("style")]
-    public ImageStyleEnum? Style { get; set; }
+    public ImageStyle? Style { get; set; }
 }

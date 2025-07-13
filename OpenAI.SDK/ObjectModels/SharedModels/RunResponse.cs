@@ -28,7 +28,7 @@ public record RunResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.IMode
     ///     completed, or expired.
     /// </summary>
     [JsonPropertyName("status")]
-    public RunStatusEnum Status { get; set; }
+    public RunStatus Status { get; set; }
 
     /// <summary>
     ///     Details on the action required to continue the run.

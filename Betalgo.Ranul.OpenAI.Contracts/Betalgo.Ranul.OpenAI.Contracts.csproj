@@ -8,6 +8,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Include="OpenapiDocumented\update-openapi.ps1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="OpenapiDocumented\OpenapiDocumentedVersions\" />
 		<Folder Include="Requests\" />
 	</ItemGroup>
 

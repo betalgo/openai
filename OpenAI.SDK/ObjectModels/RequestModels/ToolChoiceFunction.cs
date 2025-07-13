@@ -6,9 +6,9 @@ namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 public class ToolChoice
 {
-    public static ToolChoice None => new() { Type = ToolChoiceTypeEnum.None };
-    public static ToolChoice Auto => new() { Type = ToolChoiceTypeEnum.Auto };
-    public static ToolChoice Required => new() { Type = ToolChoiceTypeEnum.Required };
+    public static ToolChoice None => new() { Type = ToolChoiceType.None };
+    public static ToolChoice Auto => new() { Type = ToolChoiceType.Auto };
+    public static ToolChoice Required => new() { Type = ToolChoiceType.Required };
 
     /// <summary>
     ///     "none" is the default when no functions are present.  <br />
@@ -17,7 +17,7 @@ public class ToolChoice
     ///     <br />
     /// </summary>
     [JsonPropertyName("type")]
-    public ToolChoiceTypeEnum Type { get; set; }
+    public ToolChoiceType Type { get; set; }
 
     [JsonPropertyName("function")]
     public FunctionTool? Function { get; set; }
@@ -26,7 +26,7 @@ public class ToolChoice
     {
         return new()
         {
-            Type = ToolChoiceTypeEnum.Function,
+            Type = ToolChoiceType.Function,
             Function = new()
             {
                 Name = functionName

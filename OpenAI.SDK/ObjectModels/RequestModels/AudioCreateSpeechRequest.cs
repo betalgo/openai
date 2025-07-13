@@ -23,7 +23,7 @@ public record AudioCreateSpeechRequest : IOpenAIModels.IModel
     ///     Defaults to mp3
     /// </summary>
     [JsonPropertyName("response_format")]
-    public CreateSpeechResponseFormatEnum? ResponseFormat { get; set; }
+    public CreateSpeechResponseFormat? ResponseFormat { get; set; }
 
     /// <summary>
     ///     The speed of the generated audio. Select a value from 0.25 to 4.0.

@@ -151,7 +151,7 @@ public static class StreamHandleExtension
                 foreach (var t in firstChoice.Message.ToolCalls!)
                 {
                     //Handles just ToolCall type == "function" as according to the value returned by IsStreamingFunctionCall() above
-                    if (t.FunctionCall != null && t.Type == ToolCallTypeEnum.Function)
+                    if (t.FunctionCall != null && t.Type == ToolCallType.Function)
                         _deltaFnCallList.Add(t);
                 }
 
@@ -187,7 +187,7 @@ public static class StreamHandleExtension
                 firstChoice.Message ??= ChatMessage.FromAssistant(""); // just in case? not sure it's needed
                 // TODO When more than one function call is in a single index, OpenAI only returns the role delta at the beginning, which causes an issue.
                 // TODO The current solution addresses this problem, but we need to fix it by using the role of the index.
-                firstChoice.Message.Role ??= ChatMessageRoleEnum.Assistant;
+                firstChoice.Message.Role ??= ChatCompletionRole.Assistant;
                 firstChoice.Message.ToolCalls = new List<ToolCall>(_deltaFnCallList);
                 _deltaFnCallList.Clear();
             }
@@ -196,10 +196,10 @@ public static class StreamHandleExtension
             bool IsStreamingFunctionCall()
             {
                 return firstChoice.FinishReason == null && // actively streaming, is a tool call main item, and have a function call
-                       firstChoice.Message?.ToolCalls?.Count > 0 && (firstChoice.Message?.ToolCalls.Any(t => t.FunctionCall != null && !string.IsNullOrEmpty(t.Id) && t.Type == ToolCallTypeEnum.Function) ?? false);
+                       firstChoice.Message?.ToolCalls?.Count > 0 && (firstChoice.Message?.ToolCalls.Any(t => t.FunctionCall != null && !string.IsNullOrEmpty(t.Id) && t.Type == ToolCallType.Function) ?? false);
             }
 
-            (int index, string? id, ToolCallTypeEnum? type) GetToolCallMetadata()
+            (int index, string? id, ToolCallType? type) GetToolCallMetadata()
             {
                 var tc = block.Choices?.FirstOrDefault()?.Message?.ToolCalls?.Where(t => t.FunctionCall != null).Select(t => t).FirstOrDefault();
 

@@ -43,7 +43,7 @@ internal static partial class AssistantTestHelper
             }
 
             CreatedThreadId = thread.Id;
-            var result = await openAI.Beta.Messages.CreateMessage(CreatedThreadId, new(AssistantMessageRoleEnum.User, new("How does AI work? Explain it in simple terms.")));
+            var result = await openAI.Beta.Messages.CreateMessage(CreatedThreadId, new(AssistantMessageRole.User, new("How does AI work? Explain it in simple terms.")));
             if (result.Successful)
             {
                 CreatedMessageId = result.Id;
@@ -89,12 +89,12 @@ internal static partial class AssistantTestHelper
 
             MessageContentOneOfType content = new([
                 MessageContent.TextContent(prompt),
-                MessageContent.ImageFileContent(uploadFileId,ImageDetailTypeEnum.High)
+                MessageContent.ImageFileContent(uploadFileId,ImageDetailType.High)
             ]);
 
             MessageCreateRequest request = new()
             {
-                Role = AssistantMessageRoleEnum.User,
+                Role = AssistantMessageRole.User,
                 Content = content
             };
 

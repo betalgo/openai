@@ -49,9 +49,9 @@ internal static class RunTestHelper2
             var runId = runResult.Id;
             ConsoleExtensions.WriteLine($"runId: {runId}");
 
-            var doneStatusList = new List<RunStatusEnum>()
-                { RunStatusEnum.Cancelled, RunStatusEnum.Completed, RunStatusEnum.Failed, RunStatusEnum.Expired };
-            var runStatus = RunStatusEnum.Queued;
+            var doneStatusList = new List<RunStatus>()
+                { RunStatus.Cancelled, RunStatus.Completed, RunStatus.Failed, RunStatus.Expired };
+            var runStatus = RunStatus.Queued;
             var attemptCount = 0;
             var maxAttempts = 10;
 
@@ -65,7 +65,7 @@ internal static class RunTestHelper2
                 }
 
                 var requireAction = runRetrieveResult.RequiredAction;
-                if (runStatus == RunStatusEnum.RequiresAction && requireAction.Type == RequiredActionTypeEnum.SubmitToolOutputs)
+                if (runStatus == RunStatus.RequiresAction && requireAction.Type == RequiredActionType.SubmitToolOutputs)
                 {
                     var toolCalls = requireAction.SubmitToolOutputs.ToolCalls;
                     foreach (var toolCall in toolCalls)

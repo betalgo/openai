@@ -176,13 +176,13 @@ public partial class OpenAIService : IChatClient
             switch (options.ResponseFormat)
             {
                 case ChatResponseFormatText:
-                    request.ResponseFormat = new() { Type = ResponseFormatEnum.Text };
+                    request.ResponseFormat = new() { Type = Contracts.Enums.ResponseFormat.Text };
                     break;
 
                 case ChatResponseFormatJson { Schema: not null } json:
                     request.ResponseFormat = new()
                     {
-                        Type = ResponseFormatEnum.JsonSchema,
+                        Type = Contracts.Enums.ResponseFormat.JsonSchema,
                         JsonSchema = new()
                         {
                             Name = json.SchemaName ?? "JsonSchema",
@@ -193,7 +193,7 @@ public partial class OpenAIService : IChatClient
                     break;
 
                 case ChatResponseFormatJson:
-                    request.ResponseFormat = new() { Type = ResponseFormatEnum.JsonObject };
+                    request.ResponseFormat = new() { Type = Contracts.Enums.ResponseFormat.JsonObject };
                     break;
             }
 
@@ -216,11 +216,11 @@ public partial class OpenAIService : IChatClient
             {
                 request.ToolChoice = options.ToolMode is RequiredChatToolMode r ? new()
                     {
-                        Type = ToolChoiceTypeEnum.Required,
+                        Type = ToolChoiceType.Required,
                         Function = r.RequiredFunctionName is null ? null : new ToolChoice.FunctionTool() { Name = r.RequiredFunctionName }
                     } :
-                    options.ToolMode is AutoChatToolMode or null ? new() { Type = ToolChoiceTypeEnum.Auto } :
-                    new ToolChoice() { Type = ToolChoiceTypeEnum.None };
+                    options.ToolMode is AutoChatToolMode or null ? new() { Type = ToolChoiceType.Auto } :
+                    new ToolChoice() { Type = ToolChoiceType.None };
             }
         }
 
@@ -238,7 +238,7 @@ public partial class OpenAIService : IChatClient
                         {
                             Content = tc.Text,
                             Name = message.AuthorName,
-                            Role = new ChatMessageRoleEnum(message.Role.ToString())
+                            Role = new ChatCompletionRole(message.Role.ToString())
                         });
                         break;
 
@@ -253,12 +253,12 @@ public partial class OpenAIService : IChatClient
                                     ImageUrl = new()
                                     {
                                         Url = uc.Uri.ToString(),
-                                        Detail = uc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out detail) is true ? new ImageDetailTypeEnum(detail):null
+                                        Detail = uc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out detail) is true ? new ImageDetailType(detail):null
                                     }
                                 }
                             ],
                             Name = message.AuthorName,
-                            Role = new ChatMessageRoleEnum(message.Role.ToString())
+                            Role = new ChatCompletionRole(message.Role.ToString())
                         });
                         break;
 
@@ -273,12 +273,12 @@ public partial class OpenAIService : IChatClient
                                     ImageUrl = new()
                                     {
                                         Url = dc.Uri.ToString(),
-                                        Detail = dc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out detail) is true ? new ImageDetailTypeEnum(detail):null
+                                        Detail = dc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out detail) is true ? new ImageDetailType(detail):null
                                     }
                                 }
                             ],
                             Name = message.AuthorName,
-                            Role = new ChatMessageRoleEnum(message.Role.ToString())
+                            Role = new ChatCompletionRole(message.Role.ToString())
                         });
                         break;
 
@@ -288,7 +288,7 @@ public partial class OpenAIService : IChatClient
                             ToolCallId = frc.CallId,
                             Content = frc.Result?.ToString(),
                             Name = message.AuthorName,
-                            Role = new ChatMessageRoleEnum(message.Role.ToString())
+                            Role = new ChatCompletionRole(message.Role.ToString())
                         });
                         break;
                 }
@@ -300,10 +300,10 @@ public partial class OpenAIService : IChatClient
                 request.Messages.Add(new()
                 {
                     Name = message.AuthorName,
-                    Role = new ChatMessageRoleEnum(message.Role.ToString()),
+                    Role = new ChatCompletionRole(message.Role.ToString()),
                     ToolCalls = functionCallContents.Select(fcc => new ToolCall()
                         {
-                            Type = ToolCallTypeEnum.Function,
+                            Type = ToolCallType.Function,
                             Id = fcc.CallId,
                             FunctionCall = new()
                             {
