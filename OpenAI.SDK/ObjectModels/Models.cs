@@ -111,6 +111,10 @@ public static class Models
         Gpt_4o_mini_2024_07_18,
         Chatgpt_4o_latest,
 
+        Gpt_5,
+        Gpt_5_turbo,
+        Gpt_5_mini,
+
         WhisperV1,
 
         Dall_e_2,
@@ -323,6 +327,22 @@ public static class Models
     ///     Dynamic model continuously updated to the current version of GPT-4o in ChatGPT. <a href="https://platform.openai.com/docs/models#4ofootnote">Intended for research and evaluation [1]</a>.
     /// </summary>
     public static string Chatgpt_4o_latest => "chatgpt-4o-latest";
+
+    /// <summary>
+    ///     GPT-5: OpenAI's most advanced language model with enhanced reasoning, creativity, and collaboration capabilities.
+    /// </summary>
+    public static string Gpt_5 => "gpt-5";
+
+    /// <summary>
+    ///     GPT-5 Turbo: Optimized version of GPT-5 with improved speed and efficiency while maintaining high quality outputs.
+    /// </summary>
+    public static string Gpt_5_turbo => "gpt-5-turbo";
+
+    /// <summary>
+    ///     GPT-5 Mini: A more affordable and faster variant of GPT-5, optimized for simpler tasks while still providing excellent performance.
+    /// </summary>
+    public static string Gpt_5_mini => "gpt-5-mini";
+    
     
 
     public static string Gpt_4o_realtime_preview_2024_10_01 => "gpt-4o-realtime-preview-2024-10-01";
@@ -644,6 +664,9 @@ public static class Models
             Model.Gpt_4o_mini => Gpt_4o_mini,
             Model.Gpt_4o_mini_2024_07_18 => Gpt_4o_mini_2024_07_18,
             Model.Chatgpt_4o_latest => Chatgpt_4o_latest,
+            Model.Gpt_5 => Gpt_5,
+            Model.Gpt_5_turbo => Gpt_5_turbo,
+            Model.Gpt_5_mini => Gpt_5_mini,
             Model.Tts_1 => Tts_1,
             Model.Tts_1_hd => Tts_1_hd,
             Model.Text_moderation_007 => TextModeration007,

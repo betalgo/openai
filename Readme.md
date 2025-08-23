@@ -110,6 +110,23 @@ if (completionResult.Successful)
 }
 ```
 
+## GPT-5 Sample ✨NEW
+```csharp
+var completionResult = await openAiService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+{
+    Messages = new List<ChatMessage>
+    {
+        ChatMessage.FromSystem("You are a helpful assistant powered by GPT-5."),
+        ChatMessage.FromUser("What are the key advantages of GPT-5?"),
+    },
+    Model = Models.Gpt_5, // Available: Gpt_5, Gpt_5_turbo, Gpt_5_mini
+});
+if (completionResult.Successful)
+{
+    Console.WriteLine(completionResult.Choices.First().Message.Content);
+}
+```
+
 ---
 ## Notes
 Due to time constraints, not all methods have been thoroughly tested or fully documented. If you encounter any issues, please report them or submit a pull request. Your contributions are always appreciated.
