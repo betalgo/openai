@@ -139,22 +139,15 @@ internal static class HttpClientExtensions
 
     public static async Task<TResponse> HandleResponseContent<TResponse>(this HttpResponseMessage response, CancellationToken cancellationToken) where TResponse : BaseResponse, new()
     {
-        TResponse result;
-
-        if (!response.Content.Headers.ContentType?.MediaType?.Equals("application/json", StringComparison.OrdinalIgnoreCase) ?? true)
-        {
-            result = new()
+        var result = !response.Content.Headers.ContentType?.MediaType?.Equals("application/json", StringComparison.OrdinalIgnoreCase) ?? true
+            ? new TResponse
             {
                 Error = new()
                 {
                     MessageObject = await response.Content.ReadAsStringAsync(cancellationToken)
                 }
-            };
-        }
-        else
-        {
-            result = await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
-        }
+            }
+            : await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
 
         result.HttpStatusCode = response.StatusCode;
         result.HeaderValues = response.ParseHeaders();
