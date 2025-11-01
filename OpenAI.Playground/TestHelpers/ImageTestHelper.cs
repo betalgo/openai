@@ -15,6 +15,7 @@ internal static class ImageTestHelper
             ConsoleExtensions.WriteLine("Image Create Test:", ConsoleColor.DarkCyan);
             var imageResult = await sdk.Image.CreateImage(new()
             {
+                Model = "gpt-image-1",
                 Prompt = "Laser cat eyes",
                 N = 1,
                 Size = ImageSize.Size256

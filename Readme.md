@@ -118,7 +118,7 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
-### 9.1.0
+### 9.2.0
 - Introduced `Betalgo.Ranul.OpenAI.Contracts` project for centralized request/response models, enums/value types, and capability interfaces.
 - Replaced legacy image request models with Contracts equivalents:
   - `CreateImageRequest`, `CreateImageEditRequest`, `CreateImageVariationRequest`
@@ -128,6 +128,24 @@ Needless to say, I cannot accept responsibility for any damage caused by using t
 - Updated `IImageService` to consume Contracts request models and return `ImageResponse` for image create. Edit/variation remain legacy responses for now.
 - This is the first step of a gradual migration; changes are kept minimal and may evolve after testing.
 - See the detailed guide: [Contracts Upgrade Guide (9.1.0)](OpenAI.Playground/Contracts-Upgrade-Guide.md)
+
+### 9.1.0
+
+### Image Generation
+- Added `UsageModel` to include detailed token usage tracking for image generation responses.
+
+### JSON Schema Validation
+- Enhanced `FunctionParameters` with `MultipleOf`, `Minimum`, `Maximum`, and `Pattern` support.
+- Added `SingleOrArrayToListConverter` to handle single values or arrays.
+
+### Code Improvements
+- Refactored `MessageContent` with expression-bodied helpers and added binary file support.
+- Converted filter type definitions in `ToolDefinition` from `static string` to `const string` for clarity and performance.
+- Simplified filter creation methods.
+
+### Documentation and Formatting
+- Improved comments and formatting in `ToolDefinition`.
+- Fixed BOM character issue in `FunctionParameters`.
 
 ### 9.0.4
 - Updated `Microsoft.Extensions.AI` to version `9.5.0`  
@@ -149,40 +167,6 @@ Needless to say, I cannot accept responsibility for any damage caused by using t
 - .NET 9 support added.
 - ⚠️ Support for .NET 6 and .NET 7 has ended.
 - Fixed utility library issues and synced with latest version.
-
-### 8.10.1
-- Fixed an issue with the `Store` parameter being included in requests by default, causing errors with Azure OpenAI models. The parameter is now optional and excluded from serialization unless explicitly set.
-
-### 8.10.0
-- Added support for `Microsoft.Extensions.AI` `IChatClient` and `IEmbeddingGenerator` (more information will be coming soon to the Wiki).
-- Added missing `Temperature` and `TopP` parameters to `AssistantResponse`.
-- Added missing `Store` parameter to `ChatCompletionCreateRequest`.
-
-- Breaking Changes:
-   - ⚠️ `CreatedAt` parameter renamed to `CreatedAtUnix` and converted to `long` instead of `int`. Added `CreatedAt` parameter as `DateTimeOffset` type, which will automatically convert Unix time to `DateTime`.
-
-### 8.9.0
-- Realtime API implementation is completed. As usual this is the first version and it may contain bugs. Please report any issues you encounter.
-- [Realtime Sample](https://github.com/betalgo/openai/wiki/realtime)
-
-### 8.8.0
-
-- **Compatibility Enhancement**: You can now use this library alongside the official OpenAI library and/or Semantic Kernel within the same project. The name changes in this update support this feature.
-
-- **Namespace and Package ID Update**: The namespace and PackageId have been changed from `Betalgo.OpenAI` to `Betalgo.Ranul.OpenAI`.
-
-- **OpenAI Naming Consistency**: We've standardized the use of "OpenAI" throughout the library, replacing any instances of "OpenAi" or other variations.
-
-- **Migration Instructions**: Intellisense should assist you in updating your code. If it doesn't, please make the following changes manually:
-  - Switch to the new NuGet package: `Betalgo.Ranul.OpenAI` instead of `Betalgo.OpenAI`.
-  - Update all namespaces from `OpenAI` to `Betalgo.Ranul.OpenAI`.
-  - Replace all occurrences of "OpenAi", "Openai", or any other variations with "OpenAI".
-
-- **Need Help?**: If you encounter any issues, feel free to reach out via our Discord channel, Reddit channel, or GitHub discussions. We're happy to assist.
-
-- **Feedback Welcomed**: If you notice any mistakes or missing name changes, please create an issue to let us know.
-
-- **Utilities Library Status**: Please note that the Utilities library might remain broken for a while. I will focus on fixing it after completing the real-time API implementation.
 
 ### [More Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
 ---

@@ -13,7 +13,7 @@ public class MessageContent
     ///     note: Currently openAI doesn't support images in the first system message.
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public string Type { get; set; } = null!;
 
     /// <summary>
     ///     If the value of Type property is "text" then Text property must contain the message content text
@@ -30,14 +30,14 @@ public class MessageContent
     [JsonPropertyName("image_file")]
     public MessageImageFile? ImageFile { get; set; }
 
+    [JsonPropertyName("file")]
+    public MessageFile? File { get; set; }
+
     /// <summary>
     ///     Static helper method to create MessageContent Text
     ///     <param name="text">The text content</param>
     /// </summary>
-    public static MessageContent TextContent(string text)
-    {
-        return new() { Type = "text", Text = text };
-    }
+    public static MessageContent TextContent(string text) => new() { Type = "text", Text = text };
 
     /// <summary>
     ///     Static helper method to create MessageContent with Url
@@ -45,23 +45,17 @@ public class MessageContent
     ///     <param name="imageUrl">The url of an image</param>
     ///     <param name="detail">The detail property</param>
     /// </summary>
-    public static MessageContent ImageUrlContent(string imageUrl, ImageDetailType? detail = null)
-    {
-        return new()
-        {
-            Type = "image_url",
-            ImageUrl = new() { Url = imageUrl, Detail = detail }
-        };
-    }
+    public static MessageContent ImageUrlContent(string imageUrl, ImageDetailType? detail = null) => new()
+    { 
+        Type = "image_url",
+        ImageUrl = new() { Url = imageUrl, Detail = detail }
+    };
 
-    public static MessageContent ImageFileContent(string fileId, ImageDetailType detail)
+    public static MessageContent ImageFileContent(string fileId, ImageDetailType detail) => new()
     {
-        return new()
-        {
-            Type = "image_file",
-            ImageFile = new() { FileId = fileId, Detail = detail }
-        };
-    }
+        Type = "image_file",
+        ImageFile = new() { FileId = fileId, Detail = detail }
+    };
 
     /// <summary>
     ///     Static helper method to create MessageContent from binary image
@@ -77,9 +71,80 @@ public class MessageContent
             Type = "image_url",
             ImageUrl = new()
             {
-                Url = string.Format("data:image/{0};base64,{1}", imageType, Convert.ToBase64String(binaryImage)),
-                Detail = detail?? ImageDetailType.Auto
+                Url = $"data:image/{imageType};base64,{Convert.ToBase64String(binaryImage)}",
+                Detail = detail ?? ImageDetailType.Auto
             }
         };
+        
+    }
+
+    /// <summary>
+    ///     Static helper method to create MessageContent from binary image
+    ///     OpenAI currently supports PNG, JPEG, WEBP, and non-animated GIF
+    ///     <param name="binaryFile">The image binary data as byte array</param>
+    ///     <param name="fileType">The type of file, as an example "pdf"</param>
+    ///     <param name="fileName"> The name of the file, as an example "file.pdf"</param>
+    /// </summary>
+    public static MessageContent FileBinaryContent(byte[] binaryFile, string fileType, string fileName) => new()
+    {
+        Type = "file",
+        File = new()
+        {
+            FileData = $"data:application/{fileType};base64,{Convert.ToBase64String(binaryFile)}",
+            Filename = fileName
+        }
+    };
+
+    public class MessageFile
+    {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="MessageFile" /> class.
+        /// </summary>
+        public MessageFile()
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="MessageFile" /> class.
+        /// </summary>
+        /// <param name="filename">
+        ///     The name of the file, used when passing the file to the model as a
+        ///     string.
+        /// </param>
+        /// <param name="fileData">
+        ///     The base64 encoded file data, used when passing the file to the model
+        ///     as a string.
+        /// </param>
+        /// <param name="fileId">
+        ///     The ID of an uploaded file to use as input.
+        /// </param>
+        public MessageFile(string filename, string fileData, string fileId)
+        {
+            Filename = filename;
+            FileData = fileData;
+            FileId = fileId;
+        }
+
+
+        /// <summary>
+        ///     The name of the file, used when passing the file to the model as a
+        ///     string.
+        /// </summary>
+        [JsonPropertyName("filename")]
+        public string Filename { get; set; }
+
+        /// <summary>
+        ///     The base64 encoded file data, used when passing the file to the model
+        ///     as a string.
+        /// </summary>
+        [JsonPropertyName("file_data")]
+        public string FileData { get; set; }
+
+        /// <summary>
+        ///     The ID of an uploaded file to use as input.
+        /// </summary>
+        [JsonPropertyName("file_id")]
+        public string FileId { get; set; }
+       
     }
 }

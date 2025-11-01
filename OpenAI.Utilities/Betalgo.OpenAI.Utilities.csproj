@@ -9,13 +9,13 @@
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>9.1.0</Version>
+		<Version>9.2.0</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>Utility tools for Betalgo.OpenAI</Product>
 		<Description>Utility tools for Betalgo.OpenAI - Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-4 and DALL·E</Description>
 		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
-		<PackageTags>openAI,chatGPT,gpt-4, gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
+		<PackageTags>openAI,chatGPT,gpt-4,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
 		<PackageId>Betalgo.OpenAI.Utilities</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>

@@ -110,6 +110,14 @@ public class FileSearchTool
     /// </summary>
     [JsonPropertyName("ranking_options")]
     public RankingOptions? RankingOptions { get; set; }
+
+    /// <summary>
+    /// Use comparison filters to compare a specific key in a file's attributes with a given value, 
+    /// and compound filters to combine multiple filters using `and` and `or`.
+    /// <see href="https://platform.openai.com/docs/guides/retrieval#attribute-filtering">Attribute filtering</see>
+    /// </summary>
+    [JsonPropertyName("filters")]
+    public FileSearchFilter? Filters { get; set; }
 }
 
 public class RankingOptions
@@ -125,4 +133,68 @@ public class RankingOptions
     /// </summary>
     [JsonPropertyName("score_threshold")]
     public float ScoreThreshold { get; set; }
+}
+
+public class FileSearchFilter
+{
+    [JsonPropertyName("type")]
+    public string Type { get; set; }
+
+    /// <summary>
+    /// The key to compare against the value.
+    /// </summary>
+    [JsonPropertyName("key")]
+    public string? Key { get; set; }
+
+    /// <summary>
+    /// The value to compare against the attribute key; supports string, number, or boolean types.
+    /// </summary>
+    [JsonPropertyName("value")]
+    public object? Value { get; set; }
+
+    /// <summary>
+    /// Array of filters to combine. Items can be ComparisonFilter or CompoundFilter.
+    /// </summary>
+    [JsonPropertyName("filters")]
+    public List<FileSearchFilter>? Filters { get; set; }
+
+    public FileSearchFilter(string type)
+    {
+        Type = type;
+    }
+
+    public static FileSearchFilter DefineComparisonFilter(string property, string condition, object value)
+    {
+        return new(condition)
+        {
+            Key = property,
+            Value = value
+        };
+    }
+
+    public static FileSearchFilter DefineCompoundFilter(List<FileSearchFilter> filters, string condition)
+    {
+        return new(condition)
+        {
+            Filters = filters
+        };
+    }
+}
+
+public static class ComparisonFilter
+{
+    //Types
+    public const string Equal = "eq";
+    public const string NotEqual = "ne";
+    public const string Greater = "gt";
+    public const string GreaterOrEqual = "gte";
+    public const string Less = "lt";
+    public const string LessOrEqual = "lte";
+}
+
+public static class CompoundFilter
+{
+    //Types
+    public const string And = "and";
+    public const string Or = "or";
 }
