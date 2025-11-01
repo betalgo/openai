@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using Betalgo.Ranul.OpenAI.Contracts.Enums;
+using Betalgo.Ranul.OpenAI.Contracts.Enums.Image;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 

@@ -9,7 +9,7 @@
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>9.0.0</Version>
+		<Version>9.1.0</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>Utility tools for Betalgo.OpenAI</Product>
@@ -40,7 +40,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Betalgo.Ranul.OpenAI" Version="8.10.1" />
+		<PackageReference Include="Betalgo.Ranul.OpenAI" Version="9.1.0" />
 		<PackageReference Include="CsvHelper" Version="33.0.1" />
 		<PackageReference Include="MathNet.Numerics" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Data.Analysis" Version="0.22.0" />

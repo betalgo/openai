@@ -2,20 +2,20 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Betalgo.Ranul.OpenAI.Contracts.Responses.Base;
 using Betalgo.Ranul.OpenAI.Extensions;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace Betalgo.Ranul.OpenAI.ExtensionsV2;
+namespace Betalgo.Ranul.OpenAI.Extensions;
 
-internal static class HttpClientExtensionsV2
+internal static class HttpClientExtensions
 {
-    public static async Task<TResponse> GetReadAsAsync<TResponse>(this HttpClient client, string uri, CancellationToken cancellationToken = default) where TResponse : ResponseBase, new()
+    public static async Task<TResponse> GetReadAsAsync<TResponse>(this HttpClient client, string uri, CancellationToken cancellationToken = default) where TResponse : BaseResponse, new()
     {
         var response = await client.GetAsync(uri, cancellationToken);
         return await HandleResponseContent<TResponse>(response, cancellationToken);
     }
 
-    public static async Task<TResponse> PostAndReadAsAsync<TResponse>(this HttpClient client, string uri, object? requestModel, CancellationToken cancellationToken = default) where TResponse : ResponseBase, new()
+    public static async Task<TResponse> PostAndReadAsAsync<TResponse>(this HttpClient client, string uri, object? requestModel, CancellationToken cancellationToken = default) where TResponse : BaseResponse, new()
     {
         var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
         {
@@ -24,7 +24,12 @@ internal static class HttpClientExtensionsV2
         return await HandleResponseContent<TResponse>(response, cancellationToken);
     }
 
-    public static async Task<TResponse> PostAndReadAsDataAsync<TResponse, TData>(this HttpClient client, string uri, object? requestModel, CancellationToken cancellationToken = default) where TResponse : ResponseBase<TData>, new()
+    public static string? GetHeaderValue(this HttpResponseHeaders headers, string headerName)
+    {
+        return headers.Contains(headerName) ? headers.GetValues(headerName).FirstOrDefault() : null;
+    }
+
+    public static async Task<TResponse> PostAndReadAsDataAsync<TResponse, TData>(this HttpClient client, string uri, object? requestModel, CancellationToken cancellationToken = default) where TResponse : DataBaseResponse<TData>, new()
     {
         var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
         {
@@ -101,14 +106,14 @@ internal static class HttpClientExtensionsV2
         return request;
     }
 
-    public static async Task<TResponse> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default) where TResponse : ResponseBase, new()
+    public static async Task<TResponse> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default) where TResponse : BaseResponse, new()
     {
         var response = await client.PostAsync(uri, content, cancellationToken);
         return await HandleResponseContent<TResponse>(response, cancellationToken);
     }
 
     public static async Task<(string? stringResponse, TResponse baseResponse)> PostFileAndReadAsStringAsync<TResponse>(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default)
-        where TResponse : ResponseBase, new()
+        where TResponse : BaseResponse, new()
     {
         var response = await client.PostAsync(uri, content, cancellationToken);
         if (response.IsSuccessStatusCode)
@@ -126,13 +131,13 @@ internal static class HttpClientExtensionsV2
         }
     }
 
-    public static async Task<TResponse> DeleteAndReadAsAsync<TResponse>(this HttpClient client, string uri, CancellationToken cancellationToken = default) where TResponse : ResponseBase, new()
+    public static async Task<TResponse> DeleteAndReadAsAsync<TResponse>(this HttpClient client, string uri, CancellationToken cancellationToken = default) where TResponse : BaseResponse, new()
     {
         var response = await client.DeleteAsync(uri, cancellationToken);
         return await HandleResponseContent<TResponse>(response, cancellationToken);
     }
 
-    public static async Task<TResponse> HandleResponseContent<TResponse>(this HttpResponseMessage response, CancellationToken cancellationToken) where TResponse : ResponseBase, new()
+    public static async Task<TResponse> HandleResponseContent<TResponse>(this HttpResponseMessage response, CancellationToken cancellationToken) where TResponse : BaseResponse, new()
     {
         TResponse result;
 
@@ -148,7 +153,7 @@ internal static class HttpClientExtensionsV2
         }
         else
         {
-            result = await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken) ?? throw new InvalidOperationException();
+            result = await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
         }
 
         result.HttpStatusCode = response.StatusCode;
@@ -156,12 +161,8 @@ internal static class HttpClientExtensionsV2
 
         return result;
     }
-    public static string? GetHeaderValue(this HttpResponseHeaders headers, string headerName)
-    {
-        return headers.Contains(headerName) ? headers.GetValues(headerName).FirstOrDefault() : null;
-    }
    
-    public static ResponseBaseHeaderValues ParseHeaders(this HttpResponseMessage response)
+    public static ResponseHeaderValues ParseHeaders(this HttpResponseMessage response)
     {
         return new()
         {

@@ -31,6 +31,7 @@ Install-Package Betalgo.OpenAI.Utilities
 - [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability)
 - [Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
 - [Migration Guide for Breaking Changes](https://github.com/betalgo/openai/wiki/Migration-Guides-for-breaking-changes)
+- [Contracts Upgrade Guide (9.1.0)](OpenAI.Playground/Contracts-Upgrade-Guide.md)
 ---
 
 ## Acknowledgements
@@ -117,6 +118,17 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 9.1.0
+- Introduced `Betalgo.Ranul.OpenAI.Contracts` project for centralized request/response models, enums/value types, and capability interfaces.
+- Replaced legacy image request models with Contracts equivalents:
+  - `CreateImageRequest`, `CreateImageEditRequest`, `CreateImageVariationRequest`
+- Reorganized image enums under `Betalgo.Ranul.OpenAI.Contracts.Enums.Image.*` and added value types (`ImageOutputFormat`, `ImageResponseFormat`, `ImageSize`, `ImageModeration`).
+- Replaced `VoiceEnum` with `Voice` (value type). Replaced `MessageRole` with `ChatCompletionRole` and/or `AssistantMessageRole`.
+- Added new response base types: `ResponseBase`, `ResponseBaseHeaderValues`, improved header parsing and usage exposure.
+- Updated `IImageService` to consume Contracts request models and return `ImageResponse` for image create. Edit/variation remain legacy responses for now.
+- This is the first step of a gradual migration; changes are kept minimal and may evolve after testing.
+- See the detailed guide: [Contracts Upgrade Guide (9.1.0)](OpenAI.Playground/Contracts-Upgrade-Guide.md)
+
 ### 9.0.4
 - Updated `Microsoft.Extensions.AI` to version `9.5.0`  
 

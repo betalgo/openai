@@ -1,4 +1,5 @@
 ﻿using Betalgo.Ranul.OpenAI.Contracts.Enums;
+using Betalgo.Ranul.OpenAI.Contracts.Enums.Image;
 using Betalgo.Ranul.OpenAI.Interfaces;
 using Betalgo.Ranul.OpenAI.ObjectModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;

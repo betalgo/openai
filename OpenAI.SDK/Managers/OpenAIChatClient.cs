@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
 using Betalgo.Ranul.OpenAI.Contracts.Enums;
+using Betalgo.Ranul.OpenAI.Contracts.Enums.Image;
 using Betalgo.Ranul.OpenAI.ObjectModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;

@@ -1,19 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net9;netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>net9.0;net8.0;netstandard2.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Include="OpenapiDocumented\update-openapi.ps1" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="OpenapiDocumented\OpenapiDocumentedVersions\" />
-		<Folder Include="Requests\" />
+		<Folder Include="Converters\" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

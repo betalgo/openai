@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 
 namespace Betalgo.Ranul.OpenAI.Contracts.Enums;
+
 /// <summary>
 ///     <see href="">
 ///         OpenAI API documentation

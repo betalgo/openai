@@ -16,7 +16,7 @@ public record AudioCreateSpeechRequest : IOpenAIModels.IModel
     ///     The voice to use when generating the audio. Supported voices are alloy, echo, fable, onyx, nova, and shimmer
     /// </summary>
     [JsonPropertyName("voice")]
-    public VoiceEnum Voice { get; set; }
+    public Voice Voice { get; set; }
 
     /// <summary>
     ///     The format to audio in. Supported formats are mp3, opus, aac, and flac
