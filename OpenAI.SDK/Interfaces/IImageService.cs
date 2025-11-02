@@ -1,6 +1,5 @@
 ﻿using Betalgo.Ranul.OpenAI.Contracts.Requests.Image;
 using Betalgo.Ranul.OpenAI.Contracts.Responses.Image;
-using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
 
 namespace Betalgo.Ranul.OpenAI.Interfaces;
 
@@ -24,7 +23,7 @@ public interface IImageService
     /// <param name="imageEditCreateRequest"></param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<ImageCreateResponse> CreateImageEdit(CreateImageEditRequest imageEditCreateRequest, CancellationToken cancellationToken = default);
+    Task<ImageResponse> CreateImageEdit(CreateImageEditRequest imageEditCreateRequest, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Creates a variation of a given image.
@@ -32,5 +31,5 @@ public interface IImageService
     /// <param name="imageEditCreateRequest"></param>
     /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
     /// <returns></returns>
-    Task<ImageCreateResponse> CreateImageVariation(CreateImageVariationRequest imageEditCreateRequest, CancellationToken cancellationToken = default);
+    Task<ImageResponse> CreateImageVariation(CreateImageVariationRequest imageEditCreateRequest, CancellationToken cancellationToken = default);
 }

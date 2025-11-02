@@ -4,7 +4,6 @@ using Betalgo.Ranul.OpenAI.Contracts.Responses.Image;
 using Betalgo.Ranul.OpenAI.Extensions;
 using Betalgo.Ranul.OpenAI.ExtensionsV2;
 using Betalgo.Ranul.OpenAI.Interfaces;
-using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.ImageResponseModel;
 
 namespace Betalgo.Ranul.OpenAI.Managers;
 
@@ -25,7 +24,7 @@ public partial class OpenAIService : IImageService
     /// <param name="imageEditCreateRequest"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<ImageCreateResponse> CreateImageEdit(CreateImageEditRequest imageEditCreateRequest, CancellationToken cancellationToken = default)
+    public async Task<ImageResponse> CreateImageEdit(CreateImageEditRequest imageEditCreateRequest, CancellationToken cancellationToken = default)
     {
         var multipartContent = new MultipartFormDataContent();
         if (imageEditCreateRequest.User != null)
@@ -91,7 +90,7 @@ public partial class OpenAIService : IImageService
             }
         }
 
-        return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageEditCreate(), multipartContent, cancellationToken);
+        return await _httpClient.PostFileAndReadAsAsync<ImageResponse>(_endpointProvider.ImageEditCreate(), multipartContent, cancellationToken);
     }
 
     /// <summary>
@@ -99,7 +98,7 @@ public partial class OpenAIService : IImageService
     /// </summary>
     /// <param name="imageEditCreateRequest"></param>
     /// <returns></returns>
-    public async Task<ImageCreateResponse> CreateImageVariation(CreateImageVariationRequest imageEditCreateRequest, CancellationToken cancellationToken = default)
+    public async Task<ImageResponse> CreateImageVariation(CreateImageVariationRequest imageEditCreateRequest, CancellationToken cancellationToken = default)
     {
         var multipartContent = new MultipartFormDataContent();
         if (imageEditCreateRequest.User != null)
@@ -129,6 +128,6 @@ public partial class OpenAIService : IImageService
 
         multipartContent.Add(new StreamContent(imageEditCreateRequest.Image.Data), "image", imageEditCreateRequest.Image.Name);
 
-        return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageVariationCreate(), multipartContent, cancellationToken);
+        return await _httpClient.PostFileAndReadAsAsync<ImageResponse>(_endpointProvider.ImageVariationCreate(), multipartContent, cancellationToken);
     }
 }

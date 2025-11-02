@@ -1,4 +1,5 @@
 ﻿using Betalgo.Ranul.OpenAI.Contracts.Enums.Image;
+using Betalgo.Ranul.OpenAI.Contracts.Enums.Model;
 using Betalgo.Ranul.OpenAI.Contracts.Types;
 using Betalgo.Ranul.OpenAI.Interfaces;
 using OpenAI.Playground.ExtensionsAndHelpers;
@@ -15,13 +16,12 @@ internal static class ImageTestHelper
             ConsoleExtensions.WriteLine("Image Create Test:", ConsoleColor.DarkCyan);
             var imageResult = await sdk.Image.CreateImage(new()
             {
-                Model = "gpt-image-1",
                 Prompt = "Laser cat eyes",
-                N = 1,
-                Size = ImageSize.Size256
+                Model = ImageModel.GptImage1,
+                Size = ImageSize.Size256,
+                ResponseFormat = ImageResponseFormat.Url
             });
-
-
+            
             if (imageResult.Successful)
             {
                 Console.WriteLine(string.Join("\n", imageResult.Data!.Select(r => r.Url!)));
@@ -71,7 +71,7 @@ internal static class ImageTestHelper
 
             if (imageResult.Successful)
             {
-                Console.WriteLine(string.Join("\n", imageResult.Results.Select(r => r.Url)));
+                Console.WriteLine(string.Join("\n", imageResult.Data.Select(r => r.Url)));
             }
             else
             {
@@ -112,7 +112,7 @@ internal static class ImageTestHelper
 
             if (imageResult.Successful)
             {
-                Console.WriteLine(string.Join("\n", imageResult.Results.Select(r => r.Url)));
+                Console.WriteLine(string.Join("\n", imageResult.Data.Select(r => r.Url)));
             }
             else
             {

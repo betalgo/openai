@@ -68,5 +68,5 @@ public class CreateImageVariationRequest : IRequest, IHasModelImage, IHasImageSi
     ///     The model to use for image generation. Only <c>dall-e-2</c> is supported at this time.
     /// </summary>
     [JsonPropertyName("model")]
-    public ModelImage? Model { get; set; }
+    public ImageModel? Model { get; set; }
 }

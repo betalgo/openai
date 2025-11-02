@@ -25,5 +25,5 @@ public interface IHasImageSize
 
 public interface IHasModelImage
 {
-    ModelImage? Model { get; set; }
+    ImageModel? Model { get; set; }
 }

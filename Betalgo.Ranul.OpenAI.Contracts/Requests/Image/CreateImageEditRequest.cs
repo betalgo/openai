@@ -139,5 +139,5 @@ public class CreateImageEditRequest : IRequest, IHasModelImage, IHasImageSize, I
     ///     <c>dall-e-2</c> unless a parameter specific to <c>gpt-image-1</c> is used.
     /// </summary>
     [JsonPropertyName("model")]
-    public ModelImage? Model { get; set; }
+    public ImageModel? Model { get; set; }
 }
