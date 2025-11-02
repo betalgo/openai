@@ -1,4 +1,5 @@
-﻿using Betalgo.Ranul.OpenAI.Interfaces;
+﻿using Betalgo.Ranul.OpenAI.Contracts.Enums;
+using Betalgo.Ranul.OpenAI.Interfaces;
 using Betalgo.Ranul.OpenAI.ObjectModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels.VectorStoreResponseModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
@@ -81,7 +82,7 @@ internal static partial class AssistantTestHelper
                 Name = "Support FAQ",
                 ChunkingStrategy = new()
                 {
-                    Type = StaticValues.VectorStoreStatics.ChunkingStrategyType.Static,
+                    Type = VectorStoreChunkingStrategyType.Static,
                     StaticParameters = new()
                     {
                         ChunkOverlapTokens = 400,

@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums.Image;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
@@ -44,13 +45,13 @@ public class MessageContent
     ///     <param name="imageUrl">The url of an image</param>
     ///     <param name="detail">The detail property</param>
     /// </summary>
-    public static MessageContent ImageUrlContent(string imageUrl, string? detail = null) => new()
-    {
+    public static MessageContent ImageUrlContent(string imageUrl, ImageDetailType? detail = null) => new()
+    { 
         Type = "image_url",
         ImageUrl = new() { Url = imageUrl, Detail = detail }
     };
 
-    public static MessageContent ImageFileContent(string fileId, string detail) => new()
+    public static MessageContent ImageFileContent(string fileId, ImageDetailType detail) => new()
     {
         Type = "image_file",
         ImageFile = new() { FileId = fileId, Detail = detail }
@@ -63,15 +64,19 @@ public class MessageContent
     ///     <param name="imageType">The type of image</param>
     ///     <param name="detail">The detail property</param>
     /// </summary>
-    public static MessageContent ImageBinaryContent(byte[] binaryImage, string imageType, string? detail = "auto") => new()
+    public static MessageContent ImageBinaryContent(byte[] binaryImage, ImageFileType imageType, ImageDetailType? detail)
     {
-        Type = "image_url",
-        ImageUrl = new()
+        return new()
         {
-            Url = $"data:image/{imageType};base64,{Convert.ToBase64String(binaryImage)}",
-            Detail = detail
-        }
-    };
+            Type = "image_url",
+            ImageUrl = new()
+            {
+                Url = $"data:image/{imageType};base64,{Convert.ToBase64String(binaryImage)}",
+                Detail = detail ?? ImageDetailType.Auto
+            }
+        };
+        
+    }
 
     /// <summary>
     ///     Static helper method to create MessageContent from binary image
@@ -140,5 +145,6 @@ public class MessageContent
         /// </summary>
         [JsonPropertyName("file_id")]
         public string FileId { get; set; }
+       
     }
 }

@@ -1,4 +1,5 @@
-﻿using Betalgo.Ranul.OpenAI.Interfaces;
+﻿using Betalgo.Ranul.OpenAI.Contracts.Enums;
+using Betalgo.Ranul.OpenAI.Interfaces;
 using Betalgo.Ranul.OpenAI.ObjectModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
 
@@ -25,10 +26,10 @@ internal static class AudioTestHelper
                 Model = Models.WhisperV1,
                 TimestampGranularities =
                 [
-                    StaticValues.AudioStatics.TimestampGranularity.Word,
-                    StaticValues.AudioStatics.TimestampGranularity.Segment
+                    TimestampGranularity.Word,
+                    TimestampGranularity.Segment
                 ],
-                ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson
+                ResponseFormat = AudioResponseFormat.VerboseJson
             });
 
 
@@ -72,7 +73,7 @@ internal static class AudioTestHelper
                 FileName = fileName,
                 File = sampleFile,
                 Model = Models.WhisperV1,
-                ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson
+                ResponseFormat = AudioResponseFormat.VerboseJson
             });
 
             if (audioResult.Successful)
@@ -107,8 +108,8 @@ internal static class AudioTestHelper
             {
                 Model = Models.Tts_1,
                 Input = "The sixth sick sheikh's sixth sheep's sick",
-                Voice = StaticValues.AudioStatics.Voice.Alloy,
-                ResponseFormat = StaticValues.AudioStatics.CreateSpeechResponseFormat.Mp3,
+                Voice = Voice.Alloy,
+                ResponseFormat = CreateSpeechResponseFormat.Mp3,
                 Speed = 1.1f
             });
 

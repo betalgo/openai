@@ -1,3 +1,4 @@
+using Betalgo.Ranul.OpenAI.Contracts.Enums.Image;
 using Betalgo.Ranul.OpenAI.Interfaces;
 using Betalgo.Ranul.OpenAI.ObjectModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
@@ -24,7 +25,7 @@ internal static class VisionTestHelper
                     {
                         MessageContent.TextContent("What is on the picture in details?"),
                         MessageContent.ImageUrlContent("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-                            StaticValues.ImageStatics.ImageDetailTypes.High)
+                            ImageDetailType.High)
                     })
                 },
                 MaxTokens = 300,
@@ -69,7 +70,7 @@ internal static class VisionTestHelper
                     {
                         MessageContent.TextContent("What’s in this image?"),
                         MessageContent.ImageUrlContent("https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
-                            StaticValues.ImageStatics.ImageDetailTypes.Low)
+                            ImageDetailType.Low)
                     })
                 },
                 MaxTokens = 300,
@@ -123,7 +124,7 @@ internal static class VisionTestHelper
                     ChatMessage.FromUser(new List<MessageContent>
                     {
                         MessageContent.TextContent("What is on the picture in details?"),
-                        MessageContent.ImageBinaryContent(originalFile, StaticValues.ImageStatics.ImageFileTypes.Png, StaticValues.ImageStatics.ImageDetailTypes.High)
+                        MessageContent.ImageBinaryContent(originalFile, ImageFileType.Png, ImageDetailType.High)
                     })
                 },
                 MaxTokens = 300,

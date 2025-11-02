@@ -1,4 +1,5 @@
-﻿using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.Ranul.OpenAI.Contracts.Enums;
+using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
@@ -13,7 +14,7 @@ public record AudioCreateTranscriptionRequest : IOpenAIModels.IModel, IOpenAIMod
     /// <summary>
     ///     The format of the transcript output, in one of these options: json, text, srt, verbose_json, or vtt.
     /// </summary>
-    public string? ResponseFormat { get; set; }
+    public AudioResponseFormat? ResponseFormat { get; set; }
 
     /// <summary>
     ///     The language of the input audio. Supplying the input language in
@@ -25,11 +26,11 @@ public record AudioCreateTranscriptionRequest : IOpenAIModels.IModel, IOpenAIMod
     /// <summary>
     ///     The timestamp granularities to populate for this transcription. response_format must be set verbose_json to use
     ///     timestamp granularities. Either or both of these options are supported:
-    ///     <a cref="StaticValues.AudioStatics.TimestampGranularity.Word">word</a>, or
-    ///     <a cref="StaticValues.AudioStatics.TimestampGranularity.Segment">segment</a>. Note: There is no
+    ///     <a cref="TimestampGranularity.Word">word</a>, or
+    ///     <a cref="TimestampGranularity.Segment">segment</a>. Note: There is no
     ///     additional latency for segment timestamps, but generating word timestamps incurs additional latency.
     /// </summary>
-    public List<string>? TimestampGranularities { get; set; }
+    public List<TimestampGranularity>? TimestampGranularities { get; set; }
 
     /// <summary>
     ///     The audio file to transcribe, in one of these formats: mp3, mp4, mpeg, mpga, m4a, wav, or webm.

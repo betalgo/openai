@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums.Image;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
@@ -35,7 +36,7 @@ public class MessageImageUrl
     ///     as 512px squares based on the input image size.
     /// </summary>
     [JsonPropertyName("detail")]
-    public string? Detail { get; set; }
+    public ImageDetailType? Detail { get; set; }
 }
 
 public class MessageImageFile
@@ -52,5 +53,5 @@ public class MessageImageFile
     ///     resolution using high.
     /// </summary>
     [JsonPropertyName("detail")]
-    public string Detail { get; set; }
+    public ImageDetailType Detail { get; set; }
 }
