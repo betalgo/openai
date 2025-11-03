@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
@@ -9,7 +10,7 @@ public class MessageCreateRequest : IOpenAIModels.IMetaData
     {
     }
 
-    public MessageCreateRequest(string role, MessageContentOneOfType content, List<Attachment>? attachments = null, Dictionary<string, string>? metaData = null)
+    public MessageCreateRequest(AssistantMessageRole role, MessageContentOneOfType content, List<Attachment>? attachments = null, Dictionary<string, string>? metaData = null)
     {
         Role = role;
         Content = content;
@@ -22,7 +23,7 @@ public class MessageCreateRequest : IOpenAIModels.IMetaData
     ///     Currently only user is supported.
     /// </summary>
     [JsonPropertyName("role")]
-    public string Role { get; set; } = StaticValues.AssistantsStatics.MessageStatics.Roles.User;
+    public AssistantMessageRole Role { get; set; } = AssistantMessageRole.User;
 
     /// <summary>
     ///     The content of the message.

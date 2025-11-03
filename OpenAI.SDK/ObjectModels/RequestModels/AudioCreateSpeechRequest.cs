@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
@@ -15,14 +16,14 @@ public record AudioCreateSpeechRequest : IOpenAIModels.IModel
     ///     The voice to use when generating the audio. Supported voices are alloy, echo, fable, onyx, nova, and shimmer
     /// </summary>
     [JsonPropertyName("voice")]
-    public string Voice { get; set; }
+    public Voice Voice { get; set; }
 
     /// <summary>
     ///     The format to audio in. Supported formats are mp3, opus, aac, and flac
     ///     Defaults to mp3
     /// </summary>
     [JsonPropertyName("response_format")]
-    public string? ResponseFormat { get; set; }
+    public CreateSpeechResponseFormat? ResponseFormat { get; set; }
 
     /// <summary>
     ///     The speed of the generated audio. Select a value from 0.25 to 4.0.

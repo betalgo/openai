@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
@@ -111,10 +112,9 @@ public class SessionConfig
 
     /// <summary>
     ///     How the model chooses tools.
-    ///     <see cref="StaticValues.CompletionStatics.ToolChoiceType" />
     /// </summary>
     [JsonPropertyName("tool_choice")]
-    public string? ToolChoice { get; set; }
+    public ToolChoiceType? ToolChoice { get; set; }
 
     /// <summary>
     ///     Sampling temperature for the model.
@@ -492,10 +492,9 @@ public class ResponseConfig
 
     /// <summary>
     ///     How the model chooses tools.
-    ///     <see cref="StaticValues.CompletionStatics.ToolChoiceType" />
     /// </summary>
     [JsonPropertyName("tool_choice")]
-    public string? ToolChoice { get; set; }
+    public ToolChoiceType? ToolChoice { get; set; }
 
     /// <summary>
     ///     Sampling temperature.
@@ -610,10 +609,9 @@ public class SessionResource
 
     /// <summary>
     ///     How the model chooses tools.
-    ///     <see cref="StaticValues.CompletionStatics.ToolChoiceType" />
     /// </summary>
     [JsonPropertyName("tool_choice")]
-    public string ToolChoice { get; set; }
+    public ToolChoiceType ToolChoice { get; set; }
 
     /// <summary>
     ///     Sampling temperature.
