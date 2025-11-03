@@ -31,7 +31,7 @@ Install-Package Betalgo.OpenAI.Utilities
 - [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability)
 - [Change Logs](https://github.com/betalgo/openai/wiki/Change-Logs)
 - [Migration Guide for Breaking Changes](https://github.com/betalgo/openai/wiki/Migration-Guides-for-breaking-changes)
-- [Contracts Upgrade Guide (9.2.0)](Contracts-Project:-Introduction-and-Upgrade-Guide)
+- [Contracts Upgrade Guide (9.2.0)](https://github.com/betalgo/openai/wiki/Contracts-Project:-Introduction-and-Upgrade-Guide)
 ---
 
 ## Acknowledgements
@@ -127,7 +127,7 @@ Needless to say, I cannot accept responsibility for any damage caused by using t
 - Added new response base types: `ResponseBase`, `ResponseBaseHeaderValues`, improved header parsing and usage exposure.
 - Updated `IImageService` to consume Contracts request models and return `ImageResponse` for image create. Edit/variation remain legacy responses for now.
 - This is the first step of a gradual migration; changes are kept minimal and may evolve after testing.
-- See the detailed guide: [Contracts Upgrade Guide (9.2.0)](Contracts-Project:-Introduction-and-Upgrade-Guide)
+- See the detailed guide: [Contracts Upgrade Guide (9.2.0)](https://github.com/betalgo/openai/wiki/Contracts-Project:-Introduction-and-Upgrade-Guide)
 
 ### 9.1.0
 
