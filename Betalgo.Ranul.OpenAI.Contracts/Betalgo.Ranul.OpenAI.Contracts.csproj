@@ -5,13 +5,52 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>Latest</LangVersion>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>Betalgo.Ranul.OpenAI.Contracts</PackageId>
+		<Title>OpenAI SDK Contracts by Betalgo</Title>
+		<Product>OpenAI Contracts by Betalgo Ranul</Product>
+		<Description>Contracts and shared types for the Betalgo OpenAI .NET SDK.</Description>
+		<Authors>Tolga Kayhan, Betalgo</Authors>
+		<Company>Betalgo Up Ltd.</Company>
+		<Version>9.2.0</Version>
+		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
+		<PackageIcon>Betalgo-Ranul-OpenAI-icon.png</PackageIcon>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+		<PackageTags>openAI,realtime,chatGPT,gpt-4,gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,dall-e,OpenAI,contracts</PackageTags>
+		<RepositoryUrl>https://github.com/betalgo/openai/</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<NoWarn>1701;1702;1529;1591</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Folder Include="Converters\" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<None Include="..\Readme.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="Betalgo-Ranul-OpenAI-icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
 		<PackageReference Include="System.Text.Json" Version="8.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 </Project>
