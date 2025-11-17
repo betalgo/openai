@@ -5,14 +5,20 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  sdk:
+
+    permissions:
+      contents: write
+      packages: write
 
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
     - name: Clean
@@ -24,19 +30,85 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
 
-    - name: publish OpenAI 
-      id: publish_nuget_OpenAI
-      uses: alirezanet/publish-nuget@v3.1.0
+    - name: Publish OpenAI
+      shell: pwsh
+      env:
+        NUGET_KEY: ${{ secrets.NUGET_KEY }}
+        GH_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_OWNER: ${{ github.repository_owner }}
+      run: |
+        .\.github\scripts\publish-nuget.ps1 `
+          -ProjectFilePath "OpenAI.SDK\Betalgo.Ranul.OpenAI.csproj" `
+          -PackageName "Betalgo.Ranul.OpenAI" `
+          -NugetKey $env:NUGET_KEY `
+          -IncludeSymbols $true `
+          -TagCommit $true `
+          -TagFormat "v*" `
+          -PublishToGitHubPackages $true `
+          -GitHubPackagesOwner $env:GH_OWNER `
+          -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
+          -GitHubPackagesIncludeSymbols $false
+    - name: Publish Contracts
+      shell: pwsh
+      env:
+        NUGET_KEY: ${{ secrets.NUGET_KEY }}
+        GH_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_OWNER: ${{ github.repository_owner }}
+      run: |
+        .\.github\scripts\publish-nuget.ps1 `
+          -ProjectFilePath "Betalgo.Ranul.OpenAI.Contracts\Betalgo.Ranul.OpenAI.Contracts.csproj" `
+          -PackageName "Betalgo.Ranul.OpenAI.Contracts" `
+          -NugetKey $env:NUGET_KEY `
+          -IncludeSymbols $true `
+          -TagCommit $true `
+          -TagFormat "v*" `
+          -PublishToGitHubPackages $true `
+          -GitHubPackagesOwner $env:GH_OWNER `
+          -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
+          -GitHubPackagesIncludeSymbols $false
+
+  utilities:
+    needs: sdk
+
+    permissions:
+      contents: write
+      packages: write
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
       with:
-          PROJECT_FILE_PATH: OpenAI.SDK\Betalgo.Ranul.OpenAI.csproj
-          NUGET_KEY: ${{secrets.NUGET_KEY}}
-          INCLUDE_SYMBOLS: true
-          PACKAGE_NAME: Betalgo.Ranul.OpenAI
-    - name: publish Contracts 
-      id: publish_nuget_Contracts
-      uses: alirezanet/publish-nuget@v3.1.0
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
       with:
-          PROJECT_FILE_PATH: Betalgo.Ranul.OpenAI.Contracts\Betalgo.Ranul.OpenAI.Contracts.csproj
-          NUGET_KEY: ${{secrets.NUGET_KEY}}
-          INCLUDE_SYMBOLS: true
-          PACKAGE_NAME: Betalgo.Ranul.OpenAI.Contracts
+        dotnet-version: 9.0.x
+    - name: Clean
+      run: dotnet clean
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+    - name: Publish OpenAI Utilities
+      shell: pwsh
+      env:
+        NUGET_KEY: ${{ secrets.NUGET_KEY_UTILITIES }}
+        GH_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_OWNER: ${{ github.repository_owner }}
+      run: |
+        .\.github\scripts\publish-nuget.ps1 `
+          -ProjectFilePath "OpenAI.Utilities\Betalgo.OpenAI.Utilities.csproj" `
+          -PackageName "Betalgo.OpenAI.Utilities" `
+          -NugetKey $env:NUGET_KEY `
+          -IncludeSymbols $true `
+          -TagCommit $true `
+          -TagFormat "v*" `
+          -PublishToGitHubPackages $true `
+          -GitHubPackagesOwner $env:GH_OWNER `
+          -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
+          -GitHubPackagesIncludeSymbols $false
