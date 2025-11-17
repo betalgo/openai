@@ -30,7 +30,9 @@ param(
 
     [string]$GitHubPackagesSource,
 
-    [bool]$GitHubPackagesIncludeSymbols = $false
+    [bool]$GitHubPackagesIncludeSymbols = $false,
+
+    [System.Text.RegularExpressions.RegexOptions]$VersionRegexOptions = [System.Text.RegularExpressions.RegexOptions]::Multiline
 )
 
 $ErrorActionPreference = 'Stop'
@@ -93,7 +95,7 @@ if (-not $VersionStatic) {
     }
 
     $fileContent = Get-Content $versionFilePath -Raw
-    $match = [regex]::Match($fileContent, $VersionRegex)
+    $match = [regex]::Match($fileContent, $VersionRegex, $VersionRegexOptions)
     if (-not $match.Success -or -not $match.Groups[1].Value) {
         throw "Unable to extract version information using regex '$VersionRegex' from '$versionFilePath'."
     }
