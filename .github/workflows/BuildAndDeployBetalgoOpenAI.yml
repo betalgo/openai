@@ -5,7 +5,30 @@ on:
     branches: [ master ]
 
 jobs:
-  sdk:
+  build-test:
+
+    permissions:
+      contents: read
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Clean
+      run: dotnet clean
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+  publish:
+    needs: build-test
 
     permissions:
       contents: write
@@ -21,14 +44,6 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
-    - name: Clean
-      run: dotnet clean
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
 
     - name: Publish OpenAI
       shell: pwsh
@@ -43,7 +58,7 @@ jobs:
           -NugetKey $env:NUGET_KEY `
           -IncludeSymbols $true `
           -TagCommit $true `
-          -TagFormat "v*" `
+          -TagFormat "v-sdk-*" `
           -PublishToGitHubPackages $true `
           -GitHubPackagesOwner $env:GH_OWNER `
           -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
@@ -61,39 +76,11 @@ jobs:
           -NugetKey $env:NUGET_KEY `
           -IncludeSymbols $true `
           -TagCommit $true `
-          -TagFormat "v*" `
+          -TagFormat "v-contracts-*" `
           -PublishToGitHubPackages $true `
           -GitHubPackagesOwner $env:GH_OWNER `
           -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
           -GitHubPackagesIncludeSymbols $false
-
-  utilities:
-    needs: sdk
-
-    permissions:
-      contents: write
-      packages: write
-
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 9.0.x
-    - name: Clean
-      run: dotnet clean
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-
     - name: Publish OpenAI Utilities
       shell: pwsh
       env:
@@ -107,7 +94,7 @@ jobs:
           -NugetKey $env:NUGET_KEY `
           -IncludeSymbols $true `
           -TagCommit $true `
-          -TagFormat "v*" `
+          -TagFormat "v-utilities-*" `
           -PublishToGitHubPackages $true `
           -GitHubPackagesOwner $env:GH_OWNER `
           -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
