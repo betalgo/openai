@@ -23,9 +23,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build -c Release --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test -c Release --no-build --verbosity normal
 
   publish:
     needs: build-test
@@ -56,6 +56,7 @@ jobs:
           -ProjectFilePath "OpenAI.SDK\Betalgo.Ranul.OpenAI.csproj" `
           -PackageName "Betalgo.Ranul.OpenAI" `
           -NugetKey $env:NUGET_KEY `
+          -NoBuild $true `
           -IncludeSymbols $true `
           -TagCommit $true `
           -TagFormat "v-sdk-*" `
@@ -74,6 +75,7 @@ jobs:
           -ProjectFilePath "Betalgo.Ranul.OpenAI.Contracts\Betalgo.Ranul.OpenAI.Contracts.csproj" `
           -PackageName "Betalgo.Ranul.OpenAI.Contracts" `
           -NugetKey $env:NUGET_KEY `
+          -NoBuild $true `
           -IncludeSymbols $true `
           -TagCommit $true `
           -TagFormat "v-contracts-*" `
@@ -92,6 +94,7 @@ jobs:
           -ProjectFilePath "OpenAI.Utilities\Betalgo.OpenAI.Utilities.csproj" `
           -PackageName "Betalgo.OpenAI.Utilities" `
           -NugetKey $env:NUGET_KEY `
+          -NoBuild $true `
           -IncludeSymbols $true `
           -TagCommit $true `
           -TagFormat "v-utilities-*" `
