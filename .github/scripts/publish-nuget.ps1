@@ -158,7 +158,8 @@ if (-not $NoBuild) {
 
 $packArguments = @("pack", $resolvedProjectPath, "-c", "Release", "-o", $outputDir)
 if ($NoBuild) {
-    $packArguments += @("--no-build")
+    # Assume restore was done earlier in the job; avoid re-building or re-restoring
+    $packArguments += @("--no-build", "--no-restore")
 }
 if ($IncludeSymbols) {
     $packArguments += @("--include-symbols", "-p:SymbolPackageFormat=snupkg")
