@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: read
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -18,14 +18,21 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
     - name: Clean
       run: dotnet clean
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build -c Release --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test -c Release --no-build --verbosity normal
 
   publish:
     needs: build-test
@@ -34,7 +41,7 @@ jobs:
       contents: write
       packages: write
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -44,6 +51,17 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+    - name: Restore dependencies for packing
+      run: dotnet restore
+    - name: Build for packing
+      run: dotnet build -c Release --no-restore
 
     - name: Publish OpenAI
       shell: pwsh
@@ -52,13 +70,13 @@ jobs:
         GH_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_OWNER: ${{ github.repository_owner }}
       run: |
-        .\.github\scripts\publish-nuget.ps1 `
-          -ProjectFilePath "OpenAI.SDK\Betalgo.Ranul.OpenAI.csproj" `
+        ./.github/scripts/publish-nuget.ps1 `
+          -ProjectFilePath "OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj" `
           -PackageName "Betalgo.Ranul.OpenAI" `
           -NugetKey $env:NUGET_KEY `
           -IncludeSymbols $true `
           -TagCommit $true `
-          -TagFormat "v-sdk-*" `
+          -TagFormat "Betalgo.Ranul.OpenAI-v*" `
           -PublishToGitHubPackages $true `
           -GitHubPackagesOwner $env:GH_OWNER `
           -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
@@ -70,13 +88,13 @@ jobs:
         GH_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_OWNER: ${{ github.repository_owner }}
       run: |
-        .\.github\scripts\publish-nuget.ps1 `
-          -ProjectFilePath "Betalgo.Ranul.OpenAI.Contracts\Betalgo.Ranul.OpenAI.Contracts.csproj" `
+        ./.github/scripts/publish-nuget.ps1 `
+          -ProjectFilePath "Betalgo.Ranul.OpenAI.Contracts/Betalgo.Ranul.OpenAI.Contracts.csproj" `
           -PackageName "Betalgo.Ranul.OpenAI.Contracts" `
           -NugetKey $env:NUGET_KEY `
           -IncludeSymbols $true `
           -TagCommit $true `
-          -TagFormat "v-contracts-*" `
+          -TagFormat "Betalgo.Ranul.OpenAI.Contracts-v*" `
           -PublishToGitHubPackages $true `
           -GitHubPackagesOwner $env:GH_OWNER `
           -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
@@ -88,13 +106,13 @@ jobs:
         GH_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GH_OWNER: ${{ github.repository_owner }}
       run: |
-        .\.github\scripts\publish-nuget.ps1 `
-          -ProjectFilePath "OpenAI.Utilities\Betalgo.OpenAI.Utilities.csproj" `
+        ./.github/scripts/publish-nuget.ps1 `
+          -ProjectFilePath "OpenAI.Utilities/Betalgo.OpenAI.Utilities.csproj" `
           -PackageName "Betalgo.OpenAI.Utilities" `
           -NugetKey $env:NUGET_KEY `
           -IncludeSymbols $true `
           -TagCommit $true `
-          -TagFormat "v-utilities-*" `
+          -TagFormat "Betalgo.OpenAI.Utilities-v*" `
           -PublishToGitHubPackages $true `
           -GitHubPackagesOwner $env:GH_OWNER `
           -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
