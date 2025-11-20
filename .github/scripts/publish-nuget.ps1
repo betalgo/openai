@@ -157,6 +157,9 @@ if (-not $NoBuild) {
 }
 
 $packArguments = @("pack", $resolvedProjectPath, "-c", "Release", "-o", $outputDir)
+if ($NoBuild) {
+    $packArguments += @("--no-build")
+}
 if ($IncludeSymbols) {
     $packArguments += @("--include-symbols", "-p:SymbolPackageFormat=snupkg")
 }

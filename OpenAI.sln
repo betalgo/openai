@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31912.275
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11205.157 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Betalgo.Ranul.OpenAI", "OpenAI.SDK\Betalgo.Ranul.OpenAI.csproj", "{780F7F1F-45FC-4832-9E00-5BE6F32E7271}"
 EndProject
@@ -14,7 +14,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{27B22566-7173-4B05-B0FB-09BF7FD9332C}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\BuildAndDeployBetalgoOpenAI.yml = .github\workflows\BuildAndDeployBetalgoOpenAI.yml
-		.github\workflows\BuildAndDeployBetalgoOpenAIUtilities.yml = .github\workflows\BuildAndDeployBetalgoOpenAIUtilities.yml
 		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 		Docs\openapi.documented.yml = Docs\openapi.documented.yml
 		Readme.md = Readme.md
