@@ -20,8 +20,6 @@ param(
 
     [bool]$IncludeSymbols = $false,
 
-    [bool]$NoBuild = $false,
-
     [bool]$PublishToGitHubPackages = $false,
 
     [string]$GitHubPackagesOwner,
@@ -152,15 +150,9 @@ if (-not (Test-Path $outputDir)) {
 Get-ChildItem -Path $outputDir -Filter '*.nupkg' -File -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
 Get-ChildItem -Path $outputDir -Filter '*.snupkg' -File -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
 
-if (-not $NoBuild) {
-    Invoke-CommandChecked -Command "dotnet" -Arguments @("build", "-c", "Release", $resolvedProjectPath)
-}
+Invoke-CommandChecked -Command "dotnet" -Arguments @("build", "-c", "Release", $resolvedProjectPath)
 
 $packArguments = @("pack", $resolvedProjectPath, "-c", "Release", "-o", $outputDir)
-if ($NoBuild) {
-    # Assume restore was done earlier in the job; avoid re-building or re-restoring
-    $packArguments += @("--no-build", "--no-restore")
-}
 if ($IncludeSymbols) {
     $packArguments += @("--include-symbols", "-p:SymbolPackageFormat=snupkg")
 }

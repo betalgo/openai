@@ -60,6 +60,8 @@ jobs:
           ${{ runner.os }}-nuget-
     - name: Restore dependencies for packing
       run: dotnet restore
+    - name: Build for packing
+      run: dotnet build -c Release --no-restore
 
     - name: Publish OpenAI
       shell: pwsh
@@ -72,7 +74,6 @@ jobs:
           -ProjectFilePath "OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj" `
           -PackageName "Betalgo.Ranul.OpenAI" `
           -NugetKey $env:NUGET_KEY `
-          -NoBuild $true `
           -IncludeSymbols $true `
           -TagCommit $true `
           -TagFormat "v-sdk-*" `
@@ -91,7 +92,6 @@ jobs:
           -ProjectFilePath "Betalgo.Ranul.OpenAI.Contracts/Betalgo.Ranul.OpenAI.Contracts.csproj" `
           -PackageName "Betalgo.Ranul.OpenAI.Contracts" `
           -NugetKey $env:NUGET_KEY `
-          -NoBuild $true `
           -IncludeSymbols $true `
           -TagCommit $true `
           -TagFormat "v-contracts-*" `
@@ -110,7 +110,6 @@ jobs:
           -ProjectFilePath "OpenAI.Utilities/Betalgo.OpenAI.Utilities.csproj" `
           -PackageName "Betalgo.OpenAI.Utilities" `
           -NugetKey $env:NUGET_KEY `
-          -NoBuild $true `
           -IncludeSymbols $true `
           -TagCommit $true `
           -TagFormat "v-utilities-*" `
