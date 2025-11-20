@@ -76,7 +76,7 @@ jobs:
           -NugetKey $env:NUGET_KEY `
           -IncludeSymbols $true `
           -TagCommit $true `
-          -TagFormat "v-sdk-*" `
+          -TagFormat "Betalgo.Ranul.OpenAI-v*" `
           -PublishToGitHubPackages $true `
           -GitHubPackagesOwner $env:GH_OWNER `
           -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
@@ -94,7 +94,7 @@ jobs:
           -NugetKey $env:NUGET_KEY `
           -IncludeSymbols $true `
           -TagCommit $true `
-          -TagFormat "v-contracts-*" `
+          -TagFormat "Betalgo.Ranul.OpenAI.Contracts-v*" `
           -PublishToGitHubPackages $true `
           -GitHubPackagesOwner $env:GH_OWNER `
           -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
@@ -112,7 +112,7 @@ jobs:
           -NugetKey $env:NUGET_KEY `
           -IncludeSymbols $true `
           -TagCommit $true `
-          -TagFormat "v-utilities-*" `
+          -TagFormat "Betalgo.OpenAI.Utilities-v*" `
           -PublishToGitHubPackages $true `
           -GitHubPackagesOwner $env:GH_OWNER `
           -GitHubPackagesApiKey $env:GH_PACKAGES_TOKEN `
