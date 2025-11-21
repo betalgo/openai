@@ -1,0 +1,30 @@
+components:
+  schemas:
+    FineTuningCheckpointPermission:
+      title: FineTuningCheckpointPermission
+      required:
+        - created_at
+        - id
+        - object
+        - project_id
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The permission identifier, which can be referenced in the API endpoints.'
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the permission was created.
+        project_id:
+          type: string
+          description: The project identifier that the permission is for.
+        object:
+          enum:
+            - checkpoint.permission
+          type: string
+          description: 'The object type, which is always "checkpoint.permission".'
+          x-stainless-const: true
+      description: "The `checkpoint.permission` object represents a permission for a fine-tuned model checkpoint.\n"
+      x-oaiMeta:
+        name: The fine-tuned model checkpoint permission object
+        example: "{\n  \"object\": \"checkpoint.permission\",\n  \"id\": \"cp_zc4Q7MP6XxulcVzj4MZdwsAB\",\n  \"created_at\": 1712211699,\n  \"project_id\": \"proj_abGMw1llN8IrBb6SvvY5A1iH\"\n}\n"

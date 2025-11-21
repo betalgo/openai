@@ -1,0 +1,38 @@
+components:
+  schemas:
+    ResponseTextDoneEvent:
+      required:
+        - type
+        - item_id
+        - output_index
+        - content_index
+        - text
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.output_text.done
+          type: string
+          description: "The type of the event. Always `response.output_text.done`.\n"
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: "The ID of the output item that the text content is finalized.\n"
+        output_index:
+          type: integer
+          description: "The index of the output item that the text content is finalized.\n"
+        content_index:
+          type: integer
+          description: "The index of the content part that the text content is finalized.\n"
+        text:
+          type: string
+          description: "The text content that is finalized.\n"
+        sequence_number:
+          type: integer
+          description: The sequence number for this event.
+      description: Emitted when text content is finalized.
+      x-oaiMeta:
+        name: response.output_text.done
+        group: responses
+        example: "{\n  \"type\": \"response.output_text.done\",\n  \"item_id\": \"msg_123\",\n  \"output_index\": 0,\n  \"content_index\": 0,\n  \"text\": \"In a shimmering forest under a sky full of stars, a lonely unicorn named Lila discovered a hidden pond that glowed with moonlight. Every night, she would leave sparkling, magical flowers by the water's edge, hoping to share her beauty with others. One enchanting evening, she woke to find a group of friendly animals gathered around, eager to be friends and share in her magic.\",\n  \"sequence_number\": 1\n}\n"

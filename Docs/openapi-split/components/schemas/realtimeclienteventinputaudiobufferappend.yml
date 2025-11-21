@@ -1,0 +1,25 @@
+components:
+  schemas:
+    RealtimeClientEventInputAudioBufferAppend:
+      required:
+        - type
+        - audio
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - input_audio_buffer.append
+          type: string
+          description: 'The event type, must be `input_audio_buffer.append`.'
+          x-stainless-const: true
+        audio:
+          type: string
+          description: "Base64-encoded audio bytes. This must be in the format specified by the \n`input_audio_format` field in the session configuration.\n"
+      description: "Send this event to append audio bytes to the input audio buffer. The audio \nbuffer is temporary storage you can write to and later commit. In Server VAD \nmode, the audio buffer is used to detect speech and the server will decide \nwhen to commit. When Server VAD is disabled, you must commit the audio buffer\nmanually.\n\nThe client may choose how much audio to place in each event up to a maximum \nof 15 MiB, for example streaming smaller chunks from the client may allow the \nVAD to be more responsive. Unlike made other client events, the server will \nnot send a confirmation response to this event.\n"
+      x-oaiMeta:
+        name: input_audio_buffer.append
+        group: realtime
+        example: "{\n    \"event_id\": \"event_456\",\n    \"type\": \"input_audio_buffer.append\",\n    \"audio\": \"Base64EncodedAudioData\"\n}\n"

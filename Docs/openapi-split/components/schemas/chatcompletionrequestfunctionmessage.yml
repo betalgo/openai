@@ -1,0 +1,23 @@
+components:
+  schemas:
+    ChatCompletionRequestFunctionMessage:
+      title: Function message
+      required:
+        - role
+        - content
+        - name
+      type: object
+      properties:
+        role:
+          enum:
+            - function
+          type: string
+          description: 'The role of the messages author, in this case `function`.'
+          x-stainless-const: true
+        content:
+          type: string
+          description: The contents of the function message.
+        name:
+          type: string
+          description: The name of the function to call.
+      deprecated: true

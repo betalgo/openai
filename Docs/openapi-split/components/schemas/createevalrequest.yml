@@ -1,0 +1,31 @@
+components:
+  schemas:
+    CreateEvalRequest:
+      title: CreateEvalRequest
+      required:
+        - data_source_config
+        - testing_criteria
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the evaluation.
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        data_source_config:
+          type: object
+          oneOf:
+            - $ref: '#/components/schemas/CreateEvalCustomDataSourceConfig'
+            - $ref: '#/components/schemas/CreateEvalLogsDataSourceConfig'
+            - $ref: '#/components/schemas/CreateEvalStoredCompletionsDataSourceConfig'
+          description: The configuration for the data source used for the evaluation runs. Dictates the schema of the data used in the evaluation.
+        testing_criteria:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/CreateEvalLabelModelGrader'
+              - $ref: '#/components/schemas/EvalGraderStringCheck'
+              - $ref: '#/components/schemas/EvalGraderTextSimilarity'
+              - $ref: '#/components/schemas/EvalGraderPython'
+              - $ref: '#/components/schemas/EvalGraderScoreModel'
+          description: 'A list of graders for all eval runs in this group. Graders can reference variables in the data source using double curly braces notation, like `{{item.variable_name}}`. To reference the model''s output, use the `sample` namespace (ie, `{{sample.output_text}}`).'

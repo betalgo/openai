@@ -1,0 +1,27 @@
+components:
+  schemas:
+    ResponseAudioTranscriptDeltaEvent:
+      required:
+        - type
+        - response_id
+        - delta
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.audio.transcript.delta
+          type: string
+          description: "The type of the event. Always `response.audio.transcript.delta`.\n"
+          x-stainless-const: true
+        delta:
+          type: string
+          description: "The partial transcript of the audio response.\n"
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: Emitted when there is a partial transcript of audio.
+      x-oaiMeta:
+        name: response.audio.transcript.delta
+        group: responses
+        example: "{\n  \"type\": \"response.audio.transcript.delta\",\n  \"response_id\": \"resp_123\",\n  \"delta\": \" ... partial transcript ... \",\n  \"sequence_number\": 1\n}\n"

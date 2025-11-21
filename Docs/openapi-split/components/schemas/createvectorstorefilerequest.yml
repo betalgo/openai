@@ -1,0 +1,15 @@
+components:
+  schemas:
+    CreateVectorStoreFileRequest:
+      required:
+        - file_id
+      type: object
+      properties:
+        file_id:
+          type: string
+          description: 'A [File](/docs/api-reference/files) ID that the vector store should use. Useful for tools like `file_search` that can access files.'
+        chunking_strategy:
+          $ref: '#/components/schemas/ChunkingStrategyRequestParam'
+        attributes:
+          $ref: '#/components/schemas/VectorStoreFileAttributes'
+      additionalProperties: false

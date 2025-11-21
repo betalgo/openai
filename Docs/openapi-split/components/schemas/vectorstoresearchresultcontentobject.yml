@@ -1,0 +1,19 @@
+components:
+  schemas:
+    VectorStoreSearchResultContentObject:
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - text
+          type: string
+          description: The type of content.
+        text:
+          type: string
+          description: The text content returned from search.
+      additionalProperties: false
+      x-oaiMeta:
+        name: Vector store search result content object

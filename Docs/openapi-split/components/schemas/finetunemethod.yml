@@ -1,0 +1,21 @@
+components:
+  schemas:
+    FineTuneMethod:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - supervised
+            - dpo
+            - reinforcement
+          type: string
+          description: 'The type of method. Is either `supervised`, `dpo`, or `reinforcement`.'
+        supervised:
+          $ref: '#/components/schemas/FineTuneSupervisedMethod'
+        dpo:
+          $ref: '#/components/schemas/FineTuneDPOMethod'
+        reinforcement:
+          $ref: '#/components/schemas/FineTuneReinforcementMethod'
+      description: The method used for fine-tuning.

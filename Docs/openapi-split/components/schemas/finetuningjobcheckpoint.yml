@@ -1,0 +1,57 @@
+components:
+  schemas:
+    FineTuningJobCheckpoint:
+      title: FineTuningJobCheckpoint
+      required:
+        - created_at
+        - fine_tuning_job_id
+        - fine_tuned_model_checkpoint
+        - id
+        - metrics
+        - object
+        - step_number
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The checkpoint identifier, which can be referenced in the API endpoints.'
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the checkpoint was created.
+        fine_tuned_model_checkpoint:
+          type: string
+          description: The name of the fine-tuned checkpoint model that is created.
+        step_number:
+          type: integer
+          description: The step number that the checkpoint was created at.
+        metrics:
+          type: object
+          properties:
+            step:
+              type: number
+            train_loss:
+              type: number
+            train_mean_token_accuracy:
+              type: number
+            valid_loss:
+              type: number
+            valid_mean_token_accuracy:
+              type: number
+            full_valid_loss:
+              type: number
+            full_valid_mean_token_accuracy:
+              type: number
+          description: Metrics at the step number during the fine-tuning job.
+        fine_tuning_job_id:
+          type: string
+          description: The name of the fine-tuning job that this checkpoint was created from.
+        object:
+          enum:
+            - fine_tuning.job.checkpoint
+          type: string
+          description: 'The object type, which is always "fine_tuning.job.checkpoint".'
+          x-stainless-const: true
+      description: "The `fine_tuning.job.checkpoint` object represents a model checkpoint for a fine-tuning job that is ready to use.\n"
+      x-oaiMeta:
+        name: The fine-tuning job checkpoint object
+        example: "{\n  \"object\": \"fine_tuning.job.checkpoint\",\n  \"id\": \"ftckpt_qtZ5Gyk4BLq1SfLFWp3RtO3P\",\n  \"created_at\": 1712211699,\n  \"fine_tuned_model_checkpoint\": \"ft:gpt-4o-mini-2024-07-18:my-org:custom_suffix:9ABel2dg:ckpt-step-88\",\n  \"fine_tuning_job_id\": \"ftjob-fpbNQ3H1GrMehXRf8cO97xTN\",\n  \"metrics\": {\n    \"step\": 88,\n    \"train_loss\": 0.478,\n    \"train_mean_token_accuracy\": 0.924,\n    \"valid_loss\": 10.112,\n    \"valid_mean_token_accuracy\": 0.145,\n    \"full_valid_loss\": 0.567,\n    \"full_valid_mean_token_accuracy\": 0.944\n  },\n  \"step_number\": 88\n}\n"

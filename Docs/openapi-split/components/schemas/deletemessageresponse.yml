@@ -1,0 +1,18 @@
+components:
+  schemas:
+    DeleteMessageResponse:
+      required:
+        - id
+        - object
+        - deleted
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+        object:
+          enum:
+            - thread.message.deleted
+          type: string
+          x-stainless-const: true

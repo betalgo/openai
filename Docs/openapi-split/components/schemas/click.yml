@@ -1,0 +1,34 @@
+components:
+  schemas:
+    Click:
+      title: Click
+      required:
+        - type
+        - button
+        - x
+        - y
+      type: object
+      properties:
+        type:
+          enum:
+            - click
+          type: string
+          description: "Specifies the event type. For a click action, this property is \nalways set to `click`.\n"
+          default: click
+          x-stainless-const: true
+        button:
+          enum:
+            - left
+            - right
+            - wheel
+            - back
+            - forward
+          type: string
+          description: "Indicates which mouse button was pressed during the click. One of `left`, `right`, `wheel`, `back`, or `forward`.\n"
+        x:
+          type: integer
+          description: "The x-coordinate where the click occurred.\n"
+        y:
+          type: integer
+          description: "The y-coordinate where the click occurred.\n"
+      description: "A click action.\n"

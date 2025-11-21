@@ -1,0 +1,34 @@
+components:
+  schemas:
+    ResponseCodeInterpreterCallCodeDeltaEvent:
+      required:
+        - type
+        - output_index
+        - item_id
+        - delta
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.code_interpreter_call_code.delta
+          type: string
+          description: The type of the event. Always `response.code_interpreter_call_code.delta`.
+          x-stainless-const: true
+        output_index:
+          type: integer
+          description: The index of the output item in the response for which the code is being streamed.
+        item_id:
+          type: string
+          description: The unique identifier of the code interpreter tool call item.
+        delta:
+          type: string
+          description: The partial code snippet being streamed by the code interpreter.
+        sequence_number:
+          type: integer
+          description: 'The sequence number of this event, used to order streaming events.'
+      description: Emitted when a partial code snippet is streamed by the code interpreter.
+      x-oaiMeta:
+        name: response.code_interpreter_call_code.delta
+        group: responses
+        example: "{\n  \"type\": \"response.code_interpreter_call_code.delta\",\n  \"output_index\": 0,\n  \"item_id\": \"ci_12345\",\n  \"delta\": \"print('Hello, world')\",\n  \"sequence_number\": 1\n}\n"

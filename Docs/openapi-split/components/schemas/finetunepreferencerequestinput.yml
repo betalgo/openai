@@ -1,0 +1,43 @@
+components:
+  schemas:
+    FineTunePreferenceRequestInput:
+      type: object
+      properties:
+        input:
+          type: object
+          properties:
+            messages:
+              minItems: 1
+              type: array
+              items:
+                oneOf:
+                  - $ref: '#/components/schemas/ChatCompletionRequestSystemMessage'
+                  - $ref: '#/components/schemas/ChatCompletionRequestUserMessage'
+                  - $ref: '#/components/schemas/FineTuneChatCompletionRequestAssistantMessage'
+                  - $ref: '#/components/schemas/ChatCompletionRequestToolMessage'
+                  - $ref: '#/components/schemas/ChatCompletionRequestFunctionMessage'
+            tools:
+              type: array
+              items:
+                $ref: '#/components/schemas/ChatCompletionTool'
+              description: A list of tools the model may generate JSON inputs for.
+            parallel_tool_calls:
+              $ref: '#/components/schemas/ParallelToolCalls'
+        preferred_output:
+          maxItems: 1
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/ChatCompletionRequestAssistantMessage'
+          description: The preferred completion message for the output.
+        non_preferred_output:
+          maxItems: 1
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/ChatCompletionRequestAssistantMessage'
+          description: The non-preferred completion message for the output.
+      description: "The per-line training example of a fine-tuning input file for chat models using the dpo method.\nInput messages may contain text or image content only. Audio and file input messages\nare not currently supported for fine-tuning.\n"
+      x-oaiMeta:
+        name: Training format for chat models using the preference method
+        example: "{\n  \"input\": {\n    \"messages\": [\n      { \"role\": \"user\", \"content\": \"What is the weather in San Francisco?\" }\n    ]\n  },\n  \"preferred_output\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": \"The weather in San Francisco is 70 degrees Fahrenheit.\"\n    }\n  ],\n  \"non_preferred_output\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": \"The weather in San Francisco is 21 degrees Celsius.\"\n    }\n  ]\n}\n"

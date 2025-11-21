@@ -1,0 +1,7 @@
+components:
+  schemas:
+    Content:
+      oneOf:
+        - $ref: '#/components/schemas/InputContent'
+        - $ref: '#/components/schemas/OutputContent'
+      description: "Multi-modal input and output contents.\n"

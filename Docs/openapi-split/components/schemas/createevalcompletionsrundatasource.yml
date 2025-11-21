@@ -1,0 +1,93 @@
+components:
+  schemas:
+    CreateEvalCompletionsRunDataSource:
+      title: CompletionsRunDataSource
+      required:
+        - type
+        - source
+      type: object
+      properties:
+        type:
+          enum:
+            - completions
+          type: string
+          description: The type of run data source. Always `completions`.
+          default: completions
+        input_messages:
+          oneOf:
+            - title: TemplateInputMessages
+              required:
+                - type
+                - template
+              type: object
+              properties:
+                type:
+                  enum:
+                    - template
+                  type: string
+                  description: The type of input messages. Always `template`.
+                template:
+                  type: array
+                  items:
+                    oneOf:
+                      - $ref: '#/components/schemas/EasyInputMessage'
+                      - $ref: '#/components/schemas/EvalItem'
+                  description: 'A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.'
+            - title: ItemReferenceInputMessages
+              required:
+                - type
+                - item_reference
+              type: object
+              properties:
+                type:
+                  enum:
+                    - item_reference
+                  type: string
+                  description: The type of input messages. Always `item_reference`.
+                item_reference:
+                  type: string
+                  description: 'A reference to a variable in the `item` namespace. Ie, "item.input_trajectory"'
+          description: 'Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input_trajectory`), or a template with variable references to the `item` namespace.'
+        sampling_params:
+          type: object
+          properties:
+            temperature:
+              type: number
+              description: A higher temperature increases randomness in the outputs.
+              default: 1
+            max_completion_tokens:
+              type: integer
+              description: The maximum number of tokens in the generated output.
+            top_p:
+              type: number
+              description: An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+              default: 1
+            seed:
+              type: integer
+              description: 'A seed value to initialize the randomness, during sampling.'
+              default: 42
+            response_format:
+              oneOf:
+                - $ref: '#/components/schemas/ResponseFormatText'
+                - $ref: '#/components/schemas/ResponseFormatJsonSchema'
+                - $ref: '#/components/schemas/ResponseFormatJsonObject'
+              description: "An object specifying the format that the model must output.\n\nSetting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables\nStructured Outputs which ensures the model will match your supplied JSON\nschema. Learn more in the [Structured Outputs\nguide](/docs/guides/structured-outputs).\n\nSetting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which\nensures the message the model generates is valid JSON. Using `json_schema`\nis preferred for models that support it.\n"
+            tools:
+              type: array
+              items:
+                $ref: '#/components/schemas/ChatCompletionTool'
+              description: "A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for. A max of 128 functions are supported.\n"
+        model:
+          type: string
+          description: The name of the model to use for generating completions (e.g. "o3-mini").
+        source:
+          oneOf:
+            - $ref: '#/components/schemas/EvalJsonlFileContentSource'
+            - $ref: '#/components/schemas/EvalJsonlFileIdSource'
+            - $ref: '#/components/schemas/EvalStoredCompletionsSource'
+          description: Determines what populates the `item` namespace in this run's data source.
+      description: "A CompletionsRunDataSource object describing a model sampling configuration.\n"
+      x-oaiMeta:
+        name: The completions data source object used to configure an individual run
+        group: eval runs
+        example: "{\n  \"name\": \"gpt-4o-mini-2024-07-18\",\n  \"data_source\": {\n    \"type\": \"completions\",\n    \"input_messages\": {\n      \"type\": \"item_reference\",\n      \"item_reference\": \"item.input\"\n    },\n    \"model\": \"gpt-4o-mini-2024-07-18\",\n    \"source\": {\n      \"type\": \"stored_completions\",\n      \"model\": \"gpt-4o-mini-2024-07-18\"\n    }\n  }\n}\n"

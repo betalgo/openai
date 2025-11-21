@@ -1,0 +1,79 @@
+components:
+  schemas:
+    ImagesResponse:
+      title: Image generation response
+      required:
+        - created
+      type: object
+      properties:
+        created:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the image was created.
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+          description: The list of generated images.
+        background:
+          enum:
+            - transparent
+            - opaque
+          type: string
+          description: The background parameter used for the image generation. Either `transparent` or `opaque`.
+        output_format:
+          enum:
+            - png
+            - webp
+            - jpeg
+          type: string
+          description: 'The output format of the image generation. Either `png`, `webp`, or `jpeg`.'
+        size:
+          enum:
+            - 1024x1024
+            - 1024x1536
+            - 1536x1024
+          type: string
+          description: 'The size of the image generated. Either `1024x1024`, `1024x1536`, or `1536x1024`.'
+        quality:
+          enum:
+            - low
+            - medium
+            - high
+          type: string
+          description: 'The quality of the image generated. Either `low`, `medium`, or `high`.'
+        usage:
+          required:
+            - total_tokens
+            - input_tokens
+            - output_tokens
+            - input_tokens_details
+          type: object
+          properties:
+            total_tokens:
+              type: integer
+              description: The total number of tokens (images and text) used for the image generation.
+            input_tokens:
+              type: integer
+              description: The number of tokens (images and text) in the input prompt.
+            output_tokens:
+              type: integer
+              description: The number of image tokens in the output image.
+            input_tokens_details:
+              required:
+                - text_tokens
+                - image_tokens
+              type: object
+              properties:
+                text_tokens:
+                  type: integer
+                  description: The number of text tokens in the input prompt.
+                image_tokens:
+                  type: integer
+                  description: The number of image tokens in the input prompt.
+              description: The input tokens detailed information for the image generation.
+          description: "For `gpt-image-1` only, the token usage information for the image generation.\n"
+      description: The response from the image generation endpoint.
+      x-oaiMeta:
+        name: The image generation response
+        group: images
+        example: "{\n  \"created\": 1713833628,\n  \"data\": [\n    {\n      \"b64_json\": \"...\"\n    }\n  ],\n  \"background\": \"transparent\",\n  \"output_format\": \"png\",\n  \"size\": \"1024x1024\",\n  \"quality\": \"high\",\n  \"usage\": {\n    \"total_tokens\": 100,\n    \"input_tokens\": 50,\n    \"output_tokens\": 50,\n    \"input_tokens_details\": {\n      \"text_tokens\": 10,\n      \"image_tokens\": 40\n    }\n  }\n}\n"

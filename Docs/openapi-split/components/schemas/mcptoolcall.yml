@@ -1,0 +1,39 @@
+components:
+  schemas:
+    MCPToolCall:
+      title: MCP tool call
+      required:
+        - type
+        - id
+        - server_label
+        - name
+        - arguments
+      type: object
+      properties:
+        type:
+          enum:
+            - mcp_call
+          type: string
+          description: "The type of the item. Always `mcp_call`.\n"
+          x-stainless-const: true
+        id:
+          type: string
+          description: "The unique ID of the tool call.\n"
+        server_label:
+          type: string
+          description: "The label of the MCP server running the tool.\n"
+        name:
+          type: string
+          description: "The name of the tool that was run.\n"
+        arguments:
+          type: string
+          description: "A JSON string of the arguments passed to the tool.\n"
+        output:
+          type: string
+          description: "The output from the tool call.\n"
+          nullable: true
+        error:
+          type: string
+          description: "The error from the tool call, if any.\n"
+          nullable: true
+      description: "An invocation of a tool on an MCP server.\n"

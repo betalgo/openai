@@ -1,0 +1,75 @@
+paths:
+  '/threads/{thread_id}/runs/{run_id}/steps':
+    get:
+      tags:
+        - Assistants
+      summary: Returns a list of run steps belonging to a run.
+      operationId: listRunSteps
+      parameters:
+        - name: thread_id
+          in: path
+          description: The ID of the thread the run and run steps belong to.
+          required: true
+          schema:
+            type: string
+        - name: run_id
+          in: path
+          description: The ID of the run the run steps belong to.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+          schema:
+            type: integer
+            default: 20
+        - name: order
+          in: query
+          description: "Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.\n"
+          schema:
+            enum:
+              - asc
+              - desc
+            type: string
+            default: desc
+        - name: after
+          in: query
+          description: "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+          schema:
+            type: string
+        - name: before
+          in: query
+          description: "A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.\n"
+          schema:
+            type: string
+        - name: 'include[]'
+          in: query
+          description: "A list of additional fields to include in the response. Currently the only supported value is `step_details.tool_calls[*].file_search.results[*].content` to fetch the file search result content.\n\nSee the [file search tool documentation](/docs/assistants/tools/file-search#customizing-file-search-settings) for more information.\n"
+          schema:
+            type: array
+            items:
+              enum:
+                - 'step_details.tool_calls[*].file_search.results[*].content'
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRunStepsResponse'
+      x-oaiMeta:
+        name: List run steps
+        group: threads
+        beta: true
+        returns: 'A list of [run step](/docs/api-reference/run-steps/step-object) objects.'
+        examples:
+          response: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"step_abc123\",\n      \"object\": \"thread.run.step\",\n      \"created_at\": 1699063291,\n      \"run_id\": \"run_abc123\",\n      \"assistant_id\": \"asst_abc123\",\n      \"thread_id\": \"thread_abc123\",\n      \"type\": \"message_creation\",\n      \"status\": \"completed\",\n      \"cancelled_at\": null,\n      \"completed_at\": 1699063291,\n      \"expired_at\": null,\n      \"failed_at\": null,\n      \"last_error\": null,\n      \"step_details\": {\n        \"type\": \"message_creation\",\n        \"message_creation\": {\n          \"message_id\": \"msg_abc123\"\n        }\n      },\n      \"usage\": {\n        \"prompt_tokens\": 123,\n        \"completion_tokens\": 456,\n        \"total_tokens\": 579\n      }\n    }\n  ],\n  \"first_id\": \"step_abc123\",\n  \"last_id\": \"step_abc456\",\n  \"has_more\": false\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/threads/thread_abc123/runs/run_abc123/steps \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"OpenAI-Beta: assistants=v2\"\n"
+            python: "import os\nfrom openai import OpenAI\n\nclient = OpenAI(\n    api_key=os.environ.get(\"OPENAI_API_KEY\"),  # This is the default and can be omitted\n)\npage = client.beta.threads.runs.steps.list(\n    run_id=\"run_id\",\n    thread_id=\"thread_id\",\n)\npage = page.data[0]\nprint(page.id)"
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const runStep of client.beta.threads.runs.steps.list('run_id', { thread_id: 'thread_id' })) {\n  console.log(runStep.id);\n}"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"), // defaults to os.LookupEnv(\"OPENAI_API_KEY\")\n  )\n  page, err := client.Beta.Threads.Runs.Steps.List(\n    context.TODO(),\n    \"thread_id\",\n    \"run_id\",\n    openai.BetaThreadRunStepListParams{\n\n    },\n  )\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", page)\n}\n"
+            kotlin: "package com.openai.example\n\nimport com.openai.client.OpenAIClient\nimport com.openai.client.okhttp.OpenAIOkHttpClient\nimport com.openai.models.beta.threads.runs.steps.StepListPage\nimport com.openai.models.beta.threads.runs.steps.StepListParams\n\nfun main() {\n    // Configures using the `OPENAI_API_KEY`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, `OPENAI_WEBHOOK_SECRET` and `OPENAI_BASE_URL` environment variables\n    val client: OpenAIClient = OpenAIOkHttpClient.fromEnv()\n\n    val params: StepListParams = StepListParams.builder()\n        .threadId(\"thread_id\")\n        .runId(\"run_id\")\n        .build()\n    val page: StepListPage = client.beta().threads().runs().steps().list(params)\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(\n  api_key: ENV[\"OPENAI_API_KEY\"] # This is the default and can be omitted\n)\n\npage = openai.beta.threads.runs.steps.list(\"run_id\", thread_id: \"thread_id\")\n\nputs(page)"

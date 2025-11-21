@@ -1,0 +1,55 @@
+components:
+  schemas:
+    Upload:
+      title: Upload
+      required:
+        - bytes
+        - created_at
+        - expires_at
+        - filename
+        - id
+        - purpose
+        - status
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The Upload unique identifier, which can be referenced in API endpoints.'
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the Upload was created.
+        filename:
+          type: string
+          description: The name of the file to be uploaded.
+        bytes:
+          type: integer
+          description: The intended number of bytes to be uploaded.
+        purpose:
+          type: string
+          description: 'The intended purpose of the file. [Please refer here](/docs/api-reference/files/object#files/object-purpose) for acceptable values.'
+        status:
+          enum:
+            - pending
+            - completed
+            - cancelled
+            - expired
+          type: string
+          description: The status of the Upload.
+        expires_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the Upload will expire.
+        object:
+          enum:
+            - upload
+          type: string
+          description: 'The object type, which is always "upload".'
+          x-stainless-const: true
+        file:
+          allOf:
+            - $ref: '#/components/schemas/OpenAIFile'
+            - description: The ready File object after the Upload is completed.
+              nullable: true
+      description: "The Upload object can accept byte chunks in the form of Parts.\n"
+      x-oaiMeta:
+        name: The upload object
+        example: "{\n  \"id\": \"upload_abc123\",\n  \"object\": \"upload\",\n  \"bytes\": 2147483648,\n  \"created_at\": 1719184911,\n  \"filename\": \"training_examples.jsonl\",\n  \"purpose\": \"fine-tune\",\n  \"status\": \"completed\",\n  \"expires_at\": 1719127296,\n  \"file\": {\n    \"id\": \"file-xyz321\",\n    \"object\": \"file\",\n    \"bytes\": 2147483648,\n    \"created_at\": 1719186911,\n    \"filename\": \"training_examples.jsonl\",\n    \"purpose\": \"fine-tune\",\n  }\n}\n"

@@ -1,0 +1,93 @@
+components:
+  schemas:
+    RunGraderResponse:
+      required:
+        - reward
+        - metadata
+        - sub_rewards
+        - model_grader_token_usage_per_model
+      type: object
+      properties:
+        reward:
+          type: number
+        metadata:
+          required:
+            - name
+            - type
+            - errors
+            - execution_time
+            - scores
+            - token_usage
+            - sampled_model_name
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              type: string
+            errors:
+              required:
+                - formula_parse_error
+                - sample_parse_error
+                - truncated_observation_error
+                - unresponsive_reward_error
+                - invalid_variable_error
+                - other_error
+                - python_grader_server_error
+                - python_grader_server_error_type
+                - python_grader_runtime_error
+                - python_grader_runtime_error_details
+                - model_grader_server_error
+                - model_grader_refusal_error
+                - model_grader_parse_error
+                - model_grader_server_error_details
+              type: object
+              properties:
+                formula_parse_error:
+                  type: boolean
+                sample_parse_error:
+                  type: boolean
+                truncated_observation_error:
+                  type: boolean
+                unresponsive_reward_error:
+                  type: boolean
+                invalid_variable_error:
+                  type: boolean
+                other_error:
+                  type: boolean
+                python_grader_server_error:
+                  type: boolean
+                python_grader_server_error_type:
+                  type: string
+                  nullable: true
+                python_grader_runtime_error:
+                  type: boolean
+                python_grader_runtime_error_details:
+                  type: string
+                  nullable: true
+                model_grader_server_error:
+                  type: boolean
+                model_grader_refusal_error:
+                  type: boolean
+                model_grader_parse_error:
+                  type: boolean
+                model_grader_server_error_details:
+                  type: string
+                  nullable: true
+            execution_time:
+              type: number
+            scores:
+              type: object
+              additionalProperties: { }
+            token_usage:
+              type: integer
+              nullable: true
+            sampled_model_name:
+              type: string
+              nullable: true
+        sub_rewards:
+          type: object
+          additionalProperties: { }
+        model_grader_token_usage_per_model:
+          type: object
+          additionalProperties: { }

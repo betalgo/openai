@@ -1,0 +1,39 @@
+components:
+  schemas:
+    ResponseReasoningDoneEvent:
+      title: ResponseReasoningDoneEvent
+      required:
+        - type
+        - item_id
+        - output_index
+        - content_index
+        - text
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.reasoning.done
+          type: string
+          description: The type of the event. Always 'response.reasoning.done'.
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The unique identifier of the item for which reasoning is finalized.
+        output_index:
+          type: integer
+          description: The index of the output item in the response's output array.
+        content_index:
+          type: integer
+          description: The index of the reasoning content part within the output item.
+        text:
+          type: string
+          description: The finalized reasoning text.
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: "Emitted when the reasoning content is finalized for an item.\n"
+      x-oaiMeta:
+        name: response.reasoning.done
+        group: responses
+        example: "{\n  \"type\": \"response.reasoning.done\",\n  \"item_id\": \"item-abc\",\n  \"output_index\": 0,\n  \"content_index\": 0,\n  \"text\": \"This is a test reasoning\",\n  \"sequence_number\": 1\n}\n"

@@ -1,0 +1,12 @@
+components:
+  schemas:
+    Includable:
+      enum:
+        - code_interpreter_call.outputs
+        - computer_call_output.output.image_url
+        - file_search_call.results
+        - message.input_image.image_url
+        - message.output_text.logprobs
+        - reasoning.encrypted_content
+      type: string
+      description: "Specify additional output data to include in the model response. Currently\nsupported values are:\n- `code_interpreter_call.outputs`: Includes the outputs of python code execution\n  in code interpreter tool call items.\n- `computer_call_output.output.image_url`: Include image urls from the computer call output.\n- `file_search_call.results`: Include the search results of\n  the file search tool call.\n- `message.input_image.image_url`: Include image urls from the input message.\n- `message.output_text.logprobs`: Include logprobs with assistant messages.\n- `reasoning.encrypted_content`: Includes an encrypted version of reasoning\n  tokens in reasoning item outputs. This enables reasoning items to be used in\n  multi-turn conversations when using the Responses API statelessly (like\n  when the `store` parameter is set to `false`, or when an organization is\n  enrolled in the zero data retention program).\n"

@@ -1,0 +1,25 @@
+components:
+  schemas:
+    CreateVectorStoreRequest:
+      type: object
+      properties:
+        file_ids:
+          maxItems: 500
+          type: array
+          items:
+            type: string
+          description: 'A list of [File](/docs/api-reference/files) IDs that the vector store should use. Useful for tools like `file_search` that can access files.'
+        name:
+          type: string
+          description: The name of the vector store.
+        expires_after:
+          $ref: '#/components/schemas/VectorStoreExpirationAfter'
+        chunking_strategy:
+          type: object
+          oneOf:
+            - $ref: '#/components/schemas/AutoChunkingStrategyRequestParam'
+            - $ref: '#/components/schemas/StaticChunkingStrategyRequestParam'
+          description: 'The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy. Only applicable if `file_ids` is non-empty.'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      additionalProperties: false

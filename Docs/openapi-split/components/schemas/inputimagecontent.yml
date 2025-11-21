@@ -1,0 +1,34 @@
+components:
+  schemas:
+    InputImageContent:
+      title: Input image
+      required:
+        - type
+        - detail
+      type: object
+      properties:
+        type:
+          enum:
+            - input_image
+          type: string
+          description: The type of the input item. Always `input_image`.
+          default: input_image
+          x-stainless-const: true
+        image_url:
+          anyOf:
+            - type: string
+              description: The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
+            - nullable: true
+        file_id:
+          anyOf:
+            - type: string
+              description: The ID of the file to be sent to the model.
+            - nullable: true
+        detail:
+          enum:
+            - low
+            - high
+            - auto
+          type: string
+          description: 'The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.'
+      description: 'An image input to the model. Learn about [image inputs](/docs/guides/vision).'

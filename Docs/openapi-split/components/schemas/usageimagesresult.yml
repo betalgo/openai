@@ -1,0 +1,48 @@
+components:
+  schemas:
+    UsageImagesResult:
+      required:
+        - object
+        - images
+        - num_model_requests
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.usage.images.result
+          type: string
+          x-stainless-const: true
+        images:
+          type: integer
+          description: The number of images processed.
+        num_model_requests:
+          type: integer
+          description: The count of requests made to the model.
+        source:
+          type: string
+          description: 'When `group_by=source`, this field provides the source of the grouped usage result, possible values are `image.generation`, `image.edit`, `image.variation`.'
+          nullable: true
+        size:
+          type: string
+          description: 'When `group_by=size`, this field provides the image size of the grouped usage result.'
+          nullable: true
+        project_id:
+          type: string
+          description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
+          nullable: true
+        user_id:
+          type: string
+          description: 'When `group_by=user_id`, this field provides the user ID of the grouped usage result.'
+          nullable: true
+        api_key_id:
+          type: string
+          description: 'When `group_by=api_key_id`, this field provides the API key ID of the grouped usage result.'
+          nullable: true
+        model:
+          type: string
+          description: 'When `group_by=model`, this field provides the model name of the grouped usage result.'
+          nullable: true
+      description: The aggregated images usage details of the specific time bucket.
+      x-oaiMeta:
+        name: Images usage object
+        example: "{\n    \"object\": \"organization.usage.images.result\",\n    \"images\": 2,\n    \"num_model_requests\": 2,\n    \"size\": \"1024x1024\",\n    \"source\": \"image.generation\",\n    \"project_id\": \"proj_abc\",\n    \"user_id\": \"user-abc\",\n    \"api_key_id\": \"key_abc\",\n    \"model\": \"dall-e-3\"\n}\n"

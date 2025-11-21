@@ -1,0 +1,36 @@
+paths:
+  '/uploads/{upload_id}/cancel':
+    post:
+      tags:
+        - Uploads
+      summary: "Cancels the Upload. No Parts may be added after an Upload is cancelled.\n"
+      operationId: cancelUpload
+      parameters:
+        - name: upload_id
+          in: path
+          description: "The ID of the Upload.\n"
+          required: true
+          schema:
+            type: string
+            example: upload_abc123
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Upload'
+      x-oaiMeta:
+        name: Cancel upload
+        group: uploads
+        returns: 'The [Upload](/docs/api-reference/uploads/object) object with status `cancelled`.'
+        examples:
+          response: "{\n  \"id\": \"upload_abc123\",\n  \"object\": \"upload\",\n  \"bytes\": 2147483648,\n  \"created_at\": 1719184911,\n  \"filename\": \"training_examples.jsonl\",\n  \"purpose\": \"fine-tune\",\n  \"status\": \"cancelled\",\n  \"expires_at\": 1719127296\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/uploads/upload_abc123/cancel\n"
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted\n});\n\nconst upload = await client.uploads.cancel('upload_abc123');\n\nconsole.log(upload.id);"
+            python: "import os\nfrom openai import OpenAI\n\nclient = OpenAI(\n    api_key=os.environ.get(\"OPENAI_API_KEY\"),  # This is the default and can be omitted\n)\nupload = client.uploads.cancel(\n    \"upload_abc123\",\n)\nprint(upload.id)"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"), // defaults to os.LookupEnv(\"OPENAI_API_KEY\")\n  )\n  upload, err := client.Uploads.Cancel(context.TODO(), \"upload_abc123\")\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", upload.ID)\n}\n"
+            java: "package com.openai.example;\n\nimport com.openai.client.OpenAIClient;\nimport com.openai.client.okhttp.OpenAIOkHttpClient;\nimport com.openai.models.uploads.Upload;\nimport com.openai.models.uploads.UploadCancelParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        // Configures using the `OPENAI_API_KEY`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, `OPENAI_WEBHOOK_SECRET` and `OPENAI_BASE_URL` environment variables\n        OpenAIClient client = OpenAIOkHttpClient.fromEnv();\n\n        Upload upload = client.uploads().cancel(\"upload_abc123\");\n    }\n}"
+            kotlin: "package com.openai.example\n\nimport com.openai.client.OpenAIClient\nimport com.openai.client.okhttp.OpenAIOkHttpClient\nimport com.openai.models.uploads.Upload\nimport com.openai.models.uploads.UploadCancelParams\n\nfun main() {\n    // Configures using the `OPENAI_API_KEY`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, `OPENAI_WEBHOOK_SECRET` and `OPENAI_BASE_URL` environment variables\n    val client: OpenAIClient = OpenAIOkHttpClient.fromEnv()\n\n    val upload: Upload = client.uploads().cancel(\"upload_abc123\")\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(\n  api_key: ENV[\"OPENAI_API_KEY\"] # This is the default and can be omitted\n)\n\nupload = openai.uploads.cancel(\"upload_abc123\")\n\nputs(upload)"

@@ -1,0 +1,24 @@
+components:
+  schemas:
+    RunStepDeltaStepDetailsToolCallsCodeOutputImageObject:
+      title: Code interpreter image output
+      required:
+        - index
+        - type
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of the output in the outputs array.
+        type:
+          enum:
+            - image
+          type: string
+          description: Always `image`.
+          x-stainless-const: true
+        image:
+          type: object
+          properties:
+            file_id:
+              type: string
+              description: 'The [file](/docs/api-reference/files) ID of the image.'

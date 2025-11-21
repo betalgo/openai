@@ -1,0 +1,20 @@
+components:
+  schemas:
+    TranscriptionWord:
+      required:
+        - word
+        - start
+        - end
+      type: object
+      properties:
+        word:
+          type: string
+          description: The text content of the word.
+        start:
+          type: number
+          description: Start time of the word in seconds.
+          format: float
+        end:
+          type: number
+          description: End time of the word in seconds.
+          format: float

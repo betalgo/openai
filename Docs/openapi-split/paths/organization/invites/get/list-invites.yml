@@ -1,0 +1,34 @@
+paths:
+  /organization/invites:
+    get:
+      tags:
+        - Invites
+      summary: Returns a list of invites in the organization.
+      operationId: list-invites
+      parameters:
+        - name: limit
+          in: query
+          description: "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+          schema:
+            type: integer
+            default: 20
+        - name: after
+          in: query
+          description: "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invites listed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InviteListResponse'
+      x-oaiMeta:
+        name: List invites
+        group: administration
+        returns: 'A list of [Invite](/docs/api-reference/invite/object) objects.'
+        examples:
+          response: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"object\": \"organization.invite\",\n      \"id\": \"invite-abc\",\n      \"email\": \"user@example.com\",\n      \"role\": \"owner\",\n      \"status\": \"accepted\",\n      \"invited_at\": 1711471533,\n      \"expires_at\": 1711471533,\n      \"accepted_at\": 1711471533\n    }\n  ],\n  \"first_id\": \"invite-abc\",\n  \"last_id\": \"invite-abc\",\n  \"has_more\": false\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/organization/invites?after=invite-abc&limit=20 \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"

@@ -1,0 +1,34 @@
+components:
+  schemas:
+    FineTuneChatRequestInput:
+      type: object
+      properties:
+        messages:
+          minItems: 1
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/ChatCompletionRequestSystemMessage'
+              - $ref: '#/components/schemas/ChatCompletionRequestUserMessage'
+              - $ref: '#/components/schemas/FineTuneChatCompletionRequestAssistantMessage'
+              - $ref: '#/components/schemas/ChatCompletionRequestToolMessage'
+              - $ref: '#/components/schemas/ChatCompletionRequestFunctionMessage'
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatCompletionTool'
+          description: A list of tools the model may generate JSON inputs for.
+        parallel_tool_calls:
+          $ref: '#/components/schemas/ParallelToolCalls'
+        functions:
+          maxItems: 128
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatCompletionFunctions'
+          description: A list of functions the model may generate JSON inputs for.
+          deprecated: true
+      description: "The per-line training example of a fine-tuning input file for chat models using the supervised method.\nInput messages may contain text or image content only. Audio and file input messages\nare not currently supported for fine-tuning.\n"
+      x-oaiMeta:
+        name: Training format for chat models using the supervised method
+        example: "{\n  \"messages\": [\n    { \"role\": \"user\", \"content\": \"What is the weather in San Francisco?\" },\n    {\n      \"role\": \"assistant\",\n      \"tool_calls\": [\n        {\n          \"id\": \"call_id\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"get_current_weather\",\n            \"arguments\": \"{\\\"location\\\": \\\"San Francisco, USA\\\", \\\"format\\\": \\\"celsius\\\"}\"\n          }\n        }\n      ]\n    }\n  ],\n  \"parallel_tool_calls\": false,\n  \"tools\": [\n    {\n      \"type\": \"function\",\n      \"function\": {\n        \"name\": \"get_current_weather\",\n        \"description\": \"Get the current weather\",\n        \"parameters\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"location\": {\n                \"type\": \"string\",\n                \"description\": \"The city and country, eg. San Francisco, USA\"\n            },\n            \"format\": { \"type\": \"string\", \"enum\": [\"celsius\", \"fahrenheit\"] }\n          },\n          \"required\": [\"location\", \"format\"]\n        }\n      }\n    }\n  ]\n}\n"

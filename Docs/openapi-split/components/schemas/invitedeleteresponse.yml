@@ -1,0 +1,19 @@
+components:
+  schemas:
+    InviteDeleteResponse:
+      required:
+        - object
+        - id
+        - deleted
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.invite.deleted
+          type: string
+          description: 'The object type, which is always `organization.invite.deleted`'
+          x-stainless-const: true
+        id:
+          type: string
+        deleted:
+          type: boolean

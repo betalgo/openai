@@ -1,0 +1,21 @@
+components:
+  schemas:
+    RealtimeClientEventInputAudioBufferClear:
+      required:
+        - type
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - input_audio_buffer.clear
+          type: string
+          description: 'The event type, must be `input_audio_buffer.clear`.'
+          x-stainless-const: true
+      description: "Send this event to clear the audio bytes in the buffer. The server will \nrespond with an `input_audio_buffer.cleared` event.\n"
+      x-oaiMeta:
+        name: input_audio_buffer.clear
+        group: realtime
+        example: "{\n    \"event_id\": \"event_012\",\n    \"type\": \"input_audio_buffer.clear\"\n}\n"

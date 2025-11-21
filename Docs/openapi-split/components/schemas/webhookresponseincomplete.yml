@@ -1,0 +1,43 @@
+components:
+  schemas:
+    WebhookResponseIncomplete:
+      title: response.incomplete
+      required:
+        - created_at
+        - id
+        - data
+        - type
+      type: object
+      properties:
+        created_at:
+          type: integer
+          description: "The Unix timestamp (in seconds) of when the model response was interrupted.\n"
+        id:
+          type: string
+          description: "The unique ID of the event.\n"
+        data:
+          required:
+            - id
+          type: object
+          properties:
+            id:
+              type: string
+              description: "The unique ID of the model response.\n"
+          description: "Event data payload.\n"
+        object:
+          enum:
+            - event
+          type: string
+          description: "The object of the event. Always `event`.\n"
+          x-stainless-const: true
+        type:
+          enum:
+            - response.incomplete
+          type: string
+          description: "The type of the event. Always `response.incomplete`.\n"
+          x-stainless-const: true
+      description: "Sent when a background response has been interrupted.\n"
+      x-oaiMeta:
+        name: response.incomplete
+        group: webhook-events
+        example: "{\n  \"id\": \"evt_abc123\",\n  \"type\": \"response.incomplete\",\n  \"created_at\": 1719168000,\n  \"data\": {\n    \"id\": \"resp_abc123\"\n  }\n}\n"

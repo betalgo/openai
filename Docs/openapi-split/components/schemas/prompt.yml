@@ -1,0 +1,18 @@
+components:
+  schemas:
+    Prompt:
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the prompt template to use.
+        version:
+          type: string
+          description: Optional version of the prompt template.
+          nullable: true
+        variables:
+          $ref: '#/components/schemas/ResponsePromptVariables'
+      description: "Reference to a prompt template and its variables. \n[Learn more](/docs/guides/text?api-mode=responses#reusable-prompts).\n"
+      nullable: true

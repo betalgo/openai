@@ -1,0 +1,6 @@
+components:
+  schemas:
+    OutputContent:
+      oneOf:
+        - $ref: '#/components/schemas/OutputTextContent'
+        - $ref: '#/components/schemas/RefusalContent'

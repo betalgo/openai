@@ -1,0 +1,40 @@
+components:
+  schemas:
+    Project:
+      required:
+        - id
+        - object
+        - name
+        - created_at
+        - status
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints'
+        object:
+          enum:
+            - organization.project
+          type: string
+          description: 'The object type, which is always `organization.project`'
+          x-stainless-const: true
+        name:
+          type: string
+          description: The name of the project. This appears in reporting.
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the project was created.
+        archived_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the project was archived or `null`.
+          nullable: true
+        status:
+          enum:
+            - active
+            - archived
+          type: string
+          description: '`active` or `archived`'
+      description: Represents an individual project.
+      x-oaiMeta:
+        name: The project object
+        example: "{\n    \"id\": \"proj_abc\",\n    \"object\": \"organization.project\",\n    \"name\": \"Project example\",\n    \"created_at\": 1711471533,\n    \"archived_at\": null,\n    \"status\": \"active\"\n}\n"

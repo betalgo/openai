@@ -1,0 +1,6 @@
+components:
+  schemas:
+    ChatCompletionRequestAssistantMessageContentPart:
+      oneOf:
+        - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartText'
+        - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartRefusal'

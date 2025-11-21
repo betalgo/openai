@@ -1,0 +1,14 @@
+components:
+  schemas:
+    AssistantToolsCode:
+      title: Code interpreter tool
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - code_interpreter
+          type: string
+          description: 'The type of tool being defined: `code_interpreter`'
+          x-stainless-const: true

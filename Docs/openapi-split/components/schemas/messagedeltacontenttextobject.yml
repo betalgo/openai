@@ -1,0 +1,31 @@
+components:
+  schemas:
+    MessageDeltaContentTextObject:
+      title: Text
+      required:
+        - index
+        - type
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of the content part in the message.
+        type:
+          enum:
+            - text
+          type: string
+          description: Always `text`.
+          x-stainless-const: true
+        text:
+          type: object
+          properties:
+            value:
+              type: string
+              description: The data that makes up the text.
+            annotations:
+              type: array
+              items:
+                oneOf:
+                  - $ref: '#/components/schemas/MessageDeltaContentTextAnnotationsFileCitationObject'
+                  - $ref: '#/components/schemas/MessageDeltaContentTextAnnotationsFilePathObject'
+      description: The text content that is part of a message.

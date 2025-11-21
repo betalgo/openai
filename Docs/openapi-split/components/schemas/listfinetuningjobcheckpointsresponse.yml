@@ -1,0 +1,26 @@
+components:
+  schemas:
+    ListFineTuningJobCheckpointsResponse:
+      required:
+        - object
+        - data
+        - has_more
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FineTuningJobCheckpoint'
+        object:
+          enum:
+            - list
+          type: string
+          x-stainless-const: true
+        first_id:
+          type: string
+          nullable: true
+        last_id:
+          type: string
+          nullable: true
+        has_more:
+          type: boolean

@@ -1,0 +1,50 @@
+components:
+  schemas:
+    VectorStoreSearchRequest:
+      required:
+        - query
+      type: object
+      properties:
+        query:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                minItems: 1
+                type: string
+                description: A list of queries to search for.
+          description: A query string for a search
+        rewrite_query:
+          type: boolean
+          description: Whether to rewrite the natural language query for vector search.
+          default: false
+        max_num_results:
+          maximum: 50
+          minimum: 1
+          type: integer
+          description: The maximum number of results to return. This number should be between 1 and 50 inclusive.
+          default: 10
+        filters:
+          oneOf:
+            - $ref: '#/components/schemas/ComparisonFilter'
+            - $ref: '#/components/schemas/CompoundFilter'
+          description: A filter to apply based on file attributes.
+        ranking_options:
+          type: object
+          properties:
+            ranker:
+              enum:
+                - auto
+                - default-2024-11-15
+              type: string
+              default: auto
+            score_threshold:
+              maximum: 1
+              minimum: 0
+              type: number
+              default: 0
+          additionalProperties: false
+          description: Ranking options for search.
+      additionalProperties: false
+      x-oaiMeta:
+        name: Vector store search request

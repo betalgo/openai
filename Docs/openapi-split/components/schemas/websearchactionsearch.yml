@@ -1,0 +1,19 @@
+components:
+  schemas:
+    WebSearchActionSearch:
+      title: Search action
+      required:
+        - type
+        - query
+      type: object
+      properties:
+        type:
+          enum:
+            - search
+          type: string
+          description: "The action type.\n"
+          x-stainless-const: true
+        query:
+          type: string
+          description: "The search query.\n"
+      description: "Action type \"search\" - Performs a web search query.\n"

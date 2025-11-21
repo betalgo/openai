@@ -1,0 +1,13 @@
+components:
+  schemas:
+    ComputerAction:
+      oneOf:
+        - $ref: '#/components/schemas/Click'
+        - $ref: '#/components/schemas/DoubleClick'
+        - $ref: '#/components/schemas/Drag'
+        - $ref: '#/components/schemas/KeyPress'
+        - $ref: '#/components/schemas/Move'
+        - $ref: '#/components/schemas/Screenshot'
+        - $ref: '#/components/schemas/Scroll'
+        - $ref: '#/components/schemas/Type'
+        - $ref: '#/components/schemas/Wait'

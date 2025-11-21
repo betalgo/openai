@@ -1,0 +1,38 @@
+paths:
+  '/organization/certificates/{certificate_id}':
+    get:
+      tags:
+        - Certificates
+      summary: "Get a certificate that has been uploaded to the organization.\n\nYou can get a certificate regardless of whether it is active or not.\n"
+      operationId: getCertificate
+      parameters:
+        - name: certificate_id
+          in: path
+          description: Unique ID of the certificate to retrieve.
+          required: true
+          schema:
+            type: string
+        - name: include
+          in: query
+          description: A list of additional fields to include in the response. Currently the only supported value is `content` to fetch the PEM content of the certificate.
+          schema:
+            type: array
+            items:
+              enum:
+                - content
+              type: string
+      responses:
+        '200':
+          description: Certificate retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+      x-oaiMeta:
+        name: Get certificate
+        group: administration
+        returns: 'A single [Certificate](/docs/api-reference/certificates/object) object.'
+        examples:
+          request:
+            curl: "curl \"https://api.openai.com/v1/organization/certificates/cert_abc?include[]=content\" \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\"\n"
+          response: "{\n  \"object\": \"certificate\",\n  \"id\": \"cert_abc\",\n  \"name\": \"My Example Certificate\",\n  \"created_at\": 1234567,\n  \"certificate_details\": {\n    \"valid_at\": 1234567,\n    \"expires_at\": 12345678,\n    \"content\": \"-----BEGIN CERTIFICATE-----MIIDeT...-----END CERTIFICATE-----\"\n  }\n}\n"

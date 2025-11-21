@@ -1,0 +1,18 @@
+components:
+  schemas:
+    ProjectApiKeyDeleteResponse:
+      required:
+        - object
+        - id
+        - deleted
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.project.api_key.deleted
+          type: string
+          x-stainless-const: true
+        id:
+          type: string
+        deleted:
+          type: boolean

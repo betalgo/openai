@@ -1,0 +1,25 @@
+components:
+  schemas:
+    RealtimeServerEventTranscriptionSessionUpdated:
+      required:
+        - event_id
+        - type
+        - session
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - transcription_session.updated
+          type: string
+          description: 'The event type, must be `transcription_session.updated`.'
+          x-stainless-const: true
+        session:
+          $ref: '#/components/schemas/RealtimeTranscriptionSessionCreateResponse'
+      description: "Returned when a transcription session is updated with a `transcription_session.update` event, unless \nthere is an error.\n"
+      x-oaiMeta:
+        name: transcription_session.updated
+        group: realtime
+        example: "{\n  \"event_id\": \"event_5678\",\n  \"type\": \"transcription_session.updated\",\n  \"session\": {\n    \"id\": \"sess_001\",\n    \"object\": \"realtime.transcription_session\",\n    \"input_audio_format\": \"pcm16\",\n    \"input_audio_transcription\": {\n      \"model\": \"gpt-4o-transcribe\",\n      \"prompt\": \"\",\n      \"language\": \"\"\n    },\n    \"turn_detection\": {\n      \"type\": \"server_vad\",\n      \"threshold\": 0.5,\n      \"prefix_padding_ms\": 300,\n      \"silence_duration_ms\": 500,\n      \"create_response\": true,\n      // \"interrupt_response\": false  -- this will NOT be returned\n    },\n    \"input_audio_noise_reduction\": {\n      \"type\": \"near_field\"\n    },\n    \"include\": [\n      \"item.input_audio_transcription.avg_logprob\",\n    ],\n  }\n}\n"

@@ -1,0 +1,17 @@
+components:
+  schemas:
+    DeleteCertificateResponse:
+      required:
+        - object
+        - id
+      type: object
+      properties:
+        object:
+          enum:
+            - certificate.deleted
+          type: string
+          description: 'The object type, must be `certificate.deleted`.'
+          x-stainless-const: true
+        id:
+          type: string
+          description: The ID of the certificate that was deleted.

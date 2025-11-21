@@ -1,0 +1,25 @@
+components:
+  schemas:
+    RealtimeServerEventSessionCreated:
+      required:
+        - event_id
+        - type
+        - session
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - session.created
+          type: string
+          description: 'The event type, must be `session.created`.'
+          x-stainless-const: true
+        session:
+          $ref: '#/components/schemas/RealtimeSession'
+      description: "Returned when a Session is created. Emitted automatically when a new \nconnection is established as the first server event. This event will contain \nthe default Session configuration.\n"
+      x-oaiMeta:
+        name: session.created
+        group: realtime
+        example: "{\n    \"event_id\": \"event_1234\",\n    \"type\": \"session.created\",\n    \"session\": {\n        \"id\": \"sess_001\",\n        \"object\": \"realtime.session\",\n        \"model\": \"gpt-4o-realtime-preview\",\n        \"modalities\": [\"text\", \"audio\"],\n        \"instructions\": \"...model instructions here...\",\n        \"voice\": \"sage\",\n        \"input_audio_format\": \"pcm16\",\n        \"output_audio_format\": \"pcm16\",\n        \"input_audio_transcription\": null,\n        \"turn_detection\": {\n            \"type\": \"server_vad\",\n            \"threshold\": 0.5,\n            \"prefix_padding_ms\": 300,\n            \"silence_duration_ms\": 200\n        },\n        \"tools\": [],\n        \"tool_choice\": \"auto\",\n        \"temperature\": 0.8,\n        \"max_response_output_tokens\": \"inf\",\n        \"speed\": 1.1,\n        \"tracing\": \"auto\"\n    }\n}\n"

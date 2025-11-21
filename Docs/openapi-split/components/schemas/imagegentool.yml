@@ -1,0 +1,85 @@
+components:
+  schemas:
+    ImageGenTool:
+      title: Image generation tool
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - image_generation
+          type: string
+          description: "The type of the image generation tool. Always `image_generation`.\n"
+          x-stainless-const: true
+        model:
+          enum:
+            - gpt-image-1
+          type: string
+          description: "The image generation model to use. Default: `gpt-image-1`.\n"
+          default: gpt-image-1
+        quality:
+          enum:
+            - low
+            - medium
+            - high
+            - auto
+          type: string
+          description: "The quality of the generated image. One of `low`, `medium`, `high`, \nor `auto`. Default: `auto`.\n"
+          default: auto
+        size:
+          enum:
+            - 1024x1024
+            - 1024x1536
+            - 1536x1024
+            - auto
+          type: string
+          description: "The size of the generated image. One of `1024x1024`, `1024x1536`, \n`1536x1024`, or `auto`. Default: `auto`.\n"
+          default: auto
+        output_format:
+          enum:
+            - png
+            - webp
+            - jpeg
+          type: string
+          description: "The output format of the generated image. One of `png`, `webp`, or \n`jpeg`. Default: `png`.\n"
+          default: png
+        output_compression:
+          maximum: 100
+          minimum: 0
+          type: integer
+          description: "Compression level for the output image. Default: 100.\n"
+          default: 100
+        moderation:
+          enum:
+            - auto
+            - low
+          type: string
+          description: "Moderation level for the generated image. Default: `auto`.\n"
+          default: auto
+        background:
+          enum:
+            - transparent
+            - opaque
+            - auto
+          type: string
+          description: "Background type for the generated image. One of `transparent`, \n`opaque`, or `auto`. Default: `auto`.\n"
+          default: auto
+        input_image_mask:
+          type: object
+          properties:
+            image_url:
+              type: string
+              description: "Base64-encoded mask image.\n"
+            file_id:
+              type: string
+              description: "File ID for the mask image.\n"
+          additionalProperties: false
+          description: "Optional mask for inpainting. Contains `image_url` \n(string, optional) and `file_id` (string, optional).\n"
+        partial_images:
+          maximum: 3
+          minimum: 0
+          type: integer
+          description: "Number of partial images to generate in streaming mode, from 0 (default value) to 3.\n"
+          default: 0
+      description: "A tool that generates images using a model like `gpt-image-1`.\n"

@@ -1,0 +1,19 @@
+components:
+  schemas:
+    CodeInterpreterTextOutput:
+      title: Code interpreter text output
+      required:
+        - type
+        - logs
+      type: object
+      properties:
+        type:
+          enum:
+            - logs
+          type: string
+          description: "The type of the code interpreter text output. Always `logs`.\n"
+          x-stainless-const: true
+        logs:
+          type: string
+          description: "The logs of the code interpreter tool call.\n"
+      description: "The output of a code interpreter tool call that is text.\n"

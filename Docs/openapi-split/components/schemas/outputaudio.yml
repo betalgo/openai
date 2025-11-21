@@ -1,0 +1,23 @@
+components:
+  schemas:
+    OutputAudio:
+      title: Output audio
+      required:
+        - type
+        - data
+        - transcript
+      type: object
+      properties:
+        type:
+          enum:
+            - output_audio
+          type: string
+          description: "The type of the output audio. Always `output_audio`.\n"
+          x-stainless-const: true
+        data:
+          type: string
+          description: "Base64-encoded audio data from the model.\n"
+        transcript:
+          type: string
+          description: "The transcript of the audio data from the model.\n"
+      description: "An audio output from the model.\n"

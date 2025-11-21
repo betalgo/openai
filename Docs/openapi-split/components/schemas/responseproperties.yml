@@ -1,0 +1,54 @@
+components:
+  schemas:
+    ResponseProperties:
+      type: object
+      properties:
+        previous_response_id:
+          type: string
+          description: "The unique ID of the previous response to the model. Use this to\ncreate multi-turn conversations. Learn more about \n[conversation state](/docs/guides/conversation-state).\n"
+          nullable: true
+        model:
+          $ref: '#/components/schemas/ModelIdsResponses'
+        reasoning:
+          $ref: '#/components/schemas/Reasoning'
+        background:
+          type: boolean
+          description: "Whether to run the model response in the background. \n[Learn more](/docs/guides/background).\n"
+          default: false
+          nullable: true
+        max_output_tokens:
+          type: integer
+          description: "An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).\n"
+          nullable: true
+        max_tool_calls:
+          type: integer
+          description: "The maximum number of total calls to built-in tools that can be processed in a response. This maximum number applies across all built-in tool calls, not per individual tool. Any further attempts to call a tool by the model will be ignored.\n"
+          nullable: true
+        text:
+          type: object
+          properties:
+            format:
+              $ref: '#/components/schemas/TextResponseFormatConfiguration'
+          description: "Configuration options for a text response from the model. Can be plain\ntext or structured JSON data. Learn more:\n- [Text inputs and outputs](/docs/guides/text)\n- [Structured Outputs](/docs/guides/structured-outputs)\n"
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tool'
+          description: "An array of tools the model may call while generating a response. You \ncan specify which tool to use by setting the `tool_choice` parameter.\n\nThe two categories of tools you can provide the model are:\n\n- **Built-in tools**: Tools that are provided by OpenAI that extend the\n  model's capabilities, like [web search](/docs/guides/tools-web-search)\n  or [file search](/docs/guides/tools-file-search). Learn more about\n  [built-in tools](/docs/guides/tools).\n- **Function calls (custom tools)**: Functions that are defined by you,\n  enabling the model to call your own code. Learn more about\n  [function calling](/docs/guides/function-calling).\n"
+        tool_choice:
+          oneOf:
+            - $ref: '#/components/schemas/ToolChoiceOptions'
+            - $ref: '#/components/schemas/ToolChoiceTypes'
+            - $ref: '#/components/schemas/ToolChoiceFunction'
+            - $ref: '#/components/schemas/ToolChoiceMCP'
+          description: "How the model should select which tool (or tools) to use when generating\na response. See the `tools` parameter to see how to specify which tools\nthe model can call.\n"
+        prompt:
+          $ref: '#/components/schemas/Prompt'
+        truncation:
+          enum:
+            - auto
+            - disabled
+          type: string
+          description: "The truncation strategy to use for the model response.\n- `auto`: If the context of this response and previous ones exceeds\n  the model's context window size, the model will truncate the \n  response to fit the context window by dropping input items in the\n  middle of the conversation. \n- `disabled` (default): If a model response will exceed the context window \n  size for a model, the request will fail with a 400 error.\n"
+          default: disabled
+          nullable: true

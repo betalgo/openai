@@ -1,0 +1,29 @@
+components:
+  schemas:
+    ResponseOutputItemDoneEvent:
+      required:
+        - type
+        - output_index
+        - item
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.output_item.done
+          type: string
+          description: "The type of the event. Always `response.output_item.done`.\n"
+          x-stainless-const: true
+        output_index:
+          type: integer
+          description: "The index of the output item that was marked done.\n"
+        sequence_number:
+          type: integer
+          description: "The sequence number of this event.\n"
+        item:
+          $ref: '#/components/schemas/OutputItem'
+      description: Emitted when an output item is marked done.
+      x-oaiMeta:
+        name: response.output_item.done
+        group: responses
+        example: "{\n  \"type\": \"response.output_item.done\",\n  \"output_index\": 0,\n  \"item\": {\n    \"id\": \"msg_123\",\n    \"status\": \"completed\",\n    \"type\": \"message\",\n    \"role\": \"assistant\",\n    \"content\": [\n      {\n        \"type\": \"output_text\",\n        \"text\": \"In a shimmering forest under a sky full of stars, a lonely unicorn named Lila discovered a hidden pond that glowed with moonlight. Every night, she would leave sparkling, magical flowers by the water's edge, hoping to share her beauty with others. One enchanting evening, she woke to find a group of friendly animals gathered around, eager to be friends and share in her magic.\",\n        \"annotations\": []\n      }\n    ]\n  },\n  \"sequence_number\": 1\n}\n"

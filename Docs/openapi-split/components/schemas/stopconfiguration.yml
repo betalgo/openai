@@ -1,0 +1,17 @@
+components:
+  schemas:
+    StopConfiguration:
+      oneOf:
+        - type: string
+          default: <|endoftext|>
+          nullable: true
+          example: "\n"
+        - maxItems: 4
+          minItems: 1
+          type: array
+          items:
+            type: string
+            example: '["\n"]'
+      description: "Not supported with latest reasoning models `o3` and `o4-mini`.\n\nUp to 4 sequences where the API will stop generating further tokens. The\nreturned text will not contain the stop sequence.\n"
+      default: null
+      nullable: true

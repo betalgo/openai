@@ -1,0 +1,27 @@
+components:
+  schemas:
+    ListFilesResponse:
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenAIFile'
+        first_id:
+          type: string
+          example: file-abc123
+        last_id:
+          type: string
+          example: file-abc456
+        has_more:
+          type: boolean
+          example: false

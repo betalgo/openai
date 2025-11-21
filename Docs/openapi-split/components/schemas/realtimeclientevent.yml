@@ -1,0 +1,19 @@
+components:
+  schemas:
+    RealtimeClientEvent:
+      anyOf:
+        - $ref: '#/components/schemas/RealtimeClientEventConversationItemCreate'
+        - $ref: '#/components/schemas/RealtimeClientEventConversationItemDelete'
+        - $ref: '#/components/schemas/RealtimeClientEventConversationItemRetrieve'
+        - $ref: '#/components/schemas/RealtimeClientEventConversationItemTruncate'
+        - $ref: '#/components/schemas/RealtimeClientEventInputAudioBufferAppend'
+        - $ref: '#/components/schemas/RealtimeClientEventInputAudioBufferClear'
+        - $ref: '#/components/schemas/RealtimeClientEventOutputAudioBufferClear'
+        - $ref: '#/components/schemas/RealtimeClientEventInputAudioBufferCommit'
+        - $ref: '#/components/schemas/RealtimeClientEventResponseCancel'
+        - $ref: '#/components/schemas/RealtimeClientEventResponseCreate'
+        - $ref: '#/components/schemas/RealtimeClientEventSessionUpdate'
+        - $ref: '#/components/schemas/RealtimeClientEventTranscriptionSessionUpdate'
+      description: "A realtime client event.\n"
+      discriminator:
+        propertyName: type

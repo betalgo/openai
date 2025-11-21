@@ -1,0 +1,21 @@
+components:
+  schemas:
+    DeleteFineTuningCheckpointPermissionResponse:
+      required:
+        - id
+        - object
+        - deleted
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the fine-tuned model checkpoint permission that was deleted.
+        object:
+          enum:
+            - checkpoint.permission
+          type: string
+          description: 'The object type, which is always "checkpoint.permission".'
+          x-stainless-const: true
+        deleted:
+          type: boolean
+          description: Whether the fine-tuned model checkpoint permission was successfully deleted.

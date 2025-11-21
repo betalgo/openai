@@ -1,0 +1,70 @@
+paths:
+  /organization/costs:
+    get:
+      tags:
+        - Usage
+      summary: Get costs details for the organization.
+      operationId: usage-costs
+      parameters:
+        - name: start_time
+          in: query
+          description: 'Start time (Unix seconds) of the query time range, inclusive.'
+          required: true
+          schema:
+            type: integer
+        - name: end_time
+          in: query
+          description: 'End time (Unix seconds) of the query time range, exclusive.'
+          schema:
+            type: integer
+        - name: bucket_width
+          in: query
+          description: 'Width of each time bucket in response. Currently only `1d` is supported, default to `1d`.'
+          schema:
+            enum:
+              - 1d
+            type: string
+            default: 1d
+        - name: project_ids
+          in: query
+          description: Return only costs for these projects.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: group_by
+          in: query
+          description: 'Group the costs by the specified fields. Support fields include `project_id`, `line_item` and any combination of them.'
+          schema:
+            type: array
+            items:
+              enum:
+                - project_id
+                - line_item
+              type: string
+        - name: limit
+          in: query
+          description: "A limit on the number of buckets to be returned. Limit can range between 1 and 180, and the default is 7.\n"
+          schema:
+            type: integer
+            default: 7
+        - name: page
+          in: query
+          description: A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Costs data retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+      x-oaiMeta:
+        name: Costs
+        group: usage-costs
+        returns: 'A list of paginated, time bucketed [Costs](/docs/api-reference/usage/costs_object) objects.'
+        examples:
+          response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.costs.result\",\n                    \"amount\": {\n                        \"value\": 0.06,\n                        \"currency\": \"usd\"\n                    },\n                    \"line_item\": null,\n                    \"project_id\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": false,\n    \"next_page\": null\n}\n"
+          request:
+            curl: "curl \"https://api.openai.com/v1/organization/costs?start_time=1730419200&limit=1\" \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n-H \"Content-Type: application/json\"\n"

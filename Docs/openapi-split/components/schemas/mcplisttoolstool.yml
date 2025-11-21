@@ -1,0 +1,24 @@
+components:
+  schemas:
+    MCPListToolsTool:
+      title: MCP list tools tool
+      required:
+        - name
+        - input_schema
+      type: object
+      properties:
+        name:
+          type: string
+          description: "The name of the tool.\n"
+        description:
+          type: string
+          description: "The description of the tool.\n"
+          nullable: true
+        input_schema:
+          type: object
+          description: "The JSON schema describing the tool's input.\n"
+        annotations:
+          type: object
+          description: "Additional annotations about the tool.\n"
+          nullable: true
+      description: "A tool available on an MCP server.\n"

@@ -1,0 +1,24 @@
+components:
+  schemas:
+    RunStepDetailsToolCallsObject:
+      title: Tool calls
+      required:
+        - type
+        - tool_calls
+      type: object
+      properties:
+        type:
+          enum:
+            - tool_calls
+          type: string
+          description: Always `tool_calls`.
+          x-stainless-const: true
+        tool_calls:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/RunStepDetailsToolCallsCodeObject'
+              - $ref: '#/components/schemas/RunStepDetailsToolCallsFileSearchObject'
+              - $ref: '#/components/schemas/RunStepDetailsToolCallsFunctionObject'
+          description: "An array of tool calls the run step was involved in. These can be associated with one of three types of tools: `code_interpreter`, `file_search`, or `function`.\n"
+      description: Details of the tool call.

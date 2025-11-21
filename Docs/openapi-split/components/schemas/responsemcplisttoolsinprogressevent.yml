@@ -1,0 +1,23 @@
+components:
+  schemas:
+    ResponseMCPListToolsInProgressEvent:
+      title: ResponseMCPListToolsInProgressEvent
+      required:
+        - type
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.mcp_list_tools.in_progress
+          type: string
+          description: The type of the event. Always 'response.mcp_list_tools.in_progress'.
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: "Emitted when the system is in the process of retrieving the list of available MCP tools.\n"
+      x-oaiMeta:
+        name: response.mcp_list_tools.in_progress
+        group: responses
+        example: "{\n  \"type\": \"response.mcp_list_tools.in_progress\",\n  \"sequence_number\": 1\n}\n"

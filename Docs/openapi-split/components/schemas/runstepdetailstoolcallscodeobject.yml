@@ -1,0 +1,38 @@
+components:
+  schemas:
+    RunStepDetailsToolCallsCodeObject:
+      title: Code Interpreter tool call
+      required:
+        - id
+        - type
+        - code_interpreter
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the tool call.
+        type:
+          enum:
+            - code_interpreter
+          type: string
+          description: The type of tool call. This is always going to be `code_interpreter` for this type of tool call.
+          x-stainless-const: true
+        code_interpreter:
+          required:
+            - input
+            - outputs
+          type: object
+          properties:
+            input:
+              type: string
+              description: The input to the Code Interpreter tool call.
+            outputs:
+              type: array
+              items:
+                type: object
+                oneOf:
+                  - $ref: '#/components/schemas/RunStepDetailsToolCallsCodeOutputLogsObject'
+                  - $ref: '#/components/schemas/RunStepDetailsToolCallsCodeOutputImageObject'
+              description: 'The outputs from the Code Interpreter tool call. Code Interpreter can output one or more items, including text (`logs`) or images (`image`). Each of these are represented by a different object type.'
+          description: The Code Interpreter tool call definition.
+      description: Details of the Code Interpreter tool call the run step was involved in.

@@ -1,0 +1,11 @@
+components:
+  schemas:
+    ReasoningEffort:
+      enum:
+        - low
+        - medium
+        - high
+      type: string
+      description: "**o-series models only** \n\nConstrains effort on reasoning for \n[reasoning models](https://platform.openai.com/docs/guides/reasoning).\nCurrently supported values are `low`, `medium`, and `high`. Reducing\nreasoning effort can result in faster responses and fewer tokens used\non reasoning in a response.\n"
+      default: medium
+      nullable: true

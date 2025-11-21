@@ -1,0 +1,83 @@
+components:
+  schemas:
+    CreateChatCompletionStreamResponse:
+      required:
+        - choices
+        - created
+        - id
+        - model
+        - object
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique identifier for the chat completion. Each chunk has the same ID.
+        choices:
+          type: array
+          items:
+            required:
+              - delta
+              - finish_reason
+              - index
+            type: object
+            properties:
+              delta:
+                $ref: '#/components/schemas/ChatCompletionStreamResponseDelta'
+              logprobs:
+                required:
+                  - content
+                  - refusal
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ChatCompletionTokenLogprob'
+                    description: A list of message content tokens with log probability information.
+                    nullable: true
+                  refusal:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ChatCompletionTokenLogprob'
+                    description: A list of message refusal tokens with log probability information.
+                    nullable: true
+                description: Log probability information for the choice.
+                nullable: true
+              finish_reason:
+                enum:
+                  - stop
+                  - length
+                  - tool_calls
+                  - content_filter
+                  - function_call
+                type: string
+                description: "The reason the model stopped generating tokens. This will be `stop` if the model hit a natural stop point or a provided stop sequence,\n`length` if the maximum number of tokens specified in the request was reached,\n`content_filter` if content was omitted due to a flag from our content filters,\n`tool_calls` if the model called a tool, or `function_call` (deprecated) if the model called a function.\n"
+                nullable: true
+              index:
+                type: integer
+                description: The index of the choice in the list of choices.
+          description: "A list of chat completion choices. Can contain more than one elements if `n` is greater than 1. Can also be empty for the\nlast chunk if you set `stream_options: {\"include_usage\": true}`.\n"
+        created:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the chat completion was created. Each chunk has the same timestamp.
+        model:
+          type: string
+          description: The model to generate the completion.
+        service_tier:
+          $ref: '#/components/schemas/ServiceTier'
+        system_fingerprint:
+          type: string
+          description: "This fingerprint represents the backend configuration that the model runs with.\nCan be used in conjunction with the `seed` request parameter to understand when backend changes have been made that might impact determinism.\n"
+        object:
+          enum:
+            - chat.completion.chunk
+          type: string
+          description: 'The object type, which is always `chat.completion.chunk`.'
+          x-stainless-const: true
+        usage:
+          $ref: '#/components/schemas/CompletionUsage'
+      description: "Represents a streamed chunk of a chat completion response returned\nby the model, based on the provided input. \n[Learn more](/docs/guides/streaming-responses).\n"
+      x-oaiMeta:
+        name: The chat completion chunk object
+        group: chat
+        example: "{\"id\":\"chatcmpl-123\",\"object\":\"chat.completion.chunk\",\"created\":1694268190,\"model\":\"gpt-4o-mini\", \"system_fingerprint\": \"fp_44709d6fcb\", \"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"logprobs\":null,\"finish_reason\":null}]}\n\n{\"id\":\"chatcmpl-123\",\"object\":\"chat.completion.chunk\",\"created\":1694268190,\"model\":\"gpt-4o-mini\", \"system_fingerprint\": \"fp_44709d6fcb\", \"choices\":[{\"index\":0,\"delta\":{\"content\":\"Hello\"},\"logprobs\":null,\"finish_reason\":null}]}\n\n....\n\n{\"id\":\"chatcmpl-123\",\"object\":\"chat.completion.chunk\",\"created\":1694268190,\"model\":\"gpt-4o-mini\", \"system_fingerprint\": \"fp_44709d6fcb\", \"choices\":[{\"index\":0,\"delta\":{},\"logprobs\":null,\"finish_reason\":\"stop\"}]}\n"

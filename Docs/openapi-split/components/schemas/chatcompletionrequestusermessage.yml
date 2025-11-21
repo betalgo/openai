@@ -1,0 +1,31 @@
+components:
+  schemas:
+    ChatCompletionRequestUserMessage:
+      title: User message
+      required:
+        - content
+        - role
+      type: object
+      properties:
+        content:
+          oneOf:
+            - title: Text content
+              type: string
+              description: The text contents of the message.
+            - title: Array of content parts
+              minItems: 1
+              type: array
+              items:
+                $ref: '#/components/schemas/ChatCompletionRequestUserMessageContentPart'
+              description: 'An array of content parts with a defined type. Supported options differ based on the [model](/docs/models) being used to generate the response. Can contain text, image, or audio inputs.'
+          description: "The contents of the user message.\n"
+        role:
+          enum:
+            - user
+          type: string
+          description: 'The role of the messages author, in this case `user`.'
+          x-stainless-const: true
+        name:
+          type: string
+          description: An optional name for the participant. Provides the model information to differentiate between participants of the same role.
+      description: "Messages sent by an end user, containing prompts or additional context\ninformation.\n"

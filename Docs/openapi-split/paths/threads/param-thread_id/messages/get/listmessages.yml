@@ -1,0 +1,65 @@
+paths:
+  '/threads/{thread_id}/messages':
+    get:
+      tags:
+        - Assistants
+      summary: Returns a list of messages for a given thread.
+      operationId: listMessages
+      parameters:
+        - name: thread_id
+          in: path
+          description: 'The ID of the [thread](/docs/api-reference/threads) the messages belong to.'
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+          schema:
+            type: integer
+            default: 20
+        - name: order
+          in: query
+          description: "Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.\n"
+          schema:
+            enum:
+              - asc
+              - desc
+            type: string
+            default: desc
+        - name: after
+          in: query
+          description: "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+          schema:
+            type: string
+        - name: before
+          in: query
+          description: "A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.\n"
+          schema:
+            type: string
+        - name: run_id
+          in: query
+          description: "Filter messages by the run ID that generated them.\n"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListMessagesResponse'
+      x-oaiMeta:
+        name: List messages
+        group: threads
+        beta: true
+        returns: 'A list of [message](/docs/api-reference/messages) objects.'
+        examples:
+          response: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"msg_abc123\",\n      \"object\": \"thread.message\",\n      \"created_at\": 1699016383,\n      \"assistant_id\": null,\n      \"thread_id\": \"thread_abc123\",\n      \"run_id\": null,\n      \"role\": \"user\",\n      \"content\": [\n        {\n          \"type\": \"text\",\n          \"text\": {\n            \"value\": \"How does AI work? Explain it in simple terms.\",\n            \"annotations\": []\n          }\n        }\n      ],\n      \"attachments\": [],\n      \"metadata\": {}\n    },\n    {\n      \"id\": \"msg_abc456\",\n      \"object\": \"thread.message\",\n      \"created_at\": 1699016383,\n      \"assistant_id\": null,\n      \"thread_id\": \"thread_abc123\",\n      \"run_id\": null,\n      \"role\": \"user\",\n      \"content\": [\n        {\n          \"type\": \"text\",\n          \"text\": {\n            \"value\": \"Hello, what is AI?\",\n            \"annotations\": []\n          }\n        }\n      ],\n      \"attachments\": [],\n      \"metadata\": {}\n    }\n  ],\n  \"first_id\": \"msg_abc123\",\n  \"last_id\": \"msg_abc456\",\n  \"has_more\": false\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/threads/thread_abc123/messages \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n  -H \"OpenAI-Beta: assistants=v2\"\n"
+            python: "import os\nfrom openai import OpenAI\n\nclient = OpenAI(\n    api_key=os.environ.get(\"OPENAI_API_KEY\"),  # This is the default and can be omitted\n)\npage = client.beta.threads.messages.list(\n    thread_id=\"thread_id\",\n)\npage = page.data[0]\nprint(page.id)"
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const message of client.beta.threads.messages.list('thread_id')) {\n  console.log(message.id);\n}"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"), // defaults to os.LookupEnv(\"OPENAI_API_KEY\")\n  )\n  page, err := client.Beta.Threads.Messages.List(\n    context.TODO(),\n    \"thread_id\",\n    openai.BetaThreadMessageListParams{\n\n    },\n  )\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", page)\n}\n"
+            kotlin: "package com.openai.example\n\nimport com.openai.client.OpenAIClient\nimport com.openai.client.okhttp.OpenAIOkHttpClient\nimport com.openai.models.beta.threads.messages.MessageListPage\nimport com.openai.models.beta.threads.messages.MessageListParams\n\nfun main() {\n    // Configures using the `OPENAI_API_KEY`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, `OPENAI_WEBHOOK_SECRET` and `OPENAI_BASE_URL` environment variables\n    val client: OpenAIClient = OpenAIOkHttpClient.fromEnv()\n\n    val page: MessageListPage = client.beta().threads().messages().list(\"thread_id\")\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(\n  api_key: ENV[\"OPENAI_API_KEY\"] # This is the default and can be omitted\n)\n\npage = openai.beta.threads.messages.list(\"thread_id\")\n\nputs(page)"

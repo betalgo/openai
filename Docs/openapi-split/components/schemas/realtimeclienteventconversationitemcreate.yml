@@ -1,0 +1,27 @@
+components:
+  schemas:
+    RealtimeClientEventConversationItemCreate:
+      required:
+        - type
+        - item
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - conversation.item.create
+          type: string
+          description: 'The event type, must be `conversation.item.create`.'
+          x-stainless-const: true
+        previous_item_id:
+          type: string
+          description: "The ID of the preceding item after which the new item will be inserted. \nIf not set, the new item will be appended to the end of the conversation.\nIf set to `root`, the new item will be added to the beginning of the conversation.\nIf set to an existing ID, it allows an item to be inserted mid-conversation. If the\nID cannot be found, an error will be returned and the item will not be added.\n"
+        item:
+          $ref: '#/components/schemas/RealtimeConversationItem'
+      description: "Add a new Item to the Conversation's context, including messages, function \ncalls, and function call responses. This event can be used both to populate a \n\"history\" of the conversation and to add new items mid-stream, but has the \ncurrent limitation that it cannot populate assistant audio messages.\n\nIf successful, the server will respond with a `conversation.item.created` \nevent, otherwise an `error` event will be sent.\n"
+      x-oaiMeta:
+        name: conversation.item.create
+        group: realtime
+        example: "{\n    \"event_id\": \"event_345\",\n    \"type\": \"conversation.item.create\",\n    \"previous_item_id\": null,\n    \"item\": {\n        \"id\": \"msg_001\",\n        \"type\": \"message\",\n        \"role\": \"user\",\n        \"content\": [\n            {\n                \"type\": \"input_text\",\n                \"text\": \"Hello, how are you?\"\n            }\n        ]\n    }\n}\n"

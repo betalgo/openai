@@ -1,0 +1,16 @@
+components:
+  schemas:
+    UpdateVectorStoreRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the vector store.
+          nullable: true
+        expires_after:
+          allOf:
+            - $ref: '#/components/schemas/VectorStoreExpirationAfter'
+            - nullable: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      additionalProperties: false

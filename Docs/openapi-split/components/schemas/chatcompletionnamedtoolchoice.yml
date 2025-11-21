@@ -1,0 +1,23 @@
+components:
+  schemas:
+    ChatCompletionNamedToolChoice:
+      required:
+        - type
+        - function
+      type: object
+      properties:
+        type:
+          enum:
+            - function
+          type: string
+          description: 'The type of the tool. Currently, only `function` is supported.'
+          x-stainless-const: true
+        function:
+          required:
+            - name
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the function to call.
+      description: Specifies a tool the model should use. Use to force the model to call a specific function.

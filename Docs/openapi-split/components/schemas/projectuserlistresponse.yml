@@ -1,0 +1,23 @@
+components:
+  schemas:
+    ProjectUserListResponse:
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectUser'
+        first_id:
+          type: string
+        last_id:
+          type: string
+        has_more:
+          type: boolean

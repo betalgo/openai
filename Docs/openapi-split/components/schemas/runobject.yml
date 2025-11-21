@@ -1,0 +1,192 @@
+components:
+  schemas:
+    RunObject:
+      title: A run on a thread
+      required:
+        - id
+        - object
+        - created_at
+        - thread_id
+        - assistant_id
+        - status
+        - required_action
+        - last_error
+        - expires_at
+        - started_at
+        - cancelled_at
+        - failed_at
+        - completed_at
+        - model
+        - instructions
+        - tools
+        - metadata
+        - usage
+        - incomplete_details
+        - max_prompt_tokens
+        - max_completion_tokens
+        - truncation_strategy
+        - tool_choice
+        - parallel_tool_calls
+        - response_format
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints.'
+        object:
+          enum:
+            - thread.run
+          type: string
+          description: 'The object type, which is always `thread.run`.'
+          x-stainless-const: true
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run was created.
+        thread_id:
+          type: string
+          description: 'The ID of the [thread](/docs/api-reference/threads) that was executed on as a part of this run.'
+        assistant_id:
+          type: string
+          description: 'The ID of the [assistant](/docs/api-reference/assistants) used for execution of this run.'
+        status:
+          enum:
+            - queued
+            - in_progress
+            - requires_action
+            - cancelling
+            - cancelled
+            - failed
+            - completed
+            - incomplete
+            - expired
+          type: string
+          description: 'The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`.'
+        required_action:
+          required:
+            - type
+            - submit_tool_outputs
+          type: object
+          properties:
+            type:
+              enum:
+                - submit_tool_outputs
+              type: string
+              description: 'For now, this is always `submit_tool_outputs`.'
+              x-stainless-const: true
+            submit_tool_outputs:
+              required:
+                - tool_calls
+              type: object
+              properties:
+                tool_calls:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/RunToolCallObject'
+                  description: A list of the relevant tool calls.
+              description: Details on the tool outputs needed for this run to continue.
+          description: Details on the action required to continue the run. Will be `null` if no action is required.
+          nullable: true
+        last_error:
+          required:
+            - code
+            - message
+          type: object
+          properties:
+            code:
+              enum:
+                - server_error
+                - rate_limit_exceeded
+                - invalid_prompt
+              type: string
+              description: 'One of `server_error`, `rate_limit_exceeded`, or `invalid_prompt`.'
+            message:
+              type: string
+              description: A human-readable description of the error.
+          description: The last error associated with this run. Will be `null` if there are no errors.
+          nullable: true
+        expires_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run will expire.
+          nullable: true
+        started_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run was started.
+          nullable: true
+        cancelled_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run was cancelled.
+          nullable: true
+        failed_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run failed.
+          nullable: true
+        completed_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run was completed.
+          nullable: true
+        incomplete_details:
+          type: object
+          properties:
+            reason:
+              enum:
+                - max_completion_tokens
+                - max_prompt_tokens
+              type: string
+              description: The reason why the run is incomplete. This will point to which specific token limit was reached over the course of the run.
+          description: Details on why the run is incomplete. Will be `null` if the run is not incomplete.
+          nullable: true
+        model:
+          type: string
+          description: 'The model that the [assistant](/docs/api-reference/assistants) used for this run.'
+        instructions:
+          type: string
+          description: 'The instructions that the [assistant](/docs/api-reference/assistants) used for this run.'
+        tools:
+          maxItems: 20
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/AssistantToolsCode'
+              - $ref: '#/components/schemas/AssistantToolsFileSearch'
+              - $ref: '#/components/schemas/AssistantToolsFunction'
+          description: 'The list of tools that the [assistant](/docs/api-reference/assistants) used for this run.'
+          default: [ ]
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        usage:
+          $ref: '#/components/schemas/RunCompletionUsage'
+        temperature:
+          type: number
+          description: 'The sampling temperature used for this run. If not set, defaults to 1.'
+          nullable: true
+        top_p:
+          type: number
+          description: 'The nucleus sampling value used for this run. If not set, defaults to 1.'
+          nullable: true
+        max_prompt_tokens:
+          minimum: 256
+          type: integer
+          description: "The maximum number of prompt tokens specified to have been used over the course of the run.\n"
+          nullable: true
+        max_completion_tokens:
+          minimum: 256
+          type: integer
+          description: "The maximum number of completion tokens specified to have been used over the course of the run.\n"
+          nullable: true
+        truncation_strategy:
+          allOf:
+            - $ref: '#/components/schemas/TruncationObject'
+            - nullable: true
+        tool_choice:
+          allOf:
+            - $ref: '#/components/schemas/AssistantsApiToolChoiceOption'
+            - nullable: true
+        parallel_tool_calls:
+          $ref: '#/components/schemas/ParallelToolCalls'
+        response_format:
+          $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
+      description: 'Represents an execution run on a [thread](/docs/api-reference/threads).'
+      x-oaiMeta:
+        name: The run object
+        beta: true
+        example: "{\n  \"id\": \"run_abc123\",\n  \"object\": \"thread.run\",\n  \"created_at\": 1698107661,\n  \"assistant_id\": \"asst_abc123\",\n  \"thread_id\": \"thread_abc123\",\n  \"status\": \"completed\",\n  \"started_at\": 1699073476,\n  \"expires_at\": null,\n  \"cancelled_at\": null,\n  \"failed_at\": null,\n  \"completed_at\": 1699073498,\n  \"last_error\": null,\n  \"model\": \"gpt-4o\",\n  \"instructions\": null,\n  \"tools\": [{\"type\": \"file_search\"}, {\"type\": \"code_interpreter\"}],\n  \"metadata\": {},\n  \"incomplete_details\": null,\n  \"usage\": {\n    \"prompt_tokens\": 123,\n    \"completion_tokens\": 456,\n    \"total_tokens\": 579\n  },\n  \"temperature\": 1.0,\n  \"top_p\": 1.0,\n  \"max_prompt_tokens\": 1000,\n  \"max_completion_tokens\": 1000,\n  \"truncation_strategy\": {\n    \"type\": \"auto\",\n    \"last_messages\": null\n  },\n  \"response_format\": \"auto\",\n  \"tool_choice\": \"auto\",\n  \"parallel_tool_calls\": true\n}\n"

@@ -1,0 +1,14 @@
+components:
+  schemas:
+    AssistantToolsFileSearchTypeOnly:
+      title: FileSearch tool
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - file_search
+          type: string
+          description: 'The type of tool being defined: `file_search`'
+          x-stainless-const: true

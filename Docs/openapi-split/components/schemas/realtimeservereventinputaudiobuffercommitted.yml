@@ -1,0 +1,30 @@
+components:
+  schemas:
+    RealtimeServerEventInputAudioBufferCommitted:
+      required:
+        - event_id
+        - type
+        - previous_item_id
+        - item_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - input_audio_buffer.committed
+          type: string
+          description: 'The event type, must be `input_audio_buffer.committed`.'
+          x-stainless-const: true
+        previous_item_id:
+          type: string
+          description: "The ID of the preceding item after which the new item will be inserted.\n"
+        item_id:
+          type: string
+          description: The ID of the user message item that will be created.
+      description: "Returned when an input audio buffer is committed, either by the client or \nautomatically in server VAD mode. The `item_id` property is the ID of the user\nmessage item that will be created, thus a `conversation.item.created` event \nwill also be sent to the client.\n"
+      x-oaiMeta:
+        name: input_audio_buffer.committed
+        group: realtime
+        example: "{\n    \"event_id\": \"event_1121\",\n    \"type\": \"input_audio_buffer.committed\",\n    \"previous_item_id\": \"msg_001\",\n    \"item_id\": \"msg_002\"\n}\n"

@@ -1,0 +1,39 @@
+components:
+  schemas:
+    BatchRequestOutput:
+      type: object
+      properties:
+        id:
+          type: string
+        custom_id:
+          type: string
+          description: A developer-provided per-request id that will be used to match outputs to inputs.
+        response:
+          type: object
+          properties:
+            status_code:
+              type: integer
+              description: The HTTP status code of the response
+            request_id:
+              type: string
+              description: An unique identifier for the OpenAI API request. Please include this request ID when contacting support.
+            body:
+              type: object
+              description: The JSON body of the response
+              x-oaiTypeLabel: map
+          nullable: true
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: A machine-readable error code.
+            message:
+              type: string
+              description: A human-readable error message.
+          description: 'For requests that failed with a non-HTTP error, this will contain more information on the cause of the failure.'
+          nullable: true
+      description: The per-line object of the batch output and error files
+      x-oaiMeta:
+        name: The request output object
+        example: "{\"id\": \"batch_req_wnaDys\", \"custom_id\": \"request-2\", \"response\": {\"status_code\": 200, \"request_id\": \"req_c187b3\", \"body\": {\"id\": \"chatcmpl-9758Iw\", \"object\": \"chat.completion\", \"created\": 1711475054, \"model\": \"gpt-4o-mini\", \"choices\": [{\"index\": 0, \"message\": {\"role\": \"assistant\", \"content\": \"2 + 2 equals 4.\"}, \"finish_reason\": \"stop\"}], \"usage\": {\"prompt_tokens\": 24, \"completion_tokens\": 15, \"total_tokens\": 39}, \"system_fingerprint\": null}}, \"error\": null}\n"

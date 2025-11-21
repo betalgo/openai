@@ -1,0 +1,10 @@
+components:
+  schemas:
+    ChatCompletionRequestMessage:
+      oneOf:
+        - $ref: '#/components/schemas/ChatCompletionRequestDeveloperMessage'
+        - $ref: '#/components/schemas/ChatCompletionRequestSystemMessage'
+        - $ref: '#/components/schemas/ChatCompletionRequestUserMessage'
+        - $ref: '#/components/schemas/ChatCompletionRequestAssistantMessage'
+        - $ref: '#/components/schemas/ChatCompletionRequestToolMessage'
+        - $ref: '#/components/schemas/ChatCompletionRequestFunctionMessage'

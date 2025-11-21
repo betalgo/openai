@@ -1,0 +1,8 @@
+components:
+  schemas:
+    ModifyMessageRequest:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      additionalProperties: false

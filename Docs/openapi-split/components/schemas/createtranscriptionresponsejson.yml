@@ -1,0 +1,40 @@
+components:
+  schemas:
+    CreateTranscriptionResponseJson:
+      required:
+        - text
+      type: object
+      properties:
+        text:
+          type: string
+          description: The transcribed text.
+        logprobs:
+          type: array
+          items:
+            type: object
+            properties:
+              token:
+                type: string
+                description: The token in the transcription.
+              logprob:
+                type: number
+                description: The log probability of the token.
+              bytes:
+                type: array
+                items:
+                  type: number
+                description: The bytes of the token.
+          description: "The log probabilities of the tokens in the transcription. Only returned with the models `gpt-4o-transcribe` and `gpt-4o-mini-transcribe` if `logprobs` is added to the `include` array.\n"
+          unrecognizedKeywords:
+            optional: true
+        usage:
+          type: object
+          oneOf:
+            - $ref: '#/components/schemas/TranscriptTextUsageTokens'
+            - $ref: '#/components/schemas/TranscriptTextUsageDuration'
+          description: Token usage statistics for the request.
+      description: 'Represents a transcription response returned by model, based on the provided input.'
+      x-oaiMeta:
+        name: The transcription object (JSON)
+        group: audio
+        example: "{\n  \"text\": \"Imagine the wildest idea that you've ever had, and you're curious about how it might scale to something that's a 100, a 1,000 times bigger. This is a place where you can get to do that.\",\n  \"usage\": {\n    \"type\": \"tokens\",\n    \"input_tokens\": 14,\n    \"input_token_details\": {\n      \"text_tokens\": 10,\n      \"audio_tokens\": 4\n    },\n    \"output_tokens\": 101,\n    \"total_tokens\": 115\n  }\n}\n"

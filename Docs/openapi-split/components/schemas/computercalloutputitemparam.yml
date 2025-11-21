@@ -1,0 +1,46 @@
+components:
+  schemas:
+    ComputerCallOutputItemParam:
+      title: Computer tool call output
+      required:
+        - call_id
+        - type
+        - output
+      type: object
+      properties:
+        id:
+          anyOf:
+            - type: string
+              description: The ID of the computer tool call output.
+            - nullable: true
+        call_id:
+          maxLength: 64
+          minLength: 1
+          type: string
+          description: The ID of the computer tool call that produced the output.
+        type:
+          enum:
+            - computer_call_output
+          type: string
+          description: The type of the computer tool call output. Always `computer_call_output`.
+          default: computer_call_output
+          x-stainless-const: true
+        output:
+          $ref: '#/components/schemas/ComputerScreenshotImage'
+        acknowledged_safety_checks:
+          anyOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/ComputerCallSafetyCheckParam'
+              description: The safety checks reported by the API that have been acknowledged by the developer.
+            - nullable: true
+        status:
+          anyOf:
+            - enum:
+                - in_progress
+                - completed
+                - incomplete
+              type: string
+              description: 'The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.'
+            - nullable: true
+      description: The output of a computer tool call.

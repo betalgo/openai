@@ -1,0 +1,25 @@
+components:
+  schemas:
+    RealtimeServerEventResponseDone:
+      required:
+        - event_id
+        - type
+        - response
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.done
+          type: string
+          description: 'The event type, must be `response.done`.'
+          x-stainless-const: true
+        response:
+          $ref: '#/components/schemas/RealtimeResponse'
+      description: "Returned when a Response is done streaming. Always emitted, no matter the \nfinal state. The Response object included in the `response.done` event will \ninclude all output Items in the Response but will omit the raw audio data.\n"
+      x-oaiMeta:
+        name: response.done
+        group: realtime
+        example: "{\n    \"event_id\": \"event_3132\",\n    \"type\": \"response.done\",\n    \"response\": {\n        \"id\": \"resp_001\",\n        \"object\": \"realtime.response\",\n        \"status\": \"completed\",\n        \"status_details\": null,\n        \"output\": [\n            {\n                \"id\": \"msg_006\",\n                \"object\": \"realtime.item\",\n                \"type\": \"message\",\n                \"status\": \"completed\",\n                \"role\": \"assistant\",\n                \"content\": [\n                    {\n                        \"type\": \"text\",\n                        \"text\": \"Sure, how can I assist you today?\"\n                    }\n                ]\n            }\n        ],\n        \"usage\": {\n            \"total_tokens\":275,\n            \"input_tokens\":127,\n            \"output_tokens\":148,\n            \"input_token_details\": {\n                \"cached_tokens\":384,\n                \"text_tokens\":119,\n                \"audio_tokens\":8,\n                \"cached_tokens_details\": {\n                    \"text_tokens\": 128,\n                    \"audio_tokens\": 256\n                }\n            },\n            \"output_token_details\": {\n              \"text_tokens\":36,\n              \"audio_tokens\":112\n            }\n        }\n    }\n}\n"

@@ -1,0 +1,26 @@
+components:
+  schemas:
+    RealtimeServerEventOutputAudioBufferCleared:
+      required:
+        - event_id
+        - type
+        - response_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - output_audio_buffer.cleared
+          type: string
+          description: 'The event type, must be `output_audio_buffer.cleared`.'
+          x-stainless-const: true
+        response_id:
+          type: string
+          description: The unique ID of the response that produced the audio.
+      description: "**WebRTC Only:** Emitted when the output audio buffer is cleared. This happens either in VAD\nmode when the user has interrupted (`input_audio_buffer.speech_started`),\nor when the client has emitted the `output_audio_buffer.clear` event to manually\ncut off the current audio response.\n[Learn more](/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).\n"
+      x-oaiMeta:
+        name: output_audio_buffer.cleared
+        group: realtime
+        example: "{\n    \"event_id\": \"event_abc123\",\n    \"type\": \"output_audio_buffer.cleared\",\n    \"response_id\": \"resp_abc123\"\n}\n"

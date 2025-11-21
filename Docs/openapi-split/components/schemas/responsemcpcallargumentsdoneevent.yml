@@ -1,0 +1,35 @@
+components:
+  schemas:
+    ResponseMCPCallArgumentsDoneEvent:
+      title: ResponseMCPCallArgumentsDoneEvent
+      required:
+        - type
+        - output_index
+        - item_id
+        - arguments
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.mcp_call_arguments.done
+          type: string
+          description: The type of the event. Always 'response.mcp_call_arguments.done'.
+          x-stainless-const: true
+        output_index:
+          type: integer
+          description: The index of the output item in the response's output array.
+        item_id:
+          type: string
+          description: The unique identifier of the MCP tool call item being processed.
+        arguments:
+          type: object
+          description: The finalized arguments for the MCP tool call.
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: "Emitted when the arguments for an MCP tool call are finalized.\n"
+      x-oaiMeta:
+        name: response.mcp_call_arguments.done
+        group: responses
+        example: "{\n  \"type\": \"response.mcp_call_arguments.done\",\n  \"output_index\": 0,\n  \"item_id\": \"item-abc\",\n  \"arguments\": {\n    \"arg1\": \"value1\",\n    \"arg2\": \"value2\"\n  },\n  \"sequence_number\": 1\n}\n"

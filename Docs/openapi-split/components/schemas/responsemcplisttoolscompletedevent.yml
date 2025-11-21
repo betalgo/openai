@@ -1,0 +1,23 @@
+components:
+  schemas:
+    ResponseMCPListToolsCompletedEvent:
+      title: ResponseMCPListToolsCompletedEvent
+      required:
+        - type
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.mcp_list_tools.completed
+          type: string
+          description: The type of the event. Always 'response.mcp_list_tools.completed'.
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: "Emitted when the list of available MCP tools has been successfully retrieved.\n"
+      x-oaiMeta:
+        name: response.mcp_list_tools.completed
+        group: responses
+        example: "{\n  \"type\": \"response.mcp_list_tools.completed\",\n  \"sequence_number\": 1\n}\n"

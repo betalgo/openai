@@ -1,0 +1,43 @@
+components:
+  schemas:
+    WebhookEvalRunSucceeded:
+      title: eval.run.succeeded
+      required:
+        - created_at
+        - id
+        - data
+        - type
+      type: object
+      properties:
+        created_at:
+          type: integer
+          description: "The Unix timestamp (in seconds) of when the eval run succeeded.\n"
+        id:
+          type: string
+          description: "The unique ID of the event.\n"
+        data:
+          required:
+            - id
+          type: object
+          properties:
+            id:
+              type: string
+              description: "The unique ID of the eval run.\n"
+          description: "Event data payload.\n"
+        object:
+          enum:
+            - event
+          type: string
+          description: "The object of the event. Always `event`.\n"
+          x-stainless-const: true
+        type:
+          enum:
+            - eval.run.succeeded
+          type: string
+          description: "The type of the event. Always `eval.run.succeeded`.\n"
+          x-stainless-const: true
+      description: "Sent when an eval run has succeeded.\n"
+      x-oaiMeta:
+        name: eval.run.succeeded
+        group: webhook-events
+        example: "{\n  \"id\": \"evt_abc123\",\n  \"type\": \"eval.run.succeeded\",\n  \"created_at\": 1719168000,\n  \"data\": {\n    \"id\": \"evalrun_abc123\"\n  }\n} \n"

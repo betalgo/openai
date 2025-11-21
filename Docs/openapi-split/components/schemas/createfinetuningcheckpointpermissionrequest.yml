@@ -1,0 +1,13 @@
+components:
+  schemas:
+    CreateFineTuningCheckpointPermissionRequest:
+      required:
+        - project_ids
+      type: object
+      properties:
+        project_ids:
+          type: array
+          items:
+            type: string
+          description: The project identifiers to grant access to.
+      additionalProperties: false

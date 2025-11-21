@@ -1,0 +1,34 @@
+components:
+  schemas:
+    ResponseFunctionCallArgumentsDeltaEvent:
+      required:
+        - type
+        - item_id
+        - output_index
+        - delta
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.function_call_arguments.delta
+          type: string
+          description: "The type of the event. Always `response.function_call_arguments.delta`.\n"
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: "The ID of the output item that the function-call arguments delta is added to.\n"
+        output_index:
+          type: integer
+          description: "The index of the output item that the function-call arguments delta is added to.\n"
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+        delta:
+          type: string
+          description: "The function-call arguments delta that is added.\n"
+      description: Emitted when there is a partial function-call arguments delta.
+      x-oaiMeta:
+        name: response.function_call_arguments.delta
+        group: responses
+        example: "{\n  \"type\": \"response.function_call_arguments.delta\",\n  \"item_id\": \"item-abc\",\n  \"output_index\": 0,\n  \"delta\": \"{ \\\"arg\\\":\"\n  \"sequence_number\": 1\n}\n"

@@ -1,0 +1,82 @@
+components:
+  schemas:
+    ModifyAssistantRequest:
+      type: object
+      properties:
+        model:
+          anyOf:
+            - type: string
+            - $ref: '#/components/schemas/AssistantSupportedModels'
+          description: "ID of the model to use. You can use the [List models](/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](/docs/models) for descriptions of them.\n"
+        reasoning_effort:
+          $ref: '#/components/schemas/ReasoningEffort'
+        name:
+          maxLength: 256
+          type: string
+          description: "The name of the assistant. The maximum length is 256 characters.\n"
+          nullable: true
+        description:
+          maxLength: 512
+          type: string
+          description: "The description of the assistant. The maximum length is 512 characters.\n"
+          nullable: true
+        instructions:
+          maxLength: 256000
+          type: string
+          description: "The system instructions that the assistant uses. The maximum length is 256,000 characters.\n"
+          nullable: true
+        tools:
+          maxItems: 128
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/AssistantToolsCode'
+              - $ref: '#/components/schemas/AssistantToolsFileSearch'
+              - $ref: '#/components/schemas/AssistantToolsFunction'
+          description: "A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.\n"
+          default: [ ]
+        tool_resources:
+          type: object
+          properties:
+            code_interpreter:
+              type: object
+              properties:
+                file_ids:
+                  maxItems: 20
+                  type: array
+                  items:
+                    type: string
+                  description: "Overrides the list of [file](/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.\n"
+                  default: [ ]
+            file_search:
+              type: object
+              properties:
+                vector_store_ids:
+                  maxItems: 1
+                  type: array
+                  items:
+                    type: string
+                  description: "Overrides the [vector store](/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.\n"
+          description: "A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.\n"
+          nullable: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        temperature:
+          maximum: 2
+          minimum: 0
+          type: number
+          description: "What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.\n"
+          default: 1
+          nullable: true
+          example: 1
+        top_p:
+          maximum: 1
+          minimum: 0
+          type: number
+          description: "An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.\n\nWe generally recommend altering this or temperature but not both.\n"
+          default: 1
+          nullable: true
+          example: 1
+        response_format:
+          $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
+      additionalProperties: false

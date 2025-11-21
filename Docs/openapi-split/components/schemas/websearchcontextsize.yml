@@ -1,0 +1,10 @@
+components:
+  schemas:
+    WebSearchContextSize:
+      enum:
+        - low
+        - medium
+        - high
+      type: string
+      description: "High level guidance for the amount of context window space to use for the \nsearch. One of `low`, `medium`, or `high`. `medium` is the default.\n"
+      default: medium

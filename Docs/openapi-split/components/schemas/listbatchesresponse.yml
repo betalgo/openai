@@ -1,0 +1,26 @@
+components:
+  schemas:
+    ListBatchesResponse:
+      required:
+        - object
+        - data
+        - has_more
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Batch'
+        first_id:
+          type: string
+          example: batch_abc123
+        last_id:
+          type: string
+          example: batch_abc456
+        has_more:
+          type: boolean
+        object:
+          enum:
+            - list
+          type: string
+          x-stainless-const: true

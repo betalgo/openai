@@ -1,0 +1,11 @@
+components:
+  schemas:
+    ResponseModalities:
+      type: array
+      items:
+        enum:
+          - text
+          - audio
+        type: string
+      description: "Output types that you would like the model to generate.\nMost models are capable of generating text, which is the default:\n\n`[\"text\"]`\n\nThe `gpt-4o-audio-preview` model can also be used to \n[generate audio](/docs/guides/audio). To request that this model generate \nboth text and audio responses, you can use:\n\n`[\"text\", \"audio\"]`\n"
+      nullable: true

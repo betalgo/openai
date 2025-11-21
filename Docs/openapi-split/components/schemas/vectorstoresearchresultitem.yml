@@ -1,0 +1,32 @@
+components:
+  schemas:
+    VectorStoreSearchResultItem:
+      required:
+        - file_id
+        - filename
+        - score
+        - attributes
+        - content
+      type: object
+      properties:
+        file_id:
+          type: string
+          description: The ID of the vector store file.
+        filename:
+          type: string
+          description: The name of the vector store file.
+        score:
+          maximum: 1
+          minimum: 0
+          type: number
+          description: The similarity score for the result.
+        attributes:
+          $ref: '#/components/schemas/VectorStoreFileAttributes'
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/VectorStoreSearchResultContentObject'
+          description: Content chunks from the file.
+      additionalProperties: false
+      x-oaiMeta:
+        name: Vector store search result item

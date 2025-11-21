@@ -1,0 +1,7 @@
+components:
+  schemas:
+    TranscriptionInclude:
+      enum:
+        - logprobs
+      type: string
+      default: [ ]

@@ -1,0 +1,77 @@
+components:
+  schemas:
+    AdminApiKey:
+      required:
+        - object
+        - redacted_value
+        - name
+        - created_at
+        - last_used_at
+        - id
+        - owner
+      type: object
+      properties:
+        object:
+          type: string
+          description: 'The object type, which is always `organization.admin_api_key`'
+          example: organization.admin_api_key
+          x-stainless-const: true
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints'
+          example: key_abc
+        name:
+          type: string
+          description: The name of the API key
+          example: Administration Key
+        redacted_value:
+          type: string
+          description: The redacted value of the API key
+          example: sk-admin...def
+        value:
+          type: string
+          description: The value of the API key. Only shown on create.
+          example: sk-admin-1234abcd
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the API key was created
+          format: int64
+          example: 1711471533
+        last_used_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the API key was last used
+          format: int64
+          nullable: true
+          example: 1711471534
+        owner:
+          type: object
+          properties:
+            type:
+              type: string
+              description: Always `user`
+              example: user
+            object:
+              type: string
+              description: 'The object type, which is always organization.user'
+              example: organization.user
+            id:
+              type: string
+              description: 'The identifier, which can be referenced in API endpoints'
+              example: sa_456
+            name:
+              type: string
+              description: The name of the user
+              example: My Service Account
+            created_at:
+              type: integer
+              description: The Unix timestamp (in seconds) of when the user was created
+              format: int64
+              example: 1711471533
+            role:
+              type: string
+              description: Always `owner`
+              example: owner
+      description: Represents an individual Admin API key in an org.
+      x-oaiMeta:
+        name: The admin API key object
+        example: "{\n  \"object\": \"organization.admin_api_key\",\n  \"id\": \"key_abc\",\n  \"name\": \"Main Admin Key\",\n  \"redacted_value\": \"sk-admin...xyz\",\n  \"created_at\": 1711471533,\n  \"last_used_at\": 1711471534,\n  \"owner\": {\n    \"type\": \"user\",\n    \"object\": \"organization.user\",\n    \"id\": \"user_123\",\n    \"name\": \"John Doe\",\n    \"created_at\": 1711471533,\n    \"role\": \"owner\"\n  }\n}\n"

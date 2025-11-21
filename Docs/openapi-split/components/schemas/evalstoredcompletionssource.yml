@@ -1,0 +1,38 @@
+components:
+  schemas:
+    EvalStoredCompletionsSource:
+      title: StoredCompletionsRunDataSource
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - stored_completions
+          type: string
+          description: The type of source. Always `stored_completions`.
+          default: stored_completions
+          x-stainless-const: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        model:
+          type: string
+          description: 'An optional model to filter by (e.g., ''gpt-4o'').'
+          nullable: true
+        created_after:
+          type: integer
+          description: An optional Unix timestamp to filter items created after this time.
+          nullable: true
+        created_before:
+          type: integer
+          description: An optional Unix timestamp to filter items created before this time.
+          nullable: true
+        limit:
+          type: integer
+          description: An optional maximum number of items to return.
+          nullable: true
+      description: "A StoredCompletionsRunDataSource configuration describing a set of filters\n"
+      x-oaiMeta:
+        name: The stored completions data source object used to configure an individual run
+        group: eval runs
+        example: "{\n  \"type\": \"stored_completions\",\n  \"model\": \"gpt-4o\",\n  \"created_after\": 1668124800,\n  \"created_before\": 1668124900,\n  \"limit\": 100,\n  \"metadata\": {}\n}\n"

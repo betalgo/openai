@@ -1,0 +1,104 @@
+components:
+  schemas:
+    CreateEvalResponsesRunDataSource:
+      title: ResponsesRunDataSource
+      required:
+        - type
+        - source
+      type: object
+      properties:
+        type:
+          enum:
+            - responses
+          type: string
+          description: The type of run data source. Always `responses`.
+          default: responses
+        input_messages:
+          oneOf:
+            - title: InputMessagesTemplate
+              required:
+                - type
+                - template
+              type: object
+              properties:
+                type:
+                  enum:
+                    - template
+                  type: string
+                  description: The type of input messages. Always `template`.
+                template:
+                  type: array
+                  items:
+                    oneOf:
+                      - title: ChatMessage
+                        required:
+                          - role
+                          - content
+                        type: object
+                        properties:
+                          role:
+                            type: string
+                            description: 'The role of the message (e.g. "system", "assistant", "user").'
+                          content:
+                            type: string
+                            description: The content of the message.
+                      - $ref: '#/components/schemas/EvalItem'
+                  description: 'A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.'
+            - title: InputMessagesItemReference
+              required:
+                - type
+                - item_reference
+              type: object
+              properties:
+                type:
+                  enum:
+                    - item_reference
+                  type: string
+                  description: The type of input messages. Always `item_reference`.
+                item_reference:
+                  type: string
+                  description: 'A reference to a variable in the `item` namespace. Ie, "item.name"'
+          description: 'Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input_trajectory`), or a template with variable references to the `item` namespace.'
+        sampling_params:
+          type: object
+          properties:
+            temperature:
+              type: number
+              description: A higher temperature increases randomness in the outputs.
+              default: 1
+            max_completion_tokens:
+              type: integer
+              description: The maximum number of tokens in the generated output.
+            top_p:
+              type: number
+              description: An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+              default: 1
+            seed:
+              type: integer
+              description: 'A seed value to initialize the randomness, during sampling.'
+              default: 42
+            tools:
+              type: array
+              items:
+                $ref: '#/components/schemas/Tool'
+              description: "An array of tools the model may call while generating a response. You\ncan specify which tool to use by setting the `tool_choice` parameter.\n\nThe two categories of tools you can provide the model are:\n\n- **Built-in tools**: Tools that are provided by OpenAI that extend the\n  model's capabilities, like [web search](/docs/guides/tools-web-search)\n  or [file search](/docs/guides/tools-file-search). Learn more about\n  [built-in tools](/docs/guides/tools).\n- **Function calls (custom tools)**: Functions that are defined by you,\n  enabling the model to call your own code. Learn more about\n  [function calling](/docs/guides/function-calling).\n"
+            text:
+              type: object
+              properties:
+                format:
+                  $ref: '#/components/schemas/TextResponseFormatConfiguration'
+              description: "Configuration options for a text response from the model. Can be plain\ntext or structured JSON data. Learn more:\n- [Text inputs and outputs](/docs/guides/text)\n- [Structured Outputs](/docs/guides/structured-outputs)\n"
+        model:
+          type: string
+          description: The name of the model to use for generating completions (e.g. "o3-mini").
+        source:
+          oneOf:
+            - $ref: '#/components/schemas/EvalJsonlFileContentSource'
+            - $ref: '#/components/schemas/EvalJsonlFileIdSource'
+            - $ref: '#/components/schemas/EvalResponsesSource'
+          description: Determines what populates the `item` namespace in this run's data source.
+      description: "A ResponsesRunDataSource object describing a model sampling configuration.\n"
+      x-oaiMeta:
+        name: The completions data source object used to configure an individual run
+        group: eval runs
+        example: "{\n  \"name\": \"gpt-4o-mini-2024-07-18\",\n  \"data_source\": {\n    \"type\": \"responses\",\n    \"input_messages\": {\n      \"type\": \"item_reference\",\n      \"item_reference\": \"item.input\"\n    },\n    \"model\": \"gpt-4o-mini-2024-07-18\",\n    \"source\": {\n      \"type\": \"responses\",\n      \"model\": \"gpt-4o-mini-2024-07-18\"\n    }\n  }\n}\n"

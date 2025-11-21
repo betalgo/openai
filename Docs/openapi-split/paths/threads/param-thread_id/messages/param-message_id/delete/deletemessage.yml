@@ -1,0 +1,41 @@
+paths:
+  '/threads/{thread_id}/messages/{message_id}':
+    delete:
+      tags:
+        - Assistants
+      summary: Deletes a message.
+      operationId: deleteMessage
+      parameters:
+        - name: thread_id
+          in: path
+          description: The ID of the thread to which this message belongs.
+          required: true
+          schema:
+            type: string
+        - name: message_id
+          in: path
+          description: The ID of the message to delete.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteMessageResponse'
+      x-oaiMeta:
+        name: Delete message
+        group: threads
+        beta: true
+        returns: Deletion status
+        examples:
+          response: "{\n  \"id\": \"msg_abc123\",\n  \"object\": \"thread.message.deleted\",\n  \"deleted\": true\n}\n"
+          request:
+            curl: "curl -X DELETE https://api.openai.com/v1/threads/thread_abc123/messages/msg_abc123 \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n  -H \"OpenAI-Beta: assistants=v2\"\n"
+            python: "import os\nfrom openai import OpenAI\n\nclient = OpenAI(\n    api_key=os.environ.get(\"OPENAI_API_KEY\"),  # This is the default and can be omitted\n)\nmessage_deleted = client.beta.threads.messages.delete(\n    message_id=\"message_id\",\n    thread_id=\"thread_id\",\n)\nprint(message_deleted.id)"
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted\n});\n\nconst messageDeleted = await client.beta.threads.messages.delete('message_id', { thread_id: 'thread_id' });\n\nconsole.log(messageDeleted.id);"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"), // defaults to os.LookupEnv(\"OPENAI_API_KEY\")\n  )\n  messageDeleted, err := client.Beta.Threads.Messages.Delete(\n    context.TODO(),\n    \"thread_id\",\n    \"message_id\",\n  )\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", messageDeleted.ID)\n}\n"
+            kotlin: "package com.openai.example\n\nimport com.openai.client.OpenAIClient\nimport com.openai.client.okhttp.OpenAIOkHttpClient\nimport com.openai.models.beta.threads.messages.MessageDeleteParams\nimport com.openai.models.beta.threads.messages.MessageDeleted\n\nfun main() {\n    // Configures using the `OPENAI_API_KEY`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, `OPENAI_WEBHOOK_SECRET` and `OPENAI_BASE_URL` environment variables\n    val client: OpenAIClient = OpenAIOkHttpClient.fromEnv()\n\n    val params: MessageDeleteParams = MessageDeleteParams.builder()\n        .threadId(\"thread_id\")\n        .messageId(\"message_id\")\n        .build()\n    val messageDeleted: MessageDeleted = client.beta().threads().messages().delete(params)\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(\n  api_key: ENV[\"OPENAI_API_KEY\"] # This is the default and can be omitted\n)\n\nmessage_deleted = openai.beta.threads.messages.delete(\"message_id\", thread_id: \"thread_id\")\n\nputs(message_deleted)"

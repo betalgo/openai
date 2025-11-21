@@ -1,0 +1,107 @@
+components:
+  schemas:
+    RunStepObject:
+      title: Run steps
+      required:
+        - id
+        - object
+        - created_at
+        - assistant_id
+        - thread_id
+        - run_id
+        - type
+        - status
+        - step_details
+        - last_error
+        - expired_at
+        - cancelled_at
+        - failed_at
+        - completed_at
+        - metadata
+        - usage
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The identifier of the run step, which can be referenced in API endpoints.'
+        object:
+          enum:
+            - thread.run.step
+          type: string
+          description: 'The object type, which is always `thread.run.step`.'
+          x-stainless-const: true
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run step was created.
+        assistant_id:
+          type: string
+          description: 'The ID of the [assistant](/docs/api-reference/assistants) associated with the run step.'
+        thread_id:
+          type: string
+          description: 'The ID of the [thread](/docs/api-reference/threads) that was run.'
+        run_id:
+          type: string
+          description: 'The ID of the [run](/docs/api-reference/runs) that this run step is a part of.'
+        type:
+          enum:
+            - message_creation
+            - tool_calls
+          type: string
+          description: 'The type of run step, which can be either `message_creation` or `tool_calls`.'
+        status:
+          enum:
+            - in_progress
+            - cancelled
+            - failed
+            - completed
+            - expired
+          type: string
+          description: 'The status of the run step, which can be either `in_progress`, `cancelled`, `failed`, `completed`, or `expired`.'
+        step_details:
+          type: object
+          oneOf:
+            - $ref: '#/components/schemas/RunStepDetailsMessageCreationObject'
+            - $ref: '#/components/schemas/RunStepDetailsToolCallsObject'
+          description: The details of the run step.
+        last_error:
+          required:
+            - code
+            - message
+          type: object
+          properties:
+            code:
+              enum:
+                - server_error
+                - rate_limit_exceeded
+              type: string
+              description: One of `server_error` or `rate_limit_exceeded`.
+            message:
+              type: string
+              description: A human-readable description of the error.
+          description: The last error associated with this run step. Will be `null` if there are no errors.
+          nullable: true
+        expired_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
+          nullable: true
+        cancelled_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run step was cancelled.
+          nullable: true
+        failed_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run step failed.
+          nullable: true
+        completed_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the run step completed.
+          nullable: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        usage:
+          $ref: '#/components/schemas/RunStepCompletionUsage'
+      description: "Represents a step in execution of a run.\n"
+      x-oaiMeta:
+        name: The run step object
+        beta: true
+        example: "{\n  \"id\": \"step_abc123\",\n  \"object\": \"thread.run.step\",\n  \"created_at\": 1699063291,\n  \"run_id\": \"run_abc123\",\n  \"assistant_id\": \"asst_abc123\",\n  \"thread_id\": \"thread_abc123\",\n  \"type\": \"message_creation\",\n  \"status\": \"completed\",\n  \"cancelled_at\": null,\n  \"completed_at\": 1699063291,\n  \"expired_at\": null,\n  \"failed_at\": null,\n  \"last_error\": null,\n  \"step_details\": {\n    \"type\": \"message_creation\",\n    \"message_creation\": {\n      \"message_id\": \"msg_abc123\"\n    }\n  },\n  \"usage\": {\n    \"prompt_tokens\": 123,\n    \"completion_tokens\": 456,\n    \"total_tokens\": 579\n  }\n}\n"

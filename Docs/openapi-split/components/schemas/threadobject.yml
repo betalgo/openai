@@ -1,0 +1,55 @@
+components:
+  schemas:
+    ThreadObject:
+      title: Thread
+      required:
+        - id
+        - object
+        - created_at
+        - tool_resources
+        - metadata
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints.'
+        object:
+          enum:
+            - thread
+          type: string
+          description: 'The object type, which is always `thread`.'
+          x-stainless-const: true
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the thread was created.
+        tool_resources:
+          type: object
+          properties:
+            code_interpreter:
+              type: object
+              properties:
+                file_ids:
+                  maxItems: 20
+                  type: array
+                  items:
+                    type: string
+                  description: "A list of [file](/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.\n"
+                  default: [ ]
+            file_search:
+              type: object
+              properties:
+                vector_store_ids:
+                  maxItems: 1
+                  type: array
+                  items:
+                    type: string
+                  description: "The [vector store](/docs/api-reference/vector-stores/object) attached to this thread. There can be a maximum of 1 vector store attached to the thread.\n"
+          description: "A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.\n"
+          nullable: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      description: 'Represents a thread that contains [messages](/docs/api-reference/messages).'
+      x-oaiMeta:
+        name: The thread object
+        beta: true
+        example: "{\n  \"id\": \"thread_abc123\",\n  \"object\": \"thread\",\n  \"created_at\": 1698107661,\n  \"metadata\": {}\n}\n"

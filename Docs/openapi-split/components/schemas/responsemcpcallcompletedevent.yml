@@ -1,0 +1,23 @@
+components:
+  schemas:
+    ResponseMCPCallCompletedEvent:
+      title: ResponseMCPCallCompletedEvent
+      required:
+        - type
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.mcp_call.completed
+          type: string
+          description: The type of the event. Always 'response.mcp_call.completed'.
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: "Emitted when an MCP  tool call has completed successfully.\n"
+      x-oaiMeta:
+        name: response.mcp_call.completed
+        group: responses
+        example: "{\n  \"type\": \"response.mcp_call.completed\",\n  \"sequence_number\": 1\n}\n"

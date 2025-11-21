@@ -1,0 +1,21 @@
+components:
+  schemas:
+    DoneEvent:
+      required:
+        - event
+        - data
+      type: object
+      properties:
+        event:
+          enum:
+            - done
+          type: string
+          x-stainless-const: true
+        data:
+          enum:
+            - '[DONE]'
+          type: string
+          x-stainless-const: true
+      description: Occurs when a stream ends.
+      x-oaiMeta:
+        dataDescription: '`data` is `[DONE]`'

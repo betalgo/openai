@@ -1,0 +1,7 @@
+components:
+  schemas:
+    InputContent:
+      oneOf:
+        - $ref: '#/components/schemas/InputTextContent'
+        - $ref: '#/components/schemas/InputImageContent'
+        - $ref: '#/components/schemas/InputFileContent'

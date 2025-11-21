@@ -1,0 +1,12 @@
+components:
+  schemas:
+    ChatCompletionRole:
+      enum:
+        - developer
+        - system
+        - user
+        - assistant
+        - tool
+        - function
+      type: string
+      description: The role of the author of a message

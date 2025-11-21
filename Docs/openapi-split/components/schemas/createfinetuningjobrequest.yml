@@ -1,0 +1,124 @@
+components:
+  schemas:
+    CreateFineTuningJobRequest:
+      required:
+        - model
+        - training_file
+      type: object
+      properties:
+        model:
+          anyOf:
+            - type: string
+            - enum:
+                - babbage-002
+                - davinci-002
+                - gpt-3.5-turbo
+                - gpt-4o-mini
+              type: string
+          description: "The name of the model to fine-tune. You can select one of the\n[supported models](/docs/guides/fine-tuning#which-models-can-be-fine-tuned).\n"
+          example: gpt-4o-mini
+          x-oaiTypeLabel: string
+        training_file:
+          type: string
+          description: "The ID of an uploaded file that contains training data.\n\nSee [upload file](/docs/api-reference/files/create) for how to upload a file.\n\nYour dataset must be formatted as a JSONL file. Additionally, you must upload your file with the purpose `fine-tune`.\n\nThe contents of the file should differ depending on if the model uses the [chat](/docs/api-reference/fine-tuning/chat-input), [completions](/docs/api-reference/fine-tuning/completions-input) format, or if the fine-tuning method uses the [preference](/docs/api-reference/fine-tuning/preference-input) format.\n\nSee the [fine-tuning guide](/docs/guides/model-optimization) for more details.\n"
+          example: file-abc123
+        hyperparameters:
+          type: object
+          properties:
+            batch_size:
+              oneOf:
+                - enum:
+                    - auto
+                  type: string
+                  x-stainless-const: true
+                - maximum: 256
+                  minimum: 1
+                  type: integer
+              description: "Number of examples in each batch. A larger batch size means that model parameters\nare updated less frequently, but with lower variance.\n"
+              default: auto
+            learning_rate_multiplier:
+              oneOf:
+                - enum:
+                    - auto
+                  type: string
+                  x-stainless-const: true
+                - minimum: True
+                  exclusiveMinimum: true
+                  type: number
+              description: "Scaling factor for the learning rate. A smaller learning rate may be useful to avoid\noverfitting.\n"
+              default: auto
+            n_epochs:
+              oneOf:
+                - enum:
+                    - auto
+                  type: string
+                  x-stainless-const: true
+                - maximum: 50
+                  minimum: 1
+                  type: integer
+              description: "The number of epochs to train the model for. An epoch refers to one full cycle\nthrough the training dataset.\n"
+              default: auto
+          description: "The hyperparameters used for the fine-tuning job.\nThis value is now deprecated in favor of `method`, and should be passed in under the `method` parameter.\n"
+          deprecated: true
+        suffix:
+          maxLength: 64
+          minLength: 1
+          type: string
+          description: "A string of up to 64 characters that will be added to your fine-tuned model name.\n\nFor example, a `suffix` of \"custom-model-name\" would produce a model name like `ft:gpt-4o-mini:openai:custom-model-name:7p4lURel`.\n"
+          default: null
+          nullable: true
+        validation_file:
+          type: string
+          description: "The ID of an uploaded file that contains validation data.\n\nIf you provide this file, the data is used to generate validation\nmetrics periodically during fine-tuning. These metrics can be viewed in\nthe fine-tuning results file.\nThe same data should not be present in both train and validation files.\n\nYour dataset must be formatted as a JSONL file. You must upload your file with the purpose `fine-tune`.\n\nSee the [fine-tuning guide](/docs/guides/model-optimization) for more details.\n"
+          nullable: true
+          example: file-abc123
+        integrations:
+          type: array
+          items:
+            required:
+              - type
+              - wandb
+            type: object
+            properties:
+              type:
+                oneOf:
+                  - enum:
+                      - wandb
+                    type: string
+                    x-stainless-const: true
+                description: "The type of integration to enable. Currently, only \"wandb\" (Weights and Biases) is supported.\n"
+              wandb:
+                required:
+                  - project
+                type: object
+                properties:
+                  project:
+                    type: string
+                    description: "The name of the project that the new run will be created under.\n"
+                    example: my-wandb-project
+                  name:
+                    type: string
+                    description: "A display name to set for the run. If not set, we will use the Job ID as the name.\n"
+                  entity:
+                    type: string
+                    description: "The entity to use for the run. This allows you to set the team or username of the WandB user that you would\nlike associated with the run. If not set, the default entity for the registered WandB API key is used.\n"
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                      example: custom-tag
+                    description: "A list of tags to be attached to the newly created run. These tags are passed through directly to WandB. Some\ndefault tags are generated by OpenAI: \"openai/finetune\", \"openai/{base-model}\", \"openai/{ftjob-abcdef}\".\n"
+                description: "The settings for your integration with Weights and Biases. This payload specifies the project that\nmetrics will be sent to. Optionally, you can set an explicit display name for your run, add tags\nto your run, and set a default entity (team, username, etc) to be associated with your run.\n"
+          description: A list of integrations to enable for your fine-tuning job.
+          nullable: true
+        seed:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          description: "The seed controls the reproducibility of the job. Passing in the same seed and job parameters should produce the same results, but may differ in rare cases.\nIf a seed is not specified, one will be generated for you.\n"
+          nullable: true
+          example: 42
+        method:
+          $ref: '#/components/schemas/FineTuneMethod'
+        metadata:
+          $ref: '#/components/schemas/Metadata'

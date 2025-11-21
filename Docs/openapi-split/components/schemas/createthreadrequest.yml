@@ -1,0 +1,103 @@
+components:
+  schemas:
+    CreateThreadRequest:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateMessageRequest'
+          description: 'A list of [messages](/docs/api-reference/messages) to start the thread with.'
+        tool_resources:
+          type: object
+          properties:
+            code_interpreter:
+              type: object
+              properties:
+                file_ids:
+                  maxItems: 20
+                  type: array
+                  items:
+                    type: string
+                  description: "A list of [file](/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.\n"
+                  default: [ ]
+            file_search:
+              type: object
+              oneOf:
+                - required:
+                    - vector_store_ids
+                - required:
+                    - vector_stores
+              properties:
+                vector_store_ids:
+                  maxItems: 1
+                  type: array
+                  items:
+                    type: string
+                  description: "The [vector store](/docs/api-reference/vector-stores/object) attached to this thread. There can be a maximum of 1 vector store attached to the thread.\n"
+                vector_stores:
+                  maxItems: 1
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      file_ids:
+                        maxItems: 10000
+                        type: array
+                        items:
+                          type: string
+                        description: "A list of [file](/docs/api-reference/files) IDs to add to the vector store. There can be a maximum of 10000 files in a vector store.\n"
+                      chunking_strategy:
+                        type: object
+                        oneOf:
+                          - title: Auto Chunking Strategy
+                            required:
+                              - type
+                            type: object
+                            properties:
+                              type:
+                                enum:
+                                  - auto
+                                type: string
+                                description: Always `auto`.
+                                x-stainless-const: true
+                            additionalProperties: false
+                            description: The default strategy. This strategy currently uses a `max_chunk_size_tokens` of `800` and `chunk_overlap_tokens` of `400`.
+                          - title: Static Chunking Strategy
+                            required:
+                              - type
+                              - static
+                            type: object
+                            properties:
+                              type:
+                                enum:
+                                  - static
+                                type: string
+                                description: Always `static`.
+                                x-stainless-const: true
+                              static:
+                                required:
+                                  - max_chunk_size_tokens
+                                  - chunk_overlap_tokens
+                                type: object
+                                properties:
+                                  max_chunk_size_tokens:
+                                    maximum: 4096
+                                    minimum: 100
+                                    type: integer
+                                    description: The maximum number of tokens in each chunk. The default value is `800`. The minimum value is `100` and the maximum value is `4096`.
+                                  chunk_overlap_tokens:
+                                    type: integer
+                                    description: "The number of tokens that overlap between chunks. The default value is `400`.\n\nNote that the overlap must not exceed half of `max_chunk_size_tokens`.\n"
+                                additionalProperties: false
+                            additionalProperties: false
+                        description: 'The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy.'
+                      metadata:
+                        $ref: '#/components/schemas/Metadata'
+                  description: "A helper to create a [vector store](/docs/api-reference/vector-stores/object) with file_ids and attach it to this thread. There can be a maximum of 1 vector store attached to the thread.\n"
+          description: "A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.\n"
+          nullable: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      additionalProperties: false
+      description: "Options to create a new thread. If no thread is provided when running a \nrequest, an empty thread will be created.\n"

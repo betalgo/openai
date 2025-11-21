@@ -1,0 +1,24 @@
+components:
+  schemas:
+    RealtimeClientEventSessionUpdate:
+      required:
+        - type
+        - session
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - session.update
+          type: string
+          description: 'The event type, must be `session.update`.'
+          x-stainless-const: true
+        session:
+          $ref: '#/components/schemas/RealtimeSessionCreateRequest'
+      description: "Send this event to update the session’s default configuration.\nThe client may send this event at any time to update any field,\nexcept for `voice`. However, note that once a session has been\ninitialized with a particular `model`, it can’t be changed to\nanother model using `session.update`.\n\nWhen the server receives a `session.update`, it will respond\nwith a `session.updated` event showing the full, effective configuration.\nOnly the fields that are present are updated. To clear a field like\n`instructions`, pass an empty string.\n"
+      x-oaiMeta:
+        name: session.update
+        group: realtime
+        example: "{\n    \"event_id\": \"event_123\",\n    \"type\": \"session.update\",\n    \"session\": {\n        \"modalities\": [\"text\", \"audio\"],\n        \"instructions\": \"You are a helpful assistant.\",\n        \"voice\": \"sage\",\n        \"input_audio_format\": \"pcm16\",\n        \"output_audio_format\": \"pcm16\",\n        \"input_audio_transcription\": {\n            \"model\": \"whisper-1\"\n        },\n        \"turn_detection\": {\n            \"type\": \"server_vad\",\n            \"threshold\": 0.5,\n            \"prefix_padding_ms\": 300,\n            \"silence_duration_ms\": 500,\n            \"create_response\": true\n        },\n        \"tools\": [\n            {\n                \"type\": \"function\",\n                \"name\": \"get_weather\",\n                \"description\": \"Get the current weather...\",\n                \"parameters\": {\n                    \"type\": \"object\",\n                    \"properties\": {\n                        \"location\": { \"type\": \"string\" }\n                    },\n                    \"required\": [\"location\"]\n                }\n            }\n        ],\n        \"tool_choice\": \"auto\",\n        \"temperature\": 0.8,\n        \"max_response_output_tokens\": \"inf\",\n        \"speed\": 1.1,\n        \"tracing\": \"auto\"\n    }\n}\n"

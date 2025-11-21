@@ -1,0 +1,42 @@
+paths:
+  '/vector_stores/{vector_store_id}/file_batches':
+    post:
+      tags:
+        - Vector stores
+      summary: Create a vector store file batch.
+      operationId: createVectorStoreFileBatch
+      parameters:
+        - name: vector_store_id
+          in: path
+          description: "The ID of the vector store for which to create a File Batch.\n"
+          required: true
+          schema:
+            type: string
+            example: vs_abc123
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVectorStoreFileBatchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VectorStoreFileBatchObject'
+      x-oaiMeta:
+        name: Create vector store file batch
+        group: vector_stores
+        returns: 'A [vector store file batch](/docs/api-reference/vector-stores-file-batches/batch-object) object.'
+        examples:
+          response: "{\n  \"id\": \"vsfb_abc123\",\n  \"object\": \"vector_store.file_batch\",\n  \"created_at\": 1699061776,\n  \"vector_store_id\": \"vs_abc123\",\n  \"status\": \"in_progress\",\n  \"file_counts\": {\n    \"in_progress\": 1,\n    \"completed\": 1,\n    \"failed\": 0,\n    \"cancelled\": 0,\n    \"total\": 0,\n  }\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/vector_stores/vs_abc123/file_batches \\\n    -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n    -H \"Content-Type: application/json \\\n    -H \"OpenAI-Beta: assistants=v2\" \\\n    -d '{\n      \"file_ids\": [\"file-abc123\", \"file-abc456\"]\n    }'\n"
+            python: "import os\nfrom openai import OpenAI\n\nclient = OpenAI(\n    api_key=os.environ.get(\"OPENAI_API_KEY\"),  # This is the default and can be omitted\n)\nvector_store_file_batch = client.vector_stores.file_batches.create(\n    vector_store_id=\"vs_abc123\",\n    file_ids=[\"string\"],\n)\nprint(vector_store_file_batch.id)"
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted\n});\n\nconst vectorStoreFileBatch = await client.vectorStores.fileBatches.create('vs_abc123', {\n  file_ids: ['string'],\n});\n\nconsole.log(vectorStoreFileBatch.id);"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"), // defaults to os.LookupEnv(\"OPENAI_API_KEY\")\n  )\n  vectorStoreFileBatch, err := client.VectorStores.FileBatches.New(\n    context.TODO(),\n    \"vs_abc123\",\n    openai.VectorStoreFileBatchNewParams{\n      FileIDs: []string{\"string\"},\n    },\n  )\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", vectorStoreFileBatch.ID)\n}\n"
+            java: "package com.openai.example;\n\nimport com.openai.client.OpenAIClient;\nimport com.openai.client.okhttp.OpenAIOkHttpClient;\nimport com.openai.models.vectorstores.filebatches.FileBatchCreateParams;\nimport com.openai.models.vectorstores.filebatches.VectorStoreFileBatch;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        // Configures using the `OPENAI_API_KEY`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, `OPENAI_WEBHOOK_SECRET` and `OPENAI_BASE_URL` environment variables\n        OpenAIClient client = OpenAIOkHttpClient.fromEnv();\n\n        FileBatchCreateParams params = FileBatchCreateParams.builder()\n            .vectorStoreId(\"vs_abc123\")\n            .addFileId(\"string\")\n            .build();\n        VectorStoreFileBatch vectorStoreFileBatch = client.vectorStores().fileBatches().create(params);\n    }\n}"
+            kotlin: "package com.openai.example\n\nimport com.openai.client.OpenAIClient\nimport com.openai.client.okhttp.OpenAIOkHttpClient\nimport com.openai.models.vectorstores.filebatches.FileBatchCreateParams\nimport com.openai.models.vectorstores.filebatches.VectorStoreFileBatch\n\nfun main() {\n    // Configures using the `OPENAI_API_KEY`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, `OPENAI_WEBHOOK_SECRET` and `OPENAI_BASE_URL` environment variables\n    val client: OpenAIClient = OpenAIOkHttpClient.fromEnv()\n\n    val params: FileBatchCreateParams = FileBatchCreateParams.builder()\n        .vectorStoreId(\"vs_abc123\")\n        .addFileId(\"string\")\n        .build()\n    val vectorStoreFileBatch: VectorStoreFileBatch = client.vectorStores().fileBatches().create(params)\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(\n  api_key: ENV[\"OPENAI_API_KEY\"] # This is the default and can be omitted\n)\n\nvector_store_file_batch = openai.vector_stores.file_batches.create(\"vs_abc123\", file_ids: [\"string\"])\n\nputs(vector_store_file_batch)"

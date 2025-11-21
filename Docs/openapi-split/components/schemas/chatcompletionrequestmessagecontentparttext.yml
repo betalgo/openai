@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ChatCompletionRequestMessageContentPartText:
+      title: Text content part
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - text
+          type: string
+          description: The type of the content part.
+          x-stainless-const: true
+        text:
+          type: string
+          description: The text content.
+      description: "Learn about [text inputs](/docs/guides/text-generation).\n"

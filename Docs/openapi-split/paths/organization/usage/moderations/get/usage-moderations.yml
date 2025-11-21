@@ -1,0 +1,94 @@
+paths:
+  /organization/usage/moderations:
+    get:
+      tags:
+        - Usage
+      summary: Get moderations usage details for the organization.
+      operationId: usage-moderations
+      parameters:
+        - name: start_time
+          in: query
+          description: 'Start time (Unix seconds) of the query time range, inclusive.'
+          required: true
+          schema:
+            type: integer
+        - name: end_time
+          in: query
+          description: 'End time (Unix seconds) of the query time range, exclusive.'
+          schema:
+            type: integer
+        - name: bucket_width
+          in: query
+          description: 'Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.'
+          schema:
+            enum:
+              - 1m
+              - 1h
+              - 1d
+            type: string
+            default: 1d
+        - name: project_ids
+          in: query
+          description: Return only usage for these projects.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: user_ids
+          in: query
+          description: Return only usage for these users.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: api_key_ids
+          in: query
+          description: Return only usage for these API keys.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: models
+          in: query
+          description: Return only usage for these models.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: group_by
+          in: query
+          description: 'Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model` or any combination of them.'
+          schema:
+            type: array
+            items:
+              enum:
+                - project_id
+                - user_id
+                - api_key_id
+                - model
+              type: string
+        - name: limit
+          in: query
+          description: "Specifies the number of buckets to return.\n- `bucket_width=1d`: default: 7, max: 31\n- `bucket_width=1h`: default: 24, max: 168\n- `bucket_width=1m`: default: 60, max: 1440\n"
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usage data retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+      x-oaiMeta:
+        name: Moderations
+        group: usage-moderations
+        returns: 'A list of paginated, time bucketed [Moderations usage](/docs/api-reference/usage/moderations_object) objects.'
+        examples:
+          response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.usage.moderations.result\",\n                    \"input_tokens\": 16,\n                    \"num_model_requests\": 2,\n                    \"project_id\": null,\n                    \"user_id\": null,\n                    \"api_key_id\": null,\n                    \"model\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": false,\n    \"next_page\": null\n}\n"
+          request:
+            curl: "curl \"https://api.openai.com/v1/organization/usage/moderations?start_time=1730419200&limit=1\" \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n-H \"Content-Type: application/json\"\n"

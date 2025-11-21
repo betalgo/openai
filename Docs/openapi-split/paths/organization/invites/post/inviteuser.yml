@@ -1,0 +1,29 @@
+paths:
+  /organization/invites:
+    post:
+      tags:
+        - Invites
+      summary: Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
+      operationId: inviteUser
+      requestBody:
+        description: The invite request payload.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteRequest'
+        required: true
+      responses:
+        '200':
+          description: User invited successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invite'
+      x-oaiMeta:
+        name: Create invite
+        group: administration
+        returns: 'The created [Invite](/docs/api-reference/invite/object) object.'
+        examples:
+          response: "{\n  \"object\": \"organization.invite\",\n  \"id\": \"invite-def\",\n  \"email\": \"anotheruser@example.com\",\n  \"role\": \"reader\",\n  \"status\": \"pending\",\n  \"invited_at\": 1711471533,\n  \"expires_at\": 1711471533,\n  \"accepted_at\": null,\n  \"projects\": [\n    {\n      \"id\": \"project-xyz\",\n      \"role\": \"member\"\n    },\n    {\n      \"id\": \"project-abc\",\n      \"role\": \"owner\"\n    }\n  ]\n}\n"
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/organization/invites \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      \"email\": \"anotheruser@example.com\",\n      \"role\": \"reader\",\n      \"projects\": [\n        {\n          \"id\": \"project-xyz\",\n          \"role\": \"member\"\n        },\n        {\n          \"id\": \"project-abc\",\n          \"role\": \"owner\"\n        }\n      ]\n  }'\n"

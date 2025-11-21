@@ -1,0 +1,31 @@
+components:
+  schemas:
+    MessageContentTextObject:
+      title: Text
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - text
+          type: string
+          description: Always `text`.
+          x-stainless-const: true
+        text:
+          required:
+            - value
+            - annotations
+          type: object
+          properties:
+            value:
+              type: string
+              description: The data that makes up the text.
+            annotations:
+              type: array
+              items:
+                oneOf:
+                  - $ref: '#/components/schemas/MessageContentTextAnnotationsFileCitationObject'
+                  - $ref: '#/components/schemas/MessageContentTextAnnotationsFilePathObject'
+      description: The text content that is part of a message.

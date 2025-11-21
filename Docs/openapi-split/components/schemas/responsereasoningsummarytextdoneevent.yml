@@ -1,0 +1,38 @@
+components:
+  schemas:
+    ResponseReasoningSummaryTextDoneEvent:
+      required:
+        - type
+        - item_id
+        - output_index
+        - summary_index
+        - text
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.reasoning_summary_text.done
+          type: string
+          description: "The type of the event. Always `response.reasoning_summary_text.done`.\n"
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: "The ID of the item this summary text is associated with.\n"
+        output_index:
+          type: integer
+          description: "The index of the output item this summary text is associated with.\n"
+        summary_index:
+          type: integer
+          description: "The index of the summary part within the reasoning summary.\n"
+        text:
+          type: string
+          description: "The full text of the completed reasoning summary.\n"
+        sequence_number:
+          type: integer
+          description: "The sequence number of this event.\n"
+      description: Emitted when a reasoning summary text is completed.
+      x-oaiMeta:
+        name: response.reasoning_summary_text.done
+        group: responses
+        example: "{\n  \"type\": \"response.reasoning_summary_text.done\",\n  \"item_id\": \"rs_6806bfca0b2481918a5748308061a2600d3ce51bdffd5476\",\n  \"output_index\": 0,\n  \"summary_index\": 0,\n  \"text\": \"**Responding to a greeting**\\n\\nThe user just said, \\\"Hello!\\\" So, it seems I need to engage. I'll greet them back and offer help since they're looking to chat. I could say something like, \\\"Hello! How can I assist you today?\\\" That feels friendly and open. They didn't ask a specific question, so this approach will work well for starting a conversation. Let's see where it goes from there!\",\n  \"sequence_number\": 1\n}\n"

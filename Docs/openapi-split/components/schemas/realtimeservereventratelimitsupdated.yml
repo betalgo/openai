@@ -1,0 +1,44 @@
+components:
+  schemas:
+    RealtimeServerEventRateLimitsUpdated:
+      required:
+        - event_id
+        - type
+        - rate_limits
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - rate_limits.updated
+          type: string
+          description: 'The event type, must be `rate_limits.updated`.'
+          x-stainless-const: true
+        rate_limits:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                enum:
+                  - requests
+                  - tokens
+                type: string
+                description: "The name of the rate limit (`requests`, `tokens`).\n"
+              limit:
+                type: integer
+                description: The maximum allowed value for the rate limit.
+              remaining:
+                type: integer
+                description: The remaining value before the limit is reached.
+              reset_seconds:
+                type: number
+                description: Seconds until the rate limit resets.
+          description: List of rate limit information.
+      description: "Emitted at the beginning of a Response to indicate the updated rate limits. \nWhen a Response is created some tokens will be \"reserved\" for the output \ntokens, the rate limits shown here reflect that reservation, which is then \nadjusted accordingly once the Response is completed.\n"
+      x-oaiMeta:
+        name: rate_limits.updated
+        group: realtime
+        example: "{\n    \"event_id\": \"event_5758\",\n    \"type\": \"rate_limits.updated\",\n    \"rate_limits\": [\n        {\n            \"name\": \"requests\",\n            \"limit\": 1000,\n            \"remaining\": 999,\n            \"reset_seconds\": 60\n        },\n        {\n            \"name\": \"tokens\",\n            \"limit\": 50000,\n            \"remaining\": 49950,\n            \"reset_seconds\": 60\n        }\n    ]\n}\n"

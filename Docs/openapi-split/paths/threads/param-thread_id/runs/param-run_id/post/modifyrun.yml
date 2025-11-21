@@ -1,0 +1,47 @@
+paths:
+  '/threads/{thread_id}/runs/{run_id}':
+    post:
+      tags:
+        - Assistants
+      summary: Modifies a run.
+      operationId: modifyRun
+      parameters:
+        - name: thread_id
+          in: path
+          description: 'The ID of the [thread](/docs/api-reference/threads) that was run.'
+          required: true
+          schema:
+            type: string
+        - name: run_id
+          in: path
+          description: The ID of the run to modify.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyRunRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunObject'
+      x-oaiMeta:
+        name: Modify run
+        group: threads
+        beta: true
+        returns: 'The modified [run](/docs/api-reference/runs/object) object matching the specified ID.'
+        examples:
+          response: "{\n  \"id\": \"run_abc123\",\n  \"object\": \"thread.run\",\n  \"created_at\": 1699075072,\n  \"assistant_id\": \"asst_abc123\",\n  \"thread_id\": \"thread_abc123\",\n  \"status\": \"completed\",\n  \"started_at\": 1699075072,\n  \"expires_at\": null,\n  \"cancelled_at\": null,\n  \"failed_at\": null,\n  \"completed_at\": 1699075073,\n  \"last_error\": null,\n  \"model\": \"gpt-4o\",\n  \"instructions\": null,\n  \"incomplete_details\": null,\n  \"tools\": [\n    {\n      \"type\": \"code_interpreter\"\n    }\n  ],\n  \"tool_resources\": {\n    \"code_interpreter\": {\n      \"file_ids\": [\n        \"file-abc123\",\n        \"file-abc456\"\n      ]\n    }\n  },\n  \"metadata\": {\n    \"user_id\": \"user_abc123\"\n  },\n  \"usage\": {\n    \"prompt_tokens\": 123,\n    \"completion_tokens\": 456,\n    \"total_tokens\": 579\n  },\n  \"temperature\": 1.0,\n  \"top_p\": 1.0,\n  \"max_prompt_tokens\": 1000,\n  \"max_completion_tokens\": 1000,\n  \"truncation_strategy\": {\n    \"type\": \"auto\",\n    \"last_messages\": null\n  },\n  \"response_format\": \"auto\",\n  \"tool_choice\": \"auto\",\n  \"parallel_tool_calls\": true\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/threads/thread_abc123/runs/run_abc123 \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"OpenAI-Beta: assistants=v2\" \\\n  -d '{\n    \"metadata\": {\n      \"user_id\": \"user_abc123\"\n    }\n  }'\n"
+            python: "import os\nfrom openai import OpenAI\n\nclient = OpenAI(\n    api_key=os.environ.get(\"OPENAI_API_KEY\"),  # This is the default and can be omitted\n)\nrun = client.beta.threads.runs.update(\n    run_id=\"run_id\",\n    thread_id=\"thread_id\",\n)\nprint(run.id)"
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted\n});\n\nconst run = await client.beta.threads.runs.update('run_id', { thread_id: 'thread_id' });\n\nconsole.log(run.id);"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"), // defaults to os.LookupEnv(\"OPENAI_API_KEY\")\n  )\n  run, err := client.Beta.Threads.Runs.Update(\n    context.TODO(),\n    \"thread_id\",\n    \"run_id\",\n    openai.BetaThreadRunUpdateParams{\n\n    },\n  )\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", run.ID)\n}\n"
+            kotlin: "package com.openai.example\n\nimport com.openai.client.OpenAIClient\nimport com.openai.client.okhttp.OpenAIOkHttpClient\nimport com.openai.models.beta.threads.runs.Run\nimport com.openai.models.beta.threads.runs.RunUpdateParams\n\nfun main() {\n    // Configures using the `OPENAI_API_KEY`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, `OPENAI_WEBHOOK_SECRET` and `OPENAI_BASE_URL` environment variables\n    val client: OpenAIClient = OpenAIOkHttpClient.fromEnv()\n\n    val params: RunUpdateParams = RunUpdateParams.builder()\n        .threadId(\"thread_id\")\n        .runId(\"run_id\")\n        .build()\n    val run: Run = client.beta().threads().runs().update(params)\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(\n  api_key: ENV[\"OPENAI_API_KEY\"] # This is the default and can be omitted\n)\n\nrun = openai.beta.threads.runs.update(\"run_id\", thread_id: \"thread_id\")\n\nputs(run)"

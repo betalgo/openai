@@ -1,0 +1,17 @@
+components:
+  schemas:
+    ResponsePromptVariables:
+      title: Prompt Variables
+      type: object
+      additionalProperties:
+        oneOf:
+          - type: string
+          - $ref: '#/components/schemas/InputTextContent'
+          - $ref: '#/components/schemas/InputImageContent'
+          - $ref: '#/components/schemas/InputFileContent'
+        x-oaiExpandable: true
+        x-oaiTypeLabel: map
+      description: "Optional map of values to substitute in for variables in your\nprompt. The substitution values can either be strings, or other\nResponse input types like images or files.\n"
+      nullable: true
+      x-oaiExpandable: true
+      x-oaiTypeLabel: map

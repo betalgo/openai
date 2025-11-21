@@ -1,0 +1,31 @@
+components:
+  schemas:
+    ChatCompletionRequestMessageContentPartAudio:
+      title: Audio content part
+      required:
+        - type
+        - input_audio
+      type: object
+      properties:
+        type:
+          enum:
+            - input_audio
+          type: string
+          description: The type of the content part. Always `input_audio`.
+          x-stainless-const: true
+        input_audio:
+          required:
+            - data
+            - format
+          type: object
+          properties:
+            data:
+              type: string
+              description: Base64 encoded audio data.
+            format:
+              enum:
+                - wav
+                - mp3
+              type: string
+              description: "The format of the encoded audio data. Currently supports \"wav\" and \"mp3\".\n"
+      description: "Learn about [audio inputs](/docs/guides/audio).\n"

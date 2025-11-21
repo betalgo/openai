@@ -1,0 +1,36 @@
+components:
+  schemas:
+    ResponseItemList:
+      required:
+        - object
+        - data
+        - has_more
+        - first_id
+        - last_id
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: 'The type of object returned, must be `list`.'
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemResource'
+          description: A list of items used to generate this response.
+        has_more:
+          type: boolean
+          description: Whether there are more items available.
+        first_id:
+          type: string
+          description: The ID of the first item in the list.
+        last_id:
+          type: string
+          description: The ID of the last item in the list.
+      description: A list of Response items.
+      x-oaiMeta:
+        name: The input item list
+        group: responses
+        example: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"msg_abc123\",\n      \"type\": \"message\",\n      \"role\": \"user\",\n      \"content\": [\n        {\n          \"type\": \"input_text\",\n          \"text\": \"Tell me a three sentence bedtime story about a unicorn.\"\n        }\n      ]\n    }\n  ],\n  \"first_id\": \"msg_abc123\",\n  \"last_id\": \"msg_abc123\",\n  \"has_more\": false\n}\n"

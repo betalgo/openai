@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ToolChoiceFunction:
+      title: Function tool
+      required:
+        - type
+        - name
+      type: object
+      properties:
+        type:
+          enum:
+            - function
+          type: string
+          description: 'For function calling, the type is always `function`.'
+          x-stainless-const: true
+        name:
+          type: string
+          description: The name of the function to call.
+      description: "Use this option to force the model to call a specific function.\n"

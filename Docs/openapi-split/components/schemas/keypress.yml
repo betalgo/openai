@@ -1,0 +1,23 @@
+components:
+  schemas:
+    KeyPress:
+      title: KeyPress
+      required:
+        - type
+        - keys
+      type: object
+      properties:
+        type:
+          enum:
+            - keypress
+          type: string
+          description: "Specifies the event type. For a keypress action, this property is \nalways set to `keypress`.\n"
+          default: keypress
+          x-stainless-const: true
+        keys:
+          type: array
+          items:
+            type: string
+            description: "One of the keys the model is requesting to be pressed.\n"
+          description: "The combination of keys the model is requesting to be pressed. This is an\narray of strings, each representing a key.\n"
+      description: "A collection of keypresses the model would like to perform.\n"

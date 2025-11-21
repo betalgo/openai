@@ -1,0 +1,26 @@
+components:
+  schemas:
+    ResponseQueuedEvent:
+      title: ResponseQueuedEvent
+      required:
+        - type
+        - response
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.queued
+          type: string
+          description: The type of the event. Always 'response.queued'.
+          x-stainless-const: true
+        response:
+          $ref: '#/components/schemas/Response'
+        sequence_number:
+          type: integer
+          description: The sequence number for this event.
+      description: "Emitted when a response is queued and waiting to be processed.\n"
+      x-oaiMeta:
+        name: response.queued
+        group: responses
+        example: "{\n  \"type\": \"response.queued\",\n  \"response\": {\n    \"id\": \"res_123\",\n    \"status\": \"queued\",\n    \"created_at\": \"2021-01-01T00:00:00Z\",\n    \"updated_at\": \"2021-01-01T00:00:00Z\"\n  },\n  \"sequence_number\": 1\n}\n"

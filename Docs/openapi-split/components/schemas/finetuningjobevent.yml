@@ -1,0 +1,46 @@
+components:
+  schemas:
+    FineTuningJobEvent:
+      required:
+        - id
+        - object
+        - created_at
+        - level
+        - message
+      type: object
+      properties:
+        object:
+          enum:
+            - fine_tuning.job.event
+          type: string
+          description: 'The object type, which is always "fine_tuning.job.event".'
+          x-stainless-const: true
+        id:
+          type: string
+          description: The object identifier.
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the fine-tuning job was created.
+        level:
+          enum:
+            - info
+            - warn
+            - error
+          type: string
+          description: The log level of the event.
+        message:
+          type: string
+          description: The message of the event.
+        type:
+          enum:
+            - message
+            - metrics
+          type: string
+          description: The type of event.
+        data:
+          type: object
+          description: The data associated with the event.
+      description: Fine-tuning job event object
+      x-oaiMeta:
+        name: The fine-tuning job event object
+        example: "{\n  \"object\": \"fine_tuning.job.event\",\n  \"id\": \"ftevent-abc123\"\n  \"created_at\": 1677610602,\n  \"level\": \"info\",\n  \"message\": \"Created fine-tuning job\",\n  \"data\": {},\n  \"type\": \"message\"\n}\n"

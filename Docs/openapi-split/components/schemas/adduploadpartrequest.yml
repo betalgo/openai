@@ -1,0 +1,12 @@
+components:
+  schemas:
+    AddUploadPartRequest:
+      required:
+        - data
+      type: object
+      properties:
+        data:
+          type: string
+          description: "The chunk of bytes for this Part.\n"
+          format: binary
+      additionalProperties: false

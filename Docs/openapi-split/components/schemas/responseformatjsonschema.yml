@@ -1,0 +1,36 @@
+components:
+  schemas:
+    ResponseFormatJsonSchema:
+      title: JSON schema
+      required:
+        - type
+        - json_schema
+      type: object
+      properties:
+        type:
+          enum:
+            - json_schema
+          type: string
+          description: The type of response format being defined. Always `json_schema`.
+          x-stainless-const: true
+        json_schema:
+          title: JSON schema
+          required:
+            - name
+          type: object
+          properties:
+            description:
+              type: string
+              description: "A description of what the response format is for, used by the model to\ndetermine how to respond in the format.\n"
+            name:
+              type: string
+              description: "The name of the response format. Must be a-z, A-Z, 0-9, or contain\nunderscores and dashes, with a maximum length of 64.\n"
+            schema:
+              $ref: '#/components/schemas/ResponseFormatJsonSchemaSchema'
+            strict:
+              type: boolean
+              description: "Whether to enable strict schema adherence when generating the output.\nIf set to true, the model will always follow the exact schema defined\nin the `schema` field. Only a subset of JSON Schema is supported when\n`strict` is `true`. To learn more, read the [Structured Outputs\nguide](/docs/guides/structured-outputs).\n"
+              default: false
+              nullable: true
+          description: "Structured Outputs configuration options, including a JSON Schema.\n"
+      description: "JSON Schema response format. Used to generate structured JSON responses.\nLearn more about [Structured Outputs](/docs/guides/structured-outputs).\n"

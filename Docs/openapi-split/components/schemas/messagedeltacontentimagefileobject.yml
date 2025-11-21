@@ -1,0 +1,33 @@
+components:
+  schemas:
+    MessageDeltaContentImageFileObject:
+      title: Image file
+      required:
+        - index
+        - type
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of the content part in the message.
+        type:
+          enum:
+            - image_file
+          type: string
+          description: Always `image_file`.
+          x-stainless-const: true
+        image_file:
+          type: object
+          properties:
+            file_id:
+              type: string
+              description: 'The [File](/docs/api-reference/files) ID of the image in the message content. Set `purpose="vision"` when uploading the File if you need to later display the file content.'
+            detail:
+              enum:
+                - auto
+                - low
+                - high
+              type: string
+              description: 'Specifies the detail level of the image if specified by the user. `low` uses fewer tokens, you can opt in to high resolution using `high`.'
+              default: auto
+      description: 'References an image [File](/docs/api-reference/files) in the content of a message.'

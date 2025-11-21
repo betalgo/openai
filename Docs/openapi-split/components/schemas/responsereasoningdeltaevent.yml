@@ -1,0 +1,39 @@
+components:
+  schemas:
+    ResponseReasoningDeltaEvent:
+      title: ResponseReasoningDeltaEvent
+      required:
+        - type
+        - item_id
+        - output_index
+        - content_index
+        - delta
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.reasoning.delta
+          type: string
+          description: The type of the event. Always 'response.reasoning.delta'.
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The unique identifier of the item for which reasoning is being updated.
+        output_index:
+          type: integer
+          description: The index of the output item in the response's output array.
+        content_index:
+          type: integer
+          description: The index of the reasoning content part within the output item.
+        delta:
+          type: object
+          description: The partial update to the reasoning content.
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: "Emitted when there is a delta (partial update) to the reasoning content.\n"
+      x-oaiMeta:
+        name: response.reasoning.delta
+        group: responses
+        example: "{\n  \"type\": \"response.reasoning.delta\",\n  \"item_id\": \"item-abc\",\n  \"output_index\": 0,\n  \"content_index\": 0,\n  \"delta\": {\n    \"text\": \"This is a test delta\"\n  },\n  \"sequence_number\": 1\n}\n"

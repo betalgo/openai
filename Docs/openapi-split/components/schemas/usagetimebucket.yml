@@ -1,0 +1,32 @@
+components:
+  schemas:
+    UsageTimeBucket:
+      required:
+        - object
+        - start_time
+        - end_time
+        - result
+      type: object
+      properties:
+        object:
+          enum:
+            - bucket
+          type: string
+          x-stainless-const: true
+        start_time:
+          type: integer
+        end_time:
+          type: integer
+        result:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/UsageCompletionsResult'
+              - $ref: '#/components/schemas/UsageEmbeddingsResult'
+              - $ref: '#/components/schemas/UsageModerationsResult'
+              - $ref: '#/components/schemas/UsageImagesResult'
+              - $ref: '#/components/schemas/UsageAudioSpeechesResult'
+              - $ref: '#/components/schemas/UsageAudioTranscriptionsResult'
+              - $ref: '#/components/schemas/UsageVectorStoresResult'
+              - $ref: '#/components/schemas/UsageCodeInterpreterSessionsResult'
+              - $ref: '#/components/schemas/CostsResult'

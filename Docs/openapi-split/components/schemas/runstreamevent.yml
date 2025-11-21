@@ -1,0 +1,154 @@
+components:
+  schemas:
+    RunStreamEvent:
+      oneOf:
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.run.created
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/RunObject'
+          description: 'Occurs when a new [run](/docs/api-reference/runs/object) is created.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.run.queued
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/RunObject'
+          description: 'Occurs when a [run](/docs/api-reference/runs/object) moves to a `queued` status.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.run.in_progress
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/RunObject'
+          description: 'Occurs when a [run](/docs/api-reference/runs/object) moves to an `in_progress` status.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.run.requires_action
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/RunObject'
+          description: 'Occurs when a [run](/docs/api-reference/runs/object) moves to a `requires_action` status.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.run.completed
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/RunObject'
+          description: 'Occurs when a [run](/docs/api-reference/runs/object) is completed.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.run.incomplete
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/RunObject'
+          description: 'Occurs when a [run](/docs/api-reference/runs/object) ends with status `incomplete`.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.run.failed
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/RunObject'
+          description: 'Occurs when a [run](/docs/api-reference/runs/object) fails.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.run.cancelling
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/RunObject'
+          description: 'Occurs when a [run](/docs/api-reference/runs/object) moves to a `cancelling` status.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.run.cancelled
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/RunObject'
+          description: 'Occurs when a [run](/docs/api-reference/runs/object) is cancelled.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.run.expired
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/RunObject'
+          description: 'Occurs when a [run](/docs/api-reference/runs/object) expires.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'

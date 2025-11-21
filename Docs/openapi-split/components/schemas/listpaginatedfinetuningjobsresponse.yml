@@ -1,0 +1,20 @@
+components:
+  schemas:
+    ListPaginatedFineTuningJobsResponse:
+      required:
+        - object
+        - data
+        - has_more
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FineTuningJob'
+        has_more:
+          type: boolean
+        object:
+          enum:
+            - list
+          type: string
+          x-stainless-const: true

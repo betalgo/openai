@@ -1,0 +1,28 @@
+components:
+  schemas:
+    Embedding:
+      required:
+        - index
+        - object
+        - embedding
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of the embedding in the list of embeddings.
+        embedding:
+          type: array
+          items:
+            type: number
+            format: float
+          description: "The embedding vector, which is a list of floats. The length of vector depends on the model as listed in the [embedding guide](/docs/guides/embeddings).\n"
+        object:
+          enum:
+            - embedding
+          type: string
+          description: 'The object type, which is always "embedding".'
+          x-stainless-const: true
+      description: "Represents an embedding vector returned by embedding endpoint.\n"
+      x-oaiMeta:
+        name: The embedding object
+        example: "{\n  \"object\": \"embedding\",\n  \"embedding\": [\n    0.0023064255,\n    -0.009327292,\n    .... (1536 floats total for ada-002)\n    -0.0028842222,\n  ],\n  \"index\": 0\n}\n"

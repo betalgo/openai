@@ -1,0 +1,29 @@
+components:
+  schemas:
+    CreateEvalCustomDataSourceConfig:
+      title: CustomDataSourceConfig
+      required:
+        - item_schema
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - custom
+          type: string
+          description: The type of data source. Always `custom`.
+          default: custom
+          x-stainless-const: true
+        item_schema:
+          type: object
+          description: The json schema for each row in the data source.
+          example: "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\"type\": \"string\"},\n    \"age\": {\"type\": \"integer\"}\n  },\n  \"required\": [\"name\", \"age\"]\n}\n"
+        include_sample_schema:
+          type: boolean
+          description: 'Whether the eval should expect you to populate the sample namespace (ie, by generating responses off of your data source)'
+          default: false
+      description: "A CustomDataSourceConfig object that defines the schema for the data source used for the evaluation runs.\nThis schema is used to define the shape of the data that will be:\n- Used to define your testing criteria and\n- What data is required when creating a run\n"
+      x-oaiMeta:
+        name: The eval file data source config object
+        group: evals
+        example: "{\n  \"type\": \"custom\",\n  \"item_schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"name\": {\"type\": \"string\"},\n      \"age\": {\"type\": \"integer\"}\n    },\n    \"required\": [\"name\", \"age\"]\n  },\n  \"include_sample_schema\": true\n}\n"

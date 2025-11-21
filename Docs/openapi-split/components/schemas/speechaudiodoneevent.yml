@@ -1,0 +1,36 @@
+components:
+  schemas:
+    SpeechAudioDoneEvent:
+      required:
+        - type
+        - usage
+      type: object
+      properties:
+        type:
+          enum:
+            - speech.audio.done
+          type: string
+          description: "The type of the event. Always `speech.audio.done`.\n"
+          x-stainless-const: true
+        usage:
+          required:
+            - input_tokens
+            - output_tokens
+            - total_tokens
+          type: object
+          properties:
+            input_tokens:
+              type: integer
+              description: Number of input tokens in the prompt.
+            output_tokens:
+              type: integer
+              description: Number of output tokens generated.
+            total_tokens:
+              type: integer
+              description: Total number of tokens used (input + output).
+          description: "Token usage statistics for the request.\n"
+      description: Emitted when the speech synthesis is complete and all audio has been streamed.
+      x-oaiMeta:
+        name: Stream Event (speech.audio.done)
+        group: speech
+        example: "{\n  \"type\": \"speech.audio.done\",\n  \"usage\": {\n    \"input_tokens\": 14,\n    \"output_tokens\": 101,\n    \"total_tokens\": 115\n  }\n}\n"

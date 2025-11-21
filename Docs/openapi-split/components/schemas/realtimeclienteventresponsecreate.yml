@@ -1,0 +1,23 @@
+components:
+  schemas:
+    RealtimeClientEventResponseCreate:
+      required:
+        - type
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - response.create
+          type: string
+          description: 'The event type, must be `response.create`.'
+          x-stainless-const: true
+        response:
+          $ref: '#/components/schemas/RealtimeResponseCreateParams'
+      description: "This event instructs the server to create a Response, which means triggering \nmodel inference. When in Server VAD mode, the server will create Responses \nautomatically.\n\nA Response will include at least one Item, and may have two, in which case \nthe second will be a function call. These Items will be appended to the \nconversation history.\n\nThe server will respond with a `response.created` event, events for Items \nand content created, and finally a `response.done` event to indicate the \nResponse is complete.\n\nThe `response.create` event includes inference configuration like \n`instructions`, and `temperature`. These fields will override the Session's \nconfiguration for this Response only.\n"
+      x-oaiMeta:
+        name: response.create
+        group: realtime
+        example: "{\n    \"event_id\": \"event_234\",\n    \"type\": \"response.create\",\n    \"response\": {\n        \"modalities\": [\"text\", \"audio\"],\n        \"instructions\": \"Please assist the user.\",\n        \"voice\": \"sage\",\n        \"output_audio_format\": \"pcm16\",\n        \"tools\": [\n            {\n                \"type\": \"function\",\n                \"name\": \"calculate_sum\",\n                \"description\": \"Calculates the sum of two numbers.\",\n                \"parameters\": {\n                    \"type\": \"object\",\n                    \"properties\": {\n                        \"a\": { \"type\": \"number\" },\n                        \"b\": { \"type\": \"number\" }\n                    },\n                    \"required\": [\"a\", \"b\"]\n                }\n            }\n        ],\n        \"tool_choice\": \"auto\",\n        \"temperature\": 0.8,\n        \"max_output_tokens\": 1024\n    }\n}\n"

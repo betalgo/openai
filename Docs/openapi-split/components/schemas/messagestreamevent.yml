@@ -1,0 +1,79 @@
+components:
+  schemas:
+    MessageStreamEvent:
+      oneOf:
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.message.created
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/MessageObject'
+          description: 'Occurs when a [message](/docs/api-reference/messages/object) is created.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [message](/docs/api-reference/messages/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.message.in_progress
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/MessageObject'
+          description: 'Occurs when a [message](/docs/api-reference/messages/object) moves to an `in_progress` state.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [message](/docs/api-reference/messages/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.message.delta
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/MessageDeltaObject'
+          description: 'Occurs when parts of a [Message](/docs/api-reference/messages/object) are being streamed.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [message delta](/docs/api-reference/assistants-streaming/message-delta-object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.message.completed
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/MessageObject'
+          description: 'Occurs when a [message](/docs/api-reference/messages/object) is completed.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [message](/docs/api-reference/messages/object)'
+        - required:
+            - event
+            - data
+          type: object
+          properties:
+            event:
+              enum:
+                - thread.message.incomplete
+              type: string
+              x-stainless-const: true
+            data:
+              $ref: '#/components/schemas/MessageObject'
+          description: 'Occurs when a [message](/docs/api-reference/messages/object) ends before it is completed.'
+          x-oaiMeta:
+            dataDescription: '`data` is a [message](/docs/api-reference/messages/object)'

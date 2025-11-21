@@ -1,0 +1,30 @@
+components:
+  schemas:
+    ResponseWebSearchCallSearchingEvent:
+      required:
+        - type
+        - output_index
+        - item_id
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.web_search_call.searching
+          type: string
+          description: "The type of the event. Always `response.web_search_call.searching`.\n"
+          x-stainless-const: true
+        output_index:
+          type: integer
+          description: "The index of the output item that the web search call is associated with.\n"
+        item_id:
+          type: string
+          description: "Unique ID for the output item associated with the web search call.\n"
+        sequence_number:
+          type: integer
+          description: The sequence number of the web search call being processed.
+      description: Emitted when a web search call is executing.
+      x-oaiMeta:
+        name: response.web_search_call.searching
+        group: responses
+        example: "{\n  \"type\": \"response.web_search_call.searching\",\n  \"output_index\": 0,\n  \"item_id\": \"ws_123\",\n  \"sequence_number\": 0\n}\n"

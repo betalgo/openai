@@ -1,0 +1,31 @@
+components:
+  schemas:
+    ResponseMCPCallInProgressEvent:
+      title: ResponseMCPCallInProgressEvent
+      required:
+        - type
+        - output_index
+        - item_id
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.mcp_call.in_progress
+          type: string
+          description: The type of the event. Always 'response.mcp_call.in_progress'.
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+        output_index:
+          type: integer
+          description: The index of the output item in the response's output array.
+        item_id:
+          type: string
+          description: The unique identifier of the MCP tool call item being processed.
+      description: "Emitted when an MCP  tool call is in progress.\n"
+      x-oaiMeta:
+        name: response.mcp_call.in_progress
+        group: responses
+        example: "{\n  \"type\": \"response.mcp_call.in_progress\",\n  \"output_index\": 0,\n  \"item_id\": \"item-abc\",\n  \"sequence_number\": 1\n}\n"

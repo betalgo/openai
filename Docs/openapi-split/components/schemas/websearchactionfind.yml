@@ -1,0 +1,24 @@
+components:
+  schemas:
+    WebSearchActionFind:
+      title: Find action
+      required:
+        - type
+        - url
+        - pattern
+      type: object
+      properties:
+        type:
+          enum:
+            - find
+          type: string
+          description: "The action type.\n"
+          x-stainless-const: true
+        url:
+          type: string
+          description: "The URL of the page searched for the pattern.\n"
+          format: uri
+        pattern:
+          type: string
+          description: "The pattern or text to search for within the page.\n"
+      description: "Action type \"find\": Searches for a pattern within a loaded page.\n"

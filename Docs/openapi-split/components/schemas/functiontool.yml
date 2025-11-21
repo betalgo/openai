@@ -1,0 +1,38 @@
+components:
+  schemas:
+    FunctionTool:
+      title: Function
+      required:
+        - type
+        - name
+        - strict
+        - parameters
+      type: object
+      properties:
+        type:
+          enum:
+            - function
+          type: string
+          description: The type of the function tool. Always `function`.
+          default: function
+          x-stainless-const: true
+        name:
+          type: string
+          description: The name of the function to call.
+        description:
+          anyOf:
+            - type: string
+              description: A description of the function. Used by the model to determine whether or not to call the function.
+            - nullable: true
+        parameters:
+          anyOf:
+            - type: object
+              additionalProperties: { }
+              description: A JSON schema object describing the parameters of the function.
+            - nullable: true
+        strict:
+          anyOf:
+            - type: boolean
+              description: Whether to enforce strict parameter validation. Default `true`.
+            - nullable: true
+      description: 'Defines a function in your own code the model can choose to call. Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).'

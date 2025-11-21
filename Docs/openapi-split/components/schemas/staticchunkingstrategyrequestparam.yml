@@ -1,0 +1,19 @@
+components:
+  schemas:
+    StaticChunkingStrategyRequestParam:
+      title: Static Chunking Strategy
+      required:
+        - type
+        - static
+      type: object
+      properties:
+        type:
+          enum:
+            - static
+          type: string
+          description: Always `static`.
+          x-stainless-const: true
+        static:
+          $ref: '#/components/schemas/StaticChunkingStrategy'
+      additionalProperties: false
+      description: Customize your own chunking strategy by setting chunk size and chunk overlap.

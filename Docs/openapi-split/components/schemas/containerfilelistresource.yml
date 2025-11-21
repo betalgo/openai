@@ -1,0 +1,30 @@
+components:
+  schemas:
+    ContainerFileListResource:
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: 'The type of object returned, must be ''list''.'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContainerFileResource'
+          description: A list of container files.
+        first_id:
+          type: string
+          description: The ID of the first file in the list.
+        last_id:
+          type: string
+          description: The ID of the last file in the list.
+        has_more:
+          type: boolean
+          description: Whether there are more files available.

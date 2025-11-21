@@ -1,0 +1,26 @@
+components:
+  schemas:
+    InputAudio:
+      title: Audio input
+      required:
+        - type
+        - data
+        - format
+      type: object
+      properties:
+        type:
+          enum:
+            - input_audio
+          type: string
+          description: "The type of the input item. Always `input_audio`.\n"
+          x-stainless-const: true
+        data:
+          type: string
+          description: "Base64-encoded audio data.\n"
+        format:
+          enum:
+            - mp3
+            - wav
+          type: string
+          description: "The format of the audio data. Currently supported formats are `mp3` and\n`wav`.\n"
+      description: "An audio input to the model.\n"

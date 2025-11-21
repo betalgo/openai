@@ -1,0 +1,35 @@
+components:
+  schemas:
+    ResponseMCPCallArgumentsDeltaEvent:
+      title: ResponseMCPCallArgumentsDeltaEvent
+      required:
+        - type
+        - output_index
+        - item_id
+        - delta
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.mcp_call_arguments.delta
+          type: string
+          description: The type of the event. Always 'response.mcp_call_arguments.delta'.
+          x-stainless-const: true
+        output_index:
+          type: integer
+          description: The index of the output item in the response's output array.
+        item_id:
+          type: string
+          description: The unique identifier of the MCP tool call item being processed.
+        delta:
+          type: object
+          description: The partial update to the arguments for the MCP tool call.
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: "Emitted when there is a delta (partial update) to the arguments of an MCP tool call.\n"
+      x-oaiMeta:
+        name: response.mcp_call_arguments.delta
+        group: responses
+        example: "{\n  \"type\": \"response.mcp_call_arguments.delta\",\n  \"output_index\": 0,\n  \"item_id\": \"item-abc\",\n  \"delta\": {\n    \"arg1\": \"new_value1\",\n    \"arg2\": \"new_value2\"\n  },\n  \"sequence_number\": 1\n}\n"

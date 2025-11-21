@@ -1,0 +1,23 @@
+components:
+  schemas:
+    ResponseAudioTranscriptDoneEvent:
+      required:
+        - type
+        - response_id
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.audio.transcript.done
+          type: string
+          description: "The type of the event. Always `response.audio.transcript.done`.\n"
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: Emitted when the full audio transcript is completed.
+      x-oaiMeta:
+        name: response.audio.transcript.done
+        group: responses
+        example: "{\n  \"type\": \"response.audio.transcript.done\",\n  \"response_id\": \"resp_123\",\n  \"sequence_number\": 1\n}\n"

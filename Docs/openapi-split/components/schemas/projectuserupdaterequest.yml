@@ -1,0 +1,13 @@
+components:
+  schemas:
+    ProjectUserUpdateRequest:
+      required:
+        - role
+      type: object
+      properties:
+        role:
+          enum:
+            - owner
+            - member
+          type: string
+          description: '`owner` or `member`'

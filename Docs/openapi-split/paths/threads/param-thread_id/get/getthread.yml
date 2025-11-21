@@ -1,0 +1,35 @@
+paths:
+  '/threads/{thread_id}':
+    get:
+      tags:
+        - Assistants
+      summary: Retrieves a thread.
+      operationId: getThread
+      parameters:
+        - name: thread_id
+          in: path
+          description: The ID of the thread to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadObject'
+      x-oaiMeta:
+        name: Retrieve thread
+        group: threads
+        beta: true
+        returns: 'The [thread](/docs/api-reference/threads/object) object matching the specified ID.'
+        examples:
+          response: "{\n  \"id\": \"thread_abc123\",\n  \"object\": \"thread\",\n  \"created_at\": 1699014083,\n  \"metadata\": {},\n  \"tool_resources\": {\n    \"code_interpreter\": {\n      \"file_ids\": []\n    }\n  }\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/threads/thread_abc123 \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n  -H \"OpenAI-Beta: assistants=v2\"\n"
+            python: "import os\nfrom openai import OpenAI\n\nclient = OpenAI(\n    api_key=os.environ.get(\"OPENAI_API_KEY\"),  # This is the default and can be omitted\n)\nthread = client.beta.threads.retrieve(\n    \"thread_id\",\n)\nprint(thread.id)"
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted\n});\n\nconst thread = await client.beta.threads.retrieve('thread_id');\n\nconsole.log(thread.id);"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"), // defaults to os.LookupEnv(\"OPENAI_API_KEY\")\n  )\n  thread, err := client.Beta.Threads.Get(context.TODO(), \"thread_id\")\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", thread.ID)\n}\n"
+            kotlin: "package com.openai.example\n\nimport com.openai.client.OpenAIClient\nimport com.openai.client.okhttp.OpenAIOkHttpClient\nimport com.openai.models.beta.threads.Thread\nimport com.openai.models.beta.threads.ThreadRetrieveParams\n\nfun main() {\n    // Configures using the `OPENAI_API_KEY`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, `OPENAI_WEBHOOK_SECRET` and `OPENAI_BASE_URL` environment variables\n    val client: OpenAIClient = OpenAIOkHttpClient.fromEnv()\n\n    val thread: Thread = client.beta().threads().retrieve(\"thread_id\")\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(\n  api_key: ENV[\"OPENAI_API_KEY\"] # This is the default and can be omitted\n)\n\nthread = openai.beta.threads.retrieve(\"thread_id\")\n\nputs(thread)"

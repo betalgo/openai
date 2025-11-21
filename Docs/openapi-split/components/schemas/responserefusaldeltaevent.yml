@@ -1,0 +1,38 @@
+components:
+  schemas:
+    ResponseRefusalDeltaEvent:
+      required:
+        - type
+        - item_id
+        - output_index
+        - content_index
+        - delta
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.refusal.delta
+          type: string
+          description: "The type of the event. Always `response.refusal.delta`.\n"
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: "The ID of the output item that the refusal text is added to.\n"
+        output_index:
+          type: integer
+          description: "The index of the output item that the refusal text is added to.\n"
+        content_index:
+          type: integer
+          description: "The index of the content part that the refusal text is added to.\n"
+        delta:
+          type: string
+          description: "The refusal text that is added.\n"
+        sequence_number:
+          type: integer
+          description: "The sequence number of this event.\n"
+      description: Emitted when there is a partial refusal text.
+      x-oaiMeta:
+        name: response.refusal.delta
+        group: responses
+        example: "{\n  \"type\": \"response.refusal.delta\",\n  \"item_id\": \"msg_123\",\n  \"output_index\": 0,\n  \"content_index\": 0,\n  \"delta\": \"refusal text so far\",\n  \"sequence_number\": 1\n}\n"

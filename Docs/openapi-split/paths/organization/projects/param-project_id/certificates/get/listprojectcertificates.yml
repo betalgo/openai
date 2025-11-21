@@ -1,0 +1,49 @@
+paths:
+  '/organization/projects/{project_id}/certificates':
+    get:
+      tags:
+        - Certificates
+      summary: List certificates for this project.
+      operationId: listProjectCertificates
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+          schema:
+            type: integer
+            default: 20
+        - name: after
+          in: query
+          description: "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: "Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.\n"
+          schema:
+            enum:
+              - asc
+              - desc
+            type: string
+            default: desc
+      responses:
+        '200':
+          description: Certificates listed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCertificatesResponse'
+      x-oaiMeta:
+        name: List project certificates
+        group: administration
+        returns: 'A list of [Certificate](/docs/api-reference/certificates/object) objects.'
+        examples:
+          request:
+            curl: "curl https://api.openai.com/v1/organization/projects/proj_abc/certificates \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\"\n"
+          response: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"object\": \"organization.project.certificate\",\n      \"id\": \"cert_abc\",\n      \"name\": \"My Example Certificate\",\n      \"active\": true,\n      \"created_at\": 1234567,\n      \"certificate_details\": {\n        \"valid_at\": 12345667,\n        \"expires_at\": 12345678\n      }\n    },\n  ],\n  \"first_id\": \"cert_abc\",\n  \"last_id\": \"cert_abc\",\n  \"has_more\": false\n}\n"

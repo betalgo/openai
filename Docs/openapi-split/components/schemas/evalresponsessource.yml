@@ -1,0 +1,62 @@
+components:
+  schemas:
+    EvalResponsesSource:
+      title: EvalResponsesSource
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - responses
+          type: string
+          description: The type of run data source. Always `responses`.
+        metadata:
+          type: object
+          description: Metadata filter for the responses. This is a query parameter used to select responses.
+          nullable: true
+        model:
+          type: string
+          description: The name of the model to find responses for. This is a query parameter used to select responses.
+          nullable: true
+        instructions_search:
+          type: string
+          description: Optional string to search the 'instructions' field. This is a query parameter used to select responses.
+          nullable: true
+        created_after:
+          minimum: 0
+          type: integer
+          description: Only include items created after this timestamp (inclusive). This is a query parameter used to select responses.
+          nullable: true
+        created_before:
+          minimum: 0
+          type: integer
+          description: Only include items created before this timestamp (inclusive). This is a query parameter used to select responses.
+          nullable: true
+        reasoning_effort:
+          $ref: '#/components/schemas/ReasoningEffort'
+        temperature:
+          type: number
+          description: Sampling temperature. This is a query parameter used to select responses.
+          nullable: true
+        top_p:
+          type: number
+          description: Nucleus sampling parameter. This is a query parameter used to select responses.
+          nullable: true
+        users:
+          type: array
+          items:
+            type: string
+          description: List of user identifiers. This is a query parameter used to select responses.
+          nullable: true
+        tools:
+          type: array
+          items:
+            type: string
+          description: List of tool names. This is a query parameter used to select responses.
+          nullable: true
+      description: "A EvalResponsesSource object describing a run data source configuration.\n"
+      x-oaiMeta:
+        name: The run data source object used to configure an individual run
+        group: eval runs
+        example: "{\n  \"type\": \"responses\",\n  \"model\": \"gpt-4o-mini-2024-07-18\",\n  \"temperature\": 0.7,\n  \"top_p\": 1.0,\n  \"users\": [\"user1\", \"user2\"],\n  \"tools\": [\"tool1\", \"tool2\"],\n  \"instructions_search\": \"You are a coding assistant\"\n}\n"

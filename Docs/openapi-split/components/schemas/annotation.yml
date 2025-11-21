@@ -1,0 +1,10 @@
+components:
+  schemas:
+    Annotation:
+      oneOf:
+        - $ref: '#/components/schemas/FileCitationBody'
+        - $ref: '#/components/schemas/UrlCitationBody'
+        - $ref: '#/components/schemas/ContainerFileCitationBody'
+        - $ref: '#/components/schemas/FilePath'
+      discriminator:
+        propertyName: type

@@ -1,0 +1,387 @@
+components:
+  schemas:
+    AuditLog:
+      required:
+        - id
+        - type
+        - effective_at
+        - actor
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of this log.
+        type:
+          $ref: '#/components/schemas/AuditLogEventType'
+        effective_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of the event.
+        project:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project ID.
+            name:
+              type: string
+              description: The project title.
+          description: The project that the action was scoped to. Absent for actions not scoped to projects.
+        actor:
+          $ref: '#/components/schemas/AuditLogActor'
+        api_key.created:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The tracking ID of the API key.
+            data:
+              type: object
+              properties:
+                scopes:
+                  type: array
+                  items:
+                    type: string
+                  description: 'A list of scopes allowed for the API key, e.g. `["api.model.request"]`'
+              description: The payload used to create the API key.
+          description: The details for events with this `type`.
+        api_key.updated:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The tracking ID of the API key.
+            changes_requested:
+              type: object
+              properties:
+                scopes:
+                  type: array
+                  items:
+                    type: string
+                  description: 'A list of scopes allowed for the API key, e.g. `["api.model.request"]`'
+              description: The payload used to update the API key.
+          description: The details for events with this `type`.
+        api_key.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The tracking ID of the API key.
+          description: The details for events with this `type`.
+        checkpoint_permission.created:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the checkpoint permission.
+            data:
+              type: object
+              properties:
+                project_id:
+                  type: string
+                  description: The ID of the project that the checkpoint permission was created for.
+                fine_tuned_model_checkpoint:
+                  type: string
+                  description: The ID of the fine-tuned model checkpoint.
+              description: The payload used to create the checkpoint permission.
+          description: The project and fine-tuned model checkpoint that the checkpoint permission was created for.
+        checkpoint_permission.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the checkpoint permission.
+          description: The details for events with this `type`.
+        invite.sent:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the invite.
+            data:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email invited to the organization.
+                role:
+                  type: string
+                  description: The role the email was invited to be. Is either `owner` or `member`.
+              description: The payload used to create the invite.
+          description: The details for events with this `type`.
+        invite.accepted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the invite.
+          description: The details for events with this `type`.
+        invite.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the invite.
+          description: The details for events with this `type`.
+        login.failed:
+          type: object
+          properties:
+            error_code:
+              type: string
+              description: The error code of the failure.
+            error_message:
+              type: string
+              description: The error message of the failure.
+          description: The details for events with this `type`.
+        logout.failed:
+          type: object
+          properties:
+            error_code:
+              type: string
+              description: The error code of the failure.
+            error_message:
+              type: string
+              description: The error message of the failure.
+          description: The details for events with this `type`.
+        organization.updated:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The organization ID.
+            changes_requested:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: The organization title.
+                description:
+                  type: string
+                  description: The organization description.
+                name:
+                  type: string
+                  description: The organization name.
+                threads_ui_visibility:
+                  type: string
+                  description: 'Visibility of the threads page which shows messages created with the Assistants API and Playground. One of `ANY_ROLE`, `OWNERS`, or `NONE`.'
+                usage_dashboard_visibility:
+                  type: string
+                  description: Visibility of the usage dashboard which shows activity and costs for your organization. One of `ANY_ROLE` or `OWNERS`.
+                api_call_logging:
+                  type: string
+                  description: 'How your organization logs data from supported API calls. One of `disabled`, `enabled_per_call`, `enabled_for_all_projects`, or `enabled_for_selected_projects`'
+                api_call_logging_project_ids:
+                  type: string
+                  description: The list of project ids if api_call_logging is set to `enabled_for_selected_projects`
+              description: The payload used to update the organization settings.
+          description: The details for events with this `type`.
+        project.created:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project ID.
+            data:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The project name.
+                title:
+                  type: string
+                  description: The title of the project as seen on the dashboard.
+              description: The payload used to create the project.
+          description: The details for events with this `type`.
+        project.updated:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project ID.
+            changes_requested:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: The title of the project as seen on the dashboard.
+              description: The payload used to update the project.
+          description: The details for events with this `type`.
+        project.archived:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project ID.
+          description: The details for events with this `type`.
+        rate_limit.updated:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The rate limit ID
+            changes_requested:
+              type: object
+              properties:
+                max_requests_per_1_minute:
+                  type: integer
+                  description: The maximum requests per minute.
+                max_tokens_per_1_minute:
+                  type: integer
+                  description: The maximum tokens per minute.
+                max_images_per_1_minute:
+                  type: integer
+                  description: The maximum images per minute. Only relevant for certain models.
+                max_audio_megabytes_per_1_minute:
+                  type: integer
+                  description: The maximum audio megabytes per minute. Only relevant for certain models.
+                max_requests_per_1_day:
+                  type: integer
+                  description: The maximum requests per day. Only relevant for certain models.
+                batch_1_day_max_input_tokens:
+                  type: integer
+                  description: The maximum batch input tokens per day. Only relevant for certain models.
+              description: The payload used to update the rate limits.
+          description: The details for events with this `type`.
+        rate_limit.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The rate limit ID
+          description: The details for events with this `type`.
+        service_account.created:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The service account ID.
+            data:
+              type: object
+              properties:
+                role:
+                  type: string
+                  description: The role of the service account. Is either `owner` or `member`.
+              description: The payload used to create the service account.
+          description: The details for events with this `type`.
+        service_account.updated:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The service account ID.
+            changes_requested:
+              type: object
+              properties:
+                role:
+                  type: string
+                  description: The role of the service account. Is either `owner` or `member`.
+              description: The payload used to updated the service account.
+          description: The details for events with this `type`.
+        service_account.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The service account ID.
+          description: The details for events with this `type`.
+        user.added:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The user ID.
+            data:
+              type: object
+              properties:
+                role:
+                  type: string
+                  description: The role of the user. Is either `owner` or `member`.
+              description: The payload used to add the user to the project.
+          description: The details for events with this `type`.
+        user.updated:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project ID.
+            changes_requested:
+              type: object
+              properties:
+                role:
+                  type: string
+                  description: The role of the user. Is either `owner` or `member`.
+              description: The payload used to update the user.
+          description: The details for events with this `type`.
+        user.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The user ID.
+          description: The details for events with this `type`.
+        certificate.created:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The certificate ID.
+            name:
+              type: string
+              description: The name of the certificate.
+          description: The details for events with this `type`.
+        certificate.updated:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The certificate ID.
+            name:
+              type: string
+              description: The name of the certificate.
+          description: The details for events with this `type`.
+        certificate.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The certificate ID.
+            name:
+              type: string
+              description: The name of the certificate.
+            certificate:
+              type: string
+              description: The certificate content in PEM format.
+          description: The details for events with this `type`.
+        certificates.activated:
+          type: object
+          properties:
+            certificates:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The certificate ID.
+                  name:
+                    type: string
+                    description: The name of the certificate.
+          description: The details for events with this `type`.
+        certificates.deactivated:
+          type: object
+          properties:
+            certificates:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The certificate ID.
+                  name:
+                    type: string
+                    description: The name of the certificate.
+          description: The details for events with this `type`.
+      description: A log of a user action or configuration change within this organization.
+      x-oaiMeta:
+        name: The audit log object
+        example: "{\n    \"id\": \"req_xxx_20240101\",\n    \"type\": \"api_key.created\",\n    \"effective_at\": 1720804090,\n    \"actor\": {\n        \"type\": \"session\",\n        \"session\": {\n            \"user\": {\n                \"id\": \"user-xxx\",\n                \"email\": \"user@example.com\"\n            },\n            \"ip_address\": \"127.0.0.1\",\n            \"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\"\n        }\n    },\n    \"api_key.created\": {\n        \"id\": \"key_xxxx\",\n        \"data\": {\n            \"scopes\": [\"resource.operation\"]\n        }\n    }\n}\n"

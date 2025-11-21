@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ComputerToolCallSafetyCheck:
+      required:
+        - id
+        - code
+        - message
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the pending safety check.
+        code:
+          type: string
+          description: The type of the pending safety check.
+        message:
+          type: string
+          description: Details about the pending safety check.
+      description: "A pending safety check for the computer call.\n"

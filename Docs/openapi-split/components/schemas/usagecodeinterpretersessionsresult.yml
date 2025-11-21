@@ -1,0 +1,24 @@
+components:
+  schemas:
+    UsageCodeInterpreterSessionsResult:
+      required:
+        - object
+        - sessions
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.usage.code_interpreter_sessions.result
+          type: string
+          x-stainless-const: true
+        num_sessions:
+          type: integer
+          description: The number of code interpreter sessions.
+        project_id:
+          type: string
+          description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
+          nullable: true
+      description: The aggregated code interpreter sessions usage details of the specific time bucket.
+      x-oaiMeta:
+        name: Code interpreter sessions usage object
+        example: "{\n    \"object\": \"organization.usage.code_interpreter_sessions.result\",\n    \"num_sessions\": 1,\n    \"project_id\": \"proj_abc\"\n}\n"

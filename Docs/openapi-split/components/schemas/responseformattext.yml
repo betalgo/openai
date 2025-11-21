@@ -1,0 +1,15 @@
+components:
+  schemas:
+    ResponseFormatText:
+      title: Text
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - text
+          type: string
+          description: The type of response format being defined. Always `text`.
+          x-stainless-const: true
+      description: "Default response format. Used to generate text responses.\n"

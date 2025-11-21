@@ -1,0 +1,33 @@
+components:
+  schemas:
+    ChatCompletionRequestMessageContentPartImage:
+      title: Image content part
+      required:
+        - type
+        - image_url
+      type: object
+      properties:
+        type:
+          enum:
+            - image_url
+          type: string
+          description: The type of the content part.
+          x-stainless-const: true
+        image_url:
+          required:
+            - url
+          type: object
+          properties:
+            url:
+              type: string
+              description: Either a URL of the image or the base64 encoded image data.
+              format: uri
+            detail:
+              enum:
+                - auto
+                - low
+                - high
+              type: string
+              description: 'Specifies the detail level of the image. Learn more in the [Vision guide](/docs/guides/vision#low-or-high-fidelity-image-understanding).'
+              default: auto
+      description: "Learn about [image inputs](/docs/guides/vision).\n"

@@ -1,0 +1,15 @@
+components:
+  schemas:
+    Tool:
+      oneOf:
+        - $ref: '#/components/schemas/FunctionTool'
+        - $ref: '#/components/schemas/FileSearchTool'
+        - $ref: '#/components/schemas/WebSearchPreviewTool'
+        - $ref: '#/components/schemas/ComputerUsePreviewTool'
+        - $ref: '#/components/schemas/MCPTool'
+        - $ref: '#/components/schemas/CodeInterpreterTool'
+        - $ref: '#/components/schemas/ImageGenTool'
+        - $ref: '#/components/schemas/LocalShellTool'
+      description: "A tool that can be used to generate a response.\n"
+      discriminator:
+        propertyName: type

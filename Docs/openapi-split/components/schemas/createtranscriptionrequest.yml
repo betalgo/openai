@@ -1,0 +1,71 @@
+components:
+  schemas:
+    CreateTranscriptionRequest:
+      required:
+        - file
+        - model
+      type: object
+      properties:
+        file:
+          type: string
+          description: "The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.\n"
+          format: binary
+          x-oaiTypeLabel: file
+        model:
+          anyOf:
+            - type: string
+            - enum:
+                - whisper-1
+                - gpt-4o-transcribe
+                - gpt-4o-mini-transcribe
+              type: string
+              x-stainless-const: true
+          description: "ID of the model to use. The options are `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, and `whisper-1` (which is powered by our open source Whisper V2 model).\n"
+          example: gpt-4o-transcribe
+          x-oaiTypeLabel: string
+        language:
+          type: string
+          description: "The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.\n"
+        prompt:
+          type: string
+          description: "An optional text to guide the model's style or continue a previous audio segment. The [prompt](/docs/guides/speech-to-text#prompting) should match the audio language.\n"
+        response_format:
+          $ref: '#/components/schemas/AudioResponseFormat'
+        temperature:
+          type: number
+          description: "The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use [log probability](https://en.wikipedia.org/wiki/Log_probability) to automatically increase the temperature until certain thresholds are hit.\n"
+          default: 0
+        'include[]':
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptionInclude'
+          description: "Additional information to include in the transcription response. \n`logprobs` will return the log probabilities of the tokens in the \nresponse to understand the model's confidence in the transcription. \n`logprobs` only works with response_format set to `json` and only with \nthe models `gpt-4o-transcribe` and `gpt-4o-mini-transcribe`.\n"
+        'timestamp_granularities[]':
+          type: array
+          items:
+            enum:
+              - word
+              - segment
+            type: string
+          description: "The timestamp granularities to populate for this transcription. `response_format` must be set `verbose_json` to use timestamp granularities. Either or both of these options are supported: `word`, or `segment`. Note: There is no additional latency for segment timestamps, but generating word timestamps incurs additional latency.\n"
+          default:
+            - segment
+        stream:
+          type: boolean
+          description: "If set to true, the model response data will be streamed to the client\nas it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format). \nSee the [Streaming section of the Speech-to-Text guide](/docs/guides/speech-to-text?lang=curl#streaming-transcriptions)\nfor more information.\n\nNote: Streaming is not supported for the `whisper-1` model and will be ignored.\n"
+          default: false
+          nullable: true
+        chunking_strategy:
+          anyOf:
+            - enum:
+                - auto
+              type: string
+              description: "Automatically set chunking parameters based on the audio. Must be set to `\"auto\"`.\n"
+              default:
+                - auto
+              x-stainless-const: true
+            - $ref: '#/components/schemas/VadConfig'
+          description: 'Controls how the audio is cut into chunks. When set to `"auto"`, the server first normalizes loudness and then uses voice activity detection (VAD) to choose boundaries. `server_vad` object can be provided to tweak VAD detection parameters manually. If unset, the audio is transcribed as a single block. '
+          nullable: true
+          x-oaiTypeLabel: string
+      additionalProperties: false

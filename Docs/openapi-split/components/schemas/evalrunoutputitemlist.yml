@@ -1,0 +1,38 @@
+components:
+  schemas:
+    EvalRunOutputItemList:
+      title: EvalRunOutputItemList
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: "The type of this object. It is always set to \"list\".\n"
+          default: list
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvalRunOutputItem'
+          description: "An array of eval run output item objects.\n"
+        first_id:
+          type: string
+          description: The identifier of the first eval run output item in the data array.
+        last_id:
+          type: string
+          description: The identifier of the last eval run output item in the data array.
+        has_more:
+          type: boolean
+          description: Indicates whether there are more eval run output items available.
+      description: "An object representing a list of output items for an evaluation run.\n"
+      x-oaiMeta:
+        name: The eval run output item list object
+        group: evals
+        example: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"object\": \"eval.run.output_item\",\n      \"id\": \"outputitem_67abd55eb6548190bb580745d5644a33\",\n      \"run_id\": \"evalrun_67abd54d60ec8190832b46859da808f7\",\n      \"eval_id\": \"eval_67abd54d9b0081909a86353f6fb9317a\",\n      \"created_at\": 1739314509,\n      \"status\": \"pass\",\n      \"datasource_item_id\": 137,\n      \"datasource_item\": {\n          \"teacher\": \"To grade essays, I only check for style, content, and grammar.\",\n          \"student\": \"I am a student who is trying to write the best essay.\"\n      },\n      \"results\": [\n        {\n          \"name\": \"String Check Grader\",\n          \"type\": \"string-check-grader\",\n          \"score\": 1.0,\n          \"passed\": true,\n        }\n      ],\n      \"sample\": {\n        \"input\": [\n          {\n            \"role\": \"system\",\n            \"content\": \"You are an evaluator bot...\"\n          },\n          {\n            \"role\": \"user\",\n            \"content\": \"You are assessing...\"\n          }\n        ],\n        \"output\": [\n          {\n            \"role\": \"assistant\",\n            \"content\": \"The rubric is not clear nor concise.\"\n          }\n        ],\n        \"finish_reason\": \"stop\",\n        \"model\": \"gpt-4o-2024-08-06\",\n        \"usage\": {\n          \"total_tokens\": 521,\n          \"completion_tokens\": 2,\n          \"prompt_tokens\": 519,\n          \"cached_tokens\": 0\n        },\n        \"error\": null,\n        \"temperature\": 1.0,\n        \"max_completion_tokens\": 2048,\n        \"top_p\": 1.0,\n        \"seed\": 42\n      }\n    },\n  ],\n  \"first_id\": \"outputitem_67abd55eb6548190bb580745d5644a33\",\n  \"last_id\": \"outputitem_67abd55eb6548190bb580745d5644a33\",\n  \"has_more\": false\n}\n"

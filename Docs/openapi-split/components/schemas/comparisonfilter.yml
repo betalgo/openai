@@ -1,0 +1,34 @@
+components:
+  schemas:
+    ComparisonFilter:
+      title: Comparison Filter
+      required:
+        - type
+        - key
+        - value
+      type: object
+      properties:
+        type:
+          enum:
+            - eq
+            - ne
+            - gt
+            - gte
+            - lt
+            - lte
+          type: string
+          description: "Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`.\n- `eq`: equals\n- `ne`: not equal\n- `gt`: greater than\n- `gte`: greater than or equal\n- `lt`: less than\n- `lte`: less than or equal\n"
+          default: eq
+        key:
+          type: string
+          description: The key to compare against the value.
+        value:
+          oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+          description: 'The value to compare against the attribute key; supports string, number, or boolean types.'
+      additionalProperties: false
+      description: "A filter used to compare a specified attribute key to a given value using a defined comparison operation.\n"
+      x-oaiMeta:
+        name: ComparisonFilter

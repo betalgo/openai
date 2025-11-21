@@ -1,0 +1,60 @@
+paths:
+  '/threads/{thread_id}/runs':
+    get:
+      tags:
+        - Assistants
+      summary: Returns a list of runs belonging to a thread.
+      operationId: listRuns
+      parameters:
+        - name: thread_id
+          in: path
+          description: The ID of the thread the run belongs to.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+          schema:
+            type: integer
+            default: 20
+        - name: order
+          in: query
+          description: "Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.\n"
+          schema:
+            enum:
+              - asc
+              - desc
+            type: string
+            default: desc
+        - name: after
+          in: query
+          description: "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+          schema:
+            type: string
+        - name: before
+          in: query
+          description: "A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.\n"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRunsResponse'
+      x-oaiMeta:
+        name: List runs
+        group: threads
+        beta: true
+        returns: 'A list of [run](/docs/api-reference/runs/object) objects.'
+        examples:
+          response: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"run_abc123\",\n      \"object\": \"thread.run\",\n      \"created_at\": 1699075072,\n      \"assistant_id\": \"asst_abc123\",\n      \"thread_id\": \"thread_abc123\",\n      \"status\": \"completed\",\n      \"started_at\": 1699075072,\n      \"expires_at\": null,\n      \"cancelled_at\": null,\n      \"failed_at\": null,\n      \"completed_at\": 1699075073,\n      \"last_error\": null,\n      \"model\": \"gpt-4o\",\n      \"instructions\": null,\n      \"incomplete_details\": null,\n      \"tools\": [\n        {\n          \"type\": \"code_interpreter\"\n        }\n      ],\n      \"tool_resources\": {\n        \"code_interpreter\": {\n          \"file_ids\": [\n            \"file-abc123\",\n            \"file-abc456\"\n          ]\n        }\n      },\n      \"metadata\": {},\n      \"usage\": {\n        \"prompt_tokens\": 123,\n        \"completion_tokens\": 456,\n        \"total_tokens\": 579\n      },\n      \"temperature\": 1.0,\n      \"top_p\": 1.0,\n      \"max_prompt_tokens\": 1000,\n      \"max_completion_tokens\": 1000,\n      \"truncation_strategy\": {\n        \"type\": \"auto\",\n        \"last_messages\": null\n      },\n      \"response_format\": \"auto\",\n      \"tool_choice\": \"auto\",\n      \"parallel_tool_calls\": true\n    },\n    {\n      \"id\": \"run_abc456\",\n      \"object\": \"thread.run\",\n      \"created_at\": 1699063290,\n      \"assistant_id\": \"asst_abc123\",\n      \"thread_id\": \"thread_abc123\",\n      \"status\": \"completed\",\n      \"started_at\": 1699063290,\n      \"expires_at\": null,\n      \"cancelled_at\": null,\n      \"failed_at\": null,\n      \"completed_at\": 1699063291,\n      \"last_error\": null,\n      \"model\": \"gpt-4o\",\n      \"instructions\": null,\n      \"incomplete_details\": null,\n      \"tools\": [\n        {\n          \"type\": \"code_interpreter\"\n        }\n      ],\n      \"tool_resources\": {\n        \"code_interpreter\": {\n          \"file_ids\": [\n            \"file-abc123\",\n            \"file-abc456\"\n          ]\n        }\n      },\n      \"metadata\": {},\n      \"usage\": {\n        \"prompt_tokens\": 123,\n        \"completion_tokens\": 456,\n        \"total_tokens\": 579\n      },\n      \"temperature\": 1.0,\n      \"top_p\": 1.0,\n      \"max_prompt_tokens\": 1000,\n      \"max_completion_tokens\": 1000,\n      \"truncation_strategy\": {\n        \"type\": \"auto\",\n        \"last_messages\": null\n      },\n      \"response_format\": \"auto\",\n      \"tool_choice\": \"auto\",\n      \"parallel_tool_calls\": true\n    }\n  ],\n  \"first_id\": \"run_abc123\",\n  \"last_id\": \"run_abc456\",\n  \"has_more\": false\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/threads/thread_abc123/runs \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"OpenAI-Beta: assistants=v2\"\n"
+            python: "import os\nfrom openai import OpenAI\n\nclient = OpenAI(\n    api_key=os.environ.get(\"OPENAI_API_KEY\"),  # This is the default and can be omitted\n)\npage = client.beta.threads.runs.list(\n    thread_id=\"thread_id\",\n)\npage = page.data[0]\nprint(page.id)"
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const run of client.beta.threads.runs.list('thread_id')) {\n  console.log(run.id);\n}"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"), // defaults to os.LookupEnv(\"OPENAI_API_KEY\")\n  )\n  page, err := client.Beta.Threads.Runs.List(\n    context.TODO(),\n    \"thread_id\",\n    openai.BetaThreadRunListParams{\n\n    },\n  )\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", page)\n}\n"
+            kotlin: "package com.openai.example\n\nimport com.openai.client.OpenAIClient\nimport com.openai.client.okhttp.OpenAIOkHttpClient\nimport com.openai.models.beta.threads.runs.RunListPage\nimport com.openai.models.beta.threads.runs.RunListParams\n\nfun main() {\n    // Configures using the `OPENAI_API_KEY`, `OPENAI_ORG_ID`, `OPENAI_PROJECT_ID`, `OPENAI_WEBHOOK_SECRET` and `OPENAI_BASE_URL` environment variables\n    val client: OpenAIClient = OpenAIOkHttpClient.fromEnv()\n\n    val page: RunListPage = client.beta().threads().runs().list(\"thread_id\")\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(\n  api_key: ENV[\"OPENAI_API_KEY\"] # This is the default and can be omitted\n)\n\npage = openai.beta.threads.runs.list(\"thread_id\")\n\nputs(page)"

@@ -1,0 +1,22 @@
+components:
+  schemas:
+    SpeechAudioDeltaEvent:
+      required:
+        - type
+        - audio
+      type: object
+      properties:
+        type:
+          enum:
+            - speech.audio.delta
+          type: string
+          description: "The type of the event. Always `speech.audio.delta`.\n"
+          x-stainless-const: true
+        audio:
+          type: string
+          description: "A chunk of Base64-encoded audio data.\n"
+      description: Emitted for each chunk of audio data generated during speech synthesis.
+      x-oaiMeta:
+        name: Stream Event (speech.audio.delta)
+        group: speech
+        example: "{\n  \"type\": \"speech.audio.delta\",\n  \"audio\": \"base64-encoded-audio-data\"\n}\n"

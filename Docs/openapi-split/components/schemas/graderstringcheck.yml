@@ -1,0 +1,40 @@
+components:
+  schemas:
+    GraderStringCheck:
+      title: StringCheckGrader
+      required:
+        - type
+        - name
+        - input
+        - reference
+        - operation
+      type: object
+      properties:
+        type:
+          enum:
+            - string_check
+          type: string
+          description: 'The object type, which is always `string_check`.'
+          x-stainless-const: true
+        name:
+          type: string
+          description: The name of the grader.
+        input:
+          type: string
+          description: The input text. This may include template strings.
+        reference:
+          type: string
+          description: The reference text. This may include template strings.
+        operation:
+          enum:
+            - eq
+            - ne
+            - like
+            - ilike
+          type: string
+          description: 'The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.'
+      description: "A StringCheckGrader object that performs a string comparison between input and reference using a specified operation.\n"
+      x-oaiMeta:
+        name: String Check Grader
+        group: graders
+        example: "{\n  \"type\": \"string_check\",\n  \"name\": \"Example string check grader\",\n  \"input\": \"{{sample.output_text}}\",\n  \"reference\": \"{{item.label}}\",\n  \"operation\": \"eq\"\n}\n"

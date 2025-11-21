@@ -1,0 +1,66 @@
+components:
+  schemas:
+    Invite:
+      required:
+        - object
+        - id
+        - email
+        - role
+        - status
+        - invited_at
+        - expires_at
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.invite
+          type: string
+          description: 'The object type, which is always `organization.invite`'
+          x-stainless-const: true
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints'
+        email:
+          type: string
+          description: The email address of the individual to whom the invite was sent
+        role:
+          enum:
+            - owner
+            - reader
+          type: string
+          description: '`owner` or `reader`'
+        status:
+          enum:
+            - accepted
+            - expired
+            - pending
+          type: string
+          description: '`accepted`,`expired`, or `pending`'
+        invited_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the invite was sent.
+        expires_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the invite expires.
+        accepted_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the invite was accepted.
+        projects:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Project's public ID
+              role:
+                enum:
+                  - member
+                  - owner
+                type: string
+                description: Project membership role
+          description: The projects that were granted membership upon acceptance of the invite.
+      description: Represents an individual `invite` to the organization.
+      x-oaiMeta:
+        name: The invite object
+        example: "{\n  \"object\": \"organization.invite\",\n  \"id\": \"invite-abc\",\n  \"email\": \"user@example.com\",\n  \"role\": \"owner\",\n  \"status\": \"accepted\",\n  \"invited_at\": 1711471533,\n  \"expires_at\": 1711471533,\n  \"accepted_at\": 1711471533,\n  \"projects\": [\n    {\n      \"id\": \"project-xyz\",\n      \"role\": \"member\"\n    }\n  ]\n}\n"

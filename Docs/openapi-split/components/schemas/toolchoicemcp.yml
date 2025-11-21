@@ -1,0 +1,23 @@
+components:
+  schemas:
+    ToolChoiceMCP:
+      title: MCP tool
+      required:
+        - type
+        - server_label
+      type: object
+      properties:
+        type:
+          enum:
+            - mcp
+          type: string
+          description: 'For MCP tools, the type is always `mcp`.'
+          x-stainless-const: true
+        server_label:
+          type: string
+          description: "The label of the MCP server to use.\n"
+        name:
+          type: string
+          description: "The name of the tool to call on the server.\n"
+          nullable: true
+      description: "Use this option to force the model to call a specific tool on a remote MCP server.\n"

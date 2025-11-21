@@ -1,0 +1,32 @@
+components:
+  schemas:
+    InputMessage:
+      title: Input message
+      required:
+        - role
+        - content
+      type: object
+      properties:
+        type:
+          enum:
+            - message
+          type: string
+          description: "The type of the message input. Always set to `message`.\n"
+          x-stainless-const: true
+        role:
+          enum:
+            - user
+            - system
+            - developer
+          type: string
+          description: "The role of the message input. One of `user`, `system`, or `developer`.\n"
+        status:
+          enum:
+            - in_progress
+            - completed
+            - incomplete
+          type: string
+          description: "The status of item. One of `in_progress`, `completed`, or\n`incomplete`. Populated when items are returned via API.\n"
+        content:
+          $ref: '#/components/schemas/InputMessageContentList'
+      description: "A message input to the model with a role indicating instruction following\nhierarchy. Instructions given with the `developer` or `system` role take\nprecedence over instructions given with the `user` role.\n"

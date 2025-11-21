@@ -1,0 +1,18 @@
+components:
+  schemas:
+    DeleteVectorStoreFileResponse:
+      required:
+        - id
+        - object
+        - deleted
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+        object:
+          enum:
+            - vector_store.file.deleted
+          type: string
+          x-stainless-const: true

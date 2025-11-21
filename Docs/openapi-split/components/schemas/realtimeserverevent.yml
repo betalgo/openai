@@ -1,0 +1,41 @@
+components:
+  schemas:
+    RealtimeServerEvent:
+      anyOf:
+        - $ref: '#/components/schemas/RealtimeServerEventConversationCreated'
+        - $ref: '#/components/schemas/RealtimeServerEventConversationItemCreated'
+        - $ref: '#/components/schemas/RealtimeServerEventConversationItemDeleted'
+        - $ref: '#/components/schemas/RealtimeServerEventConversationItemInputAudioTranscriptionCompleted'
+        - $ref: '#/components/schemas/RealtimeServerEventConversationItemInputAudioTranscriptionDelta'
+        - $ref: '#/components/schemas/RealtimeServerEventConversationItemInputAudioTranscriptionFailed'
+        - $ref: '#/components/schemas/RealtimeServerEventConversationItemRetrieved'
+        - $ref: '#/components/schemas/RealtimeServerEventConversationItemTruncated'
+        - $ref: '#/components/schemas/RealtimeServerEventError'
+        - $ref: '#/components/schemas/RealtimeServerEventInputAudioBufferCleared'
+        - $ref: '#/components/schemas/RealtimeServerEventInputAudioBufferCommitted'
+        - $ref: '#/components/schemas/RealtimeServerEventInputAudioBufferSpeechStarted'
+        - $ref: '#/components/schemas/RealtimeServerEventInputAudioBufferSpeechStopped'
+        - $ref: '#/components/schemas/RealtimeServerEventRateLimitsUpdated'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseAudioDelta'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseAudioDone'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseAudioTranscriptDelta'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseAudioTranscriptDone'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseContentPartAdded'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseContentPartDone'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseCreated'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseDone'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseFunctionCallArgumentsDelta'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseFunctionCallArgumentsDone'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseOutputItemAdded'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseOutputItemDone'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseTextDelta'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseTextDone'
+        - $ref: '#/components/schemas/RealtimeServerEventSessionCreated'
+        - $ref: '#/components/schemas/RealtimeServerEventSessionUpdated'
+        - $ref: '#/components/schemas/RealtimeServerEventTranscriptionSessionUpdated'
+        - $ref: '#/components/schemas/RealtimeServerEventOutputAudioBufferStarted'
+        - $ref: '#/components/schemas/RealtimeServerEventOutputAudioBufferStopped'
+        - $ref: '#/components/schemas/RealtimeServerEventOutputAudioBufferCleared'
+      description: "A realtime server event.\n"
+      discriminator:
+        propertyName: type

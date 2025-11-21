@@ -1,0 +1,33 @@
+components:
+  schemas:
+    ImageGenToolCall:
+      title: Image generation call
+      required:
+        - type
+        - id
+        - status
+        - result
+      type: object
+      properties:
+        type:
+          enum:
+            - image_generation_call
+          type: string
+          description: "The type of the image generation call. Always `image_generation_call`.\n"
+          x-stainless-const: true
+        id:
+          type: string
+          description: "The unique ID of the image generation call.\n"
+        status:
+          enum:
+            - in_progress
+            - completed
+            - generating
+            - failed
+          type: string
+          description: "The status of the image generation call.\n"
+        result:
+          type: string
+          description: "The generated image encoded in base64.\n"
+          nullable: true
+      description: "An image generation request made by the model.\n"

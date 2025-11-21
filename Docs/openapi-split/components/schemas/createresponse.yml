@@ -1,0 +1,44 @@
+components:
+  schemas:
+    CreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/CreateModelResponseProperties'
+        - $ref: '#/components/schemas/ResponseProperties'
+        - type: object
+          properties:
+            input:
+              oneOf:
+                - title: Text input
+                  type: string
+                  description: "A text input to the model, equivalent to a text input with the\n`user` role.\n"
+                - title: Input item list
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/InputItem'
+                  description: "A list of one or many input items to the model, containing\ndifferent content types.\n"
+              description: "Text, image, or file inputs to the model, used to generate a response.\n\nLearn more:\n- [Text inputs and outputs](/docs/guides/text)\n- [Image inputs](/docs/guides/images)\n- [File inputs](/docs/guides/pdf-files)\n- [Conversation state](/docs/guides/conversation-state)\n- [Function calling](/docs/guides/function-calling)\n"
+            include:
+              type: array
+              items:
+                $ref: '#/components/schemas/Includable'
+              description: "Specify additional output data to include in the model response. Currently\nsupported values are:\n- `code_interpreter_call.outputs`: Includes the outputs of python code execution\n  in code interpreter tool call items.\n- `computer_call_output.output.image_url`: Include image urls from the computer call output.\n- `file_search_call.results`: Include the search results of\n  the file search tool call.\n- `message.input_image.image_url`: Include image urls from the input message.\n- `message.output_text.logprobs`: Include logprobs with assistant messages.\n- `reasoning.encrypted_content`: Includes an encrypted version of reasoning\n  tokens in reasoning item outputs. This enables reasoning items to be used in\n  multi-turn conversations when using the Responses API statelessly (like\n  when the `store` parameter is set to `false`, or when an organization is\n  enrolled in the zero data retention program).\n"
+              nullable: true
+            parallel_tool_calls:
+              type: boolean
+              description: "Whether to allow the model to run tool calls in parallel.\n"
+              default: true
+              nullable: true
+            store:
+              type: boolean
+              description: "Whether to store the generated model response for later retrieval via\nAPI.\n"
+              default: true
+              nullable: true
+            instructions:
+              type: string
+              description: "A system (or developer) message inserted into the model's context.\n\nWhen using along with `previous_response_id`, the instructions from a previous\nresponse will not be carried over to the next response. This makes it simple\nto swap out system (or developer) messages in new responses.\n"
+              nullable: true
+            stream:
+              type: boolean
+              description: "If set to true, the model response data will be streamed to the client\nas it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).\nSee the [Streaming section below](/docs/api-reference/responses-streaming)\nfor more information.\n"
+              default: false
+              nullable: true

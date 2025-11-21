@@ -1,0 +1,35 @@
+paths:
+  '/organization/projects/{project_id}/users/{user_id}':
+    get:
+      tags:
+        - Projects
+      summary: Retrieves a user in the project.
+      operationId: retrieve-project-user
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project.
+          required: true
+          schema:
+            type: string
+        - name: user_id
+          in: path
+          description: The ID of the user.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project user retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectUser'
+      x-oaiMeta:
+        name: Retrieve project user
+        group: administration
+        returns: 'The [ProjectUser](/docs/api-reference/project-users/object) object matching the specified ID.'
+        examples:
+          response: "{\n    \"object\": \"organization.project.user\",\n    \"id\": \"user_abc\",\n    \"name\": \"First Last\",\n    \"email\": \"user@example.com\",\n    \"role\": \"owner\",\n    \"added_at\": 1711471533\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/organization/projects/proj_abc/users/user_abc \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"

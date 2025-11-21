@@ -1,0 +1,20 @@
+components:
+  schemas:
+    CodeInterpreterOutputLogs:
+      title: Code interpreter output logs
+      required:
+        - type
+        - logs
+      type: object
+      properties:
+        type:
+          enum:
+            - logs
+          type: string
+          description: The type of the output. Always 'logs'.
+          default: logs
+          x-stainless-const: true
+        logs:
+          type: string
+          description: The logs output from the code interpreter.
+      description: "The logs output from the code interpreter.\n"

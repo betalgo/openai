@@ -1,0 +1,33 @@
+components:
+  schemas:
+    ResponseFunctionCallArgumentsDoneEvent:
+      required:
+        - type
+        - item_id
+        - output_index
+        - arguments
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.function_call_arguments.done
+          type: string
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The ID of the item.
+        output_index:
+          type: integer
+          description: The index of the output item.
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+        arguments:
+          type: string
+          description: The function-call arguments.
+      description: Emitted when function-call arguments are finalized.
+      x-oaiMeta:
+        name: response.function_call_arguments.done
+        group: responses
+        example: "{\n  \"type\": \"response.function_call_arguments.done\",\n  \"item_id\": \"item-abc\",\n  \"output_index\": 1,\n  \"arguments\": \"{ \\\"arg\\\": 123 }\",\n  \"sequence_number\": 1\n}\n"

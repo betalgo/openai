@@ -1,0 +1,25 @@
+components:
+  schemas:
+    RealtimeServerEventConversationItemRetrieved:
+      required:
+        - event_id
+        - type
+        - item
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - conversation.item.retrieved
+          type: string
+          description: 'The event type, must be `conversation.item.retrieved`.'
+          x-stainless-const: true
+        item:
+          $ref: '#/components/schemas/RealtimeConversationItem'
+      description: "Returned when a conversation item is retrieved with `conversation.item.retrieve`.\n"
+      x-oaiMeta:
+        name: conversation.item.retrieved
+        group: realtime
+        example: "{\n    \"event_id\": \"event_1920\",\n    \"type\": \"conversation.item.created\",\n    \"previous_item_id\": \"msg_002\",\n    \"item\": {\n        \"id\": \"msg_003\",\n        \"object\": \"realtime.item\",\n        \"type\": \"message\",\n        \"status\": \"completed\",\n        \"role\": \"user\",\n        \"content\": [\n            {\n                \"type\": \"input_audio\",\n                \"transcript\": \"hello how are you\",\n                \"audio\": \"base64encodedaudio==\"\n            }\n        ]\n    }\n}\n"

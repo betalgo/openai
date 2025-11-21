@@ -1,0 +1,8 @@
+components:
+  schemas:
+    FineTuneDPOMethod:
+      type: object
+      properties:
+        hyperparameters:
+          $ref: '#/components/schemas/FineTuneDPOHyperparameters'
+      description: Configuration for the DPO fine-tuning method.

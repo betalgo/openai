@@ -1,0 +1,43 @@
+components:
+  schemas:
+    WebhookBatchFailed:
+      title: batch.failed
+      required:
+        - created_at
+        - id
+        - data
+        - type
+      type: object
+      properties:
+        created_at:
+          type: integer
+          description: "The Unix timestamp (in seconds) of when the batch API request failed.\n"
+        id:
+          type: string
+          description: "The unique ID of the event.\n"
+        data:
+          required:
+            - id
+          type: object
+          properties:
+            id:
+              type: string
+              description: "The unique ID of the batch API request.\n"
+          description: "Event data payload.\n"
+        object:
+          enum:
+            - event
+          type: string
+          description: "The object of the event. Always `event`.\n"
+          x-stainless-const: true
+        type:
+          enum:
+            - batch.failed
+          type: string
+          description: "The type of the event. Always `batch.failed`.\n"
+          x-stainless-const: true
+      description: "Sent when a batch API request has failed.\n"
+      x-oaiMeta:
+        name: batch.failed
+        group: webhook-events
+        example: "{\n  \"id\": \"evt_abc123\",\n  \"type\": \"batch.failed\",\n  \"created_at\": 1719168000,\n  \"data\": {\n    \"id\": \"batch_abc123\"\n  }\n}\n"

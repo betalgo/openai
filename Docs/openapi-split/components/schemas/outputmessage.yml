@@ -1,0 +1,40 @@
+components:
+  schemas:
+    OutputMessage:
+      title: Output message
+      required:
+        - id
+        - type
+        - role
+        - content
+        - status
+      type: object
+      properties:
+        id:
+          type: string
+          description: "The unique ID of the output message.\n"
+        type:
+          enum:
+            - message
+          type: string
+          description: "The type of the output message. Always `message`.\n"
+          x-stainless-const: true
+        role:
+          enum:
+            - assistant
+          type: string
+          description: "The role of the output message. Always `assistant`.\n"
+          x-stainless-const: true
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutputContent'
+          description: "The content of the output message.\n"
+        status:
+          enum:
+            - in_progress
+            - completed
+            - incomplete
+          type: string
+          description: "The status of the message input. One of `in_progress`, `completed`, or\n`incomplete`. Populated when input items are returned via API.\n"
+      description: "An output message from the model.\n"

@@ -1,0 +1,23 @@
+components:
+  schemas:
+    ResponseMCPListToolsFailedEvent:
+      title: ResponseMCPListToolsFailedEvent
+      required:
+        - type
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.mcp_list_tools.failed
+          type: string
+          description: The type of the event. Always 'response.mcp_list_tools.failed'.
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: "Emitted when the attempt to list available MCP tools has failed.\n"
+      x-oaiMeta:
+        name: response.mcp_list_tools.failed
+        group: responses
+        example: "{\n  \"type\": \"response.mcp_list_tools.failed\",\n  \"sequence_number\": 1\n}\n"

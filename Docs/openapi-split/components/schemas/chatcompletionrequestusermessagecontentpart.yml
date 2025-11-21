@@ -1,0 +1,8 @@
+components:
+  schemas:
+    ChatCompletionRequestUserMessageContentPart:
+      oneOf:
+        - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartText'
+        - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartImage'
+        - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartAudio'
+        - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartFile'
