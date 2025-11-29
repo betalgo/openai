@@ -10,6 +10,9 @@ namespace Betalgo.Ranul.OpenAI.Contracts.Requests.Image;
 ///     <see href="https://platform.openai.com/docs/api-reference/images/createVariation">
 ///         OpenAI API documentation
 ///     </see>
+///     <see href="https://github.com/betalgo/openai/blob/master/Docs/openapi-split/components/schemas/createimagevariationrequest.yml">
+///         Source Definition
+///     </see>
 /// </summary>
 public class CreateImageVariationRequest : IRequest, IHasModelImage, IHasImageSize
 {

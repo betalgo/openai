@@ -14,6 +14,7 @@ public readonly struct ImageModel(string value) : IEquatable<ImageModel>
     public static ImageModel DallE2 { get; } = new("dall-e-2");
     public static ImageModel DallE3 { get; } = new("dall-e-3");
     public static ImageModel GptImage1 { get; } = new("gpt-image-1");
+    public static ImageModel GptImage1Mini { get; } = new("gpt-image-1-mini");
 
     public string Value { get; } = value;
     public override string ToString() => Value;
