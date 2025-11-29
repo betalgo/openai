@@ -13,7 +13,6 @@ components:
         type:
           enum:
             - transcription_session.updated
-          type: string
           description: 'The event type, must be `transcription_session.updated`.'
           x-stainless-const: true
         session:

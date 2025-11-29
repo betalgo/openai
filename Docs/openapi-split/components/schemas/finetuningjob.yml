@@ -27,50 +27,58 @@ components:
           type: integer
           description: The Unix timestamp (in seconds) for when the fine-tuning job was created.
         error:
-          required:
-            - code
-            - message
-            - param
-          type: object
-          properties:
-            code:
-              type: string
-              description: A machine-readable error code.
-            message:
-              type: string
-              description: A human-readable error message.
-            param:
-              type: string
-              description: 'The parameter that was invalid, usually `training_file` or `validation_file`. This field will be null if the failure was not parameter-specific.'
-              nullable: true
-          description: 'For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.'
-          nullable: true
+          anyOf:
+            - required:
+                - code
+                - message
+                - param
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: A machine-readable error code.
+                message:
+                  type: string
+                  description: A human-readable error message.
+                param:
+                  anyOf:
+                    - type: string
+                      description: 'The parameter that was invalid, usually `training_file` or `validation_file`. This field will be null if the failure was not parameter-specific.'
+                    - nullable: true
+              description: 'For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.'
+            - nullable: true
         fine_tuned_model:
-          type: string
-          description: The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.
-          nullable: true
+          anyOf:
+            - type: string
+              description: The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running.
+            - nullable: true
         finished_at:
-          type: integer
-          description: The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running.
+            - nullable: true
         hyperparameters:
           type: object
           properties:
             batch_size:
-              oneOf:
-                - enum:
-                    - auto
-                  type: string
-                  x-stainless-const: true
-                - maximum: 256
-                  minimum: 1
-                  type: integer
-              description: "Number of examples in each batch. A larger batch size means that model parameters\nare updated less frequently, but with lower variance.\n"
-              default: auto
-              nullable: true
+              anyOf:
+                - title: Auto
+                  anyOf:
+                    - enum:
+                        - auto
+                      type: string
+                      x-stainless-const: true
+                    - maximum: 256
+                      minimum: 1
+                      type: integer
+                  description: "Number of examples in each batch. A larger batch size means that model parameters\nare updated less frequently, but with lower variance.\n"
+                  default: auto
+                - title: Manual
+                  nullable: true
             learning_rate_multiplier:
-              oneOf:
-                - enum:
+              anyOf:
+                - title: Auto
+                  enum:
                     - auto
                   type: string
                   x-stainless-const: true
@@ -78,10 +86,10 @@ components:
                   exclusiveMinimum: true
                   type: number
               description: "Scaling factor for the learning rate. A smaller learning rate may be useful to avoid\noverfitting.\n"
-              default: auto
             n_epochs:
-              oneOf:
-                - enum:
+              anyOf:
+                - title: Auto
+                  enum:
                     - auto
                   type: string
                   x-stainless-const: true
@@ -108,7 +116,7 @@ components:
           items:
             type: string
             example: file-abc123
-          description: 'The compiled results file ID(s) for the fine-tuning job. You can retrieve the results with the [Files API](/docs/api-reference/files/retrieve-contents).'
+          description: 'The compiled results file ID(s) for the fine-tuning job. You can retrieve the results with the [Files API](https://platform.openai.com/docs/api-reference/files/retrieve-contents).'
         status:
           enum:
             - validating_files
@@ -120,31 +128,37 @@ components:
           type: string
           description: 'The current status of the fine-tuning job, which can be either `validating_files`, `queued`, `running`, `succeeded`, `failed`, or `cancelled`.'
         trained_tokens:
-          type: integer
-          description: The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running.
+            - nullable: true
         training_file:
           type: string
-          description: 'The file ID used for training. You can retrieve the training data with the [Files API](/docs/api-reference/files/retrieve-contents).'
+          description: 'The file ID used for training. You can retrieve the training data with the [Files API](https://platform.openai.com/docs/api-reference/files/retrieve-contents).'
         validation_file:
-          type: string
-          description: 'The file ID used for validation. You can retrieve the validation results with the [Files API](/docs/api-reference/files/retrieve-contents).'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'The file ID used for validation. You can retrieve the validation results with the [Files API](https://platform.openai.com/docs/api-reference/files/retrieve-contents).'
+            - nullable: true
         integrations:
-          maxItems: 5
-          type: array
-          items:
-            oneOf:
-              - $ref: '#/components/schemas/FineTuningIntegration'
-          description: A list of integrations to enable for this fine-tuning job.
-          nullable: true
+          anyOf:
+            - maxItems: 5
+              type: array
+              items:
+                anyOf:
+                  - $ref: '#/components/schemas/FineTuningIntegration'
+                discriminator:
+                  propertyName: type
+              description: A list of integrations to enable for this fine-tuning job.
+            - nullable: true
         seed:
           type: integer
           description: The seed used for the fine-tuning job.
         estimated_finish:
-          type: integer
-          description: The Unix timestamp (in seconds) for when the fine-tuning job is estimated to finish. The value will be null if the fine-tuning job is not running.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the fine-tuning job is estimated to finish. The value will be null if the fine-tuning job is not running.
+            - nullable: true
         method:
           $ref: '#/components/schemas/FineTuneMethod'
         metadata:

@@ -30,7 +30,8 @@ components:
           type: boolean
           description: Indicates if there are more content pages to fetch.
         next_page:
-          type: string
-          description: 'The token for the next page, if any.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'The token for the next page, if any.'
+            - nullable: true
       description: Represents the parsed content of a vector store file.

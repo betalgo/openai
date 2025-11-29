@@ -9,3 +9,4 @@ components:
           type: string
           description: The name of the function to call.
       description: "Specifying a particular function via `{\"name\": \"my_function\"}` forces the model to call that function.\n"
+      x-stainless-variantName: function_call_option

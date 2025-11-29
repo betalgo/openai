@@ -13,7 +13,6 @@ components:
         type:
           enum:
             - rate_limits.updated
-          type: string
           description: 'The event type, must be `rate_limits.updated`.'
           x-stainless-const: true
         rate_limits:

@@ -13,16 +13,18 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ChatCompletionRequestMessage'
-              description: "A list of messages comprising the conversation so far. Depending on the\n[model](/docs/models) you use, different message types (modalities) are\nsupported, like [text](/docs/guides/text-generation),\n[images](/docs/guides/vision), and [audio](/docs/guides/audio).\n"
+              description: "A list of messages comprising the conversation so far. Depending on the\n[model](https://platform.openai.com/docs/models) you use, different message types (modalities) are\nsupported, like [text](https://platform.openai.com/docs/guides/text-generation),\n[images](https://platform.openai.com/docs/guides/vision), and [audio](https://platform.openai.com/docs/guides/audio).\n"
             model:
               $ref: '#/components/schemas/ModelIdsShared'
             modalities:
               $ref: '#/components/schemas/ResponseModalities'
+            verbosity:
+              $ref: '#/components/schemas/Verbosity'
             reasoning_effort:
               $ref: '#/components/schemas/ReasoningEffort'
             max_completion_tokens:
               type: integer
-              description: "An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and [reasoning tokens](/docs/guides/reasoning).\n"
+              description: "An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and [reasoning tokens](https://platform.openai.com/docs/guides/reasoning).\n"
               nullable: true
             frequency_penalty:
               maximum: 2
@@ -60,7 +62,7 @@ components:
                   nullable: true
                 search_context_size:
                   $ref: '#/components/schemas/WebSearchContextSize'
-              description: "This tool searches the web for relevant results to use in a response.\nLearn more about the [web search tool](/docs/guides/tools-web-search?api-mode=chat).\n"
+              description: "This tool searches the web for relevant results to use in a response.\nLearn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search?api-mode=chat).\n"
             top_logprobs:
               maximum: 20
               minimum: 0
@@ -68,11 +70,13 @@ components:
               description: "An integer between 0 and 20 specifying the number of most likely tokens to\nreturn at each token position, each with an associated log probability.\n`logprobs` must be set to `true` if this parameter is used.\n"
               nullable: true
             response_format:
-              oneOf:
+              anyOf:
                 - $ref: '#/components/schemas/ResponseFormatText'
                 - $ref: '#/components/schemas/ResponseFormatJsonSchema'
                 - $ref: '#/components/schemas/ResponseFormatJsonObject'
-              description: "An object specifying the format that the model must output.\n\nSetting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables\nStructured Outputs which ensures the model will match your supplied JSON\nschema. Learn more in the [Structured Outputs\nguide](/docs/guides/structured-outputs).\n\nSetting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which\nensures the message the model generates is valid JSON. Using `json_schema`\nis preferred for models that support it.\n"
+              description: "An object specifying the format that the model must output.\n\nSetting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables\nStructured Outputs which ensures the model will match your supplied JSON\nschema. Learn more in the [Structured Outputs\nguide](https://platform.openai.com/docs/guides/structured-outputs).\n\nSetting to `{ \"type\": \"json_object\" }` enables the older JSON mode, which\nensures the message the model generates is valid JSON. Using `json_schema`\nis preferred for models that support it.\n"
+              discriminator:
+                propertyName: type
             audio:
               required:
                 - voice
@@ -91,16 +95,16 @@ components:
                     - pcm16
                   type: string
                   description: "Specifies the output audio format. Must be one of `wav`, `mp3`, `flac`,\n`opus`, or `pcm16`.\n"
-              description: "Parameters for audio output. Required when audio output is requested with\n`modalities: [\"audio\"]`. [Learn more](/docs/guides/audio).\n"
+              description: "Parameters for audio output. Required when audio output is requested with\n`modalities: [\"audio\"]`. [Learn more](https://platform.openai.com/docs/guides/audio).\n"
               nullable: true
             store:
               type: boolean
-              description: "Whether or not to store the output of this chat completion request for \nuse in our [model distillation](/docs/guides/distillation) or\n[evals](/docs/guides/evals) products. \n\nSupports text and image inputs. Note: image inputs over 10MB will be dropped.\n"
+              description: "Whether or not to store the output of this chat completion request for\nuse in our [model distillation](https://platform.openai.com/docs/guides/distillation) or\n[evals](https://platform.openai.com/docs/guides/evals) products.\n\nSupports text and image inputs. Note: image inputs over 8MB will be dropped.\n"
               default: false
               nullable: true
             stream:
               type: boolean
-              description: "If set to true, the model response data will be streamed to the client\nas it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).\nSee the [Streaming section below](/docs/api-reference/chat/streaming)\nfor more information, along with the [streaming responses](/docs/guides/streaming-responses)\nguide for more information on how to handle the streaming events.\n"
+              description: "If set to true, the model response data will be streamed to the client\nas it is generated using [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).\nSee the [Streaming section below](https://platform.openai.com/docs/api-reference/chat/streaming)\nfor more information, along with the [streaming responses](https://platform.openai.com/docs/guides/streaming-responses)\nguide for more information on how to handle the streaming events.\n"
               default: false
               nullable: true
             stop:
@@ -120,7 +124,7 @@ components:
               nullable: true
             max_tokens:
               type: integer
-              description: "The maximum number of [tokens](/tokenizer) that can be generated in the\nchat completion. This value can be used to control\n[costs](https://openai.com/api/pricing/) for text generated via API.\n\nThis value is now deprecated in favor of `max_completion_tokens`, and is\nnot compatible with [o-series models](/docs/guides/reasoning).\n"
+              description: "The maximum number of [tokens](/tokenizer) that can be generated in the\nchat completion. This value can be used to control\n[costs](https://openai.com/api/pricing/) for text generated via API.\n\nThis value is now deprecated in favor of `max_completion_tokens`, and is\nnot compatible with [o-series models](https://platform.openai.com/docs/guides/reasoning).\n"
               nullable: true
               deprecated: true
             n:
@@ -132,16 +136,19 @@ components:
               nullable: true
               example: 1
             prediction:
-              oneOf:
+              anyOf:
                 - $ref: '#/components/schemas/PredictionContent'
-              description: "Configuration for a [Predicted Output](/docs/guides/predicted-outputs),\nwhich can greatly improve response times when large parts of the model\nresponse are known ahead of time. This is most common when you are\nregenerating a file with only minor changes to most of the content.\n"
+              description: "Configuration for a [Predicted Output](https://platform.openai.com/docs/guides/predicted-outputs),\nwhich can greatly improve response times when large parts of the model\nresponse are known ahead of time. This is most common when you are\nregenerating a file with only minor changes to most of the content.\n"
               nullable: true
+              discriminator:
+                propertyName: type
             seed:
               maximum: 9223372036854776000
               minimum: -9223372036854776000
               type: integer
               description: "This feature is in Beta.\nIf specified, our system will make a best effort to sample deterministically, such that repeated requests with the same `seed` and parameters should return the same result.\nDeterminism is not guaranteed, and you should refer to the `system_fingerprint` response parameter to monitor changes in the backend.\n"
               nullable: true
+              deprecated: true
               x-oaiMeta:
                 beta: true
             stream_options:
@@ -149,15 +156,26 @@ components:
             tools:
               type: array
               items:
-                $ref: '#/components/schemas/ChatCompletionTool'
-              description: "A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for. A max of 128 functions are supported.\n"
+                anyOf:
+                  - $ref: '#/components/schemas/ChatCompletionTool'
+                  - $ref: '#/components/schemas/CustomToolChatCompletions'
+                discriminator:
+                  propertyName: type
+                x-stainless-naming:
+                  python:
+                    model_name: chat_completion_tool_union
+                    param_model_name: chat_completion_tool_union_param
+                x-stainless-go-variant-constructor:
+                  naming: 'chat_completion_{variant}_tool'
+              description: "A list of tools the model may call. You can provide either\n[custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools) or\n[function tools](https://platform.openai.com/docs/guides/function-calling).\n"
             tool_choice:
               $ref: '#/components/schemas/ChatCompletionToolChoiceOption'
             parallel_tool_calls:
               $ref: '#/components/schemas/ParallelToolCalls'
             function_call:
-              oneOf:
-                - enum:
+              anyOf:
+                - title: function call mode
+                  enum:
                     - none
                     - auto
                   type: string

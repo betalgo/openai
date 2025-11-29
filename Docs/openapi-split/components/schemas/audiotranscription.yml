@@ -1,0 +1,19 @@
+components:
+  schemas:
+    AudioTranscription:
+      type: object
+      properties:
+        model:
+          enum:
+            - whisper-1
+            - gpt-4o-mini-transcribe
+            - gpt-4o-transcribe
+            - gpt-4o-transcribe-diarize
+          type: string
+          description: "The model to use for transcription. Current options are `whisper-1`, `gpt-4o-mini-transcribe`, `gpt-4o-transcribe`, and `gpt-4o-transcribe-diarize`. Use `gpt-4o-transcribe-diarize` when you need diarization with speaker labels.\n"
+        language:
+          type: string
+          description: "The language of the input audio. Supplying the input language in\n[ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format\nwill improve accuracy and latency.\n"
+        prompt:
+          type: string
+          description: "An optional text to guide the model's style or continue a previous audio\nsegment.\nFor `whisper-1`, the [prompt is a list of keywords](https://platform.openai.com/docs/guides/speech-to-text#prompting).\nFor `gpt-4o-transcribe` models (excluding `gpt-4o-transcribe-diarize`), the prompt is a free text string, for example \"expect words related to technology\".\n"

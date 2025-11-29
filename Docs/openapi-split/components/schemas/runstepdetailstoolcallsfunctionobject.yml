@@ -31,7 +31,8 @@ components:
               type: string
               description: The arguments passed to the function.
             output:
-              type: string
-              description: 'The output of the function. This will be `null` if the outputs have not been [submitted](/docs/api-reference/runs/submitToolOutputs) yet.'
-              nullable: true
+              anyOf:
+                - type: string
+                  description: 'The output of the function. This will be `null` if the outputs have not been [submitted](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) yet.'
+                - nullable: true
           description: The definition of the function that was called.

@@ -17,7 +17,6 @@ components:
         schema:
           type: object
           description: "The json schema for the run data source items.\nLearn how to build JSON schemas [here](https://json-schema.org/).\n"
-          example: "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"item\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"label\": {\"type\": \"string\"},\n      },\n      \"required\": [\"label\"]\n    }\n  },\n  \"required\": [\"item\"]\n}\n"
       description: "A CustomDataSourceConfig which specifies the schema of your `item` and optionally `sample` namespaces.\nThe response schema defines the shape of the data that will be:\n- Used to define your testing criteria and\n- What data is required when creating a run\n"
       x-oaiMeta:
         name: The eval custom data source config object

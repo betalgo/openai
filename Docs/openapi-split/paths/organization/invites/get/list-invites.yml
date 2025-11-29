@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Invites
-      summary: Returns a list of invites in the organization.
+      summary: List invites
+      description: Returns a list of invites in the organization.
       operationId: list-invites
       parameters:
         - name: limit
@@ -27,7 +28,7 @@ paths:
       x-oaiMeta:
         name: List invites
         group: administration
-        returns: 'A list of [Invite](/docs/api-reference/invite/object) objects.'
+        returns: 'A list of [Invite](https://platform.openai.com/docs/api-reference/invite/object) objects.'
         examples:
           response: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"object\": \"organization.invite\",\n      \"id\": \"invite-abc\",\n      \"email\": \"user@example.com\",\n      \"role\": \"owner\",\n      \"status\": \"accepted\",\n      \"invited_at\": 1711471533,\n      \"expires_at\": 1711471533,\n      \"accepted_at\": 1711471533\n    }\n  ],\n  \"first_id\": \"invite-abc\",\n  \"last_id\": \"invite-abc\",\n  \"has_more\": false\n}\n"
           request:

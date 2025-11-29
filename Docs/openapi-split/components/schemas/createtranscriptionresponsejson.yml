@@ -29,10 +29,12 @@ components:
             optional: true
         usage:
           type: object
-          oneOf:
+          anyOf:
             - $ref: '#/components/schemas/TranscriptTextUsageTokens'
             - $ref: '#/components/schemas/TranscriptTextUsageDuration'
           description: Token usage statistics for the request.
+          discriminator:
+            propertyName: type
       description: 'Represents a transcription response returned by model, based on the provided input.'
       x-oaiMeta:
         name: The transcription object (JSON)

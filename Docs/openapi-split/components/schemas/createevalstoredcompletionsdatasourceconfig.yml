@@ -16,7 +16,6 @@ components:
         metadata:
           type: object
           description: Metadata filters for the stored completions data source.
-          example: "{\n  \"use_case\": \"customer_support_agent\"\n}\n"
       description: "Deprecated in favor of LogsDataSourceConfig.\n"
       deprecated: true
       x-oaiMeta:

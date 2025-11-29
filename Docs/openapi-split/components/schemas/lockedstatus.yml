@@ -1,0 +1,22 @@
+components:
+  schemas:
+    LockedStatus:
+      title: Locked thread status
+      required:
+        - type
+        - reason
+      type: object
+      properties:
+        type:
+          enum:
+            - locked
+          type: string
+          description: Status discriminator that is always `locked`.
+          default: locked
+          x-stainless-const: true
+        reason:
+          anyOf:
+            - type: string
+              description: Reason that the thread was locked. Defaults to null when no reason is recorded.
+            - nullable: true
+      description: Indicates that a thread is locked and cannot accept new input.

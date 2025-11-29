@@ -4,4 +4,3 @@ components:
       enum:
         - logprobs
       type: string
-      default: [ ]

@@ -1,0 +1,8 @@
+components:
+  schemas:
+    FunctionCallItemStatus:
+      enum:
+        - in_progress
+        - completed
+        - incomplete
+      type: string

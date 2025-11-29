@@ -3,7 +3,8 @@ paths:
     post:
       tags:
         - Projects
-      summary: Modifies a project in the organization.
+      summary: Modify project
+      description: Modifies a project in the organization.
       operationId: modify-project
       parameters:
         - name: project_id
@@ -35,7 +36,7 @@ paths:
       x-oaiMeta:
         name: Modify project
         group: administration
-        returns: 'The updated [Project](/docs/api-reference/projects/object) object.'
+        returns: 'The updated [Project](https://platform.openai.com/docs/api-reference/projects/object) object.'
         examples:
           response: ''
           request:

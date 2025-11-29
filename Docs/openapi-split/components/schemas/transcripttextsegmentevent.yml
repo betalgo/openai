@@ -1,0 +1,40 @@
+components:
+  schemas:
+    TranscriptTextSegmentEvent:
+      required:
+        - type
+        - id
+        - start
+        - end
+        - text
+        - speaker
+      type: object
+      properties:
+        type:
+          enum:
+            - transcript.text.segment
+          type: string
+          description: The type of the event. Always `transcript.text.segment`.
+          x-stainless-const: true
+        id:
+          type: string
+          description: Unique identifier for the segment.
+        start:
+          type: number
+          description: Start timestamp of the segment in seconds.
+          format: float
+        end:
+          type: number
+          description: End timestamp of the segment in seconds.
+          format: float
+        text:
+          type: string
+          description: Transcript text for this segment.
+        speaker:
+          type: string
+          description: Speaker label for this segment.
+      description: "Emitted when a diarized transcription returns a completed segment with speaker information. Only emitted when you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with `stream` set to `true` and `response_format` set to `diarized_json`.\n"
+      x-oaiMeta:
+        name: Stream Event (transcript.text.segment)
+        group: transcript
+        example: "{\n  \"type\": \"transcript.text.segment\",\n  \"id\": \"seg_002\",\n  \"start\": 5.2,\n  \"end\": 12.8,\n  \"text\": \"Hi, I need help with diarization.\",\n  \"speaker\": \"A\"\n}\n"

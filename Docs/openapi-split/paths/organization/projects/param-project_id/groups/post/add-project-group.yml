@@ -1,0 +1,37 @@
+paths:
+  '/organization/projects/{project_id}/groups':
+    post:
+      tags:
+        - Project groups
+      summary: Add project group
+      description: Grants a group access to a project.
+      operationId: add-project-group
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Identifies the group and role to assign to the project.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteProjectGroupBody'
+        required: true
+      responses:
+        '200':
+          description: Group granted access to the project successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectGroup'
+      x-oaiMeta:
+        name: Add project group
+        group: administration
+        returns: 'The created [project group object](https://platform.openai.com/docs/api-reference/project-groups/object).'
+        examples:
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/organization/projects/proj_abc123/groups \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      \"group_id\": \"group_01J1F8ABCDXYZ\",\n      \"role\": \"role_01J1F8PROJ\"\n  }'\n"
+          response: "{\n    \"object\": \"project.group\",\n    \"project_id\": \"proj_abc123\",\n    \"group_id\": \"group_01J1F8ABCDXYZ\",\n    \"group_name\": \"Support Team\",\n    \"created_at\": 1711471533\n}\n"

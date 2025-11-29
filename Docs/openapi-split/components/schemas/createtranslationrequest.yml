@@ -11,6 +11,8 @@ components:
           description: "The audio file object (not file name) translate, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.\n"
           format: binary
           x-oaiTypeLabel: file
+          x-oaiMeta:
+            exampleFilePath: speech.mp3
         model:
           anyOf:
             - type: string
@@ -23,7 +25,7 @@ components:
           x-oaiTypeLabel: string
         prompt:
           type: string
-          description: "An optional text to guide the model's style or continue a previous audio segment. The [prompt](/docs/guides/speech-to-text#prompting) should be in English.\n"
+          description: "An optional text to guide the model's style or continue a previous audio segment. The [prompt](https://platform.openai.com/docs/guides/speech-to-text#prompting) should be in English.\n"
         response_format:
           enum:
             - json

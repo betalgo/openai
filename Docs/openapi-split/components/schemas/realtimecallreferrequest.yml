@@ -1,0 +1,14 @@
+components:
+  schemas:
+    RealtimeCallReferRequest:
+      title: Realtime call refer request
+      required:
+        - target_uri
+      type: object
+      properties:
+        target_uri:
+          type: string
+          description: "URI that should appear in the SIP Refer-To header. Supports values like\n`tel:+14155550123` or `sip:agent@example.com`."
+          example: tel:+14155550123
+      additionalProperties: false
+      description: "Parameters required to transfer a SIP call to a new destination using the\nRealtime API."

@@ -11,6 +11,7 @@ components:
             - message
             - function_call
             - function_call_output
+            - item_reference
           type: string
           description: "The type of the item (`message`, `function_call`, `function_call_output`, `item_reference`).\n"
         object:
@@ -23,8 +24,9 @@ components:
           enum:
             - completed
             - incomplete
+            - in_progress
           type: string
-          description: "The status of the item (`completed`, `incomplete`). These have no effect \non the conversation, but are accepted for consistency with the \n`conversation.item.created` event.\n"
+          description: "The status of the item (`completed`, `incomplete`, `in_progress`). These have no effect \non the conversation, but are accepted for consistency with the \n`conversation.item.created` event.\n"
         role:
           enum:
             - user
@@ -39,8 +41,8 @@ components:
             properties:
               type:
                 enum:
-                  - input_audio
                   - input_text
+                  - input_audio
                   - item_reference
                   - text
                 type: string

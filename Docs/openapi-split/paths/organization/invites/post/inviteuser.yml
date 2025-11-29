@@ -3,7 +3,8 @@ paths:
     post:
       tags:
         - Invites
-      summary: Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
+      summary: Create invite
+      description: Create an invite for a user to the organization. The invite must be accepted by the user before they have access to the organization.
       operationId: inviteUser
       requestBody:
         description: The invite request payload.
@@ -22,7 +23,7 @@ paths:
       x-oaiMeta:
         name: Create invite
         group: administration
-        returns: 'The created [Invite](/docs/api-reference/invite/object) object.'
+        returns: 'The created [Invite](https://platform.openai.com/docs/api-reference/invite/object) object.'
         examples:
           response: "{\n  \"object\": \"organization.invite\",\n  \"id\": \"invite-def\",\n  \"email\": \"anotheruser@example.com\",\n  \"role\": \"reader\",\n  \"status\": \"pending\",\n  \"invited_at\": 1711471533,\n  \"expires_at\": 1711471533,\n  \"accepted_at\": null,\n  \"projects\": [\n    {\n      \"id\": \"project-xyz\",\n      \"role\": \"member\"\n    },\n    {\n      \"id\": \"project-abc\",\n      \"role\": \"owner\"\n    }\n  ]\n}\n"
           request:

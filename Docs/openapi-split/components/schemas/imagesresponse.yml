@@ -42,36 +42,7 @@ components:
           type: string
           description: 'The quality of the image generated. Either `low`, `medium`, or `high`.'
         usage:
-          required:
-            - total_tokens
-            - input_tokens
-            - output_tokens
-            - input_tokens_details
-          type: object
-          properties:
-            total_tokens:
-              type: integer
-              description: The total number of tokens (images and text) used for the image generation.
-            input_tokens:
-              type: integer
-              description: The number of tokens (images and text) in the input prompt.
-            output_tokens:
-              type: integer
-              description: The number of image tokens in the output image.
-            input_tokens_details:
-              required:
-                - text_tokens
-                - image_tokens
-              type: object
-              properties:
-                text_tokens:
-                  type: integer
-                  description: The number of text tokens in the input prompt.
-                image_tokens:
-                  type: integer
-                  description: The number of image tokens in the input prompt.
-              description: The input tokens detailed information for the image generation.
-          description: "For `gpt-image-1` only, the token usage information for the image generation.\n"
+          $ref: '#/components/schemas/ImageGenUsage'
       description: The response from the image generation endpoint.
       x-oaiMeta:
         name: The image generation response

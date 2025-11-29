@@ -4,7 +4,6 @@ components:
       required:
         - event_id
         - type
-        - previous_item_id
         - item
       type: object
       properties:
@@ -14,15 +13,16 @@ components:
         type:
           enum:
             - conversation.item.created
-          type: string
           description: 'The event type, must be `conversation.item.created`.'
           x-stainless-const: true
         previous_item_id:
-          type: string
-          description: "The ID of the preceding item in the Conversation context, allows the \nclient to understand the order of the conversation.\n"
+          anyOf:
+            - type: string
+              description: "The ID of the preceding item in the Conversation context, allows the\nclient to understand the order of the conversation. Can be `null` if the\nitem has no predecessor.\n"
+            - nullable: true
         item:
           $ref: '#/components/schemas/RealtimeConversationItem'
-      description: "Returned when a conversation item is created. There are several scenarios that produce this event:\n  - The server is generating a Response, which if successful will produce \n    either one or two Items, which will be of type `message` \n    (role `assistant`) or type `function_call`.\n  - The input audio buffer has been committed, either by the client or the \n    server (in `server_vad` mode). The server will take the content of the \n    input audio buffer and add it to a new user message Item.\n  - The client has sent a `conversation.item.create` event to add a new Item \n    to the Conversation.\n"
+      description: "Returned when a conversation item is created. There are several scenarios that produce this event:\n  - The server is generating a Response, which if successful will produce\n    either one or two Items, which will be of type `message`\n    (role `assistant`) or type `function_call`.\n  - The input audio buffer has been committed, either by the client or the\n    server (in `server_vad` mode). The server will take the content of the\n    input audio buffer and add it to a new user message Item.\n  - The client has sent a `conversation.item.create` event to add a new Item\n    to the Conversation.\n"
       x-oaiMeta:
         name: conversation.item.created
         group: realtime

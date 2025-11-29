@@ -1,0 +1,7 @@
+components:
+  schemas:
+    VideoModel:
+      enum:
+        - sora-2
+        - sora-2-pro
+      type: string

@@ -17,14 +17,7 @@ components:
           default: computer_use_preview
           x-stainless-const: true
         environment:
-          enum:
-            - windows
-            - mac
-            - linux
-            - ubuntu
-            - browser
-          type: string
-          description: The type of computer environment to control.
+          $ref: '#/components/schemas/ComputerEnvironment'
         display_width:
           type: integer
           description: The width of the computer display.

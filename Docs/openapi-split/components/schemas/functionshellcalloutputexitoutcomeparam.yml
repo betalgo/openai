@@ -1,0 +1,20 @@
+components:
+  schemas:
+    FunctionShellCallOutputExitOutcomeParam:
+      title: Function shell exit outcome
+      required:
+        - type
+        - exit_code
+      type: object
+      properties:
+        type:
+          enum:
+            - exit
+          type: string
+          description: The outcome type. Always `exit`.
+          default: exit
+          x-stainless-const: true
+        exit_code:
+          type: integer
+          description: The exit code returned by the shell process.
+      description: Indicates that the shell commands finished and returned an exit code.

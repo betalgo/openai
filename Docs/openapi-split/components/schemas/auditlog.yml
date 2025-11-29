@@ -25,7 +25,7 @@ components:
             name:
               type: string
               description: The project title.
-          description: The project that the action was scoped to. Absent for actions not scoped to projects.
+          description: The project that the action was scoped to. Absent for actions not scoped to projects. Note that any admin actions taken via Admin API keys are associated with the default project.
         actor:
           $ref: '#/components/schemas/AuditLogActor'
         api_key.created:
@@ -67,7 +67,7 @@ components:
               type: string
               description: The tracking ID of the API key.
           description: The details for events with this `type`.
-        checkpoint_permission.created:
+        checkpoint.permission.created:
           type: object
           properties:
             id:
@@ -84,12 +84,78 @@ components:
                   description: The ID of the fine-tuned model checkpoint.
               description: The payload used to create the checkpoint permission.
           description: The project and fine-tuned model checkpoint that the checkpoint permission was created for.
-        checkpoint_permission.deleted:
+        checkpoint.permission.deleted:
           type: object
           properties:
             id:
               type: string
               description: The ID of the checkpoint permission.
+          description: The details for events with this `type`.
+        external_key.registered:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the external key configuration.
+            data:
+              type: object
+              description: The configuration for the external key.
+          description: The details for events with this `type`.
+        external_key.removed:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the external key configuration.
+          description: The details for events with this `type`.
+        group.created:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the group.
+            data:
+              type: object
+              properties:
+                group_name:
+                  type: string
+                  description: The group name.
+              description: Information about the created group.
+          description: The details for events with this `type`.
+        group.updated:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the group.
+            changes_requested:
+              type: object
+              properties:
+                group_name:
+                  type: string
+                  description: The updated group name.
+              description: The payload used to update the group.
+          description: The details for events with this `type`.
+        group.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the group.
+          description: The details for events with this `type`.
+        scim.enabled:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the SCIM was enabled for.
+          description: The details for events with this `type`.
+        scim.disabled:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the SCIM was disabled for.
           description: The details for events with this `type`.
         invite.sent:
           type: object
@@ -122,6 +188,83 @@ components:
               type: string
               description: The ID of the invite.
           description: The details for events with this `type`.
+        ip_allowlist.created:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the IP allowlist configuration.
+            name:
+              type: string
+              description: The name of the IP allowlist configuration.
+            allowed_ips:
+              type: array
+              items:
+                type: string
+              description: The IP addresses or CIDR ranges included in the configuration.
+          description: The details for events with this `type`.
+        ip_allowlist.updated:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the IP allowlist configuration.
+            allowed_ips:
+              type: array
+              items:
+                type: string
+              description: The updated set of IP addresses or CIDR ranges in the configuration.
+          description: The details for events with this `type`.
+        ip_allowlist.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the IP allowlist configuration.
+            name:
+              type: string
+              description: The name of the IP allowlist configuration.
+            allowed_ips:
+              type: array
+              items:
+                type: string
+              description: The IP addresses or CIDR ranges that were in the configuration.
+          description: The details for events with this `type`.
+        ip_allowlist.config.activated:
+          type: object
+          properties:
+            configs:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the IP allowlist configuration.
+                  name:
+                    type: string
+                    description: The name of the IP allowlist configuration.
+              description: The configurations that were activated.
+          description: The details for events with this `type`.
+        ip_allowlist.config.deactivated:
+          type: object
+          properties:
+            configs:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The ID of the IP allowlist configuration.
+                  name:
+                    type: string
+                    description: The name of the IP allowlist configuration.
+              description: The configurations that were deactivated.
+          description: The details for events with this `type`.
+        login.succeeded:
+          type: object
+          description: This event has no additional fields beyond the standard audit log attributes.
         login.failed:
           type: object
           properties:
@@ -132,6 +275,9 @@ components:
               type: string
               description: The error message of the failure.
           description: The details for events with this `type`.
+        logout.succeeded:
+          type: object
+          description: This event has no additional fields beyond the standard audit log attributes.
         logout.failed:
           type: object
           properties:
@@ -212,6 +358,13 @@ components:
               type: string
               description: The project ID.
           description: The details for events with this `type`.
+        project.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The project ID.
+          description: The details for events with this `type`.
         rate_limit.updated:
           type: object
           properties:
@@ -247,6 +400,108 @@ components:
             id:
               type: string
               description: The rate limit ID
+          description: The details for events with this `type`.
+        role.created:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The role ID.
+            role_name:
+              type: string
+              description: The name of the role.
+            permissions:
+              type: array
+              items:
+                type: string
+              description: The permissions granted by the role.
+            resource_type:
+              type: string
+              description: The type of resource the role belongs to.
+            resource_id:
+              type: string
+              description: The resource the role is scoped to.
+          description: The details for events with this `type`.
+        role.updated:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The role ID.
+            changes_requested:
+              type: object
+              properties:
+                role_name:
+                  type: string
+                  description: 'The updated role name, when provided.'
+                resource_id:
+                  type: string
+                  description: The resource the role is scoped to.
+                resource_type:
+                  type: string
+                  description: The type of resource the role belongs to.
+                permissions_added:
+                  type: array
+                  items:
+                    type: string
+                  description: The permissions added to the role.
+                permissions_removed:
+                  type: array
+                  items:
+                    type: string
+                  description: The permissions removed from the role.
+                description:
+                  type: string
+                  description: 'The updated role description, when provided.'
+                metadata:
+                  type: object
+                  description: Additional metadata stored on the role.
+              description: The payload used to update the role.
+          description: The details for events with this `type`.
+        role.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The role ID.
+          description: The details for events with this `type`.
+        role.assignment.created:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The identifier of the role assignment.
+            principal_id:
+              type: string
+              description: The principal (user or group) that received the role.
+            principal_type:
+              type: string
+              description: The type of principal (user or group) that received the role.
+            resource_id:
+              type: string
+              description: The resource the role assignment is scoped to.
+            resource_type:
+              type: string
+              description: The type of resource the role assignment is scoped to.
+          description: The details for events with this `type`.
+        role.assignment.deleted:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The identifier of the role assignment.
+            principal_id:
+              type: string
+              description: The principal (user or group) that had the role removed.
+            principal_type:
+              type: string
+              description: The type of principal (user or group) that had the role removed.
+            resource_id:
+              type: string
+              description: The resource the role assignment was scoped to.
+            resource_type:
+              type: string
+              description: The type of resource the role assignment was scoped to.
           description: The details for events with this `type`.
         service_account.created:
           type: object

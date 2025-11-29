@@ -1,0 +1,30 @@
+components:
+  schemas:
+    CustomToolParam:
+      title: Custom tool
+      required:
+        - type
+        - name
+      type: object
+      properties:
+        type:
+          enum:
+            - custom
+          type: string
+          description: The type of the custom tool. Always `custom`.
+          default: custom
+          x-stainless-const: true
+        name:
+          type: string
+          description: 'The name of the custom tool, used to identify it in tool calls.'
+        description:
+          type: string
+          description: 'Optional description of the custom tool, used to provide more context.'
+        format:
+          anyOf:
+            - $ref: '#/components/schemas/CustomTextFormatParam'
+            - $ref: '#/components/schemas/CustomGrammarFormatParam'
+          description: The input format for the custom tool. Default is unconstrained text.
+          discriminator:
+            propertyName: type
+      description: 'A custom tool that processes input using a specified format. Learn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)'

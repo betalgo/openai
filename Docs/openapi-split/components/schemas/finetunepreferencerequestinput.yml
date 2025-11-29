@@ -10,7 +10,7 @@ components:
               minItems: 1
               type: array
               items:
-                oneOf:
+                anyOf:
                   - $ref: '#/components/schemas/ChatCompletionRequestSystemMessage'
                   - $ref: '#/components/schemas/ChatCompletionRequestUserMessage'
                   - $ref: '#/components/schemas/FineTuneChatCompletionRequestAssistantMessage'
@@ -27,14 +27,14 @@ components:
           maxItems: 1
           type: array
           items:
-            oneOf:
+            anyOf:
               - $ref: '#/components/schemas/ChatCompletionRequestAssistantMessage'
           description: The preferred completion message for the output.
         non_preferred_output:
           maxItems: 1
           type: array
           items:
-            oneOf:
+            anyOf:
               - $ref: '#/components/schemas/ChatCompletionRequestAssistantMessage'
           description: The non-preferred completion message for the output.
       description: "The per-line training example of a fine-tuning input file for chat models using the dpo method.\nInput messages may contain text or image content only. Audio and file input messages\nare not currently supported for fine-tuning.\n"

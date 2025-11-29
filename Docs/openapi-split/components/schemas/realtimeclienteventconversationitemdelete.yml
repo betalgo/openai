@@ -7,12 +7,12 @@ components:
       type: object
       properties:
         event_id:
+          maxLength: 512
           type: string
           description: Optional client-generated ID used to identify this event.
         type:
           enum:
             - conversation.item.delete
-          type: string
           description: 'The event type, must be `conversation.item.delete`.'
           x-stainless-const: true
         item_id:
@@ -22,4 +22,4 @@ components:
       x-oaiMeta:
         name: conversation.item.delete
         group: realtime
-        example: "{\n    \"event_id\": \"event_901\",\n    \"type\": \"conversation.item.delete\",\n    \"item_id\": \"msg_003\"\n}\n"
+        example: "{\n    \"event_id\": \"event_901\",\n    \"type\": \"conversation.item.delete\",\n    \"item_id\": \"item_003\"\n}\n"

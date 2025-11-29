@@ -1,7 +1,7 @@
 components:
   schemas:
     RunStreamEvent:
-      oneOf:
+      anyOf:
         - required:
             - event
             - data
@@ -14,7 +14,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunObject'
-          description: 'Occurs when a new [run](/docs/api-reference/runs/object) is created.'
+          description: 'Occurs when a new [run](https://platform.openai.com/docs/api-reference/runs/object) is created.'
           x-oaiMeta:
             dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
         - required:
@@ -29,7 +29,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunObject'
-          description: 'Occurs when a [run](/docs/api-reference/runs/object) moves to a `queued` status.'
+          description: 'Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) moves to a `queued` status.'
           x-oaiMeta:
             dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
         - required:
@@ -44,7 +44,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunObject'
-          description: 'Occurs when a [run](/docs/api-reference/runs/object) moves to an `in_progress` status.'
+          description: 'Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) moves to an `in_progress` status.'
           x-oaiMeta:
             dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
         - required:
@@ -59,7 +59,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunObject'
-          description: 'Occurs when a [run](/docs/api-reference/runs/object) moves to a `requires_action` status.'
+          description: 'Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) moves to a `requires_action` status.'
           x-oaiMeta:
             dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
         - required:
@@ -74,7 +74,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunObject'
-          description: 'Occurs when a [run](/docs/api-reference/runs/object) is completed.'
+          description: 'Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) is completed.'
           x-oaiMeta:
             dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
         - required:
@@ -89,7 +89,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunObject'
-          description: 'Occurs when a [run](/docs/api-reference/runs/object) ends with status `incomplete`.'
+          description: 'Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) ends with status `incomplete`.'
           x-oaiMeta:
             dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
         - required:
@@ -104,7 +104,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunObject'
-          description: 'Occurs when a [run](/docs/api-reference/runs/object) fails.'
+          description: 'Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) fails.'
           x-oaiMeta:
             dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
         - required:
@@ -119,7 +119,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunObject'
-          description: 'Occurs when a [run](/docs/api-reference/runs/object) moves to a `cancelling` status.'
+          description: 'Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) moves to a `cancelling` status.'
           x-oaiMeta:
             dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
         - required:
@@ -134,7 +134,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunObject'
-          description: 'Occurs when a [run](/docs/api-reference/runs/object) is cancelled.'
+          description: 'Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) is cancelled.'
           x-oaiMeta:
             dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
         - required:
@@ -149,6 +149,8 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunObject'
-          description: 'Occurs when a [run](/docs/api-reference/runs/object) expires.'
+          description: 'Occurs when a [run](https://platform.openai.com/docs/api-reference/runs/object) expires.'
           x-oaiMeta:
             dataDescription: '`data` is a [run](/docs/api-reference/runs/object)'
+      discriminator:
+        propertyName: event

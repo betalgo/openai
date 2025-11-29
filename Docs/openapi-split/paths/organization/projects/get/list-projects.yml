@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Projects
-      summary: Returns a list of projects.
+      summary: List projects
+      description: Returns a list of projects.
       operationId: list-projects
       parameters:
         - name: limit
@@ -33,7 +34,7 @@ paths:
       x-oaiMeta:
         name: List projects
         group: administration
-        returns: 'A list of [Project](/docs/api-reference/projects/object) objects.'
+        returns: 'A list of [Project](https://platform.openai.com/docs/api-reference/projects/object) objects.'
         examples:
           response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"id\": \"proj_abc\",\n            \"object\": \"organization.project\",\n            \"name\": \"Project example\",\n            \"created_at\": 1711471533,\n            \"archived_at\": null,\n            \"status\": \"active\"\n        }\n    ],\n    \"first_id\": \"proj-abc\",\n    \"last_id\": \"proj-xyz\",\n    \"has_more\": false\n}\n"
           request:

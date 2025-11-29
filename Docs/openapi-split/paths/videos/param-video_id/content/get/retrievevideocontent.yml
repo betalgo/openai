@@ -1,0 +1,49 @@
+paths:
+  '/videos/{video_id}/content':
+    get:
+      tags:
+        - Videos
+      summary: Retrieve video content
+      description: Download video content
+      operationId: RetrieveVideoContent
+      parameters:
+        - name: video_id
+          in: path
+          description: The identifier of the video whose media to download.
+          required: true
+          schema:
+            type: string
+            example: video_123
+        - name: variant
+          in: query
+          description: Which downloadable asset to return. Defaults to the MP4 video.
+          schema:
+            $ref: '#/components/schemas/VideoContentVariant'
+      responses:
+        '200':
+          description: The video bytes or preview asset that matches the requested variant.
+          content:
+            video/mp4:
+              schema:
+                type: string
+                format: binary
+            image/webp:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                type: string
+      x-oaiMeta:
+        name: Retrieve video content
+        group: videos
+        path: content
+        returns: Streams the rendered video content for the specified video job.
+        examples:
+          response: ''
+          request:
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: 'My API Key',\n});\n\nconst response = await client.videos.downloadContent('video_123');\n\nconsole.log(response);\n\nconst content = await response.blob();\nconsole.log(content);"
+            python: "from openai import OpenAI\n\nclient = OpenAI(\n    api_key=\"My API Key\",\n)\nresponse = client.videos.download_content(\n    video_id=\"video_123\",\n)\nprint(response)\ncontent = response.read()\nprint(content)"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"),\n  )\n  response, err := client.Videos.DownloadContent(\n    context.TODO(),\n    \"video_123\",\n    openai.VideoDownloadContentParams{\n\n    },\n  )\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", response)\n}\n"
+            java: "package com.openai.example;\n\nimport com.openai.client.OpenAIClient;\nimport com.openai.client.okhttp.OpenAIOkHttpClient;\nimport com.openai.core.http.HttpResponse;\nimport com.openai.models.videos.VideoDownloadContentParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        OpenAIClient client = OpenAIOkHttpClient.fromEnv();\n\n        HttpResponse response = client.videos().downloadContent(\"video_123\");\n    }\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(api_key: \"My API Key\")\n\nresponse = openai.videos.download_content(\"video_123\")\n\nputs(response)"

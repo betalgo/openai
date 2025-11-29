@@ -1,6 +1,8 @@
 components:
   schemas:
     ChatCompletionRequestAssistantMessageContentPart:
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartText'
         - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartRefusal'
+      discriminator:
+        propertyName: type

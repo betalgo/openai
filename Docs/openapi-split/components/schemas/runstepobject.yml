@@ -35,13 +35,13 @@ components:
           description: The Unix timestamp (in seconds) for when the run step was created.
         assistant_id:
           type: string
-          description: 'The ID of the [assistant](/docs/api-reference/assistants) associated with the run step.'
+          description: 'The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) associated with the run step.'
         thread_id:
           type: string
-          description: 'The ID of the [thread](/docs/api-reference/threads) that was run.'
+          description: 'The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was run.'
         run_id:
           type: string
-          description: 'The ID of the [run](/docs/api-reference/runs) that this run step is a part of.'
+          description: 'The ID of the [run](https://platform.openai.com/docs/api-reference/runs) that this run step is a part of.'
         type:
           enum:
             - message_creation
@@ -59,43 +59,50 @@ components:
           description: 'The status of the run step, which can be either `in_progress`, `cancelled`, `failed`, `completed`, or `expired`.'
         step_details:
           type: object
-          oneOf:
+          anyOf:
             - $ref: '#/components/schemas/RunStepDetailsMessageCreationObject'
             - $ref: '#/components/schemas/RunStepDetailsToolCallsObject'
           description: The details of the run step.
+          discriminator:
+            propertyName: type
         last_error:
-          required:
-            - code
-            - message
-          type: object
-          properties:
-            code:
-              enum:
-                - server_error
-                - rate_limit_exceeded
-              type: string
-              description: One of `server_error` or `rate_limit_exceeded`.
-            message:
-              type: string
-              description: A human-readable description of the error.
-          description: The last error associated with this run step. Will be `null` if there are no errors.
-          nullable: true
+          anyOf:
+            - required:
+                - code
+                - message
+              type: object
+              properties:
+                code:
+                  enum:
+                    - server_error
+                    - rate_limit_exceeded
+                  type: string
+                  description: One of `server_error` or `rate_limit_exceeded`.
+                message:
+                  type: string
+                  description: A human-readable description of the error.
+              description: The last error associated with this run step. Will be `null` if there are no errors.
+            - nullable: true
         expired_at:
-          type: integer
-          description: The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
+            - nullable: true
         cancelled_at:
-          type: integer
-          description: The Unix timestamp (in seconds) for when the run step was cancelled.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the run step was cancelled.
+            - nullable: true
         failed_at:
-          type: integer
-          description: The Unix timestamp (in seconds) for when the run step failed.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the run step failed.
+            - nullable: true
         completed_at:
-          type: integer
-          description: The Unix timestamp (in seconds) for when the run step completed.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the run step completed.
+            - nullable: true
         metadata:
           $ref: '#/components/schemas/Metadata'
         usage:

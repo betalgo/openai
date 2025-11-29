@@ -1,0 +1,21 @@
+components:
+  schemas:
+    FunctionShellCallOutputContentParam:
+      title: Function shell output chunk
+      required:
+        - stdout
+        - stderr
+        - outcome
+      type: object
+      properties:
+        stdout:
+          maxLength: 10485760
+          type: string
+          description: Captured stdout output for this chunk of the shell call.
+        stderr:
+          maxLength: 10485760
+          type: string
+          description: Captured stderr output for this chunk of the shell call.
+        outcome:
+          $ref: '#/components/schemas/FunctionShellCallOutputOutcomeParam'
+      description: Captured stdout and stderr for a portion of a function shell tool call output.

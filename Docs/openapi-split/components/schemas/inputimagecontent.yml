@@ -25,10 +25,5 @@ components:
               description: The ID of the file to be sent to the model.
             - nullable: true
         detail:
-          enum:
-            - low
-            - high
-            - auto
-          type: string
-          description: 'The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.'
-      description: 'An image input to the model. Learn about [image inputs](/docs/guides/vision).'
+          $ref: '#/components/schemas/ImageDetail'
+      description: 'An image input to the model. Learn about [image inputs](https://platform.openai.com/docs/guides/vision).'

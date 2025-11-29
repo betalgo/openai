@@ -1,7 +1,9 @@
 components:
   schemas:
     InputContent:
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/InputTextContent'
         - $ref: '#/components/schemas/InputImageContent'
         - $ref: '#/components/schemas/InputFileContent'
+      discriminator:
+        propertyName: type

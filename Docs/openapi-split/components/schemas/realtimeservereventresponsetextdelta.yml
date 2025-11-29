@@ -16,9 +16,8 @@ components:
           description: The unique ID of the server event.
         type:
           enum:
-            - response.text.delta
-          type: string
-          description: 'The event type, must be `response.text.delta`.'
+            - response.output_text.delta
+          description: 'The event type, must be `response.output_text.delta`.'
           x-stainless-const: true
         response_id:
           type: string
@@ -35,8 +34,8 @@ components:
         delta:
           type: string
           description: The text delta.
-      description: Returned when the text value of a "text" content part is updated.
+      description: Returned when the text value of an "output_text" content part is updated.
       x-oaiMeta:
-        name: response.text.delta
+        name: response.output_text.delta
         group: realtime
-        example: "{\n    \"event_id\": \"event_4142\",\n    \"type\": \"response.text.delta\",\n    \"response_id\": \"resp_001\",\n    \"item_id\": \"msg_007\",\n    \"output_index\": 0,\n    \"content_index\": 0,\n    \"delta\": \"Sure, I can h\"\n}\n"
+        example: "{\n    \"event_id\": \"event_4142\",\n    \"type\": \"response.output_text.delta\",\n    \"response_id\": \"resp_001\",\n    \"item_id\": \"msg_007\",\n    \"output_index\": 0,\n    \"content_index\": 0,\n    \"delta\": \"Sure, I can h\"\n}\n"

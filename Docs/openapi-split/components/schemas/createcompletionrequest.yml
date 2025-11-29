@@ -9,38 +9,39 @@ components:
         model:
           anyOf:
             - type: string
-            - enum:
+            - title: Preset
+              enum:
                 - gpt-3.5-turbo-instruct
                 - davinci-002
                 - babbage-002
               type: string
-          description: "ID of the model to use. You can use the [List models](/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](/docs/models) for descriptions of them.\n"
+          description: "ID of the model to use. You can use the [List models](https://platform.openai.com/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](https://platform.openai.com/docs/models) for descriptions of them.\n"
           x-oaiTypeLabel: string
         prompt:
-          oneOf:
+          anyOf:
             - type: string
               default: ''
               example: This is a test.
-            - type: array
+            - title: Array of strings
+              type: array
               items:
                 type: string
                 default: ''
                 example: This is a test.
-            - minItems: 1
+            - title: Array of tokens
+              minItems: 1
               type: array
               items:
                 type: integer
-              example: '[1212, 318, 257, 1332, 13]'
-            - minItems: 1
+            - title: Array of token arrays
+              minItems: 1
               type: array
               items:
                 minItems: 1
                 type: array
                 items:
                   type: integer
-              example: '[[1212, 318, 257, 1332, 13]]'
           description: "The prompt(s) to generate completions for, encoded as a string, array of strings, array of tokens, or array of token arrays.\n\nNote that <|endoftext|> is the document separator that the model sees during training, so if a prompt is not specified the model will generate as if from the beginning of a new document.\n"
-          default: <|endoftext|>
           nullable: true
         best_of:
           maximum: 20
@@ -58,7 +59,7 @@ components:
           maximum: 2
           minimum: -2
           type: number
-          description: "Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.\n\n[See more information about frequency and presence penalties.](/docs/guides/text-generation)\n"
+          description: "Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.\n\n[See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation)\n"
           default: 0
           nullable: true
         logit_bias:
@@ -95,7 +96,7 @@ components:
           maximum: 2
           minimum: -2
           type: number
-          description: "Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.\n\n[See more information about frequency and presence penalties.](/docs/guides/text-generation)\n"
+          description: "Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.\n\n[See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation)\n"
           default: 0
           nullable: true
         seed:
@@ -135,5 +136,5 @@ components:
           example: 1
         user:
           type: string
-          description: "A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](/docs/guides/safety-best-practices#end-user-ids).\n"
+          description: "A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).\n"
           example: user-1234

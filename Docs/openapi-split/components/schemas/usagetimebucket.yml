@@ -20,7 +20,7 @@ components:
         result:
           type: array
           items:
-            oneOf:
+            anyOf:
               - $ref: '#/components/schemas/UsageCompletionsResult'
               - $ref: '#/components/schemas/UsageEmbeddingsResult'
               - $ref: '#/components/schemas/UsageModerationsResult'
@@ -30,3 +30,5 @@ components:
               - $ref: '#/components/schemas/UsageVectorStoresResult'
               - $ref: '#/components/schemas/UsageCodeInterpreterSessionsResult'
               - $ref: '#/components/schemas/CostsResult'
+            discriminator:
+              propertyName: object

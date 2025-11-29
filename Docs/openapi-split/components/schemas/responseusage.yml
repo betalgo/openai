@@ -19,7 +19,7 @@ components:
           properties:
             cached_tokens:
               type: integer
-              description: "The number of tokens that were retrieved from the cache. \n[More on prompt caching](/docs/guides/prompt-caching).\n"
+              description: "The number of tokens that were retrieved from the cache. \n[More on prompt caching](https://platform.openai.com/docs/guides/prompt-caching).\n"
           description: A detailed breakdown of the input tokens.
         output_tokens:
           type: integer

@@ -1,0 +1,20 @@
+components:
+  schemas:
+    TokenCountsResource:
+      title: Token counts
+      required:
+        - object
+        - input_tokens
+      type: object
+      properties:
+        object:
+          enum:
+            - response.input_tokens
+          type: string
+          default: response.input_tokens
+          x-stainless-const: true
+        input_tokens:
+          type: integer
+      example:
+        object: response.input_tokens
+        input_tokens: 123

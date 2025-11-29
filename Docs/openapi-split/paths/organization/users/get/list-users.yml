@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Users
-      summary: Lists all of the users in the organization.
+      summary: List users
+      description: Lists all of the users in the organization.
       operationId: list-users
       parameters:
         - name: limit
@@ -34,7 +35,7 @@ paths:
       x-oaiMeta:
         name: List users
         group: administration
-        returns: 'A list of [User](/docs/api-reference/users/object) objects.'
+        returns: 'A list of [User](https://platform.openai.com/docs/api-reference/users/object) objects.'
         examples:
           response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"object\": \"organization.user\",\n            \"id\": \"user_abc\",\n            \"name\": \"First Last\",\n            \"email\": \"user@example.com\",\n            \"role\": \"owner\",\n            \"added_at\": 1711471533\n        }\n    ],\n    \"first_id\": \"user-abc\",\n    \"last_id\": \"user-xyz\",\n    \"has_more\": false\n}\n"
           request:

@@ -8,6 +8,7 @@ components:
         - content_index
         - delta
         - sequence_number
+        - logprobs
       type: object
       properties:
         type:
@@ -31,6 +32,11 @@ components:
         sequence_number:
           type: integer
           description: The sequence number for this event.
+        logprobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseLogProb'
+          description: "The log probabilities of the tokens in the delta.\n"
       description: Emitted when there is an additional text delta.
       x-oaiMeta:
         name: response.output_text.delta

@@ -68,6 +68,7 @@ components:
         system_fingerprint:
           type: string
           description: "This fingerprint represents the backend configuration that the model runs with.\nCan be used in conjunction with the `seed` request parameter to understand when backend changes have been made that might impact determinism.\n"
+          deprecated: true
         object:
           enum:
             - chat.completion.chunk
@@ -76,7 +77,7 @@ components:
           x-stainless-const: true
         usage:
           $ref: '#/components/schemas/CompletionUsage'
-      description: "Represents a streamed chunk of a chat completion response returned\nby the model, based on the provided input. \n[Learn more](/docs/guides/streaming-responses).\n"
+      description: "Represents a streamed chunk of a chat completion response returned\nby the model, based on the provided input. \n[Learn more](https://platform.openai.com/docs/guides/streaming-responses).\n"
       x-oaiMeta:
         name: The chat completion chunk object
         group: chat

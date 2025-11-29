@@ -13,6 +13,7 @@ components:
         id:
           type: string
           description: "The unique ID of the output message.\n"
+          x-stainless-go-json: omitzero
         type:
           enum:
             - message
@@ -28,7 +29,7 @@ components:
         content:
           type: array
           items:
-            $ref: '#/components/schemas/OutputContent'
+            $ref: '#/components/schemas/OutputMessageContent'
           description: "The content of the output message.\n"
         status:
           enum:

@@ -1,0 +1,23 @@
+components:
+  schemas:
+    CustomGrammarFormatParam:
+      title: Grammar format
+      required:
+        - type
+        - syntax
+        - definition
+      type: object
+      properties:
+        type:
+          enum:
+            - grammar
+          type: string
+          description: Grammar format. Always `grammar`.
+          default: grammar
+          x-stainless-const: true
+        syntax:
+          $ref: '#/components/schemas/GrammarSyntax1'
+        definition:
+          type: string
+          description: The grammar definition.
+      description: A grammar defined by the user.

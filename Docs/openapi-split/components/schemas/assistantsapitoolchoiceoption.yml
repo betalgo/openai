@@ -1,8 +1,9 @@
 components:
   schemas:
     AssistantsApiToolChoiceOption:
-      oneOf:
-        - enum:
+      anyOf:
+        - title: Auto
+          enum:
             - none
             - auto
             - required

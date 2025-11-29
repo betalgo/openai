@@ -17,6 +17,6 @@ components:
         path:
           type: array
           items:
-            $ref: '#/components/schemas/Coordinate'
+            $ref: '#/components/schemas/DragPoint'
           description: "An array of coordinates representing the path of the drag action. Coordinates will appear as an array\nof objects, eg\n```\n[\n  { x: 100, y: 200 },\n  { x: 200, y: 300 }\n]\n```\n"
       description: "A drag action.\n"

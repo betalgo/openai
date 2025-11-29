@@ -17,7 +17,6 @@ components:
         type:
           enum:
             - response.function_call_arguments.delta
-          type: string
           description: "The event type, must be `response.function_call_arguments.delta`.\n"
           x-stainless-const: true
         response_id:

@@ -30,6 +30,8 @@ components:
         - $ref: '#/components/schemas/ResponseReasoningSummaryPartDoneEvent'
         - $ref: '#/components/schemas/ResponseReasoningSummaryTextDeltaEvent'
         - $ref: '#/components/schemas/ResponseReasoningSummaryTextDoneEvent'
+        - $ref: '#/components/schemas/ResponseReasoningTextDeltaEvent'
+        - $ref: '#/components/schemas/ResponseReasoningTextDoneEvent'
         - $ref: '#/components/schemas/ResponseRefusalDeltaEvent'
         - $ref: '#/components/schemas/ResponseRefusalDoneEvent'
         - $ref: '#/components/schemas/ResponseTextDeltaEvent'
@@ -51,9 +53,7 @@ components:
         - $ref: '#/components/schemas/ResponseMCPListToolsInProgressEvent'
         - $ref: '#/components/schemas/ResponseOutputTextAnnotationAddedEvent'
         - $ref: '#/components/schemas/ResponseQueuedEvent'
-        - $ref: '#/components/schemas/ResponseReasoningDeltaEvent'
-        - $ref: '#/components/schemas/ResponseReasoningDoneEvent'
-        - $ref: '#/components/schemas/ResponseReasoningSummaryDeltaEvent'
-        - $ref: '#/components/schemas/ResponseReasoningSummaryDoneEvent'
+        - $ref: '#/components/schemas/ResponseCustomToolCallInputDeltaEvent'
+        - $ref: '#/components/schemas/ResponseCustomToolCallInputDoneEvent'
       discriminator:
         propertyName: type

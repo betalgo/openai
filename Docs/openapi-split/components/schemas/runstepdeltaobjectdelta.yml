@@ -1,0 +1,14 @@
+components:
+  schemas:
+    RunStepDeltaObjectDelta:
+      type: object
+      properties:
+        step_details:
+          type: object
+          anyOf:
+            - $ref: '#/components/schemas/RunStepDeltaStepDetailsMessageCreationObject'
+            - $ref: '#/components/schemas/RunStepDeltaStepDetailsToolCallsObject'
+          description: The details of the run step.
+          discriminator:
+            propertyName: type
+      description: The delta containing the fields that have changed on the run step.

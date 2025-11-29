@@ -37,25 +37,28 @@ components:
               message:
                 $ref: '#/components/schemas/ChatCompletionResponseMessage'
               logprobs:
-                required:
-                  - content
-                  - refusal
-                type: object
-                properties:
-                  content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/ChatCompletionTokenLogprob'
-                    description: A list of message content tokens with log probability information.
-                    nullable: true
-                  refusal:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/ChatCompletionTokenLogprob'
-                    description: A list of message refusal tokens with log probability information.
-                    nullable: true
-                description: Log probability information for the choice.
-                nullable: true
+                anyOf:
+                  - required:
+                      - content
+                      - refusal
+                    type: object
+                    properties:
+                      content:
+                        anyOf:
+                          - type: array
+                            items:
+                              $ref: '#/components/schemas/ChatCompletionTokenLogprob'
+                            description: A list of message content tokens with log probability information.
+                          - nullable: true
+                      refusal:
+                        anyOf:
+                          - type: array
+                            items:
+                              $ref: '#/components/schemas/ChatCompletionTokenLogprob'
+                            description: A list of message refusal tokens with log probability information.
+                          - nullable: true
+                    description: Log probability information for the choice.
+                  - nullable: true
           description: A list of chat completion choices. Can be more than one if `n` is greater than 1.
         created:
           type: integer
@@ -68,6 +71,7 @@ components:
         system_fingerprint:
           type: string
           description: "This fingerprint represents the backend configuration that the model runs with.\n\nCan be used in conjunction with the `seed` request parameter to understand when backend changes have been made that might impact determinism.\n"
+          deprecated: true
         object:
           enum:
             - chat.completion

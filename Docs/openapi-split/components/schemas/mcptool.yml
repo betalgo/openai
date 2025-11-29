@@ -5,7 +5,6 @@ components:
       required:
         - type
         - server_label
-        - server_url
       type: object
       properties:
         type:
@@ -19,67 +18,62 @@ components:
           description: "A label for this MCP server, used to identify it in tool calls.\n"
         server_url:
           type: string
-          description: "The URL for the MCP server.\n"
+          description: "The URL for the MCP server. One of `server_url` or `connector_id` must be\nprovided.\n"
+        connector_id:
+          enum:
+            - connector_dropbox
+            - connector_gmail
+            - connector_googlecalendar
+            - connector_googledrive
+            - connector_microsoftteams
+            - connector_outlookcalendar
+            - connector_outlookemail
+            - connector_sharepoint
+          type: string
+          description: "Identifier for service connectors, like those available in ChatGPT. One of\n`server_url` or `connector_id` must be provided. Learn more about service\nconnectors [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).\n\nCurrently supported `connector_id` values are:\n\n- Dropbox: `connector_dropbox`\n- Gmail: `connector_gmail`\n- Google Calendar: `connector_googlecalendar`\n- Google Drive: `connector_googledrive`\n- Microsoft Teams: `connector_microsoftteams`\n- Outlook Calendar: `connector_outlookcalendar`\n- Outlook Email: `connector_outlookemail`\n- SharePoint: `connector_sharepoint`\n"
+        authorization:
+          type: string
+          description: "An OAuth access token that can be used with a remote MCP server, either\nwith a custom MCP server URL or a service connector. Your application\nmust handle the OAuth authorization flow and provide the token here.\n"
         server_description:
           type: string
           description: "Optional description of the MCP server, used to provide more context.\n"
         headers:
-          type: object
-          additionalProperties:
-            type: string
-          description: "Optional HTTP headers to send to the MCP server. Use for authentication\nor other purposes.\n"
-          nullable: true
-        allowed_tools:
-          oneOf:
-            - title: MCP allowed tools
-              type: array
-              items:
+          anyOf:
+            - type: object
+              additionalProperties:
                 type: string
-              description: A string array of allowed tool names
-            - title: MCP allowed tools filter
-              type: object
-              properties:
-                tool_names:
-                  title: MCP allowed tools
+              description: "Optional HTTP headers to send to the MCP server. Use for authentication\nor other purposes.\n"
+            - nullable: true
+        allowed_tools:
+          anyOf:
+            - anyOf:
+                - title: MCP allowed tools
                   type: array
                   items:
                     type: string
-                  description: List of allowed tool names.
-              additionalProperties: false
-              description: "A filter object to specify which tools are allowed.\n"
-          description: "List of allowed tool names or a filter object.\n"
-          nullable: true
+                  description: A string array of allowed tool names
+                - $ref: '#/components/schemas/MCPToolFilter'
+              description: "List of allowed tool names or a filter object.\n"
+            - nullable: true
         require_approval:
-          oneOf:
-            - title: MCP tool approval filter
-              type: object
-              properties:
-                always:
+          anyOf:
+            - anyOf:
+                - title: MCP tool approval filter
                   type: object
                   properties:
-                    tool_names:
-                      type: array
-                      items:
-                        type: string
-                      description: List of tools that require approval.
-                  description: "A list of tools that always require approval.\n"
-                never:
-                  type: object
-                  properties:
-                    tool_names:
-                      type: array
-                      items:
-                        type: string
-                      description: List of tools that do not require approval.
-                  description: "A list of tools that never require approval.\n"
-              additionalProperties: false
-            - title: MCP tool approval setting
-              enum:
-                - always
-                - never
-              type: string
-              description: "Specify a single approval policy for all tools. One of `always` or \n`never`. When set to `always`, all tools will require approval. When \nset to `never`, all tools will not require approval.\n"
-          description: Specify which of the MCP server's tools require approval.
-          default: always
-          nullable: true
-      description: "Give the model access to additional tools via remote Model Context Protocol \n(MCP) servers. [Learn more about MCP](/docs/guides/tools-remote-mcp).\n"
+                    always:
+                      $ref: '#/components/schemas/MCPToolFilter'
+                    never:
+                      $ref: '#/components/schemas/MCPToolFilter'
+                  additionalProperties: false
+                  description: "Specify which of the MCP server's tools require approval. Can be\n`always`, `never`, or a filter object associated with tools\nthat require approval.\n"
+                - title: MCP tool approval setting
+                  enum:
+                    - always
+                    - never
+                  type: string
+                  description: "Specify a single approval policy for all tools. One of `always` or\n`never`. When set to `always`, all tools will require approval. When\nset to `never`, all tools will not require approval.\n"
+              description: Specify which of the MCP server's tools require approval.
+              default: always
+            - nullable: true
+      description: "Give the model access to additional tools via remote Model Context Protocol\n(MCP) servers. [Learn more about MCP](https://platform.openai.com/docs/guides/tools-remote-mcp).\n"

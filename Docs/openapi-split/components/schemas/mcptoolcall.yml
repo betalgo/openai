@@ -29,11 +29,20 @@ components:
           type: string
           description: "A JSON string of the arguments passed to the tool.\n"
         output:
-          type: string
-          description: "The output from the tool call.\n"
-          nullable: true
+          anyOf:
+            - type: string
+              description: "The output from the tool call.\n"
+            - nullable: true
         error:
-          type: string
-          description: "The error from the tool call, if any.\n"
-          nullable: true
+          anyOf:
+            - type: string
+              description: "The error from the tool call, if any.\n"
+            - nullable: true
+        status:
+          $ref: '#/components/schemas/MCPToolCallStatus'
+        approval_request_id:
+          anyOf:
+            - type: string
+              description: "Unique identifier for the MCP tool call approval request.\nInclude this value in a subsequent `mcp_approval_response` input to approve or reject the corresponding tool call.\n"
+            - nullable: true
       description: "An invocation of a tool on an MCP server.\n"

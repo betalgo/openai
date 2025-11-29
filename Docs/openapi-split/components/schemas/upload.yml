@@ -10,6 +10,7 @@ components:
         - id
         - purpose
         - status
+        - object
       type: object
       properties:
         id:
@@ -26,7 +27,7 @@ components:
           description: The intended number of bytes to be uploaded.
         purpose:
           type: string
-          description: 'The intended purpose of the file. [Please refer here](/docs/api-reference/files/object#files/object-purpose) for acceptable values.'
+          description: 'The intended purpose of the file. [Please refer here](https://platform.openai.com/docs/api-reference/files/object#files/object-purpose) for acceptable values.'
         status:
           enum:
             - pending

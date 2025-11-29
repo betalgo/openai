@@ -29,6 +29,7 @@ components:
             - type: object
               additionalProperties: { }
               description: A JSON schema object describing the parameters of the function.
+              x-oaiTypeLabel: map
             - nullable: true
         strict:
           anyOf:

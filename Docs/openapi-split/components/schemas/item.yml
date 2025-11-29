@@ -2,7 +2,7 @@ components:
   schemas:
     Item:
       type: object
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/InputMessage'
         - $ref: '#/components/schemas/OutputMessage'
         - $ref: '#/components/schemas/FileSearchToolCall'
@@ -16,10 +16,16 @@ components:
         - $ref: '#/components/schemas/CodeInterpreterToolCall'
         - $ref: '#/components/schemas/LocalShellToolCall'
         - $ref: '#/components/schemas/LocalShellToolCallOutput'
+        - $ref: '#/components/schemas/FunctionShellCallItemParam'
+        - $ref: '#/components/schemas/FunctionShellCallOutputItemParam'
+        - $ref: '#/components/schemas/ApplyPatchToolCallItemParam'
+        - $ref: '#/components/schemas/ApplyPatchToolCallOutputItemParam'
         - $ref: '#/components/schemas/MCPListTools'
         - $ref: '#/components/schemas/MCPApprovalRequest'
         - $ref: '#/components/schemas/MCPApprovalResponse'
         - $ref: '#/components/schemas/MCPToolCall'
+        - $ref: '#/components/schemas/CustomToolCallOutput'
+        - $ref: '#/components/schemas/CustomToolCall'
       description: "Content item used to generate a response.\n"
       discriminator:
         propertyName: type

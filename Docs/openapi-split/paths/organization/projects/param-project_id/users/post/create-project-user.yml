@@ -3,7 +3,8 @@ paths:
     post:
       tags:
         - Projects
-      summary: Adds a user to the project. Users must already be members of the organization to be added to a project.
+      summary: Create project user
+      description: Adds a user to the project. Users must already be members of the organization to be added to a project.
       operationId: create-project-user
       parameters:
         - name: project_id
@@ -35,7 +36,7 @@ paths:
       x-oaiMeta:
         name: Create project user
         group: administration
-        returns: 'The created [ProjectUser](/docs/api-reference/project-users/object) object.'
+        returns: 'The created [ProjectUser](https://platform.openai.com/docs/api-reference/project-users/object) object.'
         examples:
           response: "{\n    \"object\": \"organization.project.user\",\n    \"id\": \"user_abc\",\n    \"email\": \"user@example.com\",\n    \"role\": \"owner\",\n    \"added_at\": 1711471533\n}\n"
           request:

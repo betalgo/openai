@@ -18,15 +18,7 @@ components:
           description: 'The object type, which is always `thread.run.step.delta`.'
           x-stainless-const: true
         delta:
-          type: object
-          properties:
-            step_details:
-              type: object
-              oneOf:
-                - $ref: '#/components/schemas/RunStepDeltaStepDetailsMessageCreationObject'
-                - $ref: '#/components/schemas/RunStepDeltaStepDetailsToolCallsObject'
-              description: The details of the run step.
-          description: The delta containing the fields that have changed on the run step.
+          $ref: '#/components/schemas/RunStepDeltaObjectDelta'
       description: "Represents a run step delta i.e. any changed fields on a run step during streaming.\n"
       x-oaiMeta:
         name: The run step delta object

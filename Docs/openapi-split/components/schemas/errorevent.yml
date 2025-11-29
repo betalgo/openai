@@ -13,6 +13,6 @@ components:
           x-stainless-const: true
         data:
           $ref: '#/components/schemas/Error'
-      description: 'Occurs when an [error](/docs/guides/error-codes#api-errors) occurs. This can happen due to an internal server error or a timeout.'
+      description: 'Occurs when an [error](https://platform.openai.com/docs/guides/error-codes#api-errors) occurs. This can happen due to an internal server error or a timeout.'
       x-oaiMeta:
         dataDescription: '`data` is an [error](/docs/guides/error-codes#api-errors)'

@@ -1,7 +1,7 @@
 components:
   schemas:
     AssistantToolsFileSearchTypeOnly:
-      title: FileSearch tool
+      title: AssistantToolsFileSearchTypeOnly
       required:
         - type
       type: object

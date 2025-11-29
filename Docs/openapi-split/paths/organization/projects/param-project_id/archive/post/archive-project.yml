@@ -3,7 +3,8 @@ paths:
     post:
       tags:
         - Projects
-      summary: Archives a project in the organization. Archived projects cannot be used or updated.
+      summary: Archive project
+      description: Archives a project in the organization. Archived projects cannot be used or updated.
       operationId: archive-project
       parameters:
         - name: project_id
@@ -22,7 +23,7 @@ paths:
       x-oaiMeta:
         name: Archive project
         group: administration
-        returns: 'The archived [Project](/docs/api-reference/projects/object) object.'
+        returns: 'The archived [Project](https://platform.openai.com/docs/api-reference/projects/object) object.'
         examples:
           response: "{\n    \"id\": \"proj_abc\",\n    \"object\": \"organization.project\",\n    \"name\": \"Project DEF\",\n    \"created_at\": 1711471533,\n    \"archived_at\": 1711471533,\n    \"status\": \"archived\"\n}\n"
           request:

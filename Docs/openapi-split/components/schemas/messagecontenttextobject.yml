@@ -25,7 +25,5 @@ components:
             annotations:
               type: array
               items:
-                oneOf:
-                  - $ref: '#/components/schemas/MessageContentTextAnnotationsFileCitationObject'
-                  - $ref: '#/components/schemas/MessageContentTextAnnotationsFilePathObject'
+                $ref: '#/components/schemas/TextAnnotation'
       description: The text content that is part of a message.

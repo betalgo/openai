@@ -1,0 +1,29 @@
+components:
+  schemas:
+    RealtimeBetaServerEventResponseMCPCallCompleted:
+      required:
+        - event_id
+        - type
+        - output_index
+        - item_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.mcp_call.completed
+          description: 'The event type, must be `response.mcp_call.completed`.'
+          x-stainless-const: true
+        output_index:
+          type: integer
+          description: The index of the output item in the response.
+        item_id:
+          type: string
+          description: The ID of the MCP tool call item.
+      description: Returned when an MCP tool call has completed successfully.
+      x-oaiMeta:
+        name: response.mcp_call.completed
+        group: realtime
+        example: "{\n    \"event_id\": \"event_6302\",\n    \"type\": \"response.mcp_call.completed\",\n    \"output_index\": 0,\n    \"item_id\": \"mcp_call_001\"\n}\n"

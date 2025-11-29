@@ -1,0 +1,70 @@
+components:
+  schemas:
+    RealtimeTranscriptionSessionCreateResponseGA:
+      title: Realtime transcription session configuration object
+      required:
+        - type
+        - id
+        - object
+      type: object
+      properties:
+        type:
+          enum:
+            - transcription
+          type: string
+          description: "The type of session. Always `transcription` for transcription sessions.\n"
+          x-stainless-const: true
+        id:
+          type: string
+          description: "Unique identifier for the session that looks like `sess_1234567890abcdef`.\n"
+        object:
+          type: string
+          description: The object type. Always `realtime.transcription_session`.
+        expires_at:
+          type: integer
+          description: 'Expiration timestamp for the session, in seconds since epoch.'
+        include:
+          type: array
+          items:
+            enum:
+              - item.input_audio_transcription.logprobs
+            type: string
+          description: "Additional fields to include in server outputs.\n- `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.\n"
+        audio:
+          type: object
+          properties:
+            input:
+              type: object
+              properties:
+                format:
+                  $ref: '#/components/schemas/RealtimeAudioFormats'
+                transcription:
+                  $ref: '#/components/schemas/AudioTranscription'
+                noise_reduction:
+                  type: object
+                  properties:
+                    type:
+                      $ref: '#/components/schemas/NoiseReductionType'
+                  description: "Configuration for input audio noise reduction.\n"
+                turn_detection:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: "Type of turn detection, only `server_vad` is currently supported.\n"
+                    threshold:
+                      type: number
+                      description: "Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A\nhigher threshold will require louder audio to activate the model, and\nthus might perform better in noisy environments.\n"
+                    prefix_padding_ms:
+                      type: integer
+                      description: "Amount of audio to include before the VAD detected speech (in\nmilliseconds). Defaults to 300ms.\n"
+                    silence_duration_ms:
+                      type: integer
+                      description: "Duration of silence to detect speech stop (in milliseconds). Defaults\nto 500ms. With shorter values the model will respond more quickly,\nbut may jump in on short pauses from the user.\n"
+                  description: "Configuration for turn detection. Can be set to `null` to turn off. Server\nVAD means that the model will detect the start and end of speech based on\naudio volume and respond at the end of user speech.\n"
+          description: "Configuration for input audio for the session.\n"
+      description: "A Realtime transcription session configuration object.\n"
+      x-oaiMeta:
+        name: The transcription session object
+        group: realtime
+        example: "{\n  \"id\": \"sess_BBwZc7cFV3XizEyKGDCGL\",\n  \"type\": \"transcription\",\n  \"object\": \"realtime.transcription_session\",\n  \"expires_at\": 1742188264,\n  \"include\": [\"item.input_audio_transcription.logprobs\"],\n  \"audio\": {\n    \"input\": {\n      \"format\": \"pcm16\",\n      \"transcription\": {\n        \"model\": \"gpt-4o-transcribe\",\n        \"language\": null,\n        \"prompt\": \"\"\n      },\n      \"noise_reduction\": null,\n      \"turn_detection\": {\n        \"type\": \"server_vad\",\n        \"threshold\": 0.5,\n        \"prefix_padding_ms\": 300,\n        \"silence_duration_ms\": 200\n      }\n    }\n  }\n}\n"

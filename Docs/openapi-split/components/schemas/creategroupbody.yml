@@ -1,0 +1,15 @@
+components:
+  schemas:
+    CreateGroupBody:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: Human readable name for the group.
+      description: Request payload for creating a new group in the organization.
+      x-oaiMeta:
+        example: "{\n    \"name\": \"Support Team\"\n}\n"

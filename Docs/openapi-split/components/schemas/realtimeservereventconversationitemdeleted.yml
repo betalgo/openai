@@ -13,7 +13,6 @@ components:
         type:
           enum:
             - conversation.item.deleted
-          type: string
           description: 'The event type, must be `conversation.item.deleted`.'
           x-stainless-const: true
         item_id:

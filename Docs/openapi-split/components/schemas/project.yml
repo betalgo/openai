@@ -25,9 +25,10 @@ components:
           type: integer
           description: The Unix timestamp (in seconds) of when the project was created.
         archived_at:
-          type: integer
-          description: The Unix timestamp (in seconds) of when the project was archived or `null`.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) of when the project was archived or `null`.
+            - nullable: true
         status:
           enum:
             - active

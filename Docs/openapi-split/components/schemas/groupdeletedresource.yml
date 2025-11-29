@@ -1,0 +1,24 @@
+components:
+  schemas:
+    GroupDeletedResource:
+      required:
+        - object
+        - id
+        - deleted
+      type: object
+      properties:
+        object:
+          enum:
+            - group.deleted
+          type: string
+          description: Always `group.deleted`.
+          x-stainless-const: true
+        id:
+          type: string
+          description: Identifier of the deleted group.
+        deleted:
+          type: boolean
+          description: Whether the group was deleted.
+      description: Confirmation payload returned after deleting a group.
+      x-oaiMeta:
+        example: "{\n    \"object\": \"group.deleted\",\n    \"id\": \"group_01J1F8ABCDXYZ\",\n    \"deleted\": true\n}\n"

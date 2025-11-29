@@ -14,7 +14,6 @@ components:
         type:
           enum:
             - input_audio_buffer.speech_stopped
-          type: string
           description: 'The event type, must be `input_audio_buffer.speech_stopped`.'
           x-stainless-const: true
         audio_end_ms:

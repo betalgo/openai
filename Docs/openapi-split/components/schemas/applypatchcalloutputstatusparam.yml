@@ -1,0 +1,9 @@
+components:
+  schemas:
+    ApplyPatchCallOutputStatusParam:
+      title: Apply patch call output status
+      enum:
+        - completed
+        - failed
+      type: string
+      description: Outcome values reported for apply_patch tool call outputs.

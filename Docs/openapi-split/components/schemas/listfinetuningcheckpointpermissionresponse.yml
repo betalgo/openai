@@ -17,10 +17,12 @@ components:
           type: string
           x-stainless-const: true
         first_id:
-          type: string
-          nullable: true
+          anyOf:
+            - type: string
+            - nullable: true
         last_id:
-          type: string
-          nullable: true
+          anyOf:
+            - type: string
+            - nullable: true
         has_more:
           type: boolean

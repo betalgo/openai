@@ -1,0 +1,40 @@
+components:
+  schemas:
+    CreateTranscriptionResponseDiarizedJson:
+      required:
+        - task
+        - duration
+        - text
+        - segments
+      type: object
+      properties:
+        task:
+          enum:
+            - transcribe
+          type: string
+          description: The type of task that was run. Always `transcribe`.
+          x-stainless-const: true
+        duration:
+          type: number
+          description: Duration of the input audio in seconds.
+        text:
+          type: string
+          description: The concatenated transcript text for the entire audio input.
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptionDiarizedSegment'
+          description: Segments of the transcript annotated with timestamps and speaker labels.
+        usage:
+          type: object
+          anyOf:
+            - $ref: '#/components/schemas/TranscriptTextUsageTokens'
+            - $ref: '#/components/schemas/TranscriptTextUsageDuration'
+          description: Token or duration usage statistics for the request.
+          discriminator:
+            propertyName: type
+      description: "Represents a diarized transcription response returned by the model, including the combined transcript and speaker-segment annotations.\n"
+      x-oaiMeta:
+        name: The transcription object (Diarized JSON)
+        group: audio
+        example: "{\n  \"task\": \"transcribe\",\n  \"duration\": 42.7,\n  \"text\": \"Agent: Thanks for calling OpenAI support.\\nCustomer: Hi, I need help with diarization.\",\n  \"segments\": [\n    {\n      \"type\": \"transcript.text.segment\",\n      \"id\": \"seg_001\",\n      \"start\": 0.0,\n      \"end\": 5.2,\n      \"text\": \"Thanks for calling OpenAI support.\",\n      \"speaker\": \"agent\"\n    },\n    {\n      \"type\": \"transcript.text.segment\",\n      \"id\": \"seg_002\",\n      \"start\": 5.2,\n      \"end\": 12.8,\n      \"text\": \"Hi, I need help with diarization.\",\n      \"speaker\": \"A\"\n    }\n  ],\n  \"usage\": {\n    \"type\": \"duration\",\n    \"seconds\": 43\n  }\n}\n"

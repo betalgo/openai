@@ -1,0 +1,17 @@
+components:
+  schemas:
+    InviteProjectGroupBody:
+      required:
+        - group_id
+        - role
+      type: object
+      properties:
+        group_id:
+          type: string
+          description: Identifier of the group to add to the project.
+        role:
+          type: string
+          description: Identifier of the project role to grant to the group.
+      description: Request payload for granting a group access to a project.
+      x-oaiMeta:
+        example: "{\n    \"group_id\": \"group_01J1F8ABCDXYZ\",\n    \"role\": \"role_01J1F8PROJ\"\n}\n"

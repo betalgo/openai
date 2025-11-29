@@ -1,0 +1,10 @@
+components:
+  schemas:
+    ComputerEnvironment:
+      enum:
+        - windows
+        - mac
+        - linux
+        - ubuntu
+        - browser
+      type: string

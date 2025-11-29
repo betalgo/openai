@@ -24,8 +24,8 @@ components:
         acknowledged_safety_checks:
           type: array
           items:
-            $ref: '#/components/schemas/ComputerToolCallSafetyCheck'
-          description: "The safety checks reported by the API that have been acknowledged by the \ndeveloper.\n"
+            $ref: '#/components/schemas/ComputerCallSafetyCheckParam'
+          description: "The safety checks reported by the API that have been acknowledged by the\ndeveloper.\n"
         output:
           $ref: '#/components/schemas/ComputerScreenshotImage'
         status:

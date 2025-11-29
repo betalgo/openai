@@ -30,9 +30,11 @@ components:
               type: array
               items:
                 type: object
-                oneOf:
+                anyOf:
                   - $ref: '#/components/schemas/RunStepDetailsToolCallsCodeOutputLogsObject'
                   - $ref: '#/components/schemas/RunStepDetailsToolCallsCodeOutputImageObject'
+                discriminator:
+                  propertyName: type
               description: 'The outputs from the Code Interpreter tool call. Code Interpreter can output one or more items, including text (`logs`) or images (`image`). Each of these are represented by a different object type.'
           description: The Code Interpreter tool call definition.
       description: Details of the Code Interpreter tool call the run step was involved in.

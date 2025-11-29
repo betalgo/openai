@@ -17,7 +17,8 @@ components:
           type: string
           description: "The label of the MCP server to use.\n"
         name:
-          type: string
-          description: "The name of the tool to call on the server.\n"
-          nullable: true
+          anyOf:
+            - type: string
+              description: "The name of the tool to call on the server.\n"
+            - nullable: true
       description: "Use this option to force the model to call a specific tool on a remote MCP server.\n"

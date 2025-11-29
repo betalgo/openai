@@ -1,0 +1,12 @@
+components:
+  schemas:
+    ChatSessionRateLimits:
+      title: Rate limits
+      required:
+        - max_requests_per_1_minute
+      type: object
+      properties:
+        max_requests_per_1_minute:
+          type: integer
+          description: Maximum allowed requests per one-minute window.
+      description: Active per-minute request limit for the session.

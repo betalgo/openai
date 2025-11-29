@@ -1,0 +1,9 @@
+components:
+  schemas:
+    RunStepDeltaStepDetailsToolCall:
+      anyOf:
+        - $ref: '#/components/schemas/RunStepDeltaStepDetailsToolCallsCodeObject'
+        - $ref: '#/components/schemas/RunStepDeltaStepDetailsToolCallsFileSearchObject'
+        - $ref: '#/components/schemas/RunStepDeltaStepDetailsToolCallsFunctionObject'
+      discriminator:
+        propertyName: type

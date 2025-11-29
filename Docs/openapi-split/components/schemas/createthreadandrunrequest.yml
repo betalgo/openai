@@ -7,13 +7,19 @@ components:
       properties:
         assistant_id:
           type: string
-          description: 'The ID of the [assistant](/docs/api-reference/assistants) to use to execute this run.'
+          description: 'The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to execute this run.'
         thread:
           $ref: '#/components/schemas/CreateThreadRequest'
         model:
           anyOf:
             - type: string
             - enum:
+                - gpt-5
+                - gpt-5-mini
+                - gpt-5-nano
+                - gpt-5-2025-08-07
+                - gpt-5-mini-2025-08-07
+                - gpt-5-nano-2025-08-07
                 - gpt-4.1
                 - gpt-4.1-mini
                 - gpt-4.1-nano
@@ -47,9 +53,8 @@ components:
                 - gpt-3.5-turbo-0125
                 - gpt-3.5-turbo-16k-0613
               type: string
-          description: 'The ID of the [Model](/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.'
+          description: 'The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.'
           nullable: true
-          example: gpt-4o
           x-oaiTypeLabel: string
         instructions:
           type: string
@@ -59,10 +64,7 @@ components:
           maxItems: 20
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/AssistantToolsCode'
-              - $ref: '#/components/schemas/AssistantToolsFileSearch'
-              - $ref: '#/components/schemas/AssistantToolsFunction'
+            $ref: '#/components/schemas/AssistantTool'
           description: Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis.
         tool_resources:
           type: object
@@ -75,7 +77,7 @@ components:
                   type: array
                   items:
                     type: string
-                  description: "A list of [file](/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.\n"
+                  description: "A list of [file](https://platform.openai.com/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.\n"
                   default: [ ]
             file_search:
               type: object
@@ -85,7 +87,7 @@ components:
                   type: array
                   items:
                     type: string
-                  description: "The ID of the [vector store](/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.\n"
+                  description: "The ID of the [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.\n"
           description: "A set of resources that are used by the assistant's tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.\n"
           nullable: true
         metadata:

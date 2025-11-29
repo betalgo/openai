@@ -44,23 +44,12 @@ components:
           description: The Unix timestamp (in seconds) for when the run was created.
         thread_id:
           type: string
-          description: 'The ID of the [thread](/docs/api-reference/threads) that was executed on as a part of this run.'
+          description: 'The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was executed on as a part of this run.'
         assistant_id:
           type: string
-          description: 'The ID of the [assistant](/docs/api-reference/assistants) used for execution of this run.'
+          description: 'The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for execution of this run.'
         status:
-          enum:
-            - queued
-            - in_progress
-            - requires_action
-            - cancelling
-            - cancelled
-            - failed
-            - completed
-            - incomplete
-            - expired
-          type: string
-          description: 'The status of the run, which can be either `queued`, `in_progress`, `requires_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`.'
+          $ref: '#/components/schemas/RunStatus'
         required_action:
           required:
             - type
@@ -137,19 +126,16 @@ components:
           nullable: true
         model:
           type: string
-          description: 'The model that the [assistant](/docs/api-reference/assistants) used for this run.'
+          description: 'The model that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.'
         instructions:
           type: string
-          description: 'The instructions that the [assistant](/docs/api-reference/assistants) used for this run.'
+          description: 'The instructions that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.'
         tools:
           maxItems: 20
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/AssistantToolsCode'
-              - $ref: '#/components/schemas/AssistantToolsFileSearch'
-              - $ref: '#/components/schemas/AssistantToolsFunction'
-          description: 'The list of tools that the [assistant](/docs/api-reference/assistants) used for this run.'
+            $ref: '#/components/schemas/AssistantTool'
+          description: 'The list of tools that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.'
           default: [ ]
         metadata:
           $ref: '#/components/schemas/Metadata'
@@ -185,7 +171,7 @@ components:
           $ref: '#/components/schemas/ParallelToolCalls'
         response_format:
           $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
-      description: 'Represents an execution run on a [thread](/docs/api-reference/threads).'
+      description: 'Represents an execution run on a [thread](https://platform.openai.com/docs/api-reference/threads).'
       x-oaiMeta:
         name: The run object
         beta: true

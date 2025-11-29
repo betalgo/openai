@@ -1,7 +1,7 @@
 components:
   schemas:
     CreateEvalResponsesRunDataSource:
-      title: ResponsesRunDataSource
+      title: CreateEvalResponsesRunDataSource
       required:
         - type
         - source
@@ -14,7 +14,7 @@ components:
           description: The type of run data source. Always `responses`.
           default: responses
         input_messages:
-          oneOf:
+          anyOf:
             - title: InputMessagesTemplate
               required:
                 - type
@@ -29,7 +29,7 @@ components:
                 template:
                   type: array
                   items:
-                    oneOf:
+                    anyOf:
                       - title: ChatMessage
                         required:
                           - role
@@ -59,9 +59,13 @@ components:
                   type: string
                   description: 'A reference to a variable in the `item` namespace. Ie, "item.name"'
           description: 'Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input_trajectory`), or a template with variable references to the `item` namespace.'
+          discriminator:
+            propertyName: type
         sampling_params:
           type: object
           properties:
+            reasoning_effort:
+              $ref: '#/components/schemas/ReasoningEffort'
             temperature:
               type: number
               description: A higher temperature increases randomness in the outputs.
@@ -81,22 +85,24 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Tool'
-              description: "An array of tools the model may call while generating a response. You\ncan specify which tool to use by setting the `tool_choice` parameter.\n\nThe two categories of tools you can provide the model are:\n\n- **Built-in tools**: Tools that are provided by OpenAI that extend the\n  model's capabilities, like [web search](/docs/guides/tools-web-search)\n  or [file search](/docs/guides/tools-file-search). Learn more about\n  [built-in tools](/docs/guides/tools).\n- **Function calls (custom tools)**: Functions that are defined by you,\n  enabling the model to call your own code. Learn more about\n  [function calling](/docs/guides/function-calling).\n"
+              description: "An array of tools the model may call while generating a response. You\ncan specify which tool to use by setting the `tool_choice` parameter.\n\nThe two categories of tools you can provide the model are:\n\n- **Built-in tools**: Tools that are provided by OpenAI that extend the\n  model's capabilities, like [web search](https://platform.openai.com/docs/guides/tools-web-search)\n  or [file search](https://platform.openai.com/docs/guides/tools-file-search). Learn more about\n  [built-in tools](https://platform.openai.com/docs/guides/tools).\n- **Function calls (custom tools)**: Functions that are defined by you,\n  enabling the model to call your own code. Learn more about\n  [function calling](https://platform.openai.com/docs/guides/function-calling).\n"
             text:
               type: object
               properties:
                 format:
                   $ref: '#/components/schemas/TextResponseFormatConfiguration'
-              description: "Configuration options for a text response from the model. Can be plain\ntext or structured JSON data. Learn more:\n- [Text inputs and outputs](/docs/guides/text)\n- [Structured Outputs](/docs/guides/structured-outputs)\n"
+              description: "Configuration options for a text response from the model. Can be plain\ntext or structured JSON data. Learn more:\n- [Text inputs and outputs](https://platform.openai.com/docs/guides/text)\n- [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)\n"
         model:
           type: string
           description: The name of the model to use for generating completions (e.g. "o3-mini").
         source:
-          oneOf:
+          anyOf:
             - $ref: '#/components/schemas/EvalJsonlFileContentSource'
             - $ref: '#/components/schemas/EvalJsonlFileIdSource'
             - $ref: '#/components/schemas/EvalResponsesSource'
           description: Determines what populates the `item` namespace in this run's data source.
+          discriminator:
+            propertyName: type
       description: "A ResponsesRunDataSource object describing a model sampling configuration.\n"
       x-oaiMeta:
         name: The completions data source object used to configure an individual run

@@ -16,16 +16,18 @@ components:
           description: "The type of the event. Always `error`.\n"
           x-stainless-const: true
         code:
-          type: string
-          description: "The error code.\n"
-          nullable: true
+          anyOf:
+            - type: string
+              description: "The error code.\n"
+            - nullable: true
         message:
           type: string
           description: "The error message.\n"
         param:
-          type: string
-          description: "The error parameter.\n"
-          nullable: true
+          anyOf:
+            - type: string
+              description: "The error parameter.\n"
+            - nullable: true
         sequence_number:
           type: integer
           description: The sequence number of this event.

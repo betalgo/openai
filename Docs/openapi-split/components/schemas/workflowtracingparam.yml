@@ -1,0 +1,10 @@
+components:
+  schemas:
+    WorkflowTracingParam:
+      title: Tracing Configuration
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Whether tracing is enabled during the session. Defaults to true.
+      description: Controls diagnostic tracing during the session.

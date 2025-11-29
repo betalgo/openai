@@ -5,11 +5,26 @@ components:
         - api_key.created
         - api_key.updated
         - api_key.deleted
-        - checkpoint_permission.created
-        - checkpoint_permission.deleted
+        - certificate.created
+        - certificate.updated
+        - certificate.deleted
+        - certificates.activated
+        - certificates.deactivated
+        - checkpoint.permission.created
+        - checkpoint.permission.deleted
+        - external_key.registered
+        - external_key.removed
+        - group.created
+        - group.updated
+        - group.deleted
         - invite.sent
         - invite.accepted
         - invite.deleted
+        - ip_allowlist.created
+        - ip_allowlist.updated
+        - ip_allowlist.deleted
+        - ip_allowlist.config.activated
+        - ip_allowlist.config.deactivated
         - login.succeeded
         - login.failed
         - logout.succeeded
@@ -18,11 +33,20 @@ components:
         - project.created
         - project.updated
         - project.archived
+        - project.deleted
+        - rate_limit.updated
+        - rate_limit.deleted
+        - resource.deleted
+        - role.created
+        - role.updated
+        - role.deleted
+        - role.assignment.created
+        - role.assignment.deleted
+        - scim.enabled
+        - scim.disabled
         - service_account.created
         - service_account.updated
         - service_account.deleted
-        - rate_limit.updated
-        - rate_limit.deleted
         - user.added
         - user.updated
         - user.deleted

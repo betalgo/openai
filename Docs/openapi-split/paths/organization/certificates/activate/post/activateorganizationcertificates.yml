@@ -3,7 +3,8 @@ paths:
     post:
       tags:
         - Certificates
-      summary: "Activate certificates at the organization level.\n\nYou can atomically and idempotently activate up to 10 certificates at a time.\n"
+      summary: Activate certificates for organization
+      description: "Activate certificates at the organization level.\n\nYou can atomically and idempotently activate up to 10 certificates at a time.\n"
       operationId: activateOrganizationCertificates
       requestBody:
         description: The certificate activation payload.
@@ -22,7 +23,7 @@ paths:
       x-oaiMeta:
         name: Activate certificates for organization
         group: administration
-        returns: 'A list of [Certificate](/docs/api-reference/certificates/object) objects that were activated.'
+        returns: 'A list of [Certificate](https://platform.openai.com/docs/api-reference/certificates/object) objects that were activated.'
         examples:
           request:
             curl: "curl https://api.openai.com/v1/organization/certificates/activate \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"data\": [\"cert_abc\", \"cert_def\"]\n}'\n"

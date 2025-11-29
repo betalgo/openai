@@ -27,7 +27,8 @@ components:
             $ref: '#/components/schemas/MCPListToolsTool'
           description: "The tools available on the server.\n"
         error:
-          type: string
-          description: "Error message if the server could not list tools.\n"
-          nullable: true
+          anyOf:
+            - type: string
+              description: "Error message if the server could not list tools.\n"
+            - nullable: true
       description: "A list of tools available on an MCP server.\n"

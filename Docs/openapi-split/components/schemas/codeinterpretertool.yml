@@ -14,9 +14,9 @@ components:
           description: "The type of the code interpreter tool. Always `code_interpreter`.\n"
           x-stainless-const: true
         container:
-          oneOf:
+          anyOf:
             - type: string
               description: The container ID.
-            - $ref: '#/components/schemas/CodeInterpreterToolAuto'
+            - $ref: '#/components/schemas/CodeInterpreterContainerAuto'
           description: "The code interpreter container. Can be a container ID or an object that\nspecifies uploaded file IDs to make available to your code.\n"
       description: "A tool that runs Python code to help generate a response to a prompt.\n"

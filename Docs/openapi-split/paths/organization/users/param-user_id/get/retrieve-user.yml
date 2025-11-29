@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Users
-      summary: Retrieves a user by their identifier.
+      summary: Retrieve user
+      description: Retrieves a user by their identifier.
       operationId: retrieve-user
       parameters:
         - name: user_id
@@ -22,7 +23,7 @@ paths:
       x-oaiMeta:
         name: Retrieve user
         group: administration
-        returns: 'The [User](/docs/api-reference/users/object) object matching the specified ID.'
+        returns: 'The [User](https://platform.openai.com/docs/api-reference/users/object) object matching the specified ID.'
         examples:
           response: "{\n    \"object\": \"organization.user\",\n    \"id\": \"user_abc\",\n    \"name\": \"First Last\",\n    \"email\": \"user@example.com\",\n    \"role\": \"owner\",\n    \"added_at\": 1711471533\n}\n"
           request:

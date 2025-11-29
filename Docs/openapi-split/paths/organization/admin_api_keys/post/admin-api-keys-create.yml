@@ -1,8 +1,8 @@
 paths:
   /organization/admin_api_keys:
     post:
-      summary: Create an organization admin API key
-      description: Create a new admin-level API key for the organization.
+      summary: Create admin API key
+      description: Create an organization admin API key
       operationId: admin-api-keys-create
       requestBody:
         content:
@@ -26,7 +26,7 @@ paths:
       x-oaiMeta:
         name: Create admin API key
         group: administration
-        returns: 'The created [AdminApiKey](/docs/api-reference/admin-api-keys/object) object.'
+        returns: 'The created [AdminApiKey](https://platform.openai.com/docs/api-reference/admin-api-keys/object) object.'
         examples:
           response: "{\n  \"object\": \"organization.admin_api_key\",\n  \"id\": \"key_xyz\",\n  \"name\": \"New Admin Key\",\n  \"redacted_value\": \"sk-admin...xyz\",\n  \"created_at\": 1711471533,\n  \"last_used_at\": 1711471534,\n  \"owner\": {\n    \"type\": \"user\",\n    \"object\": \"organization.user\",\n    \"id\": \"user_123\",\n    \"name\": \"John Doe\",\n    \"created_at\": 1711471533,\n    \"role\": \"owner\"\n  },\n  \"value\": \"sk-admin-1234abcd\"\n}\n"
           request:

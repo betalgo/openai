@@ -1,7 +1,7 @@
 components:
   schemas:
     TranscriptTextUsageDuration:
-      title: Duration Usage
+      title: TranscriptTextUsageDuration
       required:
         - type
         - seconds

@@ -6,7 +6,7 @@ components:
       type: object
       properties:
         query:
-          oneOf:
+          anyOf:
             - type: string
             - type: array
               items:
@@ -25,7 +25,7 @@ components:
           description: The maximum number of results to return. This number should be between 1 and 50 inclusive.
           default: 10
         filters:
-          oneOf:
+          anyOf:
             - $ref: '#/components/schemas/ComparisonFilter'
             - $ref: '#/components/schemas/CompoundFilter'
           description: A filter to apply based on file attributes.
@@ -34,9 +34,11 @@ components:
           properties:
             ranker:
               enum:
+                - none
                 - auto
                 - default-2024-11-15
               type: string
+              description: 'Enable re-ranking; set to `none` to disable, which can help reduce latency.'
               default: auto
             score_threshold:
               maximum: 1

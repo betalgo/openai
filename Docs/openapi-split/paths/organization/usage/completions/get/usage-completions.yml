@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Usage
-      summary: Get completions usage details for the organization.
+      summary: Completions
+      description: Get completions usage details for the organization.
       operationId: usage-completions
       parameters:
         - name: start_time
@@ -62,7 +63,7 @@ paths:
             type: boolean
         - name: group_by
           in: query
-          description: 'Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch` or any combination of them.'
+          description: 'Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `batch`, `service_tier` or any combination of them.'
           schema:
             type: array
             items:
@@ -72,6 +73,7 @@ paths:
                 - api_key_id
                 - model
                 - batch
+                - service_tier
               type: string
         - name: limit
           in: query
@@ -93,8 +95,8 @@ paths:
       x-oaiMeta:
         name: Completions
         group: usage-completions
-        returns: 'A list of paginated, time bucketed [Completions usage](/docs/api-reference/usage/completions_object) objects.'
+        returns: 'A list of paginated, time bucketed [Completions usage](https://platform.openai.com/docs/api-reference/usage/completions_object) objects.'
         examples:
-          response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.usage.completions.result\",\n                    \"input_tokens\": 1000,\n                    \"output_tokens\": 500,\n                    \"input_cached_tokens\": 800,\n                    \"input_audio_tokens\": 0,\n                    \"output_audio_tokens\": 0,\n                    \"num_model_requests\": 5,\n                    \"project_id\": null,\n                    \"user_id\": null,\n                    \"api_key_id\": null,\n                    \"model\": null,\n                    \"batch\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": true,\n    \"next_page\": \"page_AAAAAGdGxdEiJdKOAAAAAGcqsYA=\"\n}\n"
+          response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.usage.completions.result\",\n                    \"input_tokens\": 1000,\n                    \"output_tokens\": 500,\n                    \"input_cached_tokens\": 800,\n                    \"input_audio_tokens\": 0,\n                    \"output_audio_tokens\": 0,\n                    \"num_model_requests\": 5,\n                    \"project_id\": null,\n                    \"user_id\": null,\n                    \"api_key_id\": null,\n                    \"model\": null,\n                    \"batch\": null,\n                    \"service_tier\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": true,\n    \"next_page\": \"page_AAAAAGdGxdEiJdKOAAAAAGcqsYA=\"\n}\n"
           request:
             curl: "curl \"https://api.openai.com/v1/organization/usage/completions?start_time=1730419200&limit=1\" \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n-H \"Content-Type: application/json\"\n"

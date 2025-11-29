@@ -22,11 +22,12 @@ components:
           type: string
           description: "A JSON string of the output of the local shell tool call.\n"
         status:
-          enum:
-            - in_progress
-            - completed
-            - incomplete
-          type: string
-          description: "The status of the item. One of `in_progress`, `completed`, or `incomplete`.\n"
-          nullable: true
+          anyOf:
+            - enum:
+                - in_progress
+                - completed
+                - incomplete
+              type: string
+              description: "The status of the item. One of `in_progress`, `completed`, or `incomplete`.\n"
+            - nullable: true
       description: "The output of a local shell tool call.\n"

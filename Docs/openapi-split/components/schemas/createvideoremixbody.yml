@@ -1,0 +1,14 @@
+components:
+  schemas:
+    CreateVideoRemixBody:
+      title: Create video remix request
+      required:
+        - prompt
+      type: object
+      properties:
+        prompt:
+          maxLength: 32000
+          minLength: 1
+          type: string
+          description: Updated text prompt that directs the remix generation.
+      description: Parameters for remixing an existing generated video.

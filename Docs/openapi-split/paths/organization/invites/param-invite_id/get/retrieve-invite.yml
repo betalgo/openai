@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Invites
-      summary: Retrieves an invite.
+      summary: Retrieve invite
+      description: Retrieves an invite.
       operationId: retrieve-invite
       parameters:
         - name: invite_id
@@ -22,7 +23,7 @@ paths:
       x-oaiMeta:
         name: Retrieve invite
         group: administration
-        returns: 'The [Invite](/docs/api-reference/invite/object) object matching the specified ID.'
+        returns: 'The [Invite](https://platform.openai.com/docs/api-reference/invite/object) object matching the specified ID.'
         examples:
           response: "{\n    \"object\": \"organization.invite\",\n    \"id\": \"invite-abc\",\n    \"email\": \"user@example.com\",\n    \"role\": \"owner\",\n    \"status\": \"accepted\",\n    \"invited_at\": 1711471533,\n    \"expires_at\": 1711471533,\n    \"accepted_at\": 1711471533\n}\n"
           request:

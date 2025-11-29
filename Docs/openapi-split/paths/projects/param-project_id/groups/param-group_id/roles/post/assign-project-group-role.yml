@@ -1,0 +1,43 @@
+paths:
+  '/projects/{project_id}/groups/{group_id}/roles':
+    post:
+      tags:
+        - Project group role assignments
+      summary: Assign project role to group
+      description: Assigns a project role to a group within a project.
+      operationId: assign-project-group-role
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project to update.
+          required: true
+          schema:
+            type: string
+        - name: group_id
+          in: path
+          description: The ID of the group that should receive the project role.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Identifies the project role to assign to the group.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicAssignOrganizationGroupRoleBody'
+        required: true
+      responses:
+        '200':
+          description: Project role assigned to the group successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupRoleAssignment'
+      x-oaiMeta:
+        name: Assign project role to group
+        group: administration
+        returns: 'The created [group role object](https://platform.openai.com/docs/api-reference/role-assignments/objects/group).'
+        examples:
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/projects/proj_abc123/groups/group_01J1F8ABCDXYZ/roles \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      \"role_id\": \"role_01J1F8PROJ\"\n  }'\n"
+          response: "{\n    \"object\": \"group.role\",\n    \"group\": {\n        \"object\": \"group\",\n        \"id\": \"group_01J1F8ABCDXYZ\",\n        \"name\": \"Support Team\",\n        \"created_at\": 1711471533,\n        \"scim_managed\": false\n    },\n    \"role\": {\n        \"object\": \"role\",\n        \"id\": \"role_01J1F8PROJ\",\n        \"name\": \"API Project Key Manager\",\n        \"description\": \"Allows managing API keys for the project\",\n        \"permissions\": [\n            \"api.organization.projects.api_keys.read\",\n            \"api.organization.projects.api_keys.write\"\n        ],\n        \"resource_type\": \"api.project\",\n        \"predefined_role\": false\n    }\n}\n"

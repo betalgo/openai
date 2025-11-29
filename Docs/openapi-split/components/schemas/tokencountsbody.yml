@@ -1,0 +1,62 @@
+components:
+  schemas:
+    TokenCountsBody:
+      type: object
+      properties:
+        model:
+          anyOf:
+            - type: string
+              description: 'Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the [model guide](https://platform.openai.com/docs/models) to browse and compare available models.'
+            - nullable: true
+        input:
+          anyOf:
+            - anyOf:
+                - maxLength: 10485760
+                  type: string
+                  description: 'A text input to the model, equivalent to a text input with the `user` role.'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/InputItem'
+              description: 'Text, image, or file inputs to the model, used to generate a response'
+            - nullable: true
+        previous_response_id:
+          anyOf:
+            - type: string
+              description: 'The unique ID of the previous response to the model. Use this to create multi-turn conversations. Learn more about [conversation state](https://platform.openai.com/docs/guides/conversation-state). Cannot be used in conjunction with `conversation`.'
+              example: resp_123
+            - nullable: true
+        tools:
+          anyOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/Tool'
+              description: An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.
+            - nullable: true
+        text:
+          anyOf:
+            - $ref: '#/components/schemas/ResponseTextParam'
+            - nullable: true
+        reasoning:
+          anyOf:
+            - $ref: '#/components/schemas/Reasoning'
+            - nullable: true
+        truncation:
+          $ref: '#/components/schemas/TruncationEnum'
+        instructions:
+          anyOf:
+            - type: string
+              description: "A system (or developer) message inserted into the model's context.\nWhen used along with `previous_response_id`, the instructions from a previous response will not be carried over to the next response. This makes it simple to swap out system (or developer) messages in new responses."
+            - nullable: true
+        conversation:
+          anyOf:
+            - $ref: '#/components/schemas/ConversationParam'
+            - nullable: true
+        tool_choice:
+          anyOf:
+            - $ref: '#/components/schemas/ToolChoiceParam'
+            - nullable: true
+        parallel_tool_calls:
+          anyOf:
+            - type: boolean
+              description: Whether to allow the model to run tool calls in parallel.
+            - nullable: true

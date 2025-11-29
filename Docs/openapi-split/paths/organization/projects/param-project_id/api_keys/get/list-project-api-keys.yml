@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Projects
-      summary: Returns a list of API keys in the project.
+      summary: List project API keys
+      description: Returns a list of API keys in the project.
       operationId: list-project-api-keys
       parameters:
         - name: project_id
@@ -33,7 +34,7 @@ paths:
       x-oaiMeta:
         name: List project API keys
         group: administration
-        returns: 'A list of [ProjectApiKey](/docs/api-reference/project-api-keys/object) objects.'
+        returns: 'A list of [ProjectApiKey](https://platform.openai.com/docs/api-reference/project-api-keys/object) objects.'
         examples:
           response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"object\": \"organization.project.api_key\",\n            \"redacted_value\": \"sk-abc...def\",\n            \"name\": \"My API Key\",\n            \"created_at\": 1711471533,\n            \"last_used_at\": 1711471534,\n            \"id\": \"key_abc\",\n            \"owner\": {\n                \"type\": \"user\",\n                \"user\": {\n                    \"object\": \"organization.project.user\",\n                    \"id\": \"user_abc\",\n                    \"name\": \"First Last\",\n                    \"email\": \"user@example.com\",\n                    \"role\": \"owner\",\n                    \"added_at\": 1711471533\n                }\n            }\n        }\n    ],\n    \"first_id\": \"key_abc\",\n    \"last_id\": \"key_xyz\",\n    \"has_more\": false\n}\n"
           request:

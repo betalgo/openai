@@ -28,4 +28,7 @@ components:
                 - mp3
               type: string
               description: "The format of the encoded audio data. Currently supports \"wav\" and \"mp3\".\n"
-      description: "Learn about [audio inputs](/docs/guides/audio).\n"
+      description: "Learn about [audio inputs](https://platform.openai.com/docs/guides/audio).\n"
+      x-stainless-naming:
+        go:
+          variant_constructor: InputAudioContentPart

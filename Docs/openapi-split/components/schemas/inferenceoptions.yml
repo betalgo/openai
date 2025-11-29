@@ -1,0 +1,19 @@
+components:
+  schemas:
+    InferenceOptions:
+      title: Inference options
+      required:
+        - tool_choice
+        - model
+      type: object
+      properties:
+        tool_choice:
+          anyOf:
+            - $ref: '#/components/schemas/ToolChoice'
+            - nullable: true
+        model:
+          anyOf:
+            - type: string
+              description: Model name that generated the response. Defaults to null when using the session default.
+            - nullable: true
+      description: Model and tool overrides applied when generating the assistant response.

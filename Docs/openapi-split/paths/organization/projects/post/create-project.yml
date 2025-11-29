@@ -3,7 +3,8 @@ paths:
     post:
       tags:
         - Projects
-      summary: 'Create a new project in the organization. Projects can be created and archived, but cannot be deleted.'
+      summary: Create project
+      description: 'Create a new project in the organization. Projects can be created and archived, but cannot be deleted.'
       operationId: create-project
       requestBody:
         description: The project create request payload.
@@ -22,7 +23,7 @@ paths:
       x-oaiMeta:
         name: Create project
         group: administration
-        returns: 'The created [Project](/docs/api-reference/projects/object) object.'
+        returns: 'The created [Project](https://platform.openai.com/docs/api-reference/projects/object) object.'
         examples:
           response: "{\n    \"id\": \"proj_abc\",\n    \"object\": \"organization.project\",\n    \"name\": \"Project ABC\",\n    \"created_at\": 1711471533,\n    \"archived_at\": null,\n    \"status\": \"active\"\n}\n"
           request:

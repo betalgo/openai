@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Usage
-      summary: Get costs details for the organization.
+      summary: Costs
+      description: Get costs details for the organization.
       operationId: usage-costs
       parameters:
         - name: start_time
@@ -63,7 +64,7 @@ paths:
       x-oaiMeta:
         name: Costs
         group: usage-costs
-        returns: 'A list of paginated, time bucketed [Costs](/docs/api-reference/usage/costs_object) objects.'
+        returns: 'A list of paginated, time bucketed [Costs](https://platform.openai.com/docs/api-reference/usage/costs_object) objects.'
         examples:
           response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.costs.result\",\n                    \"amount\": {\n                        \"value\": 0.06,\n                        \"currency\": \"usd\"\n                    },\n                    \"line_item\": null,\n                    \"project_id\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": false,\n    \"next_page\": null\n}\n"
           request:

@@ -13,7 +13,6 @@ components:
         - $ref: '#/components/schemas/RealtimeClientEventResponseCancel'
         - $ref: '#/components/schemas/RealtimeClientEventResponseCreate'
         - $ref: '#/components/schemas/RealtimeClientEventSessionUpdate'
-        - $ref: '#/components/schemas/RealtimeClientEventTranscriptionSessionUpdate'
       description: "A realtime client event.\n"
       discriminator:
         propertyName: type

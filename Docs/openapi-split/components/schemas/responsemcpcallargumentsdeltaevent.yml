@@ -23,8 +23,8 @@ components:
           type: string
           description: The unique identifier of the MCP tool call item being processed.
         delta:
-          type: object
-          description: The partial update to the arguments for the MCP tool call.
+          type: string
+          description: "A JSON string containing the partial update to the arguments for the MCP tool call.\n"
         sequence_number:
           type: integer
           description: The sequence number of this event.
@@ -32,4 +32,4 @@ components:
       x-oaiMeta:
         name: response.mcp_call_arguments.delta
         group: responses
-        example: "{\n  \"type\": \"response.mcp_call_arguments.delta\",\n  \"output_index\": 0,\n  \"item_id\": \"item-abc\",\n  \"delta\": {\n    \"arg1\": \"new_value1\",\n    \"arg2\": \"new_value2\"\n  },\n  \"sequence_number\": 1\n}\n"
+        example: "{\n  \"type\": \"response.mcp_call_arguments.delta\",\n  \"output_index\": 0,\n  \"item_id\": \"item-abc\",\n  \"delta\": \"{\",\n  \"sequence_number\": 1\n}\n"

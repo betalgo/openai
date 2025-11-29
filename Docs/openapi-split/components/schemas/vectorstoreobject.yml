@@ -66,13 +66,15 @@ components:
         expires_after:
           $ref: '#/components/schemas/VectorStoreExpirationAfter'
         expires_at:
-          type: integer
-          description: The Unix timestamp (in seconds) for when the vector store will expire.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the vector store will expire.
+            - nullable: true
         last_active_at:
-          type: integer
-          description: The Unix timestamp (in seconds) for when the vector store was last active.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the vector store was last active.
+            - nullable: true
         metadata:
           $ref: '#/components/schemas/Metadata'
       description: A vector store is a collection of processed files can be used by the `file_search` tool.

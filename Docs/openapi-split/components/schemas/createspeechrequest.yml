@@ -15,7 +15,8 @@ components:
                 - tts-1-hd
                 - gpt-4o-mini-tts
               type: string
-          description: "One of the available [TTS models](/docs/models#tts): `tts-1`, `tts-1-hd` or `gpt-4o-mini-tts`.\n"
+              x-stainless-nominal: false
+          description: "One of the available [TTS models](https://platform.openai.com/docs/models#tts): `tts-1`, `tts-1-hd` or `gpt-4o-mini-tts`.\n"
           x-oaiTypeLabel: string
         input:
           maxLength: 4096

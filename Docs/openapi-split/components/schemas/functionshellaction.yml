@@ -1,0 +1,26 @@
+components:
+  schemas:
+    FunctionShellAction:
+      title: Shell exec action
+      required:
+        - commands
+        - timeout_ms
+        - max_output_length
+      type: object
+      properties:
+        commands:
+          type: array
+          items:
+            type: string
+            description: A list of commands to run.
+        timeout_ms:
+          anyOf:
+            - type: integer
+              description: Optional timeout in milliseconds for the commands.
+            - nullable: true
+        max_output_length:
+          anyOf:
+            - type: integer
+              description: Optional maximum number of characters to return from each command.
+            - nullable: true
+      description: Execute a shell command.

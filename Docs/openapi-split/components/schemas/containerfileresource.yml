@@ -16,6 +16,8 @@ components:
           type: string
           description: Unique identifier for the file.
         object:
+          enum:
+            - container.file
           type: string
           description: The type of this object (`container.file`).
         container_id:

@@ -16,21 +16,25 @@ components:
         metadata:
           $ref: '#/components/schemas/Metadata'
         model:
-          type: string
-          description: 'An optional model to filter by (e.g., ''gpt-4o'').'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'An optional model to filter by (e.g., ''gpt-4o'').'
+            - nullable: true
         created_after:
-          type: integer
-          description: An optional Unix timestamp to filter items created after this time.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: An optional Unix timestamp to filter items created after this time.
+            - nullable: true
         created_before:
-          type: integer
-          description: An optional Unix timestamp to filter items created before this time.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: An optional Unix timestamp to filter items created before this time.
+            - nullable: true
         limit:
-          type: integer
-          description: An optional maximum number of items to return.
-          nullable: true
+          anyOf:
+            - type: integer
+              description: An optional maximum number of items to return.
+            - nullable: true
       description: "A StoredCompletionsRunDataSource configuration describing a set of filters\n"
       x-oaiMeta:
         name: The stored completions data source object used to configure an individual run

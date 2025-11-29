@@ -15,9 +15,10 @@ components:
           type: integer
           description: The vector stores usage in bytes.
         project_id:
-          type: string
-          description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
+            - nullable: true
       description: The aggregated vector stores usage details of the specific time bucket.
       x-oaiMeta:
         name: Vector stores usage object

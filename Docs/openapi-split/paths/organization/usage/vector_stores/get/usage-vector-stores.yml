@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Usage
-      summary: Get vector stores usage details for the organization.
+      summary: Vector stores
+      description: Get vector stores usage details for the organization.
       operationId: usage-vector-stores
       parameters:
         - name: start_time
@@ -63,7 +64,7 @@ paths:
       x-oaiMeta:
         name: Vector stores
         group: usage-vector-stores
-        returns: 'A list of paginated, time bucketed [Vector stores usage](/docs/api-reference/usage/vector_stores_object) objects.'
+        returns: 'A list of paginated, time bucketed [Vector stores usage](https://platform.openai.com/docs/api-reference/usage/vector_stores_object) objects.'
         examples:
           response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.usage.vector_stores.result\",\n                    \"usage_bytes\": 1024,\n                    \"project_id\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": false,\n    \"next_page\": null\n}\n"
           request:

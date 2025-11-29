@@ -3,7 +3,8 @@ paths:
     delete:
       tags:
         - Users
-      summary: Deletes a user from the organization.
+      summary: Delete user
+      description: Deletes a user from the organization.
       operationId: delete-user
       parameters:
         - name: user_id

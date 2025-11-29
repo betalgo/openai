@@ -18,11 +18,13 @@ components:
             - fine-tune
             - vision
           type: string
-          description: "The intended purpose of the uploaded file.\n\nSee the [documentation on File purposes](/docs/api-reference/files/create#files-create-purpose).\n"
+          description: "The intended purpose of the uploaded file.\n\nSee the [documentation on File purposes](https://platform.openai.com/docs/api-reference/files/create#files-create-purpose).\n"
         bytes:
           type: integer
           description: "The number of bytes in the file you are uploading.\n"
         mime_type:
           type: string
           description: "The MIME type of the file.\n\nThis must fall within the supported MIME types for your file purpose. See the supported MIME types for assistants and vision.\n"
+        expires_after:
+          $ref: '#/components/schemas/FileExpirationAfter'
       additionalProperties: false

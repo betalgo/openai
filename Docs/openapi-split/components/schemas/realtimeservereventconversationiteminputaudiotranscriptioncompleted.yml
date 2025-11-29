@@ -21,7 +21,7 @@ components:
           x-stainless-const: true
         item_id:
           type: string
-          description: The ID of the user message item containing the audio.
+          description: The ID of the item containing the audio that is being transcribed.
         content_index:
           type: integer
           description: The index of the content part containing the audio.
@@ -29,19 +29,20 @@ components:
           type: string
           description: The transcribed text.
         logprobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/LogProbProperties'
-          description: The log probabilities of the transcription.
-          nullable: true
+          anyOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/LogProbProperties'
+              description: The log probabilities of the transcription.
+            - nullable: true
         usage:
           type: object
-          oneOf:
+          anyOf:
             - $ref: '#/components/schemas/TranscriptTextUsageTokens'
             - $ref: '#/components/schemas/TranscriptTextUsageDuration'
-          description: Usage statistics for the transcription.
-      description: "This event is the output of audio transcription for user audio written to the\nuser audio buffer. Transcription begins when the input audio buffer is\ncommitted by the client or server (in `server_vad` mode). Transcription runs\nasynchronously with Response creation, so this event may come before or after\nthe Response events.\n\nRealtime API models accept audio natively, and thus input transcription is a\nseparate process run on a separate ASR (Automatic Speech Recognition) model.\nThe transcript may diverge somewhat from the model's interpretation, and\nshould be treated as a rough guide.\n"
+          description: 'Usage statistics for the transcription, this is billed according to the ASR model''s pricing rather than the realtime model''s pricing.'
+      description: "This event is the output of audio transcription for user audio written to the\nuser audio buffer. Transcription begins when the input audio buffer is\ncommitted by the client or server (when VAD is enabled). Transcription runs\nasynchronously with Response creation, so this event may come before or after\nthe Response events.\n\nRealtime API models accept audio natively, and thus input transcription is a\nseparate process run on a separate ASR (Automatic Speech Recognition) model.\nThe transcript may diverge somewhat from the model's interpretation, and\nshould be treated as a rough guide.\n"
       x-oaiMeta:
         name: conversation.item.input_audio_transcription.completed
         group: realtime
-        example: "{\n    \"event_id\": \"event_2122\",\n    \"type\": \"conversation.item.input_audio_transcription.completed\",\n    \"item_id\": \"msg_003\",\n    \"content_index\": 0,\n    \"transcript\": \"Hello, how are you?\",\n    \"usage\": {\n      \"type\": \"tokens\",\n      \"total_tokens\": 48,\n      \"input_tokens\": 38,\n      \"input_token_details\": {\n        \"text_tokens\": 10,\n        \"audio_tokens\": 28,\n      },\n      \"output_tokens\": 10,\n    }\n}\n"
+        example: "{\n  \"type\": \"conversation.item.input_audio_transcription.completed\",\n  \"event_id\": \"event_CCXGRvtUVrax5SJAnNOWZ\",\n  \"item_id\": \"item_CCXGQ4e1ht4cOraEYcuR2\",\n  \"content_index\": 0,\n  \"transcript\": \"Hey, can you hear me?\",\n  \"usage\": {\n    \"type\": \"tokens\",\n    \"total_tokens\": 22,\n    \"input_tokens\": 13,\n    \"input_token_details\": {\n      \"text_tokens\": 0,\n      \"audio_tokens\": 13\n    },\n    \"output_tokens\": 9\n  }\n}\n"

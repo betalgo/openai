@@ -15,7 +15,6 @@ components:
         type:
           enum:
             - response.output_item.done
-          type: string
           description: 'The event type, must be `response.output_item.done`.'
           x-stainless-const: true
         response_id:

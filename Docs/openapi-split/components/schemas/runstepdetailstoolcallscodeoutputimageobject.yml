@@ -20,4 +20,9 @@ components:
           properties:
             file_id:
               type: string
-              description: 'The [file](/docs/api-reference/files) ID of the image.'
+              description: 'The [file](https://platform.openai.com/docs/api-reference/files) ID of the image.'
+      x-stainless-naming:
+        java:
+          type_name: ImageOutput
+        kotlin:
+          type_name: ImageOutput

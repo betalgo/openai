@@ -1,7 +1,7 @@
 components:
   schemas:
     EvalGraderScoreModel:
-      title: ScoreModelGrader
+      title: EvalGraderScoreModel
       type: object
       allOf:
         - $ref: '#/components/schemas/GraderScoreModel'

@@ -17,3 +17,8 @@ components:
           type: string
           description: The text output from the Code Interpreter tool call.
       description: Text output from the Code Interpreter tool call as part of a run step.
+      x-stainless-naming:
+        java:
+          type_name: LogsOutput
+        kotlin:
+          type_name: LogsOutput

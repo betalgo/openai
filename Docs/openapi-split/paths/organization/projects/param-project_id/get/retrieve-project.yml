@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Projects
-      summary: Retrieves a project.
+      summary: Retrieve project
+      description: Retrieves a project.
       operationId: retrieve-project
       parameters:
         - name: project_id
@@ -23,7 +24,7 @@ paths:
         name: Retrieve project
         group: administration
         description: Retrieve a project.
-        returns: 'The [Project](/docs/api-reference/projects/object) object matching the specified ID.'
+        returns: 'The [Project](https://platform.openai.com/docs/api-reference/projects/object) object matching the specified ID.'
         examples:
           response: "{\n    \"id\": \"proj_abc\",\n    \"object\": \"organization.project\",\n    \"name\": \"Project example\",\n    \"created_at\": 1711471533,\n    \"archived_at\": null,\n    \"status\": \"active\"\n}\n"
           request:

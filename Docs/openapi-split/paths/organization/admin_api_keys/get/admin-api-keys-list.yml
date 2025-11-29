@@ -1,8 +1,8 @@
 paths:
   /organization/admin_api_keys:
     get:
-      summary: List organization API keys
-      description: Retrieve a paginated list of organization admin API keys.
+      summary: List all organization and project API keys.
+      description: List organization API keys
       operationId: admin-api-keys-list
       parameters:
         - name: after

@@ -21,13 +21,15 @@ components:
               description: Lowercase ISO-4217 currency e.g. "usd"
           description: The monetary value in its associated currency.
         line_item:
-          type: string
-          description: 'When `group_by=line_item`, this field provides the line item of the grouped costs result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=line_item`, this field provides the line item of the grouped costs result.'
+            - nullable: true
         project_id:
-          type: string
-          description: 'When `group_by=project_id`, this field provides the project ID of the grouped costs result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=project_id`, this field provides the project ID of the grouped costs result.'
+            - nullable: true
       description: The aggregated costs details of the specific time bucket.
       x-oaiMeta:
         name: Costs object

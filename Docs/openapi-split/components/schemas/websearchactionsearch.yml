@@ -16,4 +16,25 @@ components:
         query:
           type: string
           description: "The search query.\n"
+        sources:
+          title: Web search sources
+          type: array
+          items:
+            title: Web search source
+            required:
+              - type
+              - url
+            type: object
+            properties:
+              type:
+                enum:
+                  - url
+                type: string
+                description: "The type of source. Always `url`.\n"
+                x-stainless-const: true
+              url:
+                type: string
+                description: "The URL of the source.\n"
+            description: "A source used in the search.\n"
+          description: "The sources used in the search.\n"
       description: "Action type \"search\" - Performs a web search query.\n"

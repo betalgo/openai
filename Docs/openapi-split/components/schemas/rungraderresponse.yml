@@ -58,13 +58,15 @@ components:
                 python_grader_server_error:
                   type: boolean
                 python_grader_server_error_type:
-                  type: string
-                  nullable: true
+                  anyOf:
+                    - type: string
+                    - nullable: true
                 python_grader_runtime_error:
                   type: boolean
                 python_grader_runtime_error_details:
-                  type: string
-                  nullable: true
+                  anyOf:
+                    - type: string
+                    - nullable: true
                 model_grader_server_error:
                   type: boolean
                 model_grader_refusal_error:
@@ -72,19 +74,22 @@ components:
                 model_grader_parse_error:
                   type: boolean
                 model_grader_server_error_details:
-                  type: string
-                  nullable: true
+                  anyOf:
+                    - type: string
+                    - nullable: true
             execution_time:
               type: number
             scores:
               type: object
               additionalProperties: { }
             token_usage:
-              type: integer
-              nullable: true
+              anyOf:
+                - type: integer
+                - nullable: true
             sampled_model_name:
-              type: string
-              nullable: true
+              anyOf:
+                - type: string
+                - nullable: true
         sub_rewards:
           type: object
           additionalProperties: { }

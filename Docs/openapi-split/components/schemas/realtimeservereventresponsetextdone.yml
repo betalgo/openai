@@ -16,9 +16,8 @@ components:
           description: The unique ID of the server event.
         type:
           enum:
-            - response.text.done
-          type: string
-          description: 'The event type, must be `response.text.done`.'
+            - response.output_text.done
+          description: 'The event type, must be `response.output_text.done`.'
           x-stainless-const: true
         response_id:
           type: string
@@ -35,8 +34,8 @@ components:
         text:
           type: string
           description: The final text content.
-      description: "Returned when the text value of a \"text\" content part is done streaming. Also\nemitted when a Response is interrupted, incomplete, or cancelled.\n"
+      description: "Returned when the text value of an \"output_text\" content part is done streaming. Also\nemitted when a Response is interrupted, incomplete, or cancelled.\n"
       x-oaiMeta:
-        name: response.text.done
+        name: response.output_text.done
         group: realtime
-        example: "{\n    \"event_id\": \"event_4344\",\n    \"type\": \"response.text.done\",\n    \"response_id\": \"resp_001\",\n    \"item_id\": \"msg_007\",\n    \"output_index\": 0,\n    \"content_index\": 0,\n    \"text\": \"Sure, I can help with that.\"\n}\n"
+        example: "{\n    \"event_id\": \"event_4344\",\n    \"type\": \"response.output_text.done\",\n    \"response_id\": \"resp_001\",\n    \"item_id\": \"msg_007\",\n    \"output_index\": 0,\n    \"content_index\": 0,\n    \"text\": \"Sure, I can help with that.\"\n}\n"

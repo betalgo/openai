@@ -15,7 +15,7 @@ components:
           description: 'The role of the messages author, in this case `tool`.'
           x-stainless-const: true
         content:
-          oneOf:
+          anyOf:
             - title: Text content
               type: string
               description: The contents of the tool message.
@@ -29,3 +29,6 @@ components:
         tool_call_id:
           type: string
           description: Tool call that this message is responding to.
+      x-stainless-naming:
+        go:
+          variant_constructor: ToolMessage

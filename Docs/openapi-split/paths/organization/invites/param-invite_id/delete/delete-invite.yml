@@ -3,7 +3,8 @@ paths:
     delete:
       tags:
         - Invites
-      summary: 'Delete an invite. If the invite has already been accepted, it cannot be deleted.'
+      summary: Delete invite
+      description: 'Delete an invite. If the invite has already been accepted, it cannot be deleted.'
       operationId: delete-invite
       parameters:
         - name: invite_id

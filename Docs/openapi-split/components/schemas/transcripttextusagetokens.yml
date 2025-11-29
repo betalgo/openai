@@ -1,7 +1,7 @@
 components:
   schemas:
     TranscriptTextUsageTokens:
-      title: Token Usage
+      title: TranscriptTextUsageTokens
       required:
         - type
         - input_tokens

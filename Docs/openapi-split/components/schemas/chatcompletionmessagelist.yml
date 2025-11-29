@@ -29,6 +29,15 @@ components:
                   id:
                     type: string
                     description: The identifier of the chat message.
+                  content_parts:
+                    anyOf:
+                      - type: array
+                        items:
+                          anyOf:
+                            - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartText'
+                            - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartImage'
+                        description: "If a content parts array was provided, this is an array of `text` and `image_url` parts.\nOtherwise, null.\n"
+                      - nullable: true
           description: "An array of chat completion message objects.\n"
         first_id:
           type: string

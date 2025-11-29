@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Certificates
-      summary: List certificates for this project.
+      summary: List project certificates
+      description: List certificates for this project.
       operationId: listProjectCertificates
       parameters:
         - name: project_id
@@ -42,7 +43,7 @@ paths:
       x-oaiMeta:
         name: List project certificates
         group: administration
-        returns: 'A list of [Certificate](/docs/api-reference/certificates/object) objects.'
+        returns: 'A list of [Certificate](https://platform.openai.com/docs/api-reference/certificates/object) objects.'
         examples:
           request:
             curl: "curl https://api.openai.com/v1/organization/projects/proj_abc/certificates \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\"\n"

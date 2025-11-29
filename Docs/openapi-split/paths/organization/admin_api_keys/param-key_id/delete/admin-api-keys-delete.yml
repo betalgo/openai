@@ -1,8 +1,8 @@
 paths:
   '/organization/admin_api_keys/{key_id}':
     delete:
-      summary: Delete an organization admin API key
-      description: Delete the specified admin API key.
+      summary: Delete admin API key
+      description: Delete an organization admin API key
       operationId: admin-api-keys-delete
       parameters:
         - name: key_id

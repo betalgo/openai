@@ -16,10 +16,12 @@ components:
         filters:
           type: array
           items:
-            oneOf:
+            anyOf:
               - $ref: '#/components/schemas/ComparisonFilter'
               - unrecognizedKeywords:
                   $recursiveRef: '#'
+            discriminator:
+              propertyName: type
           description: Array of filters to combine. Items can be `ComparisonFilter` or `CompoundFilter`.
       additionalProperties: false
       description: Combine multiple filters using `and` or `or`.

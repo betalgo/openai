@@ -16,9 +16,8 @@ components:
           description: The unique ID of the server event.
         type:
           enum:
-            - response.audio.delta
-          type: string
-          description: 'The event type, must be `response.audio.delta`.'
+            - response.output_audio.delta
+          description: 'The event type, must be `response.output_audio.delta`.'
           x-stainless-const: true
         response_id:
           type: string
@@ -37,6 +36,6 @@ components:
           description: Base64-encoded audio data delta.
       description: Returned when the model-generated audio is updated.
       x-oaiMeta:
-        name: response.audio.delta
+        name: response.output_audio.delta
         group: realtime
-        example: "{\n    \"event_id\": \"event_4950\",\n    \"type\": \"response.audio.delta\",\n    \"response_id\": \"resp_001\",\n    \"item_id\": \"msg_008\",\n    \"output_index\": 0,\n    \"content_index\": 0,\n    \"delta\": \"Base64EncodedAudioDelta\"\n}\n"
+        example: "{\n    \"event_id\": \"event_4950\",\n    \"type\": \"response.output_audio.delta\",\n    \"response_id\": \"resp_001\",\n    \"item_id\": \"msg_008\",\n    \"output_index\": 0,\n    \"content_index\": 0,\n    \"delta\": \"Base64EncodedAudioDelta\"\n}\n"

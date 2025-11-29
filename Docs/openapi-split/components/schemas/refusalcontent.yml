@@ -16,5 +16,5 @@ components:
           x-stainless-const: true
         refusal:
           type: string
-          description: The refusal explanationfrom the model.
+          description: The refusal explanation from the model.
       description: A refusal from the model.

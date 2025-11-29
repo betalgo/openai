@@ -1,0 +1,8 @@
+components:
+  schemas:
+    ImageDetail:
+      enum:
+        - low
+        - high
+        - auto
+      type: string

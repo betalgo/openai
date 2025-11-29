@@ -1,0 +1,24 @@
+components:
+  schemas:
+    PublicCreateOrganizationRoleBody:
+      required:
+        - role_name
+        - permissions
+      type: object
+      properties:
+        role_name:
+          type: string
+          description: Unique name for the role.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: Permissions to grant to the role.
+        description:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: Optional description of the role.
+      description: Request payload for creating a custom role.
+      x-oaiMeta:
+        example: "{\n    \"role_name\": \"API Group Manager\",\n    \"permissions\": [\n        \"api.groups.read\",\n        \"api.groups.write\"\n    ],\n    \"description\": \"Allows managing organization groups\"\n}\n"

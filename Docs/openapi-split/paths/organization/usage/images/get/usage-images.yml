@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Usage
-      summary: Get images usage details for the organization.
+      summary: Images
+      description: Get images usage details for the organization.
       operationId: usage-images
       parameters:
         - name: start_time
@@ -113,7 +114,7 @@ paths:
       x-oaiMeta:
         name: Images
         group: usage-images
-        returns: 'A list of paginated, time bucketed [Images usage](/docs/api-reference/usage/images_object) objects.'
+        returns: 'A list of paginated, time bucketed [Images usage](https://platform.openai.com/docs/api-reference/usage/images_object) objects.'
         examples:
           response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.usage.images.result\",\n                    \"images\": 2,\n                    \"num_model_requests\": 2,\n                    \"size\": null,\n                    \"source\": null,\n                    \"project_id\": null,\n                    \"user_id\": null,\n                    \"api_key_id\": null,\n                    \"model\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": false,\n    \"next_page\": null\n}\n"
           request:

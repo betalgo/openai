@@ -38,11 +38,12 @@ components:
           format: int64
           example: 1711471533
         last_used_at:
-          type: integer
-          description: The Unix timestamp (in seconds) of when the API key was last used
-          format: int64
-          nullable: true
-          example: 1711471534
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) of when the API key was last used
+              format: int64
+              example: 1711471534
+            - nullable: true
         owner:
           type: object
           properties:

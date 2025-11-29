@@ -23,11 +23,15 @@ components:
               description: "The name of the project that the new run will be created under.\n"
               example: my-wandb-project
             name:
-              type: string
-              description: "A display name to set for the run. If not set, we will use the Job ID as the name.\n"
+              anyOf:
+                - type: string
+                  description: "A display name to set for the run. If not set, we will use the Job ID as the name.\n"
+                - nullable: true
             entity:
-              type: string
-              description: "The entity to use for the run. This allows you to set the team or username of the WandB user that you would\nlike associated with the run. If not set, the default entity for the registered WandB API key is used.\n"
+              anyOf:
+                - type: string
+                  description: "The entity to use for the run. This allows you to set the team or username of the WandB user that you would\nlike associated with the run. If not set, the default entity for the registered WandB API key is used.\n"
+                - nullable: true
             tags:
               type: array
               items:

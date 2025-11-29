@@ -1,6 +1,7 @@
 components:
   schemas:
     ChatCompletionNamedToolChoice:
+      title: Function tool choice
       required:
         - type
         - function
@@ -10,7 +11,7 @@ components:
           enum:
             - function
           type: string
-          description: 'The type of the tool. Currently, only `function` is supported.'
+          description: 'For function calling, the type is always `function`.'
           x-stainless-const: true
         function:
           required:

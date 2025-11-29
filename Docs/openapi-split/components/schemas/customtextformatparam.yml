@@ -1,0 +1,16 @@
+components:
+  schemas:
+    CustomTextFormatParam:
+      title: Text format
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - text
+          type: string
+          description: Unconstrained text format. Always `text`.
+          default: text
+          x-stainless-const: true
+      description: Unconstrained free-form text.

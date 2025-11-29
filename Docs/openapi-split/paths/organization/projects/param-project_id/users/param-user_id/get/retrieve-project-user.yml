@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Projects
-      summary: Retrieves a user in the project.
+      summary: Retrieve project user
+      description: Retrieves a user in the project.
       operationId: retrieve-project-user
       parameters:
         - name: project_id
@@ -28,7 +29,7 @@ paths:
       x-oaiMeta:
         name: Retrieve project user
         group: administration
-        returns: 'The [ProjectUser](/docs/api-reference/project-users/object) object matching the specified ID.'
+        returns: 'The [ProjectUser](https://platform.openai.com/docs/api-reference/project-users/object) object matching the specified ID.'
         examples:
           response: "{\n    \"object\": \"organization.project.user\",\n    \"id\": \"user_abc\",\n    \"name\": \"First Last\",\n    \"email\": \"user@example.com\",\n    \"role\": \"owner\",\n    \"added_at\": 1711471533\n}\n"
           request:

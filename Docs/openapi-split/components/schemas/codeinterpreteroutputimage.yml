@@ -11,10 +11,10 @@ components:
           enum:
             - image
           type: string
-          description: The type of the output. Always 'image'.
+          description: The type of the output. Always `image`.
           default: image
           x-stainless-const: true
         url:
           type: string
           description: The URL of the image output from the code interpreter.
-      description: "The image output from the code interpreter.\n"
+      description: The image output from the code interpreter.

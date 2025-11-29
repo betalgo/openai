@@ -1,7 +1,7 @@
 components:
   schemas:
     Annotation:
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/FileCitationBody'
         - $ref: '#/components/schemas/UrlCitationBody'
         - $ref: '#/components/schemas/ContainerFileCitationBody'

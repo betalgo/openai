@@ -19,10 +19,5 @@ components:
             - $ref: '#/components/schemas/ApproximateLocation'
             - nullable: true
         search_context_size:
-          enum:
-            - low
-            - medium
-            - high
-          type: string
-          description: 'High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.'
+          $ref: '#/components/schemas/SearchContextSize'
       description: 'This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).'

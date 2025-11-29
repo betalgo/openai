@@ -12,6 +12,7 @@ components:
           anyOf:
             - type: string
               description: The unique ID of the function tool call output. Populated when this item is returned via API.
+              example: fc_123
             - nullable: true
         call_id:
           maxLength: 64
@@ -26,16 +27,21 @@ components:
           default: function_call_output
           x-stainless-const: true
         output:
-          maxLength: 10485760
-          type: string
-          description: A JSON string of the output of the function tool call.
+          anyOf:
+            - maxLength: 10485760
+              type: string
+              description: A JSON string of the output of the function tool call.
+            - type: array
+              items:
+                anyOf:
+                  - $ref: '#/components/schemas/InputTextContentParam'
+                  - $ref: '#/components/schemas/InputImageContentParamAutoParam'
+                  - $ref: '#/components/schemas/InputFileContentParam'
+                discriminator:
+                  propertyName: type
+          description: 'Text, image, or file output of the function tool call.'
         status:
           anyOf:
-            - enum:
-                - in_progress
-                - completed
-                - incomplete
-              type: string
-              description: 'The status of the item. One of `in_progress`, `completed`, or `incomplete`. Populated when items are returned via API.'
+            - $ref: '#/components/schemas/FunctionCallItemStatus'
             - nullable: true
       description: The output of a function tool call.

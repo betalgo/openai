@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Usage
-      summary: Get code interpreter sessions usage details for the organization.
+      summary: Code interpreter sessions
+      description: Get code interpreter sessions usage details for the organization.
       operationId: usage-code-interpreter-sessions
       parameters:
         - name: start_time
@@ -63,7 +64,7 @@ paths:
       x-oaiMeta:
         name: Code interpreter sessions
         group: usage-code-interpreter-sessions
-        returns: 'A list of paginated, time bucketed [Code interpreter sessions usage](/docs/api-reference/usage/code_interpreter_sessions_object) objects.'
+        returns: 'A list of paginated, time bucketed [Code interpreter sessions usage](https://platform.openai.com/docs/api-reference/usage/code_interpreter_sessions_object) objects.'
         examples:
           response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.usage.code_interpreter_sessions.result\",\n                    \"num_sessions\": 1,\n                    \"project_id\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": false,\n    \"next_page\": null\n}\n"
           request:

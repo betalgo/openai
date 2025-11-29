@@ -1,0 +1,35 @@
+paths:
+  '/chatkit/threads/{thread_id}':
+    delete:
+      summary: Delete ChatKit thread
+      description: Delete a ChatKit thread
+      operationId: DeleteThreadMethod
+      parameters:
+        - name: thread_id
+          in: path
+          description: Identifier of the ChatKit thread to delete.
+          required: true
+          schema:
+            type: string
+            example: cthr_123
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedThreadResource'
+      x-oaiMeta:
+        beta: true
+        examples:
+          response: ''
+          request:
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: 'My API Key',\n});\n\nconst thread = await client.beta.chatkit.threads.delete('cthr_123');\n\nconsole.log(thread.id);"
+            python: "from openai import OpenAI\n\nclient = OpenAI(\n    api_key=\"My API Key\",\n)\nthread = client.beta.chatkit.threads.delete(\n    \"cthr_123\",\n)\nprint(thread.id)"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"),\n  )\n  thread, err := client.Beta.ChatKit.Threads.Delete(context.TODO(), \"cthr_123\")\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", thread.ID)\n}\n"
+            java: "package com.openai.example;\n\nimport com.openai.client.OpenAIClient;\nimport com.openai.client.okhttp.OpenAIOkHttpClient;\nimport com.openai.models.beta.chatkit.threads.ThreadDeleteParams;\nimport com.openai.models.beta.chatkit.threads.ThreadDeleteResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        OpenAIClient client = OpenAIOkHttpClient.fromEnv();\n\n        ThreadDeleteResponse thread = client.beta().chatkit().threads().delete(\"cthr_123\");\n    }\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(api_key: \"My API Key\")\n\nthread = openai.beta.chatkit.threads.delete(\"cthr_123\")\n\nputs(thread)"
+        name: Delete ChatKit thread
+        group: chatkit
+        path: threads/delete
+        returns: Returns a confirmation object for the deleted thread.

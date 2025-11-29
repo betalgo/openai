@@ -32,27 +32,28 @@ components:
               index:
                 type: integer
               logprobs:
-                type: object
-                properties:
-                  text_offset:
-                    type: array
-                    items:
-                      type: integer
-                  token_logprobs:
-                    type: array
-                    items:
-                      type: number
-                  tokens:
-                    type: array
-                    items:
-                      type: string
-                  top_logprobs:
-                    type: array
-                    items:
-                      type: object
-                      additionalProperties:
-                        type: number
-                nullable: true
+                anyOf:
+                  - type: object
+                    properties:
+                      text_offset:
+                        type: array
+                        items:
+                          type: integer
+                      token_logprobs:
+                        type: array
+                        items:
+                          type: number
+                      tokens:
+                        type: array
+                        items:
+                          type: string
+                      top_logprobs:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties:
+                            type: number
+                  - nullable: true
               text:
                 type: string
           description: The list of completion choices the model generated for the input prompt.

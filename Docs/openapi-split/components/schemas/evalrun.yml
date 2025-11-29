@@ -83,6 +83,9 @@ components:
               model_name:
                 type: string
                 description: The name of the model.
+                x-stainless-naming:
+                  python:
+                    property_name: run_model_name
               invocation_count:
                 type: integer
                 description: The number of invocations.
@@ -120,11 +123,13 @@ components:
           description: Results per testing criteria applied during the evaluation run.
         data_source:
           type: object
-          oneOf:
+          anyOf:
             - $ref: '#/components/schemas/CreateEvalJsonlRunDataSource'
             - $ref: '#/components/schemas/CreateEvalCompletionsRunDataSource'
             - $ref: '#/components/schemas/CreateEvalResponsesRunDataSource'
           description: Information about the run's data source.
+          discriminator:
+            propertyName: type
         metadata:
           $ref: '#/components/schemas/Metadata'
         error:

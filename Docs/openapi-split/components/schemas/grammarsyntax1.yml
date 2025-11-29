@@ -1,0 +1,7 @@
+components:
+  schemas:
+    GrammarSyntax1:
+      enum:
+        - lark
+        - regex
+      type: string

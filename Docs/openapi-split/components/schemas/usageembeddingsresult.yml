@@ -19,21 +19,25 @@ components:
           type: integer
           description: The count of requests made to the model.
         project_id:
-          type: string
-          description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
+            - nullable: true
         user_id:
-          type: string
-          description: 'When `group_by=user_id`, this field provides the user ID of the grouped usage result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=user_id`, this field provides the user ID of the grouped usage result.'
+            - nullable: true
         api_key_id:
-          type: string
-          description: 'When `group_by=api_key_id`, this field provides the API key ID of the grouped usage result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=api_key_id`, this field provides the API key ID of the grouped usage result.'
+            - nullable: true
         model:
-          type: string
-          description: 'When `group_by=model`, this field provides the model name of the grouped usage result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=model`, this field provides the model name of the grouped usage result.'
+            - nullable: true
       description: The aggregated embeddings usage details of the specific time bucket.
       x-oaiMeta:
         name: Embeddings usage object

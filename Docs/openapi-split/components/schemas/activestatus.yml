@@ -1,0 +1,16 @@
+components:
+  schemas:
+    ActiveStatus:
+      title: Active thread status
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - active
+          type: string
+          description: Status discriminator that is always `active`.
+          default: active
+          x-stainless-const: true
+      description: Indicates that a thread is active.

@@ -1,7 +1,7 @@
 components:
   schemas:
     ItemResource:
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/InputMessageResource'
         - $ref: '#/components/schemas/OutputMessage'
         - $ref: '#/components/schemas/FileSearchToolCall'
@@ -14,6 +14,10 @@ components:
         - $ref: '#/components/schemas/CodeInterpreterToolCall'
         - $ref: '#/components/schemas/LocalShellToolCall'
         - $ref: '#/components/schemas/LocalShellToolCallOutput'
+        - $ref: '#/components/schemas/FunctionShellCall'
+        - $ref: '#/components/schemas/FunctionShellCallOutput'
+        - $ref: '#/components/schemas/ApplyPatchToolCall'
+        - $ref: '#/components/schemas/ApplyPatchToolCallOutput'
         - $ref: '#/components/schemas/MCPListTools'
         - $ref: '#/components/schemas/MCPApprovalRequest'
         - $ref: '#/components/schemas/MCPApprovalResponseResource'

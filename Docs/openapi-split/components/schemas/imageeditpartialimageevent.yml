@@ -1,0 +1,64 @@
+components:
+  schemas:
+    ImageEditPartialImageEvent:
+      required:
+        - type
+        - b64_json
+        - created_at
+        - size
+        - quality
+        - background
+        - output_format
+        - partial_image_index
+      type: object
+      properties:
+        type:
+          enum:
+            - image_edit.partial_image
+          type: string
+          description: "The type of the event. Always `image_edit.partial_image`.\n"
+          x-stainless-const: true
+        b64_json:
+          type: string
+          description: "Base64-encoded partial image data, suitable for rendering as an image.\n"
+        created_at:
+          type: integer
+          description: "The Unix timestamp when the event was created.\n"
+        size:
+          enum:
+            - 1024x1024
+            - 1024x1536
+            - 1536x1024
+            - auto
+          type: string
+          description: "The size of the requested edited image.\n"
+        quality:
+          enum:
+            - low
+            - medium
+            - high
+            - auto
+          type: string
+          description: "The quality setting for the requested edited image.\n"
+        background:
+          enum:
+            - transparent
+            - opaque
+            - auto
+          type: string
+          description: "The background setting for the requested edited image.\n"
+        output_format:
+          enum:
+            - png
+            - webp
+            - jpeg
+          type: string
+          description: "The output format for the requested edited image.\n"
+        partial_image_index:
+          type: integer
+          description: "0-based index for the partial image (streaming).\n"
+      description: "Emitted when a partial image is available during image editing streaming.\n"
+      x-oaiMeta:
+        name: image_edit.partial_image
+        group: images
+        example: "{\n  \"type\": \"image_edit.partial_image\",\n  \"b64_json\": \"...\",\n  \"created_at\": 1620000000,\n  \"size\": \"1024x1024\",\n  \"quality\": \"high\",\n  \"background\": \"transparent\",\n  \"output_format\": \"png\",\n  \"partial_image_index\": 0\n}\n"

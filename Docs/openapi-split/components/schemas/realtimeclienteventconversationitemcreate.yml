@@ -7,12 +7,12 @@ components:
       type: object
       properties:
         event_id:
+          maxLength: 512
           type: string
           description: Optional client-generated ID used to identify this event.
         type:
           enum:
             - conversation.item.create
-          type: string
           description: 'The event type, must be `conversation.item.create`.'
           x-stainless-const: true
         previous_item_id:
@@ -24,4 +24,4 @@ components:
       x-oaiMeta:
         name: conversation.item.create
         group: realtime
-        example: "{\n    \"event_id\": \"event_345\",\n    \"type\": \"conversation.item.create\",\n    \"previous_item_id\": null,\n    \"item\": {\n        \"id\": \"msg_001\",\n        \"type\": \"message\",\n        \"role\": \"user\",\n        \"content\": [\n            {\n                \"type\": \"input_text\",\n                \"text\": \"Hello, how are you?\"\n            }\n        ]\n    }\n}\n"
+        example: "{\n  \"type\": \"conversation.item.create\",\n  \"item\": {\n    \"type\": \"message\",\n    \"role\": \"user\",\n    \"content\": [\n      {\n        \"type\": \"input_text\",\n        \"text\": \"hi\"\n      }\n    ]\n  },\n  \"event_id\": \"b904fba0-0ec4-40af-8bbb-f908a9b26793\",\n}\n"

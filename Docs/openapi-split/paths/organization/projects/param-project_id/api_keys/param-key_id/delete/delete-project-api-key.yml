@@ -3,7 +3,8 @@ paths:
     delete:
       tags:
         - Projects
-      summary: Deletes an API key from the project.
+      summary: Delete project API key
+      description: Deletes an API key from the project.
       operationId: delete-project-api-key
       parameters:
         - name: project_id

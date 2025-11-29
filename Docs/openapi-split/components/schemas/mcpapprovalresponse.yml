@@ -16,9 +16,10 @@ components:
           description: "The type of the item. Always `mcp_approval_response`.\n"
           x-stainless-const: true
         id:
-          type: string
-          description: "The unique ID of the approval response\n"
-          nullable: true
+          anyOf:
+            - type: string
+              description: "The unique ID of the approval response\n"
+            - nullable: true
         approval_request_id:
           type: string
           description: "The ID of the approval request being answered.\n"
@@ -26,7 +27,8 @@ components:
           type: boolean
           description: "Whether the request was approved.\n"
         reason:
-          type: string
-          description: "Optional reason for the decision.\n"
-          nullable: true
+          anyOf:
+            - type: string
+              description: "Optional reason for the decision.\n"
+            - nullable: true
       description: "A response to an MCP approval request.\n"

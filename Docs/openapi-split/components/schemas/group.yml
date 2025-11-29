@@ -1,0 +1,34 @@
+components:
+  schemas:
+    Group:
+      required:
+        - object
+        - id
+        - name
+        - created_at
+        - scim_managed
+      type: object
+      properties:
+        object:
+          enum:
+            - group
+          type: string
+          description: Always `group`.
+          x-stainless-const: true
+        id:
+          type: string
+          description: Identifier for the group.
+        name:
+          type: string
+          description: Display name of the group.
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) when the group was created.
+          format: int64
+        scim_managed:
+          type: boolean
+          description: Whether the group is managed through SCIM.
+      description: Summary information about a group returned in role assignment responses.
+      x-oaiMeta:
+        name: The group object
+        example: "{\n    \"object\": \"group\",\n    \"id\": \"group_01J1F8ABCDXYZ\",\n    \"name\": \"Support Team\",\n    \"created_at\": 1711471533,\n    \"scim_managed\": false\n}\n"

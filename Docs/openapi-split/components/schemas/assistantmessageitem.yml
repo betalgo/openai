@@ -1,0 +1,42 @@
+components:
+  schemas:
+    AssistantMessageItem:
+      title: Assistant message
+      required:
+        - id
+        - object
+        - created_at
+        - thread_id
+        - type
+        - content
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the thread item.
+        object:
+          enum:
+            - chatkit.thread_item
+          type: string
+          description: Type discriminator that is always `chatkit.thread_item`.
+          default: chatkit.thread_item
+          x-stainless-const: true
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) for when the item was created.
+        thread_id:
+          type: string
+          description: Identifier of the parent thread.
+        type:
+          enum:
+            - chatkit.assistant_message
+          type: string
+          description: Type discriminator that is always `chatkit.assistant_message`.
+          default: chatkit.assistant_message
+          x-stainless-const: true
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseOutputText'
+          description: Ordered assistant response segments.
+      description: Assistant-authored message within a thread.

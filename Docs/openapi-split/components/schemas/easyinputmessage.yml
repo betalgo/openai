@@ -16,7 +16,7 @@ components:
           type: string
           description: "The role of the message input. One of `user`, `assistant`, `system`, or\n`developer`.\n"
         content:
-          oneOf:
+          anyOf:
             - title: Text input
               type: string
               description: "A text input to the model.\n"

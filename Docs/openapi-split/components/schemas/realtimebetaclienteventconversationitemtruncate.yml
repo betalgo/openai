@@ -1,0 +1,32 @@
+components:
+  schemas:
+    RealtimeBetaClientEventConversationItemTruncate:
+      required:
+        - type
+        - item_id
+        - content_index
+        - audio_end_ms
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - conversation.item.truncate
+          description: 'The event type, must be `conversation.item.truncate`.'
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: "The ID of the assistant message item to truncate. Only assistant message \nitems can be truncated.\n"
+        content_index:
+          type: integer
+          description: The index of the content part to truncate. Set this to 0.
+        audio_end_ms:
+          type: integer
+          description: "Inclusive duration up to which audio is truncated, in milliseconds. If \nthe audio_end_ms is greater than the actual audio duration, the server \nwill respond with an error.\n"
+      description: "Send this event to truncate a previous assistant message’s audio. The server \nwill produce audio faster than realtime, so this event is useful when the user \ninterrupts to truncate audio that has already been sent to the client but not \nyet played. This will synchronize the server's understanding of the audio with \nthe client's playback.\n\nTruncating audio will delete the server-side text transcript to ensure there \nis not text in the context that hasn't been heard by the user.\n\nIf successful, the server will respond with a `conversation.item.truncated` \nevent. \n"
+      x-oaiMeta:
+        name: conversation.item.truncate
+        group: realtime
+        example: "{\n    \"event_id\": \"event_678\",\n    \"type\": \"conversation.item.truncate\",\n    \"item_id\": \"msg_002\",\n    \"content_index\": 0,\n    \"audio_end_ms\": 1500\n}\n"

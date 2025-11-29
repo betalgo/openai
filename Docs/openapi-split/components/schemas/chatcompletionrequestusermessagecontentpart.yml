@@ -1,8 +1,10 @@
 components:
   schemas:
     ChatCompletionRequestUserMessageContentPart:
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartText'
         - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartImage'
         - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartAudio'
         - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartFile'
+      discriminator:
+        propertyName: type

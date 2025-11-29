@@ -28,6 +28,9 @@ components:
                 - low
                 - high
               type: string
-              description: 'Specifies the detail level of the image. Learn more in the [Vision guide](/docs/guides/vision#low-or-high-fidelity-image-understanding).'
+              description: 'Specifies the detail level of the image. Learn more in the [Vision guide](https://platform.openai.com/docs/guides/vision#low-or-high-fidelity-image-understanding).'
               default: auto
-      description: "Learn about [image inputs](/docs/guides/vision).\n"
+      description: "Learn about [image inputs](https://platform.openai.com/docs/guides/vision).\n"
+      x-stainless-naming:
+        go:
+          variant_constructor: ImageContentPart

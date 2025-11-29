@@ -17,7 +17,6 @@ components:
         type:
           enum:
             - response.content_part.added
-          type: string
           description: 'The event type, must be `response.content_part.added`.'
           x-stainless-const: true
         response_id:
@@ -37,8 +36,8 @@ components:
           properties:
             type:
               enum:
-                - audio
                 - text
+                - audio
               type: string
               description: 'The content type ("text", "audio").'
             text:

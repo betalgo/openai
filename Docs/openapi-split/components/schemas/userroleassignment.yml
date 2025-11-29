@@ -1,0 +1,23 @@
+components:
+  schemas:
+    UserRoleAssignment:
+      required:
+        - object
+        - user
+        - role
+      type: object
+      properties:
+        object:
+          enum:
+            - user.role
+          type: string
+          description: Always `user.role`.
+          x-stainless-const: true
+        user:
+          $ref: '#/components/schemas/User'
+        role:
+          $ref: '#/components/schemas/Role'
+      description: Role assignment linking a user to a role.
+      x-oaiMeta:
+        name: The user role object
+        example: "{\n    \"object\": \"user.role\",\n    \"user\": {\n        \"object\": \"organization.user\",\n        \"id\": \"user_abc123\",\n        \"name\": \"Ada Lovelace\",\n        \"email\": \"ada@example.com\",\n        \"role\": \"owner\",\n        \"added_at\": 1711470000\n    },\n    \"role\": {\n        \"object\": \"role\",\n        \"id\": \"role_01J1F8ROLE01\",\n        \"name\": \"API Group Manager\",\n        \"description\": \"Allows managing organization groups\",\n        \"permissions\": [\n            \"api.groups.read\",\n            \"api.groups.write\"\n        ],\n        \"resource_type\": \"api.organization\",\n        \"predefined_role\": false\n    }\n}\n"

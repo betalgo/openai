@@ -1,0 +1,25 @@
+components:
+  schemas:
+    RealtimeBetaServerEventMCPListToolsCompleted:
+      required:
+        - event_id
+        - type
+        - item_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - mcp_list_tools.completed
+          description: 'The event type, must be `mcp_list_tools.completed`.'
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The ID of the MCP list tools item.
+      description: Returned when listing MCP tools has completed for an item.
+      x-oaiMeta:
+        name: mcp_list_tools.completed
+        group: realtime
+        example: "{\n    \"event_id\": \"event_6102\",\n    \"type\": \"mcp_list_tools.completed\",\n    \"item_id\": \"mcp_list_tools_001\"\n}\n"

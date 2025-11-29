@@ -1,0 +1,32 @@
+components:
+  schemas:
+    InputImageContentParamAutoParam:
+      title: Input image
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - input_image
+          type: string
+          description: The type of the input item. Always `input_image`.
+          default: input_image
+          x-stainless-const: true
+        image_url:
+          anyOf:
+            - maxLength: 20971520
+              type: string
+              description: The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
+            - nullable: true
+        file_id:
+          anyOf:
+            - type: string
+              description: The ID of the file to be sent to the model.
+              example: file-123
+            - nullable: true
+        detail:
+          anyOf:
+            - $ref: '#/components/schemas/DetailEnum'
+            - nullable: true
+      description: 'An image input to the model. Learn about [image inputs](https://platform.openai.com/docs/guides/vision)'

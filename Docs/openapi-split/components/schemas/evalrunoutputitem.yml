@@ -46,9 +46,8 @@ components:
         results:
           type: array
           items:
-            type: object
-            description: A result object.
-          description: A list of results from the evaluation run.
+            $ref: '#/components/schemas/EvalRunOutputItemResult'
+          description: A list of grader results for this output item.
         sample:
           required:
             - input

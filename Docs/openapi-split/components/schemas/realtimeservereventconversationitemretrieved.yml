@@ -13,13 +13,12 @@ components:
         type:
           enum:
             - conversation.item.retrieved
-          type: string
           description: 'The event type, must be `conversation.item.retrieved`.'
           x-stainless-const: true
         item:
           $ref: '#/components/schemas/RealtimeConversationItem'
-      description: "Returned when a conversation item is retrieved with `conversation.item.retrieve`.\n"
+      description: "Returned when a conversation item is retrieved with `conversation.item.retrieve`. This is provided as a way to fetch the server's representation of an item, for example to get access to the post-processed audio data after noise cancellation and VAD. It includes the full content of the Item, including audio data.\n"
       x-oaiMeta:
         name: conversation.item.retrieved
         group: realtime
-        example: "{\n    \"event_id\": \"event_1920\",\n    \"type\": \"conversation.item.created\",\n    \"previous_item_id\": \"msg_002\",\n    \"item\": {\n        \"id\": \"msg_003\",\n        \"object\": \"realtime.item\",\n        \"type\": \"message\",\n        \"status\": \"completed\",\n        \"role\": \"user\",\n        \"content\": [\n            {\n                \"type\": \"input_audio\",\n                \"transcript\": \"hello how are you\",\n                \"audio\": \"base64encodedaudio==\"\n            }\n        ]\n    }\n}\n"
+        example: "{\n  \"type\": \"conversation.item.retrieved\",\n  \"event_id\": \"event_CCXGSizgEppa2d4XbKA7K\",\n  \"item\": {\n    \"id\": \"item_CCXGRxbY0n6WE4EszhF5w\",\n    \"object\": \"realtime.item\",\n    \"type\": \"message\",\n    \"status\": \"completed\",\n    \"role\": \"assistant\",\n    \"content\": [\n      {\n        \"type\": \"audio\",\n        \"transcript\": \"Yes, I can hear you loud and clear. How can I help you today?\",\n        \"audio\": \"8//2//v/9//q/+//+P/s...\",\n        \"format\": \"pcm16\"\n      }\n    ]\n  }\n}\n"

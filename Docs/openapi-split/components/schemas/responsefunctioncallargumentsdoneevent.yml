@@ -4,6 +4,7 @@ components:
       required:
         - type
         - item_id
+        - name
         - output_index
         - arguments
         - sequence_number
@@ -17,6 +18,9 @@ components:
         item_id:
           type: string
           description: The ID of the item.
+        name:
+          type: string
+          description: The name of the function that was called.
         output_index:
           type: integer
           description: The index of the output item.
@@ -30,4 +34,4 @@ components:
       x-oaiMeta:
         name: response.function_call_arguments.done
         group: responses
-        example: "{\n  \"type\": \"response.function_call_arguments.done\",\n  \"item_id\": \"item-abc\",\n  \"output_index\": 1,\n  \"arguments\": \"{ \\\"arg\\\": 123 }\",\n  \"sequence_number\": 1\n}\n"
+        example: "{\n  \"type\": \"response.function_call_arguments.done\",\n  \"item_id\": \"item-abc\",\n  \"name\": \"get_weather\",\n  \"output_index\": 1,\n  \"arguments\": \"{ \\\"arg\\\": 123 }\",\n  \"sequence_number\": 1\n}\n"

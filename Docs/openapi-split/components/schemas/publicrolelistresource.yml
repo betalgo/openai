@@ -1,0 +1,33 @@
+components:
+  schemas:
+    PublicRoleListResource:
+      required:
+        - object
+        - data
+        - has_more
+        - next
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: Always `list`.
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+          description: Roles returned in the current page.
+        has_more:
+          type: boolean
+          description: Whether more roles are available when paginating.
+        next:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: 'Cursor to fetch the next page of results, or `null` when there are no additional roles.'
+      description: Paginated list of roles available on an organization or project.
+      x-oaiMeta:
+        name: Role list
+        example: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"object\": \"role\",\n            \"id\": \"role_01J1F8ROLE01\",\n            \"name\": \"API Group Manager\",\n            \"description\": \"Allows managing organization groups\",\n            \"permissions\": [\n                \"api.groups.read\",\n                \"api.groups.write\"\n            ],\n            \"resource_type\": \"api.organization\",\n            \"predefined_role\": false\n        }\n    ],\n    \"has_more\": false,\n    \"next\": null\n}\n"

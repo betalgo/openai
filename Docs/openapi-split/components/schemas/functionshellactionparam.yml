@@ -1,0 +1,24 @@
+components:
+  schemas:
+    FunctionShellActionParam:
+      title: Function shell action
+      required:
+        - commands
+      type: object
+      properties:
+        commands:
+          type: array
+          items:
+            type: string
+          description: Ordered shell commands for the execution environment to run.
+        timeout_ms:
+          anyOf:
+            - type: integer
+              description: Maximum wall-clock time in milliseconds to allow the shell commands to run.
+            - nullable: true
+        max_output_length:
+          anyOf:
+            - type: integer
+              description: Maximum number of UTF-8 characters to capture from combined stdout and stderr output.
+            - nullable: true
+      description: Commands and limits describing how to run the function shell tool call.

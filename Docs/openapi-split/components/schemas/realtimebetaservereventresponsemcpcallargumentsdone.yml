@@ -1,0 +1,37 @@
+components:
+  schemas:
+    RealtimeBetaServerEventResponseMCPCallArgumentsDone:
+      required:
+        - event_id
+        - type
+        - response_id
+        - item_id
+        - output_index
+        - arguments
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.mcp_call_arguments.done
+          description: 'The event type, must be `response.mcp_call_arguments.done`.'
+          x-stainless-const: true
+        response_id:
+          type: string
+          description: The ID of the response.
+        item_id:
+          type: string
+          description: The ID of the MCP tool call item.
+        output_index:
+          type: integer
+          description: The index of the output item in the response.
+        arguments:
+          type: string
+          description: The final JSON-encoded arguments string.
+      description: Returned when MCP tool call arguments are finalized during response generation.
+      x-oaiMeta:
+        name: response.mcp_call_arguments.done
+        group: realtime
+        example: "{\n    \"event_id\": \"event_6202\",\n    \"type\": \"response.mcp_call_arguments.done\",\n    \"response_id\": \"resp_001\",\n    \"item_id\": \"mcp_call_001\",\n    \"output_index\": 0,\n    \"arguments\": \"{\\\"q\\\":\\\"docs\\\"}\"\n}\n"

@@ -8,7 +8,7 @@ components:
       type: object
       properties:
         content:
-          oneOf:
+          anyOf:
             - title: Text content
               type: string
               description: The contents of the system message.
@@ -29,3 +29,6 @@ components:
           type: string
           description: An optional name for the participant. Provides the model information to differentiate between participants of the same role.
       description: "Developer-provided instructions that the model should follow, regardless of\nmessages sent by the user. With o1 models and newer, use `developer` messages\nfor this purpose instead.\n"
+      x-stainless-naming:
+        go:
+          variant_constructor: SystemMessage

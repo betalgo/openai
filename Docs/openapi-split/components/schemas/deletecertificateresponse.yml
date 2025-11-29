@@ -9,7 +9,6 @@ components:
         object:
           enum:
             - certificate.deleted
-          type: string
           description: 'The object type, must be `certificate.deleted`.'
           x-stainless-const: true
         id:

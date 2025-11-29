@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Projects
-      summary: Returns the rate limits per model for a project.
+      summary: List project rate limits
+      description: Returns the rate limits per model for a project.
       operationId: list-project-rate-limits
       parameters:
         - name: project_id
@@ -38,7 +39,7 @@ paths:
       x-oaiMeta:
         name: List project rate limits
         group: administration
-        returns: 'A list of [ProjectRateLimit](/docs/api-reference/project-rate-limits/object) objects.'
+        returns: 'A list of [ProjectRateLimit](https://platform.openai.com/docs/api-reference/project-rate-limits/object) objects.'
         examples:
           response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n          \"object\": \"project.rate_limit\",\n          \"id\": \"rl-ada\",\n          \"model\": \"ada\",\n          \"max_requests_per_1_minute\": 600,\n          \"max_tokens_per_1_minute\": 150000,\n          \"max_images_per_1_minute\": 10\n        }\n    ],\n    \"first_id\": \"rl-ada\",\n    \"last_id\": \"rl-ada\",\n    \"has_more\": false\n}\n"
           request:

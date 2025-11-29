@@ -32,10 +32,21 @@ components:
         - $ref: '#/components/schemas/RealtimeServerEventResponseTextDone'
         - $ref: '#/components/schemas/RealtimeServerEventSessionCreated'
         - $ref: '#/components/schemas/RealtimeServerEventSessionUpdated'
-        - $ref: '#/components/schemas/RealtimeServerEventTranscriptionSessionUpdated'
         - $ref: '#/components/schemas/RealtimeServerEventOutputAudioBufferStarted'
         - $ref: '#/components/schemas/RealtimeServerEventOutputAudioBufferStopped'
         - $ref: '#/components/schemas/RealtimeServerEventOutputAudioBufferCleared'
+        - $ref: '#/components/schemas/RealtimeServerEventConversationItemAdded'
+        - $ref: '#/components/schemas/RealtimeServerEventConversationItemDone'
+        - $ref: '#/components/schemas/RealtimeServerEventInputAudioBufferTimeoutTriggered'
+        - $ref: '#/components/schemas/RealtimeServerEventConversationItemInputAudioTranscriptionSegment'
+        - $ref: '#/components/schemas/RealtimeServerEventMCPListToolsInProgress'
+        - $ref: '#/components/schemas/RealtimeServerEventMCPListToolsCompleted'
+        - $ref: '#/components/schemas/RealtimeServerEventMCPListToolsFailed'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseMCPCallArgumentsDelta'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseMCPCallArgumentsDone'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseMCPCallInProgress'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseMCPCallCompleted'
+        - $ref: '#/components/schemas/RealtimeServerEventResponseMCPCallFailed'
       description: "A realtime server event.\n"
       discriminator:
         propertyName: type

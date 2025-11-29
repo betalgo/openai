@@ -1,0 +1,16 @@
+components:
+  schemas:
+    SpecificApplyPatchParam:
+      title: Specific apply patch tool choice
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - apply_patch
+          type: string
+          description: The tool to call. Always `apply_patch`.
+          default: apply_patch
+          x-stainless-const: true
+      description: Forces the model to call the apply_patch tool when executing a tool call.

@@ -13,7 +13,6 @@ components:
         type:
           enum:
             - conversation.created
-          type: string
           description: 'The event type, must be `conversation.created`.'
           x-stainless-const: true
         conversation:
@@ -23,7 +22,8 @@ components:
               type: string
               description: The unique ID of the conversation.
             object:
-              type: string
+              enum:
+                - realtime.conversation
               description: 'The object type, must be `realtime.conversation`.'
           description: The conversation resource.
       description: "Returned when a conversation is created. Emitted right after session creation.\n"

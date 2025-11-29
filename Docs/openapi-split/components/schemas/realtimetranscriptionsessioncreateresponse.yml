@@ -29,22 +29,7 @@ components:
           type: string
           description: "The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`.\n"
         input_audio_transcription:
-          type: object
-          properties:
-            model:
-              enum:
-                - gpt-4o-transcribe
-                - gpt-4o-mini-transcribe
-                - whisper-1
-              type: string
-              description: "The model to use for transcription. Can be `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, or `whisper-1`.\n"
-            language:
-              type: string
-              description: "The language of the input audio. Supplying the input language in\n[ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format\nwill improve accuracy and latency.\n"
-            prompt:
-              type: string
-              description: "An optional text to guide the model's style or continue a previous audio\nsegment. The [prompt](/docs/guides/speech-to-text#prompting) should match\nthe audio language.\n"
-          description: "Configuration of the transcription model.\n"
+          $ref: '#/components/schemas/AudioTranscription'
         turn_detection:
           type: object
           properties:
@@ -53,15 +38,15 @@ components:
               description: "Type of turn detection, only `server_vad` is currently supported.\n"
             threshold:
               type: number
-              description: "Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A \nhigher threshold will require louder audio to activate the model, and \nthus might perform better in noisy environments.\n"
+              description: "Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A\nhigher threshold will require louder audio to activate the model, and\nthus might perform better in noisy environments.\n"
             prefix_padding_ms:
               type: integer
-              description: "Amount of audio to include before the VAD detected speech (in \nmilliseconds). Defaults to 300ms.\n"
+              description: "Amount of audio to include before the VAD detected speech (in\nmilliseconds). Defaults to 300ms.\n"
             silence_duration_ms:
               type: integer
-              description: "Duration of silence to detect speech stop (in milliseconds). Defaults \nto 500ms. With shorter values the model will respond more quickly, \nbut may jump in on short pauses from the user.\n"
-          description: "Configuration for turn detection. Can be set to `null` to turn off. Server \nVAD means that the model will detect the start and end of speech based on \naudio volume and respond at the end of user speech.\n"
-      description: "A new Realtime transcription session configuration.\n\nWhen a session is created on the server via REST API, the session object\nalso contains an ephemeral key. Default TTL for keys is 10 minutes. This \nproperty is not present when a session is updated via the WebSocket API.\n"
+              description: "Duration of silence to detect speech stop (in milliseconds). Defaults\nto 500ms. With shorter values the model will respond more quickly,\nbut may jump in on short pauses from the user.\n"
+          description: "Configuration for turn detection. Can be set to `null` to turn off. Server\nVAD means that the model will detect the start and end of speech based on\naudio volume and respond at the end of user speech.\n"
+      description: "A new Realtime transcription session configuration.\n\nWhen a session is created on the server via REST API, the session object\nalso contains an ephemeral key. Default TTL for keys is 10 minutes. This\nproperty is not present when a session is updated via the WebSocket API.\n"
       x-oaiMeta:
         name: The transcription session object
         group: realtime

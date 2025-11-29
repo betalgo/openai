@@ -3,7 +3,8 @@ paths:
     post:
       tags:
         - Users
-      summary: Modifies a user's role in the organization.
+      summary: Modify user
+      description: Modifies a user's role in the organization.
       operationId: modify-user
       parameters:
         - name: user_id
@@ -29,7 +30,7 @@ paths:
       x-oaiMeta:
         name: Modify user
         group: administration
-        returns: 'The updated [User](/docs/api-reference/users/object) object.'
+        returns: 'The updated [User](https://platform.openai.com/docs/api-reference/users/object) object.'
         examples:
           response: "{\n    \"object\": \"organization.user\",\n    \"id\": \"user_abc\",\n    \"name\": \"First Last\",\n    \"email\": \"user@example.com\",\n    \"role\": \"owner\",\n    \"added_at\": 1711471533\n}\n"
           request:

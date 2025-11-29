@@ -1,0 +1,34 @@
+components:
+  schemas:
+    ChatkitWorkflow:
+      title: Workflow
+      required:
+        - id
+        - version
+        - state_variables
+        - tracing
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the workflow backing the session.
+        version:
+          anyOf:
+            - type: string
+              description: Specific workflow version used for the session. Defaults to null when using the latest deployment.
+            - nullable: true
+        state_variables:
+          anyOf:
+            - type: object
+              additionalProperties:
+                anyOf:
+                  - type: string
+                  - type: integer
+                  - type: boolean
+                  - type: number
+              description: State variable key-value pairs applied when invoking the workflow. Defaults to null when no overrides were provided.
+              x-oaiTypeLabel: map
+            - nullable: true
+        tracing:
+          $ref: '#/components/schemas/ChatkitWorkflowTracing'
+      description: Workflow metadata and state returned for the session.

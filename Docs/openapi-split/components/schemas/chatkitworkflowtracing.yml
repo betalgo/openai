@@ -1,0 +1,12 @@
+components:
+  schemas:
+    ChatkitWorkflowTracing:
+      title: Tracing Configuration
+      required:
+        - enabled
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates whether tracing is enabled.
+      description: Controls diagnostic tracing during the session.

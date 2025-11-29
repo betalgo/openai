@@ -4,7 +4,7 @@ components:
       type: object
       properties:
         batch_size:
-          oneOf:
+          anyOf:
             - enum:
                 - auto
               type: string
@@ -15,7 +15,7 @@ components:
           description: "Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance.\n"
           default: auto
         learning_rate_multiplier:
-          oneOf:
+          anyOf:
             - enum:
                 - auto
               type: string
@@ -24,9 +24,8 @@ components:
               exclusiveMinimum: true
               type: number
           description: "Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting.\n"
-          default: auto
         n_epochs:
-          oneOf:
+          anyOf:
             - enum:
                 - auto
               type: string
@@ -46,7 +45,7 @@ components:
           description: "Level of reasoning effort.\n"
           default: default
         compute_multiplier:
-          oneOf:
+          anyOf:
             - enum:
                 - auto
               type: string
@@ -56,9 +55,8 @@ components:
               exclusiveMinimum: true
               type: number
           description: "Multiplier on amount of compute used for exploring search space during training.\n"
-          default: auto
         eval_interval:
-          oneOf:
+          anyOf:
             - enum:
                 - auto
               type: string
@@ -68,7 +66,7 @@ components:
           description: "The number of training steps between evaluation runs.\n"
           default: auto
         eval_samples:
-          oneOf:
+          anyOf:
             - enum:
                 - auto
               type: string

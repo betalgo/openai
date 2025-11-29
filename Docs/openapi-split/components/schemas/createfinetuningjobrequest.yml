@@ -9,25 +9,27 @@ components:
         model:
           anyOf:
             - type: string
-            - enum:
+            - title: Preset
+              enum:
                 - babbage-002
                 - davinci-002
                 - gpt-3.5-turbo
                 - gpt-4o-mini
               type: string
-          description: "The name of the model to fine-tune. You can select one of the\n[supported models](/docs/guides/fine-tuning#which-models-can-be-fine-tuned).\n"
+          description: "The name of the model to fine-tune. You can select one of the\n[supported models](https://platform.openai.com/docs/guides/fine-tuning#which-models-can-be-fine-tuned).\n"
           example: gpt-4o-mini
           x-oaiTypeLabel: string
         training_file:
           type: string
-          description: "The ID of an uploaded file that contains training data.\n\nSee [upload file](/docs/api-reference/files/create) for how to upload a file.\n\nYour dataset must be formatted as a JSONL file. Additionally, you must upload your file with the purpose `fine-tune`.\n\nThe contents of the file should differ depending on if the model uses the [chat](/docs/api-reference/fine-tuning/chat-input), [completions](/docs/api-reference/fine-tuning/completions-input) format, or if the fine-tuning method uses the [preference](/docs/api-reference/fine-tuning/preference-input) format.\n\nSee the [fine-tuning guide](/docs/guides/model-optimization) for more details.\n"
+          description: "The ID of an uploaded file that contains training data.\n\nSee [upload file](https://platform.openai.com/docs/api-reference/files/create) for how to upload a file.\n\nYour dataset must be formatted as a JSONL file. Additionally, you must upload your file with the purpose `fine-tune`.\n\nThe contents of the file should differ depending on if the model uses the [chat](https://platform.openai.com/docs/api-reference/fine-tuning/chat-input), [completions](https://platform.openai.com/docs/api-reference/fine-tuning/completions-input) format, or if the fine-tuning method uses the [preference](https://platform.openai.com/docs/api-reference/fine-tuning/preference-input) format.\n\nSee the [fine-tuning guide](https://platform.openai.com/docs/guides/model-optimization) for more details.\n"
           example: file-abc123
         hyperparameters:
           type: object
           properties:
             batch_size:
-              oneOf:
-                - enum:
+              anyOf:
+                - title: Auto
+                  enum:
                     - auto
                   type: string
                   x-stainless-const: true
@@ -37,8 +39,9 @@ components:
               description: "Number of examples in each batch. A larger batch size means that model parameters\nare updated less frequently, but with lower variance.\n"
               default: auto
             learning_rate_multiplier:
-              oneOf:
-                - enum:
+              anyOf:
+                - title: Auto
+                  enum:
                     - auto
                   type: string
                   x-stainless-const: true
@@ -46,10 +49,10 @@ components:
                   exclusiveMinimum: true
                   type: number
               description: "Scaling factor for the learning rate. A smaller learning rate may be useful to avoid\noverfitting.\n"
-              default: auto
             n_epochs:
-              oneOf:
-                - enum:
+              anyOf:
+                - title: Auto
+                  enum:
                     - auto
                   type: string
                   x-stainless-const: true
@@ -69,7 +72,7 @@ components:
           nullable: true
         validation_file:
           type: string
-          description: "The ID of an uploaded file that contains validation data.\n\nIf you provide this file, the data is used to generate validation\nmetrics periodically during fine-tuning. These metrics can be viewed in\nthe fine-tuning results file.\nThe same data should not be present in both train and validation files.\n\nYour dataset must be formatted as a JSONL file. You must upload your file with the purpose `fine-tune`.\n\nSee the [fine-tuning guide](/docs/guides/model-optimization) for more details.\n"
+          description: "The ID of an uploaded file that contains validation data.\n\nIf you provide this file, the data is used to generate validation\nmetrics periodically during fine-tuning. These metrics can be viewed in\nthe fine-tuning results file.\nThe same data should not be present in both train and validation files.\n\nYour dataset must be formatted as a JSONL file. You must upload your file with the purpose `fine-tune`.\n\nSee the [fine-tuning guide](https://platform.openai.com/docs/guides/model-optimization) for more details.\n"
           nullable: true
           example: file-abc123
         integrations:
@@ -81,7 +84,7 @@ components:
             type: object
             properties:
               type:
-                oneOf:
+                anyOf:
                   - enum:
                       - wandb
                     type: string

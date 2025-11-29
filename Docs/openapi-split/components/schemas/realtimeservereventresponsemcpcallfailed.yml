@@ -1,0 +1,29 @@
+components:
+  schemas:
+    RealtimeServerEventResponseMCPCallFailed:
+      required:
+        - event_id
+        - type
+        - output_index
+        - item_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.mcp_call.failed
+          description: 'The event type, must be `response.mcp_call.failed`.'
+          x-stainless-const: true
+        output_index:
+          type: integer
+          description: The index of the output item in the response.
+        item_id:
+          type: string
+          description: The ID of the MCP tool call item.
+      description: Returned when an MCP tool call has failed.
+      x-oaiMeta:
+        name: response.mcp_call.failed
+        group: realtime
+        example: "{\n    \"event_id\": \"event_6303\",\n    \"type\": \"response.mcp_call.failed\",\n    \"output_index\": 0,\n    \"item_id\": \"mcp_call_001\"\n}\n"

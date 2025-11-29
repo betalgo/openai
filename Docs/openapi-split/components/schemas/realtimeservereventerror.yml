@@ -13,7 +13,6 @@ components:
         type:
           enum:
             - error
-          type: string
           description: 'The event type, must be `error`.'
           x-stainless-const: true
         error:
@@ -26,22 +25,25 @@ components:
               type: string
               description: "The type of error (e.g., \"invalid_request_error\", \"server_error\").\n"
             code:
-              type: string
-              description: 'Error code, if any.'
-              nullable: true
+              anyOf:
+                - type: string
+                  description: 'Error code, if any.'
+                - nullable: true
             message:
               type: string
               description: A human-readable error message.
             param:
-              type: string
-              description: 'Parameter related to the error, if any.'
-              nullable: true
+              anyOf:
+                - type: string
+                  description: 'Parameter related to the error, if any.'
+                - nullable: true
             event_id:
-              type: string
-              description: "The event_id of the client event that caused the error, if applicable.\n"
-              nullable: true
+              anyOf:
+                - type: string
+                  description: "The event_id of the client event that caused the error, if applicable.\n"
+                - nullable: true
           description: Details of the error.
-      description: "Returned when an error occurs, which could be a client problem or a server \nproblem. Most errors are recoverable and the session will stay open, we \nrecommend to implementors to monitor and log error messages by default.\n"
+      description: "Returned when an error occurs, which could be a client problem or a server\nproblem. Most errors are recoverable and the session will stay open, we\nrecommend to implementors to monitor and log error messages by default.\n"
       x-oaiMeta:
         name: error
         group: realtime

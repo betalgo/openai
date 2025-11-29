@@ -1,0 +1,21 @@
+components:
+  schemas:
+    FileExpirationAfter:
+      title: File expiration policy
+      required:
+        - anchor
+        - seconds
+      type: object
+      properties:
+        anchor:
+          enum:
+            - created_at
+          type: string
+          description: 'Anchor timestamp after which the expiration policy applies. Supported anchors: `created_at`.'
+          x-stainless-const: true
+        seconds:
+          maximum: 2592000
+          minimum: 3600
+          type: integer
+          description: The number of seconds after the anchor time that the file will expire. Must be between 3600 (1 hour) and 2592000 (30 days).
+      description: 'The expiration policy for a file. By default, files with `purpose=batch` expire after 30 days and all other files are persisted until they are manually deleted.'

@@ -12,6 +12,7 @@ components:
           anyOf:
             - type: string
               description: The ID of the computer tool call output.
+              example: cuo_123
             - nullable: true
         call_id:
           maxLength: 64
@@ -36,11 +37,6 @@ components:
             - nullable: true
         status:
           anyOf:
-            - enum:
-                - in_progress
-                - completed
-                - incomplete
-              type: string
-              description: 'The status of the message input. One of `in_progress`, `completed`, or `incomplete`. Populated when input items are returned via API.'
+            - $ref: '#/components/schemas/FunctionCallItemStatus'
             - nullable: true
       description: The output of a computer tool call.

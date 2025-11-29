@@ -1,0 +1,22 @@
+components:
+  schemas:
+    CreateChatSessionBody:
+      title: Create chat session request
+      required:
+        - workflow
+        - user
+      type: object
+      properties:
+        workflow:
+          $ref: '#/components/schemas/WorkflowParam'
+        user:
+          minLength: 1
+          type: string
+          description: A free-form string that identifies your end user; ensures this Session can access other objects that have the same `user` scope.
+        expires_after:
+          $ref: '#/components/schemas/ExpiresAfterParam'
+        rate_limits:
+          $ref: '#/components/schemas/RateLimitsParam'
+        chatkit_configuration:
+          $ref: '#/components/schemas/ChatkitConfigurationParam'
+      description: Parameters for provisioning a new ChatKit session.

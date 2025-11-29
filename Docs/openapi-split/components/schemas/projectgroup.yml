@@ -1,0 +1,34 @@
+components:
+  schemas:
+    ProjectGroup:
+      required:
+        - object
+        - project_id
+        - group_id
+        - group_name
+        - created_at
+      type: object
+      properties:
+        object:
+          enum:
+            - project.group
+          type: string
+          description: Always `project.group`.
+          x-stainless-const: true
+        project_id:
+          type: string
+          description: Identifier of the project.
+        group_id:
+          type: string
+          description: Identifier of the group that has access to the project.
+        group_name:
+          type: string
+          description: Display name of the group.
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) when the group was granted project access.
+          format: int64
+      description: Details about a group's membership in a project.
+      x-oaiMeta:
+        name: The project group object
+        example: "{\n    \"object\": \"project.group\",\n    \"project_id\": \"proj_abc123\",\n    \"group_id\": \"group_01J1F8ABCDXYZ\",\n    \"group_name\": \"Support Team\",\n    \"created_at\": 1711471533\n}\n"

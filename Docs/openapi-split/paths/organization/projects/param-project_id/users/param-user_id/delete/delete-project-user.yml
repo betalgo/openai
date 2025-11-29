@@ -3,7 +3,8 @@ paths:
     delete:
       tags:
         - Projects
-      summary: Deletes a user from the project.
+      summary: Delete project user
+      description: Deletes a user from the project.
       operationId: delete-project-user
       parameters:
         - name: project_id

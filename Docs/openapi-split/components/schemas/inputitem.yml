@@ -1,7 +1,7 @@
 components:
   schemas:
     InputItem:
-      oneOf:
+      anyOf:
         - $ref: '#/components/schemas/EasyInputMessage'
         - $ref: '#/components/schemas/Item'
         - $ref: '#/components/schemas/ItemReferenceParam'

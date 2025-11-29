@@ -1,13 +1,15 @@
 components:
   schemas:
     ComputerAction:
-      oneOf:
-        - $ref: '#/components/schemas/Click'
-        - $ref: '#/components/schemas/DoubleClick'
+      anyOf:
+        - $ref: '#/components/schemas/ClickParam'
+        - $ref: '#/components/schemas/DoubleClickAction'
         - $ref: '#/components/schemas/Drag'
-        - $ref: '#/components/schemas/KeyPress'
+        - $ref: '#/components/schemas/KeyPressAction'
         - $ref: '#/components/schemas/Move'
         - $ref: '#/components/schemas/Screenshot'
         - $ref: '#/components/schemas/Scroll'
         - $ref: '#/components/schemas/Type'
         - $ref: '#/components/schemas/Wait'
+      discriminator:
+        propertyName: type

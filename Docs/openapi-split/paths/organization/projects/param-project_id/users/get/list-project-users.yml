@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Projects
-      summary: Returns a list of users in the project.
+      summary: List project users
+      description: Returns a list of users in the project.
       operationId: list-project-users
       parameters:
         - name: project_id
@@ -39,7 +40,7 @@ paths:
       x-oaiMeta:
         name: List project users
         group: administration
-        returns: 'A list of [ProjectUser](/docs/api-reference/project-users/object) objects.'
+        returns: 'A list of [ProjectUser](https://platform.openai.com/docs/api-reference/project-users/object) objects.'
         examples:
           response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"object\": \"organization.project.user\",\n            \"id\": \"user_abc\",\n            \"name\": \"First Last\",\n            \"email\": \"user@example.com\",\n            \"role\": \"owner\",\n            \"added_at\": 1711471533\n        }\n    ],\n    \"first_id\": \"user-abc\",\n    \"last_id\": \"user-xyz\",\n    \"has_more\": false\n}\n"
           request:

@@ -31,10 +31,10 @@ components:
                 items:
                   type: integer
                 description: "The bytes that were used to generate the log probability.\n"
-          description: "The log probabilities of the individual tokens in the transcription. Only included if you [create a transcription](/docs/api-reference/audio/create-transcription) with the `include[]` parameter set to `logprobs`.\n"
+          description: "The log probabilities of the individual tokens in the transcription. Only included if you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `include[]` parameter set to `logprobs`.\n"
         usage:
           $ref: '#/components/schemas/TranscriptTextUsageTokens'
-      description: 'Emitted when the transcription is complete. Contains the complete transcription text. Only emitted when you [create a transcription](/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.'
+      description: 'Emitted when the transcription is complete. Contains the complete transcription text. Only emitted when you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.'
       x-oaiMeta:
         name: Stream Event (transcript.text.done)
         group: transcript

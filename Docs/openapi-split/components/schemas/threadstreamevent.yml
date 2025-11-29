@@ -1,7 +1,7 @@
 components:
   schemas:
     ThreadStreamEvent:
-      oneOf:
+      anyOf:
         - required:
             - event
             - data
@@ -17,6 +17,8 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/ThreadObject'
-          description: 'Occurs when a new [thread](/docs/api-reference/threads/object) is created.'
+          description: 'Occurs when a new [thread](https://platform.openai.com/docs/api-reference/threads/object) is created.'
           x-oaiMeta:
             dataDescription: '`data` is a [thread](/docs/api-reference/threads/object)'
+      discriminator:
+        propertyName: event

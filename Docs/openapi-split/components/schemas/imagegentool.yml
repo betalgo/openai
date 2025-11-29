@@ -15,6 +15,7 @@ components:
         model:
           enum:
             - gpt-image-1
+            - gpt-image-1-mini
           type: string
           description: "The image generation model to use. Default: `gpt-image-1`.\n"
           default: gpt-image-1
@@ -25,7 +26,7 @@ components:
             - high
             - auto
           type: string
-          description: "The quality of the generated image. One of `low`, `medium`, `high`, \nor `auto`. Default: `auto`.\n"
+          description: "The quality of the generated image. One of `low`, `medium`, `high`,\nor `auto`. Default: `auto`.\n"
           default: auto
         size:
           enum:
@@ -34,7 +35,7 @@ components:
             - 1536x1024
             - auto
           type: string
-          description: "The size of the generated image. One of `1024x1024`, `1024x1536`, \n`1536x1024`, or `auto`. Default: `auto`.\n"
+          description: "The size of the generated image. One of `1024x1024`, `1024x1536`,\n`1536x1024`, or `auto`. Default: `auto`.\n"
           default: auto
         output_format:
           enum:
@@ -42,7 +43,7 @@ components:
             - webp
             - jpeg
           type: string
-          description: "The output format of the generated image. One of `png`, `webp`, or \n`jpeg`. Default: `png`.\n"
+          description: "The output format of the generated image. One of `png`, `webp`, or\n`jpeg`. Default: `png`.\n"
           default: png
         output_compression:
           maximum: 100
@@ -63,8 +64,12 @@ components:
             - opaque
             - auto
           type: string
-          description: "Background type for the generated image. One of `transparent`, \n`opaque`, or `auto`. Default: `auto`.\n"
+          description: "Background type for the generated image. One of `transparent`,\n`opaque`, or `auto`. Default: `auto`.\n"
           default: auto
+        input_fidelity:
+          anyOf:
+            - $ref: '#/components/schemas/InputFidelity'
+            - nullable: true
         input_image_mask:
           type: object
           properties:
@@ -75,7 +80,7 @@ components:
               type: string
               description: "File ID for the mask image.\n"
           additionalProperties: false
-          description: "Optional mask for inpainting. Contains `image_url` \n(string, optional) and `file_id` (string, optional).\n"
+          description: "Optional mask for inpainting. Contains `image_url`\n(string, optional) and `file_id` (string, optional).\n"
         partial_images:
           maximum: 3
           minimum: 0

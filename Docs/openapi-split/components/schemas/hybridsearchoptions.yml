@@ -1,0 +1,14 @@
+components:
+  schemas:
+    HybridSearchOptions:
+      required:
+        - embedding_weight
+        - text_weight
+      type: object
+      properties:
+        embedding_weight:
+          type: number
+          description: The weight of the embedding in the reciprocal ranking fusion.
+        text_weight:
+          type: number
+          description: The weight of the text in the reciprocal ranking fusion.

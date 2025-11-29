@@ -7,7 +7,7 @@ components:
       properties:
         grader:
           type: object
-          oneOf:
+          anyOf:
             - $ref: '#/components/schemas/GraderStringCheck'
             - $ref: '#/components/schemas/GraderTextSimilarity'
             - $ref: '#/components/schemas/GraderPython'

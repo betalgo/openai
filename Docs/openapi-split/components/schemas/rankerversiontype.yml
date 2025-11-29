@@ -1,0 +1,7 @@
+components:
+  schemas:
+    RankerVersionType:
+      enum:
+        - auto
+        - default-2024-11-15
+      type: string

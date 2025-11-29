@@ -1,0 +1,23 @@
+components:
+  schemas:
+    RealtimeBetaClientEventSessionUpdate:
+      required:
+        - type
+        - session
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - session.update
+          description: 'The event type, must be `session.update`.'
+          x-stainless-const: true
+        session:
+          $ref: '#/components/schemas/RealtimeSessionCreateRequest'
+      description: "Send this event to update the session’s default configuration.\nThe client may send this event at any time to update any field,\nexcept for `voice`. However, note that once a session has been\ninitialized with a particular `model`, it can’t be changed to\nanother model using `session.update`.\n\nWhen the server receives a `session.update`, it will respond\nwith a `session.updated` event showing the full, effective configuration.\nOnly the fields that are present are updated. To clear a field like\n`instructions`, pass an empty string.\n"
+      x-oaiMeta:
+        name: session.update
+        group: realtime
+        example: "{\n  \"type\": \"session.update\",\n  \"session\": {\n    \"tools\": [\n      {\n        \"type\": \"function\",\n        \"name\": \"display_color_palette\",\n        \"description\": \"\\nCall this function when a user asks for a color palette.\\n\",\n        \"parameters\": {\n          \"type\": \"object\",\n          \"strict\": true,\n          \"properties\": {\n            \"theme\": {\n              \"type\": \"string\",\n              \"description\": \"Description of the theme for the color scheme.\"\n            },\n            \"colors\": {\n              \"type\": \"array\",\n              \"description\": \"Array of five hex color codes based on the theme.\",\n              \"items\": {\n                \"type\": \"string\",\n                \"description\": \"Hex color code\"\n              }\n            }\n          },\n          \"required\": [\n            \"theme\",\n            \"colors\"\n          ]\n        }\n      }\n    ],\n    \"tool_choice\": \"auto\"\n  },\n  \"event_id\": \"5fc543c4-f59c-420f-8fb9-68c45d1546a7\",\n  \"timestamp\": \"2:30:32 PM\"\n}\n"

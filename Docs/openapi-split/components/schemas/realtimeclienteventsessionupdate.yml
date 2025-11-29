@@ -7,18 +7,22 @@ components:
       type: object
       properties:
         event_id:
+          maxLength: 512
           type: string
-          description: Optional client-generated ID used to identify this event.
+          description: 'Optional client-generated ID used to identify this event. This is an arbitrary string that a client may assign. It will be passed back if there is an error with the event, but the corresponding `session.updated` event will not include it.'
         type:
           enum:
             - session.update
-          type: string
           description: 'The event type, must be `session.update`.'
           x-stainless-const: true
         session:
-          $ref: '#/components/schemas/RealtimeSessionCreateRequest'
-      description: "Send this event to update the session’s default configuration.\nThe client may send this event at any time to update any field,\nexcept for `voice`. However, note that once a session has been\ninitialized with a particular `model`, it can’t be changed to\nanother model using `session.update`.\n\nWhen the server receives a `session.update`, it will respond\nwith a `session.updated` event showing the full, effective configuration.\nOnly the fields that are present are updated. To clear a field like\n`instructions`, pass an empty string.\n"
+          type: object
+          anyOf:
+            - $ref: '#/components/schemas/RealtimeSessionCreateRequestGA'
+            - $ref: '#/components/schemas/RealtimeTranscriptionSessionCreateRequestGA'
+          description: "Update the Realtime session. Choose either a realtime\nsession or a transcription session.\n"
+      description: "Send this event to update the session’s configuration.\nThe client may send this event at any time to update any field\nexcept for `voice` and `model`. `voice` can be updated only if there have been no other audio outputs yet.\n\nWhen the server receives a `session.update`, it will respond\nwith a `session.updated` event showing the full, effective configuration.\nOnly the fields that are present in the `session.update` are updated. To clear a field like\n`instructions`, pass an empty string. To clear a field like `tools`, pass an empty array.\nTo clear a field like `turn_detection`, pass `null`.\n"
       x-oaiMeta:
         name: session.update
         group: realtime
-        example: "{\n    \"event_id\": \"event_123\",\n    \"type\": \"session.update\",\n    \"session\": {\n        \"modalities\": [\"text\", \"audio\"],\n        \"instructions\": \"You are a helpful assistant.\",\n        \"voice\": \"sage\",\n        \"input_audio_format\": \"pcm16\",\n        \"output_audio_format\": \"pcm16\",\n        \"input_audio_transcription\": {\n            \"model\": \"whisper-1\"\n        },\n        \"turn_detection\": {\n            \"type\": \"server_vad\",\n            \"threshold\": 0.5,\n            \"prefix_padding_ms\": 300,\n            \"silence_duration_ms\": 500,\n            \"create_response\": true\n        },\n        \"tools\": [\n            {\n                \"type\": \"function\",\n                \"name\": \"get_weather\",\n                \"description\": \"Get the current weather...\",\n                \"parameters\": {\n                    \"type\": \"object\",\n                    \"properties\": {\n                        \"location\": { \"type\": \"string\" }\n                    },\n                    \"required\": [\"location\"]\n                }\n            }\n        ],\n        \"tool_choice\": \"auto\",\n        \"temperature\": 0.8,\n        \"max_response_output_tokens\": \"inf\",\n        \"speed\": 1.1,\n        \"tracing\": \"auto\"\n    }\n}\n"
+        example: "{\n  \"type\": \"session.update\",\n  \"session\": {\n    \"type\": \"realtime\",\n    \"instructions\": \"You are a creative assistant that helps with design tasks.\",\n    \"tools\": [\n      {\n        \"type\": \"function\",\n        \"name\": \"display_color_palette\",\n        \"description\": \"Call this function when a user asks for a color palette.\",\n        \"parameters\": {\n          \"type\": \"object\",\n          \"strict\": true,\n          \"properties\": {\n            \"theme\": {\n              \"type\": \"string\",\n              \"description\": \"Description of the theme for the color scheme.\"\n            },\n            \"colors\": {\n              \"type\": \"array\",\n              \"description\": \"Array of five hex color codes based on the theme.\",\n              \"items\": {\n                \"type\": \"string\",\n                \"description\": \"Hex color code\"\n              }\n            }\n          },\n          \"required\": [\n            \"theme\",\n            \"colors\"\n          ]\n        }\n      }\n    ],\n    \"tool_choice\": \"auto\"\n  },\n  \"event_id\": \"5fc543c4-f59c-420f-8fb9-68c45d1546a7\",\n}\n"

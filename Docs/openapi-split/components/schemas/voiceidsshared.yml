@@ -9,11 +9,10 @@ components:
             - ballad
             - coral
             - echo
-            - fable
-            - onyx
-            - nova
             - sage
             - shimmer
             - verse
+            - marin
+            - cedar
           type: string
       example: ash

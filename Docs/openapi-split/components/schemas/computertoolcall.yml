@@ -28,7 +28,7 @@ components:
         pending_safety_checks:
           type: array
           items:
-            $ref: '#/components/schemas/ComputerToolCallSafetyCheck'
+            $ref: '#/components/schemas/ComputerCallSafetyCheckParam'
           description: "The pending safety checks for the computer call.\n"
         status:
           enum:
@@ -37,4 +37,4 @@ components:
             - incomplete
           type: string
           description: "The status of the item. One of `in_progress`, `completed`, or\n`incomplete`. Populated when items are returned via API.\n"
-      description: "A tool call to a computer use tool. See the \n[computer use guide](/docs/guides/tools-computer-use) for more information.\n"
+      description: "A tool call to a computer use tool. See the\n[computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.\n"

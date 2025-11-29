@@ -23,8 +23,8 @@ components:
           type: string
           description: The unique identifier of the MCP tool call item being processed.
         arguments:
-          type: object
-          description: The finalized arguments for the MCP tool call.
+          type: string
+          description: "A JSON string containing the finalized arguments for the MCP tool call.\n"
         sequence_number:
           type: integer
           description: The sequence number of this event.
@@ -32,4 +32,4 @@ components:
       x-oaiMeta:
         name: response.mcp_call_arguments.done
         group: responses
-        example: "{\n  \"type\": \"response.mcp_call_arguments.done\",\n  \"output_index\": 0,\n  \"item_id\": \"item-abc\",\n  \"arguments\": {\n    \"arg1\": \"value1\",\n    \"arg2\": \"value2\"\n  },\n  \"sequence_number\": 1\n}\n"
+        example: "{\n  \"type\": \"response.mcp_call_arguments.done\",\n  \"output_index\": 0,\n  \"item_id\": \"item-abc\",\n  \"arguments\": \"{\\\"arg1\\\": \\\"value1\\\", \\\"arg2\\\": \\\"value2\\\"}\",\n  \"sequence_number\": 1\n}\n"

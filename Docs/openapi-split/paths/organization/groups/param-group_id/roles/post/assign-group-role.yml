@@ -1,0 +1,37 @@
+paths:
+  '/organization/groups/{group_id}/roles':
+    post:
+      tags:
+        - Group organization role assignments
+      summary: Assign organization role to group
+      description: Assigns an organization role to a group within the organization.
+      operationId: assign-group-role
+      parameters:
+        - name: group_id
+          in: path
+          description: The ID of the group that should receive the organization role.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Identifies the organization role to assign to the group.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicAssignOrganizationGroupRoleBody'
+        required: true
+      responses:
+        '200':
+          description: Organization role assigned to the group successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupRoleAssignment'
+      x-oaiMeta:
+        name: Assign organization role to group
+        group: administration
+        returns: 'The created [group role object](https://platform.openai.com/docs/api-reference/role-assignments/objects/group).'
+        examples:
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/roles \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      \"role_id\": \"role_01J1F8ROLE01\"\n  }'\n"
+          response: "{\n    \"object\": \"group.role\",\n    \"group\": {\n        \"object\": \"group\",\n        \"id\": \"group_01J1F8ABCDXYZ\",\n        \"name\": \"Support Team\",\n        \"created_at\": 1711471533,\n        \"scim_managed\": false\n    },\n    \"role\": {\n        \"object\": \"role\",\n        \"id\": \"role_01J1F8ROLE01\",\n        \"name\": \"API Group Manager\",\n        \"description\": \"Allows managing organization groups\",\n        \"permissions\": [\n            \"api.groups.read\",\n            \"api.groups.write\"\n        ],\n        \"resource_type\": \"api.organization\",\n        \"predefined_role\": false\n    }\n}\n"

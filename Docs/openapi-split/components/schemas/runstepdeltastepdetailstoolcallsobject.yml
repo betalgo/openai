@@ -15,9 +15,6 @@ components:
         tool_calls:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/RunStepDeltaStepDetailsToolCallsCodeObject'
-              - $ref: '#/components/schemas/RunStepDeltaStepDetailsToolCallsFileSearchObject'
-              - $ref: '#/components/schemas/RunStepDeltaStepDetailsToolCallsFunctionObject'
+            $ref: '#/components/schemas/RunStepDeltaStepDetailsToolCall'
           description: "An array of tool calls the run step was involved in. These can be associated with one of three types of tools: `code_interpreter`, `file_search`, or `function`.\n"
       description: Details of the tool call.

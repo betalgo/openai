@@ -25,4 +25,12 @@ components:
             file_id:
               type: string
               description: "The ID of an uploaded file to use as input.\n"
-      description: "Learn about [file inputs](/docs/guides/text) for text generation.\n"
+          x-stainless-naming:
+            java:
+              type_name: FileObject
+            kotlin:
+              type_name: FileObject
+      description: "Learn about [file inputs](https://platform.openai.com/docs/guides/text) for text generation.\n"
+      x-stainless-naming:
+        go:
+          variant_constructor: FileContentPart

@@ -13,7 +13,6 @@ components:
         type:
           enum:
             - response.created
-          type: string
           description: 'The event type, must be `response.created`.'
           x-stainless-const: true
         response:
@@ -22,4 +21,4 @@ components:
       x-oaiMeta:
         name: response.created
         group: realtime
-        example: "{\n    \"event_id\": \"event_2930\",\n    \"type\": \"response.created\",\n    \"response\": {\n        \"id\": \"resp_001\",\n        \"object\": \"realtime.response\",\n        \"status\": \"in_progress\",\n        \"status_details\": null,\n        \"output\": [],\n        \"usage\": null\n    }\n}\n"
+        example: "{\n  \"type\": \"response.created\",\n  \"event_id\": \"event_C9G8pqbTEddBSIxbBN6Os\",\n  \"response\": {\n    \"object\": \"realtime.response\",\n    \"id\": \"resp_C9G8p7IH2WxLbkgPNouYL\",\n    \"status\": \"in_progress\",\n    \"status_details\": null,\n    \"output\": [],\n    \"conversation_id\": \"conv_C9G8mmBkLhQJwCon3hoJN\",\n    \"output_modalities\": [\n      \"audio\"\n    ],\n    \"max_output_tokens\": \"inf\",\n    \"audio\": {\n      \"output\": {\n        \"format\": {\n          \"type\": \"audio/pcm\",\n          \"rate\": 24000\n        },\n        \"voice\": \"marin\"\n      }\n    },\n    \"usage\": null,\n    \"metadata\": null\n  },\n}\n"

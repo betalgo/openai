@@ -1,0 +1,21 @@
+components:
+  schemas:
+    ApplyPatchDeleteFileOperationParam:
+      title: Apply patch delete file operation
+      required:
+        - type
+        - path
+      type: object
+      properties:
+        type:
+          enum:
+            - delete_file
+          type: string
+          description: The operation type. Always `delete_file`.
+          default: delete_file
+          x-stainless-const: true
+        path:
+          minLength: 1
+          type: string
+          description: Path of the file to delete relative to the workspace root.
+      description: Instruction for deleting an existing file via the apply_patch tool.

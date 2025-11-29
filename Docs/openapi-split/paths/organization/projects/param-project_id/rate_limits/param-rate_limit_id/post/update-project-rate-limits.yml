@@ -3,7 +3,8 @@ paths:
     post:
       tags:
         - Projects
-      summary: Updates a project rate limit.
+      summary: Modify project rate limit
+      description: Updates a project rate limit.
       operationId: update-project-rate-limits
       parameters:
         - name: project_id
@@ -41,7 +42,7 @@ paths:
       x-oaiMeta:
         name: Modify project rate limit
         group: administration
-        returns: 'The updated [ProjectRateLimit](/docs/api-reference/project-rate-limits/object) object.'
+        returns: 'The updated [ProjectRateLimit](https://platform.openai.com/docs/api-reference/project-rate-limits/object) object.'
         examples:
           response: "{\n    \"object\": \"project.rate_limit\",\n    \"id\": \"rl-ada\",\n    \"model\": \"ada\",\n    \"max_requests_per_1_minute\": 600,\n    \"max_tokens_per_1_minute\": 150000,\n    \"max_images_per_1_minute\": 10\n  }\n"
           request:

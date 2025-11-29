@@ -3,7 +3,7 @@ components:
     CreateEvalItem:
       title: CreateEvalItem
       type: object
-      oneOf:
+      anyOf:
         - title: SimpleInputMessage
           required:
             - role

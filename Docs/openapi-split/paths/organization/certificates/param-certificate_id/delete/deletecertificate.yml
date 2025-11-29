@@ -3,7 +3,8 @@ paths:
     delete:
       tags:
         - Certificates
-      summary: "Delete a certificate from the organization.\n\nThe certificate must be inactive for the organization and all projects.\n"
+      summary: Delete certificate
+      description: "Delete a certificate from the organization.\n\nThe certificate must be inactive for the organization and all projects.\n"
       operationId: deleteCertificate
       responses:
         '200':

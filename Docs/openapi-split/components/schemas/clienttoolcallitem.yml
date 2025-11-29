@@ -1,0 +1,57 @@
+components:
+  schemas:
+    ClientToolCallItem:
+      title: Client tool call
+      required:
+        - id
+        - object
+        - created_at
+        - thread_id
+        - type
+        - status
+        - call_id
+        - name
+        - arguments
+        - output
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the thread item.
+        object:
+          enum:
+            - chatkit.thread_item
+          type: string
+          description: Type discriminator that is always `chatkit.thread_item`.
+          default: chatkit.thread_item
+          x-stainless-const: true
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) for when the item was created.
+        thread_id:
+          type: string
+          description: Identifier of the parent thread.
+        type:
+          enum:
+            - chatkit.client_tool_call
+          type: string
+          description: Type discriminator that is always `chatkit.client_tool_call`.
+          default: chatkit.client_tool_call
+          x-stainless-const: true
+        status:
+          $ref: '#/components/schemas/ClientToolCallStatus'
+        call_id:
+          type: string
+          description: Identifier for the client tool call.
+        name:
+          type: string
+          description: Tool name that was invoked.
+        arguments:
+          type: string
+          description: JSON-encoded arguments that were sent to the tool.
+        output:
+          anyOf:
+            - type: string
+              description: JSON-encoded output captured from the tool. Defaults to null while execution is in progress.
+            - nullable: true
+      description: Record of a client side tool invocation initiated by the assistant.

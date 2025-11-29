@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Usage
-      summary: Get moderations usage details for the organization.
+      summary: Moderations
+      description: Get moderations usage details for the organization.
       operationId: usage-moderations
       parameters:
         - name: start_time
@@ -87,7 +88,7 @@ paths:
       x-oaiMeta:
         name: Moderations
         group: usage-moderations
-        returns: 'A list of paginated, time bucketed [Moderations usage](/docs/api-reference/usage/moderations_object) objects.'
+        returns: 'A list of paginated, time bucketed [Moderations usage](https://platform.openai.com/docs/api-reference/usage/moderations_object) objects.'
         examples:
           response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.usage.moderations.result\",\n                    \"input_tokens\": 16,\n                    \"num_model_requests\": 2,\n                    \"project_id\": null,\n                    \"user_id\": null,\n                    \"api_key_id\": null,\n                    \"model\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": false,\n    \"next_page\": null\n}\n"
           request:

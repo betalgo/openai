@@ -1,7 +1,7 @@
 components:
   schemas:
     RunStepStreamEvent:
-      oneOf:
+      anyOf:
         - required:
             - event
             - data
@@ -14,7 +14,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunStepObject'
-          description: 'Occurs when a [run step](/docs/api-reference/run-steps/step-object) is created.'
+          description: 'Occurs when a [run step](https://platform.openai.com/docs/api-reference/run-steps/step-object) is created.'
           x-oaiMeta:
             dataDescription: '`data` is a [run step](/docs/api-reference/run-steps/step-object)'
         - required:
@@ -29,7 +29,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunStepObject'
-          description: 'Occurs when a [run step](/docs/api-reference/run-steps/step-object) moves to an `in_progress` state.'
+          description: 'Occurs when a [run step](https://platform.openai.com/docs/api-reference/run-steps/step-object) moves to an `in_progress` state.'
           x-oaiMeta:
             dataDescription: '`data` is a [run step](/docs/api-reference/run-steps/step-object)'
         - required:
@@ -44,7 +44,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunStepDeltaObject'
-          description: 'Occurs when parts of a [run step](/docs/api-reference/run-steps/step-object) are being streamed.'
+          description: 'Occurs when parts of a [run step](https://platform.openai.com/docs/api-reference/run-steps/step-object) are being streamed.'
           x-oaiMeta:
             dataDescription: '`data` is a [run step delta](/docs/api-reference/assistants-streaming/run-step-delta-object)'
         - required:
@@ -59,7 +59,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunStepObject'
-          description: 'Occurs when a [run step](/docs/api-reference/run-steps/step-object) is completed.'
+          description: 'Occurs when a [run step](https://platform.openai.com/docs/api-reference/run-steps/step-object) is completed.'
           x-oaiMeta:
             dataDescription: '`data` is a [run step](/docs/api-reference/run-steps/step-object)'
         - required:
@@ -74,7 +74,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunStepObject'
-          description: 'Occurs when a [run step](/docs/api-reference/run-steps/step-object) fails.'
+          description: 'Occurs when a [run step](https://platform.openai.com/docs/api-reference/run-steps/step-object) fails.'
           x-oaiMeta:
             dataDescription: '`data` is a [run step](/docs/api-reference/run-steps/step-object)'
         - required:
@@ -89,7 +89,7 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunStepObject'
-          description: 'Occurs when a [run step](/docs/api-reference/run-steps/step-object) is cancelled.'
+          description: 'Occurs when a [run step](https://platform.openai.com/docs/api-reference/run-steps/step-object) is cancelled.'
           x-oaiMeta:
             dataDescription: '`data` is a [run step](/docs/api-reference/run-steps/step-object)'
         - required:
@@ -104,6 +104,8 @@ components:
               x-stainless-const: true
             data:
               $ref: '#/components/schemas/RunStepObject'
-          description: 'Occurs when a [run step](/docs/api-reference/run-steps/step-object) expires.'
+          description: 'Occurs when a [run step](https://platform.openai.com/docs/api-reference/run-steps/step-object) expires.'
           x-oaiMeta:
             dataDescription: '`data` is a [run step](/docs/api-reference/run-steps/step-object)'
+      discriminator:
+        propertyName: event

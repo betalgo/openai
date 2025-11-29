@@ -1,0 +1,20 @@
+components:
+  schemas:
+    UrlAnnotationSource:
+      title: URL annotation source
+      required:
+        - type
+        - url
+      type: object
+      properties:
+        type:
+          enum:
+            - url
+          type: string
+          description: Type discriminator that is always `url`.
+          default: url
+          x-stainless-const: true
+        url:
+          type: string
+          description: URL referenced by the annotation.
+      description: URL backing an annotation entry.

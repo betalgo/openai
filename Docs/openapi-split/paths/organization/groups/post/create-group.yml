@@ -1,0 +1,30 @@
+paths:
+  /organization/groups:
+    post:
+      tags:
+        - Groups
+      summary: Create group
+      description: Creates a new group in the organization.
+      operationId: create-group
+      requestBody:
+        description: Parameters for the group you want to create.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupBody'
+        required: true
+      responses:
+        '200':
+          description: Group created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+      x-oaiMeta:
+        name: Create group
+        group: administration
+        returns: 'The created [group object](https://platform.openai.com/docs/api-reference/groups/object).'
+        examples:
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/organization/groups \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      \"name\": \"Support Team\"\n  }'\n"
+          response: "{\n    \"object\": \"group\",\n    \"id\": \"group_01J1F8ABCDXYZ\",\n    \"name\": \"Support Team\",\n    \"created_at\": 1711471533,\n    \"is_scim_managed\": false\n}\n"

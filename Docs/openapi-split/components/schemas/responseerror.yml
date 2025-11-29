@@ -1,15 +1,16 @@
 components:
   schemas:
     ResponseError:
-      required:
-        - code
-        - message
-      type: object
-      properties:
-        code:
-          $ref: '#/components/schemas/ResponseErrorCode'
-        message:
-          type: string
-          description: "A human-readable description of the error.\n"
-      description: "An error object returned when the model fails to generate a Response.\n"
-      nullable: true
+      anyOf:
+        - required:
+            - code
+            - message
+          type: object
+          properties:
+            code:
+              $ref: '#/components/schemas/ResponseErrorCode'
+            message:
+              type: string
+              description: "A human-readable description of the error.\n"
+          description: "An error object returned when the model fails to generate a Response.\n"
+        - nullable: true

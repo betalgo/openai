@@ -13,12 +13,11 @@ components:
         type:
           enum:
             - conversation.item.input_audio_transcription.delta
-          type: string
           description: 'The event type, must be `conversation.item.input_audio_transcription.delta`.'
           x-stainless-const: true
         item_id:
           type: string
-          description: The ID of the item.
+          description: The ID of the item containing the audio that is being transcribed.
         content_index:
           type: integer
           description: The index of the content part in the item's content array.
@@ -26,13 +25,14 @@ components:
           type: string
           description: The text delta.
         logprobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/LogProbProperties'
-          description: The log probabilities of the transcription.
-          nullable: true
-      description: "Returned when the text value of an input audio transcription content part is updated.\n"
+          anyOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/LogProbProperties'
+              description: 'The log probabilities of the transcription. These can be enabled by configurating the session with `"include": ["item.input_audio_transcription.logprobs"]`. Each entry in the array corresponds a log probability of which token would be selected for this chunk of transcription. This can help to identify if it was possible there were multiple valid options for a given chunk of transcription.'
+            - nullable: true
+      description: "Returned when the text value of an input audio transcription content part is updated with incremental transcription results.\n"
       x-oaiMeta:
         name: conversation.item.input_audio_transcription.delta
         group: realtime
-        example: "{\n  \"type\": \"conversation.item.input_audio_transcription.delta\",\n  \"event_id\": \"event_001\",\n  \"item_id\": \"item_001\",\n  \"content_index\": 0,\n  \"delta\": \"Hello\"\n}\n"
+        example: "{\n  \"type\": \"conversation.item.input_audio_transcription.delta\",\n  \"event_id\": \"event_CCXGRxsAimPAs8kS2Wc7Z\",\n  \"item_id\": \"item_CCXGQ4e1ht4cOraEYcuR2\",\n  \"content_index\": 0,\n  \"delta\": \"Hey\",\n  \"obfuscation\": \"aLxx0jTEciOGe\"\n}\n"

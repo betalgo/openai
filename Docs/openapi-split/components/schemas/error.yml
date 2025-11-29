@@ -9,12 +9,14 @@ components:
       type: object
       properties:
         code:
-          type: string
-          nullable: true
+          anyOf:
+            - type: string
+            - nullable: true
         message:
           type: string
         param:
-          type: string
-          nullable: true
+          anyOf:
+            - type: string
+            - nullable: true
         type:
           type: string

@@ -1,0 +1,57 @@
+components:
+  schemas:
+    UserMessageItem:
+      title: User Message Item
+      required:
+        - id
+        - object
+        - created_at
+        - thread_id
+        - type
+        - content
+        - attachments
+        - inference_options
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the thread item.
+        object:
+          enum:
+            - chatkit.thread_item
+          type: string
+          description: Type discriminator that is always `chatkit.thread_item`.
+          default: chatkit.thread_item
+          x-stainless-const: true
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) for when the item was created.
+        thread_id:
+          type: string
+          description: Identifier of the parent thread.
+        type:
+          enum:
+            - chatkit.user_message
+          type: string
+          default: chatkit.user_message
+          x-stainless-const: true
+        content:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/UserMessageInputText'
+              - $ref: '#/components/schemas/UserMessageQuotedText'
+            description: Content blocks that comprise a user message.
+            discriminator:
+              propertyName: type
+          description: Ordered content elements supplied by the user.
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+          description: Attachments associated with the user message. Defaults to an empty list.
+        inference_options:
+          anyOf:
+            - $ref: '#/components/schemas/InferenceOptions'
+            - nullable: true
+      description: User-authored messages within a thread.

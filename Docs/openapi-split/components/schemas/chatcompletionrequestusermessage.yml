@@ -8,7 +8,7 @@ components:
       type: object
       properties:
         content:
-          oneOf:
+          anyOf:
             - title: Text content
               type: string
               description: The text contents of the message.
@@ -17,7 +17,7 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/ChatCompletionRequestUserMessageContentPart'
-              description: 'An array of content parts with a defined type. Supported options differ based on the [model](/docs/models) being used to generate the response. Can contain text, image, or audio inputs.'
+              description: 'An array of content parts with a defined type. Supported options differ based on the [model](https://platform.openai.com/docs/models) being used to generate the response. Can contain text, image, or audio inputs.'
           description: "The contents of the user message.\n"
         role:
           enum:
@@ -29,3 +29,6 @@ components:
           type: string
           description: An optional name for the participant. Provides the model information to differentiate between participants of the same role.
       description: "Messages sent by an end user, containing prompts or additional context\ninformation.\n"
+      x-stainless-naming:
+        go:
+          variant_constructor: UserMessage

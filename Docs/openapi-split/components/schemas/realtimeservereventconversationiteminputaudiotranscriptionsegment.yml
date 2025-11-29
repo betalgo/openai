@@ -1,0 +1,51 @@
+components:
+  schemas:
+    RealtimeServerEventConversationItemInputAudioTranscriptionSegment:
+      required:
+        - event_id
+        - type
+        - item_id
+        - content_index
+        - text
+        - id
+        - speaker
+        - start
+        - end
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - conversation.item.input_audio_transcription.segment
+          description: 'The event type, must be `conversation.item.input_audio_transcription.segment`.'
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The ID of the item containing the input audio content.
+        content_index:
+          type: integer
+          description: The index of the input audio content part within the item.
+        text:
+          type: string
+          description: The text for this segment.
+        id:
+          type: string
+          description: The segment identifier.
+        speaker:
+          type: string
+          description: The detected speaker label for this segment.
+        start:
+          type: number
+          description: Start time of the segment in seconds.
+          format: float
+        end:
+          type: number
+          description: End time of the segment in seconds.
+          format: float
+      description: Returned when an input audio transcription segment is identified for an item.
+      x-oaiMeta:
+        name: conversation.item.input_audio_transcription.segment
+        group: realtime
+        example: "{\n    \"event_id\": \"event_6501\",\n    \"type\": \"conversation.item.input_audio_transcription.segment\",\n    \"item_id\": \"msg_011\",\n    \"content_index\": 0,\n    \"text\": \"hello\",\n    \"id\": \"seg_0001\",\n    \"speaker\": \"spk_1\",\n    \"start\": 0.0,\n    \"end\": 0.4\n}\n"

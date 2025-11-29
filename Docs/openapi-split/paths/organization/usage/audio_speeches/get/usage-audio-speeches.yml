@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Usage
-      summary: Get audio speeches usage details for the organization.
+      summary: Audio speeches
+      description: Get audio speeches usage details for the organization.
       operationId: usage-audio-speeches
       parameters:
         - name: start_time
@@ -87,7 +88,7 @@ paths:
       x-oaiMeta:
         name: Audio speeches
         group: usage-audio-speeches
-        returns: 'A list of paginated, time bucketed [Audio speeches usage](/docs/api-reference/usage/audio_speeches_object) objects.'
+        returns: 'A list of paginated, time bucketed [Audio speeches usage](https://platform.openai.com/docs/api-reference/usage/audio_speeches_object) objects.'
         examples:
           response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.usage.audio_speeches.result\",\n                    \"characters\": 45,\n                    \"num_model_requests\": 1,\n                    \"project_id\": null,\n                    \"user_id\": null,\n                    \"api_key_id\": null,\n                    \"model\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": false,\n    \"next_page\": null\n}\n"
           request:

@@ -1,0 +1,24 @@
+components:
+  schemas:
+    DeletedVideoResource:
+      title: Deleted video response
+      required:
+        - object
+        - deleted
+        - id
+      type: object
+      properties:
+        object:
+          enum:
+            - video.deleted
+          type: string
+          description: The object type that signals the deletion response.
+          default: video.deleted
+          x-stainless-const: true
+        deleted:
+          type: boolean
+          description: Indicates that the video resource was deleted.
+        id:
+          type: string
+          description: Identifier of the deleted video.
+      description: Confirmation payload returned after deleting a video.

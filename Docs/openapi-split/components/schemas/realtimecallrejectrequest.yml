@@ -1,0 +1,12 @@
+components:
+  schemas:
+    RealtimeCallRejectRequest:
+      title: Realtime call reject request
+      type: object
+      properties:
+        status_code:
+          type: integer
+          description: "SIP response code to send back to the caller. Defaults to `603` (Decline)\nwhen omitted."
+          example: 486
+      additionalProperties: false
+      description: Parameters used to decline an incoming SIP call handled by the Realtime API.

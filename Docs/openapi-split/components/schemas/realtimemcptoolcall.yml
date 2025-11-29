@@ -1,0 +1,51 @@
+components:
+  schemas:
+    RealtimeMCPToolCall:
+      title: Realtime MCP tool call
+      required:
+        - type
+        - id
+        - server_label
+        - name
+        - arguments
+      type: object
+      properties:
+        type:
+          enum:
+            - mcp_call
+          type: string
+          description: The type of the item. Always `mcp_call`.
+          x-stainless-const: true
+        id:
+          type: string
+          description: The unique ID of the tool call.
+        server_label:
+          type: string
+          description: The label of the MCP server running the tool.
+        name:
+          type: string
+          description: The name of the tool that was run.
+        arguments:
+          type: string
+          description: A JSON string of the arguments passed to the tool.
+        approval_request_id:
+          anyOf:
+            - type: string
+              description: 'The ID of an associated approval request, if any.'
+            - nullable: true
+        output:
+          anyOf:
+            - type: string
+              description: The output from the tool call.
+            - nullable: true
+        error:
+          anyOf:
+            - anyOf:
+                - $ref: '#/components/schemas/RealtimeMCPProtocolError'
+                - $ref: '#/components/schemas/RealtimeMCPToolExecutionError'
+                - $ref: '#/components/schemas/RealtimeMCPHTTPError'
+              description: 'The error from the tool call, if any.'
+              discriminator:
+                propertyName: type
+            - nullable: true
+      description: "A Realtime item representing an invocation of a tool on an MCP server.\n"

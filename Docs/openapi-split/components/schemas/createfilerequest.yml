@@ -10,14 +10,10 @@ components:
           type: string
           description: "The File object (not file name) to be uploaded.\n"
           format: binary
+          x-oaiMeta:
+            exampleFilePath: fine-tune.jsonl
         purpose:
-          enum:
-            - assistants
-            - batch
-            - fine-tune
-            - vision
-            - user_data
-            - evals
-          type: string
-          description: "The intended purpose of the uploaded file. One of: - `assistants`: Used in the Assistants API - `batch`: Used in the Batch API - `fine-tune`: Used for fine-tuning - `vision`: Images used for vision fine-tuning - `user_data`: Flexible file type for any purpose - `evals`: Used for eval data sets\n"
+          $ref: '#/components/schemas/FilePurpose'
+        expires_after:
+          $ref: '#/components/schemas/FileExpirationAfter'
       additionalProperties: false

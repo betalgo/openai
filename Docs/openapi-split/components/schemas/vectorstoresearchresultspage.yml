@@ -30,9 +30,10 @@ components:
           type: boolean
           description: Indicates if there are more results to fetch.
         next_page:
-          type: string
-          description: 'The token for the next page, if any.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'The token for the next page, if any.'
+            - nullable: true
       additionalProperties: false
       x-oaiMeta:
         name: Vector store search results page

@@ -15,7 +15,6 @@ components:
         type:
           enum:
             - conversation.item.truncated
-          type: string
           description: 'The event type, must be `conversation.item.truncated`.'
           x-stainless-const: true
         item_id:

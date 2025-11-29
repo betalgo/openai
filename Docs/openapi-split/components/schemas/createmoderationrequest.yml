@@ -6,7 +6,7 @@ components:
       type: object
       properties:
         input:
-          oneOf:
+          anyOf:
             - type: string
               description: A string of text to classify for moderation.
               default: ''
@@ -17,48 +17,14 @@ components:
                 default: ''
                 example: I want to kill them.
               description: An array of strings to classify for moderation.
-            - type: array
+            - title: Moderation Multi Modal Array
+              type: array
               items:
-                oneOf:
-                  - required:
-                      - type
-                      - image_url
-                    type: object
-                    properties:
-                      type:
-                        enum:
-                          - image_url
-                        type: string
-                        description: Always `image_url`.
-                        x-stainless-const: true
-                      image_url:
-                        required:
-                          - url
-                        type: object
-                        properties:
-                          url:
-                            type: string
-                            description: Either a URL of the image or the base64 encoded image data.
-                            format: uri
-                            example: https://example.com/image.jpg
-                        description: Contains either an image URL or a data URL for a base64 encoded image.
-                    description: An object describing an image to classify.
-                  - required:
-                      - type
-                      - text
-                    type: object
-                    properties:
-                      type:
-                        enum:
-                          - text
-                        type: string
-                        description: Always `text`.
-                        x-stainless-const: true
-                      text:
-                        type: string
-                        description: A string of text to classify.
-                        example: I want to kill them
-                    description: An object describing text to classify.
+                anyOf:
+                  - $ref: '#/components/schemas/ModerationImageURLInput'
+                  - $ref: '#/components/schemas/ModerationTextInput'
+                discriminator:
+                  propertyName: type
               description: An array of multi-modal inputs to the moderation model.
           description: "Input (or inputs) to classify. Can be a single string, an array of strings, or\nan array of multi-modal input objects similar to other models.\n"
         model:
@@ -70,7 +36,6 @@ components:
                 - text-moderation-latest
                 - text-moderation-stable
               type: string
-          description: "The content moderation model you would like to use. Learn more in\n[the moderation guide](/docs/guides/moderation), and learn about\navailable models [here](/docs/models#moderation).\n"
-          default: omni-moderation-latest
-          example: omni-moderation-2024-09-26
+              x-stainless-nominal: false
+          description: "The content moderation model you would like to use. Learn more in\n[the moderation guide](https://platform.openai.com/docs/guides/moderation), and learn about\navailable models [here](https://platform.openai.com/docs/models#moderation).\n"
           x-oaiTypeLabel: string

@@ -1,0 +1,60 @@
+components:
+  schemas:
+    WebhookRealtimeCallIncoming:
+      title: realtime.call.incoming
+      required:
+        - created_at
+        - id
+        - data
+        - type
+      type: object
+      properties:
+        created_at:
+          type: integer
+          description: "The Unix timestamp (in seconds) of when the model response was completed.\n"
+        id:
+          type: string
+          description: "The unique ID of the event.\n"
+        data:
+          required:
+            - call_id
+            - sip_headers
+          type: object
+          properties:
+            call_id:
+              type: string
+              description: "The unique ID of this call.\n"
+            sip_headers:
+              type: array
+              items:
+                required:
+                  - name
+                  - value
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: "Name of the SIP Header.\n"
+                  value:
+                    type: string
+                    description: "Value of the SIP Header.\n"
+                description: "A header from the SIP Invite.\n"
+              description: "Headers from the SIP Invite.\n"
+          description: "Event data payload.\n"
+        object:
+          enum:
+            - event
+          type: string
+          description: "The object of the event. Always `event`.\n"
+          x-stainless-const: true
+        type:
+          enum:
+            - realtime.call.incoming
+          type: string
+          description: "The type of the event. Always `realtime.call.incoming`.\n"
+          x-stainless-const: true
+      description: "Sent when Realtime API Receives a incoming SIP call.\n"
+      x-oaiMeta:
+        name: realtime.call.incoming
+        group: webhook-events
+        example: "{\n  \"id\": \"evt_abc123\",\n  \"type\": \"realtime.call.incoming\",\n  \"created_at\": 1719168000,\n  \"data\": {\n    \"call_id\": \"rtc_479a275623b54bdb9b6fbae2f7cbd408\",\n    \"sip_headers\": [\n      {\"name\": \"Max-Forwards\", \"value\": \"63\"},\n      {\"name\": \"CSeq\", \"value\": \"851287 INVITE\"},\n      {\"name\": \"Content-Type\", \"value\": \"application/sdp\"},\n    ]\n  }\n}\n"

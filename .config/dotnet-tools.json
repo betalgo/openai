@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "betalgo.blueflow.chopper": {
+      "version": "1.0.4",
+      "commands": [
+        "blueflow-chopper"
+      ],
+      "rollForward": false
+    }
+  }
+}

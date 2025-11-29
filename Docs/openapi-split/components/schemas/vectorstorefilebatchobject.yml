@@ -25,7 +25,7 @@ components:
           description: The Unix timestamp (in seconds) for when the vector store files batch was created.
         vector_store_id:
           type: string
-          description: 'The ID of the [vector store](/docs/api-reference/vector-stores/object) that the [File](/docs/api-reference/files) is attached to.'
+          description: 'The ID of the [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) that the [File](https://platform.openai.com/docs/api-reference/files) is attached to.'
         status:
           enum:
             - in_progress

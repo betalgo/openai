@@ -12,7 +12,6 @@ components:
         object:
           enum:
             - list
-          type: string
           description: 'The type of object returned, must be ''list''.'
         data:
           type: array

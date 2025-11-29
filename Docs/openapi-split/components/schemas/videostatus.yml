@@ -1,0 +1,9 @@
+components:
+  schemas:
+    VideoStatus:
+      enum:
+        - queued
+        - in_progress
+        - completed
+        - failed
+      type: string

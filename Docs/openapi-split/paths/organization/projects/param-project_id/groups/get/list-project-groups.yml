@@ -1,0 +1,52 @@
+paths:
+  '/organization/projects/{project_id}/groups':
+    get:
+      tags:
+        - Project groups
+      summary: List project groups
+      description: Lists the groups that have access to a project.
+      operationId: list-project-groups
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project to inspect.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: A limit on the number of project groups to return. Defaults to 20.
+          schema:
+            maximum: 100
+            minimum: 0
+            type: integer
+            default: 20
+        - name: after
+          in: query
+          description: Cursor for pagination. Provide the ID of the last group from the previous response to fetch the next page.
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: Sort order for the returned groups.
+          schema:
+            enum:
+              - asc
+              - desc
+            type: string
+            default: asc
+      responses:
+        '200':
+          description: Project groups listed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectGroupListResource'
+      x-oaiMeta:
+        name: List project groups
+        group: administration
+        returns: 'A list of [project group objects](https://platform.openai.com/docs/api-reference/project-groups/object).'
+        examples:
+          request:
+            curl: "curl https://api.openai.com/v1/organization/projects/proj_abc123/groups?limit=20 \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"
+          response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"object\": \"project.group\",\n            \"project_id\": \"proj_abc123\",\n            \"group_id\": \"group_01J1F8ABCDXYZ\",\n            \"group_name\": \"Support Team\",\n            \"created_at\": 1711471533\n        }\n    ],\n    \"has_more\": false,\n    \"next\": null\n}\n"

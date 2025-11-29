@@ -12,28 +12,33 @@ components:
           enum:
             - exec
           type: string
-          description: "The type of the local shell action. Always `exec`.\n"
+          description: The type of the local shell action. Always `exec`.
+          default: exec
           x-stainless-const: true
         command:
           type: array
           items:
             type: string
-          description: "The command to run.\n"
+          description: The command to run.
         timeout_ms:
-          type: integer
-          description: "Optional timeout in milliseconds for the command.\n"
-          nullable: true
+          anyOf:
+            - type: integer
+              description: Optional timeout in milliseconds for the command.
+            - nullable: true
         working_directory:
-          type: string
-          description: "Optional working directory to run the command in.\n"
-          nullable: true
+          anyOf:
+            - type: string
+              description: Optional working directory to run the command in.
+            - nullable: true
         env:
           type: object
           additionalProperties:
             type: string
-          description: "Environment variables to set for the command.\n"
+          description: Environment variables to set for the command.
+          x-oaiTypeLabel: map
         user:
-          type: string
-          description: "Optional user to run the command as.\n"
-          nullable: true
-      description: "Execute a shell command on the server.\n"
+          anyOf:
+            - type: string
+              description: Optional user to run the command as.
+            - nullable: true
+      description: Execute a shell command on the server.

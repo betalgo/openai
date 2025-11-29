@@ -3,7 +3,8 @@ paths:
     get:
       tags:
         - Certificates
-      summary: "Get a certificate that has been uploaded to the organization.\n\nYou can get a certificate regardless of whether it is active or not.\n"
+      summary: Get certificate
+      description: "Get a certificate that has been uploaded to the organization.\n\nYou can get a certificate regardless of whether it is active or not.\n"
       operationId: getCertificate
       parameters:
         - name: certificate_id
@@ -31,7 +32,7 @@ paths:
       x-oaiMeta:
         name: Get certificate
         group: administration
-        returns: 'A single [Certificate](/docs/api-reference/certificates/object) object.'
+        returns: 'A single [Certificate](https://platform.openai.com/docs/api-reference/certificates/object) object.'
         examples:
           request:
             curl: "curl \"https://api.openai.com/v1/organization/certificates/cert_abc?include[]=content\" \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\"\n"

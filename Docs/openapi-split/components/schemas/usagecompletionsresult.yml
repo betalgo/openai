@@ -32,26 +32,36 @@ components:
           type: integer
           description: The count of requests made to the model.
         project_id:
-          type: string
-          description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
+            - nullable: true
         user_id:
-          type: string
-          description: 'When `group_by=user_id`, this field provides the user ID of the grouped usage result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=user_id`, this field provides the user ID of the grouped usage result.'
+            - nullable: true
         api_key_id:
-          type: string
-          description: 'When `group_by=api_key_id`, this field provides the API key ID of the grouped usage result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=api_key_id`, this field provides the API key ID of the grouped usage result.'
+            - nullable: true
         model:
-          type: string
-          description: 'When `group_by=model`, this field provides the model name of the grouped usage result.'
-          nullable: true
+          anyOf:
+            - type: string
+              description: 'When `group_by=model`, this field provides the model name of the grouped usage result.'
+            - nullable: true
         batch:
-          type: boolean
-          description: 'When `group_by=batch`, this field tells whether the grouped usage result is batch or not.'
-          nullable: true
+          anyOf:
+            - type: boolean
+              description: 'When `group_by=batch`, this field tells whether the grouped usage result is batch or not.'
+            - nullable: true
+        service_tier:
+          anyOf:
+            - type: string
+              description: 'When `group_by=service_tier`, this field provides the service tier of the grouped usage result.'
+            - nullable: true
       description: The aggregated completions usage details of the specific time bucket.
       x-oaiMeta:
         name: Completions usage object
-        example: "{\n    \"object\": \"organization.usage.completions.result\",\n    \"input_tokens\": 5000,\n    \"output_tokens\": 1000,\n    \"input_cached_tokens\": 4000,\n    \"input_audio_tokens\": 300,\n    \"output_audio_tokens\": 200,\n    \"num_model_requests\": 5,\n    \"project_id\": \"proj_abc\",\n    \"user_id\": \"user-abc\",\n    \"api_key_id\": \"key_abc\",\n    \"model\": \"gpt-4o-mini-2024-07-18\",\n    \"batch\": false\n}\n"
+        example: "{\n    \"object\": \"organization.usage.completions.result\",\n    \"input_tokens\": 5000,\n    \"output_tokens\": 1000,\n    \"input_cached_tokens\": 4000,\n    \"input_audio_tokens\": 300,\n    \"output_audio_tokens\": 200,\n    \"num_model_requests\": 5,\n    \"project_id\": \"proj_abc\",\n    \"user_id\": \"user-abc\",\n    \"api_key_id\": \"key_abc\",\n    \"model\": \"gpt-4o-mini-2024-07-18\",\n    \"batch\": false,\n    \"service_tier\": \"default\"\n}\n"

@@ -28,22 +28,23 @@ components:
           example: Chatbot effectiveness Evaluation
         data_source_config:
           type: object
-          oneOf:
+          anyOf:
             - $ref: '#/components/schemas/EvalCustomDataSourceConfig'
             - $ref: '#/components/schemas/EvalLogsDataSourceConfig'
             - $ref: '#/components/schemas/EvalStoredCompletionsDataSourceConfig'
           description: Configuration of data sources used in runs of the evaluation.
+          discriminator:
+            propertyName: type
         testing_criteria:
           type: array
           items:
-            oneOf:
+            anyOf:
               - $ref: '#/components/schemas/EvalGraderLabelModel'
               - $ref: '#/components/schemas/EvalGraderStringCheck'
               - $ref: '#/components/schemas/EvalGraderTextSimilarity'
               - $ref: '#/components/schemas/EvalGraderPython'
               - $ref: '#/components/schemas/EvalGraderScoreModel'
           description: A list of testing criteria.
-          default: eval
         created_at:
           type: integer
           description: The Unix timestamp (in seconds) for when the eval was created.

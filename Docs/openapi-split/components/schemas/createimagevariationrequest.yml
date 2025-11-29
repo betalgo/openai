@@ -9,6 +9,8 @@ components:
           type: string
           description: 'The image to use as the basis for the variation(s). Must be a valid PNG file, less than 4MB, and square.'
           format: binary
+          x-oaiMeta:
+            exampleFilePath: otter.png
         model:
           anyOf:
             - type: string
@@ -17,9 +19,7 @@ components:
               type: string
               x-stainless-const: true
           description: The model to use for image generation. Only `dall-e-2` is supported at this time.
-          default: dall-e-2
           nullable: true
-          example: dall-e-2
           x-oaiTypeLabel: string
         n:
           maximum: 10
@@ -50,5 +50,5 @@ components:
           example: 1024x1024
         user:
           type: string
-          description: "A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](/docs/guides/safety-best-practices#end-user-ids).\n"
+          description: "A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).\n"
           example: user-1234

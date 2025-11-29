@@ -17,7 +17,6 @@ components:
         item_schema:
           type: object
           description: The json schema for each row in the data source.
-          example: "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\"type\": \"string\"},\n    \"age\": {\"type\": \"integer\"}\n  },\n  \"required\": [\"name\", \"age\"]\n}\n"
         include_sample_schema:
           type: boolean
           description: 'Whether the eval should expect you to populate the sample namespace (ie, by generating responses off of your data source)'

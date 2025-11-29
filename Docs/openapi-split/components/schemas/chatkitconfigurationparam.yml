@@ -1,0 +1,13 @@
+components:
+  schemas:
+    ChatkitConfigurationParam:
+      title: ChatKit configuration overrides
+      type: object
+      properties:
+        automatic_thread_titling:
+          $ref: '#/components/schemas/AutomaticThreadTitlingParam'
+        file_upload:
+          $ref: '#/components/schemas/FileUploadParam'
+        history:
+          $ref: '#/components/schemas/HistoryParam'
+      description: Optional per-session configuration settings for ChatKit behavior.

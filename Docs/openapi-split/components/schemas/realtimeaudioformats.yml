@@ -1,0 +1,38 @@
+components:
+  schemas:
+    RealtimeAudioFormats:
+      anyOf:
+        - title: PCM audio format
+          type: object
+          properties:
+            type:
+              enum:
+                - audio/pcm
+              type: string
+              description: The audio format. Always `audio/pcm`.
+            rate:
+              enum:
+                - 24000
+              type: integer
+              description: The sample rate of the audio. Always `24000`.
+          description: The PCM audio format. Only a 24kHz sample rate is supported.
+        - title: PCMU audio format
+          type: object
+          properties:
+            type:
+              enum:
+                - audio/pcmu
+              type: string
+              description: The audio format. Always `audio/pcmu`.
+          description: The G.711 μ-law format.
+        - title: PCMA audio format
+          type: object
+          properties:
+            type:
+              enum:
+                - audio/pcma
+              type: string
+              description: The audio format. Always `audio/pcma`.
+          description: The G.711 A-law format.
+      discriminator:
+        propertyName: type

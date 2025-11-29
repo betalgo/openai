@@ -14,7 +14,7 @@ components:
           x-stainless-const: true
         url:
           type: string
-          description: 'The OpenAI API relative URL to be used for the request. Currently `/v1/chat/completions`, `/v1/embeddings`, and `/v1/completions` are supported.'
+          description: 'The OpenAI API relative URL to be used for the request. Currently `/v1/responses`, `/v1/chat/completions`, `/v1/embeddings`, `/v1/completions`, and `/v1/moderations` are supported.'
       description: The per-line object of the batch input file
       x-oaiMeta:
         name: The request input object
