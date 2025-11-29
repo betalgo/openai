@@ -1,6 +1,6 @@
 {
-  "source": "C:\\Repos\\openai\\Docs\\openapi.documented.yml",
-  "generatedAt": "2025-11-29T15:17:02.52864+00:00",
+  "source": "https://app.stainless.com/api/spec/documented/openai/openapi.documented.yml",
+  "generatedAt": "2025-11-29T15:24:50.0026715+00:00",
   "paths": [
     "paths/assistants/get/listassistants.yml",
     "paths/assistants/post/createassistant.yml",
