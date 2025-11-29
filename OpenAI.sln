@@ -15,10 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{27B22566-7
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\BuildAndDeployBetalgoOpenAI.yml = .github\workflows\BuildAndDeployBetalgoOpenAI.yml
 		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
-		Docs\openapi.documented.yml = Docs\openapi.documented.yml
-		.github\scripts\publish-nuget.ps1 = .github\scripts\publish-nuget.ps1
 		Readme.md = Readme.md
-		Docs\update-openapi.ps1 = Docs\update-openapi.ps1
+		Docs\UPDATE_OPENAPI.md = Docs\UPDATE_OPENAPI.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Betalgo.OpenAI.Utilities", "OpenAI.Utilities\Betalgo.OpenAI.Utilities.csproj", "{ADB482B9-7F95-41E6-888F-2DD6712D64BF}"

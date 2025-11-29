@@ -9,6 +9,9 @@ namespace Betalgo.Ranul.OpenAI.Contracts.Requests.Image;
 ///     <see href="https://platform.openai.com/docs/api-reference/images/create">
 ///         OpenAI API documentation
 ///     </see>
+///     <see href="https://github.com/betalgo/openai/blob/master/Docs/openapi-split/components/schemas/createimagerequest.yml">
+///         Source Definition
+///     </see>
 /// </summary>
 public class CreateImageRequest : IRequest, IHasModelImage, IHasImageSize, IHasImageBackground, IHasImageOutputFormat, IHasImageQuality
 {
@@ -121,8 +124,8 @@ public class CreateImageRequest : IRequest, IHasModelImage, IHasImageSize, IHasI
     public ImageSize? Size { get; set; }
 
     /// <summary>
-    ///     The model to use for image generation. One of <c>dall-e-2</c>, <c>dall-e-3</c>, or <c>gpt-image-1</c>. Defaults to
-    ///     <c>dall-e-2</c> unless a parameter specific to <c>gpt-image-1</c> is used.
+    ///     The model to use for image generation. One of <c>dall-e-2</c>, <c>dall-e-3</c>, <c>gpt-image-1</c> or
+    ///     <c>gpt-image-1-mini</c>. Defaults to <c>dall-e-2</c> unless a parameter specific to <c>gpt-image-1</c> is used.
     /// </summary>
     [JsonPropertyName("model")]
     public ImageModel? Model { get; set; }
