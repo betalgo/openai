@@ -1,0 +1,78 @@
+components:
+  schemas:
+    CustomToolChatCompletions:
+      title: Custom tool
+      required:
+        - type
+        - custom
+      type: object
+      properties:
+        type:
+          enum:
+            - custom
+          type: string
+          description: The type of the custom tool. Always `custom`.
+          x-stainless-const: true
+        custom:
+          title: Custom tool properties
+          required:
+            - name
+          type: object
+          properties:
+            name:
+              type: string
+              description: 'The name of the custom tool, used to identify it in tool calls.'
+            description:
+              type: string
+              description: "Optional description of the custom tool, used to provide more context.\n"
+            format:
+              anyOf:
+                - title: Text format
+                  required:
+                    - type
+                  type: object
+                  properties:
+                    type:
+                      enum:
+                        - text
+                      type: string
+                      description: Unconstrained text format. Always `text`.
+                      x-stainless-const: true
+                  additionalProperties: false
+                  description: Unconstrained free-form text.
+                - title: Grammar format
+                  required:
+                    - type
+                    - grammar
+                  type: object
+                  properties:
+                    type:
+                      enum:
+                        - grammar
+                      type: string
+                      description: Grammar format. Always `grammar`.
+                      x-stainless-const: true
+                    grammar:
+                      title: Grammar format
+                      required:
+                        - definition
+                        - syntax
+                      type: object
+                      properties:
+                        definition:
+                          type: string
+                          description: The grammar definition.
+                        syntax:
+                          enum:
+                            - lark
+                            - regex
+                          type: string
+                          description: The syntax of the grammar definition. One of `lark` or `regex`.
+                      description: Your chosen grammar.
+                  additionalProperties: false
+                  description: A grammar defined by the user.
+              description: "The input format for the custom tool. Default is unconstrained text.\n"
+              discriminator:
+                propertyName: type
+          description: "Properties of the custom tool.\n"
+      description: "A custom tool that processes input using a specified format.\n"

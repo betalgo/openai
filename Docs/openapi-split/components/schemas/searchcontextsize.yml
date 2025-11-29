@@ -1,0 +1,8 @@
+components:
+  schemas:
+    SearchContextSize:
+      enum:
+        - low
+        - medium
+        - high
+      type: string

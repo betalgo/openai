@@ -1,0 +1,24 @@
+components:
+  schemas:
+    DoubleClickAction:
+      title: DoubleClick
+      required:
+        - type
+        - x
+        - y
+      type: object
+      properties:
+        type:
+          enum:
+            - double_click
+          type: string
+          description: 'Specifies the event type. For a double click action, this property is always set to `double_click`.'
+          default: double_click
+          x-stainless-const: true
+        x:
+          type: integer
+          description: The x-coordinate where the double click occurred.
+        y:
+          type: integer
+          description: The y-coordinate where the double click occurred.
+      description: A double click action.

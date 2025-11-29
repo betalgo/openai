@@ -1,0 +1,56 @@
+paths:
+  '/projects/{project_id}/groups/{group_id}/roles':
+    get:
+      tags:
+        - Project group role assignments
+      summary: List project group role assignments
+      description: Lists the project roles assigned to a group within a project.
+      operationId: list-project-group-role-assignments
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project to inspect.
+          required: true
+          schema:
+            type: string
+        - name: group_id
+          in: path
+          description: The ID of the group to inspect.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: A limit on the number of project role assignments to return.
+          schema:
+            maximum: 1000
+            minimum: 0
+            type: integer
+        - name: after
+          in: query
+          description: Cursor for pagination. Provide the value from the previous response's `next` field to continue listing project roles.
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: Sort order for the returned project roles.
+          schema:
+            enum:
+              - asc
+              - desc
+            type: string
+      responses:
+        '200':
+          description: Project group role assignments listed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleListResource'
+      x-oaiMeta:
+        name: List project group role assignments
+        group: administration
+        returns: 'A list of [role objects](https://platform.openai.com/docs/api-reference/roles/object).'
+        examples:
+          request:
+            curl: "curl https://api.openai.com/v1/projects/proj_abc123/groups/group_01J1F8ABCDXYZ/roles \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"
+          response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"id\": \"role_01J1F8PROJ\",\n            \"name\": \"API Project Key Manager\",\n            \"permissions\": [\n                \"api.organization.projects.api_keys.read\",\n                \"api.organization.projects.api_keys.write\"\n            ],\n            \"resource_type\": \"api.project\",\n            \"predefined_role\": false,\n            \"description\": \"Allows managing API keys for the project\",\n            \"created_at\": 1711471533,\n            \"updated_at\": 1711472599,\n            \"created_by\": \"user_abc123\",\n            \"created_by_user_obj\": {\n                \"id\": \"user_abc123\",\n                \"name\": \"Ada Lovelace\",\n                \"email\": \"ada@example.com\"\n            },\n            \"metadata\": {}\n        }\n    ],\n    \"has_more\": false,\n    \"next\": null\n}\n"

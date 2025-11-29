@@ -1,0 +1,10 @@
+components:
+  schemas:
+    MCPToolCallStatus:
+      enum:
+        - in_progress
+        - completed
+        - incomplete
+        - calling
+        - failed
+      type: string

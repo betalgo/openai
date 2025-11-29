@@ -1,0 +1,16 @@
+components:
+  schemas:
+    EvalGraderPython:
+      title: EvalGraderPython
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/GraderPython'
+        - type: object
+          properties:
+            pass_threshold:
+              type: number
+              description: The threshold for the score.
+          x-oaiMeta:
+            name: Eval Python Grader
+            group: graders
+            example: "{\n  \"type\": \"python\",\n  \"name\": \"Example python grader\",\n  \"image_tag\": \"2025-05-08\",\n  \"source\": \"\"\"\ndef grade(sample: dict, item: dict) -> float:\n    \\\"\"\"\n    Returns 1.0 if `output_text` equals `label`, otherwise 0.0.\n    \\\"\"\"\n    output = sample.get(\"output_text\")\n    label = item.get(\"label\")\n    return 1.0 if output == label else 0.0\n\"\"\",\n  \"pass_threshold\": 0.8\n}\n"

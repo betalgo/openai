@@ -1,0 +1,36 @@
+components:
+  schemas:
+    CostsResult:
+      required:
+        - object
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.costs.result
+          type: string
+          x-stainless-const: true
+        amount:
+          type: object
+          properties:
+            value:
+              type: number
+              description: The numeric value of the cost.
+            currency:
+              type: string
+              description: Lowercase ISO-4217 currency e.g. "usd"
+          description: The monetary value in its associated currency.
+        line_item:
+          anyOf:
+            - type: string
+              description: 'When `group_by=line_item`, this field provides the line item of the grouped costs result.'
+            - nullable: true
+        project_id:
+          anyOf:
+            - type: string
+              description: 'When `group_by=project_id`, this field provides the project ID of the grouped costs result.'
+            - nullable: true
+      description: The aggregated costs details of the specific time bucket.
+      x-oaiMeta:
+        name: Costs object
+        example: "{\n    \"object\": \"organization.costs.result\",\n    \"amount\": {\n      \"value\": 0.06,\n      \"currency\": \"usd\"\n    },\n    \"line_item\": \"Image models\",\n    \"project_id\": \"proj_abc\"\n}\n"

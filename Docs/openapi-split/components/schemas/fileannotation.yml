@@ -1,0 +1,19 @@
+components:
+  schemas:
+    FileAnnotation:
+      title: File annotation
+      required:
+        - type
+        - source
+      type: object
+      properties:
+        type:
+          enum:
+            - file
+          type: string
+          description: Type discriminator that is always `file` for this annotation.
+          default: file
+          x-stainless-const: true
+        source:
+          $ref: '#/components/schemas/FileAnnotationSource'
+      description: Annotation that references an uploaded file.

@@ -1,0 +1,39 @@
+components:
+  schemas:
+    MessageDeltaObject:
+      title: Message delta object
+      required:
+        - id
+        - object
+        - delta
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The identifier of the message, which can be referenced in API endpoints.'
+        object:
+          enum:
+            - thread.message.delta
+          type: string
+          description: 'The object type, which is always `thread.message.delta`.'
+          x-stainless-const: true
+        delta:
+          type: object
+          properties:
+            role:
+              enum:
+                - user
+                - assistant
+              type: string
+              description: The entity that produced the message. One of `user` or `assistant`.
+            content:
+              type: array
+              items:
+                $ref: '#/components/schemas/MessageContentDelta'
+              description: The content of the message in array of text and/or images.
+          description: The delta containing the fields that have changed on the Message.
+      description: "Represents a message delta i.e. any changed fields on a message during streaming.\n"
+      x-oaiMeta:
+        name: The message delta object
+        beta: true
+        example: "{\n  \"id\": \"msg_123\",\n  \"object\": \"thread.message.delta\",\n  \"delta\": {\n    \"content\": [\n      {\n        \"index\": 0,\n        \"type\": \"text\",\n        \"text\": { \"value\": \"Hello\", \"annotations\": [] }\n      }\n    ]\n  }\n}\n"

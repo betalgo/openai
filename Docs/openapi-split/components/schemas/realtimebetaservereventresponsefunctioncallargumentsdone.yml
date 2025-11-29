@@ -1,0 +1,41 @@
+components:
+  schemas:
+    RealtimeBetaServerEventResponseFunctionCallArgumentsDone:
+      required:
+        - event_id
+        - type
+        - response_id
+        - item_id
+        - output_index
+        - call_id
+        - arguments
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.function_call_arguments.done
+          description: "The event type, must be `response.function_call_arguments.done`.\n"
+          x-stainless-const: true
+        response_id:
+          type: string
+          description: The ID of the response.
+        item_id:
+          type: string
+          description: The ID of the function call item.
+        output_index:
+          type: integer
+          description: The index of the output item in the response.
+        call_id:
+          type: string
+          description: The ID of the function call.
+        arguments:
+          type: string
+          description: The final arguments as a JSON string.
+      description: "Returned when the model-generated function call arguments are done streaming.\nAlso emitted when a Response is interrupted, incomplete, or cancelled.\n"
+      x-oaiMeta:
+        name: response.function_call_arguments.done
+        group: realtime
+        example: "{\n    \"event_id\": \"event_5556\",\n    \"type\": \"response.function_call_arguments.done\",\n    \"response_id\": \"resp_002\",\n    \"item_id\": \"fc_001\",\n    \"output_index\": 0,\n    \"call_id\": \"call_001\",\n    \"arguments\": \"{\\\"location\\\": \\\"San Francisco\\\"}\"\n}\n"

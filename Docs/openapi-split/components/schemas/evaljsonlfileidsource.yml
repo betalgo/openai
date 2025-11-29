@@ -1,0 +1,19 @@
+components:
+  schemas:
+    EvalJsonlFileIdSource:
+      title: EvalJsonlFileIdSource
+      required:
+        - type
+        - id
+      type: object
+      properties:
+        type:
+          enum:
+            - file_id
+          type: string
+          description: The type of jsonl source. Always `file_id`.
+          default: file_id
+          x-stainless-const: true
+        id:
+          type: string
+          description: The identifier of the file.

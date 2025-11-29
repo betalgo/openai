@@ -1,0 +1,28 @@
+components:
+  schemas:
+    PredictionContent:
+      title: Static Content
+      required:
+        - type
+        - content
+      type: object
+      properties:
+        type:
+          enum:
+            - content
+          type: string
+          description: "The type of the predicted content you want to provide. This type is\ncurrently always `content`.\n"
+          x-stainless-const: true
+        content:
+          anyOf:
+            - title: Text content
+              type: string
+              description: "The content used for a Predicted Output. This is often the\ntext of a file you are regenerating with minor changes.\n"
+            - title: Array of content parts
+              minItems: 1
+              type: array
+              items:
+                $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartText'
+              description: 'An array of content parts with a defined type. Supported options differ based on the [model](https://platform.openai.com/docs/models) being used to generate the response. Can contain text inputs.'
+          description: "The content that should be matched when generating a model response.\nIf generated tokens would match this content, the entire model response\ncan be returned much more quickly.\n"
+      description: "Static predicted output content, such as the content of a text file that is\nbeing regenerated.\n"

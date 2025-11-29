@@ -1,0 +1,28 @@
+components:
+  schemas:
+    RealtimeMCPListTools:
+      title: Realtime MCP list tools
+      required:
+        - type
+        - server_label
+        - tools
+      type: object
+      properties:
+        type:
+          enum:
+            - mcp_list_tools
+          type: string
+          description: The type of the item. Always `mcp_list_tools`.
+          x-stainless-const: true
+        id:
+          type: string
+          description: The unique ID of the list.
+        server_label:
+          type: string
+          description: The label of the MCP server.
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/MCPListToolsTool'
+          description: The tools available on the server.
+      description: "A Realtime item listing tools available on an MCP server.\n"

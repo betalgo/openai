@@ -1,0 +1,9 @@
+components:
+  schemas:
+    InputItem:
+      anyOf:
+        - $ref: '#/components/schemas/EasyInputMessage'
+        - $ref: '#/components/schemas/Item'
+        - $ref: '#/components/schemas/ItemReferenceParam'
+      discriminator:
+        propertyName: type

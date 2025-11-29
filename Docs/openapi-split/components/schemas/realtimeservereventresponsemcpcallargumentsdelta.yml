@@ -1,0 +1,42 @@
+components:
+  schemas:
+    RealtimeServerEventResponseMCPCallArgumentsDelta:
+      required:
+        - event_id
+        - type
+        - response_id
+        - item_id
+        - output_index
+        - delta
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.mcp_call_arguments.delta
+          description: 'The event type, must be `response.mcp_call_arguments.delta`.'
+          x-stainless-const: true
+        response_id:
+          type: string
+          description: The ID of the response.
+        item_id:
+          type: string
+          description: The ID of the MCP tool call item.
+        output_index:
+          type: integer
+          description: The index of the output item in the response.
+        delta:
+          type: string
+          description: The JSON-encoded arguments delta.
+        obfuscation:
+          anyOf:
+            - type: string
+              description: 'If present, indicates the delta text was obfuscated.'
+            - nullable: true
+      description: Returned when MCP tool call arguments are updated during response generation.
+      x-oaiMeta:
+        name: response.mcp_call_arguments.delta
+        group: realtime
+        example: "{\n    \"event_id\": \"event_6201\",\n    \"type\": \"response.mcp_call_arguments.delta\",\n    \"response_id\": \"resp_001\",\n    \"item_id\": \"mcp_call_001\",\n    \"output_index\": 0,\n    \"delta\": \"{\\\"partial\\\":true}\"\n}\n"

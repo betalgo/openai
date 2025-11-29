@@ -1,0 +1,22 @@
+components:
+  schemas:
+    CreateEvalItem:
+      title: CreateEvalItem
+      type: object
+      anyOf:
+        - title: SimpleInputMessage
+          required:
+            - role
+            - content
+          type: object
+          properties:
+            role:
+              type: string
+              description: 'The role of the message (e.g. "system", "assistant", "user").'
+            content:
+              type: string
+              description: The content of the message.
+        - $ref: '#/components/schemas/EvalItem'
+      description: 'A chat message that makes up the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.'
+      x-oaiMeta:
+        name: The chat message object used to configure an individual run

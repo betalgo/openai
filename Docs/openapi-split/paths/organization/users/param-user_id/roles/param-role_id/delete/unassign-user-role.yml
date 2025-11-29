@@ -1,0 +1,36 @@
+paths:
+  '/organization/users/{user_id}/roles/{role_id}':
+    delete:
+      tags:
+        - User organization role assignments
+      summary: Unassign organization role from user
+      description: Unassigns an organization role from a user within the organization.
+      operationId: unassign-user-role
+      parameters:
+        - name: user_id
+          in: path
+          description: The ID of the user to modify.
+          required: true
+          schema:
+            type: string
+        - name: role_id
+          in: path
+          description: The ID of the organization role to remove from the user.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Organization role unassigned from the user successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedRoleAssignmentResource'
+      x-oaiMeta:
+        name: Unassign organization role from user
+        group: administration
+        returns: 'Confirmation of the deleted [user role object](https://platform.openai.com/docs/api-reference/role-assignments/objects/user).'
+        examples:
+          request:
+            curl: "curl -X DELETE https://api.openai.com/v1/organization/users/user_abc123/roles/role_01J1F8ROLE01 \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"
+          response: "{\n    \"object\": \"user.role.deleted\",\n    \"deleted\": true\n}\n"

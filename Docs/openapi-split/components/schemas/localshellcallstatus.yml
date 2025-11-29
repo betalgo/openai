@@ -1,0 +1,8 @@
+components:
+  schemas:
+    LocalShellCallStatus:
+      enum:
+        - in_progress
+        - completed
+        - incomplete
+      type: string

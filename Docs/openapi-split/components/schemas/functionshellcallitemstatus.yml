@@ -1,0 +1,10 @@
+components:
+  schemas:
+    FunctionShellCallItemStatus:
+      title: Function shell call status
+      enum:
+        - in_progress
+        - completed
+        - incomplete
+      type: string
+      description: Status values reported for function shell tool calls.

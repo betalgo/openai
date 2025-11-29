@@ -1,0 +1,9 @@
+components:
+  schemas:
+    FunctionAndCustomToolCallOutput:
+      anyOf:
+        - $ref: '#/components/schemas/InputTextContent'
+        - $ref: '#/components/schemas/InputImageContent'
+        - $ref: '#/components/schemas/InputFileContent'
+      discriminator:
+        propertyName: type

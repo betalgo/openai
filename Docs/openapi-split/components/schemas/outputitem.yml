@@ -1,0 +1,23 @@
+components:
+  schemas:
+    OutputItem:
+      anyOf:
+        - $ref: '#/components/schemas/OutputMessage'
+        - $ref: '#/components/schemas/FileSearchToolCall'
+        - $ref: '#/components/schemas/FunctionToolCall'
+        - $ref: '#/components/schemas/WebSearchToolCall'
+        - $ref: '#/components/schemas/ComputerToolCall'
+        - $ref: '#/components/schemas/ReasoningItem'
+        - $ref: '#/components/schemas/ImageGenToolCall'
+        - $ref: '#/components/schemas/CodeInterpreterToolCall'
+        - $ref: '#/components/schemas/LocalShellToolCall'
+        - $ref: '#/components/schemas/FunctionShellCall'
+        - $ref: '#/components/schemas/FunctionShellCallOutput'
+        - $ref: '#/components/schemas/ApplyPatchToolCall'
+        - $ref: '#/components/schemas/ApplyPatchToolCallOutput'
+        - $ref: '#/components/schemas/MCPToolCall'
+        - $ref: '#/components/schemas/MCPListTools'
+        - $ref: '#/components/schemas/MCPApprovalRequest'
+        - $ref: '#/components/schemas/CustomToolCall'
+      discriminator:
+        propertyName: type

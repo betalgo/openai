@@ -1,0 +1,12 @@
+components:
+  schemas:
+    AuditLogActorUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The user id.
+        email:
+          type: string
+          description: The user email.
+      description: The user who performed the audit logged action.

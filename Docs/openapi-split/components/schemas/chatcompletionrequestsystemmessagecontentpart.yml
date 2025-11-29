@@ -1,0 +1,5 @@
+components:
+  schemas:
+    ChatCompletionRequestSystemMessageContentPart:
+      anyOf:
+        - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartText'

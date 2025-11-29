@@ -1,0 +1,33 @@
+components:
+  schemas:
+    RealtimeServerEventConversationItemTruncated:
+      required:
+        - event_id
+        - type
+        - item_id
+        - content_index
+        - audio_end_ms
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - conversation.item.truncated
+          description: 'The event type, must be `conversation.item.truncated`.'
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The ID of the assistant message item that was truncated.
+        content_index:
+          type: integer
+          description: The index of the content part that was truncated.
+        audio_end_ms:
+          type: integer
+          description: "The duration up to which the audio was truncated, in milliseconds.\n"
+      description: "Returned when an earlier assistant audio message item is truncated by the \nclient with a `conversation.item.truncate` event. This event is used to \nsynchronize the server's understanding of the audio with the client's playback.\n\nThis action will truncate the audio and remove the server-side text transcript \nto ensure there is no text in the context that hasn't been heard by the user.\n"
+      x-oaiMeta:
+        name: conversation.item.truncated
+        group: realtime
+        example: "{\n    \"event_id\": \"event_2526\",\n    \"type\": \"conversation.item.truncated\",\n    \"item_id\": \"msg_004\",\n    \"content_index\": 0,\n    \"audio_end_ms\": 1500\n}\n"

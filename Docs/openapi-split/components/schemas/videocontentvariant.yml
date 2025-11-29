@@ -1,0 +1,8 @@
+components:
+  schemas:
+    VideoContentVariant:
+      enum:
+        - video
+        - thumbnail
+        - spritesheet
+      type: string

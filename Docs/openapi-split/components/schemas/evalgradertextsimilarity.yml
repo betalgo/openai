@@ -1,0 +1,18 @@
+components:
+  schemas:
+    EvalGraderTextSimilarity:
+      title: EvalGraderTextSimilarity
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/GraderTextSimilarity'
+        - required:
+            - pass_threshold
+          type: object
+          properties:
+            pass_threshold:
+              type: number
+              description: The threshold for the score.
+          x-oaiMeta:
+            name: Text Similarity Grader
+            group: graders
+            example: "{\n  \"type\": \"text_similarity\",\n  \"name\": \"Example text similarity grader\",\n  \"input\": \"{{sample.output_text}}\",\n  \"reference\": \"{{item.label}}\",\n  \"pass_threshold\": 0.8,\n  \"evaluation_metric\": \"fuzzy_match\"\n}\n"

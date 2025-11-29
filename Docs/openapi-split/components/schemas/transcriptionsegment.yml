@@ -1,0 +1,54 @@
+components:
+  schemas:
+    TranscriptionSegment:
+      required:
+        - id
+        - seek
+        - start
+        - end
+        - text
+        - tokens
+        - temperature
+        - avg_logprob
+        - compression_ratio
+        - no_speech_prob
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier of the segment.
+        seek:
+          type: integer
+          description: Seek offset of the segment.
+        start:
+          type: number
+          description: Start time of the segment in seconds.
+          format: float
+        end:
+          type: number
+          description: End time of the segment in seconds.
+          format: float
+        text:
+          type: string
+          description: Text content of the segment.
+        tokens:
+          type: array
+          items:
+            type: integer
+          description: Array of token IDs for the text content.
+        temperature:
+          type: number
+          description: Temperature parameter used for generating the segment.
+          format: float
+        avg_logprob:
+          type: number
+          description: 'Average logprob of the segment. If the value is lower than -1, consider the logprobs failed.'
+          format: float
+        compression_ratio:
+          type: number
+          description: 'Compression ratio of the segment. If the value is greater than 2.4, consider the compression failed.'
+          format: float
+        no_speech_prob:
+          type: number
+          description: 'Probability of no speech in the segment. If the value is higher than 1.0 and the `avg_logprob` is below -1, consider this segment silent.'
+          format: float

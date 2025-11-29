@@ -1,0 +1,25 @@
+components:
+  schemas:
+    RealtimeClientEventConversationItemRetrieve:
+      required:
+        - type
+        - item_id
+      type: object
+      properties:
+        event_id:
+          maxLength: 512
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - conversation.item.retrieve
+          description: 'The event type, must be `conversation.item.retrieve`.'
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The ID of the item to retrieve.
+      description: "Send this event when you want to retrieve the server's representation of a specific item in the conversation history. This is useful, for example, to inspect user audio after noise cancellation and VAD.\nThe server will respond with a `conversation.item.retrieved` event, \nunless the item does not exist in the conversation history, in which case the \nserver will respond with an error.\n"
+      x-oaiMeta:
+        name: conversation.item.retrieve
+        group: realtime
+        example: "{\n    \"event_id\": \"event_901\",\n    \"type\": \"conversation.item.retrieve\",\n    \"item_id\": \"item_003\"\n}\n"

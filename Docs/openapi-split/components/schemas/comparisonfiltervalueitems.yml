@@ -1,0 +1,6 @@
+components:
+  schemas:
+    ComparisonFilterValueItems:
+      anyOf:
+        - type: string
+        - type: number

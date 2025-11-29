@@ -1,0 +1,23 @@
+components:
+  schemas:
+    WebSearchPreviewTool:
+      title: Web search preview
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - web_search_preview
+            - web_search_preview_2025_03_11
+          type: string
+          description: The type of the web search tool. One of `web_search_preview` or `web_search_preview_2025_03_11`.
+          default: web_search_preview
+          x-stainless-const: true
+        user_location:
+          anyOf:
+            - $ref: '#/components/schemas/ApproximateLocation'
+            - nullable: true
+        search_context_size:
+          $ref: '#/components/schemas/SearchContextSize'
+      description: 'This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).'

@@ -1,0 +1,32 @@
+components:
+  schemas:
+    RealtimeMCPApprovalResponse:
+      title: Realtime MCP approval response
+      required:
+        - type
+        - id
+        - approval_request_id
+        - approve
+      type: object
+      properties:
+        type:
+          enum:
+            - mcp_approval_response
+          type: string
+          description: The type of the item. Always `mcp_approval_response`.
+          x-stainless-const: true
+        id:
+          type: string
+          description: The unique ID of the approval response.
+        approval_request_id:
+          type: string
+          description: The ID of the approval request being answered.
+        approve:
+          type: boolean
+          description: Whether the request was approved.
+        reason:
+          anyOf:
+            - type: string
+              description: Optional reason for the decision.
+            - nullable: true
+      description: "A Realtime item responding to an MCP approval request.\n"

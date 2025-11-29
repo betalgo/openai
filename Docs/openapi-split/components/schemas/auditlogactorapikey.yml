@@ -1,0 +1,19 @@
+components:
+  schemas:
+    AuditLogActorApiKey:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The tracking id of the API key.
+        type:
+          enum:
+            - user
+            - service_account
+          type: string
+          description: The type of API key. Can be either `user` or `service_account`.
+        user:
+          $ref: '#/components/schemas/AuditLogActorUser'
+        service_account:
+          $ref: '#/components/schemas/AuditLogActorServiceAccount'
+      description: The API Key used to perform the audit logged action.

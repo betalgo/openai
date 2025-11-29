@@ -1,0 +1,33 @@
+components:
+  schemas:
+    RoleListResource:
+      required:
+        - object
+        - data
+        - has_more
+        - next
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: Always `list`.
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssignedRoleDetails'
+          description: Role assignments returned in the current page.
+        has_more:
+          type: boolean
+          description: Whether additional assignments are available when paginating.
+        next:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: 'Cursor to fetch the next page of results, or `null` when there are no more assignments.'
+      description: Paginated list of roles assigned to a principal.
+      x-oaiMeta:
+        name: Assigned role list
+        example: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"id\": \"role_01J1F8ROLE01\",\n            \"name\": \"API Group Manager\",\n            \"permissions\": [\n                \"api.groups.read\",\n                \"api.groups.write\"\n            ],\n            \"resource_type\": \"api.organization\",\n            \"predefined_role\": false,\n            \"description\": \"Allows managing organization groups\",\n            \"created_at\": 1711471533,\n            \"updated_at\": 1711472599,\n            \"created_by\": \"user_abc123\",\n            \"created_by_user_obj\": {\n                \"id\": \"user_abc123\",\n                \"name\": \"Ada Lovelace\",\n                \"email\": \"ada@example.com\"\n            },\n            \"metadata\": {}\n        }\n    ],\n    \"has_more\": false,\n    \"next\": null\n}\n"

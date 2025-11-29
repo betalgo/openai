@@ -1,0 +1,40 @@
+components:
+  schemas:
+    ProjectUser:
+      required:
+        - object
+        - id
+        - name
+        - email
+        - role
+        - added_at
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.project.user
+          type: string
+          description: 'The object type, which is always `organization.project.user`'
+          x-stainless-const: true
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints'
+        name:
+          type: string
+          description: The name of the user
+        email:
+          type: string
+          description: The email address of the user
+        role:
+          enum:
+            - owner
+            - member
+          type: string
+          description: '`owner` or `member`'
+        added_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the project was added.
+      description: Represents an individual user in a project.
+      x-oaiMeta:
+        name: The project user object
+        example: "{\n    \"object\": \"organization.project.user\",\n    \"id\": \"user_abc\",\n    \"name\": \"First Last\",\n    \"email\": \"user@example.com\",\n    \"role\": \"owner\",\n    \"added_at\": 1711471533\n}\n"

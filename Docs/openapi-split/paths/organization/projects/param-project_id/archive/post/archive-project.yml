@@ -1,0 +1,30 @@
+paths:
+  '/organization/projects/{project_id}/archive':
+    post:
+      tags:
+        - Projects
+      summary: Archive project
+      description: Archives a project in the organization. Archived projects cannot be used or updated.
+      operationId: archive-project
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project archived successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+      x-oaiMeta:
+        name: Archive project
+        group: administration
+        returns: 'The archived [Project](https://platform.openai.com/docs/api-reference/projects/object) object.'
+        examples:
+          response: "{\n    \"id\": \"proj_abc\",\n    \"object\": \"organization.project\",\n    \"name\": \"Project DEF\",\n    \"created_at\": 1711471533,\n    \"archived_at\": 1711471533,\n    \"status\": \"archived\"\n}\n"
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/organization/projects/proj_abc/archive \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"

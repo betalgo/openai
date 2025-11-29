@@ -1,0 +1,53 @@
+components:
+  schemas:
+    RealtimeTranscriptionSessionCreateResponse:
+      required:
+        - client_secret
+      type: object
+      properties:
+        client_secret:
+          required:
+            - value
+            - expires_at
+          type: object
+          properties:
+            value:
+              type: string
+              description: "Ephemeral key usable in client environments to authenticate connections\nto the Realtime API. Use this in client-side environments rather than\na standard API token, which should only be used server-side.\n"
+            expires_at:
+              type: integer
+              description: "Timestamp for when the token expires. Currently, all tokens expire\nafter one minute.\n"
+          description: "Ephemeral key returned by the API. Only present when the session is\ncreated on the server via REST API.\n"
+        modalities:
+          items:
+            enum:
+              - text
+              - audio
+            type: string
+          description: "The set of modalities the model can respond with. To disable audio,\nset this to [\"text\"].\n"
+        input_audio_format:
+          type: string
+          description: "The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`.\n"
+        input_audio_transcription:
+          $ref: '#/components/schemas/AudioTranscription'
+        turn_detection:
+          type: object
+          properties:
+            type:
+              type: string
+              description: "Type of turn detection, only `server_vad` is currently supported.\n"
+            threshold:
+              type: number
+              description: "Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A\nhigher threshold will require louder audio to activate the model, and\nthus might perform better in noisy environments.\n"
+            prefix_padding_ms:
+              type: integer
+              description: "Amount of audio to include before the VAD detected speech (in\nmilliseconds). Defaults to 300ms.\n"
+            silence_duration_ms:
+              type: integer
+              description: "Duration of silence to detect speech stop (in milliseconds). Defaults\nto 500ms. With shorter values the model will respond more quickly,\nbut may jump in on short pauses from the user.\n"
+          description: "Configuration for turn detection. Can be set to `null` to turn off. Server\nVAD means that the model will detect the start and end of speech based on\naudio volume and respond at the end of user speech.\n"
+      description: "A new Realtime transcription session configuration.\n\nWhen a session is created on the server via REST API, the session object\nalso contains an ephemeral key. Default TTL for keys is 10 minutes. This\nproperty is not present when a session is updated via the WebSocket API.\n"
+      x-oaiMeta:
+        name: The transcription session object
+        group: realtime
+        example: "{\n  \"id\": \"sess_BBwZc7cFV3XizEyKGDCGL\",\n  \"object\": \"realtime.transcription_session\",\n  \"expires_at\": 1742188264,\n  \"modalities\": [\"audio\", \"text\"],\n  \"turn_detection\": {\n    \"type\": \"server_vad\",\n    \"threshold\": 0.5,\n    \"prefix_padding_ms\": 300,\n    \"silence_duration_ms\": 200\n  },\n  \"input_audio_format\": \"pcm16\",\n  \"input_audio_transcription\": {\n    \"model\": \"gpt-4o-transcribe\",\n    \"language\": null,\n    \"prompt\": \"\"\n  },\n  \"client_secret\": null\n}\n"

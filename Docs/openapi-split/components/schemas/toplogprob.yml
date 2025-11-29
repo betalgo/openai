@@ -1,0 +1,19 @@
+components:
+  schemas:
+    TopLogProb:
+      title: Top log probability
+      required:
+        - token
+        - logprob
+        - bytes
+      type: object
+      properties:
+        token:
+          type: string
+        logprob:
+          type: number
+        bytes:
+          type: array
+          items:
+            type: integer
+      description: The top log probability of a token.

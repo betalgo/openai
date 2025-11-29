@@ -1,0 +1,33 @@
+components:
+  schemas:
+    RealtimeServerEventInputAudioBufferTimeoutTriggered:
+      required:
+        - event_id
+        - type
+        - audio_start_ms
+        - audio_end_ms
+        - item_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - input_audio_buffer.timeout_triggered
+          description: 'The event type, must be `input_audio_buffer.timeout_triggered`.'
+          x-stainless-const: true
+        audio_start_ms:
+          type: integer
+          description: Millisecond offset of audio written to the input audio buffer that was after the playback time of the last model response.
+        audio_end_ms:
+          type: integer
+          description: Millisecond offset of audio written to the input audio buffer at the time the timeout was triggered.
+        item_id:
+          type: string
+          description: The ID of the item associated with this segment.
+      description: "Returned when the Server VAD timeout is triggered for the input audio buffer. This is configured\nwith `idle_timeout_ms` in the `turn_detection` settings of the session, and it indicates that\nthere hasn't been any speech detected for the configured duration.\n\nThe `audio_start_ms` and `audio_end_ms` fields indicate the segment of audio after the last\nmodel response up to the triggering time, as an offset from the beginning of audio written\nto the input audio buffer. This means it demarcates the segment of audio that was silent and\nthe difference between the start and end values will roughly match the configured timeout.\n\nThe empty audio will be committed to the conversation as an `input_audio` item (there will be a\n`input_audio_buffer.committed` event) and a model response will be generated. There may be speech\nthat didn't trigger VAD but is still detected by the model, so the model may respond with\nsomething relevant to the conversation or a prompt to continue speaking.\n"
+      x-oaiMeta:
+        name: input_audio_buffer.timeout_triggered
+        group: realtime
+        example: "{\n    \"type\":\"input_audio_buffer.timeout_triggered\",\n    \"event_id\":\"event_CEKKrf1KTGvemCPyiJTJ2\",\n    \"audio_start_ms\":13216,\n    \"audio_end_ms\":19232,\n    \"item_id\":\"item_CEKKrWH0GiwN0ET97NUZc\"\n}\n"

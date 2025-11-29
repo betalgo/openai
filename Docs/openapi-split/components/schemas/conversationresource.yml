@@ -1,0 +1,25 @@
+components:
+  schemas:
+    ConversationResource:
+      required:
+        - id
+        - object
+        - metadata
+        - created_at
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the conversation.
+        object:
+          enum:
+            - conversation
+          type: string
+          description: 'The object type, which is always `conversation`.'
+          default: conversation
+          x-stainless-const: true
+        metadata:
+          description: "Set of 16 key-value pairs that can be attached to an object. This can be         useful for storing additional information about the object in a structured         format, and querying for objects via API or the dashboard.\n        Keys are strings with a maximum length of 64 characters. Values are strings         with a maximum length of 512 characters."
+        created_at:
+          type: integer
+          description: 'The time at which the conversation was created, measured in seconds since the Unix epoch.'

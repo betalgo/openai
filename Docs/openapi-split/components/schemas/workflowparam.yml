@@ -1,0 +1,29 @@
+components:
+  schemas:
+    WorkflowParam:
+      title: Workflow settings
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier for the workflow invoked by the session.
+        version:
+          type: string
+          description: Specific workflow version to run. Defaults to the latest deployed version.
+        state_variables:
+          maxProperties: 64
+          type: object
+          additionalProperties:
+            anyOf:
+              - maxLength: 10485760
+                type: string
+              - type: integer
+              - type: boolean
+              - type: number
+          description: 'State variables forwarded to the workflow. Keys may be up to 64 characters, values must be primitive types, and the map defaults to an empty object.'
+          x-oaiTypeLabel: map
+        tracing:
+          $ref: '#/components/schemas/WorkflowTracingParam'
+      description: Workflow reference and overrides applied to the chat session.

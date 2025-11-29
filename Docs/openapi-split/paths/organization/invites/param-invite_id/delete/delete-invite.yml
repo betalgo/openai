@@ -1,0 +1,30 @@
+paths:
+  '/organization/invites/{invite_id}':
+    delete:
+      tags:
+        - Invites
+      summary: Delete invite
+      description: 'Delete an invite. If the invite has already been accepted, it cannot be deleted.'
+      operationId: delete-invite
+      parameters:
+        - name: invite_id
+          in: path
+          description: The ID of the invite to delete.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invite deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InviteDeleteResponse'
+      x-oaiMeta:
+        name: Delete invite
+        group: administration
+        returns: Confirmation that the invite has been deleted
+        examples:
+          response: "{\n    \"object\": \"organization.invite.deleted\",\n    \"id\": \"invite-abc\",\n    \"deleted\": true\n}\n"
+          request:
+            curl: "curl -X DELETE https://api.openai.com/v1/organization/invites/invite-abc \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"

@@ -1,0 +1,43 @@
+components:
+  schemas:
+    ResponseOutputTextAnnotationAddedEvent:
+      title: ResponseOutputTextAnnotationAddedEvent
+      required:
+        - type
+        - item_id
+        - output_index
+        - content_index
+        - annotation_index
+        - annotation
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.output_text.annotation.added
+          type: string
+          description: The type of the event. Always 'response.output_text.annotation.added'.
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The unique identifier of the item to which the annotation is being added.
+        output_index:
+          type: integer
+          description: The index of the output item in the response's output array.
+        content_index:
+          type: integer
+          description: The index of the content part within the output item.
+        annotation_index:
+          type: integer
+          description: The index of the annotation within the content part.
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+        annotation:
+          type: object
+          description: The annotation object being added. (See annotation schema for details.)
+      description: "Emitted when an annotation is added to output text content.\n"
+      x-oaiMeta:
+        name: response.output_text.annotation.added
+        group: responses
+        example: "{\n  \"type\": \"response.output_text.annotation.added\",\n  \"item_id\": \"item-abc\",\n  \"output_index\": 0,\n  \"content_index\": 0,\n  \"annotation_index\": 0,\n  \"annotation\": {\n    \"type\": \"text_annotation\",\n    \"text\": \"This is a test annotation\",\n    \"start\": 0,\n    \"end\": 10\n  },\n  \"sequence_number\": 1\n}\n"

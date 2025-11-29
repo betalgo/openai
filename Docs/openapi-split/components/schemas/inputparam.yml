@@ -1,0 +1,13 @@
+components:
+  schemas:
+    InputParam:
+      anyOf:
+        - title: Text input
+          type: string
+          description: "A text input to the model, equivalent to a text input with the\n`user` role.\n"
+        - title: Input item list
+          type: array
+          items:
+            $ref: '#/components/schemas/InputItem'
+          description: "A list of one or many input items to the model, containing\ndifferent content types.\n"
+      description: "Text, image, or file inputs to the model, used to generate a response.\n\nLearn more:\n- [Text inputs and outputs](https://platform.openai.com/docs/guides/text)\n- [Image inputs](https://platform.openai.com/docs/guides/images)\n- [File inputs](https://platform.openai.com/docs/guides/pdf-files)\n- [Conversation state](https://platform.openai.com/docs/guides/conversation-state)\n- [Function calling](https://platform.openai.com/docs/guides/function-calling)\n"

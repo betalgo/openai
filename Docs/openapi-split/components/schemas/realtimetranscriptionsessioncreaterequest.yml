@@ -1,0 +1,48 @@
+components:
+  schemas:
+    RealtimeTranscriptionSessionCreateRequest:
+      title: Realtime transcription session configuration
+      type: object
+      properties:
+        turn_detection:
+          type: object
+          properties:
+            type:
+              enum:
+                - server_vad
+              type: string
+              description: "Type of turn detection. Only `server_vad` is currently supported for transcription sessions.\n"
+            threshold:
+              type: number
+              description: "Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A\nhigher threshold will require louder audio to activate the model, and\nthus might perform better in noisy environments.\n"
+            prefix_padding_ms:
+              type: integer
+              description: "Amount of audio to include before the VAD detected speech (in\nmilliseconds). Defaults to 300ms.\n"
+            silence_duration_ms:
+              type: integer
+              description: "Duration of silence to detect speech stop (in milliseconds). Defaults\nto 500ms. With shorter values the model will respond more quickly,\nbut may jump in on short pauses from the user.\n"
+          description: "Configuration for turn detection. Can be set to `null` to turn off. Server VAD means that the model will detect the start and end of speech based on audio volume and respond at the end of user speech.\n"
+        input_audio_noise_reduction:
+          type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/NoiseReductionType'
+          description: "Configuration for input audio noise reduction. This can be set to `null` to turn off.\nNoise reduction filters audio added to the input audio buffer before it is sent to VAD and the model.\nFiltering the audio can improve VAD and turn detection accuracy (reducing false positives) and model performance by improving perception of the input audio.\n"
+        input_audio_format:
+          enum:
+            - pcm16
+            - g711_ulaw
+            - g711_alaw
+          type: string
+          description: "The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`.\nFor `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate,\nsingle channel (mono), and little-endian byte order.\n"
+          default: pcm16
+        input_audio_transcription:
+          $ref: '#/components/schemas/AudioTranscription'
+        include:
+          type: array
+          items:
+            enum:
+              - item.input_audio_transcription.logprobs
+            type: string
+          description: "The set of items to include in the transcription. Current available items are:\n`item.input_audio_transcription.logprobs`\n"
+      description: Realtime transcription session object configuration.

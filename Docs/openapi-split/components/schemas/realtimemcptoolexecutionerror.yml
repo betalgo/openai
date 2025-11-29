@@ -1,0 +1,16 @@
+components:
+  schemas:
+    RealtimeMCPToolExecutionError:
+      title: Realtime MCP tool execution error
+      required:
+        - type
+        - message
+      type: object
+      properties:
+        type:
+          enum:
+            - tool_execution_error
+          type: string
+          x-stainless-const: true
+        message:
+          type: string

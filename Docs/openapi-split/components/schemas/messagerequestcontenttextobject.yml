@@ -1,0 +1,19 @@
+components:
+  schemas:
+    MessageRequestContentTextObject:
+      title: Text
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - text
+          type: string
+          description: Always `text`.
+          x-stainless-const: true
+        text:
+          type: string
+          description: Text content to be sent to the model
+      description: The text content that is part of a message.

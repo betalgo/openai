@@ -1,0 +1,22 @@
+components:
+  schemas:
+    Error:
+      required:
+        - type
+        - message
+        - param
+        - code
+      type: object
+      properties:
+        code:
+          anyOf:
+            - type: string
+            - nullable: true
+        message:
+          type: string
+        param:
+          anyOf:
+            - type: string
+            - nullable: true
+        type:
+          type: string

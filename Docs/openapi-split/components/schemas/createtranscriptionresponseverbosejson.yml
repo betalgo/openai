@@ -1,0 +1,35 @@
+components:
+  schemas:
+    CreateTranscriptionResponseVerboseJson:
+      required:
+        - language
+        - duration
+        - text
+      type: object
+      properties:
+        language:
+          type: string
+          description: The language of the input audio.
+        duration:
+          type: number
+          description: The duration of the input audio.
+        text:
+          type: string
+          description: The transcribed text.
+        words:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptionWord'
+          description: Extracted words and their corresponding timestamps.
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptionSegment'
+          description: Segments of the transcribed text and their corresponding details.
+        usage:
+          $ref: '#/components/schemas/TranscriptTextUsageDuration'
+      description: 'Represents a verbose json transcription response returned by model, based on the provided input.'
+      x-oaiMeta:
+        name: The transcription object (Verbose JSON)
+        group: audio
+        example: "{\n  \"task\": \"transcribe\",\n  \"language\": \"english\",\n  \"duration\": 8.470000267028809,\n  \"text\": \"The beach was a popular spot on a hot summer day. People were swimming in the ocean, building sandcastles, and playing beach volleyball.\",\n  \"segments\": [\n    {\n      \"id\": 0,\n      \"seek\": 0,\n      \"start\": 0.0,\n      \"end\": 3.319999933242798,\n      \"text\": \" The beach was a popular spot on a hot summer day.\",\n      \"tokens\": [\n        50364, 440, 7534, 390, 257, 3743, 4008, 322, 257, 2368, 4266, 786, 13, 50530\n      ],\n      \"temperature\": 0.0,\n      \"avg_logprob\": -0.2860786020755768,\n      \"compression_ratio\": 1.2363636493682861,\n      \"no_speech_prob\": 0.00985979475080967\n    },\n    ...\n  ],\n  \"usage\": {\n    \"type\": \"duration\",\n    \"seconds\": 9\n  }\n}\n"

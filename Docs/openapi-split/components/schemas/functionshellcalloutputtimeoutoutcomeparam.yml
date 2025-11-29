@@ -1,0 +1,16 @@
+components:
+  schemas:
+    FunctionShellCallOutputTimeoutOutcomeParam:
+      title: Function shell timeout outcome
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - timeout
+          type: string
+          description: The outcome type. Always `timeout`.
+          default: timeout
+          x-stainless-const: true
+      description: Indicates that the function shell call exceeded its configured time limit.

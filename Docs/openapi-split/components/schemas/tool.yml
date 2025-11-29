@@ -1,0 +1,19 @@
+components:
+  schemas:
+    Tool:
+      anyOf:
+        - $ref: '#/components/schemas/FunctionTool'
+        - $ref: '#/components/schemas/FileSearchTool'
+        - $ref: '#/components/schemas/ComputerUsePreviewTool'
+        - $ref: '#/components/schemas/WebSearchTool'
+        - $ref: '#/components/schemas/MCPTool'
+        - $ref: '#/components/schemas/CodeInterpreterTool'
+        - $ref: '#/components/schemas/ImageGenTool'
+        - $ref: '#/components/schemas/LocalShellToolParam'
+        - $ref: '#/components/schemas/FunctionShellToolParam'
+        - $ref: '#/components/schemas/CustomToolParam'
+        - $ref: '#/components/schemas/WebSearchPreviewTool'
+        - $ref: '#/components/schemas/ApplyPatchToolParam'
+      description: "A tool that can be used to generate a response.\n"
+      discriminator:
+        propertyName: type

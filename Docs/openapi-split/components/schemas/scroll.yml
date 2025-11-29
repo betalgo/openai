@@ -1,0 +1,32 @@
+components:
+  schemas:
+    Scroll:
+      title: Scroll
+      required:
+        - type
+        - x
+        - y
+        - scroll_x
+        - scroll_y
+      type: object
+      properties:
+        type:
+          enum:
+            - scroll
+          type: string
+          description: "Specifies the event type. For a scroll action, this property is \nalways set to `scroll`.\n"
+          default: scroll
+          x-stainless-const: true
+        x:
+          type: integer
+          description: "The x-coordinate where the scroll occurred.\n"
+        y:
+          type: integer
+          description: "The y-coordinate where the scroll occurred.\n"
+        scroll_x:
+          type: integer
+          description: "The horizontal scroll distance.\n"
+        scroll_y:
+          type: integer
+          description: "The vertical scroll distance.\n"
+      description: "A scroll action.\n"

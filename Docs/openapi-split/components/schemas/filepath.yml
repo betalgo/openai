@@ -1,0 +1,23 @@
+components:
+  schemas:
+    FilePath:
+      title: File path
+      required:
+        - type
+        - file_id
+        - index
+      type: object
+      properties:
+        type:
+          enum:
+            - file_path
+          type: string
+          description: "The type of the file path. Always `file_path`.\n"
+          x-stainless-const: true
+        file_id:
+          type: string
+          description: "The ID of the file.\n"
+        index:
+          type: integer
+          description: "The index of the file in the list of files.\n"
+      description: "A path to a file.\n"

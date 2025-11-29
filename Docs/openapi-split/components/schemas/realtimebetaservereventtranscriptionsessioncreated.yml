@@ -1,0 +1,24 @@
+components:
+  schemas:
+    RealtimeBetaServerEventTranscriptionSessionCreated:
+      required:
+        - event_id
+        - type
+        - session
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - transcription_session.created
+          description: 'The event type, must be `transcription_session.created`.'
+          x-stainless-const: true
+        session:
+          $ref: '#/components/schemas/RealtimeTranscriptionSessionCreateResponse'
+      description: "Returned when a transcription session is created.\n"
+      x-oaiMeta:
+        name: transcription_session.created
+        group: realtime
+        example: "{\n  \"event_id\": \"event_5566\",\n  \"type\": \"transcription_session.created\",\n  \"session\": {\n    \"id\": \"sess_001\",\n    \"object\": \"realtime.transcription_session\",\n    \"input_audio_format\": \"pcm16\",\n    \"input_audio_transcription\": {\n      \"model\": \"gpt-4o-transcribe\",\n      \"prompt\": \"\",\n      \"language\": \"\"\n    },\n    \"turn_detection\": {\n      \"type\": \"server_vad\",\n      \"threshold\": 0.5,\n      \"prefix_padding_ms\": 300,\n      \"silence_duration_ms\": 500\n    },\n    \"input_audio_noise_reduction\": {\n      \"type\": \"near_field\"\n    },\n    \"include\": []\n  }\n}\n"

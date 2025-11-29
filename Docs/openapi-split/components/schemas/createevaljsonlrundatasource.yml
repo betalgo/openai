@@ -1,0 +1,28 @@
+components:
+  schemas:
+    CreateEvalJsonlRunDataSource:
+      title: JsonlRunDataSource
+      required:
+        - type
+        - source
+      type: object
+      properties:
+        type:
+          enum:
+            - jsonl
+          type: string
+          description: The type of data source. Always `jsonl`.
+          default: jsonl
+          x-stainless-const: true
+        source:
+          anyOf:
+            - $ref: '#/components/schemas/EvalJsonlFileContentSource'
+            - $ref: '#/components/schemas/EvalJsonlFileIdSource'
+          description: Determines what populates the `item` namespace in the data source.
+          discriminator:
+            propertyName: type
+      description: "A JsonlRunDataSource object with that specifies a JSONL file that matches the eval \n"
+      x-oaiMeta:
+        name: The file data source object for the eval run configuration
+        group: evals
+        example: "{\n \"type\": \"jsonl\",\n \"source\": {\n   \"type\": \"file_id\",\n   \"id\": \"file-9GYS6xbkWgWhmE7VoLUWFg\"\n }\n}\n"

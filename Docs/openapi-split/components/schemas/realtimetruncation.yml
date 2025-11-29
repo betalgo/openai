@@ -1,0 +1,38 @@
+components:
+  schemas:
+    RealtimeTruncation:
+      title: Realtime Truncation Controls
+      anyOf:
+        - title: RealtimeTruncationStrategy
+          enum:
+            - auto
+            - disabled
+          type: string
+          description: The truncation strategy to use for the session. `auto` is the default truncation strategy. `disabled` will disable truncation and emit errors when the conversation exceeds the input token limit.
+        - title: Retention ratio truncation
+          required:
+            - type
+            - retention_ratio
+          type: object
+          properties:
+            type:
+              enum:
+                - retention_ratio
+              type: string
+              description: Use retention ratio truncation.
+              x-stainless-const: true
+            retention_ratio:
+              maximum: 1
+              minimum: 0
+              type: number
+              description: "Fraction of post-instruction conversation tokens to retain (`0.0` - `1.0`) when the conversation exceeds the input token limit. Setting this to `0.8` means that messages will be dropped until 80% of the maximum allowed tokens are used. This helps reduce the frequency of truncations and improve cache rates.\n"
+            token_limits:
+              type: object
+              properties:
+                post_instructions:
+                  minimum: 0
+                  type: integer
+                  description: 'Maximum tokens allowed in the conversation after instructions (which including tool definitions). For example, setting this to 5,000 would mean that truncation would occur when the conversation exceeds 5,000 tokens after instructions. This cannot be higher than the model''s context window size minus the maximum output tokens.'
+              description: 'Optional custom token limits for this truncation strategy. If not provided, the model''s default token limits will be used.'
+          description: 'Retain a fraction of the conversation tokens when the conversation exceeds the input token limit. This allows you to amortize truncations across multiple turns, which can help improve cached token usage.'
+      description: "When the number of tokens in a conversation exceeds the model's input token limit, the conversation be truncated, meaning messages (starting from the oldest) will not be included in the model's context. A 32k context model with 4,096 max output tokens can only include 28,224 tokens in the context before truncation occurs.\nClients can configure truncation behavior to truncate with a lower max token limit, which is an effective way to control token usage and cost.\nTruncation will reduce the number of cached tokens on the next turn (busting the cache), since messages are dropped from the beginning of the context. However, clients can also configure truncation to retain messages up to a fraction of the maximum context size, which will reduce the need for future truncations and thus improve the cache rate.\nTruncation can be disabled entirely, which means the server will never truncate but would instead return an error if the conversation exceeds the model's input token limit.\n"

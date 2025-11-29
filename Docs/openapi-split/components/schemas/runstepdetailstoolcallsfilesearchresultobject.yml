@@ -1,0 +1,38 @@
+components:
+  schemas:
+    RunStepDetailsToolCallsFileSearchResultObject:
+      title: File search tool call result
+      required:
+        - file_id
+        - file_name
+        - score
+      type: object
+      properties:
+        file_id:
+          type: string
+          description: The ID of the file that result was found in.
+        file_name:
+          type: string
+          description: The name of the file that result was found in.
+        score:
+          maximum: 1
+          minimum: 0
+          type: number
+          description: The score of the result. All values must be a floating point number between 0 and 1.
+        content:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                enum:
+                  - text
+                type: string
+                description: The type of the content.
+                x-stainless-const: true
+              text:
+                type: string
+                description: The text content of the file.
+          description: The content of the result that was found. The content is only included if requested via the include query parameter.
+      description: A result instance of the file search.
+      x-oaiTypeLabel: map

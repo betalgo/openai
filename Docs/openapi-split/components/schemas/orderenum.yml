@@ -1,0 +1,7 @@
+components:
+  schemas:
+    OrderEnum:
+      enum:
+        - asc
+        - desc
+      type: string

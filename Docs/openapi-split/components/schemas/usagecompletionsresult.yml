@@ -1,0 +1,67 @@
+components:
+  schemas:
+    UsageCompletionsResult:
+      required:
+        - object
+        - input_tokens
+        - output_tokens
+        - num_model_requests
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.usage.completions.result
+          type: string
+          x-stainless-const: true
+        input_tokens:
+          type: integer
+          description: 'The aggregated number of text input tokens used, including cached tokens. For customers subscribe to scale tier, this includes scale tier tokens.'
+        input_cached_tokens:
+          type: integer
+          description: 'The aggregated number of text input tokens that has been cached from previous requests. For customers subscribe to scale tier, this includes scale tier tokens.'
+        output_tokens:
+          type: integer
+          description: 'The aggregated number of text output tokens used. For customers subscribe to scale tier, this includes scale tier tokens.'
+        input_audio_tokens:
+          type: integer
+          description: 'The aggregated number of audio input tokens used, including cached tokens.'
+        output_audio_tokens:
+          type: integer
+          description: The aggregated number of audio output tokens used.
+        num_model_requests:
+          type: integer
+          description: The count of requests made to the model.
+        project_id:
+          anyOf:
+            - type: string
+              description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
+            - nullable: true
+        user_id:
+          anyOf:
+            - type: string
+              description: 'When `group_by=user_id`, this field provides the user ID of the grouped usage result.'
+            - nullable: true
+        api_key_id:
+          anyOf:
+            - type: string
+              description: 'When `group_by=api_key_id`, this field provides the API key ID of the grouped usage result.'
+            - nullable: true
+        model:
+          anyOf:
+            - type: string
+              description: 'When `group_by=model`, this field provides the model name of the grouped usage result.'
+            - nullable: true
+        batch:
+          anyOf:
+            - type: boolean
+              description: 'When `group_by=batch`, this field tells whether the grouped usage result is batch or not.'
+            - nullable: true
+        service_tier:
+          anyOf:
+            - type: string
+              description: 'When `group_by=service_tier`, this field provides the service tier of the grouped usage result.'
+            - nullable: true
+      description: The aggregated completions usage details of the specific time bucket.
+      x-oaiMeta:
+        name: Completions usage object
+        example: "{\n    \"object\": \"organization.usage.completions.result\",\n    \"input_tokens\": 5000,\n    \"output_tokens\": 1000,\n    \"input_cached_tokens\": 4000,\n    \"input_audio_tokens\": 300,\n    \"output_audio_tokens\": 200,\n    \"num_model_requests\": 5,\n    \"project_id\": \"proj_abc\",\n    \"user_id\": \"user-abc\",\n    \"api_key_id\": \"key_abc\",\n    \"model\": \"gpt-4o-mini-2024-07-18\",\n    \"batch\": false,\n    \"service_tier\": \"default\"\n}\n"

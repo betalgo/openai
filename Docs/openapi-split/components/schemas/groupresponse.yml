@@ -1,0 +1,27 @@
+components:
+  schemas:
+    GroupResponse:
+      required:
+        - id
+        - name
+        - created_at
+        - is_scim_managed
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier for the group.
+        name:
+          type: string
+          description: Display name of the group.
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) when the group was created.
+          format: int64
+        is_scim_managed:
+          type: boolean
+          description: Whether the group is managed through SCIM and controlled by your identity provider.
+      description: Details about an organization group.
+      x-oaiMeta:
+        name: Group
+        example: "{\n    \"id\": \"group_01J1F8ABCDXYZ\",\n    \"name\": \"Support Team\",\n    \"created_at\": 1711471533,\n    \"is_scim_managed\": false\n}\n"

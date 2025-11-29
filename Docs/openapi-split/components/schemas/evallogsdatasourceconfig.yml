@@ -1,0 +1,26 @@
+components:
+  schemas:
+    EvalLogsDataSourceConfig:
+      title: LogsDataSourceConfig
+      required:
+        - type
+        - schema
+      type: object
+      properties:
+        type:
+          enum:
+            - logs
+          type: string
+          description: The type of data source. Always `logs`.
+          default: logs
+          x-stainless-const: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        schema:
+          type: object
+          description: "The json schema for the run data source items.\nLearn how to build JSON schemas [here](https://json-schema.org/).\n"
+      description: "A LogsDataSourceConfig which specifies the metadata property of your logs query.\nThis is usually metadata like `usecase=chatbot` or `prompt-version=v2`, etc.\nThe schema returned by this data source config is used to defined what variables are available in your evals.\n`item` and `sample` are both defined when using this data source config.\n"
+      x-oaiMeta:
+        name: The logs data source object for evals
+        group: evals
+        example: "{\n  \"type\": \"logs\",\n  \"metadata\": {\n    \"language\": \"english\"\n  },\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"item\": {\n        \"type\": \"object\"\n      },\n      \"sample\": {\n        \"type\": \"object\"\n      }\n    },\n    \"required\": [\n      \"item\",\n      \"sample\"\n    }\n}\n"

@@ -1,0 +1,16 @@
+components:
+  schemas:
+    RealtimeConversationItem:
+      anyOf:
+        - $ref: '#/components/schemas/RealtimeConversationItemMessageSystem'
+        - $ref: '#/components/schemas/RealtimeConversationItemMessageUser'
+        - $ref: '#/components/schemas/RealtimeConversationItemMessageAssistant'
+        - $ref: '#/components/schemas/RealtimeConversationItemFunctionCall'
+        - $ref: '#/components/schemas/RealtimeConversationItemFunctionCallOutput'
+        - $ref: '#/components/schemas/RealtimeMCPApprovalResponse'
+        - $ref: '#/components/schemas/RealtimeMCPListTools'
+        - $ref: '#/components/schemas/RealtimeMCPToolCall'
+        - $ref: '#/components/schemas/RealtimeMCPApprovalRequest'
+      description: A single item within a Realtime conversation.
+      discriminator:
+        propertyName: type

@@ -1,0 +1,8 @@
+components:
+  schemas:
+    ImageEditStreamEvent:
+      anyOf:
+        - $ref: '#/components/schemas/ImageEditPartialImageEvent'
+        - $ref: '#/components/schemas/ImageEditCompletedEvent'
+      discriminator:
+        propertyName: type

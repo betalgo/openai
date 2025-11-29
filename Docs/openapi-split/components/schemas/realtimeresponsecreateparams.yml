@@ -1,0 +1,68 @@
+components:
+  schemas:
+    RealtimeResponseCreateParams:
+      type: object
+      properties:
+        output_modalities:
+          type: array
+          items:
+            enum:
+              - text
+              - audio
+            type: string
+          description: "The set of modalities the model used to respond, currently the only possible values are\n`[\\\"audio\\\"]`, `[\\\"text\\\"]`. Audio output always include a text transcript. Setting the\noutput to mode `text` will disable audio output from the model.\n"
+        instructions:
+          type: string
+          description: "The default system instructions (i.e. system message) prepended to model calls. This field allows the client to guide the model on desired responses. The model can be instructed on response content and format, (e.g. \"be extremely succinct\", \"act friendly\", \"here are examples of good responses\") and on audio behavior (e.g. \"talk quickly\", \"inject emotion into your voice\", \"laugh frequently\"). The instructions are not guaranteed to be followed by the model, but they provide guidance to the model on the desired behavior.\nNote that the server sets default instructions which will be used if this field is not set and are visible in the `session.created` event at the start of the session.\n"
+        audio:
+          type: object
+          properties:
+            output:
+              type: object
+              properties:
+                format:
+                  $ref: '#/components/schemas/RealtimeAudioFormats'
+                voice:
+                  $ref: '#/components/schemas/VoiceIdsShared'
+          description: Configuration for audio input and output.
+        tools:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/RealtimeFunctionTool'
+              - $ref: '#/components/schemas/MCPTool'
+          description: Tools available to the model.
+        tool_choice:
+          anyOf:
+            - $ref: '#/components/schemas/ToolChoiceOptions'
+            - $ref: '#/components/schemas/ToolChoiceFunction'
+            - $ref: '#/components/schemas/ToolChoiceMCP'
+          description: "How the model chooses tools. Provide one of the string modes or force a specific\nfunction/MCP tool.\n"
+          default: auto
+        max_output_tokens:
+          anyOf:
+            - type: integer
+            - enum:
+                - inf
+              type: string
+              x-stainless-const: true
+          description: "Maximum number of output tokens for a single assistant response,\ninclusive of tool calls. Provide an integer between 1 and 4096 to\nlimit output tokens, or `inf` for the maximum available tokens for a\ngiven model. Defaults to `inf`.\n"
+        conversation:
+          anyOf:
+            - type: string
+            - enum:
+                - auto
+                - none
+              type: string
+              default: auto
+          description: "Controls which conversation the response is added to. Currently supports\n`auto` and `none`, with `auto` as the default value. The `auto` value\nmeans that the contents of the response will be added to the default\nconversation. Set this to `none` to create an out-of-band response which\nwill not add items to default conversation.\n"
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        prompt:
+          $ref: '#/components/schemas/Prompt'
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/RealtimeConversationItem'
+          description: "Input items to include in the prompt for the model. Using this field\ncreates a new context for this Response instead of using the default\nconversation. An empty array `[]` will clear the context for this Response.\nNote that this can include references to items that previously appeared in the session\nusing their id.\n"
+      description: Create a new Realtime response with these parameters

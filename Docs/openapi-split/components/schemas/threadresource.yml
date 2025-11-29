@@ -1,0 +1,51 @@
+components:
+  schemas:
+    ThreadResource:
+      title: The thread object
+      required:
+        - id
+        - object
+        - created_at
+        - title
+        - status
+        - user
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the thread.
+        object:
+          enum:
+            - chatkit.thread
+          type: string
+          description: Type discriminator that is always `chatkit.thread`.
+          default: chatkit.thread
+          x-stainless-const: true
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) for when the thread was created.
+        title:
+          anyOf:
+            - type: string
+              description: Optional human-readable title for the thread. Defaults to null when no title has been generated.
+            - nullable: true
+        status:
+          anyOf:
+            - $ref: '#/components/schemas/ActiveStatus'
+            - $ref: '#/components/schemas/LockedStatus'
+            - $ref: '#/components/schemas/ClosedStatus'
+          description: Current status for the thread. Defaults to `active` for newly created threads.
+          discriminator:
+            propertyName: type
+        user:
+          type: string
+          description: Free-form string that identifies your end user who owns the thread.
+      description: Represents a ChatKit thread and its current status.
+      example:
+        id: cthr_def456
+        object: chatkit.thread
+        created_at: 1712345600
+        title: Demo feedback
+        status:
+          type: active
+        user: user_456

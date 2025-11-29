@@ -1,0 +1,21 @@
+components:
+  schemas:
+    LogProbProperties:
+      required:
+        - token
+        - logprob
+        - bytes
+      type: object
+      properties:
+        token:
+          type: string
+          description: "The token that was used to generate the log probability.\n"
+        logprob:
+          type: number
+          description: "The log probability of the token.\n"
+        bytes:
+          type: array
+          items:
+            type: integer
+          description: "The bytes that were used to generate the log probability.\n"
+      description: "A log probability object.\n"

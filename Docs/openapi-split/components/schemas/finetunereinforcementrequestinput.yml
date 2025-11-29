@@ -1,0 +1,25 @@
+components:
+  schemas:
+    FineTuneReinforcementRequestInput:
+      required:
+        - messages
+      type: object
+      properties:
+        messages:
+          minItems: 1
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/ChatCompletionRequestDeveloperMessage'
+              - $ref: '#/components/schemas/ChatCompletionRequestUserMessage'
+              - $ref: '#/components/schemas/FineTuneChatCompletionRequestAssistantMessage'
+              - $ref: '#/components/schemas/ChatCompletionRequestToolMessage'
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatCompletionTool'
+          description: A list of tools the model may generate JSON inputs for.
+      description: "Per-line training example for reinforcement fine-tuning. Note that `messages` and `tools` are the only reserved keywords.\nAny other arbitrary key-value data can be included on training datapoints and will be available to reference during grading under the `{{ item.XXX }}` template variable.\nInput messages may contain text or image content only. Audio and file input messages\nare not currently supported for fine-tuning.\n"
+      x-oaiMeta:
+        name: Training format for reasoning models using the reinforcement method
+        example: "{\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Your task is to take a chemical in SMILES format and predict the number of hydrobond bond donors and acceptors according to Lipinkski's rule. CCN(CC)CCC(=O)c1sc(N)nc1C\"\n    },\n  ],\n  # Any other JSON data can be inserted into an example and referenced during RFT grading\n  \"reference_answer\": {\n    \"donor_bond_counts\": 5,\n    \"acceptor_bond_counts\": 7\n  }\n}\n"

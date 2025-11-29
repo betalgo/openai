@@ -1,0 +1,23 @@
+components:
+  schemas:
+    RealtimeClientEventResponseCreate:
+      required:
+        - type
+      type: object
+      properties:
+        event_id:
+          maxLength: 512
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - response.create
+          description: 'The event type, must be `response.create`.'
+          x-stainless-const: true
+        response:
+          $ref: '#/components/schemas/RealtimeResponseCreateParams'
+      description: "This event instructs the server to create a Response, which means triggering \nmodel inference. When in Server VAD mode, the server will create Responses \nautomatically.\n\nA Response will include at least one Item, and may have two, in which case \nthe second will be a function call. These Items will be appended to the \nconversation history by default.\n\nThe server will respond with a `response.created` event, events for Items \nand content created, and finally a `response.done` event to indicate the \nResponse is complete.\n\nThe `response.create` event includes inference configuration like \n`instructions` and `tools`. If these are set, they will override the Session's \nconfiguration for this Response only.\n\nResponses can be created out-of-band of the default Conversation, meaning that they can\nhave arbitrary input, and it's possible to disable writing the output to the Conversation.\nOnly one Response can write to the default Conversation at a time, but otherwise multiple\nResponses can be created in parallel. The `metadata` field is a good way to disambiguate\nmultiple simultaneous Responses.\n\nClients can set `conversation` to `none` to create a Response that does not write to the default\nConversation. Arbitrary input can be provided with the `input` field, which is an array accepting\nraw Items and references to existing Items.\n"
+      x-oaiMeta:
+        name: response.create
+        group: realtime
+        example: "// Trigger a response with the default Conversation and no special parameters\n{\n  \"type\": \"response.create\",\n}\n\n// Trigger an out-of-band response that does not write to the default Conversation\n{\n  \"type\": \"response.create\",\n  \"response\": {\n    \"instructions\": \"Provide a concise answer.\",\n    \"tools\": [], // clear any session tools\n    \"conversation\": \"none\",\n    \"output_modalities\": [\"text\"],\n    \"metadata\": {\n      \"response_purpose\": \"summarization\"\n    },\n    \"input\": [\n      {\n        \"type\": \"item_reference\",\n        \"id\": \"item_12345\",\n      },\n      {\n        \"type\": \"message\",\n        \"role\": \"user\",\n        \"content\": [\n          {\n            \"type\": \"input_text\",\n            \"text\": \"Summarize the above message in one sentence.\"\n          }\n        ]\n      }\n    ],\n  }\n}\n"

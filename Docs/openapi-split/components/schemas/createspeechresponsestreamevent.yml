@@ -1,0 +1,8 @@
+components:
+  schemas:
+    CreateSpeechResponseStreamEvent:
+      anyOf:
+        - $ref: '#/components/schemas/SpeechAudioDeltaEvent'
+        - $ref: '#/components/schemas/SpeechAudioDoneEvent'
+      discriminator:
+        propertyName: type

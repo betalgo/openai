@@ -1,0 +1,38 @@
+paths:
+  '/chatkit/threads/{thread_id}':
+    get:
+      summary: Retrieve ChatKit thread
+      description: Retrieve a ChatKit thread
+      operationId: GetThreadMethod
+      parameters:
+        - name: thread_id
+          in: path
+          description: Identifier of the ChatKit thread to retrieve.
+          required: true
+          schema:
+            type: string
+            example: cthr_123
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThreadResource'
+      x-oaiMeta:
+        name: Retrieve ChatKit thread
+        group: chatkit
+        beta: true
+        path: threads/retrieve
+        returns: 'Returns a [Thread](https://platform.openai.com/docs/api-reference/chatkit/threads/object) object.'
+        examples:
+          - title: Retrieve a thread by ID
+            request:
+              curl: "curl https://api.openai.com/v1/chatkit/threads/cthr_abc123 \\\n  -H \"OpenAI-Beta: chatkit_beta=v1\" \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\"\n"
+              javascript: "import OpenAI from 'openai';\n\nconst client = new OpenAI();\n\nconst chatkitThread = await client.beta.chatkit.threads.retrieve('cthr_123');\n\nconsole.log(chatkitThread.id);\n"
+              python: "from openai import OpenAI\n\nclient = OpenAI(\n    api_key=\"My API Key\",\n)\nchatkit_thread = client.beta.chatkit.threads.retrieve(\n    \"cthr_123\",\n)\nprint(chatkit_thread.id)"
+              go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"),\n  )\n  chatkitThread, err := client.Beta.ChatKit.Threads.Get(context.TODO(), \"cthr_123\")\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", chatkitThread.ID)\n}\n"
+              java: "package com.openai.example;\n\nimport com.openai.client.OpenAIClient;\nimport com.openai.client.okhttp.OpenAIOkHttpClient;\nimport com.openai.models.beta.chatkit.threads.ChatKitThread;\nimport com.openai.models.beta.chatkit.threads.ThreadRetrieveParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        OpenAIClient client = OpenAIOkHttpClient.fromEnv();\n\n        ChatKitThread chatkitThread = client.beta().chatkit().threads().retrieve(\"cthr_123\");\n    }\n}"
+              ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(api_key: \"My API Key\")\n\nchatkit_thread = openai.beta.chatkit.threads.retrieve(\"cthr_123\")\n\nputs(chatkit_thread)"
+              node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: 'My API Key',\n});\n\nconst chatkitThread = await client.beta.chatkit.threads.retrieve('cthr_123');\n\nconsole.log(chatkitThread.id);"
+            response: "{\n  \"id\": \"cthr_abc123\",\n  \"object\": \"chatkit.thread\",\n  \"title\": \"Customer escalation\",\n  \"items\": {\n    \"data\": [\n      {\n        \"id\": \"cthi_user_001\",\n        \"object\": \"chatkit.thread_item\",\n        \"type\": \"user_message\",\n        \"content\": [\n          {\n            \"type\": \"input_text\",\n            \"text\": \"I need help debugging an onboarding issue.\"\n          }\n        ],\n        \"attachments\": []\n      },\n      {\n        \"id\": \"cthi_assistant_002\",\n        \"object\": \"chatkit.thread_item\",\n        \"type\": \"assistant_message\",\n        \"content\": [\n          {\n            \"type\": \"output_text\",\n            \"text\": \"Let's start by confirming the workflow version you deployed.\"\n          }\n        ]\n      }\n    ],\n    \"has_more\": false\n  }\n}\n"

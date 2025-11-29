@@ -1,0 +1,62 @@
+components:
+  schemas:
+    OpenAIFile:
+      title: OpenAIFile
+      required:
+        - id
+        - object
+        - bytes
+        - created_at
+        - filename
+        - purpose
+        - status
+      properties:
+        id:
+          type: string
+          description: 'The file identifier, which can be referenced in the API endpoints.'
+        bytes:
+          type: integer
+          description: 'The size of the file, in bytes.'
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the file was created.
+        expires_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the file will expire.
+        filename:
+          type: string
+          description: The name of the file.
+        object:
+          enum:
+            - file
+          type: string
+          description: 'The object type, which is always `file`.'
+          x-stainless-const: true
+        purpose:
+          enum:
+            - assistants
+            - assistants_output
+            - batch
+            - batch_output
+            - fine-tune
+            - fine-tune-results
+            - vision
+            - user_data
+          type: string
+          description: 'The intended purpose of the file. Supported values are `assistants`, `assistants_output`, `batch`, `batch_output`, `fine-tune`, `fine-tune-results`, `vision`, and `user_data`.'
+        status:
+          enum:
+            - uploaded
+            - processed
+            - error
+          type: string
+          description: 'Deprecated. The current status of the file, which can be either `uploaded`, `processed`, or `error`.'
+          deprecated: true
+        status_details:
+          type: string
+          description: 'Deprecated. For details on why a fine-tuning training file failed validation, see the `error` field on `fine_tuning.job`.'
+          deprecated: true
+      description: The `File` object represents a document that has been uploaded to OpenAI.
+      x-oaiMeta:
+        name: The file object
+        example: "{\n  \"id\": \"file-abc123\",\n  \"object\": \"file\",\n  \"bytes\": 120000,\n  \"created_at\": 1677610602,\n  \"expires_at\": 1680202602,\n  \"filename\": \"salesOverview.pdf\",\n  \"purpose\": \"assistants\",\n}\n"

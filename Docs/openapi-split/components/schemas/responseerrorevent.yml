@@ -1,0 +1,38 @@
+components:
+  schemas:
+    ResponseErrorEvent:
+      required:
+        - type
+        - code
+        - message
+        - param
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - error
+          type: string
+          description: "The type of the event. Always `error`.\n"
+          x-stainless-const: true
+        code:
+          anyOf:
+            - type: string
+              description: "The error code.\n"
+            - nullable: true
+        message:
+          type: string
+          description: "The error message.\n"
+        param:
+          anyOf:
+            - type: string
+              description: "The error parameter.\n"
+            - nullable: true
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: Emitted when an error occurs.
+      x-oaiMeta:
+        name: error
+        group: responses
+        example: "{\n  \"type\": \"error\",\n  \"code\": \"ERR_SOMETHING\",\n  \"message\": \"Something went wrong\",\n  \"param\": null,\n  \"sequence_number\": 1\n}\n"

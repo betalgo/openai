@@ -1,0 +1,29 @@
+components:
+  schemas:
+    Model:
+      title: Model
+      required:
+        - id
+        - object
+        - created
+        - owned_by
+      properties:
+        id:
+          type: string
+          description: 'The model identifier, which can be referenced in the API endpoints.'
+        created:
+          type: integer
+          description: The Unix timestamp (in seconds) when the model was created.
+        object:
+          enum:
+            - model
+          type: string
+          description: 'The object type, which is always "model".'
+          x-stainless-const: true
+        owned_by:
+          type: string
+          description: The organization that owns the model.
+      description: Describes an OpenAI model offering that can be used with the API.
+      x-oaiMeta:
+        name: The model object
+        example: "{\n  \"id\": \"VAR_chat_model_id\",\n  \"object\": \"model\",\n  \"created\": 1686935002,\n  \"owned_by\": \"openai\"\n}\n"

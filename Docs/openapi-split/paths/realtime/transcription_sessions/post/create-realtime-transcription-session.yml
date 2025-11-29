@@ -1,0 +1,30 @@
+paths:
+  /realtime/transcription_sessions:
+    post:
+      tags:
+        - Realtime
+      summary: Create transcription session
+      description: "Create an ephemeral API token for use in client-side applications with the\nRealtime API specifically for realtime transcriptions. \nCan be configured with the same session parameters as the `transcription_session.update` client event.\n\nIt responds with a session object, plus a `client_secret` key which contains\na usable ephemeral API token that can be used to authenticate browser clients\nfor the Realtime API.\n"
+      operationId: create-realtime-transcription-session
+      requestBody:
+        description: Create an ephemeral API key with the given session configuration.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RealtimeTranscriptionSessionCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: Session created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealtimeTranscriptionSessionCreateResponse'
+      x-oaiMeta:
+        name: Create transcription session
+        group: realtime
+        returns: 'The created [Realtime transcription session object](https://platform.openai.com/docs/api-reference/realtime-sessions/transcription_session_object), plus an ephemeral key'
+        examples:
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/realtime/transcription_sessions \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{}'\n"
+          response: "{\n  \"id\": \"sess_BBwZc7cFV3XizEyKGDCGL\",\n  \"object\": \"realtime.transcription_session\",\n  \"modalities\": [\"audio\", \"text\"],\n  \"turn_detection\": {\n    \"type\": \"server_vad\",\n    \"threshold\": 0.5,\n    \"prefix_padding_ms\": 300,\n    \"silence_duration_ms\": 200\n  },\n  \"input_audio_format\": \"pcm16\",\n  \"input_audio_transcription\": {\n    \"model\": \"gpt-4o-transcribe\",\n    \"language\": null,\n    \"prompt\": \"\"\n  },\n  \"client_secret\": null\n}\n"

@@ -1,0 +1,8 @@
+components:
+  schemas:
+    InputMessageContentList:
+      title: Input item content list
+      type: array
+      items:
+        $ref: '#/components/schemas/InputContent'
+      description: "A list of one or many input items to the model, containing different content \ntypes.\n"

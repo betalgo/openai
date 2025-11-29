@@ -1,0 +1,29 @@
+components:
+  schemas:
+    Attachment:
+      title: Attachment
+      required:
+        - type
+        - id
+        - name
+        - mime_type
+        - preview_url
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/AttachmentType'
+        id:
+          type: string
+          description: Identifier for the attachment.
+        name:
+          type: string
+          description: Original display name for the attachment.
+        mime_type:
+          type: string
+          description: MIME type of the attachment.
+        preview_url:
+          anyOf:
+            - type: string
+              description: Preview URL for rendering the attachment inline.
+            - nullable: true
+      description: Attachment metadata included on thread items.

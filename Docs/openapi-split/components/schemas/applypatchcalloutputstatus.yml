@@ -1,0 +1,7 @@
+components:
+  schemas:
+    ApplyPatchCallOutputStatus:
+      enum:
+        - completed
+        - failed
+      type: string

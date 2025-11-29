@@ -1,0 +1,26 @@
+components:
+  schemas:
+    ModerationImageURLInput:
+      required:
+        - type
+        - image_url
+      type: object
+      properties:
+        type:
+          enum:
+            - image_url
+          type: string
+          description: Always `image_url`.
+          x-stainless-const: true
+        image_url:
+          required:
+            - url
+          type: object
+          properties:
+            url:
+              type: string
+              description: Either a URL of the image or the base64 encoded image data.
+              format: uri
+              example: https://example.com/image.jpg
+          description: Contains either an image URL or a data URL for a base64 encoded image.
+      description: An object describing an image to classify.

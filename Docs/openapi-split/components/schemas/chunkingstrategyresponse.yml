@@ -1,0 +1,10 @@
+components:
+  schemas:
+    ChunkingStrategyResponse:
+      type: object
+      anyOf:
+        - $ref: '#/components/schemas/StaticChunkingStrategyResponseParam'
+        - $ref: '#/components/schemas/OtherChunkingStrategyResponseParam'
+      description: The strategy used to chunk the file.
+      discriminator:
+        propertyName: type

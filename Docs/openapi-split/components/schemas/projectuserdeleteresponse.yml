@@ -1,0 +1,18 @@
+components:
+  schemas:
+    ProjectUserDeleteResponse:
+      required:
+        - object
+        - id
+        - deleted
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.project.user.deleted
+          type: string
+          x-stainless-const: true
+        id:
+          type: string
+        deleted:
+          type: boolean

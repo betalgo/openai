@@ -1,0 +1,16 @@
+components:
+  schemas:
+    SpecificFunctionShellParam:
+      title: Specific shell tool choice
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - shell
+          type: string
+          description: The tool to call. Always `shell`.
+          default: shell
+          x-stainless-const: true
+      description: Forces the model to call the function shell tool when a tool call is required.

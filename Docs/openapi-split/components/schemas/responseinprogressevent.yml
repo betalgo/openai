@@ -1,0 +1,25 @@
+components:
+  schemas:
+    ResponseInProgressEvent:
+      required:
+        - type
+        - response
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.in_progress
+          type: string
+          description: "The type of the event. Always `response.in_progress`.\n"
+          x-stainless-const: true
+        response:
+          $ref: '#/components/schemas/Response'
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: Emitted when the response is in progress.
+      x-oaiMeta:
+        name: response.in_progress
+        group: responses
+        example: "{\n  \"type\": \"response.in_progress\",\n  \"response\": {\n    \"id\": \"resp_67ccfcdd16748190a91872c75d38539e09e4d4aac714747c\",\n    \"object\": \"response\",\n    \"created_at\": 1741487325,\n    \"status\": \"in_progress\",\n    \"error\": null,\n    \"incomplete_details\": null,\n    \"instructions\": null,\n    \"max_output_tokens\": null,\n    \"model\": \"gpt-4o-2024-08-06\",\n    \"output\": [],\n    \"parallel_tool_calls\": true,\n    \"previous_response_id\": null,\n    \"reasoning\": {\n      \"effort\": null,\n      \"summary\": null\n    },\n    \"store\": true,\n    \"temperature\": 1,\n    \"text\": {\n      \"format\": {\n        \"type\": \"text\"\n      }\n    },\n    \"tool_choice\": \"auto\",\n    \"tools\": [],\n    \"top_p\": 1,\n    \"truncation\": \"disabled\",\n    \"usage\": null,\n    \"user\": null,\n    \"metadata\": {}\n  },\n  \"sequence_number\": 1\n}\n"

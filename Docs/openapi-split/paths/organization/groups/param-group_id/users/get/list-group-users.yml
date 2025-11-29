@@ -1,0 +1,52 @@
+paths:
+  '/organization/groups/{group_id}/users':
+    get:
+      tags:
+        - Group users
+      summary: List group users
+      description: Lists the users assigned to a group.
+      operationId: list-group-users
+      parameters:
+        - name: group_id
+          in: path
+          description: The ID of the group to inspect.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: "A limit on the number of users to be returned. Limit can range between 0 and 1000, and the default is 100.\n"
+          schema:
+            maximum: 1000
+            minimum: 0
+            type: integer
+            default: 100
+        - name: after
+          in: query
+          description: "A cursor for use in pagination. Provide the ID of the last user from the previous list response to retrieve the next page.\n"
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: Specifies the sort order of users in the list.
+          schema:
+            enum:
+              - asc
+              - desc
+            type: string
+            default: desc
+      responses:
+        '200':
+          description: Group users listed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListResource'
+      x-oaiMeta:
+        name: List group users
+        group: administration
+        returns: 'A list of [user objects](https://platform.openai.com/docs/api-reference/users/object).'
+        examples:
+          request:
+            curl: "curl https://api.openai.com/v1/organization/groups/group_01J1F8ABCDXYZ/users?limit=20 \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"
+          response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"object\": \"organization.user\",\n            \"id\": \"user_abc123\",\n            \"name\": \"Ada Lovelace\",\n            \"email\": \"ada@example.com\",\n            \"role\": \"owner\",\n            \"added_at\": 1711471533\n        }\n    ],\n    \"has_more\": false,\n    \"next\": null\n}\n"

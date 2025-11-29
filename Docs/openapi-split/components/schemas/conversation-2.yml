@@ -1,0 +1,12 @@
+components:
+  schemas:
+    Conversation-2:
+      title: Conversation
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the conversation.
+      description: The conversation that this response belongs to. Input items and output items from this response are automatically added to this conversation.

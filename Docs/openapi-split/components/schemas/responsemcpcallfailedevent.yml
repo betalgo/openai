@@ -1,0 +1,31 @@
+components:
+  schemas:
+    ResponseMCPCallFailedEvent:
+      title: ResponseMCPCallFailedEvent
+      required:
+        - type
+        - item_id
+        - output_index
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.mcp_call.failed
+          type: string
+          description: The type of the event. Always 'response.mcp_call.failed'.
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The ID of the MCP tool call item that failed.
+        output_index:
+          type: integer
+          description: The index of the output item that failed.
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: "Emitted when an MCP  tool call has failed.\n"
+      x-oaiMeta:
+        name: response.mcp_call.failed
+        group: responses
+        example: "{\n  \"type\": \"response.mcp_call.failed\",\n  \"sequence_number\": 1,\n  \"item_id\": \"mcp_682d437d90a88191bf88cd03aae0c3e503937d5f622d7a90\",\n  \"output_index\": 0\n}\n"

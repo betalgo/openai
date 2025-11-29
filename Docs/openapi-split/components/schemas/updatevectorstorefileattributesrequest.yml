@@ -1,0 +1,12 @@
+components:
+  schemas:
+    UpdateVectorStoreFileAttributesRequest:
+      required:
+        - attributes
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/VectorStoreFileAttributes'
+      additionalProperties: false
+      x-oaiMeta:
+        name: Update vector store file attributes request

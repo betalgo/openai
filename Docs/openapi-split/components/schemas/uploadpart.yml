@@ -1,0 +1,30 @@
+components:
+  schemas:
+    UploadPart:
+      title: UploadPart
+      required:
+        - created_at
+        - id
+        - object
+        - upload_id
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The upload Part unique identifier, which can be referenced in API endpoints.'
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the Part was created.
+        upload_id:
+          type: string
+          description: The ID of the Upload object that this Part was added to.
+        object:
+          enum:
+            - upload.part
+          type: string
+          description: 'The object type, which is always `upload.part`.'
+          x-stainless-const: true
+      description: "The upload Part represents a chunk of bytes we can add to an Upload object.\n"
+      x-oaiMeta:
+        name: The upload part object
+        example: "{\n    \"id\": \"part_def456\",\n    \"object\": \"upload.part\",\n    \"created_at\": 1719186911,\n    \"upload_id\": \"upload_abc123\"\n}\n"

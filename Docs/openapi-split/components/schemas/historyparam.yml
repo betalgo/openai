@@ -1,0 +1,14 @@
+components:
+  schemas:
+    HistoryParam:
+      title: Chat history configuration
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Enables chat users to access previous ChatKit threads. Defaults to true.
+        recent_threads:
+          minimum: 1
+          type: integer
+          description: Number of recent ChatKit threads users have access to. Defaults to unlimited when unset.
+      description: Controls how much historical context is retained for the session.

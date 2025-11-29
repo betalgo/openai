@@ -1,0 +1,43 @@
+components:
+  schemas:
+    WebhookFineTuningJobFailed:
+      title: fine_tuning.job.failed
+      required:
+        - created_at
+        - id
+        - data
+        - type
+      type: object
+      properties:
+        created_at:
+          type: integer
+          description: "The Unix timestamp (in seconds) of when the fine-tuning job failed.\n"
+        id:
+          type: string
+          description: "The unique ID of the event.\n"
+        data:
+          required:
+            - id
+          type: object
+          properties:
+            id:
+              type: string
+              description: "The unique ID of the fine-tuning job.\n"
+          description: "Event data payload.\n"
+        object:
+          enum:
+            - event
+          type: string
+          description: "The object of the event. Always `event`.\n"
+          x-stainless-const: true
+        type:
+          enum:
+            - fine_tuning.job.failed
+          type: string
+          description: "The type of the event. Always `fine_tuning.job.failed`.\n"
+          x-stainless-const: true
+      description: "Sent when a fine-tuning job has failed.\n"
+      x-oaiMeta:
+        name: fine_tuning.job.failed
+        group: webhook-events
+        example: "{\n  \"id\": \"evt_abc123\",\n  \"type\": \"fine_tuning.job.failed\",\n  \"created_at\": 1719168000,\n  \"data\": {\n    \"id\": \"ftjob_abc123\"\n  }\n} \n"

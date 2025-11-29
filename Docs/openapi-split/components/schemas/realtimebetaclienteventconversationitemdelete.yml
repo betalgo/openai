@@ -1,0 +1,24 @@
+components:
+  schemas:
+    RealtimeBetaClientEventConversationItemDelete:
+      required:
+        - type
+        - item_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - conversation.item.delete
+          description: 'The event type, must be `conversation.item.delete`.'
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The ID of the item to delete.
+      description: "Send this event when you want to remove any item from the conversation \nhistory. The server will respond with a `conversation.item.deleted` event, \nunless the item does not exist in the conversation history, in which case the \nserver will respond with an error.\n"
+      x-oaiMeta:
+        name: conversation.item.delete
+        group: realtime
+        example: "{\n    \"event_id\": \"event_901\",\n    \"type\": \"conversation.item.delete\",\n    \"item_id\": \"msg_003\"\n}\n"

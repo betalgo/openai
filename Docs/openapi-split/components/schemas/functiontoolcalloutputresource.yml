@@ -1,0 +1,12 @@
+components:
+  schemas:
+    FunctionToolCallOutputResource:
+      allOf:
+        - $ref: '#/components/schemas/FunctionToolCallOutput'
+        - required:
+            - id
+          type: object
+          properties:
+            id:
+              type: string
+              description: "The unique ID of the function call tool output.\n"

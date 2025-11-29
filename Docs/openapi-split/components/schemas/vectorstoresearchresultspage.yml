@@ -1,0 +1,39 @@
+components:
+  schemas:
+    VectorStoreSearchResultsPage:
+      required:
+        - object
+        - search_query
+        - data
+        - has_more
+        - next_page
+      type: object
+      properties:
+        object:
+          enum:
+            - vector_store.search_results.page
+          type: string
+          description: 'The object type, which is always `vector_store.search_results.page`'
+          x-stainless-const: true
+        search_query:
+          type: array
+          items:
+            minItems: 1
+            type: string
+            description: The query used for this search.
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VectorStoreSearchResultItem'
+          description: The list of search result items.
+        has_more:
+          type: boolean
+          description: Indicates if there are more results to fetch.
+        next_page:
+          anyOf:
+            - type: string
+              description: 'The token for the next page, if any.'
+            - nullable: true
+      additionalProperties: false
+      x-oaiMeta:
+        name: Vector store search results page

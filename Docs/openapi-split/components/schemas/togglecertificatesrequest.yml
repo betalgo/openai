@@ -1,0 +1,14 @@
+components:
+  schemas:
+    ToggleCertificatesRequest:
+      required:
+        - certificate_ids
+      type: object
+      properties:
+        certificate_ids:
+          maxItems: 10
+          minItems: 1
+          type: array
+          items:
+            type: string
+            example: cert_abc

@@ -1,0 +1,24 @@
+components:
+  schemas:
+    ApplyPatchUpdateFileOperation:
+      title: Apply patch update file operation
+      required:
+        - type
+        - path
+        - diff
+      type: object
+      properties:
+        type:
+          enum:
+            - update_file
+          type: string
+          description: Update an existing file with the provided diff.
+          default: update_file
+          x-stainless-const: true
+        path:
+          type: string
+          description: Path of the file to update.
+        diff:
+          type: string
+          description: Diff to apply.
+      description: Instruction describing how to update a file via the apply_patch tool.

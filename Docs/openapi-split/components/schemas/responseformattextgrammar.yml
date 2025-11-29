@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ResponseFormatTextGrammar:
+      title: Text grammar
+      required:
+        - type
+        - grammar
+      type: object
+      properties:
+        type:
+          enum:
+            - grammar
+          type: string
+          description: The type of response format being defined. Always `grammar`.
+          x-stainless-const: true
+        grammar:
+          type: string
+          description: The custom grammar for the model to follow.
+      description: "A custom grammar for the model to follow when generating text.\nLearn more in the [custom grammars guide](https://platform.openai.com/docs/guides/custom-grammars).\n"

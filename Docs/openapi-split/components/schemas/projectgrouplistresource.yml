@@ -1,0 +1,33 @@
+components:
+  schemas:
+    ProjectGroupListResource:
+      required:
+        - object
+        - data
+        - has_more
+        - next
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: Always `list`.
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectGroup'
+          description: Project group memberships returned in the current page.
+        has_more:
+          type: boolean
+          description: Whether additional project group memberships are available.
+        next:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: 'Cursor to fetch the next page of results, or `null` when there are no more results.'
+      description: Paginated list of groups that have access to a project.
+      x-oaiMeta:
+        name: Project group list
+        example: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"object\": \"project.group\",\n            \"project_id\": \"proj_abc123\",\n            \"group_id\": \"group_01J1F8ABCDXYZ\",\n            \"group_name\": \"Support Team\",\n            \"created_at\": 1711471533\n        }\n    ],\n    \"has_more\": false,\n    \"next\": null\n}\n"

@@ -1,0 +1,29 @@
+components:
+  schemas:
+    CreateContainerBody:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the container to create.
+        file_ids:
+          type: array
+          items:
+            type: string
+          description: IDs of files to copy to the container.
+        expires_after:
+          required:
+            - anchor
+            - minutes
+          type: object
+          properties:
+            anchor:
+              enum:
+                - last_active_at
+              type: string
+              description: Time anchor for the expiration time. Currently only 'last_active_at' is supported.
+            minutes:
+              type: integer
+          description: Container expiration time in seconds relative to the 'anchor' time.

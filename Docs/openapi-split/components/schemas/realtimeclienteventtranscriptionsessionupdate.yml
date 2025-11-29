@@ -1,0 +1,23 @@
+components:
+  schemas:
+    RealtimeClientEventTranscriptionSessionUpdate:
+      required:
+        - type
+        - session
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - transcription_session.update
+          description: 'The event type, must be `transcription_session.update`.'
+          x-stainless-const: true
+        session:
+          $ref: '#/components/schemas/RealtimeTranscriptionSessionCreateRequest'
+      description: "Send this event to update a transcription session.\n"
+      x-oaiMeta:
+        name: transcription_session.update
+        group: realtime
+        example: "{\n  \"type\": \"transcription_session.update\",\n  \"session\": {\n    \"input_audio_format\": \"pcm16\",\n    \"input_audio_transcription\": {\n      \"model\": \"gpt-4o-transcribe\",\n      \"prompt\": \"\",\n      \"language\": \"\"\n    },\n    \"turn_detection\": {\n      \"type\": \"server_vad\",\n      \"threshold\": 0.5,\n      \"prefix_padding_ms\": 300,\n      \"silence_duration_ms\": 500,\n      \"create_response\": true,\n    },\n    \"input_audio_noise_reduction\": {\n      \"type\": \"near_field\"\n    },\n    \"include\": [\n      \"item.input_audio_transcription.logprobs\",\n    ]\n  }\n}\n"

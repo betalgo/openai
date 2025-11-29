@@ -1,0 +1,42 @@
+components:
+  schemas:
+    ReasoningItem:
+      title: Reasoning
+      required:
+        - id
+        - summary
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - reasoning
+          type: string
+          description: "The type of the object. Always `reasoning`.\n"
+          x-stainless-const: true
+        id:
+          type: string
+          description: "The unique identifier of the reasoning content.\n"
+        encrypted_content:
+          anyOf:
+            - type: string
+              description: "The encrypted content of the reasoning item - populated when a response is\ngenerated with `reasoning.encrypted_content` in the `include` parameter.\n"
+            - nullable: true
+        summary:
+          type: array
+          items:
+            $ref: '#/components/schemas/Summary'
+          description: "Reasoning summary content.\n"
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReasoningTextContent'
+          description: "Reasoning text content.\n"
+        status:
+          enum:
+            - in_progress
+            - completed
+            - incomplete
+          type: string
+          description: "The status of the item. One of `in_progress`, `completed`, or\n`incomplete`. Populated when items are returned via API.\n"
+      description: "A description of the chain of thought used by a reasoning model while generating\na response. Be sure to include these items in your `input` to the Responses API\nfor subsequent turns of a conversation if you are manually\n[managing context](https://platform.openai.com/docs/guides/conversation-state).\n"

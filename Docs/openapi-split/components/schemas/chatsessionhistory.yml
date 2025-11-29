@@ -1,0 +1,18 @@
+components:
+  schemas:
+    ChatSessionHistory:
+      title: History settings
+      required:
+        - enabled
+        - recent_threads
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates if chat history is persisted for the session.
+        recent_threads:
+          anyOf:
+            - type: integer
+              description: Number of prior threads surfaced in history views. Defaults to null when all history is retained.
+            - nullable: true
+      description: History retention preferences returned for the session.

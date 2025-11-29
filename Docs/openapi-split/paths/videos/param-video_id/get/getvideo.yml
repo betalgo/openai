@@ -1,0 +1,36 @@
+paths:
+  '/videos/{video_id}':
+    get:
+      tags:
+        - Videos
+      summary: Retrieve video
+      description: Retrieve a video
+      operationId: GetVideo
+      parameters:
+        - name: video_id
+          in: path
+          description: The identifier of the video to retrieve.
+          required: true
+          schema:
+            type: string
+            example: video_123
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoResource'
+      x-oaiMeta:
+        name: Retrieve video
+        group: videos
+        path: retrieve
+        returns: 'Returns the [video job](https://platform.openai.com/docs/api-reference/videos/object) matching the provided identifier.'
+        examples:
+          response: ''
+          request:
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: 'My API Key',\n});\n\nconst video = await client.videos.retrieve('video_123');\n\nconsole.log(video.id);"
+            python: "from openai import OpenAI\n\nclient = OpenAI(\n    api_key=\"My API Key\",\n)\nvideo = client.videos.retrieve(\n    \"video_123\",\n)\nprint(video.id)"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"),\n  )\n  video, err := client.Videos.Get(context.TODO(), \"video_123\")\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", video.ID)\n}\n"
+            java: "package com.openai.example;\n\nimport com.openai.client.OpenAIClient;\nimport com.openai.client.okhttp.OpenAIOkHttpClient;\nimport com.openai.models.videos.Video;\nimport com.openai.models.videos.VideoRetrieveParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        OpenAIClient client = OpenAIOkHttpClient.fromEnv();\n\n        Video video = client.videos().retrieve(\"video_123\");\n    }\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(api_key: \"My API Key\")\n\nvideo = openai.videos.retrieve(\"video_123\")\n\nputs(video)"

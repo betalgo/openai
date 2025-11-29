@@ -1,0 +1,36 @@
+components:
+  schemas:
+    MessageContentTextAnnotationsFilePathObject:
+      title: File path
+      required:
+        - type
+        - text
+        - file_path
+        - start_index
+        - end_index
+      type: object
+      properties:
+        type:
+          enum:
+            - file_path
+          type: string
+          description: Always `file_path`.
+          x-stainless-const: true
+        text:
+          type: string
+          description: The text in the message content that needs to be replaced.
+        file_path:
+          required:
+            - file_id
+          type: object
+          properties:
+            file_id:
+              type: string
+              description: The ID of the file that was generated.
+        start_index:
+          minimum: 0
+          type: integer
+        end_index:
+          minimum: 0
+          type: integer
+      description: A URL for the file that's generated when the assistant used the `code_interpreter` tool to generate a file.

@@ -1,0 +1,40 @@
+components:
+  schemas:
+    ComputerToolCall:
+      title: Computer tool call
+      required:
+        - type
+        - id
+        - action
+        - call_id
+        - pending_safety_checks
+        - status
+      type: object
+      properties:
+        type:
+          enum:
+            - computer_call
+          type: string
+          description: The type of the computer call. Always `computer_call`.
+          default: computer_call
+        id:
+          type: string
+          description: The unique ID of the computer call.
+        call_id:
+          type: string
+          description: "An identifier used when responding to the tool call with output.\n"
+        action:
+          $ref: '#/components/schemas/ComputerAction'
+        pending_safety_checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComputerCallSafetyCheckParam'
+          description: "The pending safety checks for the computer call.\n"
+        status:
+          enum:
+            - in_progress
+            - completed
+            - incomplete
+          type: string
+          description: "The status of the item. One of `in_progress`, `completed`, or\n`incomplete`. Populated when items are returned via API.\n"
+      description: "A tool call to a computer use tool. See the\n[computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.\n"

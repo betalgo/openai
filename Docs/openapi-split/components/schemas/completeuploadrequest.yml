@@ -1,0 +1,16 @@
+components:
+  schemas:
+    CompleteUploadRequest:
+      required:
+        - part_ids
+      type: object
+      properties:
+        part_ids:
+          type: array
+          items:
+            type: string
+          description: "The ordered list of Part IDs.\n"
+        md5:
+          type: string
+          description: "The optional md5 checksum for the file contents to verify if the bytes uploaded matches what you expect.\n"
+      additionalProperties: false

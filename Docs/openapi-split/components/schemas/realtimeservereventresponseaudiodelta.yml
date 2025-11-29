@@ -1,0 +1,41 @@
+components:
+  schemas:
+    RealtimeServerEventResponseAudioDelta:
+      required:
+        - event_id
+        - type
+        - response_id
+        - item_id
+        - output_index
+        - content_index
+        - delta
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.output_audio.delta
+          description: 'The event type, must be `response.output_audio.delta`.'
+          x-stainless-const: true
+        response_id:
+          type: string
+          description: The ID of the response.
+        item_id:
+          type: string
+          description: The ID of the item.
+        output_index:
+          type: integer
+          description: The index of the output item in the response.
+        content_index:
+          type: integer
+          description: The index of the content part in the item's content array.
+        delta:
+          type: string
+          description: Base64-encoded audio data delta.
+      description: Returned when the model-generated audio is updated.
+      x-oaiMeta:
+        name: response.output_audio.delta
+        group: realtime
+        example: "{\n    \"event_id\": \"event_4950\",\n    \"type\": \"response.output_audio.delta\",\n    \"response_id\": \"resp_001\",\n    \"item_id\": \"msg_008\",\n    \"output_index\": 0,\n    \"content_index\": 0,\n    \"delta\": \"Base64EncodedAudioDelta\"\n}\n"

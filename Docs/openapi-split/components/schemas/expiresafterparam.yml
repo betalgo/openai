@@ -1,0 +1,22 @@
+components:
+  schemas:
+    ExpiresAfterParam:
+      title: Expiration overrides
+      required:
+        - anchor
+        - seconds
+      type: object
+      properties:
+        anchor:
+          enum:
+            - created_at
+          type: string
+          description: Base timestamp used to calculate expiration. Currently fixed to `created_at`.
+          default: created_at
+          x-stainless-const: true
+        seconds:
+          maximum: 600
+          minimum: 1
+          type: integer
+          description: Number of seconds after the anchor when the session expires.
+      description: Controls when the session expires relative to an anchor timestamp.

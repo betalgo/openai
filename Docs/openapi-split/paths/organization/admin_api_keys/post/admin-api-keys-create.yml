@@ -1,0 +1,33 @@
+paths:
+  /organization/admin_api_keys:
+    post:
+      summary: Create admin API key
+      description: Create an organization admin API key
+      operationId: admin-api-keys-create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: New Admin Key
+        required: true
+      responses:
+        '200':
+          description: The newly created admin API key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminApiKey'
+      x-oaiMeta:
+        name: Create admin API key
+        group: administration
+        returns: 'The created [AdminApiKey](https://platform.openai.com/docs/api-reference/admin-api-keys/object) object.'
+        examples:
+          response: "{\n  \"object\": \"organization.admin_api_key\",\n  \"id\": \"key_xyz\",\n  \"name\": \"New Admin Key\",\n  \"redacted_value\": \"sk-admin...xyz\",\n  \"created_at\": 1711471533,\n  \"last_used_at\": 1711471534,\n  \"owner\": {\n    \"type\": \"user\",\n    \"object\": \"organization.user\",\n    \"id\": \"user_123\",\n    \"name\": \"John Doe\",\n    \"created_at\": 1711471533,\n    \"role\": \"owner\"\n  },\n  \"value\": \"sk-admin-1234abcd\"\n}\n"
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/organization/admin_api_keys \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      \"name\": \"New Admin Key\"\n  }'\n"

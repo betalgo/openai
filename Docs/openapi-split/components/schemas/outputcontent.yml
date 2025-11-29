@@ -1,0 +1,9 @@
+components:
+  schemas:
+    OutputContent:
+      anyOf:
+        - $ref: '#/components/schemas/OutputTextContent'
+        - $ref: '#/components/schemas/RefusalContent'
+        - $ref: '#/components/schemas/ReasoningTextContent'
+      discriminator:
+        propertyName: type

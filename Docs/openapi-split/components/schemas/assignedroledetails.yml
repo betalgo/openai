@@ -1,0 +1,67 @@
+components:
+  schemas:
+    AssignedRoleDetails:
+      required:
+        - id
+        - name
+        - permissions
+        - resource_type
+        - predefined_role
+        - description
+        - created_at
+        - updated_at
+        - created_by
+        - created_by_user_obj
+        - metadata
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier for the role.
+        name:
+          type: string
+          description: Name of the role.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: Permissions associated with the role.
+        resource_type:
+          type: string
+          description: Resource type the role applies to.
+        predefined_role:
+          type: boolean
+          description: Whether the role is predefined by OpenAI.
+        description:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: Description of the role.
+        created_at:
+          anyOf:
+            - type: integer
+              format: int64
+            - nullable: true
+          description: When the role was created.
+        updated_at:
+          anyOf:
+            - type: integer
+              format: int64
+            - nullable: true
+          description: When the role was last updated.
+        created_by:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: Identifier of the actor who created the role.
+        created_by_user_obj:
+          anyOf:
+            - type: object
+            - nullable: true
+          description: 'User details for the actor that created the role, when available.'
+        metadata:
+          anyOf:
+            - type: object
+            - nullable: true
+          description: Arbitrary metadata stored on the role.
+      description: Detailed information about a role assignment entry returned when listing assignments.

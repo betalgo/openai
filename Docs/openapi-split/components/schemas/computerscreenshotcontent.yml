@@ -1,0 +1,28 @@
+components:
+  schemas:
+    ComputerScreenshotContent:
+      title: Computer screenshot
+      required:
+        - type
+        - image_url
+        - file_id
+      type: object
+      properties:
+        type:
+          enum:
+            - computer_screenshot
+          type: string
+          description: 'Specifies the event type. For a computer screenshot, this property is always set to `computer_screenshot`.'
+          default: computer_screenshot
+          x-stainless-const: true
+        image_url:
+          anyOf:
+            - type: string
+              description: The URL of the screenshot image.
+            - nullable: true
+        file_id:
+          anyOf:
+            - type: string
+              description: The identifier of an uploaded file that contains the screenshot.
+            - nullable: true
+      description: A screenshot of a computer.

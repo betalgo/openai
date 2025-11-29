@@ -1,0 +1,31 @@
+components:
+  schemas:
+    ResponseImageGenCallCompletedEvent:
+      title: ResponseImageGenCallCompletedEvent
+      required:
+        - type
+        - output_index
+        - item_id
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.image_generation_call.completed
+          type: string
+          description: The type of the event. Always 'response.image_generation_call.completed'.
+          x-stainless-const: true
+        output_index:
+          type: integer
+          description: The index of the output item in the response's output array.
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+        item_id:
+          type: string
+          description: The unique identifier of the image generation item being processed.
+      description: "Emitted when an image generation tool call has completed and the final image is available.\n"
+      x-oaiMeta:
+        name: response.image_generation_call.completed
+        group: responses
+        example: "{\n  \"type\": \"response.image_generation_call.completed\",\n  \"output_index\": 0,\n  \"item_id\": \"item-123\",\n  \"sequence_number\": 1\n}\n"

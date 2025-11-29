@@ -1,0 +1,12 @@
+components:
+  schemas:
+    ComputerToolCallOutputResource:
+      allOf:
+        - $ref: '#/components/schemas/ComputerToolCallOutput'
+        - required:
+            - id
+          type: object
+          properties:
+            id:
+              type: string
+              description: "The unique ID of the computer call tool output.\n"

@@ -1,0 +1,34 @@
+components:
+  schemas:
+    MCPListTools:
+      title: MCP list tools
+      required:
+        - type
+        - id
+        - server_label
+        - tools
+      type: object
+      properties:
+        type:
+          enum:
+            - mcp_list_tools
+          type: string
+          description: "The type of the item. Always `mcp_list_tools`.\n"
+          x-stainless-const: true
+        id:
+          type: string
+          description: "The unique ID of the list.\n"
+        server_label:
+          type: string
+          description: "The label of the MCP server.\n"
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/MCPListToolsTool'
+          description: "The tools available on the server.\n"
+        error:
+          anyOf:
+            - type: string
+              description: "Error message if the server could not list tools.\n"
+            - nullable: true
+      description: "A list of tools available on an MCP server.\n"

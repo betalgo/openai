@@ -1,0 +1,7 @@
+components:
+  schemas:
+    ApplyPatchCallStatus:
+      enum:
+        - in_progress
+        - completed
+      type: string

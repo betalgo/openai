@@ -1,0 +1,44 @@
+components:
+  schemas:
+    UsageModerationsResult:
+      required:
+        - object
+        - input_tokens
+        - num_model_requests
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.usage.moderations.result
+          type: string
+          x-stainless-const: true
+        input_tokens:
+          type: integer
+          description: The aggregated number of input tokens used.
+        num_model_requests:
+          type: integer
+          description: The count of requests made to the model.
+        project_id:
+          anyOf:
+            - type: string
+              description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
+            - nullable: true
+        user_id:
+          anyOf:
+            - type: string
+              description: 'When `group_by=user_id`, this field provides the user ID of the grouped usage result.'
+            - nullable: true
+        api_key_id:
+          anyOf:
+            - type: string
+              description: 'When `group_by=api_key_id`, this field provides the API key ID of the grouped usage result.'
+            - nullable: true
+        model:
+          anyOf:
+            - type: string
+              description: 'When `group_by=model`, this field provides the model name of the grouped usage result.'
+            - nullable: true
+      description: The aggregated moderations usage details of the specific time bucket.
+      x-oaiMeta:
+        name: Moderations usage object
+        example: "{\n    \"object\": \"organization.usage.moderations.result\",\n    \"input_tokens\": 20,\n    \"num_model_requests\": 2,\n    \"project_id\": \"proj_abc\",\n    \"user_id\": \"user-abc\",\n    \"api_key_id\": \"key_abc\",\n    \"model\": \"text-moderation\"\n}\n"

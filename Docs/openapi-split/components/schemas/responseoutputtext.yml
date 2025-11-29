@@ -1,0 +1,31 @@
+components:
+  schemas:
+    ResponseOutputText:
+      title: Assistant message content
+      required:
+        - type
+        - text
+        - annotations
+      type: object
+      properties:
+        type:
+          enum:
+            - output_text
+          type: string
+          description: Type discriminator that is always `output_text`.
+          default: output_text
+          x-stainless-const: true
+        text:
+          type: string
+          description: Assistant generated text.
+        annotations:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/FileAnnotation'
+              - $ref: '#/components/schemas/UrlAnnotation'
+            description: Annotation object describing a cited source.
+            discriminator:
+              propertyName: type
+          description: Ordered list of annotations attached to the response text.
+      description: Assistant response text accompanied by optional annotations.

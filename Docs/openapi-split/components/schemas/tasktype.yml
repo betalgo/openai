@@ -1,0 +1,7 @@
+components:
+  schemas:
+    TaskType:
+      enum:
+        - custom
+        - thought
+      type: string

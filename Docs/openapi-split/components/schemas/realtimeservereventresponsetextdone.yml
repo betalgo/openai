@@ -1,0 +1,41 @@
+components:
+  schemas:
+    RealtimeServerEventResponseTextDone:
+      required:
+        - event_id
+        - type
+        - response_id
+        - item_id
+        - output_index
+        - content_index
+        - text
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.output_text.done
+          description: 'The event type, must be `response.output_text.done`.'
+          x-stainless-const: true
+        response_id:
+          type: string
+          description: The ID of the response.
+        item_id:
+          type: string
+          description: The ID of the item.
+        output_index:
+          type: integer
+          description: The index of the output item in the response.
+        content_index:
+          type: integer
+          description: The index of the content part in the item's content array.
+        text:
+          type: string
+          description: The final text content.
+      description: "Returned when the text value of an \"output_text\" content part is done streaming. Also\nemitted when a Response is interrupted, incomplete, or cancelled.\n"
+      x-oaiMeta:
+        name: response.output_text.done
+        group: realtime
+        example: "{\n    \"event_id\": \"event_4344\",\n    \"type\": \"response.output_text.done\",\n    \"response_id\": \"resp_001\",\n    \"item_id\": \"msg_007\",\n    \"output_index\": 0,\n    \"content_index\": 0,\n    \"text\": \"Sure, I can help with that.\"\n}\n"

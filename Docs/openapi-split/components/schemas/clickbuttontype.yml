@@ -1,0 +1,10 @@
+components:
+  schemas:
+    ClickButtonType:
+      enum:
+        - left
+        - right
+        - wheel
+        - back
+        - forward
+      type: string

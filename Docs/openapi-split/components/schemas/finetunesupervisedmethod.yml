@@ -1,0 +1,8 @@
+components:
+  schemas:
+    FineTuneSupervisedMethod:
+      type: object
+      properties:
+        hyperparameters:
+          $ref: '#/components/schemas/FineTuneSupervisedHyperparameters'
+      description: Configuration for the supervised fine-tuning method.

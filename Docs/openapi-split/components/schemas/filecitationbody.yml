@@ -1,0 +1,28 @@
+components:
+  schemas:
+    FileCitationBody:
+      title: File citation
+      required:
+        - type
+        - file_id
+        - index
+        - filename
+      type: object
+      properties:
+        type:
+          enum:
+            - file_citation
+          type: string
+          description: The type of the file citation. Always `file_citation`.
+          default: file_citation
+          x-stainless-const: true
+        file_id:
+          type: string
+          description: The ID of the file.
+        index:
+          type: integer
+          description: The index of the file in the list of files.
+        filename:
+          type: string
+          description: The filename of the file cited.
+      description: A citation to a file.

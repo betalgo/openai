@@ -1,0 +1,37 @@
+components:
+  schemas:
+    ResponseContentPartDoneEvent:
+      required:
+        - type
+        - item_id
+        - output_index
+        - content_index
+        - part
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.content_part.done
+          type: string
+          description: "The type of the event. Always `response.content_part.done`.\n"
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: "The ID of the output item that the content part was added to.\n"
+        output_index:
+          type: integer
+          description: "The index of the output item that the content part was added to.\n"
+        content_index:
+          type: integer
+          description: "The index of the content part that is done.\n"
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+        part:
+          $ref: '#/components/schemas/OutputContent'
+      description: Emitted when a content part is done.
+      x-oaiMeta:
+        name: response.content_part.done
+        group: responses
+        example: "{\n  \"type\": \"response.content_part.done\",\n  \"item_id\": \"msg_123\",\n  \"output_index\": 0,\n  \"content_index\": 0,\n  \"sequence_number\": 1,\n  \"part\": {\n    \"type\": \"output_text\",\n    \"text\": \"In a shimmering forest under a sky full of stars, a lonely unicorn named Lila discovered a hidden pond that glowed with moonlight. Every night, she would leave sparkling, magical flowers by the water's edge, hoping to share her beauty with others. One enchanting evening, she woke to find a group of friendly animals gathered around, eager to be friends and share in her magic.\",\n    \"annotations\": []\n  }\n}\n"

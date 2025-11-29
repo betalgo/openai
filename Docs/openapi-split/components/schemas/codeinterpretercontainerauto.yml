@@ -1,0 +1,30 @@
+components:
+  schemas:
+    CodeInterpreterContainerAuto:
+      title: CodeInterpreterToolAuto
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - auto
+          type: string
+          description: Always `auto`.
+          default: auto
+          x-stainless-const: true
+        file_ids:
+          maxItems: 50
+          type: array
+          items:
+            type: string
+            example: file-123
+          description: An optional list of uploaded files to make available to your code.
+        memory_limit:
+          anyOf:
+            - $ref: '#/components/schemas/ContainerMemoryLimit'
+            - nullable: true
+      description: Configuration for a code interpreter container. Optionally specify the IDs of the files to run the code on.
+      x-stainless-naming:
+        go:
+          type_name: ToolCodeInterpreterContainerCodeInterpreterContainerAuto

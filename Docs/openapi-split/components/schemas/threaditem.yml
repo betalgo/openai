@@ -1,0 +1,13 @@
+components:
+  schemas:
+    ThreadItem:
+      title: The thread item
+      anyOf:
+        - $ref: '#/components/schemas/UserMessageItem'
+        - $ref: '#/components/schemas/AssistantMessageItem'
+        - $ref: '#/components/schemas/WidgetMessageItem'
+        - $ref: '#/components/schemas/ClientToolCallItem'
+        - $ref: '#/components/schemas/TaskItem'
+        - $ref: '#/components/schemas/TaskGroupItem'
+      discriminator:
+        propertyName: type

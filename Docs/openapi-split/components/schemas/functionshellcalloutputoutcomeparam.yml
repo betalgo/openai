@@ -1,0 +1,10 @@
+components:
+  schemas:
+    FunctionShellCallOutputOutcomeParam:
+      title: Function shell call outcome
+      anyOf:
+        - $ref: '#/components/schemas/FunctionShellCallOutputTimeoutOutcomeParam'
+        - $ref: '#/components/schemas/FunctionShellCallOutputExitOutcomeParam'
+      description: The exit or timeout outcome associated with this chunk.
+      discriminator:
+        propertyName: type

@@ -1,0 +1,18 @@
+components:
+  schemas:
+    ChatCompletionAllowedToolsChoice:
+      title: Allowed tools
+      required:
+        - type
+        - allowed_tools
+      type: object
+      properties:
+        type:
+          enum:
+            - allowed_tools
+          type: string
+          description: Allowed tool configuration type. Always `allowed_tools`.
+          x-stainless-const: true
+        allowed_tools:
+          $ref: '#/components/schemas/ChatCompletionAllowedTools'
+      description: "Constrains the tools available to the model to a pre-defined set.\n"

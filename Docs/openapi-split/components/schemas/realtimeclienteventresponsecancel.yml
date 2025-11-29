@@ -1,0 +1,24 @@
+components:
+  schemas:
+    RealtimeClientEventResponseCancel:
+      required:
+        - type
+      type: object
+      properties:
+        event_id:
+          maxLength: 512
+          type: string
+          description: Optional client-generated ID used to identify this event.
+        type:
+          enum:
+            - response.cancel
+          description: 'The event type, must be `response.cancel`.'
+          x-stainless-const: true
+        response_id:
+          type: string
+          description: "A specific response ID to cancel - if not provided, will cancel an \nin-progress response in the default conversation.\n"
+      description: "Send this event to cancel an in-progress response. The server will respond \nwith a `response.done` event with a status of `response.status=cancelled`. If \nthere is no response to cancel, the server will respond with an error. It's safe\nto call `response.cancel` even if no response is in progress, an error will be\nreturned the session will remain unaffected.\n"
+      x-oaiMeta:
+        name: response.cancel
+        group: realtime
+        example: "{\n    \"type\": \"response.cancel\"\n    \"response_id\": \"resp_12345\",\n}\n"

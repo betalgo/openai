@@ -1,0 +1,31 @@
+components:
+  schemas:
+    CompoundFilter:
+      title: Compound Filter
+      required:
+        - type
+        - filters
+      type: object
+      properties:
+        type:
+          enum:
+            - and
+            - or
+          type: string
+          description: 'Type of operation: `and` or `or`.'
+        filters:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/ComparisonFilter'
+              - unrecognizedKeywords:
+                  $recursiveRef: '#'
+            discriminator:
+              propertyName: type
+          description: Array of filters to combine. Items can be `ComparisonFilter` or `CompoundFilter`.
+      additionalProperties: false
+      description: Combine multiple filters using `and` or `or`.
+      x-oaiMeta:
+        name: CompoundFilter
+      unrecognizedKeywords:
+        $recursiveAnchor: true

@@ -1,0 +1,41 @@
+components:
+  schemas:
+    RealtimeTranscriptionSessionCreateRequestGA:
+      title: Realtime transcription session configuration
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - transcription
+          type: string
+          description: "The type of session to create. Always `transcription` for transcription sessions.\n"
+          x-stainless-const: true
+        audio:
+          type: object
+          properties:
+            input:
+              type: object
+              properties:
+                format:
+                  $ref: '#/components/schemas/RealtimeAudioFormats'
+                transcription:
+                  $ref: '#/components/schemas/AudioTranscription'
+                noise_reduction:
+                  type: object
+                  properties:
+                    type:
+                      $ref: '#/components/schemas/NoiseReductionType'
+                  description: "Configuration for input audio noise reduction. This can be set to `null` to turn off.\nNoise reduction filters audio added to the input audio buffer before it is sent to VAD and the model.\nFiltering the audio can improve VAD and turn detection accuracy (reducing false positives) and model performance by improving perception of the input audio.\n"
+                turn_detection:
+                  $ref: '#/components/schemas/RealtimeTurnDetection'
+          description: "Configuration for input and output audio.\n"
+        include:
+          type: array
+          items:
+            enum:
+              - item.input_audio_transcription.logprobs
+            type: string
+          description: "Additional fields to include in server outputs.\n\n`item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.\n"
+      description: Realtime transcription session object configuration.

@@ -1,0 +1,15 @@
+components:
+  schemas:
+    ValidateGraderResponse:
+      title: ValidateGraderResponse
+      type: object
+      properties:
+        grader:
+          type: object
+          anyOf:
+            - $ref: '#/components/schemas/GraderStringCheck'
+            - $ref: '#/components/schemas/GraderTextSimilarity'
+            - $ref: '#/components/schemas/GraderPython'
+            - $ref: '#/components/schemas/GraderScoreModel'
+            - $ref: '#/components/schemas/GraderMulti'
+          description: The grader used for the fine-tuning job.

@@ -1,0 +1,38 @@
+components:
+  schemas:
+    ResponseRefusalDoneEvent:
+      required:
+        - type
+        - item_id
+        - output_index
+        - content_index
+        - refusal
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.refusal.done
+          type: string
+          description: "The type of the event. Always `response.refusal.done`.\n"
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: "The ID of the output item that the refusal text is finalized.\n"
+        output_index:
+          type: integer
+          description: "The index of the output item that the refusal text is finalized.\n"
+        content_index:
+          type: integer
+          description: "The index of the content part that the refusal text is finalized.\n"
+        refusal:
+          type: string
+          description: "The refusal text that is finalized.\n"
+        sequence_number:
+          type: integer
+          description: "The sequence number of this event.\n"
+      description: Emitted when refusal text is finalized.
+      x-oaiMeta:
+        name: response.refusal.done
+        group: responses
+        example: "{\n  \"type\": \"response.refusal.done\",\n  \"item_id\": \"item-abc\",\n  \"output_index\": 1,\n  \"content_index\": 2,\n  \"refusal\": \"final refusal text\",\n  \"sequence_number\": 1\n}\n"

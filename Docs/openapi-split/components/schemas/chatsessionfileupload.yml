@@ -1,0 +1,24 @@
+components:
+  schemas:
+    ChatSessionFileUpload:
+      title: File upload settings
+      required:
+        - enabled
+        - max_file_size
+        - max_files
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates if uploads are enabled for the session.
+        max_file_size:
+          anyOf:
+            - type: integer
+              description: Maximum upload size in megabytes.
+            - nullable: true
+        max_files:
+          anyOf:
+            - type: integer
+              description: Maximum number of uploads allowed during the session.
+            - nullable: true
+      description: Upload permissions and limits applied to the session.

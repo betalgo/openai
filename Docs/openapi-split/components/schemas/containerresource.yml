@@ -1,0 +1,42 @@
+components:
+  schemas:
+    ContainerResource:
+      title: The container object
+      required:
+        - id
+        - object
+        - name
+        - created_at
+        - status
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the container.
+        object:
+          type: string
+          description: The type of this object.
+        name:
+          type: string
+          description: Name of the container.
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) when the container was created.
+        status:
+          type: string
+          description: 'Status of the container (e.g., active, deleted).'
+        expires_after:
+          type: object
+          properties:
+            anchor:
+              enum:
+                - last_active_at
+              type: string
+              description: The reference point for the expiration.
+            minutes:
+              type: integer
+              description: The number of minutes after the anchor before the container expires.
+          description: "The container will expire after this time period.\nThe anchor is the reference point for the expiration.\nThe minutes is the number of minutes after the anchor before the container expires.\n"
+      x-oaiMeta:
+        name: The container object
+        example: "{\n   \"id\": \"cntr_682dfebaacac8198bbfe9c2474fb6f4a085685cbe3cb5863\",\n   \"object\": \"container\",\n   \"created_at\": 1747844794,\n   \"status\": \"running\",\n   \"expires_after\": {\n     \"anchor\": \"last_active_at\",\n     \"minutes\": 20\n   },\n   \"last_active_at\": 1747844794,\n   \"name\": \"My Container\"\n}\n"

@@ -1,0 +1,21 @@
+components:
+  schemas:
+    VectorStoreExpirationAfter:
+      title: Vector store expiration policy
+      required:
+        - anchor
+        - days
+      type: object
+      properties:
+        anchor:
+          enum:
+            - last_active_at
+          type: string
+          description: 'Anchor timestamp after which the expiration policy applies. Supported anchors: `last_active_at`.'
+          x-stainless-const: true
+        days:
+          maximum: 365
+          minimum: 1
+          type: integer
+          description: The number of days after the anchor time that the vector store will expire.
+      description: The expiration policy for a vector store.

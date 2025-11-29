@@ -1,0 +1,23 @@
+paths:
+  '/organization/certificates/{certificate_id}':
+    delete:
+      tags:
+        - Certificates
+      summary: Delete certificate
+      description: "Delete a certificate from the organization.\n\nThe certificate must be inactive for the organization and all projects.\n"
+      operationId: deleteCertificate
+      responses:
+        '200':
+          description: Certificate deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteCertificateResponse'
+      x-oaiMeta:
+        name: Delete certificate
+        group: administration
+        returns: A confirmation object indicating the certificate was deleted.
+        examples:
+          request:
+            curl: "curl -X DELETE https://api.openai.com/v1/organization/certificates/cert_abc \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\"\n"
+          response: "{\n  \"object\": \"certificate.deleted\",\n  \"id\": \"cert_abc\"\n}\n"

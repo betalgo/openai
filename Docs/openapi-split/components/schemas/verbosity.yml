@@ -1,0 +1,12 @@
+components:
+  schemas:
+    Verbosity:
+      anyOf:
+        - enum:
+            - low
+            - medium
+            - high
+          type: string
+          description: "Constrains the verbosity of the model's response. Lower values will result in\nmore concise responses, while higher values will result in more verbose responses.\nCurrently supported values are `low`, `medium`, and `high`.\n"
+          default: medium
+        - nullable: true

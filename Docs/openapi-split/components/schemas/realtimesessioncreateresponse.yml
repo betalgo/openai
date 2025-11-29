@@ -1,0 +1,134 @@
+components:
+  schemas:
+    RealtimeSessionCreateResponse:
+      title: Realtime session configuration object
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Unique identifier for the session that looks like `sess_1234567890abcdef`.\n"
+        object:
+          type: string
+          description: The object type. Always `realtime.session`.
+        expires_at:
+          type: integer
+          description: 'Expiration timestamp for the session, in seconds since epoch.'
+        include:
+          type: array
+          items:
+            enum:
+              - item.input_audio_transcription.logprobs
+            type: string
+          description: "Additional fields to include in server outputs.\n- `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.\n"
+        model:
+          type: string
+          description: The Realtime model used for this session.
+        output_modalities:
+          items:
+            enum:
+              - text
+              - audio
+            type: string
+          description: "The set of modalities the model can respond with. To disable audio,\nset this to [\"text\"].\n"
+        instructions:
+          type: string
+          description: "The default system instructions (i.e. system message) prepended to model\ncalls. This field allows the client to guide the model on desired\nresponses. The model can be instructed on response content and format,\n(e.g. \"be extremely succinct\", \"act friendly\", \"here are examples of good\nresponses\") and on audio behavior (e.g. \"talk quickly\", \"inject emotion\ninto your voice\", \"laugh frequently\"). The instructions are not guaranteed\nto be followed by the model, but they provide guidance to the model on the\ndesired behavior.\n\nNote that the server sets default instructions which will be used if this\nfield is not set and are visible in the `session.created` event at the\nstart of the session.\n"
+        audio:
+          type: object
+          properties:
+            input:
+              type: object
+              properties:
+                format:
+                  $ref: '#/components/schemas/RealtimeAudioFormats'
+                transcription:
+                  $ref: '#/components/schemas/AudioTranscription'
+                noise_reduction:
+                  type: object
+                  properties:
+                    type:
+                      $ref: '#/components/schemas/NoiseReductionType'
+                  description: "Configuration for input audio noise reduction.\n"
+                turn_detection:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: "Type of turn detection, only `server_vad` is currently supported.\n"
+                    threshold:
+                      type: number
+                    prefix_padding_ms:
+                      type: integer
+                    silence_duration_ms:
+                      type: integer
+                  description: "Configuration for turn detection.\n"
+            output:
+              type: object
+              properties:
+                format:
+                  $ref: '#/components/schemas/RealtimeAudioFormats'
+                voice:
+                  $ref: '#/components/schemas/VoiceIdsShared'
+                speed:
+                  type: number
+          description: "Configuration for input and output audio for the session.\n"
+        tracing:
+          title: Tracing Configuration
+          anyOf:
+            - enum:
+                - auto
+              type: string
+              description: "Default tracing mode for the session.\n"
+              default: auto
+              x-stainless-const: true
+            - title: Tracing Configuration
+              type: object
+              properties:
+                workflow_name:
+                  type: string
+                  description: "The name of the workflow to attach to this trace. This is used to\nname the trace in the traces dashboard.\n"
+                group_id:
+                  type: string
+                  description: "The group id to attach to this trace to enable filtering and\ngrouping in the traces dashboard.\n"
+                metadata:
+                  type: object
+                  description: "The arbitrary metadata to attach to this trace to enable\nfiltering in the traces dashboard.\n"
+              description: "Granular configuration for tracing.\n"
+          description: "Configuration options for tracing. Set to null to disable tracing. Once\ntracing is enabled for a session, the configuration cannot be modified.\n\n`auto` will create a trace for the session with default values for the\nworkflow name, group id, and metadata.\n"
+        turn_detection:
+          type: object
+          properties:
+            type:
+              type: string
+              description: "Type of turn detection, only `server_vad` is currently supported.\n"
+            threshold:
+              type: number
+              description: "Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A\nhigher threshold will require louder audio to activate the model, and\nthus might perform better in noisy environments.\n"
+            prefix_padding_ms:
+              type: integer
+              description: "Amount of audio to include before the VAD detected speech (in\nmilliseconds). Defaults to 300ms.\n"
+            silence_duration_ms:
+              type: integer
+              description: "Duration of silence to detect speech stop (in milliseconds). Defaults\nto 500ms. With shorter values the model will respond more quickly,\nbut may jump in on short pauses from the user.\n"
+          description: "Configuration for turn detection. Can be set to `null` to turn off. Server\nVAD means that the model will detect the start and end of speech based on\naudio volume and respond at the end of user speech.\n"
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/RealtimeFunctionTool'
+          description: Tools (functions) available to the model.
+        tool_choice:
+          type: string
+          description: "How the model chooses tools. Options are `auto`, `none`, `required`, or\nspecify a function.\n"
+        max_output_tokens:
+          anyOf:
+            - type: integer
+            - enum:
+                - inf
+              type: string
+              x-stainless-const: true
+          description: "Maximum number of output tokens for a single assistant response,\ninclusive of tool calls. Provide an integer between 1 and 4096 to\nlimit output tokens, or `inf` for the maximum available tokens for a\ngiven model. Defaults to `inf`.\n"
+      description: "A Realtime session configuration object.\n"
+      x-oaiMeta:
+        name: The session object
+        group: realtime
+        example: "{\n  \"id\": \"sess_001\",\n  \"object\": \"realtime.session\",\n  \"expires_at\": 1742188264,\n  \"model\": \"gpt-realtime\",\n  \"output_modalities\": [\"audio\"],\n  \"instructions\": \"You are a friendly assistant.\",\n  \"tools\": [],\n  \"tool_choice\": \"none\",\n  \"max_output_tokens\": \"inf\",\n  \"tracing\": \"auto\",\n  \"truncation\": \"auto\",\n  \"prompt\": null,\n  \"audio\": {\n    \"input\": {\n      \"format\": {\n        \"type\": \"audio/pcm\",\n        \"rate\": 24000\n      },\n      \"transcription\": { \"model\": \"whisper-1\" },\n      \"noise_reduction\": null,\n      \"turn_detection\": null\n    },\n    \"output\": {\n      \"format\": {\n        \"type\": \"audio/pcm\",\n        \"rate\": 24000\n      },\n      \"voice\": \"alloy\",\n      \"speed\": 1.0\n    }\n  }\n}\n"

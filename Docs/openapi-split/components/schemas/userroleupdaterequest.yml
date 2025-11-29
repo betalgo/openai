@@ -1,0 +1,13 @@
+components:
+  schemas:
+    UserRoleUpdateRequest:
+      required:
+        - role
+      type: object
+      properties:
+        role:
+          enum:
+            - owner
+            - reader
+          type: string
+          description: '`owner` or `reader`'

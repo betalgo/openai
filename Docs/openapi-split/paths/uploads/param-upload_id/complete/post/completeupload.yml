@@ -1,0 +1,42 @@
+paths:
+  '/uploads/{upload_id}/complete':
+    post:
+      tags:
+        - Uploads
+      summary: Complete upload
+      description: "Completes the [Upload](https://platform.openai.com/docs/api-reference/uploads/object). \n\nWithin the returned Upload object, there is a nested [File](https://platform.openai.com/docs/api-reference/files/object) object that is ready to use in the rest of the platform.\n\nYou can specify the order of the Parts by passing in an ordered list of the Part IDs.\n\nThe number of bytes uploaded upon completion must match the number of bytes initially specified when creating the Upload object. No Parts may be added after an Upload is completed.\n"
+      operationId: completeUpload
+      parameters:
+        - name: upload_id
+          in: path
+          description: "The ID of the Upload.\n"
+          required: true
+          schema:
+            type: string
+            example: upload_abc123
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteUploadRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Upload'
+      x-oaiMeta:
+        name: Complete upload
+        group: uploads
+        returns: 'The [Upload](https://platform.openai.com/docs/api-reference/uploads/object) object with status `completed` with an additional `file` property containing the created usable File object.'
+        examples:
+          response: "{\n  \"id\": \"upload_abc123\",\n  \"object\": \"upload\",\n  \"bytes\": 2147483648,\n  \"created_at\": 1719184911,\n  \"filename\": \"training_examples.jsonl\",\n  \"purpose\": \"fine-tune\",\n  \"status\": \"completed\",\n  \"expires_at\": 1719127296,\n  \"file\": {\n    \"id\": \"file-xyz321\",\n    \"object\": \"file\",\n    \"bytes\": 2147483648,\n    \"created_at\": 1719186911,\n    \"expires_at\": 1719127296,\n    \"filename\": \"training_examples.jsonl\",\n    \"purpose\": \"fine-tune\",\n  }\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/uploads/upload_abc123/complete\n  -d '{\n    \"part_ids\": [\"part_def456\", \"part_ghi789\"]\n  }'\n"
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: 'My API Key',\n});\n\nconst upload = await client.uploads.complete('upload_abc123', { part_ids: ['string'] });\n\nconsole.log(upload.id);"
+            python: "from openai import OpenAI\n\nclient = OpenAI(\n    api_key=\"My API Key\",\n)\nupload = client.uploads.complete(\n    upload_id=\"upload_abc123\",\n    part_ids=[\"string\"],\n)\nprint(upload.id)"
+            go: "package main\n\nimport (\n  \"context\"\n  \"fmt\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"),\n  )\n  upload, err := client.Uploads.Complete(\n    context.TODO(),\n    \"upload_abc123\",\n    openai.UploadCompleteParams{\n      PartIDs: []string{\"string\"},\n    },\n  )\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", upload.ID)\n}\n"
+            java: "package com.openai.example;\n\nimport com.openai.client.OpenAIClient;\nimport com.openai.client.okhttp.OpenAIOkHttpClient;\nimport com.openai.models.uploads.Upload;\nimport com.openai.models.uploads.UploadCompleteParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        OpenAIClient client = OpenAIOkHttpClient.fromEnv();\n\n        UploadCompleteParams params = UploadCompleteParams.builder()\n            .uploadId(\"upload_abc123\")\n            .addPartId(\"string\")\n            .build();\n        Upload upload = client.uploads().complete(params);\n    }\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(api_key: \"My API Key\")\n\nupload = openai.uploads.complete(\"upload_abc123\", part_ids: [\"string\"])\n\nputs(upload)"

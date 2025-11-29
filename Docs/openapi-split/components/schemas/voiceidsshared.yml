@@ -1,0 +1,18 @@
+components:
+  schemas:
+    VoiceIdsShared:
+      anyOf:
+        - type: string
+        - enum:
+            - alloy
+            - ash
+            - ballad
+            - coral
+            - echo
+            - sage
+            - shimmer
+            - verse
+            - marin
+            - cedar
+          type: string
+      example: ash

@@ -1,0 +1,30 @@
+components:
+  schemas:
+    CodeInterpreterFileOutput:
+      title: Code interpreter file output
+      required:
+        - type
+        - files
+      type: object
+      properties:
+        type:
+          enum:
+            - files
+          type: string
+          description: "The type of the code interpreter file output. Always `files`.\n"
+          x-stainless-const: true
+        files:
+          type: array
+          items:
+            required:
+              - mime_type
+              - file_id
+            type: object
+            properties:
+              mime_type:
+                type: string
+                description: "The MIME type of the file.\n"
+              file_id:
+                type: string
+                description: "The ID of the file.\n"
+      description: "The output of a code interpreter tool call that is a file.\n"

@@ -1,0 +1,44 @@
+components:
+  schemas:
+    GraderLabelModel:
+      title: LabelModelGrader
+      required:
+        - type
+        - model
+        - input
+        - passing_labels
+        - labels
+        - name
+      type: object
+      properties:
+        type:
+          enum:
+            - label_model
+          type: string
+          description: 'The object type, which is always `label_model`.'
+          x-stainless-const: true
+        name:
+          type: string
+          description: The name of the grader.
+        model:
+          type: string
+          description: The model to use for the evaluation. Must support structured outputs.
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvalItem'
+        labels:
+          type: array
+          items:
+            type: string
+          description: The labels to assign to each item in the evaluation.
+        passing_labels:
+          type: array
+          items:
+            type: string
+          description: The labels that indicate a passing result. Must be a subset of labels.
+      description: "A LabelModelGrader object which uses a model to assign labels to each item\nin the evaluation.\n"
+      x-oaiMeta:
+        name: Label Model Grader
+        group: graders
+        example: "{\n  \"name\": \"First label grader\",\n  \"type\": \"label_model\",\n  \"model\": \"gpt-4o-2024-08-06\",\n  \"input\": [\n    {\n      \"type\": \"message\",\n      \"role\": \"system\",\n      \"content\": {\n        \"type\": \"input_text\",\n        \"text\": \"Classify the sentiment of the following statement as one of positive, neutral, or negative\"\n      }\n    },\n    {\n      \"type\": \"message\",\n      \"role\": \"user\",\n      \"content\": {\n        \"type\": \"input_text\",\n        \"text\": \"Statement: {{item.response}}\"\n      }\n    }\n  ],\n  \"passing_labels\": [\n    \"positive\"\n  ],\n  \"labels\": [\n    \"positive\",\n    \"neutral\",\n    \"negative\"\n  ]\n}\n"

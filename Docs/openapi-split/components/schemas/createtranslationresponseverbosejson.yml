@@ -1,0 +1,23 @@
+components:
+  schemas:
+    CreateTranslationResponseVerboseJson:
+      required:
+        - language
+        - duration
+        - text
+      type: object
+      properties:
+        language:
+          type: string
+          description: The language of the output translation (always `english`).
+        duration:
+          type: number
+          description: The duration of the input audio.
+        text:
+          type: string
+          description: The translated text.
+        segments:
+          type: array
+          items:
+            $ref: '#/components/schemas/TranscriptionSegment'
+          description: Segments of the translated text and their corresponding details.

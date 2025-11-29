@@ -1,0 +1,9 @@
+components:
+  schemas:
+    UpdateConversationBody:
+      required:
+        - metadata
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'

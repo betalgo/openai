@@ -1,0 +1,23 @@
+components:
+  schemas:
+    TaskGroupTask:
+      title: Task group task
+      required:
+        - type
+        - heading
+        - summary
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/TaskType'
+        heading:
+          anyOf:
+            - type: string
+              description: Optional heading for the grouped task. Defaults to null when not provided.
+            - nullable: true
+        summary:
+          anyOf:
+            - type: string
+              description: Optional summary that describes the grouped task. Defaults to null when omitted.
+            - nullable: true
+      description: Task entry that appears within a TaskGroup.

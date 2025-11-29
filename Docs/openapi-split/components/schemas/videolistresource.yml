@@ -1,0 +1,35 @@
+components:
+  schemas:
+    VideoListResource:
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          description: 'The type of object returned, must be `list`.'
+          default: list
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoResource'
+          description: A list of items
+        first_id:
+          anyOf:
+            - type: string
+              description: The ID of the first item in the list.
+            - nullable: true
+        last_id:
+          anyOf:
+            - type: string
+              description: The ID of the last item in the list.
+            - nullable: true
+        has_more:
+          type: boolean
+          description: Whether there are more items available.

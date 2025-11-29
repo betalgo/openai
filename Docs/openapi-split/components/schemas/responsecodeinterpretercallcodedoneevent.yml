@@ -1,0 +1,34 @@
+components:
+  schemas:
+    ResponseCodeInterpreterCallCodeDoneEvent:
+      required:
+        - type
+        - output_index
+        - item_id
+        - code
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.code_interpreter_call_code.done
+          type: string
+          description: The type of the event. Always `response.code_interpreter_call_code.done`.
+          x-stainless-const: true
+        output_index:
+          type: integer
+          description: The index of the output item in the response for which the code is finalized.
+        item_id:
+          type: string
+          description: The unique identifier of the code interpreter tool call item.
+        code:
+          type: string
+          description: The final code snippet output by the code interpreter.
+        sequence_number:
+          type: integer
+          description: 'The sequence number of this event, used to order streaming events.'
+      description: Emitted when the code snippet is finalized by the code interpreter.
+      x-oaiMeta:
+        name: response.code_interpreter_call_code.done
+        group: responses
+        example: "{\n  \"type\": \"response.code_interpreter_call_code.done\",\n  \"output_index\": 3,\n  \"item_id\": \"ci_12345\",\n  \"code\": \"print('done')\",\n  \"sequence_number\": 1\n}\n"

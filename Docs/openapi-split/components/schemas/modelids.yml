@@ -1,0 +1,6 @@
+components:
+  schemas:
+    ModelIds:
+      anyOf:
+        - $ref: '#/components/schemas/ModelIdsShared'
+        - $ref: '#/components/schemas/ModelIdsResponses'

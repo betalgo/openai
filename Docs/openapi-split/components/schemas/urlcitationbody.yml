@@ -1,0 +1,32 @@
+components:
+  schemas:
+    UrlCitationBody:
+      title: URL citation
+      required:
+        - type
+        - url
+        - start_index
+        - end_index
+        - title
+      type: object
+      properties:
+        type:
+          enum:
+            - url_citation
+          type: string
+          description: The type of the URL citation. Always `url_citation`.
+          default: url_citation
+          x-stainless-const: true
+        url:
+          type: string
+          description: The URL of the web resource.
+        start_index:
+          type: integer
+          description: The index of the first character of the URL citation in the message.
+        end_index:
+          type: integer
+          description: The index of the last character of the URL citation in the message.
+        title:
+          type: string
+          description: The title of the web resource.
+      description: A citation for a web resource used to generate a model response.

@@ -1,0 +1,15 @@
+components:
+  schemas:
+    DeleteModelResponse:
+      required:
+        - id
+        - object
+        - deleted
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+        object:
+          type: string

@@ -1,0 +1,21 @@
+components:
+  schemas:
+    MessageDeltaContentRefusalObject:
+      title: Refusal
+      required:
+        - index
+        - type
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of the refusal part in the message.
+        type:
+          enum:
+            - refusal
+          type: string
+          description: Always `refusal`.
+          x-stainless-const: true
+        refusal:
+          type: string
+      description: The refusal content that is part of a message.

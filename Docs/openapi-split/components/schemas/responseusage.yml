@@ -1,0 +1,39 @@
+components:
+  schemas:
+    ResponseUsage:
+      required:
+        - input_tokens
+        - input_tokens_details
+        - output_tokens
+        - output_tokens_details
+        - total_tokens
+      type: object
+      properties:
+        input_tokens:
+          type: integer
+          description: The number of input tokens.
+        input_tokens_details:
+          required:
+            - cached_tokens
+          type: object
+          properties:
+            cached_tokens:
+              type: integer
+              description: "The number of tokens that were retrieved from the cache. \n[More on prompt caching](https://platform.openai.com/docs/guides/prompt-caching).\n"
+          description: A detailed breakdown of the input tokens.
+        output_tokens:
+          type: integer
+          description: The number of output tokens.
+        output_tokens_details:
+          required:
+            - reasoning_tokens
+          type: object
+          properties:
+            reasoning_tokens:
+              type: integer
+              description: The number of reasoning tokens.
+          description: A detailed breakdown of the output tokens.
+        total_tokens:
+          type: integer
+          description: The total number of tokens used.
+      description: "Represents token usage details including input tokens, output tokens,\na breakdown of output tokens, and the total tokens used.\n"

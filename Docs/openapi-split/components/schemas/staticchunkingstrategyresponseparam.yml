@@ -1,0 +1,18 @@
+components:
+  schemas:
+    StaticChunkingStrategyResponseParam:
+      title: Static Chunking Strategy
+      required:
+        - type
+        - static
+      type: object
+      properties:
+        type:
+          enum:
+            - static
+          type: string
+          description: Always `static`.
+          x-stainless-const: true
+        static:
+          $ref: '#/components/schemas/StaticChunkingStrategy'
+      additionalProperties: false

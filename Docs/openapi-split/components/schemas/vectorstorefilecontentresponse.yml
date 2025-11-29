@@ -1,0 +1,37 @@
+components:
+  schemas:
+    VectorStoreFileContentResponse:
+      required:
+        - object
+        - data
+        - has_more
+        - next_page
+      type: object
+      properties:
+        object:
+          enum:
+            - vector_store.file_content.page
+          type: string
+          description: 'The object type, which is always `vector_store.file_content.page`'
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: The content type (currently only `"text"`)
+              text:
+                type: string
+                description: The text content
+          description: Parsed content of the file.
+        has_more:
+          type: boolean
+          description: Indicates if there are more content pages to fetch.
+        next_page:
+          anyOf:
+            - type: string
+              description: 'The token for the next page, if any.'
+            - nullable: true
+      description: Represents the parsed content of a vector store file.

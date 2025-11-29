@@ -1,0 +1,24 @@
+components:
+  schemas:
+    CreateEvalStoredCompletionsDataSourceConfig:
+      title: StoredCompletionsDataSourceConfig
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - stored_completions
+          type: string
+          description: The type of data source. Always `stored_completions`.
+          default: stored_completions
+          x-stainless-const: true
+        metadata:
+          type: object
+          description: Metadata filters for the stored completions data source.
+      description: "Deprecated in favor of LogsDataSourceConfig.\n"
+      deprecated: true
+      x-oaiMeta:
+        name: The stored completions data source object for evals
+        group: evals
+        example: "{\n  \"type\": \"stored_completions\",\n  \"metadata\": {\n    \"use_case\": \"customer_support_agent\"\n  }\n}\n"

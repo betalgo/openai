@@ -1,0 +1,26 @@
+components:
+  schemas:
+    ApplyPatchCreateFileOperationParam:
+      title: Apply patch create file operation
+      required:
+        - type
+        - path
+        - diff
+      type: object
+      properties:
+        type:
+          enum:
+            - create_file
+          type: string
+          description: The operation type. Always `create_file`.
+          default: create_file
+          x-stainless-const: true
+        path:
+          minLength: 1
+          type: string
+          description: Path of the file to create relative to the workspace root.
+        diff:
+          maxLength: 10485760
+          type: string
+          description: Unified diff content to apply when creating the file.
+      description: Instruction for creating a new file via the apply_patch tool.

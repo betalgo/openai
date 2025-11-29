@@ -1,0 +1,41 @@
+components:
+  schemas:
+    RealtimeBetaServerEventResponseFunctionCallArgumentsDelta:
+      required:
+        - event_id
+        - type
+        - response_id
+        - item_id
+        - output_index
+        - call_id
+        - delta
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.function_call_arguments.delta
+          description: "The event type, must be `response.function_call_arguments.delta`.\n"
+          x-stainless-const: true
+        response_id:
+          type: string
+          description: The ID of the response.
+        item_id:
+          type: string
+          description: The ID of the function call item.
+        output_index:
+          type: integer
+          description: The index of the output item in the response.
+        call_id:
+          type: string
+          description: The ID of the function call.
+        delta:
+          type: string
+          description: The arguments delta as a JSON string.
+      description: "Returned when the model-generated function call arguments are updated.\n"
+      x-oaiMeta:
+        name: response.function_call_arguments.delta
+        group: realtime
+        example: "{\n    \"event_id\": \"event_5354\",\n    \"type\": \"response.function_call_arguments.delta\",\n    \"response_id\": \"resp_002\",\n    \"item_id\": \"fc_001\",\n    \"output_index\": 0,\n    \"call_id\": \"call_001\",\n    \"delta\": \"{\\\"location\\\": \\\"San\\\"\"\n}\n"

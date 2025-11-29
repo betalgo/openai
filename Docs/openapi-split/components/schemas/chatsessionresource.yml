@@ -1,0 +1,48 @@
+components:
+  schemas:
+    ChatSessionResource:
+      title: The chat session object
+      required:
+        - id
+        - object
+        - expires_at
+        - client_secret
+        - workflow
+        - user
+        - rate_limits
+        - max_requests_per_1_minute
+        - status
+        - chatkit_configuration
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier for the ChatKit session.
+        object:
+          enum:
+            - chatkit.session
+          type: string
+          description: Type discriminator that is always `chatkit.session`.
+          default: chatkit.session
+          x-stainless-const: true
+        expires_at:
+          type: integer
+          description: Unix timestamp (in seconds) for when the session expires.
+        client_secret:
+          type: string
+          description: Ephemeral client secret that authenticates session requests.
+        workflow:
+          $ref: '#/components/schemas/ChatkitWorkflow'
+        user:
+          type: string
+          description: User identifier associated with the session.
+        rate_limits:
+          $ref: '#/components/schemas/ChatSessionRateLimits'
+        max_requests_per_1_minute:
+          type: integer
+          description: Convenience copy of the per-minute request limit.
+        status:
+          $ref: '#/components/schemas/ChatSessionStatus'
+        chatkit_configuration:
+          $ref: '#/components/schemas/ChatSessionChatkitConfiguration'
+      description: Represents a ChatKit session and its resolved configuration.

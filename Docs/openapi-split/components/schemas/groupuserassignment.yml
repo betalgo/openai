@@ -1,0 +1,25 @@
+components:
+  schemas:
+    GroupUserAssignment:
+      required:
+        - object
+        - user_id
+        - group_id
+      type: object
+      properties:
+        object:
+          enum:
+            - group.user
+          type: string
+          description: Always `group.user`.
+          x-stainless-const: true
+        user_id:
+          type: string
+          description: Identifier of the user that was added.
+        group_id:
+          type: string
+          description: Identifier of the group the user was added to.
+      description: Confirmation payload returned after adding a user to a group.
+      x-oaiMeta:
+        name: The group user object
+        example: "{\n    \"object\": \"group.user\",\n    \"user_id\": \"user_abc123\",\n    \"group_id\": \"group_01J1F8ABCDXYZ\"\n}\n"

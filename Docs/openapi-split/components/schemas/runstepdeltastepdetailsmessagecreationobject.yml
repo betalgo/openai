@@ -1,0 +1,21 @@
+components:
+  schemas:
+    RunStepDeltaStepDetailsMessageCreationObject:
+      title: Message creation
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - message_creation
+          type: string
+          description: Always `message_creation`.
+          x-stainless-const: true
+        message_creation:
+          type: object
+          properties:
+            message_id:
+              type: string
+              description: The ID of the message that was created by this run step.
+      description: Details of the message creation by the run step.

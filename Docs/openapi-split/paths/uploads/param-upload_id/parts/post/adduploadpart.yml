@@ -1,0 +1,42 @@
+paths:
+  '/uploads/{upload_id}/parts':
+    post:
+      tags:
+        - Uploads
+      summary: Add upload part
+      description: "Adds a [Part](https://platform.openai.com/docs/api-reference/uploads/part-object) to an [Upload](https://platform.openai.com/docs/api-reference/uploads/object) object. A Part represents a chunk of bytes from the file you are trying to upload. \n\nEach Part can be at most 64 MB, and you can add Parts until you hit the Upload maximum of 8 GB.\n\nIt is possible to add multiple Parts in parallel. You can decide the intended order of the Parts when you [complete the Upload](https://platform.openai.com/docs/api-reference/uploads/complete).\n"
+      operationId: addUploadPart
+      parameters:
+        - name: upload_id
+          in: path
+          description: "The ID of the Upload.\n"
+          required: true
+          schema:
+            type: string
+            example: upload_abc123
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddUploadPartRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadPart'
+      x-oaiMeta:
+        name: Add upload part
+        group: uploads
+        returns: 'The upload [Part](https://platform.openai.com/docs/api-reference/uploads/part-object) object.'
+        examples:
+          response: "{\n  \"id\": \"part_def456\",\n  \"object\": \"upload.part\",\n  \"created_at\": 1719185911,\n  \"upload_id\": \"upload_abc123\"\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/uploads/upload_abc123/parts\n  -F data=\"aHR0cHM6Ly9hcGkub3BlbmFpLmNvbS92MS91cGxvYWRz...\"\n"
+            node.js: "import OpenAI from 'openai';\n\nconst client = new OpenAI({\n  apiKey: 'My API Key',\n});\n\nconst uploadPart = await client.uploads.parts.create('upload_abc123', {\n  data: fs.createReadStream('path/to/file'),\n});\n\nconsole.log(uploadPart.id);"
+            python: "from openai import OpenAI\n\nclient = OpenAI(\n    api_key=\"My API Key\",\n)\nupload_part = client.uploads.parts.create(\n    upload_id=\"upload_abc123\",\n    data=b\"raw file contents\",\n)\nprint(upload_part.id)"
+            go: "package main\n\nimport (\n  \"bytes\"\n  \"context\"\n  \"fmt\"\n  \"io\"\n\n  \"github.com/openai/openai-go\"\n  \"github.com/openai/openai-go/option\"\n)\n\nfunc main() {\n  client := openai.NewClient(\n    option.WithAPIKey(\"My API Key\"),\n  )\n  uploadPart, err := client.Uploads.Parts.New(\n    context.TODO(),\n    \"upload_abc123\",\n    openai.UploadPartNewParams{\n      Data: io.Reader(bytes.NewBuffer([]byte(\"some file contents\"))),\n    },\n  )\n  if err != nil {\n    panic(err.Error())\n  }\n  fmt.Printf(\"%+v\\n\", uploadPart.ID)\n}\n"
+            java: "package com.openai.example;\n\nimport com.openai.client.OpenAIClient;\nimport com.openai.client.okhttp.OpenAIOkHttpClient;\nimport com.openai.models.uploads.parts.PartCreateParams;\nimport com.openai.models.uploads.parts.UploadPart;\nimport java.io.ByteArrayInputStream;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        OpenAIClient client = OpenAIOkHttpClient.fromEnv();\n\n        PartCreateParams params = PartCreateParams.builder()\n            .uploadId(\"upload_abc123\")\n            .data(ByteArrayInputStream(\"some content\".getBytes()))\n            .build();\n        UploadPart uploadPart = client.uploads().parts().create(params);\n    }\n}"
+            ruby: "require \"openai\"\n\nopenai = OpenAI::Client.new(api_key: \"My API Key\")\n\nupload_part = openai.uploads.parts.create(\"upload_abc123\", data: Pathname(__FILE__))\n\nputs(upload_part)"

@@ -1,0 +1,7 @@
+components:
+  schemas:
+    ClientToolCallStatus:
+      enum:
+        - in_progress
+        - completed
+      type: string

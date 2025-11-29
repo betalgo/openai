@@ -1,0 +1,35 @@
+components:
+  schemas:
+    ResponseCustomToolCallInputDoneEvent:
+      title: ResponseCustomToolCallInputDone
+      required:
+        - type
+        - output_index
+        - item_id
+        - input
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.custom_tool_call_input.done
+          type: string
+          description: The event type identifier.
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+        output_index:
+          type: integer
+          description: The index of the output this event applies to.
+        item_id:
+          type: string
+          description: Unique identifier for the API item associated with this event.
+        input:
+          type: string
+          description: The complete input data for the custom tool call.
+      description: "Event indicating that input for a custom tool call is complete.\n"
+      x-oaiMeta:
+        name: response.custom_tool_call_input.done
+        group: responses
+        example: "{\n  \"type\": \"response.custom_tool_call_input.done\",\n  \"output_index\": 0,\n  \"item_id\": \"ctc_1234567890abcdef\",\n  \"input\": \"final complete input text\"\n}\n"

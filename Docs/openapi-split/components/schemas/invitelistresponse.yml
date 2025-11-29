@@ -1,0 +1,27 @@
+components:
+  schemas:
+    InviteListResponse:
+      required:
+        - object
+        - data
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: 'The object type, which is always `list`'
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invite'
+        first_id:
+          type: string
+          description: The first `invite_id` in the retrieved `list`
+        last_id:
+          type: string
+          description: The last `invite_id` in the retrieved `list`
+        has_more:
+          type: boolean
+          description: The `has_more` property is used for pagination to indicate there are additional results.

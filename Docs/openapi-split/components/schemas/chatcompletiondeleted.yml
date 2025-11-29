@@ -1,0 +1,21 @@
+components:
+  schemas:
+    ChatCompletionDeleted:
+      required:
+        - object
+        - id
+        - deleted
+      type: object
+      properties:
+        object:
+          enum:
+            - chat.completion.deleted
+          type: string
+          description: The type of object being deleted.
+          x-stainless-const: true
+        id:
+          type: string
+          description: The ID of the chat completion that was deleted.
+        deleted:
+          type: boolean
+          description: Whether the chat completion was deleted.

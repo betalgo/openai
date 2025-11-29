@@ -1,0 +1,6 @@
+components:
+  schemas:
+    Filters:
+      anyOf:
+        - $ref: '#/components/schemas/ComparisonFilter'
+        - $ref: '#/components/schemas/CompoundFilter'

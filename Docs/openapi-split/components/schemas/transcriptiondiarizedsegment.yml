@@ -1,0 +1,36 @@
+components:
+  schemas:
+    TranscriptionDiarizedSegment:
+      required:
+        - type
+        - id
+        - start
+        - end
+        - text
+        - speaker
+      type: object
+      properties:
+        type:
+          enum:
+            - transcript.text.segment
+          type: string
+          description: "The type of the segment. Always `transcript.text.segment`.\n"
+          x-stainless-const: true
+        id:
+          type: string
+          description: Unique identifier for the segment.
+        start:
+          type: number
+          description: Start timestamp of the segment in seconds.
+          format: float
+        end:
+          type: number
+          description: End timestamp of the segment in seconds.
+          format: float
+        text:
+          type: string
+          description: Transcript text for this segment.
+        speaker:
+          type: string
+          description: "Speaker label for this segment. When known speakers are provided, the label matches `known_speaker_names[]`. Otherwise speakers are labeled sequentially using capital letters (`A`, `B`, ...).\n"
+      description: A segment of diarized transcript text with speaker metadata.

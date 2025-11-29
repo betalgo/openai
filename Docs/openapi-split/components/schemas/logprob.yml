@@ -1,0 +1,24 @@
+components:
+  schemas:
+    LogProb:
+      title: Log probability
+      required:
+        - token
+        - logprob
+        - bytes
+        - top_logprobs
+      type: object
+      properties:
+        token:
+          type: string
+        logprob:
+          type: number
+        bytes:
+          type: array
+          items:
+            type: integer
+        top_logprobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopLogProb'
+      description: The log probability of a token.

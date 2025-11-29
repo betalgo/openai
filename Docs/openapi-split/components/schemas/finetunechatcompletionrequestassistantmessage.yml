@@ -1,0 +1,16 @@
+components:
+  schemas:
+    FineTuneChatCompletionRequestAssistantMessage:
+      required:
+        - role
+      allOf:
+        - title: Assistant message
+          type: object
+          properties:
+            weight:
+              enum:
+                - 0
+                - 1
+              type: integer
+              description: Controls whether the assistant message is trained against (0 or 1)
+        - $ref: '#/components/schemas/ChatCompletionRequestAssistantMessage'

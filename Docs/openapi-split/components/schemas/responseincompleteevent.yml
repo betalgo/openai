@@ -1,0 +1,25 @@
+components:
+  schemas:
+    ResponseIncompleteEvent:
+      required:
+        - type
+        - response
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.incomplete
+          type: string
+          description: "The type of the event. Always `response.incomplete`.\n"
+          x-stainless-const: true
+        response:
+          $ref: '#/components/schemas/Response'
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: "An event that is emitted when a response finishes as incomplete.\n"
+      x-oaiMeta:
+        name: response.incomplete
+        group: responses
+        example: "{\n  \"type\": \"response.incomplete\",\n  \"response\": {\n    \"id\": \"resp_123\",\n    \"object\": \"response\",\n    \"created_at\": 1740855869,\n    \"status\": \"incomplete\",\n    \"error\": null, \n    \"incomplete_details\": {\n      \"reason\": \"max_tokens\"\n    },\n    \"instructions\": null,\n    \"max_output_tokens\": null,\n    \"model\": \"gpt-4o-mini-2024-07-18\",\n    \"output\": [],\n    \"previous_response_id\": null,\n    \"reasoning_effort\": null,\n    \"store\": false,\n    \"temperature\": 1,\n    \"text\": {\n      \"format\": {\n        \"type\": \"text\"\n      }\n    },\n    \"tool_choice\": \"auto\",\n    \"tools\": [],\n    \"top_p\": 1,\n    \"truncation\": \"disabled\",\n    \"usage\": null,\n    \"user\": null,\n    \"metadata\": {}\n  },\n  \"sequence_number\": 1\n}\n"

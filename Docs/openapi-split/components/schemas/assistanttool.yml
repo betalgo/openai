@@ -1,0 +1,9 @@
+components:
+  schemas:
+    AssistantTool:
+      anyOf:
+        - $ref: '#/components/schemas/AssistantToolsCode'
+        - $ref: '#/components/schemas/AssistantToolsFileSearch'
+        - $ref: '#/components/schemas/AssistantToolsFunction'
+      discriminator:
+        propertyName: type

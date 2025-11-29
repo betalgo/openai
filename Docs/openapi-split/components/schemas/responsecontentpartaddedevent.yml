@@ -1,0 +1,37 @@
+components:
+  schemas:
+    ResponseContentPartAddedEvent:
+      required:
+        - type
+        - item_id
+        - output_index
+        - content_index
+        - part
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.content_part.added
+          type: string
+          description: "The type of the event. Always `response.content_part.added`.\n"
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: "The ID of the output item that the content part was added to.\n"
+        output_index:
+          type: integer
+          description: "The index of the output item that the content part was added to.\n"
+        content_index:
+          type: integer
+          description: "The index of the content part that was added.\n"
+        part:
+          $ref: '#/components/schemas/OutputContent'
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+      description: Emitted when a new content part is added.
+      x-oaiMeta:
+        name: response.content_part.added
+        group: responses
+        example: "{\n  \"type\": \"response.content_part.added\",\n  \"item_id\": \"msg_123\",\n  \"output_index\": 0,\n  \"content_index\": 0,\n  \"part\": {\n    \"type\": \"output_text\",\n    \"text\": \"\",\n    \"annotations\": []\n  },\n  \"sequence_number\": 1\n}\n"

@@ -1,0 +1,31 @@
+components:
+  schemas:
+    FileSearchTool:
+      title: File search
+      required:
+        - type
+        - vector_store_ids
+      type: object
+      properties:
+        type:
+          enum:
+            - file_search
+          type: string
+          description: The type of the file search tool. Always `file_search`.
+          default: file_search
+          x-stainless-const: true
+        vector_store_ids:
+          type: array
+          items:
+            type: string
+          description: The IDs of the vector stores to search.
+        max_num_results:
+          type: integer
+          description: The maximum number of results to return. This number should be between 1 and 50 inclusive.
+        ranking_options:
+          $ref: '#/components/schemas/RankingOptions'
+        filters:
+          anyOf:
+            - $ref: '#/components/schemas/Filters'
+            - nullable: true
+      description: 'A tool that searches for relevant content from uploaded files. Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).'

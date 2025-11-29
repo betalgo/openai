@@ -1,0 +1,13 @@
+components:
+  schemas:
+    ConversationParam-2:
+      title: Conversation object
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of the conversation.
+          example: conv_123
+      description: The conversation that this response belongs to.

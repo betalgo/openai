@@ -1,0 +1,20 @@
+components:
+  schemas:
+    RealtimeClientEventOutputAudioBufferClear:
+      required:
+        - type
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the client event used for error handling.
+        type:
+          enum:
+            - output_audio_buffer.clear
+          description: 'The event type, must be `output_audio_buffer.clear`.'
+          x-stainless-const: true
+      description: "**WebRTC Only:** Emit to cut off the current audio response. This will trigger the server to\nstop generating audio and emit a `output_audio_buffer.cleared` event. This \nevent should be preceded by a `response.cancel` client event to stop the \ngeneration of the current response.\n[Learn more](https://platform.openai.com/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).\n"
+      x-oaiMeta:
+        name: output_audio_buffer.clear
+        group: realtime
+        example: "{\n    \"event_id\": \"optional_client_event_id\",\n    \"type\": \"output_audio_buffer.clear\"\n}\n"

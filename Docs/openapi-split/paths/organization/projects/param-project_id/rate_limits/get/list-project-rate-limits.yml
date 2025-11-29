@@ -1,0 +1,47 @@
+paths:
+  '/organization/projects/{project_id}/rate_limits':
+    get:
+      tags:
+        - Projects
+      summary: List project rate limits
+      description: Returns the rate limits per model for a project.
+      operationId: list-project-rate-limits
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: "A limit on the number of objects to be returned. The default is 100.\n"
+          schema:
+            type: integer
+            default: 100
+        - name: after
+          in: query
+          description: "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+          schema:
+            type: string
+        - name: before
+          in: query
+          description: "A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, beginning with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.\n"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project rate limits listed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectRateLimitListResponse'
+      x-oaiMeta:
+        name: List project rate limits
+        group: administration
+        returns: 'A list of [ProjectRateLimit](https://platform.openai.com/docs/api-reference/project-rate-limits/object) objects.'
+        examples:
+          response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n          \"object\": \"project.rate_limit\",\n          \"id\": \"rl-ada\",\n          \"model\": \"ada\",\n          \"max_requests_per_1_minute\": 600,\n          \"max_tokens_per_1_minute\": 150000,\n          \"max_images_per_1_minute\": 10\n        }\n    ],\n    \"first_id\": \"rl-ada\",\n    \"last_id\": \"rl-ada\",\n    \"has_more\": false\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/organization/projects/proj_abc/rate_limits?after=rl_xxx&limit=20 \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"
+          error_response: "{\n    \"code\": 404,\n    \"message\": \"The project {project_id} was not found\"\n}\n"

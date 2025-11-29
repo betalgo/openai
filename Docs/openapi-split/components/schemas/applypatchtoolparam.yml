@@ -1,0 +1,16 @@
+components:
+  schemas:
+    ApplyPatchToolParam:
+      title: Apply patch tool
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - apply_patch
+          type: string
+          description: The type of the tool. Always `apply_patch`.
+          default: apply_patch
+          x-stainless-const: true
+      description: 'Allows the assistant to create, delete, or update files using unified diffs.'

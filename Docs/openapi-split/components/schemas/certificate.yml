@@ -1,0 +1,47 @@
+components:
+  schemas:
+    Certificate:
+      required:
+        - object
+        - id
+        - name
+        - created_at
+        - certificate_details
+      type: object
+      properties:
+        object:
+          enum:
+            - certificate
+            - organization.certificate
+            - organization.project.certificate
+          type: string
+          description: "The object type.\n\n- If creating, updating, or getting a specific certificate, the object type is `certificate`.\n- If listing, activating, or deactivating certificates for the organization, the object type is `organization.certificate`.\n- If listing, activating, or deactivating certificates for a project, the object type is `organization.project.certificate`.\n"
+          x-stainless-const: true
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints'
+        name:
+          type: string
+          description: The name of the certificate.
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the certificate was uploaded.
+        certificate_details:
+          type: object
+          properties:
+            valid_at:
+              type: integer
+              description: The Unix timestamp (in seconds) of when the certificate becomes valid.
+            expires_at:
+              type: integer
+              description: The Unix timestamp (in seconds) of when the certificate expires.
+            content:
+              type: string
+              description: The content of the certificate in PEM format.
+        active:
+          type: boolean
+          description: Whether the certificate is currently active at the specified scope. Not returned when getting details for a specific certificate.
+      description: Represents an individual `certificate` uploaded to the organization.
+      x-oaiMeta:
+        name: The certificate object
+        example: "{\n  \"object\": \"certificate\",\n  \"id\": \"cert_abc\",\n  \"name\": \"My Certificate\",\n  \"created_at\": 1234567,\n  \"certificate_details\": {\n    \"valid_at\": 1234567,\n    \"expires_at\": 12345678,\n    \"content\": \"-----BEGIN CERTIFICATE----- MIIGAjCCA...6znFlOW+ -----END CERTIFICATE-----\"\n  }\n}\n"

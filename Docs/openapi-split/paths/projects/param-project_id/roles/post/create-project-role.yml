@@ -1,0 +1,37 @@
+paths:
+  '/projects/{project_id}/roles':
+    post:
+      tags:
+        - Roles
+      summary: Create project role
+      description: Creates a custom role for a project.
+      operationId: create-project-role
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Parameters for the project role you want to create.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicCreateOrganizationRoleBody'
+        required: true
+      responses:
+        '200':
+          description: Project role created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+      x-oaiMeta:
+        name: Create project role
+        group: administration
+        returns: 'The created [role object](https://platform.openai.com/docs/api-reference/roles/object).'
+        examples:
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/projects/proj_abc123/roles \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      \"role_name\": \"API Project Key Manager\",\n      \"permissions\": [\n          \"api.organization.projects.api_keys.read\",\n          \"api.organization.projects.api_keys.write\"\n      ],\n      \"description\": \"Allows managing API keys for the project\"\n  }'\n"
+          response: "{\n    \"object\": \"role\",\n    \"id\": \"role_01J1F8PROJ\",\n    \"name\": \"API Project Key Manager\",\n    \"description\": \"Allows managing API keys for the project\",\n    \"permissions\": [\n        \"api.organization.projects.api_keys.read\",\n        \"api.organization.projects.api_keys.write\"\n    ],\n    \"resource_type\": \"api.project\",\n    \"predefined_role\": false\n}\n"

@@ -1,0 +1,17 @@
+components:
+  schemas:
+    RunStepDetailsToolCallsFileSearchRankingOptionsObject:
+      title: File search tool call ranking options
+      required:
+        - ranker
+        - score_threshold
+      type: object
+      properties:
+        ranker:
+          $ref: '#/components/schemas/FileSearchRanker'
+        score_threshold:
+          maximum: 1
+          minimum: 0
+          type: number
+          description: The score threshold for the file search. All values must be a floating point number between 0 and 1.
+      description: The ranking options for the file search.

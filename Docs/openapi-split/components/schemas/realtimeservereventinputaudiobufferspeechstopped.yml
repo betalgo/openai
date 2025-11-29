@@ -1,0 +1,29 @@
+components:
+  schemas:
+    RealtimeServerEventInputAudioBufferSpeechStopped:
+      required:
+        - event_id
+        - type
+        - audio_end_ms
+        - item_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - input_audio_buffer.speech_stopped
+          description: 'The event type, must be `input_audio_buffer.speech_stopped`.'
+          x-stainless-const: true
+        audio_end_ms:
+          type: integer
+          description: "Milliseconds since the session started when speech stopped. This will \ncorrespond to the end of audio sent to the model, and thus includes the \n`min_silence_duration_ms` configured in the Session.\n"
+        item_id:
+          type: string
+          description: The ID of the user message item that will be created.
+      description: "Returned in `server_vad` mode when the server detects the end of speech in \nthe audio buffer. The server will also send an `conversation.item.created` \nevent with the user message item that is created from the audio buffer.\n"
+      x-oaiMeta:
+        name: input_audio_buffer.speech_stopped
+        group: realtime
+        example: "{\n    \"event_id\": \"event_1718\",\n    \"type\": \"input_audio_buffer.speech_stopped\",\n    \"audio_end_ms\": 2000,\n    \"item_id\": \"msg_003\"\n}\n"

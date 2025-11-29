@@ -1,0 +1,34 @@
+components:
+  schemas:
+    MCPApprovalResponse:
+      title: MCP approval response
+      required:
+        - type
+        - request_id
+        - approve
+        - approval_request_id
+      type: object
+      properties:
+        type:
+          enum:
+            - mcp_approval_response
+          type: string
+          description: "The type of the item. Always `mcp_approval_response`.\n"
+          x-stainless-const: true
+        id:
+          anyOf:
+            - type: string
+              description: "The unique ID of the approval response\n"
+            - nullable: true
+        approval_request_id:
+          type: string
+          description: "The ID of the approval request being answered.\n"
+        approve:
+          type: boolean
+          description: "Whether the request was approved.\n"
+        reason:
+          anyOf:
+            - type: string
+              description: "Optional reason for the decision.\n"
+            - nullable: true
+      description: "A response to an MCP approval request.\n"

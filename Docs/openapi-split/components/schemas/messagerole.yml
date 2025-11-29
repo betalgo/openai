@@ -1,0 +1,13 @@
+components:
+  schemas:
+    MessageRole:
+      enum:
+        - unknown
+        - user
+        - assistant
+        - system
+        - critic
+        - discriminator
+        - developer
+        - tool
+      type: string
