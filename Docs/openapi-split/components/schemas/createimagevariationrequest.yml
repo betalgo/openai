@@ -1,0 +1,54 @@
+components:
+  schemas:
+    CreateImageVariationRequest:
+      required:
+        - image
+      type: object
+      properties:
+        image:
+          type: string
+          description: 'The image to use as the basis for the variation(s). Must be a valid PNG file, less than 4MB, and square.'
+          format: binary
+          x-oaiMeta:
+            exampleFilePath: otter.png
+        model:
+          anyOf:
+            - type: string
+            - enum:
+                - dall-e-2
+              type: string
+              x-stainless-const: true
+          description: The model to use for image generation. Only `dall-e-2` is supported at this time.
+          nullable: true
+          x-oaiTypeLabel: string
+        n:
+          maximum: 10
+          minimum: 1
+          type: integer
+          description: The number of images to generate. Must be between 1 and 10.
+          default: 1
+          nullable: true
+          example: 1
+        response_format:
+          enum:
+            - url
+            - b64_json
+          type: string
+          description: The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated.
+          default: url
+          nullable: true
+          example: url
+        size:
+          enum:
+            - 256x256
+            - 512x512
+            - 1024x1024
+          type: string
+          description: 'The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`.'
+          default: 1024x1024
+          nullable: true
+          example: 1024x1024
+        user:
+          type: string
+          description: "A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).\n"
+          example: user-1234

@@ -1,0 +1,45 @@
+components:
+  schemas:
+    Role:
+      required:
+        - object
+        - id
+        - name
+        - description
+        - permissions
+        - resource_type
+        - predefined_role
+      type: object
+      properties:
+        object:
+          enum:
+            - role
+          type: string
+          description: Always `role`.
+          x-stainless-const: true
+        id:
+          type: string
+          description: Identifier for the role.
+        name:
+          type: string
+          description: Unique name for the role.
+        description:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: Optional description of the role.
+        permissions:
+          type: array
+          items:
+            type: string
+          description: Permissions granted by the role.
+        resource_type:
+          type: string
+          description: Resource type the role is bound to (for example `api.organization` or `api.project`).
+        predefined_role:
+          type: boolean
+          description: Whether the role is predefined and managed by OpenAI.
+      description: Details about a role that can be assigned through the public Roles API.
+      x-oaiMeta:
+        name: The role object
+        example: "{\n    \"object\": \"role\",\n    \"id\": \"role_01J1F8ROLE01\",\n    \"name\": \"API Group Manager\",\n    \"description\": \"Allows managing organization groups\",\n    \"permissions\": [\n        \"api.groups.read\",\n        \"api.groups.write\"\n    ],\n    \"resource_type\": \"api.organization\",\n    \"predefined_role\": false\n}\n"

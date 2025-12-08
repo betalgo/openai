@@ -1,0 +1,10 @@
+components:
+  schemas:
+    AutomaticThreadTitlingParam:
+      title: Automatic thread titling configuration
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Enable automatic thread title generation. Defaults to true.
+      description: Controls whether ChatKit automatically generates thread titles.

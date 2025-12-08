@@ -1,0 +1,20 @@
+components:
+  schemas:
+    ReasoningTextContent:
+      title: ReasoningTextContent
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - reasoning_text
+          type: string
+          description: The type of the reasoning text. Always `reasoning_text`.
+          default: reasoning_text
+          x-stainless-const: true
+        text:
+          type: string
+          description: The reasoning text from the model.
+      description: Reasoning text from the model.

@@ -1,0 +1,23 @@
+components:
+  schemas:
+    ResponseAudioDoneEvent:
+      required:
+        - type
+        - sequence_number
+        - response_id
+      type: object
+      properties:
+        type:
+          enum:
+            - response.audio.done
+          type: string
+          description: "The type of the event. Always `response.audio.done`.\n"
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: "The sequence number of the delta.\n"
+      description: Emitted when the audio response is complete.
+      x-oaiMeta:
+        name: response.audio.done
+        group: responses
+        example: "{\n  \"type\": \"response.audio.done\",\n  \"response_id\": \"resp-123\",\n  \"sequence_number\": 1\n}\n"

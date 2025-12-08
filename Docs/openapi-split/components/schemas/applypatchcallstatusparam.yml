@@ -1,0 +1,9 @@
+components:
+  schemas:
+    ApplyPatchCallStatusParam:
+      title: Apply patch call status
+      enum:
+        - in_progress
+        - completed
+      type: string
+      description: Status values reported for apply_patch tool calls.

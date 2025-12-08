@@ -1,0 +1,45 @@
+components:
+  schemas:
+    ProjectRateLimit:
+      required:
+        - object
+        - id
+        - model
+        - max_requests_per_1_minute
+        - max_tokens_per_1_minute
+      type: object
+      properties:
+        object:
+          enum:
+            - project.rate_limit
+          type: string
+          description: 'The object type, which is always `project.rate_limit`'
+          x-stainless-const: true
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints.'
+        model:
+          type: string
+          description: The model this rate limit applies to.
+        max_requests_per_1_minute:
+          type: integer
+          description: The maximum requests per minute.
+        max_tokens_per_1_minute:
+          type: integer
+          description: The maximum tokens per minute.
+        max_images_per_1_minute:
+          type: integer
+          description: The maximum images per minute. Only present for relevant models.
+        max_audio_megabytes_per_1_minute:
+          type: integer
+          description: The maximum audio megabytes per minute. Only present for relevant models.
+        max_requests_per_1_day:
+          type: integer
+          description: The maximum requests per day. Only present for relevant models.
+        batch_1_day_max_input_tokens:
+          type: integer
+          description: The maximum batch input tokens per day. Only present for relevant models.
+      description: Represents a project rate limit config.
+      x-oaiMeta:
+        name: The project rate limit object
+        example: "{\n    \"object\": \"project.rate_limit\",\n    \"id\": \"rl_ada\",\n    \"model\": \"ada\",\n    \"max_requests_per_1_minute\": 600,\n    \"max_tokens_per_1_minute\": 150000,\n    \"max_images_per_1_minute\": 10\n}\n"

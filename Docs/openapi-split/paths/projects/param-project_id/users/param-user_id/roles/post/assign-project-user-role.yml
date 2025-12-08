@@ -1,0 +1,43 @@
+paths:
+  '/projects/{project_id}/users/{user_id}/roles':
+    post:
+      tags:
+        - Project user role assignments
+      summary: Assign project role to user
+      description: Assigns a project role to a user within a project.
+      operationId: assign-project-user-role
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project to update.
+          required: true
+          schema:
+            type: string
+        - name: user_id
+          in: path
+          description: The ID of the user that should receive the project role.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Identifies the project role to assign to the user.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicAssignOrganizationGroupRoleBody'
+        required: true
+      responses:
+        '200':
+          description: Project role assigned to the user successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRoleAssignment'
+      x-oaiMeta:
+        name: Assign project role to user
+        group: administration
+        returns: 'The created [user role object](https://platform.openai.com/docs/api-reference/role-assignments/objects/user).'
+        examples:
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/projects/proj_abc123/users/user_abc123/roles \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      \"role_id\": \"role_01J1F8PROJ\"\n  }'\n"
+          response: "{\n    \"object\": \"user.role\",\n    \"user\": {\n        \"object\": \"organization.user\",\n        \"id\": \"user_abc123\",\n        \"name\": \"Ada Lovelace\",\n        \"email\": \"ada@example.com\",\n        \"role\": \"owner\",\n        \"added_at\": 1711470000\n    },\n    \"role\": {\n        \"object\": \"role\",\n        \"id\": \"role_01J1F8PROJ\",\n        \"name\": \"API Project Key Manager\",\n        \"description\": \"Allows managing API keys for the project\",\n        \"permissions\": [\n            \"api.organization.projects.api_keys.read\",\n            \"api.organization.projects.api_keys.write\"\n        ],\n        \"resource_type\": \"api.project\",\n        \"predefined_role\": false\n    }\n}\n"

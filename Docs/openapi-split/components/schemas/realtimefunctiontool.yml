@@ -1,0 +1,21 @@
+components:
+  schemas:
+    RealtimeFunctionTool:
+      title: Function tool
+      type: object
+      properties:
+        type:
+          enum:
+            - function
+          type: string
+          description: 'The type of the tool, i.e. `function`.'
+          x-stainless-const: true
+        name:
+          type: string
+          description: The name of the function.
+        description:
+          type: string
+          description: "The description of the function, including guidance on when and how\nto call it, and guidance about what to tell the user when calling\n(if anything).\n"
+        parameters:
+          type: object
+          description: Parameters of the function in JSON Schema.

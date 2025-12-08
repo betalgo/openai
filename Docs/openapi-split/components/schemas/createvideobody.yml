@@ -1,0 +1,24 @@
+components:
+  schemas:
+    CreateVideoBody:
+      title: Create video request
+      required:
+        - prompt
+      type: object
+      properties:
+        model:
+          $ref: '#/components/schemas/VideoModel'
+        prompt:
+          maxLength: 32000
+          minLength: 1
+          type: string
+          description: Text prompt that describes the video to generate.
+        input_reference:
+          type: string
+          description: Optional image reference that guides generation.
+          format: binary
+        seconds:
+          $ref: '#/components/schemas/VideoSeconds'
+        size:
+          $ref: '#/components/schemas/VideoSize'
+      description: Parameters for creating a new video generation job.

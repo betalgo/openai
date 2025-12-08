@@ -1,0 +1,19 @@
+components:
+  schemas:
+    BatchRequestCounts:
+      required:
+        - total
+        - completed
+        - failed
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of requests in the batch.
+        completed:
+          type: integer
+          description: Number of requests that have been completed successfully.
+        failed:
+          type: integer
+          description: Number of requests that have failed.
+      description: The request counts for different statuses within the batch.

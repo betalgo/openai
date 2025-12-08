@@ -1,0 +1,50 @@
+paths:
+  '/organization/users/{user_id}/roles':
+    get:
+      tags:
+        - User organization role assignments
+      summary: List user organization role assignments
+      description: Lists the organization roles assigned to a user within the organization.
+      operationId: list-user-role-assignments
+      parameters:
+        - name: user_id
+          in: path
+          description: The ID of the user to inspect.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: A limit on the number of organization role assignments to return.
+          schema:
+            maximum: 1000
+            minimum: 0
+            type: integer
+        - name: after
+          in: query
+          description: Cursor for pagination. Provide the value from the previous response's `next` field to continue listing organization roles.
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: Sort order for the returned organization roles.
+          schema:
+            enum:
+              - asc
+              - desc
+            type: string
+      responses:
+        '200':
+          description: User organization role assignments listed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleListResource'
+      x-oaiMeta:
+        name: List user organization role assignments
+        group: administration
+        returns: 'A list of [role objects](https://platform.openai.com/docs/api-reference/roles/object).'
+        examples:
+          request:
+            curl: "curl https://api.openai.com/v1/organization/users/user_abc123/roles \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"
+          response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"id\": \"role_01J1F8ROLE01\",\n            \"name\": \"API Group Manager\",\n            \"permissions\": [\n                \"api.groups.read\",\n                \"api.groups.write\"\n            ],\n            \"resource_type\": \"api.organization\",\n            \"predefined_role\": false,\n            \"description\": \"Allows managing organization groups\",\n            \"created_at\": 1711471533,\n            \"updated_at\": 1711472599,\n            \"created_by\": \"user_abc123\",\n            \"created_by_user_obj\": {\n                \"id\": \"user_abc123\",\n                \"name\": \"Ada Lovelace\",\n                \"email\": \"ada@example.com\"\n            },\n            \"metadata\": {}\n        }\n    ],\n    \"has_more\": false,\n    \"next\": null\n}\n"

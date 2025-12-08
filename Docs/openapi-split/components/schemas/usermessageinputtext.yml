@@ -1,0 +1,20 @@
+components:
+  schemas:
+    UserMessageInputText:
+      title: User message input
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - input_text
+          type: string
+          description: Type discriminator that is always `input_text`.
+          default: input_text
+          x-stainless-const: true
+        text:
+          type: string
+          description: Plain-text content supplied by the user.
+      description: Text block that a user contributed to the thread.

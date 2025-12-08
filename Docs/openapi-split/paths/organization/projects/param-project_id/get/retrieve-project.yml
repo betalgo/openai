@@ -1,0 +1,31 @@
+paths:
+  '/organization/projects/{project_id}':
+    get:
+      tags:
+        - Projects
+      summary: Retrieve project
+      description: Retrieves a project.
+      operationId: retrieve-project
+      parameters:
+        - name: project_id
+          in: path
+          description: The ID of the project.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Project retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+      x-oaiMeta:
+        name: Retrieve project
+        group: administration
+        description: Retrieve a project.
+        returns: 'The [Project](https://platform.openai.com/docs/api-reference/projects/object) object matching the specified ID.'
+        examples:
+          response: "{\n    \"id\": \"proj_abc\",\n    \"object\": \"organization.project\",\n    \"name\": \"Project example\",\n    \"created_at\": 1711471533,\n    \"archived_at\": null,\n    \"status\": \"active\"\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/organization/projects/proj_abc \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"

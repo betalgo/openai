@@ -1,0 +1,18 @@
+components:
+  schemas:
+    DeleteFileResponse:
+      required:
+        - id
+        - object
+        - deleted
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          enum:
+            - file
+          type: string
+          x-stainless-const: true
+        deleted:
+          type: boolean

@@ -1,0 +1,38 @@
+components:
+  schemas:
+    InputFileContentParam:
+      title: Input file
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - input_file
+          type: string
+          description: The type of the input item. Always `input_file`.
+          default: input_file
+          x-stainless-const: true
+        file_id:
+          anyOf:
+            - type: string
+              description: The ID of the file to be sent to the model.
+              example: file-123
+            - nullable: true
+        filename:
+          anyOf:
+            - type: string
+              description: The name of the file to be sent to the model.
+            - nullable: true
+        file_data:
+          anyOf:
+            - maxLength: 33554432
+              type: string
+              description: The base64-encoded data of the file to be sent to the model.
+            - nullable: true
+        file_url:
+          anyOf:
+            - type: string
+              description: The URL of the file to be sent to the model.
+            - nullable: true
+      description: A file input to the model.

@@ -1,0 +1,47 @@
+components:
+  schemas:
+    RealtimeServerEventConversationItemInputAudioTranscriptionFailed:
+      required:
+        - event_id
+        - type
+        - item_id
+        - content_index
+        - error
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - conversation.item.input_audio_transcription.failed
+          type: string
+          description: "The event type, must be\n`conversation.item.input_audio_transcription.failed`.\n"
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The ID of the user message item.
+        content_index:
+          type: integer
+          description: The index of the content part containing the audio.
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of error.
+            code:
+              type: string
+              description: 'Error code, if any.'
+            message:
+              type: string
+              description: A human-readable error message.
+            param:
+              type: string
+              description: 'Parameter related to the error, if any.'
+          description: Details of the transcription error.
+      description: "Returned when input audio transcription is configured, and a transcription \nrequest for a user message failed. These events are separate from other \n`error` events so that the client can identify the related Item.\n"
+      x-oaiMeta:
+        name: conversation.item.input_audio_transcription.failed
+        group: realtime
+        example: "{\n    \"event_id\": \"event_2324\",\n    \"type\": \"conversation.item.input_audio_transcription.failed\",\n    \"item_id\": \"msg_003\",\n    \"content_index\": 0,\n    \"error\": {\n        \"type\": \"transcription_error\",\n        \"code\": \"audio_unintelligible\",\n        \"message\": \"The audio could not be transcribed.\",\n        \"param\": null\n    }\n}\n"

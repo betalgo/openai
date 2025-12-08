@@ -1,0 +1,8 @@
+components:
+  schemas:
+    FileSearchRanker:
+      enum:
+        - auto
+        - default_2024_08_21
+      type: string
+      description: The ranker to use for the file search. If not specified will use the `auto` ranker.

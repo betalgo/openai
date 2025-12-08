@@ -1,0 +1,15 @@
+components:
+  schemas:
+    UpdateGroupBody:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: New display name for the group.
+      description: Request payload for updating the details of an existing group.
+      x-oaiMeta:
+        example: "{\n    \"name\": \"Escalations\"\n}\n"

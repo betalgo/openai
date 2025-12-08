@@ -1,0 +1,9 @@
+components:
+  schemas:
+    RealtimeConnectParams:
+      type: object
+      properties:
+        model:
+          type: string
+        call_id:
+          type: string

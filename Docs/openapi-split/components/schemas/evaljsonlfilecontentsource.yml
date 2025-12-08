@@ -1,0 +1,28 @@
+components:
+  schemas:
+    EvalJsonlFileContentSource:
+      title: EvalJsonlFileContentSource
+      required:
+        - type
+        - content
+      type: object
+      properties:
+        type:
+          enum:
+            - file_content
+          type: string
+          description: The type of jsonl source. Always `file_content`.
+          default: file_content
+          x-stainless-const: true
+        content:
+          type: array
+          items:
+            required:
+              - item
+            type: object
+            properties:
+              item:
+                type: object
+              sample:
+                type: object
+          description: The content of the jsonl file.

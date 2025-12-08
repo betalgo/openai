@@ -1,0 +1,139 @@
+components:
+  schemas:
+    EvalRunOutputItem:
+      title: EvalRunOutputItem
+      required:
+        - object
+        - id
+        - run_id
+        - eval_id
+        - created_at
+        - status
+        - datasource_item_id
+        - datasource_item
+        - results
+        - sample
+      type: object
+      properties:
+        object:
+          enum:
+            - eval.run.output_item
+          type: string
+          description: The type of the object. Always "eval.run.output_item".
+          default: eval.run.output_item
+          x-stainless-const: true
+        id:
+          type: string
+          description: Unique identifier for the evaluation run output item.
+        run_id:
+          type: string
+          description: The identifier of the evaluation run associated with this output item.
+        eval_id:
+          type: string
+          description: The identifier of the evaluation group.
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) when the evaluation run was created.
+        status:
+          type: string
+          description: The status of the evaluation run.
+        datasource_item_id:
+          type: integer
+          description: The identifier for the data source item.
+        datasource_item:
+          type: object
+          description: Details of the input data source item.
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvalRunOutputItemResult'
+          description: A list of grader results for this output item.
+        sample:
+          required:
+            - input
+            - output
+            - finish_reason
+            - model
+            - usage
+            - error
+            - temperature
+            - max_completion_tokens
+            - top_p
+            - seed
+          type: object
+          properties:
+            input:
+              type: array
+              items:
+                required:
+                  - role
+                  - content
+                type: object
+                properties:
+                  role:
+                    type: string
+                    description: 'The role of the message sender (e.g., system, user, developer).'
+                  content:
+                    type: string
+                    description: The content of the message.
+                description: An input message.
+              description: An array of input messages.
+            output:
+              type: array
+              items:
+                type: object
+                properties:
+                  role:
+                    type: string
+                    description: 'The role of the message (e.g. "system", "assistant", "user").'
+                  content:
+                    type: string
+                    description: The content of the message.
+              description: An array of output messages.
+            finish_reason:
+              type: string
+              description: The reason why the sample generation was finished.
+            model:
+              type: string
+              description: The model used for generating the sample.
+            usage:
+              required:
+                - total_tokens
+                - completion_tokens
+                - prompt_tokens
+                - cached_tokens
+              type: object
+              properties:
+                total_tokens:
+                  type: integer
+                  description: The total number of tokens used.
+                completion_tokens:
+                  type: integer
+                  description: The number of completion tokens generated.
+                prompt_tokens:
+                  type: integer
+                  description: The number of prompt tokens used.
+                cached_tokens:
+                  type: integer
+                  description: The number of tokens retrieved from cache.
+              description: Token usage details for the sample.
+            error:
+              $ref: '#/components/schemas/EvalApiError'
+            temperature:
+              type: number
+              description: The sampling temperature used.
+            max_completion_tokens:
+              type: integer
+              description: The maximum number of tokens allowed for completion.
+            top_p:
+              type: number
+              description: The top_p value used for sampling.
+            seed:
+              type: integer
+              description: The seed used for generating the sample.
+          description: A sample containing the input and output of the evaluation run.
+      description: "A schema representing an evaluation run output item.\n"
+      x-oaiMeta:
+        name: The eval run output item object
+        group: evals
+        example: "{\n  \"object\": \"eval.run.output_item\",\n  \"id\": \"outputitem_67abd55eb6548190bb580745d5644a33\",\n  \"run_id\": \"evalrun_67abd54d60ec8190832b46859da808f7\",\n  \"eval_id\": \"eval_67abd54d9b0081909a86353f6fb9317a\",\n  \"created_at\": 1739314509,\n  \"status\": \"pass\",\n  \"datasource_item_id\": 137,\n  \"datasource_item\": {\n      \"teacher\": \"To grade essays, I only check for style, content, and grammar.\",\n      \"student\": \"I am a student who is trying to write the best essay.\"\n  },\n  \"results\": [\n    {\n      \"name\": \"String Check Grader\",\n      \"type\": \"string-check-grader\",\n      \"score\": 1.0,\n      \"passed\": true,\n    }\n  ],\n  \"sample\": {\n    \"input\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"You are an evaluator bot...\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": \"You are assessing...\"\n      }\n    ],\n    \"output\": [\n      {\n        \"role\": \"assistant\",\n        \"content\": \"The rubric is not clear nor concise.\"\n      }\n    ],\n    \"finish_reason\": \"stop\",\n    \"model\": \"gpt-4o-2024-08-06\",\n    \"usage\": {\n      \"total_tokens\": 521,\n      \"completion_tokens\": 2,\n      \"prompt_tokens\": 519,\n      \"cached_tokens\": 0\n    },\n    \"error\": null,\n    \"temperature\": 1.0,\n    \"max_completion_tokens\": 2048,\n    \"top_p\": 1.0,\n    \"seed\": 42\n  }\n}\n"

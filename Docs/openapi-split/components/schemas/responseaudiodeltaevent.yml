@@ -1,0 +1,26 @@
+components:
+  schemas:
+    ResponseAudioDeltaEvent:
+      required:
+        - type
+        - delta
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.audio.delta
+          type: string
+          description: "The type of the event. Always `response.audio.delta`.\n"
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: "A sequence number for this chunk of the stream response.\n"
+        delta:
+          type: string
+          description: "A chunk of Base64 encoded response audio bytes.\n"
+      description: Emitted when there is a partial audio response.
+      x-oaiMeta:
+        name: response.audio.delta
+        group: responses
+        example: "{\n  \"type\": \"response.audio.delta\",\n  \"response_id\": \"resp_123\",\n  \"delta\": \"base64encoded...\",\n  \"sequence_number\": 1\n}\n"

@@ -1,0 +1,28 @@
+components:
+  schemas:
+    EvalRunOutputItemResult:
+      title: EvalRunOutputItemResult
+      required:
+        - name
+        - score
+        - passed
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the grader.
+        type:
+          type: string
+          description: 'The grader type (for example, "string-check-grader").'
+        score:
+          type: number
+          description: The numeric score produced by the grader.
+        passed:
+          type: boolean
+          description: Whether the grader considered the output a pass.
+        sample:
+          anyOf:
+            - type: object
+            - nullable: true
+          description: Optional sample or intermediate data produced by the grader.
+      description: "A single grader result for an evaluation run output item.\n"

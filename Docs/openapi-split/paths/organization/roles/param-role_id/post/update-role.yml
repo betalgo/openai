@@ -1,0 +1,37 @@
+paths:
+  '/organization/roles/{role_id}':
+    post:
+      tags:
+        - Roles
+      summary: Update organization role
+      description: Updates an existing organization role.
+      operationId: update-role
+      parameters:
+        - name: role_id
+          in: path
+          description: The ID of the role to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Fields to update on the role.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicUpdateOrganizationRoleBody'
+        required: true
+      responses:
+        '200':
+          description: Role updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+      x-oaiMeta:
+        name: Update organization role
+        group: administration
+        returns: 'The updated [role object](https://platform.openai.com/docs/api-reference/roles/object).'
+        examples:
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/organization/roles/role_01J1F8ROLE01 \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n      \"role_name\": \"API Group Manager\",\n      \"permissions\": [\n          \"api.groups.read\",\n          \"api.groups.write\"\n      ],\n      \"description\": \"Allows managing organization groups\"\n  }'\n"
+          response: "{\n    \"object\": \"role\",\n    \"id\": \"role_01J1F8ROLE01\",\n    \"name\": \"API Group Manager\",\n    \"description\": \"Allows managing organization groups\",\n    \"permissions\": [\n        \"api.groups.read\",\n        \"api.groups.write\"\n    ],\n    \"resource_type\": \"api.organization\",\n    \"predefined_role\": false\n}\n"

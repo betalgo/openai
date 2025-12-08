@@ -1,0 +1,31 @@
+components:
+  schemas:
+    MCPApprovalRequest:
+      title: MCP approval request
+      required:
+        - type
+        - id
+        - server_label
+        - name
+        - arguments
+      type: object
+      properties:
+        type:
+          enum:
+            - mcp_approval_request
+          type: string
+          description: "The type of the item. Always `mcp_approval_request`.\n"
+          x-stainless-const: true
+        id:
+          type: string
+          description: "The unique ID of the approval request.\n"
+        server_label:
+          type: string
+          description: "The label of the MCP server making the request.\n"
+        name:
+          type: string
+          description: "The name of the tool to run.\n"
+        arguments:
+          type: string
+          description: "A JSON string of arguments for the tool.\n"
+      description: "A request for human approval of a tool invocation.\n"

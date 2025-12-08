@@ -1,0 +1,37 @@
+components:
+  schemas:
+    MessageDeltaContentTextAnnotationsFileCitationObject:
+      title: File citation
+      required:
+        - index
+        - type
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of the annotation in the text content part.
+        type:
+          enum:
+            - file_citation
+          type: string
+          description: Always `file_citation`.
+          x-stainless-const: true
+        text:
+          type: string
+          description: The text in the message content that needs to be replaced.
+        file_citation:
+          type: object
+          properties:
+            file_id:
+              type: string
+              description: The ID of the specific File the citation is from.
+            quote:
+              type: string
+              description: The specific quote in the file.
+        start_index:
+          minimum: 0
+          type: integer
+        end_index:
+          minimum: 0
+          type: integer
+      description: A citation within the message that points to a specific quote from a specific File associated with the assistant or the message. Generated when the assistant uses the "file_search" tool to search files.

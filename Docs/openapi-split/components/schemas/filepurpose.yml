@@ -1,0 +1,12 @@
+components:
+  schemas:
+    FilePurpose:
+      enum:
+        - assistants
+        - batch
+        - fine-tune
+        - vision
+        - user_data
+        - evals
+      type: string
+      description: "The intended purpose of the uploaded file. One of: - `assistants`: Used in the Assistants API - `batch`: Used in the Batch API - `fine-tune`: Used for fine-tuning - `vision`: Images used for vision fine-tuning - `user_data`: Flexible file type for any purpose - `evals`: Used for eval data sets\n"

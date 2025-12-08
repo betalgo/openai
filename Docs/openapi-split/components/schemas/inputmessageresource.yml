@@ -1,0 +1,12 @@
+components:
+  schemas:
+    InputMessageResource:
+      allOf:
+        - $ref: '#/components/schemas/InputMessage'
+        - required:
+            - id
+          type: object
+          properties:
+            id:
+              type: string
+              description: "The unique ID of the message input.\n"

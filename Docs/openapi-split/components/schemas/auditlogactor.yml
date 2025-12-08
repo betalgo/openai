@@ -1,0 +1,16 @@
+components:
+  schemas:
+    AuditLogActor:
+      type: object
+      properties:
+        type:
+          enum:
+            - session
+            - api_key
+          type: string
+          description: The type of actor. Is either `session` or `api_key`.
+        session:
+          $ref: '#/components/schemas/AuditLogActorSession'
+        api_key:
+          $ref: '#/components/schemas/AuditLogActorApiKey'
+      description: The actor who performed the audit logged action.

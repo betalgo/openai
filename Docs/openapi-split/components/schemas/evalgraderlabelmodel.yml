@@ -1,0 +1,7 @@
+components:
+  schemas:
+    EvalGraderLabelModel:
+      title: LabelModelGrader
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/GraderLabelModel'

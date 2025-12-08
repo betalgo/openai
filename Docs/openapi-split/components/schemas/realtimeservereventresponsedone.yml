@@ -1,0 +1,24 @@
+components:
+  schemas:
+    RealtimeServerEventResponseDone:
+      required:
+        - event_id
+        - type
+        - response
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.done
+          description: 'The event type, must be `response.done`.'
+          x-stainless-const: true
+        response:
+          $ref: '#/components/schemas/RealtimeResponse'
+      description: "Returned when a Response is done streaming. Always emitted, no matter the \nfinal state. The Response object included in the `response.done` event will \ninclude all output Items in the Response but will omit the raw audio data.\n\nClients should check the `status` field of the Response to determine if it was successful\n(`completed`) or if there was another outcome: `cancelled`, `failed`, or `incomplete`.\n\nA response will contain all output items that were generated during the response, excluding\nany audio content.\n"
+      x-oaiMeta:
+        name: response.done
+        group: realtime
+        example: "{\n  \"type\": \"response.done\",\n  \"event_id\": \"event_CCXHxcMy86rrKhBLDdqCh\",\n  \"response\": {\n    \"object\": \"realtime.response\",\n    \"id\": \"resp_CCXHw0UJld10EzIUXQCNh\",\n    \"status\": \"completed\",\n    \"status_details\": null,\n    \"output\": [\n      {\n        \"id\": \"item_CCXHwGjjDUfOXbiySlK7i\",\n        \"type\": \"message\",\n        \"status\": \"completed\",\n        \"role\": \"assistant\",\n        \"content\": [\n          {\n            \"type\": \"output_audio\",\n            \"transcript\": \"Loud and clear! I can hear you perfectly. How can I help you today?\"\n          }\n        ]\n      }\n    ],\n    \"conversation_id\": \"conv_CCXHsurMKcaVxIZvaCI5m\",\n    \"output_modalities\": [\n      \"audio\"\n    ],\n    \"max_output_tokens\": \"inf\",\n    \"audio\": {\n      \"output\": {\n        \"format\": {\n          \"type\": \"audio/pcm\",\n          \"rate\": 24000\n        },\n        \"voice\": \"alloy\"\n      }\n    },\n    \"usage\": {\n      \"total_tokens\": 253,\n      \"input_tokens\": 132,\n      \"output_tokens\": 121,\n      \"input_token_details\": {\n        \"text_tokens\": 119,\n        \"audio_tokens\": 13,\n        \"image_tokens\": 0,\n        \"cached_tokens\": 64,\n        \"cached_tokens_details\": {\n          \"text_tokens\": 64,\n          \"audio_tokens\": 0,\n          \"image_tokens\": 0\n        }\n      },\n      \"output_token_details\": {\n        \"text_tokens\": 30,\n        \"audio_tokens\": 91\n      }\n    },\n    \"metadata\": null\n  }\n}\n"

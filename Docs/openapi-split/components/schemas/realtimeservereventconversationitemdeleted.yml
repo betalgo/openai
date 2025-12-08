@@ -1,0 +1,25 @@
+components:
+  schemas:
+    RealtimeServerEventConversationItemDeleted:
+      required:
+        - event_id
+        - type
+        - item_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - conversation.item.deleted
+          description: 'The event type, must be `conversation.item.deleted`.'
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The ID of the item that was deleted.
+      description: "Returned when an item in the conversation is deleted by the client with a \n`conversation.item.delete` event. This event is used to synchronize the \nserver's understanding of the conversation history with the client's view.\n"
+      x-oaiMeta:
+        name: conversation.item.deleted
+        group: realtime
+        example: "{\n    \"event_id\": \"event_2728\",\n    \"type\": \"conversation.item.deleted\",\n    \"item_id\": \"msg_005\"\n}\n"

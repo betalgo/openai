@@ -1,0 +1,19 @@
+components:
+  schemas:
+    FineTuneReinforcementMethod:
+      required:
+        - grader
+      type: object
+      properties:
+        grader:
+          type: object
+          anyOf:
+            - $ref: '#/components/schemas/GraderStringCheck'
+            - $ref: '#/components/schemas/GraderTextSimilarity'
+            - $ref: '#/components/schemas/GraderPython'
+            - $ref: '#/components/schemas/GraderScoreModel'
+            - $ref: '#/components/schemas/GraderMulti'
+          description: The grader used for the fine-tuning job.
+        hyperparameters:
+          $ref: '#/components/schemas/FineTuneReinforcementHyperparameters'
+      description: Configuration for the reinforcement fine-tuning method.

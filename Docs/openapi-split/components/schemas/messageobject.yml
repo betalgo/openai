@@ -1,0 +1,116 @@
+components:
+  schemas:
+    MessageObject:
+      title: The message object
+      required:
+        - id
+        - object
+        - created_at
+        - thread_id
+        - status
+        - incomplete_details
+        - completed_at
+        - incomplete_at
+        - role
+        - content
+        - assistant_id
+        - run_id
+        - attachments
+        - metadata
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints.'
+        object:
+          enum:
+            - thread.message
+          type: string
+          description: 'The object type, which is always `thread.message`.'
+          x-stainless-const: true
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the message was created.
+        thread_id:
+          type: string
+          description: 'The [thread](https://platform.openai.com/docs/api-reference/threads) ID that this message belongs to.'
+        status:
+          enum:
+            - in_progress
+            - incomplete
+            - completed
+          type: string
+          description: 'The status of the message, which can be either `in_progress`, `incomplete`, or `completed`.'
+        incomplete_details:
+          anyOf:
+            - required:
+                - reason
+              type: object
+              properties:
+                reason:
+                  enum:
+                    - content_filter
+                    - max_tokens
+                    - run_cancelled
+                    - run_expired
+                    - run_failed
+                  type: string
+                  description: The reason the message is incomplete.
+              description: 'On an incomplete message, details about why the message is incomplete.'
+            - nullable: true
+        completed_at:
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the message was completed.
+            - nullable: true
+        incomplete_at:
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the message was marked as incomplete.
+            - nullable: true
+        role:
+          enum:
+            - user
+            - assistant
+          type: string
+          description: The entity that produced the message. One of `user` or `assistant`.
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageContent'
+          description: The content of the message in array of text and/or images.
+        assistant_id:
+          anyOf:
+            - type: string
+              description: 'If applicable, the ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) that authored this message.'
+            - nullable: true
+        run_id:
+          anyOf:
+            - type: string
+              description: 'The ID of the [run](https://platform.openai.com/docs/api-reference/runs) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints.'
+            - nullable: true
+        attachments:
+          anyOf:
+            - type: array
+              items:
+                type: object
+                properties:
+                  file_id:
+                    type: string
+                    description: The ID of the file to attach to the message.
+                  tools:
+                    type: array
+                    items:
+                      anyOf:
+                        - $ref: '#/components/schemas/AssistantToolsCode'
+                        - $ref: '#/components/schemas/AssistantToolsFileSearchTypeOnly'
+                    description: The tools to add this file to.
+              description: 'A list of files attached to the message, and the tools they were added to.'
+            - nullable: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      description: 'Represents a message within a [thread](https://platform.openai.com/docs/api-reference/threads).'
+      x-oaiMeta:
+        name: The message object
+        beta: true
+        example: "{\n  \"id\": \"msg_abc123\",\n  \"object\": \"thread.message\",\n  \"created_at\": 1698983503,\n  \"thread_id\": \"thread_abc123\",\n  \"role\": \"assistant\",\n  \"content\": [\n    {\n      \"type\": \"text\",\n      \"text\": {\n        \"value\": \"Hi! How can I help you today?\",\n        \"annotations\": []\n      }\n    }\n  ],\n  \"assistant_id\": \"asst_abc123\",\n  \"run_id\": \"run_abc123\",\n  \"attachments\": [],\n  \"metadata\": {}\n}\n"

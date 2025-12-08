@@ -1,0 +1,34 @@
+components:
+  schemas:
+    ChatCompletionRequestToolMessage:
+      title: Tool message
+      required:
+        - role
+        - content
+        - tool_call_id
+      type: object
+      properties:
+        role:
+          enum:
+            - tool
+          type: string
+          description: 'The role of the messages author, in this case `tool`.'
+          x-stainless-const: true
+        content:
+          anyOf:
+            - title: Text content
+              type: string
+              description: The contents of the tool message.
+            - title: Array of content parts
+              minItems: 1
+              type: array
+              items:
+                $ref: '#/components/schemas/ChatCompletionRequestToolMessageContentPart'
+              description: 'An array of content parts with a defined type. For tool messages, only type `text` is supported.'
+          description: The contents of the tool message.
+        tool_call_id:
+          type: string
+          description: Tool call that this message is responding to.
+      x-stainless-naming:
+        go:
+          variant_constructor: ToolMessage

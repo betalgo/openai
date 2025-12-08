@@ -1,0 +1,140 @@
+components:
+  schemas:
+    RealtimeSession:
+      type: object
+      properties:
+        id:
+          type: string
+          description: "Unique identifier for the session that looks like `sess_1234567890abcdef`.\n"
+        object:
+          enum:
+            - realtime.session
+          type: string
+          description: The object type. Always `realtime.session`.
+        modalities:
+          items:
+            enum:
+              - text
+              - audio
+            type: string
+          description: "The set of modalities the model can respond with. To disable audio,\nset this to [\"text\"].\n"
+        model:
+          enum:
+            - gpt-realtime
+            - gpt-realtime-2025-08-28
+            - gpt-4o-realtime-preview
+            - gpt-4o-realtime-preview-2024-10-01
+            - gpt-4o-realtime-preview-2024-12-17
+            - gpt-4o-realtime-preview-2025-06-03
+            - gpt-4o-mini-realtime-preview
+            - gpt-4o-mini-realtime-preview-2024-12-17
+            - gpt-realtime-mini
+            - gpt-realtime-mini-2025-10-06
+            - gpt-audio-mini
+            - gpt-audio-mini-2025-10-06
+          type: string
+          description: "The Realtime model used for this session.\n"
+        instructions:
+          type: string
+          description: "The default system instructions (i.e. system message) prepended to model\ncalls. This field allows the client to guide the model on desired\nresponses. The model can be instructed on response content and format,\n(e.g. \"be extremely succinct\", \"act friendly\", \"here are examples of good\nresponses\") and on audio behavior (e.g. \"talk quickly\", \"inject emotion\ninto your voice\", \"laugh frequently\"). The instructions are not\nguaranteed to be followed by the model, but they provide guidance to the\nmodel on the desired behavior.\n\n\nNote that the server sets default instructions which will be used if this\nfield is not set and are visible in the `session.created` event at the\nstart of the session.\n"
+        voice:
+          $ref: '#/components/schemas/VoiceIdsShared'
+        input_audio_format:
+          enum:
+            - pcm16
+            - g711_ulaw
+            - g711_alaw
+          type: string
+          description: "The format of input audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`.\nFor `pcm16`, input audio must be 16-bit PCM at a 24kHz sample rate,\nsingle channel (mono), and little-endian byte order.\n"
+          default: pcm16
+        output_audio_format:
+          enum:
+            - pcm16
+            - g711_ulaw
+            - g711_alaw
+          type: string
+          description: "The format of output audio. Options are `pcm16`, `g711_ulaw`, or `g711_alaw`.\nFor `pcm16`, output audio is sampled at a rate of 24kHz.\n"
+          default: pcm16
+        input_audio_transcription:
+          anyOf:
+            - allOf:
+                - $ref: '#/components/schemas/AudioTranscription'
+              description: "Configuration for input audio transcription, defaults to off and can be set to `null` to turn off once on. Input audio transcription is not native to the model, since the model consumes audio directly. Transcription runs asynchronously through [the /audio/transcriptions endpoint](https://platform.openai.com/docs/api-reference/audio/createTranscription) and should be treated as guidance of input audio content rather than precisely what the model heard. The client can optionally set the language and prompt for transcription, these offer additional guidance to the transcription service.\n"
+            - nullable: true
+        turn_detection:
+          $ref: '#/components/schemas/RealtimeTurnDetection'
+        input_audio_noise_reduction:
+          type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/NoiseReductionType'
+          description: "Configuration for input audio noise reduction. This can be set to `null` to turn off.\nNoise reduction filters audio added to the input audio buffer before it is sent to VAD and the model.\nFiltering the audio can improve VAD and turn detection accuracy (reducing false positives) and model performance by improving perception of the input audio.\n"
+        speed:
+          maximum: 1.5
+          minimum: 0.25
+          type: number
+          description: "The speed of the model's spoken response. 1.0 is the default speed. 0.25 is\nthe minimum speed. 1.5 is the maximum speed. This value can only be changed\nin between model turns, not while a response is in progress.\n"
+          default: 1
+        tracing:
+          anyOf:
+            - title: Tracing Configuration
+              anyOf:
+                - enum:
+                    - auto
+                  type: string
+                  description: "Default tracing mode for the session.\n"
+                  default: auto
+                  x-stainless-const: true
+                - title: Tracing Configuration
+                  type: object
+                  properties:
+                    workflow_name:
+                      type: string
+                      description: "The name of the workflow to attach to this trace. This is used to\nname the trace in the traces dashboard.\n"
+                    group_id:
+                      type: string
+                      description: "The group id to attach to this trace to enable filtering and\ngrouping in the traces dashboard.\n"
+                    metadata:
+                      type: object
+                      description: "The arbitrary metadata to attach to this trace to enable\nfiltering in the traces dashboard.\n"
+                  description: "Granular configuration for tracing.\n"
+              description: "Configuration options for tracing. Set to null to disable tracing. Once\ntracing is enabled for a session, the configuration cannot be modified.\n\n`auto` will create a trace for the session with default values for the\nworkflow name, group id, and metadata.\n"
+            - nullable: true
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/RealtimeFunctionTool'
+          description: Tools (functions) available to the model.
+        tool_choice:
+          type: string
+          description: "How the model chooses tools. Options are `auto`, `none`, `required`, or\nspecify a function.\n"
+          default: auto
+        temperature:
+          type: number
+          description: "Sampling temperature for the model, limited to [0.6, 1.2]. For audio models a temperature of 0.8 is highly recommended for best performance.\n"
+          default: 0.8
+        max_response_output_tokens:
+          anyOf:
+            - type: integer
+            - enum:
+                - inf
+              type: string
+              x-stainless-const: true
+          description: "Maximum number of output tokens for a single assistant response,\ninclusive of tool calls. Provide an integer between 1 and 4096 to\nlimit output tokens, or `inf` for the maximum available tokens for a\ngiven model. Defaults to `inf`.\n"
+        expires_at:
+          type: integer
+          description: 'Expiration timestamp for the session, in seconds since epoch.'
+        prompt:
+          anyOf:
+            - $ref: '#/components/schemas/Prompt'
+            - nullable: true
+        include:
+          anyOf:
+            - type: array
+              items:
+                enum:
+                  - item.input_audio_transcription.logprobs
+                type: string
+              description: "Additional fields to include in server outputs.\n- `item.input_audio_transcription.logprobs`: Include logprobs for input audio transcription.\n"
+            - nullable: true
+      description: Realtime session object for the beta interface.

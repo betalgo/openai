@@ -1,0 +1,9 @@
+components:
+  schemas:
+    CreateTranslationResponseJson:
+      required:
+        - text
+      type: object
+      properties:
+        text:
+          type: string

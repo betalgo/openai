@@ -1,0 +1,44 @@
+components:
+  schemas:
+    LocalShellExecAction:
+      title: Local shell exec action
+      required:
+        - type
+        - command
+        - env
+      type: object
+      properties:
+        type:
+          enum:
+            - exec
+          type: string
+          description: The type of the local shell action. Always `exec`.
+          default: exec
+          x-stainless-const: true
+        command:
+          type: array
+          items:
+            type: string
+          description: The command to run.
+        timeout_ms:
+          anyOf:
+            - type: integer
+              description: Optional timeout in milliseconds for the command.
+            - nullable: true
+        working_directory:
+          anyOf:
+            - type: string
+              description: Optional working directory to run the command in.
+            - nullable: true
+        env:
+          type: object
+          additionalProperties:
+            type: string
+          description: Environment variables to set for the command.
+          x-oaiTypeLabel: map
+        user:
+          anyOf:
+            - type: string
+              description: Optional user to run the command as.
+            - nullable: true
+      description: Execute a shell command on the server.

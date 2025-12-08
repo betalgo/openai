@@ -1,0 +1,93 @@
+paths:
+  /organization/audit_logs:
+    get:
+      tags:
+        - Audit Logs
+      summary: List audit logs
+      description: List user actions and configuration changes within this organization.
+      operationId: list-audit-logs
+      parameters:
+        - name: effective_at
+          in: query
+          description: Return only events whose `effective_at` (Unix seconds) is in this range.
+          schema:
+            type: object
+            properties:
+              gt:
+                type: integer
+                description: Return only events whose `effective_at` (Unix seconds) is greater than this value.
+              gte:
+                type: integer
+                description: Return only events whose `effective_at` (Unix seconds) is greater than or equal to this value.
+              lt:
+                type: integer
+                description: Return only events whose `effective_at` (Unix seconds) is less than this value.
+              lte:
+                type: integer
+                description: Return only events whose `effective_at` (Unix seconds) is less than or equal to this value.
+        - name: 'project_ids[]'
+          in: query
+          description: Return only events for these projects.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: 'event_types[]'
+          in: query
+          description: 'Return only events with a `type` in one of these values. For example, `project.created`. For all options, see the documentation for the [audit log object](https://platform.openai.com/docs/api-reference/audit-logs/object).'
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/AuditLogEventType'
+        - name: 'actor_ids[]'
+          in: query
+          description: 'Return only events performed by these actors. Can be a user ID, a service account ID, or an api key tracking ID.'
+          schema:
+            type: array
+            items:
+              type: string
+        - name: 'actor_emails[]'
+          in: query
+          description: Return only events performed by users with these emails.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: 'resource_ids[]'
+          in: query
+          description: 'Return only events performed on these targets. For example, a project ID updated.'
+          schema:
+            type: array
+            items:
+              type: string
+        - name: limit
+          in: query
+          description: "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+          schema:
+            type: integer
+            default: 20
+        - name: after
+          in: query
+          description: "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+          schema:
+            type: string
+        - name: before
+          in: query
+          description: "A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.\n"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Audit logs listed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAuditLogsResponse'
+      x-oaiMeta:
+        name: List audit logs
+        group: audit-logs
+        returns: 'A list of paginated [Audit Log](https://platform.openai.com/docs/api-reference/audit-logs/object) objects.'
+        examples:
+          response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"id\": \"audit_log-xxx_yyyymmdd\",\n            \"type\": \"project.archived\",\n            \"effective_at\": 1722461446,\n            \"actor\": {\n                \"type\": \"api_key\",\n                \"api_key\": {\n                    \"type\": \"user\",\n                    \"user\": {\n                        \"id\": \"user-xxx\",\n                        \"email\": \"user@example.com\"\n                    }\n                }\n            },\n            \"project.archived\": {\n                \"id\": \"proj_abc\"\n            },\n        },\n        {\n            \"id\": \"audit_log-yyy__20240101\",\n            \"type\": \"api_key.updated\",\n            \"effective_at\": 1720804190,\n            \"actor\": {\n                \"type\": \"session\",\n                \"session\": {\n                    \"user\": {\n                        \"id\": \"user-xxx\",\n                        \"email\": \"user@example.com\"\n                    },\n                    \"ip_address\": \"127.0.0.1\",\n                    \"user_agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\",\n                    \"ja3\": \"a497151ce4338a12c4418c44d375173e\",\n                    \"ja4\": \"q13d0313h3_55b375c5d22e_c7319ce65786\",\n                    \"ip_address_details\": {\n                      \"country\": \"US\",\n                      \"city\": \"San Francisco\",\n                      \"region\": \"California\",\n                      \"region_code\": \"CA\",\n                      \"asn\": \"1234\",\n                      \"latitude\": \"37.77490\",\n                      \"longitude\": \"-122.41940\"\n                    }\n                }\n            },\n            \"api_key.updated\": {\n                \"id\": \"key_xxxx\",\n                \"data\": {\n                    \"scopes\": [\"resource_2.operation_2\"]\n                }\n            },\n        }\n    ],\n    \"first_id\": \"audit_log-xxx__20240101\",\n    \"last_id\": \"audit_log_yyy__20240101\",\n    \"has_more\": true\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/organization/audit_logs \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n-H \"Content-Type: application/json\"\n"

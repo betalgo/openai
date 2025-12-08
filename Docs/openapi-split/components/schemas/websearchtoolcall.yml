@@ -1,0 +1,38 @@
+components:
+  schemas:
+    WebSearchToolCall:
+      title: Web search tool call
+      required:
+        - id
+        - type
+        - status
+        - action
+      type: object
+      properties:
+        id:
+          type: string
+          description: "The unique ID of the web search tool call.\n"
+        type:
+          enum:
+            - web_search_call
+          type: string
+          description: "The type of the web search tool call. Always `web_search_call`.\n"
+          x-stainless-const: true
+        status:
+          enum:
+            - in_progress
+            - searching
+            - completed
+            - failed
+          type: string
+          description: "The status of the web search tool call.\n"
+        action:
+          type: object
+          anyOf:
+            - $ref: '#/components/schemas/WebSearchActionSearch'
+            - $ref: '#/components/schemas/WebSearchActionOpenPage'
+            - $ref: '#/components/schemas/WebSearchActionFind'
+          description: "An object describing the specific action taken in this web search call.\nIncludes details on how the model used the web (search, open_page, find).\n"
+          discriminator:
+            propertyName: type
+      description: "The results of a web search tool call. See the\n[web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.\n"

@@ -1,0 +1,83 @@
+components:
+  schemas:
+    VectorStoreObject:
+      title: Vector store
+      required:
+        - id
+        - object
+        - usage_bytes
+        - created_at
+        - status
+        - last_active_at
+        - name
+        - file_counts
+        - metadata
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints.'
+        object:
+          enum:
+            - vector_store
+          type: string
+          description: 'The object type, which is always `vector_store`.'
+          x-stainless-const: true
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the vector store was created.
+        name:
+          type: string
+          description: The name of the vector store.
+        usage_bytes:
+          type: integer
+          description: The total number of bytes used by the files in the vector store.
+        file_counts:
+          required:
+            - in_progress
+            - completed
+            - failed
+            - cancelled
+            - total
+          type: object
+          properties:
+            in_progress:
+              type: integer
+              description: The number of files that are currently being processed.
+            completed:
+              type: integer
+              description: The number of files that have been successfully processed.
+            failed:
+              type: integer
+              description: The number of files that have failed to process.
+            cancelled:
+              type: integer
+              description: The number of files that were cancelled.
+            total:
+              type: integer
+              description: The total number of files.
+        status:
+          enum:
+            - expired
+            - in_progress
+            - completed
+          type: string
+          description: 'The status of the vector store, which can be either `expired`, `in_progress`, or `completed`. A status of `completed` indicates that the vector store is ready for use.'
+        expires_after:
+          $ref: '#/components/schemas/VectorStoreExpirationAfter'
+        expires_at:
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the vector store will expire.
+            - nullable: true
+        last_active_at:
+          anyOf:
+            - type: integer
+              description: The Unix timestamp (in seconds) for when the vector store was last active.
+            - nullable: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      description: A vector store is a collection of processed files can be used by the `file_search` tool.
+      x-oaiMeta:
+        name: The vector store object
+        example: "{\n  \"id\": \"vs_123\",\n  \"object\": \"vector_store\",\n  \"created_at\": 1698107661,\n  \"usage_bytes\": 123456,\n  \"last_active_at\": 1698107661,\n  \"name\": \"my_vector_store\",\n  \"status\": \"completed\",\n  \"file_counts\": {\n    \"in_progress\": 0,\n    \"completed\": 100,\n    \"cancelled\": 0,\n    \"failed\": 0,\n    \"total\": 100\n  },\n  \"last_used_at\": 1698107661\n}\n"

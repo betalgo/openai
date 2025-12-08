@@ -1,0 +1,34 @@
+components:
+  schemas:
+    ChatCompletionRequestSystemMessage:
+      title: System message
+      required:
+        - content
+        - role
+      type: object
+      properties:
+        content:
+          anyOf:
+            - title: Text content
+              type: string
+              description: The contents of the system message.
+            - title: Array of content parts
+              minItems: 1
+              type: array
+              items:
+                $ref: '#/components/schemas/ChatCompletionRequestSystemMessageContentPart'
+              description: 'An array of content parts with a defined type. For system messages, only type `text` is supported.'
+          description: The contents of the system message.
+        role:
+          enum:
+            - system
+          type: string
+          description: 'The role of the messages author, in this case `system`.'
+          x-stainless-const: true
+        name:
+          type: string
+          description: An optional name for the participant. Provides the model information to differentiate between participants of the same role.
+      description: "Developer-provided instructions that the model should follow, regardless of\nmessages sent by the user. With o1 models and newer, use `developer` messages\nfor this purpose instead.\n"
+      x-stainless-naming:
+        go:
+          variant_constructor: SystemMessage

@@ -1,0 +1,38 @@
+components:
+  schemas:
+    EvalList:
+      title: EvalList
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: "The type of this object. It is always set to \"list\".\n"
+          default: list
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Eval'
+          description: "An array of eval objects.\n"
+        first_id:
+          type: string
+          description: The identifier of the first eval in the data array.
+        last_id:
+          type: string
+          description: The identifier of the last eval in the data array.
+        has_more:
+          type: boolean
+          description: Indicates whether there are more evals available.
+      description: "An object representing a list of evals.\n"
+      x-oaiMeta:
+        name: The eval list object
+        group: evals
+        example: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"object\": \"eval\",\n      \"id\": \"eval_67abd54d9b0081909a86353f6fb9317a\",\n      \"data_source_config\": {\n        \"type\": \"custom\",\n        \"schema\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"item\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"input\": {\n                  \"type\": \"string\"\n                },\n                \"ground_truth\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"required\": [\n                \"input\",\n                \"ground_truth\"\n              ]\n            }\n          },\n          \"required\": [\n            \"item\"\n          ]\n        }\n      },\n      \"testing_criteria\": [\n        {\n          \"name\": \"String check\",\n          \"id\": \"String check-2eaf2d8d-d649-4335-8148-9535a7ca73c2\",\n          \"type\": \"string_check\",\n          \"input\": \"{{item.input}}\",\n          \"reference\": \"{{item.ground_truth}}\",\n          \"operation\": \"eq\"\n        }\n      ],\n      \"name\": \"External Data Eval\",\n      \"created_at\": 1739314509,\n      \"metadata\": {},\n    }\n  ],\n  \"first_id\": \"eval_67abd54d9b0081909a86353f6fb9317a\",\n  \"last_id\": \"eval_67abd54d9b0081909a86353f6fb9317a\",\n  \"has_more\": true\n}\n"

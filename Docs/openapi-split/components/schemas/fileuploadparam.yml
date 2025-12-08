@@ -1,0 +1,19 @@
+components:
+  schemas:
+    FileUploadParam:
+      title: File upload configuration
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Enable uploads for this session. Defaults to false.
+        max_file_size:
+          maximum: 512
+          minimum: 1
+          type: integer
+          description: 'Maximum size in megabytes for each uploaded file. Defaults to 512 MB, which is the maximum allowable size.'
+        max_files:
+          minimum: 1
+          type: integer
+          description: Maximum number of files that can be uploaded to the session. Defaults to 10.
+      description: Controls whether users can upload files.

@@ -1,0 +1,40 @@
+components:
+  schemas:
+    ContainerFileResource:
+      title: The container file object
+      required:
+        - id
+        - object
+        - created_at
+        - bytes
+        - container_id
+        - path
+        - source
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the file.
+        object:
+          enum:
+            - container.file
+          type: string
+          description: The type of this object (`container.file`).
+        container_id:
+          type: string
+          description: The container this file belongs to.
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) when the file was created.
+        bytes:
+          type: integer
+          description: Size of the file in bytes.
+        path:
+          type: string
+          description: Path of the file in the container.
+        source:
+          type: string
+          description: 'Source of the file (e.g., `user`, `assistant`).'
+      x-oaiMeta:
+        name: The container file object
+        example: "{\n    \"id\": \"cfile_682e0e8a43c88191a7978f477a09bdf5\",\n    \"object\": \"container.file\",\n    \"created_at\": 1747848842,\n    \"bytes\": 880,\n    \"container_id\": \"cntr_682e0e7318108198aa783fd921ff305e08e78805b9fdbb04\",\n    \"path\": \"/mnt/data/88e12fa445d32636f190a0b33daed6cb-tsconfig.json\",\n    \"source\": \"user\"\n}\n"

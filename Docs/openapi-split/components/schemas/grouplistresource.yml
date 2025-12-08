@@ -1,0 +1,33 @@
+components:
+  schemas:
+    GroupListResource:
+      required:
+        - object
+        - data
+        - has_more
+        - next
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: Always `list`.
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupResponse'
+          description: Groups returned in the current page.
+        has_more:
+          type: boolean
+          description: Whether additional groups are available when paginating.
+        next:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: 'Cursor to fetch the next page of results, or `null` if there are no more results.'
+      description: Paginated list of organization groups.
+      x-oaiMeta:
+        name: Group list
+        example: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"id\": \"group_01J1F8ABCDXYZ\",\n            \"name\": \"Support Team\",\n            \"created_at\": 1711471533,\n            \"is_scim_managed\": false\n        },\n        {\n            \"id\": \"group_01J1F8PQRMNO\",\n            \"name\": \"Sales\",\n            \"created_at\": 1711472599,\n            \"is_scim_managed\": true\n        }\n    ],\n    \"has_more\": false,\n    \"next\": null\n}\n"

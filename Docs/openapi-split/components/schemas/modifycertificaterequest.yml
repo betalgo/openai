@@ -1,0 +1,10 @@
+components:
+  schemas:
+    ModifyCertificateRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: The updated name for the certificate

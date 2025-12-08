@@ -1,0 +1,10 @@
+components:
+  schemas:
+    MessageContent:
+      anyOf:
+        - $ref: '#/components/schemas/MessageContentImageFileObject'
+        - $ref: '#/components/schemas/MessageContentImageUrlObject'
+        - $ref: '#/components/schemas/MessageContentTextObject'
+        - $ref: '#/components/schemas/MessageContentRefusalObject'
+      discriminator:
+        propertyName: type

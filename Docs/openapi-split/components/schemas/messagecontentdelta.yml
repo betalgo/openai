@@ -1,0 +1,10 @@
+components:
+  schemas:
+    MessageContentDelta:
+      anyOf:
+        - $ref: '#/components/schemas/MessageDeltaContentImageFileObject'
+        - $ref: '#/components/schemas/MessageDeltaContentTextObject'
+        - $ref: '#/components/schemas/MessageDeltaContentRefusalObject'
+        - $ref: '#/components/schemas/MessageDeltaContentImageUrlObject'
+      discriminator:
+        propertyName: type

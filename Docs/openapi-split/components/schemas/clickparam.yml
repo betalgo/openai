@@ -1,0 +1,27 @@
+components:
+  schemas:
+    ClickParam:
+      title: Click
+      required:
+        - type
+        - button
+        - x
+        - y
+      type: object
+      properties:
+        type:
+          enum:
+            - click
+          type: string
+          description: 'Specifies the event type. For a click action, this property is always `click`.'
+          default: click
+          x-stainless-const: true
+        button:
+          $ref: '#/components/schemas/ClickButtonType'
+        x:
+          type: integer
+          description: The x-coordinate where the click occurred.
+        y:
+          type: integer
+          description: The y-coordinate where the click occurred.
+      description: A click action.

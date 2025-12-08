@@ -1,0 +1,8 @@
+components:
+  schemas:
+    ChatSessionStatus:
+      enum:
+        - active
+        - expired
+        - cancelled
+      type: string

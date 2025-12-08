@@ -1,0 +1,35 @@
+components:
+  schemas:
+    ConversationItemList:
+      title: The conversation item list
+      required:
+        - object
+        - data
+        - has_more
+        - first_id
+        - last_id
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          description: 'The type of object returned, must be `list`.'
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationItem'
+          description: A list of conversation items.
+        has_more:
+          type: boolean
+          description: Whether there are more items available.
+        first_id:
+          type: string
+          description: The ID of the first item in the list.
+        last_id:
+          type: string
+          description: The ID of the last item in the list.
+      description: A list of Conversation items.
+      x-oaiMeta:
+        name: The item list
+        group: conversations

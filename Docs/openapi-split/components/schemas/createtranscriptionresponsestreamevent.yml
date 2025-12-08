@@ -1,0 +1,9 @@
+components:
+  schemas:
+    CreateTranscriptionResponseStreamEvent:
+      anyOf:
+        - $ref: '#/components/schemas/TranscriptTextSegmentEvent'
+        - $ref: '#/components/schemas/TranscriptTextDeltaEvent'
+        - $ref: '#/components/schemas/TranscriptTextDoneEvent'
+      discriminator:
+        propertyName: type

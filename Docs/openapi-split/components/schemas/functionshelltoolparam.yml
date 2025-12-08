@@ -1,0 +1,16 @@
+components:
+  schemas:
+    FunctionShellToolParam:
+      title: Shell tool
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - shell
+          type: string
+          description: The type of the shell tool. Always `shell`.
+          default: shell
+          x-stainless-const: true
+      description: A tool that allows the model to execute shell commands.

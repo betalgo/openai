@@ -1,0 +1,7 @@
+components:
+  schemas:
+    AttachmentType:
+      enum:
+        - image
+        - file
+      type: string

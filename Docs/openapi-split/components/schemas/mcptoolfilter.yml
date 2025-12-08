@@ -1,0 +1,17 @@
+components:
+  schemas:
+    MCPToolFilter:
+      title: MCP tool filter
+      type: object
+      properties:
+        tool_names:
+          title: MCP allowed tools
+          type: array
+          items:
+            type: string
+          description: List of allowed tool names.
+        read_only:
+          type: boolean
+          description: "Indicates whether or not a tool modifies data or is read-only. If an\nMCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),\nit will match this filter.\n"
+      additionalProperties: false
+      description: "A filter object to specify which tools are allowed.\n"

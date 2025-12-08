@@ -1,0 +1,27 @@
+components:
+  schemas:
+    ItemResource:
+      anyOf:
+        - $ref: '#/components/schemas/InputMessageResource'
+        - $ref: '#/components/schemas/OutputMessage'
+        - $ref: '#/components/schemas/FileSearchToolCall'
+        - $ref: '#/components/schemas/ComputerToolCall'
+        - $ref: '#/components/schemas/ComputerToolCallOutputResource'
+        - $ref: '#/components/schemas/WebSearchToolCall'
+        - $ref: '#/components/schemas/FunctionToolCallResource'
+        - $ref: '#/components/schemas/FunctionToolCallOutputResource'
+        - $ref: '#/components/schemas/ImageGenToolCall'
+        - $ref: '#/components/schemas/CodeInterpreterToolCall'
+        - $ref: '#/components/schemas/LocalShellToolCall'
+        - $ref: '#/components/schemas/LocalShellToolCallOutput'
+        - $ref: '#/components/schemas/FunctionShellCall'
+        - $ref: '#/components/schemas/FunctionShellCallOutput'
+        - $ref: '#/components/schemas/ApplyPatchToolCall'
+        - $ref: '#/components/schemas/ApplyPatchToolCallOutput'
+        - $ref: '#/components/schemas/MCPListTools'
+        - $ref: '#/components/schemas/MCPApprovalRequest'
+        - $ref: '#/components/schemas/MCPApprovalResponseResource'
+        - $ref: '#/components/schemas/MCPToolCall'
+      description: "Content item used to generate a response.\n"
+      discriminator:
+        propertyName: type

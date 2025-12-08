@@ -1,0 +1,32 @@
+components:
+  schemas:
+    RealtimeServerEventResponseOutputItemDone:
+      required:
+        - event_id
+        - type
+        - response_id
+        - output_index
+        - item
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - response.output_item.done
+          description: 'The event type, must be `response.output_item.done`.'
+          x-stainless-const: true
+        response_id:
+          type: string
+          description: The ID of the Response to which the item belongs.
+        output_index:
+          type: integer
+          description: The index of the output item in the Response.
+        item:
+          $ref: '#/components/schemas/RealtimeConversationItem'
+      description: "Returned when an Item is done streaming. Also emitted when a Response is \ninterrupted, incomplete, or cancelled.\n"
+      x-oaiMeta:
+        name: response.output_item.done
+        group: realtime
+        example: "{\n    \"event_id\": \"event_3536\",\n    \"type\": \"response.output_item.done\",\n    \"response_id\": \"resp_001\",\n    \"output_index\": 0,\n    \"item\": {\n        \"id\": \"msg_007\",\n        \"object\": \"realtime.item\",\n        \"type\": \"message\",\n        \"status\": \"completed\",\n        \"role\": \"assistant\",\n        \"content\": [\n            {\n                \"type\": \"text\",\n                \"text\": \"Sure, I can help with that.\"\n            }\n        ]\n    }\n}\n"

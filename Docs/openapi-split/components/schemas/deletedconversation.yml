@@ -1,0 +1,9 @@
+components:
+  schemas:
+    DeletedConversation:
+      title: The deleted conversation object
+      allOf:
+        - $ref: '#/components/schemas/DeletedConversationResource'
+      x-oaiMeta:
+        name: The deleted conversation object
+        group: conversations

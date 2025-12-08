@@ -1,0 +1,13 @@
+components:
+  schemas:
+    UploadCertificateRequest:
+      required:
+        - content
+      type: object
+      properties:
+        name:
+          type: string
+          description: An optional name for the certificate
+        content:
+          type: string
+          description: The certificate content in PEM format

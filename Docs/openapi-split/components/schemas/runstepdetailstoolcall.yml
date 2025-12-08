@@ -1,0 +1,9 @@
+components:
+  schemas:
+    RunStepDetailsToolCall:
+      anyOf:
+        - $ref: '#/components/schemas/RunStepDetailsToolCallsCodeObject'
+        - $ref: '#/components/schemas/RunStepDetailsToolCallsFileSearchObject'
+        - $ref: '#/components/schemas/RunStepDetailsToolCallsFunctionObject'
+      discriminator:
+        propertyName: type

@@ -1,0 +1,41 @@
+components:
+  schemas:
+    TranscriptTextDoneEvent:
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - transcript.text.done
+          type: string
+          description: "The type of the event. Always `transcript.text.done`.\n"
+          x-stainless-const: true
+        text:
+          type: string
+          description: "The text that was transcribed.\n"
+        logprobs:
+          type: array
+          items:
+            type: object
+            properties:
+              token:
+                type: string
+                description: "The token that was used to generate the log probability.\n"
+              logprob:
+                type: number
+                description: "The log probability of the token.\n"
+              bytes:
+                type: array
+                items:
+                  type: integer
+                description: "The bytes that were used to generate the log probability.\n"
+          description: "The log probabilities of the individual tokens in the transcription. Only included if you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `include[]` parameter set to `logprobs`.\n"
+        usage:
+          $ref: '#/components/schemas/TranscriptTextUsageTokens'
+      description: 'Emitted when the transcription is complete. Contains the complete transcription text. Only emitted when you [create a transcription](https://platform.openai.com/docs/api-reference/audio/create-transcription) with the `Stream` parameter set to `true`.'
+      x-oaiMeta:
+        name: Stream Event (transcript.text.done)
+        group: transcript
+        example: "{\n  \"type\": \"transcript.text.done\",\n  \"text\": \"I see skies of blue and clouds of white, the bright blessed days, the dark sacred nights, and I think to myself, what a wonderful world.\",\n  \"usage\": {\n    \"type\": \"tokens\",\n    \"input_tokens\": 14,\n    \"input_token_details\": {\n      \"text_tokens\": 10,\n      \"audio_tokens\": 4\n    },\n    \"output_tokens\": 31,\n    \"total_tokens\": 45\n  }\n}\n"

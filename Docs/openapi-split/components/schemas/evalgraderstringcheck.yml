@@ -1,0 +1,7 @@
+components:
+  schemas:
+    EvalGraderStringCheck:
+      title: StringCheckGrader
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/GraderStringCheck'

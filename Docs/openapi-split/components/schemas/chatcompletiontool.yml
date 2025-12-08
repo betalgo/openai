@@ -1,0 +1,18 @@
+components:
+  schemas:
+    ChatCompletionTool:
+      title: Function tool
+      required:
+        - type
+        - function
+      type: object
+      properties:
+        type:
+          enum:
+            - function
+          type: string
+          description: 'The type of the tool. Currently, only `function` is supported.'
+          x-stainless-const: true
+        function:
+          $ref: '#/components/schemas/FunctionObject'
+      description: "A function tool that can be used to generate a response.\n"

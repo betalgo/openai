@@ -1,0 +1,38 @@
+components:
+  schemas:
+    RealtimeBetaServerEventConversationItemInputAudioTranscriptionDelta:
+      required:
+        - event_id
+        - type
+        - item_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - conversation.item.input_audio_transcription.delta
+          description: 'The event type, must be `conversation.item.input_audio_transcription.delta`.'
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: The ID of the item.
+        content_index:
+          type: integer
+          description: The index of the content part in the item's content array.
+        delta:
+          type: string
+          description: The text delta.
+        logprobs:
+          anyOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/LogProbProperties'
+              description: The log probabilities of the transcription.
+            - nullable: true
+      description: "Returned when the text value of an input audio transcription content part is updated.\n"
+      x-oaiMeta:
+        name: conversation.item.input_audio_transcription.delta
+        group: realtime
+        example: "{\n  \"type\": \"conversation.item.input_audio_transcription.delta\",\n  \"event_id\": \"event_001\",\n  \"item_id\": \"item_001\",\n  \"content_index\": 0,\n  \"delta\": \"Hello\"\n}\n"

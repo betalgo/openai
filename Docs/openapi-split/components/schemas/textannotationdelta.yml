@@ -1,0 +1,8 @@
+components:
+  schemas:
+    TextAnnotationDelta:
+      anyOf:
+        - $ref: '#/components/schemas/MessageDeltaContentTextAnnotationsFileCitationObject'
+        - $ref: '#/components/schemas/MessageDeltaContentTextAnnotationsFilePathObject'
+      discriminator:
+        propertyName: type

@@ -1,0 +1,12 @@
+components:
+  schemas:
+    ChatSessionAutomaticThreadTitling:
+      title: Automatic thread titling
+      required:
+        - enabled
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Whether automatic thread titling is enabled.
+      description: Automatic thread title preferences for the session.

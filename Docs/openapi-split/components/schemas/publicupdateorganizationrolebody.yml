@@ -1,0 +1,25 @@
+components:
+  schemas:
+    PublicUpdateOrganizationRoleBody:
+      type: object
+      properties:
+        permissions:
+          anyOf:
+            - type: array
+              items:
+                type: string
+            - nullable: true
+          description: Updated set of permissions for the role.
+        description:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: New description for the role.
+        role_name:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: New name for the role.
+      description: Request payload for updating an existing role.
+      x-oaiMeta:
+        example: "{\n    \"role_name\": \"API Group Manager\",\n    \"permissions\": [\n        \"api.groups.read\",\n        \"api.groups.write\"\n    ],\n    \"description\": \"Allows managing organization groups\"\n}\n"

@@ -1,0 +1,8 @@
+components:
+  schemas:
+    MessageStatus:
+      enum:
+        - in_progress
+        - completed
+        - incomplete
+      type: string

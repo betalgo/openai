@@ -1,0 +1,42 @@
+paths:
+  /organization/users:
+    get:
+      tags:
+        - Users
+      summary: List users
+      description: Lists all of the users in the organization.
+      operationId: list-users
+      parameters:
+        - name: limit
+          in: query
+          description: "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+          schema:
+            type: integer
+            default: 20
+        - name: after
+          in: query
+          description: "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+          schema:
+            type: string
+        - name: emails
+          in: query
+          description: Filter by the email address of users.
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Users listed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+      x-oaiMeta:
+        name: List users
+        group: administration
+        returns: 'A list of [User](https://platform.openai.com/docs/api-reference/users/object) objects.'
+        examples:
+          response: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"object\": \"organization.user\",\n            \"id\": \"user_abc\",\n            \"name\": \"First Last\",\n            \"email\": \"user@example.com\",\n            \"role\": \"owner\",\n            \"added_at\": 1711471533\n        }\n    ],\n    \"first_id\": \"user-abc\",\n    \"last_id\": \"user-xyz\",\n    \"has_more\": false\n}\n"
+          request:
+            curl: "curl https://api.openai.com/v1/organization/users?after=user_abc&limit=20 \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"

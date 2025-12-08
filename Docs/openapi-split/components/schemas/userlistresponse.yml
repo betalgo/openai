@@ -1,0 +1,26 @@
+components:
+  schemas:
+    UserListResponse:
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        first_id:
+          type: string
+        last_id:
+          type: string
+        has_more:
+          type: boolean

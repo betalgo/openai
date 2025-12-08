@@ -1,0 +1,26 @@
+components:
+  schemas:
+    RunStepDeltaObject:
+      title: Run step delta object
+      required:
+        - id
+        - object
+        - delta
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'The identifier of the run step, which can be referenced in API endpoints.'
+        object:
+          enum:
+            - thread.run.step.delta
+          type: string
+          description: 'The object type, which is always `thread.run.step.delta`.'
+          x-stainless-const: true
+        delta:
+          $ref: '#/components/schemas/RunStepDeltaObjectDelta'
+      description: "Represents a run step delta i.e. any changed fields on a run step during streaming.\n"
+      x-oaiMeta:
+        name: The run step delta object
+        beta: true
+        example: "{\n  \"id\": \"step_123\",\n  \"object\": \"thread.run.step.delta\",\n  \"delta\": {\n    \"step_details\": {\n      \"type\": \"tool_calls\",\n      \"tool_calls\": [\n        {\n          \"index\": 0,\n          \"id\": \"call_123\",\n          \"type\": \"code_interpreter\",\n          \"code_interpreter\": { \"input\": \"\", \"outputs\": [] }\n        }\n      ]\n    }\n  }\n}\n"

@@ -1,0 +1,19 @@
+components:
+  schemas:
+    UrlAnnotation:
+      title: URL annotation
+      required:
+        - type
+        - source
+      type: object
+      properties:
+        type:
+          enum:
+            - url
+          type: string
+          description: Type discriminator that is always `url` for this annotation.
+          default: url
+          x-stainless-const: true
+        source:
+          $ref: '#/components/schemas/UrlAnnotationSource'
+      description: Annotation that references a URL.

@@ -1,0 +1,36 @@
+components:
+  schemas:
+    WebSearchApproximateLocation:
+      anyOf:
+        - title: Web search approximate location
+          type: object
+          properties:
+            type:
+              enum:
+                - approximate
+              type: string
+              description: The type of location approximation. Always `approximate`.
+              default: approximate
+              x-stainless-const: true
+            country:
+              anyOf:
+                - type: string
+                  description: 'The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.'
+                - nullable: true
+            region:
+              anyOf:
+                - type: string
+                  description: 'Free text input for the region of the user, e.g. `California`.'
+                - nullable: true
+            city:
+              anyOf:
+                - type: string
+                  description: 'Free text input for the city of the user, e.g. `San Francisco`.'
+                - nullable: true
+            timezone:
+              anyOf:
+                - type: string
+                  description: 'The [IANA timezone](https://timeapi.io/documentation/iana-timezones) of the user, e.g. `America/Los_Angeles`.'
+                - nullable: true
+          description: "The approximate location of the user.\n"
+        - nullable: true

@@ -1,0 +1,23 @@
+components:
+  schemas:
+    CreateEvalLogsDataSourceConfig:
+      title: LogsDataSourceConfig
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - logs
+          type: string
+          description: The type of data source. Always `logs`.
+          default: logs
+          x-stainless-const: true
+        metadata:
+          type: object
+          description: Metadata filters for the logs data source.
+      description: "A data source config which specifies the metadata property of your logs query.\nThis is usually metadata like `usecase=chatbot` or `prompt-version=v2`, etc.\n"
+      x-oaiMeta:
+        name: The logs data source object for evals
+        group: evals
+        example: "{\n  \"type\": \"logs\",\n  \"metadata\": {\n    \"use_case\": \"customer_support_agent\"\n  }\n}\n"

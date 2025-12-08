@@ -1,0 +1,24 @@
+components:
+  schemas:
+    Move:
+      title: Move
+      required:
+        - type
+        - x
+        - y
+      type: object
+      properties:
+        type:
+          enum:
+            - move
+          type: string
+          description: "Specifies the event type. For a move action, this property is \nalways set to `move`.\n"
+          default: move
+          x-stainless-const: true
+        x:
+          type: integer
+          description: "The x-coordinate to move to.\n"
+        y:
+          type: integer
+          description: "The y-coordinate to move to.\n"
+      description: "A mouse move action.\n"

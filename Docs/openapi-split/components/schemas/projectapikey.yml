@@ -1,0 +1,51 @@
+components:
+  schemas:
+    ProjectApiKey:
+      required:
+        - object
+        - redacted_value
+        - name
+        - created_at
+        - last_used_at
+        - id
+        - owner
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.project.api_key
+          type: string
+          description: 'The object type, which is always `organization.project.api_key`'
+          x-stainless-const: true
+        redacted_value:
+          type: string
+          description: The redacted value of the API key
+        name:
+          type: string
+          description: The name of the API key
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the API key was created
+        last_used_at:
+          type: integer
+          description: The Unix timestamp (in seconds) of when the API key was last used.
+        id:
+          type: string
+          description: 'The identifier, which can be referenced in API endpoints'
+        owner:
+          type: object
+          properties:
+            type:
+              enum:
+                - user
+                - service_account
+              type: string
+              description: '`user` or `service_account`'
+            user:
+              $ref: '#/components/schemas/ProjectUser'
+            service_account:
+              $ref: '#/components/schemas/ProjectServiceAccount'
+      description: Represents an individual API key in a project.
+      x-oaiMeta:
+        name: The project API key object
+        example: "{\n    \"object\": \"organization.project.api_key\",\n    \"redacted_value\": \"sk-abc...def\",\n    \"name\": \"My API Key\",\n    \"created_at\": 1711471533,\n    \"last_used_at\": 1711471534,\n    \"id\": \"key_abc\",\n    \"owner\": {\n        \"type\": \"user\",\n        \"user\": {\n            \"object\": \"organization.project.user\",\n            \"id\": \"user_abc\",\n            \"name\": \"First Last\",\n            \"email\": \"user@example.com\",\n            \"role\": \"owner\",\n            \"created_at\": 1711471533\n        }\n    }\n}\n"

@@ -1,0 +1,20 @@
+components:
+  schemas:
+    InputTextContent:
+      title: Input text
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - input_text
+          type: string
+          description: The type of the input item. Always `input_text`.
+          default: input_text
+          x-stainless-const: true
+        text:
+          type: string
+          description: The text input to the model.
+      description: A text input to the model.

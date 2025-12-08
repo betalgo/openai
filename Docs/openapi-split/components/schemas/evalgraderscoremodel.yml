@@ -1,0 +1,12 @@
+components:
+  schemas:
+    EvalGraderScoreModel:
+      title: EvalGraderScoreModel
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/GraderScoreModel'
+        - type: object
+          properties:
+            pass_threshold:
+              type: number
+              description: The threshold for the score.

@@ -1,0 +1,30 @@
+components:
+  schemas:
+    OutputTextContent:
+      title: Output text
+      required:
+        - type
+        - text
+        - annotations
+      type: object
+      properties:
+        type:
+          enum:
+            - output_text
+          type: string
+          description: The type of the output text. Always `output_text`.
+          default: output_text
+          x-stainless-const: true
+        text:
+          type: string
+          description: The text output from the model.
+        annotations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Annotation'
+          description: The annotations of the text output.
+        logprobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogProb'
+      description: A text output from the model.

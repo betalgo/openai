@@ -1,0 +1,15 @@
+components:
+  schemas:
+    ToolChoiceParam:
+      anyOf:
+        - $ref: '#/components/schemas/ToolChoiceOptions'
+        - $ref: '#/components/schemas/ToolChoiceAllowed'
+        - $ref: '#/components/schemas/ToolChoiceTypes'
+        - $ref: '#/components/schemas/ToolChoiceFunction'
+        - $ref: '#/components/schemas/ToolChoiceMCP'
+        - $ref: '#/components/schemas/ToolChoiceCustom'
+        - $ref: '#/components/schemas/SpecificApplyPatchParam'
+        - $ref: '#/components/schemas/SpecificFunctionShellParam'
+      description: "How the model should select which tool (or tools) to use when generating\na response. See the `tools` parameter to see how to specify which tools\nthe model can call.\n"
+      discriminator:
+        propertyName: type

@@ -1,0 +1,17 @@
+components:
+  schemas:
+    ChatSessionChatkitConfiguration:
+      title: ChatKit configuration
+      required:
+        - automatic_thread_titling
+        - file_upload
+        - history
+      type: object
+      properties:
+        automatic_thread_titling:
+          $ref: '#/components/schemas/ChatSessionAutomaticThreadTitling'
+        file_upload:
+          $ref: '#/components/schemas/ChatSessionFileUpload'
+        history:
+          $ref: '#/components/schemas/ChatSessionHistory'
+      description: ChatKit configuration for the session.

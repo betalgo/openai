@@ -1,0 +1,29 @@
+components:
+  schemas:
+    ResponseOutputItemAddedEvent:
+      required:
+        - type
+        - output_index
+        - item
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.output_item.added
+          type: string
+          description: "The type of the event. Always `response.output_item.added`.\n"
+          x-stainless-const: true
+        output_index:
+          type: integer
+          description: "The index of the output item that was added.\n"
+        sequence_number:
+          type: integer
+          description: "The sequence number of this event.\n"
+        item:
+          $ref: '#/components/schemas/OutputItem'
+      description: Emitted when a new output item is added.
+      x-oaiMeta:
+        name: response.output_item.added
+        group: responses
+        example: "{\n  \"type\": \"response.output_item.added\",\n  \"output_index\": 0,\n  \"item\": {\n    \"id\": \"msg_123\",\n    \"status\": \"in_progress\",\n    \"type\": \"message\",\n    \"role\": \"assistant\",\n    \"content\": []\n  },\n  \"sequence_number\": 1\n}\n"

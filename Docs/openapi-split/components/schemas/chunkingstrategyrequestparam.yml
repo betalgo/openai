@@ -1,0 +1,10 @@
+components:
+  schemas:
+    ChunkingStrategyRequestParam:
+      type: object
+      anyOf:
+        - $ref: '#/components/schemas/AutoChunkingStrategyRequestParam'
+        - $ref: '#/components/schemas/StaticChunkingStrategyRequestParam'
+      description: 'The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy. Only applicable if `file_ids` is non-empty.'
+      discriminator:
+        propertyName: type

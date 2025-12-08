@@ -1,0 +1,15 @@
+components:
+  schemas:
+    ResponseFormatJsonObject:
+      title: JSON object
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - json_object
+          type: string
+          description: The type of response format being defined. Always `json_object`.
+          x-stainless-const: true
+      description: "JSON object response format. An older method of generating JSON responses.\nUsing `json_schema` is recommended for models that support it. Note that the\nmodel will not generate JSON without a system or user message instructing it\nto do so.\n"

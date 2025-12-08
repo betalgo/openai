@@ -1,0 +1,30 @@
+paths:
+  '/organization/roles/{role_id}':
+    delete:
+      tags:
+        - Roles
+      summary: Delete organization role
+      description: Deletes a custom role from the organization.
+      operationId: delete-role
+      parameters:
+        - name: role_id
+          in: path
+          description: The ID of the role to delete.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Role deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleDeletedResource'
+      x-oaiMeta:
+        name: Delete organization role
+        group: administration
+        returns: Confirmation of the deleted role.
+        examples:
+          request:
+            curl: "curl -X DELETE https://api.openai.com/v1/organization/roles/role_01J1F8ROLE01 \\\n  -H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n  -H \"Content-Type: application/json\"\n"
+          response: "{\n    \"object\": \"role.deleted\",\n    \"id\": \"role_01J1F8ROLE01\",\n    \"deleted\": true\n}\n"

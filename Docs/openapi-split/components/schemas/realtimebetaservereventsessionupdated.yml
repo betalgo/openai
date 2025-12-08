@@ -1,0 +1,24 @@
+components:
+  schemas:
+    RealtimeBetaServerEventSessionUpdated:
+      required:
+        - event_id
+        - type
+        - session
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - session.updated
+          description: 'The event type, must be `session.updated`.'
+          x-stainless-const: true
+        session:
+          $ref: '#/components/schemas/RealtimeSession'
+      description: "Returned when a session is updated with a `session.update` event, unless\nthere is an error.\n"
+      x-oaiMeta:
+        name: session.updated
+        group: realtime
+        example: "{\n    \"event_id\": \"event_5678\",\n    \"type\": \"session.updated\",\n    \"session\": {\n        \"id\": \"sess_001\",\n        \"object\": \"realtime.session\",\n        \"model\": \"gpt-realtime\",\n        \"modalities\": [\"text\"],\n        \"instructions\": \"New instructions\",\n        \"voice\": \"sage\",\n        \"input_audio_format\": \"pcm16\",\n        \"output_audio_format\": \"pcm16\",\n        \"input_audio_transcription\": {\n            \"model\": \"whisper-1\"\n        },\n        \"turn_detection\": null,\n        \"tools\": [],\n        \"tool_choice\": \"none\",\n        \"temperature\": 0.7,\n        \"max_response_output_tokens\": 200,\n        \"speed\": 1.1,\n        \"tracing\": \"auto\"\n    }\n}\n"

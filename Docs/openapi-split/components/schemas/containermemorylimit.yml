@@ -1,0 +1,9 @@
+components:
+  schemas:
+    ContainerMemoryLimit:
+      enum:
+        - 1g
+        - 4g
+        - 16g
+        - 64g
+      type: string

@@ -1,0 +1,28 @@
+components:
+  schemas:
+    ListAuditLogsResponse:
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+        first_id:
+          type: string
+          example: audit_log-defb456h8dks
+        last_id:
+          type: string
+          example: audit_log-hnbkd8s93s
+        has_more:
+          type: boolean

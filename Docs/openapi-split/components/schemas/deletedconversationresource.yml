@@ -1,0 +1,19 @@
+components:
+  schemas:
+    DeletedConversationResource:
+      required:
+        - object
+        - deleted
+        - id
+      type: object
+      properties:
+        object:
+          enum:
+            - conversation.deleted
+          type: string
+          default: conversation.deleted
+          x-stainless-const: true
+        deleted:
+          type: boolean
+        id:
+          type: string

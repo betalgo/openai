@@ -1,0 +1,13 @@
+components:
+  schemas:
+    PublicAssignOrganizationGroupRoleBody:
+      required:
+        - role_id
+      type: object
+      properties:
+        role_id:
+          type: string
+          description: Identifier of the role to assign.
+      description: Request payload for assigning a role to a group or user.
+      x-oaiMeta:
+        example: "{\n    \"role_id\": \"role_01J1F8ROLE01\"\n}\n"

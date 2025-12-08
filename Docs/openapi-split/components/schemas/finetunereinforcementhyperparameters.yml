@@ -1,0 +1,78 @@
+components:
+  schemas:
+    FineTuneReinforcementHyperparameters:
+      type: object
+      properties:
+        batch_size:
+          anyOf:
+            - enum:
+                - auto
+              type: string
+              x-stainless-const: true
+            - maximum: 256
+              minimum: 1
+              type: integer
+          description: "Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance.\n"
+          default: auto
+        learning_rate_multiplier:
+          anyOf:
+            - enum:
+                - auto
+              type: string
+              x-stainless-const: true
+            - minimum: True
+              exclusiveMinimum: true
+              type: number
+          description: "Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting.\n"
+        n_epochs:
+          anyOf:
+            - enum:
+                - auto
+              type: string
+              x-stainless-const: true
+            - maximum: 50
+              minimum: 1
+              type: integer
+          description: "The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset.\n"
+          default: auto
+        reasoning_effort:
+          enum:
+            - default
+            - low
+            - medium
+            - high
+          type: string
+          description: "Level of reasoning effort.\n"
+          default: default
+        compute_multiplier:
+          anyOf:
+            - enum:
+                - auto
+              type: string
+              x-stainless-const: true
+            - maximum: 10
+              minimum: True
+              exclusiveMinimum: true
+              type: number
+          description: "Multiplier on amount of compute used for exploring search space during training.\n"
+        eval_interval:
+          anyOf:
+            - enum:
+                - auto
+              type: string
+              x-stainless-const: true
+            - minimum: 1
+              type: integer
+          description: "The number of training steps between evaluation runs.\n"
+          default: auto
+        eval_samples:
+          anyOf:
+            - enum:
+                - auto
+              type: string
+              x-stainless-const: true
+            - minimum: 1
+              type: integer
+          description: "Number of evaluation samples to generate per training step.\n"
+          default: auto
+      description: The hyperparameters used for the reinforcement fine-tuning job.

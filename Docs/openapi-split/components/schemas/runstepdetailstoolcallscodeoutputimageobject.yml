@@ -1,0 +1,28 @@
+components:
+  schemas:
+    RunStepDetailsToolCallsCodeOutputImageObject:
+      title: Code Interpreter image output
+      required:
+        - type
+        - image
+      type: object
+      properties:
+        type:
+          enum:
+            - image
+          type: string
+          description: Always `image`.
+          x-stainless-const: true
+        image:
+          required:
+            - file_id
+          type: object
+          properties:
+            file_id:
+              type: string
+              description: 'The [file](https://platform.openai.com/docs/api-reference/files) ID of the image.'
+      x-stainless-naming:
+        java:
+          type_name: ImageOutput
+        kotlin:
+          type_name: ImageOutput

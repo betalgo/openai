@@ -1,0 +1,20 @@
+components:
+  schemas:
+    WebSearchActionOpenPage:
+      title: Open page action
+      required:
+        - type
+        - url
+      type: object
+      properties:
+        type:
+          enum:
+            - open_page
+          type: string
+          description: "The action type.\n"
+          x-stainless-const: true
+        url:
+          type: string
+          description: "The URL opened by the model.\n"
+          format: uri
+      description: "Action type \"open_page\" - Opens a specific URL from search results.\n"

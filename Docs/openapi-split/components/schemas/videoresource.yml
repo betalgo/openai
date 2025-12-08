@@ -1,0 +1,69 @@
+components:
+  schemas:
+    VideoResource:
+      title: Video job
+      required:
+        - id
+        - object
+        - model
+        - status
+        - progress
+        - created_at
+        - completed_at
+        - expires_at
+        - prompt
+        - size
+        - seconds
+        - remixed_from_video_id
+        - error
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the video job.
+        object:
+          enum:
+            - video
+          type: string
+          description: 'The object type, which is always `video`.'
+          default: video
+          x-stainless-const: true
+        model:
+          $ref: '#/components/schemas/VideoModel'
+        status:
+          $ref: '#/components/schemas/VideoStatus'
+        progress:
+          type: integer
+          description: Approximate completion percentage for the generation task.
+        created_at:
+          type: integer
+          description: Unix timestamp (seconds) for when the job was created.
+        completed_at:
+          anyOf:
+            - type: integer
+              description: 'Unix timestamp (seconds) for when the job completed, if finished.'
+            - nullable: true
+        expires_at:
+          anyOf:
+            - type: integer
+              description: 'Unix timestamp (seconds) for when the downloadable assets expire, if set.'
+            - nullable: true
+        prompt:
+          anyOf:
+            - type: string
+              description: The prompt that was used to generate the video.
+            - nullable: true
+        size:
+          $ref: '#/components/schemas/VideoSize'
+        seconds:
+          $ref: '#/components/schemas/VideoSeconds'
+        remixed_from_video_id:
+          anyOf:
+            - type: string
+              description: Identifier of the source video if this video is a remix.
+            - nullable: true
+        error:
+          anyOf:
+            - $ref: '#/components/schemas/Error-2'
+            - nullable: true
+      description: Structured information describing a generated video job.

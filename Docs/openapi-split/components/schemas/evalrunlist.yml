@@ -1,0 +1,38 @@
+components:
+  schemas:
+    EvalRunList:
+      title: EvalRunList
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: "The type of this object. It is always set to \"list\".\n"
+          default: list
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvalRun'
+          description: "An array of eval run objects.\n"
+        first_id:
+          type: string
+          description: The identifier of the first eval run in the data array.
+        last_id:
+          type: string
+          description: The identifier of the last eval run in the data array.
+        has_more:
+          type: boolean
+          description: Indicates whether there are more evals available.
+      description: "An object representing a list of runs for an evaluation.\n"
+      x-oaiMeta:
+        name: The eval run list object
+        group: evals
+        example: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"object\": \"eval.run\",\n      \"id\": \"evalrun_67b7fbdad46c819092f6fe7a14189620\",\n      \"eval_id\": \"eval_67b7fa9a81a88190ab4aa417e397ea21\",\n      \"report_url\": \"https://platform.openai.com/evaluations/eval_67b7fa9a81a88190ab4aa417e397ea21?run_id=evalrun_67b7fbdad46c819092f6fe7a14189620\",\n      \"status\": \"completed\",\n      \"model\": \"o3-mini\",\n      \"name\": \"Academic Assistant\",\n      \"created_at\": 1740110812,\n      \"result_counts\": {\n        \"total\": 171,\n        \"errored\": 0,\n        \"failed\": 80,\n        \"passed\": 91\n      },\n      \"per_model_usage\": null,\n      \"per_testing_criteria_results\": [\n        {\n          \"testing_criteria\": \"String check grader\",\n          \"passed\": 91,\n          \"failed\": 80\n        }\n      ],\n      \"run_data_source\": {\n        \"type\": \"completions\",\n        \"template_messages\": [\n          {\n            \"type\": \"message\",\n            \"role\": \"system\",\n            \"content\": {\n              \"type\": \"input_text\",\n              \"text\": \"You are a helpful assistant.\"\n            }\n          },\n          {\n            \"type\": \"message\",\n            \"role\": \"user\",\n            \"content\": {\n              \"type\": \"input_text\",\n              \"text\": \"Hello, can you help me with my homework?\"\n            }\n          }\n        ],\n        \"datasource_reference\": null,\n        \"model\": \"o3-mini\",\n        \"max_completion_tokens\": null,\n        \"seed\": null,\n        \"temperature\": null,\n        \"top_p\": null\n      },\n      \"error\": null,\n      \"metadata\": {\"test\": \"synthetics\"}\n    }\n  ],\n  \"first_id\": \"evalrun_67abd54d60ec8190832b46859da808f7\",\n  \"last_id\": \"evalrun_67abd54d60ec8190832b46859da808f7\",\n  \"has_more\": false\n}\n"

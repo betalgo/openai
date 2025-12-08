@@ -1,0 +1,20 @@
+components:
+  schemas:
+    EvalApiError:
+      title: EvalApiError
+      required:
+        - code
+        - message
+      type: object
+      properties:
+        code:
+          type: string
+          description: The error code.
+        message:
+          type: string
+          description: The error message.
+      description: "An object representing an error response from the Eval API.\n"
+      x-oaiMeta:
+        name: The API error object
+        group: evals
+        example: "{\n  \"code\": \"internal_error\",\n  \"message\": \"The eval run failed due to an internal error.\"\n}\n"

@@ -1,0 +1,33 @@
+components:
+  schemas:
+    RealtimeServerEventConversationCreated:
+      required:
+        - event_id
+        - type
+        - conversation
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - conversation.created
+          description: 'The event type, must be `conversation.created`.'
+          x-stainless-const: true
+        conversation:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The unique ID of the conversation.
+            object:
+              enum:
+                - realtime.conversation
+              description: 'The object type, must be `realtime.conversation`.'
+          description: The conversation resource.
+      description: "Returned when a conversation is created. Emitted right after session creation.\n"
+      x-oaiMeta:
+        name: conversation.created
+        group: realtime
+        example: "{\n    \"event_id\": \"event_9101\",\n    \"type\": \"conversation.created\",\n    \"conversation\": {\n        \"id\": \"conv_001\",\n        \"object\": \"realtime.conversation\"\n    }\n}\n"

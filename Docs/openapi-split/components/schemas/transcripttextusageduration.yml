@@ -1,0 +1,19 @@
+components:
+  schemas:
+    TranscriptTextUsageDuration:
+      title: TranscriptTextUsageDuration
+      required:
+        - type
+        - seconds
+      type: object
+      properties:
+        type:
+          enum:
+            - duration
+          type: string
+          description: The type of the usage object. Always `duration` for this variant.
+          x-stainless-const: true
+        seconds:
+          type: number
+          description: Duration of the input audio in seconds.
+      description: Usage statistics for models billed by audio input duration.

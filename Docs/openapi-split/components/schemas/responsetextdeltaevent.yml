@@ -1,0 +1,44 @@
+components:
+  schemas:
+    ResponseTextDeltaEvent:
+      required:
+        - type
+        - item_id
+        - output_index
+        - content_index
+        - delta
+        - sequence_number
+        - logprobs
+      type: object
+      properties:
+        type:
+          enum:
+            - response.output_text.delta
+          type: string
+          description: "The type of the event. Always `response.output_text.delta`.\n"
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: "The ID of the output item that the text delta was added to.\n"
+        output_index:
+          type: integer
+          description: "The index of the output item that the text delta was added to.\n"
+        content_index:
+          type: integer
+          description: "The index of the content part that the text delta was added to.\n"
+        delta:
+          type: string
+          description: "The text delta that was added.\n"
+        sequence_number:
+          type: integer
+          description: The sequence number for this event.
+        logprobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseLogProb'
+          description: "The log probabilities of the tokens in the delta.\n"
+      description: Emitted when there is an additional text delta.
+      x-oaiMeta:
+        name: response.output_text.delta
+        group: responses
+        example: "{\n  \"type\": \"response.output_text.delta\",\n  \"item_id\": \"msg_123\",\n  \"output_index\": 0,\n  \"content_index\": 0,\n  \"delta\": \"In\",\n  \"sequence_number\": 1\n}\n"

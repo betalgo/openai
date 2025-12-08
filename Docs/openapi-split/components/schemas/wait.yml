@@ -1,0 +1,16 @@
+components:
+  schemas:
+    Wait:
+      title: Wait
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - wait
+          type: string
+          description: "Specifies the event type. For a wait action, this property is \nalways set to `wait`.\n"
+          default: wait
+          x-stainless-const: true
+      description: "A wait action.\n"

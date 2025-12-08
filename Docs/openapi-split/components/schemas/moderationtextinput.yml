@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ModerationTextInput:
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - text
+          type: string
+          description: Always `text`.
+          x-stainless-const: true
+        text:
+          type: string
+          description: A string of text to classify.
+          example: I want to kill them
+      description: An object describing text to classify.

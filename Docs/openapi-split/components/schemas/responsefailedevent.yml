@@ -1,0 +1,25 @@
+components:
+  schemas:
+    ResponseFailedEvent:
+      required:
+        - type
+        - response
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.failed
+          type: string
+          description: "The type of the event. Always `response.failed`.\n"
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+        response:
+          $ref: '#/components/schemas/Response'
+      description: "An event that is emitted when a response fails.\n"
+      x-oaiMeta:
+        name: response.failed
+        group: responses
+        example: "{\n  \"type\": \"response.failed\",\n  \"response\": {\n    \"id\": \"resp_123\",\n    \"object\": \"response\",\n    \"created_at\": 1740855869,\n    \"status\": \"failed\",\n    \"error\": {\n      \"code\": \"server_error\",\n      \"message\": \"The model failed to generate a response.\"\n    },\n    \"incomplete_details\": null,\n    \"instructions\": null,\n    \"max_output_tokens\": null,\n    \"model\": \"gpt-4o-mini-2024-07-18\",\n    \"output\": [],\n    \"previous_response_id\": null,\n    \"reasoning_effort\": null,\n    \"store\": false,\n    \"temperature\": 1,\n    \"text\": {\n      \"format\": {\n        \"type\": \"text\"\n      }\n    },\n    \"tool_choice\": \"auto\",\n    \"tools\": [],\n    \"top_p\": 1,\n    \"truncation\": \"disabled\",\n    \"usage\": null,\n    \"user\": null,\n    \"metadata\": {}\n  }\n}\n"

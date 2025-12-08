@@ -1,0 +1,20 @@
+components:
+  schemas:
+    Type:
+      title: Type
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - type
+          type: string
+          description: "Specifies the event type. For a type action, this property is \nalways set to `type`.\n"
+          default: type
+          x-stainless-const: true
+        text:
+          type: string
+          description: "The text to type.\n"
+      description: "An action to type in text.\n"

@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ToolChoiceCustom:
+      title: Custom tool
+      required:
+        - type
+        - name
+      type: object
+      properties:
+        type:
+          enum:
+            - custom
+          type: string
+          description: 'For custom tool calling, the type is always `custom`.'
+          x-stainless-const: true
+        name:
+          type: string
+          description: The name of the custom tool to call.
+      description: "Use this option to force the model to call a specific custom tool.\n"

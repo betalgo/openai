@@ -1,0 +1,19 @@
+components:
+  schemas:
+    RealtimeMCPProtocolError:
+      title: Realtime MCP protocol error
+      required:
+        - type
+        - code
+        - message
+      type: object
+      properties:
+        type:
+          enum:
+            - protocol_error
+          type: string
+          x-stainless-const: true
+        code:
+          type: integer
+        message:
+          type: string

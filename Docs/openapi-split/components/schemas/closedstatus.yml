@@ -1,0 +1,22 @@
+components:
+  schemas:
+    ClosedStatus:
+      title: Closed thread status
+      required:
+        - type
+        - reason
+      type: object
+      properties:
+        type:
+          enum:
+            - closed
+          type: string
+          description: Status discriminator that is always `closed`.
+          default: closed
+          x-stainless-const: true
+        reason:
+          anyOf:
+            - type: string
+              description: Reason that the thread was closed. Defaults to null when no reason is recorded.
+            - nullable: true
+      description: Indicates that a thread has been closed.

@@ -1,0 +1,38 @@
+components:
+  schemas:
+    RunStepDetailsToolCallsFunctionObject:
+      title: Function tool call
+      required:
+        - id
+        - type
+        - function
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the tool call object.
+        type:
+          enum:
+            - function
+          type: string
+          description: The type of tool call. This is always going to be `function` for this type of tool call.
+          x-stainless-const: true
+        function:
+          required:
+            - name
+            - arguments
+            - output
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the function.
+            arguments:
+              type: string
+              description: The arguments passed to the function.
+            output:
+              anyOf:
+                - type: string
+                  description: 'The output of the function. This will be `null` if the outputs have not been [submitted](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) yet.'
+                - nullable: true
+          description: The definition of the function that was called.

@@ -1,0 +1,29 @@
+components:
+  schemas:
+    RealtimeServerEventConversationItemDone:
+      required:
+        - event_id
+        - type
+        - item
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - conversation.item.done
+          description: 'The event type, must be `conversation.item.done`.'
+          x-stainless-const: true
+        previous_item_id:
+          anyOf:
+            - type: string
+              description: "The ID of the item that precedes this one, if any. This is used to\nmaintain ordering when items are inserted.\n"
+            - nullable: true
+        item:
+          $ref: '#/components/schemas/RealtimeConversationItem'
+      description: "Returned when a conversation item is finalized.\n\nThe event will include the full content of the Item except for audio data, which can be retrieved separately with a `conversation.item.retrieve` event if needed.\n"
+      x-oaiMeta:
+        name: conversation.item.done
+        group: realtime
+        example: "{\n  \"type\": \"conversation.item.done\",\n  \"event_id\": \"event_CCXLgMZPo3qioWCeQa4WH\",\n  \"previous_item_id\": \"item_CCXLecNJVIVR2HUy3ABLj\",\n  \"item\": {\n    \"id\": \"item_CCXLfxmM5sXVJVz4mCa2S\",\n    \"type\": \"message\",\n    \"status\": \"completed\",\n    \"role\": \"assistant\",\n    \"content\": [\n      {\n        \"type\": \"output_audio\",\n        \"transcript\": \"Oh, I can hear you loud and clear! Sounds like we're connected just fine. What can I help you with today?\"\n      }\n    ]\n  }\n}\n"

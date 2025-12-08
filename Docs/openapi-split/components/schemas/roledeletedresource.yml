@@ -1,0 +1,25 @@
+components:
+  schemas:
+    RoleDeletedResource:
+      required:
+        - object
+        - id
+        - deleted
+      type: object
+      properties:
+        object:
+          enum:
+            - role.deleted
+          type: string
+          description: Always `role.deleted`.
+          x-stainless-const: true
+        id:
+          type: string
+          description: Identifier of the deleted role.
+        deleted:
+          type: boolean
+          description: Whether the role was deleted.
+      description: Confirmation payload returned after deleting a role.
+      x-oaiMeta:
+        name: Role deletion confirmation
+        example: "{\n    \"object\": \"role.deleted\",\n    \"id\": \"role_01J1F8ROLE01\",\n    \"deleted\": true\n}\n"

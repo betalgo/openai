@@ -1,0 +1,33 @@
+components:
+  schemas:
+    UserListResource:
+      required:
+        - object
+        - data
+        - has_more
+        - next
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: Always `list`.
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+          description: Users in the current page.
+        has_more:
+          type: boolean
+          description: Whether more users are available when paginating.
+        next:
+          anyOf:
+            - type: string
+            - nullable: true
+          description: 'Cursor to fetch the next page of results, or `null` when no further users are available.'
+      description: Paginated list of user objects returned when inspecting group membership.
+      x-oaiMeta:
+        name: Group user list
+        example: "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"object\": \"organization.user\",\n            \"id\": \"user_abc123\",\n            \"name\": \"Ada Lovelace\",\n            \"email\": \"ada@example.com\",\n            \"role\": \"owner\",\n            \"added_at\": 1711471533\n        }\n    ],\n    \"has_more\": false,\n    \"next\": null\n}\n"

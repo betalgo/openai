@@ -1,0 +1,11 @@
+components:
+  schemas:
+    RateLimitsParam:
+      title: Rate limit overrides
+      type: object
+      properties:
+        max_requests_per_1_minute:
+          minimum: 1
+          type: integer
+          description: Maximum number of requests allowed per minute for the session. Defaults to 10.
+      description: Controls request rate limits for the session.

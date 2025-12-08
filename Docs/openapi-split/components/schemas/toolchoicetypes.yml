@@ -1,0 +1,19 @@
+components:
+  schemas:
+    ToolChoiceTypes:
+      title: Hosted tool
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - file_search
+            - web_search_preview
+            - computer_use_preview
+            - web_search_preview_2025_03_11
+            - image_generation
+            - code_interpreter
+          type: string
+          description: "The type of hosted tool the model should to use. Learn more about\n[built-in tools](https://platform.openai.com/docs/guides/tools).\n\nAllowed values are:\n- `file_search`\n- `web_search_preview`\n- `computer_use_preview`\n- `code_interpreter`\n- `image_generation`\n"
+      description: "Indicates that the model should use a built-in tool to generate a response.\n[Learn more about built-in tools](https://platform.openai.com/docs/guides/tools).\n"

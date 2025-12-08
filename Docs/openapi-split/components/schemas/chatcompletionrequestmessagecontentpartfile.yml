@@ -1,0 +1,36 @@
+components:
+  schemas:
+    ChatCompletionRequestMessageContentPartFile:
+      title: File content part
+      required:
+        - type
+        - file
+      type: object
+      properties:
+        type:
+          enum:
+            - file
+          type: string
+          description: The type of the content part. Always `file`.
+          x-stainless-const: true
+        file:
+          type: object
+          properties:
+            filename:
+              type: string
+              description: "The name of the file, used when passing the file to the model as a \nstring.\n"
+            file_data:
+              type: string
+              description: "The base64 encoded file data, used when passing the file to the model \nas a string.\n"
+            file_id:
+              type: string
+              description: "The ID of an uploaded file to use as input.\n"
+          x-stainless-naming:
+            java:
+              type_name: FileObject
+            kotlin:
+              type_name: FileObject
+      description: "Learn about [file inputs](https://platform.openai.com/docs/guides/text) for text generation.\n"
+      x-stainless-naming:
+        go:
+          variant_constructor: FileContentPart

@@ -1,0 +1,51 @@
+components:
+  schemas:
+    TaskItem:
+      title: Task item
+      required:
+        - id
+        - object
+        - created_at
+        - thread_id
+        - type
+        - task_type
+        - heading
+        - summary
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the thread item.
+        object:
+          enum:
+            - chatkit.thread_item
+          type: string
+          description: Type discriminator that is always `chatkit.thread_item`.
+          default: chatkit.thread_item
+          x-stainless-const: true
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) for when the item was created.
+        thread_id:
+          type: string
+          description: Identifier of the parent thread.
+        type:
+          enum:
+            - chatkit.task
+          type: string
+          description: Type discriminator that is always `chatkit.task`.
+          default: chatkit.task
+          x-stainless-const: true
+        task_type:
+          $ref: '#/components/schemas/TaskType'
+        heading:
+          anyOf:
+            - type: string
+              description: Optional heading for the task. Defaults to null when not provided.
+            - nullable: true
+        summary:
+          anyOf:
+            - type: string
+              description: Optional summary that describes the task. Defaults to null when omitted.
+            - nullable: true
+      description: Task emitted by the workflow to show progress and status updates.

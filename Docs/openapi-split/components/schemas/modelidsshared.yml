@@ -1,0 +1,7 @@
+components:
+  schemas:
+    ModelIdsShared:
+      anyOf:
+        - type: string
+        - $ref: '#/components/schemas/ChatModel'
+      example: gpt-4o

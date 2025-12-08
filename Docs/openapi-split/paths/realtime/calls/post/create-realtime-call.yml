@@ -1,0 +1,45 @@
+paths:
+  /realtime/calls:
+    post:
+      tags:
+        - Realtime
+      summary: Create call
+      description: "Create a new Realtime API call over WebRTC and receive the SDP answer needed\nto complete the peer connection."
+      operationId: create-realtime-call
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RealtimeCallCreateRequest'
+            encoding:
+              sdp:
+                contentType: application/sdp
+              session:
+                contentType: application/json
+          application/sdp:
+            schema:
+              type: string
+              description: "WebRTC SDP offer. Use this variant when you have previously created an\nephemeral **session token** and are authenticating the request with it.\nRealtime session parameters will be retrieved from the session token."
+        required: true
+      responses:
+        '201':
+          description: Realtime call created successfully.
+          headers:
+            Location:
+              description: Relative URL containing the call ID for subsequent control requests.
+              schema:
+                type: string
+          content:
+            application/sdp:
+              schema:
+                type: string
+                description: SDP answer produced by OpenAI for the peer connection.
+      x-oaiMeta:
+        name: Create call
+        group: realtime
+        returns: "Returns `201 Created` with the SDP answer in the response body. The\n`Location` response header includes the call ID for follow-up requests,\ne.g., establishing a monitoring WebSocket or hanging up the call."
+        examples:
+          response: "v=0\no=- 4227147428 1719357865 IN IP4 127.0.0.1\ns=-\nc=IN IP4 0.0.0.0\nt=0 0\na=group:BUNDLE 0 1\na=msid-semantic:WMS *\na=fingerprint:sha-256 CA:92:52:51:B4:91:3B:34:DD:9C:0B:FB:76:19:7E:3B:F1:21:0F:32:2C:38:01:72:5D:3F:78:C7:5F:8B:C7:36\nm=audio 9 UDP/TLS/RTP/SAVPF 111 0 8\na=mid:0\na=ice-ufrag:kZ2qkHXX/u11\na=ice-pwd:uoD16Di5OGx3VbqgA3ymjEQV2kwiOjw6\na=setup:active\na=rtcp-mux\na=rtpmap:111 opus/48000/2\na=candidate:993865896 1 udp 2130706431 4.155.146.196 3478 typ host ufrag kZ2qkHXX/u11\na=candidate:1432411780 1 tcp 1671430143 4.155.146.196 443 typ host tcptype passive ufrag kZ2qkHXX/u11\nm=application 9 UDP/DTLS/SCTP webrtc-datachannel\na=mid:1\na=sctp-port:5000"
+          request:
+            curl: "curl -X POST https://api.openai.com/v1/realtime/calls \\\n  -H \"Authorization: Bearer $OPENAI_API_KEY\" \\\n  -F \"sdp=<offer.sdp;type=application/sdp\" \\\n  -F 'session={\"type\":\"realtime\",\"model\":\"gpt-realtime\"};type=application/json'"
+            python: "from openai import OpenAI\n\nclient = OpenAI(\n    api_key=\"My API Key\",\n)\ncall = client.realtime.calls.create(\n    sdp=\"sdp\",\n)\nprint(call)\ncontent = call.read()\nprint(content)"

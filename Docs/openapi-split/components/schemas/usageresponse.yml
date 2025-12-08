@@ -1,0 +1,23 @@
+components:
+  schemas:
+    UsageResponse:
+      required:
+        - object
+        - data
+        - has_more
+        - next_page
+      type: object
+      properties:
+        object:
+          enum:
+            - page
+          type: string
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageTimeBucket'
+        has_more:
+          type: boolean
+        next_page:
+          type: string

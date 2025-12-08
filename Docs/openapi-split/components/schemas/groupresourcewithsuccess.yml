@@ -1,0 +1,26 @@
+components:
+  schemas:
+    GroupResourceWithSuccess:
+      required:
+        - id
+        - name
+        - created_at
+        - is_scim_managed
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier for the group.
+        name:
+          type: string
+          description: Updated display name for the group.
+        created_at:
+          type: integer
+          description: Unix timestamp (in seconds) when the group was created.
+          format: int64
+        is_scim_managed:
+          type: boolean
+          description: Whether the group is managed through SCIM and controlled by your identity provider.
+      description: Response returned after updating a group.
+      x-oaiMeta:
+        example: "{\n    \"id\": \"group_01J1F8ABCDXYZ\",\n    \"name\": \"Escalations\",\n    \"created_at\": 1711471533,\n    \"is_scim_managed\": false\n}\n"

@@ -1,0 +1,22 @@
+components:
+  schemas:
+    ChatCompletionRequestMessageContentPartText:
+      title: Text content part
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - text
+          type: string
+          description: The type of the content part.
+          x-stainless-const: true
+        text:
+          type: string
+          description: The text content.
+      description: "Learn about [text inputs](https://platform.openai.com/docs/guides/text-generation).\n"
+      x-stainless-naming:
+        go:
+          variant_constructor: TextContentPart

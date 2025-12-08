@@ -1,0 +1,17 @@
+components:
+  schemas:
+    ListModelsResponse:
+      required:
+        - object
+        - data
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Model'

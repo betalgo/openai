@@ -1,0 +1,20 @@
+components:
+  schemas:
+    UserMessageQuotedText:
+      title: User message quoted text
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - quoted_text
+          type: string
+          description: Type discriminator that is always `quoted_text`.
+          default: quoted_text
+          x-stainless-const: true
+        text:
+          type: string
+          description: Quoted text content.
+      description: Quoted snippet that the user referenced in their message.

@@ -1,0 +1,8 @@
+components:
+  schemas:
+    VideoSeconds:
+      enum:
+        - '4'
+        - '8'
+        - '12'
+      type: string

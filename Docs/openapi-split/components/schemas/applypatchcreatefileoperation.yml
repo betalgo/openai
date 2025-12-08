@@ -1,0 +1,24 @@
+components:
+  schemas:
+    ApplyPatchCreateFileOperation:
+      title: Apply patch create file operation
+      required:
+        - type
+        - path
+        - diff
+      type: object
+      properties:
+        type:
+          enum:
+            - create_file
+          type: string
+          description: Create a new file with the provided diff.
+          default: create_file
+          x-stainless-const: true
+        path:
+          type: string
+          description: Path of the file to create.
+        diff:
+          type: string
+          description: Diff to apply.
+      description: Instruction describing how to create a file via the apply_patch tool.

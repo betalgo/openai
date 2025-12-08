@@ -1,0 +1,17 @@
+components:
+  schemas:
+    StaticChunkingStrategy:
+      required:
+        - max_chunk_size_tokens
+        - chunk_overlap_tokens
+      type: object
+      properties:
+        max_chunk_size_tokens:
+          maximum: 4096
+          minimum: 100
+          type: integer
+          description: The maximum number of tokens in each chunk. The default value is `800`. The minimum value is `100` and the maximum value is `4096`.
+        chunk_overlap_tokens:
+          type: integer
+          description: "The number of tokens that overlap between chunks. The default value is `400`.\n\nNote that the overlap must not exceed half of `max_chunk_size_tokens`.\n"
+      additionalProperties: false

@@ -1,0 +1,35 @@
+components:
+  schemas:
+    ResponseCustomToolCallInputDeltaEvent:
+      title: ResponseCustomToolCallInputDelta
+      required:
+        - type
+        - output_index
+        - item_id
+        - delta
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.custom_tool_call_input.delta
+          type: string
+          description: The event type identifier.
+          x-stainless-const: true
+        sequence_number:
+          type: integer
+          description: The sequence number of this event.
+        output_index:
+          type: integer
+          description: The index of the output this delta applies to.
+        item_id:
+          type: string
+          description: Unique identifier for the API item associated with this event.
+        delta:
+          type: string
+          description: The incremental input data (delta) for the custom tool call.
+      description: "Event representing a delta (partial update) to the input of a custom tool call.\n"
+      x-oaiMeta:
+        name: response.custom_tool_call_input.delta
+        group: responses
+        example: "{\n  \"type\": \"response.custom_tool_call_input.delta\",\n  \"output_index\": 0,\n  \"item_id\": \"ctc_1234567890abcdef\",\n  \"delta\": \"partial input text\"\n}\n"

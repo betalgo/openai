@@ -1,0 +1,9 @@
+components:
+  schemas:
+    Conversation:
+      title: The conversation object
+      allOf:
+        - $ref: '#/components/schemas/ConversationResource'
+      x-oaiMeta:
+        name: The conversation object
+        group: conversations

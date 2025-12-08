@@ -1,0 +1,33 @@
+components:
+  schemas:
+    MessageDeltaContentImageUrlObject:
+      title: Image URL
+      required:
+        - index
+        - type
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of the content part in the message.
+        type:
+          enum:
+            - image_url
+          type: string
+          description: Always `image_url`.
+          x-stainless-const: true
+        image_url:
+          type: object
+          properties:
+            url:
+              type: string
+              description: 'The URL of the image, must be a supported image types: jpeg, jpg, png, gif, webp.'
+            detail:
+              enum:
+                - auto
+                - low
+                - high
+              type: string
+              description: 'Specifies the detail level of the image. `low` uses fewer tokens, you can opt in to high resolution using `high`.'
+              default: auto
+      description: References an image URL in the content of a message.

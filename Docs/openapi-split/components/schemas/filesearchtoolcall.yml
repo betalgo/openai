@@ -1,0 +1,58 @@
+components:
+  schemas:
+    FileSearchToolCall:
+      title: File search tool call
+      required:
+        - id
+        - type
+        - status
+        - queries
+      type: object
+      properties:
+        id:
+          type: string
+          description: "The unique ID of the file search tool call.\n"
+        type:
+          enum:
+            - file_search_call
+          type: string
+          description: "The type of the file search tool call. Always `file_search_call`.\n"
+          x-stainless-const: true
+        status:
+          enum:
+            - in_progress
+            - searching
+            - completed
+            - incomplete
+            - failed
+          type: string
+          description: "The status of the file search tool call. One of `in_progress`,\n`searching`, `incomplete` or `failed`,\n"
+        queries:
+          type: array
+          items:
+            type: string
+          description: "The queries used to search for files.\n"
+        results:
+          anyOf:
+            - type: array
+              items:
+                type: object
+                properties:
+                  file_id:
+                    type: string
+                    description: "The unique ID of the file.\n"
+                  text:
+                    type: string
+                    description: "The text that was retrieved from the file.\n"
+                  filename:
+                    type: string
+                    description: "The name of the file.\n"
+                  attributes:
+                    $ref: '#/components/schemas/VectorStoreFileAttributes'
+                  score:
+                    type: number
+                    description: "The relevance score of the file - a value between 0 and 1.\n"
+                    format: float
+              description: "The results of the file search tool call.\n"
+            - nullable: true
+      description: "The results of a file search tool call. See the\n[file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.\n"

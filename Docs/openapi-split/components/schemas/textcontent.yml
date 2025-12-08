@@ -1,0 +1,18 @@
+components:
+  schemas:
+    TextContent:
+      title: Text Content
+      required:
+        - type
+        - text
+      type: object
+      properties:
+        type:
+          enum:
+            - text
+          type: string
+          default: text
+          x-stainless-const: true
+        text:
+          type: string
+      description: A text content.

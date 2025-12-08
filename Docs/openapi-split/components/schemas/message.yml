@@ -1,0 +1,43 @@
+components:
+  schemas:
+    Message:
+      title: Message
+      required:
+        - type
+        - id
+        - status
+        - role
+        - content
+      type: object
+      properties:
+        type:
+          enum:
+            - message
+          type: string
+          description: The type of the message. Always set to `message`.
+          default: message
+          x-stainless-const: true
+        id:
+          type: string
+          description: The unique ID of the message.
+        status:
+          $ref: '#/components/schemas/MessageStatus'
+        role:
+          $ref: '#/components/schemas/MessageRole'
+        content:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/InputTextContent'
+              - $ref: '#/components/schemas/OutputTextContent'
+              - $ref: '#/components/schemas/TextContent'
+              - $ref: '#/components/schemas/SummaryTextContent'
+              - $ref: '#/components/schemas/ReasoningTextContent'
+              - $ref: '#/components/schemas/RefusalContent'
+              - $ref: '#/components/schemas/InputImageContent'
+              - $ref: '#/components/schemas/ComputerScreenshotContent'
+              - $ref: '#/components/schemas/InputFileContent'
+            discriminator:
+              propertyName: type
+          description: The content of the message
+      description: A message to or from the model.

@@ -1,0 +1,10 @@
+components:
+  schemas:
+    ResponseTextParam:
+      type: object
+      properties:
+        format:
+          $ref: '#/components/schemas/TextResponseFormatConfiguration'
+        verbosity:
+          $ref: '#/components/schemas/Verbosity'
+      description: "Configuration options for a text response from the model. Can be plain\ntext or structured JSON data. Learn more:\n- [Text inputs and outputs](https://platform.openai.com/docs/guides/text)\n- [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)\n"

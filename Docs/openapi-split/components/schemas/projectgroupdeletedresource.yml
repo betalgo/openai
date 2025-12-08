@@ -1,0 +1,21 @@
+components:
+  schemas:
+    ProjectGroupDeletedResource:
+      required:
+        - object
+        - deleted
+      type: object
+      properties:
+        object:
+          enum:
+            - project.group.deleted
+          type: string
+          description: Always `project.group.deleted`.
+          x-stainless-const: true
+        deleted:
+          type: boolean
+          description: Whether the group membership in the project was removed.
+      description: Confirmation payload returned after removing a group from a project.
+      x-oaiMeta:
+        name: Project group deletion confirmation
+        example: "{\n    \"object\": \"project.group.deleted\",\n    \"deleted\": true\n}\n"

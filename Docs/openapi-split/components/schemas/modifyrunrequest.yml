@@ -1,0 +1,8 @@
+components:
+  schemas:
+    ModifyRunRequest:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      additionalProperties: false

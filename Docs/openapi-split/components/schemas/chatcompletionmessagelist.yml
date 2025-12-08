@@ -1,0 +1,55 @@
+components:
+  schemas:
+    ChatCompletionMessageList:
+      title: ChatCompletionMessageList
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          type: string
+          description: "The type of this object. It is always set to \"list\".\n"
+          default: list
+          x-stainless-const: true
+        data:
+          type: array
+          items:
+            allOf:
+              - $ref: '#/components/schemas/ChatCompletionResponseMessage'
+              - required:
+                  - id
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The identifier of the chat message.
+                  content_parts:
+                    anyOf:
+                      - type: array
+                        items:
+                          anyOf:
+                            - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartText'
+                            - $ref: '#/components/schemas/ChatCompletionRequestMessageContentPartImage'
+                        description: "If a content parts array was provided, this is an array of `text` and `image_url` parts.\nOtherwise, null.\n"
+                      - nullable: true
+          description: "An array of chat completion message objects.\n"
+        first_id:
+          type: string
+          description: The identifier of the first chat message in the data array.
+        last_id:
+          type: string
+          description: The identifier of the last chat message in the data array.
+        has_more:
+          type: boolean
+          description: Indicates whether there are more chat messages available.
+      description: "An object representing a list of chat completion messages.\n"
+      x-oaiMeta:
+        name: The chat completion message list object
+        group: chat
+        example: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"chatcmpl-AyPNinnUqUDYo9SAdA52NobMflmj2-0\",\n      \"role\": \"user\",\n      \"content\": \"write a haiku about ai\",\n      \"name\": null,\n      \"content_parts\": null\n    }\n  ],\n  \"first_id\": \"chatcmpl-AyPNinnUqUDYo9SAdA52NobMflmj2-0\",\n  \"last_id\": \"chatcmpl-AyPNinnUqUDYo9SAdA52NobMflmj2-0\",\n  \"has_more\": false\n}\n"

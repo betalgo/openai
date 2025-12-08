@@ -1,0 +1,29 @@
+components:
+  schemas:
+    ContainerListResource:
+      required:
+        - object
+        - data
+        - first_id
+        - last_id
+        - has_more
+      type: object
+      properties:
+        object:
+          enum:
+            - list
+          description: 'The type of object returned, must be ''list''.'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContainerResource'
+          description: A list of containers.
+        first_id:
+          type: string
+          description: The ID of the first container in the list.
+        last_id:
+          type: string
+          description: The ID of the last container in the list.
+        has_more:
+          type: boolean
+          description: Whether there are more containers available.

@@ -1,0 +1,21 @@
+components:
+  schemas:
+    ApiKeyList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdminApiKey'
+        has_more:
+          type: boolean
+          example: false
+        first_id:
+          type: string
+          example: key_abc
+        last_id:
+          type: string
+          example: key_xyz

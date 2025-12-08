@@ -1,0 +1,16 @@
+components:
+  schemas:
+    OtherChunkingStrategyResponseParam:
+      title: Other Chunking Strategy
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - other
+          type: string
+          description: Always `other`.
+          x-stainless-const: true
+      additionalProperties: false
+      description: 'This is returned when the chunking strategy is unknown. Typically, this is because the file was indexed before the `chunking_strategy` concept was introduced in the API.'

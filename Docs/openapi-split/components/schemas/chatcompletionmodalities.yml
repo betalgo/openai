@@ -1,0 +1,12 @@
+components:
+  schemas:
+    ChatCompletionModalities:
+      anyOf:
+        - type: array
+          items:
+            enum:
+              - text
+              - audio
+            type: string
+          description: "Output types that you would like the model to generate for this request.\nMost models are capable of generating text, which is the default:\n\n`[\"text\"]`\n\nThe `gpt-4o-audio-preview` model can also be used to [generate audio](https://platform.openai.com/docs/guides/audio). To\nrequest that this model generate both text and audio responses, you can\nuse:\n\n`[\"text\", \"audio\"]`\n"
+        - nullable: true

@@ -1,0 +1,12 @@
+components:
+  schemas:
+    ToolChoice:
+      title: Tool choice
+      required:
+        - id
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the requested tool.
+      description: Tool selection that the assistant should honor when executing the item.

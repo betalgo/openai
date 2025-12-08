@@ -1,0 +1,17 @@
+components:
+  schemas:
+    ProjectUserCreateRequest:
+      required:
+        - user_id
+        - role
+      type: object
+      properties:
+        user_id:
+          type: string
+          description: The ID of the user.
+        role:
+          enum:
+            - owner
+            - member
+          type: string
+          description: '`owner` or `member`'

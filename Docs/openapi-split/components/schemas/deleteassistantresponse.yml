@@ -1,0 +1,18 @@
+components:
+  schemas:
+    DeleteAssistantResponse:
+      required:
+        - id
+        - object
+        - deleted
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+        object:
+          enum:
+            - assistant.deleted
+          type: string
+          x-stainless-const: true

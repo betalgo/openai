@@ -10,6 +10,9 @@ namespace Betalgo.Ranul.OpenAI.Contracts.Requests.Image;
 ///     <see href="https://platform.openai.com/docs/api-reference/images/createEdit">
 ///         OpenAI API documentation
 ///     </see>
+///     <see href="https://github.com/betalgo/openai/blob/master/Docs/openapi-split/components/schemas/createimageeditrequest.yml">
+///         Source Definition
+///     </see>
 /// </summary>
 public class CreateImageEditRequest : IRequest, IHasModelImage, IHasImageSize, IHasImageBackground, IHasImageOutputFormat, IHasImageQuality
 {
@@ -135,8 +138,8 @@ public class CreateImageEditRequest : IRequest, IHasModelImage, IHasImageSize, I
     public ImageSize? Size { get; set; }
 
     /// <summary>
-    ///     The model to use for image generation. Only <c>dall-e-2</c> and <c>gpt-image-1</c> are supported. Defaults to
-    ///     <c>dall-e-2</c> unless a parameter specific to <c>gpt-image-1</c> is used.
+    ///     The model to use for image generation. Only <c>dall-e-2</c>, <c>gpt-image-1</c> and <c>gpt-image-1-mini</c> are
+    ///     supported. Defaults to <c>dall-e-2</c> unless a parameter specific to <c>gpt-image-1</c> is used.
     /// </summary>
     [JsonPropertyName("model")]
     public ImageModel? Model { get; set; }

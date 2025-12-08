@@ -1,0 +1,17 @@
+components:
+  schemas:
+    AssistantToolsFunction:
+      title: Function tool
+      required:
+        - type
+        - function
+      type: object
+      properties:
+        type:
+          enum:
+            - function
+          type: string
+          description: 'The type of tool being defined: `function`'
+          x-stainless-const: true
+        function:
+          $ref: '#/components/schemas/FunctionObject'

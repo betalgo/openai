@@ -1,0 +1,16 @@
+components:
+  schemas:
+    ImageGenInputUsageDetails:
+      title: Input usage details
+      required:
+        - text_tokens
+        - image_tokens
+      type: object
+      properties:
+        text_tokens:
+          type: integer
+          description: The number of text tokens in the input prompt.
+        image_tokens:
+          type: integer
+          description: The number of image tokens in the input prompt.
+      description: The input tokens detailed information for the image generation.

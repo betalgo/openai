@@ -1,0 +1,20 @@
+components:
+  schemas:
+    CodeInterpreterOutputImage:
+      title: Code interpreter output image
+      required:
+        - type
+        - url
+      type: object
+      properties:
+        type:
+          enum:
+            - image
+          type: string
+          description: The type of the output. Always `image`.
+          default: image
+          x-stainless-const: true
+        url:
+          type: string
+          description: The URL of the image output from the code interpreter.
+      description: The image output from the code interpreter.

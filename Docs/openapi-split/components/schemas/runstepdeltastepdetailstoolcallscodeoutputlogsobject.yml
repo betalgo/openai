@@ -1,0 +1,22 @@
+components:
+  schemas:
+    RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject:
+      title: Code interpreter log output
+      required:
+        - index
+        - type
+      type: object
+      properties:
+        index:
+          type: integer
+          description: The index of the output in the outputs array.
+        type:
+          enum:
+            - logs
+          type: string
+          description: Always `logs`.
+          x-stainless-const: true
+        logs:
+          type: string
+          description: The text output from the Code Interpreter tool call.
+      description: Text output from the Code Interpreter tool call as part of a run step.

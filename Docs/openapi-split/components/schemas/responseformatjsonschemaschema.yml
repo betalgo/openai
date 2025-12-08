@@ -1,0 +1,6 @@
+components:
+  schemas:
+    ResponseFormatJsonSchemaSchema:
+      title: JSON schema
+      type: object
+      description: "The schema for the response format, described as a JSON Schema object.\nLearn how to build JSON schemas [here](https://json-schema.org/).\n"

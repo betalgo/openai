@@ -1,0 +1,51 @@
+components:
+  schemas:
+    ResponseReasoningSummaryPartAddedEvent:
+      required:
+        - type
+        - item_id
+        - output_index
+        - summary_index
+        - part
+        - sequence_number
+      type: object
+      properties:
+        type:
+          enum:
+            - response.reasoning_summary_part.added
+          type: string
+          description: "The type of the event. Always `response.reasoning_summary_part.added`.\n"
+          x-stainless-const: true
+        item_id:
+          type: string
+          description: "The ID of the item this summary part is associated with.\n"
+        output_index:
+          type: integer
+          description: "The index of the output item this summary part is associated with.\n"
+        summary_index:
+          type: integer
+          description: "The index of the summary part within the reasoning summary.\n"
+        sequence_number:
+          type: integer
+          description: "The sequence number of this event.\n"
+        part:
+          required:
+            - type
+            - text
+          type: object
+          properties:
+            type:
+              enum:
+                - summary_text
+              type: string
+              description: The type of the summary part. Always `summary_text`.
+              x-stainless-const: true
+            text:
+              type: string
+              description: The text of the summary part.
+          description: "The summary part that was added.\n"
+      description: Emitted when a new reasoning summary part is added.
+      x-oaiMeta:
+        name: response.reasoning_summary_part.added
+        group: responses
+        example: "{\n  \"type\": \"response.reasoning_summary_part.added\",\n  \"item_id\": \"rs_6806bfca0b2481918a5748308061a2600d3ce51bdffd5476\",\n  \"output_index\": 0,\n  \"summary_index\": 0,\n  \"part\": {\n    \"type\": \"summary_text\",\n    \"text\": \"\"\n  },\n  \"sequence_number\": 1\n}\n"

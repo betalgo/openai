@@ -1,0 +1,20 @@
+components:
+  schemas:
+    ApplyPatchDeleteFileOperation:
+      title: Apply patch delete file operation
+      required:
+        - type
+        - path
+      type: object
+      properties:
+        type:
+          enum:
+            - delete_file
+          type: string
+          description: Delete the specified file.
+          default: delete_file
+          x-stainless-const: true
+        path:
+          type: string
+          description: Path of the file to delete.
+      description: Instruction describing how to delete a file via the apply_patch tool.

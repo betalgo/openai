@@ -1,0 +1,70 @@
+components:
+  schemas:
+    GraderScoreModel:
+      title: ScoreModelGrader
+      required:
+        - type
+        - name
+        - input
+        - model
+      type: object
+      properties:
+        type:
+          enum:
+            - score_model
+          type: string
+          description: 'The object type, which is always `score_model`.'
+          x-stainless-const: true
+        name:
+          type: string
+          description: The name of the grader.
+        model:
+          type: string
+          description: The model to use for the evaluation.
+        sampling_params:
+          type: object
+          properties:
+            seed:
+              anyOf:
+                - type: integer
+                  description: "A seed value to initialize the randomness, during sampling.\n"
+                - nullable: true
+            top_p:
+              anyOf:
+                - type: number
+                  description: "An alternative to temperature for nucleus sampling; 1.0 includes all tokens.\n"
+                  default: 1
+                  example: 1
+                - nullable: true
+            temperature:
+              anyOf:
+                - type: number
+                  description: "A higher temperature increases randomness in the outputs.\n"
+                - nullable: true
+            max_completions_tokens:
+              anyOf:
+                - minimum: 1
+                  type: integer
+                  description: "The maximum number of tokens the grader model may generate in its response.\n"
+                - nullable: true
+            reasoning_effort:
+              $ref: '#/components/schemas/ReasoningEffort'
+          description: The sampling parameters for the model.
+        input:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvalItem'
+          description: The input text. This may include template strings.
+        range:
+          type: array
+          items:
+            type: number
+            unrecognizedKeywords:
+              min_items: 2
+              max_items: 2
+          description: 'The range of the score. Defaults to `[0, 1]`.'
+      description: "A ScoreModelGrader object that uses a model to assign a score to the input.\n"
+      x-oaiMeta:
+        name: Score Model Grader
+        group: graders
+        example: "{\n    \"type\": \"score_model\",\n    \"name\": \"Example score model grader\",\n    \"input\": [\n        {\n            \"role\": \"user\",\n            \"content\": (\n                \"Score how close the reference answer is to the model answer. Score 1.0 if they are the same and 0.0 if they are different.\"\n                \" Return just a floating point score\\n\\n\"\n                \" Reference answer: {{item.label}}\\n\\n\"\n                \" Model answer: {{sample.output_text}}\"\n            ),\n        }\n    ],\n    \"model\": \"o4-mini-2025-04-16\",\n    \"sampling_params\": {\n        \"temperature\": 1,\n        \"top_p\": 1,\n        \"seed\": 42,\n        \"max_completions_tokens\": 32768,\n        \"reasoning_effort\": \"medium\"\n    },\n}\n"

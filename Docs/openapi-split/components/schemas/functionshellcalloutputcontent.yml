@@ -1,0 +1,25 @@
+components:
+  schemas:
+    FunctionShellCallOutputContent:
+      title: Shell call output content
+      required:
+        - stdout
+        - stderr
+        - outcome
+      type: object
+      properties:
+        stdout:
+          type: string
+        stderr:
+          type: string
+        outcome:
+          title: Function shell call outcome
+          anyOf:
+            - $ref: '#/components/schemas/FunctionShellCallOutputTimeoutOutcome'
+            - $ref: '#/components/schemas/FunctionShellCallOutputExitOutcome'
+          description: Represents either an exit outcome (with an exit code) or a timeout outcome for a shell call output chunk.
+          discriminator:
+            propertyName: type
+        created_by:
+          type: string
+      description: The content of a shell call output.

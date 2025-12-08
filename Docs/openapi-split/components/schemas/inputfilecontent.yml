@@ -1,0 +1,30 @@
+components:
+  schemas:
+    InputFileContent:
+      title: Input file
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - input_file
+          type: string
+          description: The type of the input item. Always `input_file`.
+          default: input_file
+          x-stainless-const: true
+        file_id:
+          anyOf:
+            - type: string
+              description: The ID of the file to be sent to the model.
+            - nullable: true
+        filename:
+          type: string
+          description: The name of the file to be sent to the model.
+        file_url:
+          type: string
+          description: The URL of the file to be sent to the model.
+        file_data:
+          type: string
+          description: "The content of the file to be sent to the model.\n"
+      description: A file input to the model.

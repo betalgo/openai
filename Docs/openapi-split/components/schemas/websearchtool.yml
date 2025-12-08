@@ -1,0 +1,42 @@
+components:
+  schemas:
+    WebSearchTool:
+      title: Web search
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - web_search
+            - web_search_2025_08_26
+          type: string
+          description: The type of the web search tool. One of `web_search` or `web_search_2025_08_26`.
+          default: web_search
+        filters:
+          anyOf:
+            - type: object
+              properties:
+                allowed_domains:
+                  anyOf:
+                    - title: Allowed domains for the search.
+                      type: array
+                      items:
+                        type: string
+                        description: Allowed domain for the search.
+                      description: "Allowed domains for the search. If not provided, all domains are allowed.\nSubdomains of the provided domains are allowed as well.\n\nExample: `[\"pubmed.ncbi.nlm.nih.gov\"]`\n"
+                      default: [ ]
+                    - nullable: true
+              description: "Filters for the search.\n"
+            - nullable: true
+        user_location:
+          $ref: '#/components/schemas/WebSearchApproximateLocation'
+        search_context_size:
+          enum:
+            - low
+            - medium
+            - high
+          type: string
+          description: 'High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.'
+          default: medium
+      description: "Search the Internet for sources related to the prompt. Learn more about the\n[web search tool](https://platform.openai.com/docs/guides/tools-web-search).\n"

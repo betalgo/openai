@@ -1,0 +1,121 @@
+paths:
+  /organization/usage/images:
+    get:
+      tags:
+        - Usage
+      summary: Images
+      description: Get images usage details for the organization.
+      operationId: usage-images
+      parameters:
+        - name: start_time
+          in: query
+          description: 'Start time (Unix seconds) of the query time range, inclusive.'
+          required: true
+          schema:
+            type: integer
+        - name: end_time
+          in: query
+          description: 'End time (Unix seconds) of the query time range, exclusive.'
+          schema:
+            type: integer
+        - name: bucket_width
+          in: query
+          description: 'Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.'
+          schema:
+            enum:
+              - 1m
+              - 1h
+              - 1d
+            type: string
+            default: 1d
+        - name: sources
+          in: query
+          description: 'Return only usages for these sources. Possible values are `image.generation`, `image.edit`, `image.variation` or any combination of them.'
+          schema:
+            type: array
+            items:
+              enum:
+                - image.generation
+                - image.edit
+                - image.variation
+              type: string
+        - name: sizes
+          in: query
+          description: 'Return only usages for these image sizes. Possible values are `256x256`, `512x512`, `1024x1024`, `1792x1792`, `1024x1792` or any combination of them.'
+          schema:
+            type: array
+            items:
+              enum:
+                - 256x256
+                - 512x512
+                - 1024x1024
+                - 1792x1792
+                - 1024x1792
+              type: string
+        - name: project_ids
+          in: query
+          description: Return only usage for these projects.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: user_ids
+          in: query
+          description: Return only usage for these users.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: api_key_ids
+          in: query
+          description: Return only usage for these API keys.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: models
+          in: query
+          description: Return only usage for these models.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: group_by
+          in: query
+          description: 'Group the usage data by the specified fields. Support fields include `project_id`, `user_id`, `api_key_id`, `model`, `size`, `source` or any combination of them.'
+          schema:
+            type: array
+            items:
+              enum:
+                - project_id
+                - user_id
+                - api_key_id
+                - model
+                - size
+                - source
+              type: string
+        - name: limit
+          in: query
+          description: "Specifies the number of buckets to return.\n- `bucket_width=1d`: default: 7, max: 31\n- `bucket_width=1h`: default: 24, max: 168\n- `bucket_width=1m`: default: 60, max: 1440\n"
+          schema:
+            type: integer
+        - name: page
+          in: query
+          description: A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usage data retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+      x-oaiMeta:
+        name: Images
+        group: usage-images
+        returns: 'A list of paginated, time bucketed [Images usage](https://platform.openai.com/docs/api-reference/usage/images_object) objects.'
+        examples:
+          response: "{\n    \"object\": \"page\",\n    \"data\": [\n        {\n            \"object\": \"bucket\",\n            \"start_time\": 1730419200,\n            \"end_time\": 1730505600,\n            \"results\": [\n                {\n                    \"object\": \"organization.usage.images.result\",\n                    \"images\": 2,\n                    \"num_model_requests\": 2,\n                    \"size\": null,\n                    \"source\": null,\n                    \"project_id\": null,\n                    \"user_id\": null,\n                    \"api_key_id\": null,\n                    \"model\": null\n                }\n            ]\n        }\n    ],\n    \"has_more\": false,\n    \"next_page\": null\n}\n"
+          request:
+            curl: "curl \"https://api.openai.com/v1/organization/usage/images?start_time=1730419200&limit=1\" \\\n-H \"Authorization: Bearer $OPENAI_ADMIN_KEY\" \\\n-H \"Content-Type: application/json\"\n"

@@ -1,0 +1,23 @@
+components:
+  schemas:
+    GroupRoleAssignment:
+      required:
+        - object
+        - group
+        - role
+      type: object
+      properties:
+        object:
+          enum:
+            - group.role
+          type: string
+          description: Always `group.role`.
+          x-stainless-const: true
+        group:
+          $ref: '#/components/schemas/Group'
+        role:
+          $ref: '#/components/schemas/Role'
+      description: Role assignment linking a group to a role.
+      x-oaiMeta:
+        name: The group role object
+        example: "{\n    \"object\": \"group.role\",\n    \"group\": {\n        \"object\": \"group\",\n        \"id\": \"group_01J1F8ABCDXYZ\",\n        \"name\": \"Support Team\",\n        \"created_at\": 1711471533,\n        \"scim_managed\": false\n    },\n    \"role\": {\n        \"object\": \"role\",\n        \"id\": \"role_01J1F8ROLE01\",\n        \"name\": \"API Group Manager\",\n        \"description\": \"Allows managing organization groups\",\n        \"permissions\": [\n            \"api.groups.read\",\n            \"api.groups.write\"\n        ],\n        \"resource_type\": \"api.organization\",\n        \"predefined_role\": false\n    }\n}\n"

@@ -1,0 +1,24 @@
+components:
+  schemas:
+    RunStepDetailsToolCallsCodeOutputLogsObject:
+      title: Code Interpreter log output
+      required:
+        - type
+        - logs
+      type: object
+      properties:
+        type:
+          enum:
+            - logs
+          type: string
+          description: Always `logs`.
+          x-stainless-const: true
+        logs:
+          type: string
+          description: The text output from the Code Interpreter tool call.
+      description: Text output from the Code Interpreter tool call as part of a run step.
+      x-stainless-naming:
+        java:
+          type_name: LogsOutput
+        kotlin:
+          type_name: LogsOutput

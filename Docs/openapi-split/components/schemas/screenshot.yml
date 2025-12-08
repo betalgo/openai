@@ -1,0 +1,16 @@
+components:
+  schemas:
+    Screenshot:
+      title: Screenshot
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          enum:
+            - screenshot
+          type: string
+          description: "Specifies the event type. For a screenshot action, this property is \nalways set to `screenshot`.\n"
+          default: screenshot
+          x-stainless-const: true
+      description: "A screenshot action.\n"

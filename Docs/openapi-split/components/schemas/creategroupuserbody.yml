@@ -1,0 +1,13 @@
+components:
+  schemas:
+    CreateGroupUserBody:
+      required:
+        - user_id
+      type: object
+      properties:
+        user_id:
+          type: string
+          description: Identifier of the user to add to the group.
+      description: Request payload for adding a user to a group.
+      x-oaiMeta:
+        example: "{\n    \"user_id\": \"user_abc123\"\n}\n"

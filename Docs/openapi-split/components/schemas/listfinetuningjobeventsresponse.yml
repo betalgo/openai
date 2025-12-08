@@ -1,0 +1,20 @@
+components:
+  schemas:
+    ListFineTuningJobEventsResponse:
+      required:
+        - object
+        - data
+        - has_more
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FineTuningJobEvent'
+        object:
+          enum:
+            - list
+          type: string
+          x-stainless-const: true
+        has_more:
+          type: boolean

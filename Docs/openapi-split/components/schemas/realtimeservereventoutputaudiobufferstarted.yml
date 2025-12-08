@@ -1,0 +1,25 @@
+components:
+  schemas:
+    RealtimeServerEventOutputAudioBufferStarted:
+      required:
+        - event_id
+        - type
+        - response_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - output_audio_buffer.started
+          description: 'The event type, must be `output_audio_buffer.started`.'
+          x-stainless-const: true
+        response_id:
+          type: string
+          description: The unique ID of the response that produced the audio.
+      description: "**WebRTC Only:** Emitted when the server begins streaming audio to the client. This event is\nemitted after an audio content part has been added (`response.content_part.added`)\nto the response.\n[Learn more](https://platform.openai.com/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).\n"
+      x-oaiMeta:
+        name: output_audio_buffer.started
+        group: realtime
+        example: "{\n    \"event_id\": \"event_abc123\",\n    \"type\": \"output_audio_buffer.started\",\n    \"response_id\": \"resp_abc123\"\n}\n"

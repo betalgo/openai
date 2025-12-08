@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11205.157 d18.0
+VisualStudioVersion = 18.0.11205.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Betalgo.Ranul.OpenAI", "OpenAI.SDK\Betalgo.Ranul.OpenAI.csproj", "{780F7F1F-45FC-4832-9E00-5BE6F32E7271}"
 EndProject
@@ -15,9 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{27B22566-7
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\BuildAndDeployBetalgoOpenAI.yml = .github\workflows\BuildAndDeployBetalgoOpenAI.yml
 		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
-		Docs\openapi.documented.yml = Docs\openapi.documented.yml
 		Readme.md = Readme.md
-		Docs\update-openapi.ps1 = Docs\update-openapi.ps1
+		Docs\UPDATE_OPENAPI.md = Docs\UPDATE_OPENAPI.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Betalgo.OpenAI.Utilities", "OpenAI.Utilities\Betalgo.OpenAI.Utilities.csproj", "{ADB482B9-7F95-41E6-888F-2DD6712D64BF}"

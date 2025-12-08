@@ -1,0 +1,21 @@
+components:
+  schemas:
+    BatchError:
+      type: object
+      properties:
+        code:
+          type: string
+          description: An error code identifying the error type.
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+        param:
+          anyOf:
+            - type: string
+              description: 'The name of the parameter that caused the error, if applicable.'
+            - nullable: true
+        line:
+          anyOf:
+            - type: integer
+              description: 'The line number of the input file where the error occurred, if applicable.'
+            - nullable: true

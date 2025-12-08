@@ -1,0 +1,33 @@
+components:
+  schemas:
+    ModifyThreadRequest:
+      type: object
+      properties:
+        tool_resources:
+          anyOf:
+            - type: object
+              properties:
+                code_interpreter:
+                  type: object
+                  properties:
+                    file_ids:
+                      maxItems: 20
+                      type: array
+                      items:
+                        type: string
+                      description: "A list of [file](https://platform.openai.com/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.\n"
+                      default: [ ]
+                file_search:
+                  type: object
+                  properties:
+                    vector_store_ids:
+                      maxItems: 1
+                      type: array
+                      items:
+                        type: string
+                      description: "The [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) attached to this thread. There can be a maximum of 1 vector store attached to the thread.\n"
+              description: "A set of resources that are made available to the assistant's tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.\n"
+            - nullable: true
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+      additionalProperties: false

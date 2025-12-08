@@ -1,0 +1,12 @@
+components:
+  schemas:
+    CreateModelResponseProperties:
+      allOf:
+        - $ref: '#/components/schemas/ModelResponseProperties'
+        - type: object
+          properties:
+            top_logprobs:
+              maximum: 20
+              minimum: 0
+              type: integer
+              description: "An integer between 0 and 20 specifying the number of most likely tokens to\nreturn at each token position, each with an associated log probability.\n"

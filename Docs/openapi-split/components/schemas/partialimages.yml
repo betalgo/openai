@@ -1,0 +1,11 @@
+components:
+  schemas:
+    PartialImages:
+      anyOf:
+        - maximum: 3
+          minimum: 0
+          type: integer
+          description: "The number of partial images to generate. This parameter is used for\nstreaming responses that return partial images. Value must be between 0 and 3.\nWhen set to 0, the response will be a single image sent in one streaming event.\n\nNote that the final image may be sent before the full number of partial images\nare generated if the full image is generated more quickly.\n"
+          default: 0
+          example: 1
+        - nullable: true

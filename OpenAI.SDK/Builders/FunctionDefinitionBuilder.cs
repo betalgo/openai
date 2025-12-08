@@ -30,7 +30,8 @@ public class FunctionDefinitionBuilder
             Strict = strict,
             Parameters = new()
             {
-                Properties = new Dictionary<string, PropertyDefinition>()
+                Properties = new Dictionary<string, PropertyDefinition>(),
+                Type = "object"
             }
         };
     }

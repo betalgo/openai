@@ -1,0 +1,20 @@
+components:
+  schemas:
+    FileAnnotationSource:
+      title: File annotation source
+      required:
+        - type
+        - filename
+      type: object
+      properties:
+        type:
+          enum:
+            - file
+          type: string
+          description: Type discriminator that is always `file`.
+          default: file
+          x-stainless-const: true
+        filename:
+          type: string
+          description: Filename referenced by the annotation.
+      description: Attachment source referenced by an annotation.

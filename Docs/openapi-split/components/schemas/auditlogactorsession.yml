@@ -1,0 +1,11 @@
+components:
+  schemas:
+    AuditLogActorSession:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/AuditLogActorUser'
+        ip_address:
+          type: string
+          description: The IP address from which the action was performed.
+      description: The session in which the audit logged action was performed.

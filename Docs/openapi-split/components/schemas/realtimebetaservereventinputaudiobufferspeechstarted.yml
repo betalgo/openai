@@ -1,0 +1,29 @@
+components:
+  schemas:
+    RealtimeBetaServerEventInputAudioBufferSpeechStarted:
+      required:
+        - event_id
+        - type
+        - audio_start_ms
+        - item_id
+      type: object
+      properties:
+        event_id:
+          type: string
+          description: The unique ID of the server event.
+        type:
+          enum:
+            - input_audio_buffer.speech_started
+          description: 'The event type, must be `input_audio_buffer.speech_started`.'
+          x-stainless-const: true
+        audio_start_ms:
+          type: integer
+          description: "Milliseconds from the start of all audio written to the buffer during the \nsession when speech was first detected. This will correspond to the \nbeginning of audio sent to the model, and thus includes the \n`prefix_padding_ms` configured in the Session.\n"
+        item_id:
+          type: string
+          description: "The ID of the user message item that will be created when speech stops.\n"
+      description: "Sent by the server when in `server_vad` mode to indicate that speech has been \ndetected in the audio buffer. This can happen any time audio is added to the \nbuffer (unless speech is already detected). The client may want to use this \nevent to interrupt audio playback or provide visual feedback to the user. \n\nThe client should expect to receive a `input_audio_buffer.speech_stopped` event \nwhen speech stops. The `item_id` property is the ID of the user message item \nthat will be created when speech stops and will also be included in the \n`input_audio_buffer.speech_stopped` event (unless the client manually commits \nthe audio buffer during VAD activation).\n"
+      x-oaiMeta:
+        name: input_audio_buffer.speech_started
+        group: realtime
+        example: "{\n    \"event_id\": \"event_1516\",\n    \"type\": \"input_audio_buffer.speech_started\",\n    \"audio_start_ms\": 1000,\n    \"item_id\": \"msg_003\"\n}\n"

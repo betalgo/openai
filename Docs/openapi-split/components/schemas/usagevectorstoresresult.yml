@@ -1,0 +1,25 @@
+components:
+  schemas:
+    UsageVectorStoresResult:
+      required:
+        - object
+        - usage_bytes
+      type: object
+      properties:
+        object:
+          enum:
+            - organization.usage.vector_stores.result
+          type: string
+          x-stainless-const: true
+        usage_bytes:
+          type: integer
+          description: The vector stores usage in bytes.
+        project_id:
+          anyOf:
+            - type: string
+              description: 'When `group_by=project_id`, this field provides the project ID of the grouped usage result.'
+            - nullable: true
+      description: The aggregated vector stores usage details of the specific time bucket.
+      x-oaiMeta:
+        name: Vector stores usage object
+        example: "{\n    \"object\": \"organization.usage.vector_stores.result\",\n    \"usage_bytes\": 1024,\n    \"project_id\": \"proj_abc\"\n}\n"

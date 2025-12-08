@@ -1,0 +1,24 @@
+components:
+  schemas:
+    EvalCustomDataSourceConfig:
+      title: CustomDataSourceConfig
+      required:
+        - type
+        - schema
+      type: object
+      properties:
+        type:
+          enum:
+            - custom
+          type: string
+          description: The type of data source. Always `custom`.
+          default: custom
+          x-stainless-const: true
+        schema:
+          type: object
+          description: "The json schema for the run data source items.\nLearn how to build JSON schemas [here](https://json-schema.org/).\n"
+      description: "A CustomDataSourceConfig which specifies the schema of your `item` and optionally `sample` namespaces.\nThe response schema defines the shape of the data that will be:\n- Used to define your testing criteria and\n- What data is required when creating a run\n"
+      x-oaiMeta:
+        name: The eval custom data source config object
+        group: evals
+        example: "{\n  \"type\": \"custom\",\n  \"schema\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"item\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"label\": {\"type\": \"string\"},\n        },\n        \"required\": [\"label\"]\n      }\n    },\n    \"required\": [\"item\"]\n  }\n}\n"

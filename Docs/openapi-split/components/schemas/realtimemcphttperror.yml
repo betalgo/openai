@@ -1,0 +1,19 @@
+components:
+  schemas:
+    RealtimeMCPHTTPError:
+      title: Realtime MCP HTTP error
+      required:
+        - type
+        - code
+        - message
+      type: object
+      properties:
+        type:
+          enum:
+            - http_error
+          type: string
+          x-stainless-const: true
+        code:
+          type: integer
+        message:
+          type: string

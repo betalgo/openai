@@ -1,0 +1,17 @@
+components:
+  schemas:
+    CreateConversationBody:
+      type: object
+      properties:
+        metadata:
+          anyOf:
+            - $ref: '#/components/schemas/Metadata'
+            - nullable: true
+        items:
+          anyOf:
+            - maxItems: 20
+              type: array
+              items:
+                $ref: '#/components/schemas/InputItem'
+              description: Initial items to include in the conversation context. You may add up to 20 items at a time.
+            - nullable: true

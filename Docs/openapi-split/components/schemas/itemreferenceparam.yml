@@ -1,0 +1,21 @@
+components:
+  schemas:
+    ItemReferenceParam:
+      title: Item reference
+      required:
+        - id
+      type: object
+      properties:
+        type:
+          anyOf:
+            - enum:
+                - item_reference
+              type: string
+              description: The type of item to reference. Always `item_reference`.
+              default: item_reference
+              x-stainless-const: true
+            - nullable: true
+        id:
+          type: string
+          description: The ID of the item to reference.
+      description: An internal identifier for an item to reference.
