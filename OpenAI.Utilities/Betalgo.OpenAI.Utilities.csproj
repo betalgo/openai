@@ -40,9 +40,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Betalgo.Ranul.OpenAI" Version="9.1.0" />
+		
 		<PackageReference Include="CsvHelper" Version="33.0.1" />
 		<PackageReference Include="MathNet.Numerics" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Data.Analysis" Version="0.22.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\OpenAI.SDK\Betalgo.Ranul.OpenAI.csproj" />
 	</ItemGroup>
 </Project>
