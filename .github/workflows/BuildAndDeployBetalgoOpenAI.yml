@@ -26,13 +26,8 @@ jobs:
     - name: Test
       run: dotnet test -c Release --no-build --verbosity normal
 
-  publish:
+  build-artifacts:
     needs: build-test
-
-    permissions:
-      contents: write
-      packages: write
-
     runs-on: ubuntu-latest
 
     steps:
@@ -43,36 +38,97 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+    - name: Build (Release, Utilities -> SDK -> Contracts)
+      run: dotnet build OpenAI.Utilities/Betalgo.OpenAI.Utilities.csproj -c Release
+    - name: Upload release bins
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-bins
+        path: |
+          OpenAI.Utilities/bin/Release/
+          OpenAI.SDK/bin/Release/
+          Betalgo.Ranul.OpenAI.Contracts/bin/Release/
 
-    - name: Restore (publish)
-      run: dotnet restore OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj
-
-    - name: Build (publish, Release)
-      run: dotnet build OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj -c Release --no-restore
-    
+  publish-sdk:
+    needs: build-artifacts
+    permissions:
+      contents: write
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: release-bins
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
     - name: Publish OpenAI
       uses: Betalgo/NugetPublisher@v1.3.0
       with:
         project-file: OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj
         nuget-api-key: ${{ secrets.NUGET_KEY }}
         clean: false
+        no-restore: true
         tag-commit: true
         tag-format: Betalgo.Ranul.OpenAI-v*
 
+  publish-contracts:
+    needs: build-artifacts
+    permissions:
+      contents: write
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: release-bins
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
     - name: Publish Contracts
       uses: Betalgo/NugetPublisher@v1.3.0
       with:
         project-file: Betalgo.Ranul.OpenAI.Contracts/Betalgo.Ranul.OpenAI.Contracts.csproj
         nuget-api-key: ${{ secrets.NUGET_KEY }}
         clean: false
+        no-restore: true
         tag-commit: true
         tag-format: Betalgo.Ranul.OpenAI.Contracts-v*
 
+  publish-utilities:
+    needs: build-artifacts
+    permissions:
+      contents: write
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: release-bins
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
     - name: Publish OpenAI Utilities
       uses: Betalgo/NugetPublisher@v1.3.0
       with:
         project-file: OpenAI.Utilities/Betalgo.OpenAI.Utilities.csproj
         nuget-api-key: ${{ secrets.NUGET_KEY_UTILITIES }}
         clean: false
+        no-restore: true
         tag-commit: true
         tag-format: Betalgo.OpenAI.Utilities-v*
