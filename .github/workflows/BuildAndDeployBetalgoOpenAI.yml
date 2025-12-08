@@ -44,25 +44,25 @@ jobs:
         dotnet-version: 9.0.x
     
     - name: Publish OpenAI
-      uses: Betalgo/nuget-publisher@v1.3.0
+      uses: Betalgo/NugetPublisher@v1.3.0
       with:
-        project-file-path: OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj
-        nuget-key: ${{ secrets.NUGET_KEY }}
+        project-file: OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj
+        nuget-api-key: ${{ secrets.NUGET_KEY }}
         tag-commit: true
         tag-format: Betalgo.Ranul.OpenAI-v*
 
     - name: Publish Contracts
-      uses: Betalgo/nuget-publisher@v1.3.0
+      uses: Betalgo/NugetPublisher@v1.3.0
       with:
-        project-file-path: Betalgo.Ranul.OpenAI.Contracts/Betalgo.Ranul.OpenAI.Contracts.csproj
-        nuget-key: ${{ secrets.NUGET_KEY }}
+        project-file: Betalgo.Ranul.OpenAI.Contracts/Betalgo.Ranul.OpenAI.Contracts.csproj
+        nuget-api-key: ${{ secrets.NUGET_KEY }}
         tag-commit: true
         tag-format: Betalgo.Ranul.OpenAI.Contracts-v*
 
     - name: Publish OpenAI Utilities
-      uses: Betalgo/nuget-publisher@v1.3.0
+      uses: Betalgo/NugetPublisher@v1.3.0
       with:
-        project-file-path: OpenAI.Utilities/Betalgo.OpenAI.Utilities.csproj
-        nuget-key: ${{ secrets.NUGET_KEY_UTILITIES }}
+        project-file: OpenAI.Utilities/Betalgo.OpenAI.Utilities.csproj
+        nuget-api-key: ${{ secrets.NUGET_KEY_UTILITIES }}
         tag-commit: true
         tag-format: Betalgo.OpenAI.Utilities-v*
