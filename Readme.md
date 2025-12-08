@@ -118,6 +118,9 @@ Due to time constraints, not all methods have been thoroughly tested or fully do
 Needless to say, I cannot accept responsibility for any damage caused by using the library.
 
 ## Changelog
+### 9.2.4
+- Fixed function tool schema generation so parameters always emit a JSON Schema `type: "object"` and avoid `invalid_function_parameters` errors like `schema must be a JSON Schema of 'type: "object"', got 'type: "None"'`.
+
 ### 9.2.0
 - Introduced `Betalgo.Ranul.OpenAI.Contracts` project for centralized request/response models, enums/value types, and capability interfaces.
 - Replaced legacy image request models with Contracts equivalents:
