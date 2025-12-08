@@ -26,7 +26,7 @@ public static class FunctionCallingTestHelpers
 
         do
         {
-            var reply = await openAIService.ChatCompletion.CreateCompletion(req, "gpt-4.1");
+            var reply = await openAIService.ChatCompletion.CreateCompletion(req, Models.Gpt_4_1);
 
             if (!reply.Successful)
             {
