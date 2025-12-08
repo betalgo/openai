@@ -13,7 +13,7 @@
 		<Description>Contracts and shared types for the Betalgo OpenAI .NET SDK.</Description>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
-		<Version>9.2.4</Version>
+		<Version>9.2.5</Version>
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
 		<PackageIcon>Betalgo-Ranul-OpenAI-icon.png</PackageIcon>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
