@@ -73,7 +73,6 @@ jobs:
         project-file: OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj
         nuget-api-key: ${{ secrets.NUGET_KEY }}
         clean: false
-        no-restore: true
         tag-commit: true
         tag-format: Betalgo.Ranul.OpenAI-v*
 
@@ -101,7 +100,6 @@ jobs:
         project-file: Betalgo.Ranul.OpenAI.Contracts/Betalgo.Ranul.OpenAI.Contracts.csproj
         nuget-api-key: ${{ secrets.NUGET_KEY }}
         clean: false
-        no-restore: true
         tag-commit: true
         tag-format: Betalgo.Ranul.OpenAI.Contracts-v*
 
@@ -129,6 +127,5 @@ jobs:
         project-file: OpenAI.Utilities/Betalgo.OpenAI.Utilities.csproj
         nuget-api-key: ${{ secrets.NUGET_KEY_UTILITIES }}
         clean: false
-        no-restore: true
         tag-commit: true
         tag-format: Betalgo.OpenAI.Utilities-v*
