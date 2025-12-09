@@ -40,10 +40,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
-    - name: Restore SDK
-      run: dotnet restore OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj
     - name: Build SDK (Release)
-      run: dotnet build OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj -c Release --no-restore
+      run: dotnet build OpenAI.SDK/Betalgo.Ranul.OpenAI.csproj -c Release
+
     - name: Publish OpenAI
       uses: Betalgo/NugetPublisher@v1.3.0
       with:
@@ -67,6 +66,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+    - name: Build Contracts (Release)
+      run: dotnet build Betalgo.Ranul.OpenAI.Contracts/Betalgo.Ranul.OpenAI.Contracts.csproj -c Release
+
     - name: Publish Contracts
       uses: Betalgo/NugetPublisher@v1.3.0
       with:
@@ -89,6 +91,8 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+    - name: Build Utilities (Release)
+      run: dotnet build OpenAI.Utilities/Betalgo.OpenAI.Utilities.csproj -c Release
 
     - name: Publish OpenAI Utilities
       uses: Betalgo/NugetPublisher@v1.3.0
