@@ -15,6 +15,7 @@ namespace Betalgo.Ranul.OpenAI.Contracts.Enums;
 [JsonConverter(typeof(Converter))]
 public readonly struct ReasoningEffort(string value) : IEquatable<ReasoningEffort>
 {
+    public static ReasoningEffort Minimal { get; } = new("minimal");
     public static ReasoningEffort Low { get; } = new("low");
     public static ReasoningEffort Medium { get; } = new("medium");
     public static ReasoningEffort High { get; } = new("high");
