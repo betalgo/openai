@@ -92,7 +92,9 @@ public partial class OpenAIService : IChatClient
         {
             ThrowIfNotSuccessful(response);
 
-            foreach (var choice in response.Choices)
+            var choices = response.Choices ?? [];
+
+            foreach (var choice in choices)
             {
                 ChatResponseUpdate update = new()
                 {
@@ -119,21 +121,26 @@ public partial class OpenAIService : IChatClient
                 PopulateContents(choice.Delta, update.Contents);
 
                 yield return update;
+            }
 
-                if (response.Usage is { } usage)
+            if (response.Usage is { } usage)
+            {
+                var usageChoice = choices.FirstOrDefault();
+                var usageAuthorName = usageChoice?.Delta?.Name;
+                var usageRole = usageChoice?.Delta?.Role;
+                var usageFinishReason = usageChoice?.FinishReason;
+
+                yield return new()
                 {
-                    yield return new()
-                    {
-                        AuthorName = choice.Delta.Name,
-                        Contents = [new UsageContent(GetUsageDetails(usage))],
-                        CreatedAt = response.CreatedAt,
-                        FinishReason = choice.FinishReason is not null ? new(choice.FinishReason) : null,
-                        ModelId = response.Model,
-                        ResponseId = response.Id,
-                        MessageId = response.Id,
-                        Role = choice.Delta.Role is not null ? new(choice.Delta.Role) : null
-                    };
-                }
+                    AuthorName = usageAuthorName,
+                    Contents = [new UsageContent(GetUsageDetails(usage))],
+                    CreatedAt = response.CreatedAt,
+                    FinishReason = usageFinishReason is not null ? new(usageFinishReason) : null,
+                    ModelId = response.Model,
+                    ResponseId = response.Id,
+                    MessageId = response.Id,
+                    Role = usageRole is not null ? new(usageRole) : null
+                };
             }
         }
     }
@@ -146,7 +153,7 @@ public partial class OpenAIService : IChatClient
         }
     }
 
-    private ChatCompletionCreateRequest CreateRequest(IEnumerable<ChatMessage> chatMessages, ChatOptions? options)
+    internal ChatCompletionCreateRequest CreateRequest(IEnumerable<ChatMessage> chatMessages, ChatOptions? options)
     {
         ChatCompletionCreateRequest request = new()
         {
@@ -229,95 +236,259 @@ public partial class OpenAIService : IChatClient
         request.Messages = [];
         foreach (var message in chatMessages)
         {
-            foreach (var content in message.Contents)
+            foreach (var requestMessage in ConvertMessageByRole(message))
             {
-                string? detail;
+                request.Messages.Add(requestMessage);
+            }
+        }
+
+        return request;
+
+        static IList<MessageContent> EnsureContents(ObjectModels.RequestModels.ChatMessage target)
+        {
+            target.Contents ??= [];
+
+            if (target.Content is string existingText)
+            {
+                target.Contents.Add(MessageContent.TextContent(existingText));
+                target.Content = null;
+            }
+
+            return target.Contents;
+        }
+
+        static IEnumerable<ObjectModels.RequestModels.ChatMessage> ConvertMessageByRole(ChatMessage source)
+        {
+            var role = new ChatCompletionRole(source.Role.ToString());
+
+            if (role == ChatCompletionRole.Assistant)
+            {
+                return ConvertAssistantMessage(source);
+            }
+
+            if (role == ChatCompletionRole.Tool)
+            {
+                return ConvertToolMessage(source);
+            }
+
+            return ConvertBasicMessage(source, role);
+        }
+
+        static IEnumerable<ObjectModels.RequestModels.ChatMessage> ConvertAssistantMessage(ChatMessage source)
+        {
+            ObjectModels.RequestModels.ChatMessage? assistantMessage = null;
+
+            foreach (var content in source.Contents)
+            {
                 switch (content)
                 {
                     case TextContent tc:
-                        request.Messages.Add(new()
-                        {
-                            Content = tc.Text,
-                            Name = message.AuthorName,
-                            Role = new ChatCompletionRole(message.Role.ToString())
-                        });
+                        assistantMessage ??= CreateMessage(source, ChatCompletionRole.Assistant);
+                        AddText(assistantMessage, tc.Text);
+                        break;
+
+                    case TextReasoningContent rc:
+                        assistantMessage ??= CreateMessage(source, ChatCompletionRole.Assistant);
+                        assistantMessage.ReasoningContent = assistantMessage.ReasoningContent is null
+                            ? rc.Text
+                            : $"{assistantMessage.ReasoningContent}\n{rc.Text}";
                         break;
 
                     case UriContent uc:
-                        request.Messages.Add(new()
-                        {
-                            Contents =
-                            [
-                                new()
-                                {
-                                    Type = "image_url",
-                                    ImageUrl = new()
-                                    {
-                                        Url = uc.Uri.ToString(),
-                                        Detail = uc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out detail) is true ? new ImageDetailType(detail):null
-                                    }
-                                }
-                            ],
-                            Name = message.AuthorName,
-                            Role = new ChatCompletionRole(message.Role.ToString())
-                        });
+                        assistantMessage ??= CreateMessage(source, ChatCompletionRole.Assistant);
+                        AddImageFromUri(assistantMessage, uc.Uri, uc.AdditionalProperties);
                         break;
 
                     case DataContent dc:
-                        request.Messages.Add(new()
-                        {
-                            Contents =
-                            [
-                                new()
-                                {
-                                    Type = "image_url",
-                                    ImageUrl = new()
-                                    {
-                                        Url = dc.Uri.ToString(),
-                                        Detail = dc.AdditionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out detail) is true ? new ImageDetailType(detail):null
-                                    }
-                                }
-                            ],
-                            Name = message.AuthorName,
-                            Role = new ChatCompletionRole(message.Role.ToString())
-                        });
+                        assistantMessage ??= CreateMessage(source, ChatCompletionRole.Assistant);
+                        AddImageFromString(assistantMessage, dc.Uri, dc.AdditionalProperties);
                         break;
 
-                    case FunctionResultContent frc:
-                        request.Messages.Add(new()
-                        {
-                            ToolCallId = frc.CallId,
-                            Content = frc.Result?.ToString(),
-                            Name = message.AuthorName,
-                            Role = new ChatCompletionRole(message.Role.ToString())
-                        });
-                        break;
-                }
-            }
-
-            var functionCallContents = message.Contents.OfType<FunctionCallContent>().ToArray();
-            if (functionCallContents.Length > 0)
-            {
-                request.Messages.Add(new()
-                {
-                    Name = message.AuthorName,
-                    Role = new ChatCompletionRole(message.Role.ToString()),
-                    ToolCalls = functionCallContents.Select(fcc => new ToolCall()
+                    case FunctionCallContent fcc:
+                        assistantMessage ??= CreateMessage(source, ChatCompletionRole.Assistant);
+                        (assistantMessage.ToolCalls ??= []).Add(new ToolCall()
                         {
                             Type = ToolCallType.Function,
                             Id = fcc.CallId,
                             FunctionCall = new()
                             {
                                 Name = fcc.Name,
-                                Arguments = JsonSerializer.Serialize(fcc.Arguments)
+                                Arguments = SerializeFunctionArguments(fcc.Arguments)
                             }
-                        })
-                        .ToList()
-                });
+                        });
+                        break;
+
+                    case FunctionResultContent:
+                        // Ignore unsupported content in assistant messages.
+                        break;
+
+                    default:
+                        // Ignore unsupported content in assistant messages.
+                        break;
+                }
+            }
+
+            if (assistantMessage is not null)
+            {
+                yield return assistantMessage;
             }
         }
 
-        return request;
+        static IEnumerable<ObjectModels.RequestModels.ChatMessage> ConvertToolMessage(ChatMessage source)
+        {
+            foreach (var content in source.Contents)
+            {
+                if (content is FunctionResultContent frc)
+                {
+                    if (string.IsNullOrWhiteSpace(frc.CallId))
+                    {
+                        // Ignore invalid tool result entries missing call id.
+                        continue;
+                    }
+
+                    yield return new ObjectModels.RequestModels.ChatMessage
+                    {
+                        ToolCallId = frc.CallId,
+                        Content = SerializeFunctionResult(frc.Result),
+                        Name = source.AuthorName,
+                        Role = ChatCompletionRole.Tool
+                    };
+                }
+            }
+        }
+
+        static IEnumerable<ObjectModels.RequestModels.ChatMessage> ConvertBasicMessage(ChatMessage source, ChatCompletionRole role)
+        {
+            ObjectModels.RequestModels.ChatMessage? target = null;
+
+            foreach (var content in source.Contents)
+            {
+                switch (content)
+                {
+                    case TextContent tc:
+                        target ??= CreateMessage(source, role);
+                        AddText(target, tc.Text);
+                        break;
+
+                    case TextReasoningContent rc:
+                        target ??= CreateMessage(source, role);
+                        target.ReasoningContent = target.ReasoningContent is null
+                            ? rc.Text
+                            : $"{target.ReasoningContent}\n{rc.Text}";
+                        break;
+
+                    case UriContent uc:
+                        target ??= CreateMessage(source, role);
+                        AddImageFromUri(target, uc.Uri, uc.AdditionalProperties);
+                        break;
+
+                    case DataContent dc:
+                        target ??= CreateMessage(source, role);
+                        AddImageFromString(target, dc.Uri, dc.AdditionalProperties);
+                        break;
+
+                    case FunctionCallContent:
+                    case FunctionResultContent:
+                        // Ignore unsupported content for non-assistant/non-tool roles.
+                        break;
+
+                    default:
+                        // Ignore unknown content types.
+                        break;
+                }
+            }
+
+            if (target is not null)
+            {
+                yield return target;
+            }
+        }
+
+        static ObjectModels.RequestModels.ChatMessage CreateMessage(ChatMessage source, ChatCompletionRole role)
+        {
+            return new()
+            {
+                Name = source.AuthorName,
+                Role = role
+            };
+        }
+
+        static void AddText(ObjectModels.RequestModels.ChatMessage target, string text)
+        {
+            if (target.Contents is { Count: > 0 })
+            {
+                target.Contents.Add(MessageContent.TextContent(text));
+                return;
+            }
+
+            if (target.Content is null)
+            {
+                target.Content = text;
+                return;
+            }
+
+            target.Contents =
+            [
+                MessageContent.TextContent(target.Content),
+                MessageContent.TextContent(text)
+            ];
+            target.Content = null;
+        }
+
+        static void AddImageFromUri(ObjectModels.RequestModels.ChatMessage target, Uri uri, IDictionary<string, object?>? additionalProperties)
+        {
+            AddImageFromString(target, uri.ToString(), additionalProperties);
+        }
+
+        static void AddImageFromString(ObjectModels.RequestModels.ChatMessage target, string uri, IDictionary<string, object?>? additionalProperties)
+        {
+            string? detail = additionalProperties?.TryGetValue(nameof(MessageImageUrl.Detail), out var detailObject) is true
+                ? detailObject as string
+                : null;
+
+            EnsureContents(target).Add(new()
+            {
+                Type = "image_url",
+                ImageUrl = new()
+                {
+                    Url = uri,
+                    Detail = detail is not null
+                        ? new ImageDetailType(detail)
+                        : null
+                }
+            });
+        }
+
+        static string SerializeFunctionArguments(object? arguments)
+        {
+            if (arguments is null)
+            {
+                return "{}";
+            }
+
+            if (arguments is JsonElement element)
+            {
+                return element.GetRawText();
+            }
+
+            if (arguments is string rawJson)
+            {
+                return rawJson;
+            }
+
+            return JsonSerializer.Serialize(arguments);
+        }
+
+        static string? SerializeFunctionResult(object? result)
+        {
+            return result switch
+            {
+                null => null,
+                string text => text,
+                JsonElement jsonElement => jsonElement.GetRawText(),
+                _ => JsonSerializer.Serialize(result)
+            };
+        }
     }
 
     private static PropertyDefinition CreateParameters(AIFunction f)
@@ -328,6 +499,11 @@ public partial class OpenAIService : IChatClient
 
     private static void PopulateContents(ObjectModels.RequestModels.ChatMessage source, IList<AIContent> destination)
     {
+        if (!string.IsNullOrWhiteSpace(source.ReasoningContent))
+        {
+            destination.Add(new TextReasoningContent(source.ReasoningContent));
+        }
+
         if (source.Content is not null)
         {
             destination.Add(new TextContent(source.Content));
