@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # JetBrains IDEs
 .idea
+
+# C# Dev Kit language service cache
+*.lscache
