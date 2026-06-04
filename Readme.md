@@ -59,6 +59,19 @@ var openAIService = new OpenAIService(new OpenAIOptions()
 });
 ```
 
+To use an OpenAI-compatible endpoint in different environments, set
+`BaseDomain` from an environment variable. `BaseDomain` should be the root URL
+and should not include the API version path because `ApiVersion` is appended by
+the SDK.
+
+```csharp
+var openAIService = new OpenAIService(new OpenAIOptions()
+{
+    ApiKey = Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY"),
+    BaseDomain = Environment.GetEnvironmentVariable("OPENAI_BASE_URL") ?? "https://api.openai.com/"
+});
+```
+
 ### Using Dependency Injection
 
 #### secrets.json
@@ -80,6 +93,14 @@ serviceCollection.AddOpenAIService();
 
 ```csharp
 serviceCollection.AddOpenAIService(settings => { settings.ApiKey = Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY"); });
+```
+
+```csharp
+serviceCollection.AddOpenAIService(settings =>
+{
+    settings.ApiKey = Environment.GetEnvironmentVariable("MY_OPEN_AI_API_KEY");
+    settings.BaseDomain = Environment.GetEnvironmentVariable("OPENAI_BASE_URL") ?? "https://api.openai.com/";
+});
 ```
 
 After injecting your service, you can retrieve it from the service provider:
