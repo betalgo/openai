@@ -1,0 +1,57 @@
+name: Validate
+
+on:
+  pull_request:
+    branches: [dev, master]
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    name: Build and test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      - name: Restore
+        run: dotnet restore OpenAI.sln
+
+      - name: Build all solution targets
+        run: dotnet build OpenAI.sln --configuration Release --no-restore
+
+      - name: Run offline tests
+        env:
+          OPENAI_RUN_LIVE_TESTS: "0"
+        run: dotnet test OpenAI.sln --configuration Release --no-build --no-restore --logger trx --results-directory TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}
+          path: TestResults/*.trx
+          if-no-files-found: warn
+          retention-days: 14

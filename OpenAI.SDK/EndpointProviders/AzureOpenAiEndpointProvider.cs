@@ -470,6 +470,60 @@ internal class AzureOpenAIEndpointProvider : IOpenAIEndpointProvider
         return $"{DataPlanePrefix}/fine_tuning/jobs{AzureVersionQueryString}";
     }
 
+    // Responses are resource-level operations, unlike deployment-scoped Chat.
+    // Dated previews use /openai; the v1 family uses /openai/v1.
+    private string ResponsesPrefix => _apiVersion is "v1" or "preview" ? $"{ApiPrefix}/v1" : ApiPrefix;
+    private string ResponsesVersionQueryString => _apiVersion == "v1" ? string.Empty : AzureVersionQueryString;
+
+    public string ResponsesCreate()
+    {
+        return $"{ResponsesPrefix}/responses{ResponsesVersionQueryString}";
+    }
+
+    private static string ResponseIdSegment(string responseId)
+    {
+        if (string.IsNullOrWhiteSpace(responseId) || responseId == "." || responseId == "..")
+            throw new ArgumentException("A response ID must be a non-empty resource ID, not a dot segment.", nameof(responseId));
+        return Uri.EscapeDataString(responseId);
+    }
+
+    public string ResponsesRetrieve(string responseId, string? queryParameters)
+    {
+        var url = $"{ResponsesPrefix}/responses/{ResponseIdSegment(responseId)}{ResponsesVersionQueryString}";
+        if (!string.IsNullOrWhiteSpace(queryParameters))
+        {
+            url = $"{url}{(string.IsNullOrEmpty(ResponsesVersionQueryString) ? "?" : "&")}{queryParameters}";
+        }
+
+        return url;
+    }
+
+    public string ResponsesDelete(string responseId)
+    {
+        return $"{ResponsesPrefix}/responses/{ResponseIdSegment(responseId)}{ResponsesVersionQueryString}";
+    }
+
+    public string ResponsesCancel(string responseId)
+    {
+        return $"{ResponsesPrefix}/responses/{ResponseIdSegment(responseId)}/cancel{ResponsesVersionQueryString}";
+    }
+
+    public string ResponsesInputItemsList(string responseId, string? queryParameters)
+    {
+        var url = $"{ResponsesPrefix}/responses/{ResponseIdSegment(responseId)}/input_items{ResponsesVersionQueryString}";
+        if (!string.IsNullOrWhiteSpace(queryParameters))
+        {
+            url = $"{url}{(string.IsNullOrEmpty(ResponsesVersionQueryString) ? "?" : "&")}{queryParameters}";
+        }
+
+        return url;
+    }
+
+    public string ResponsesInputTokensCount()
+    {
+        return $"{ResponsesPrefix}/responses/input_tokens{ResponsesVersionQueryString}";
+    }
+
     private string Files()
     {
         return $"{DataPlanePrefix}/files{AzureVersionQueryString}";

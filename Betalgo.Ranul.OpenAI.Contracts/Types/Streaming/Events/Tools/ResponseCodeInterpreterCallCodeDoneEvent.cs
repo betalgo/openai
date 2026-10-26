@@ -1,0 +1,47 @@
+using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.Contracts.Enums.Responses;
+
+namespace Betalgo.Ranul.OpenAI.Contracts.Types.Streaming.Events.Tools;
+
+/// <summary>
+///     Emitted when the code interpreter finishes generating code.
+///     <see href="https://platform.openai.com/docs/api-reference/responses-streaming">OpenAI API documentation</see>.
+///     <see href="https://github.com/betalgo/openai/blob/master/Docs/openapi-split/components/schemas/responsecodeinterpretercallcodedoneevent.yml">
+///         Source Definition
+///     </see>
+/// </summary>
+public sealed class ResponseCodeInterpreterCallCodeDoneEvent : IResponseStreamEvent
+{
+    /// <summary>
+    ///     Initializes a new instance for deserialization.
+    /// </summary>
+    public ResponseCodeInterpreterCallCodeDoneEvent()
+    {
+    }
+
+    /// <inheritdoc />
+    [JsonPropertyName("type")]
+    public string Type => ResponseStreamEventType.CodeInterpreterCallCodeDone;
+
+    /// <inheritdoc />
+    [JsonPropertyName("sequence_number")]
+    public int SequenceNumber { get; set; }
+
+    /// <summary>
+    ///     The index of the output item.
+    /// </summary>
+    [JsonPropertyName("output_index")]
+    public int OutputIndex { get; set; }
+
+    /// <summary>
+    ///     The unique identifier of the code interpreter tool call item.
+    /// </summary>
+    [JsonPropertyName("item_id")]
+    public string ItemId { get; set; } = null!;
+
+    /// <summary>
+    ///     The finalized code.
+    /// </summary>
+    [JsonPropertyName("code")]
+    public string Code { get; set; } = null!;
+}

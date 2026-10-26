@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # JetBrains IDEs
 .idea
+
+# Local test result artifacts
+TestResults/

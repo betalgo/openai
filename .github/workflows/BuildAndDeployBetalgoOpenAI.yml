@@ -24,7 +24,7 @@ jobs:
     - name: Build
       run: dotnet build -c Release --no-restore
     - name: Test
-      run: dotnet test -c Release --no-build --verbosity normal
+      run: dotnet test OpenAI.sln -c Release --no-build --verbosity normal
 
   publish-sdk:
     needs: build-test

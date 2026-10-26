@@ -1,0 +1,139 @@
+using Betalgo.Ranul.OpenAI.Contracts.Requests.Responses;
+using Betalgo.Ranul.OpenAI.Contracts.Responses.Responses;
+using Betalgo.Ranul.OpenAI.Contracts.Types.Streaming;
+using Betalgo.Ranul.OpenAI.ObjectModels;
+
+namespace Betalgo.Ranul.OpenAI.Interfaces;
+
+/// <summary>
+/// Service for interacting with the Responses API.
+/// <see href="https://platform.openai.com/docs/api-reference/responses">Learn more</see>.
+/// </summary>
+public interface IResponsesService
+{
+    /// <summary>
+    /// Creates a model response.
+    /// </summary>
+    /// <param name="createResponse">The request parameters.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>The created Response object.</returns>
+    Task<Response> CreateResponse(CreateResponse createResponse, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a model response with an explicit per-call model override.
+    /// </summary>
+    /// <param name="createResponse">The request parameters.</param>
+    /// <param name="modelId">The model ID to use for this request.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>The created Response object.</returns>
+    Task<Response> CreateResponse(CreateResponse createResponse, string? modelId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a model response with the given ID.
+    /// </summary>
+    /// <param name="responseId">The ID of the response to retrieve.</param>
+    /// <param name="request">Optional request parameters including include fields and streaming options.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>The Response object matching the specified ID.</returns>
+    Task<Response> RetrieveResponse(string responseId, RetrieveResponseRequest? request = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Deletes a model response with the given ID.
+    /// </summary>
+    /// <param name="responseId">The ID of the response to delete.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>A DeletedResponse indicating the deletion status.</returns>
+    Task<DeletedResponse> DeleteResponse(string responseId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Cancels a model response with the given ID. Only responses created with
+    /// the <c>background</c> parameter set to <c>true</c> can be cancelled.
+    /// <see href="https://platform.openai.com/docs/guides/background">Learn more</see>.
+    /// </summary>
+    /// <param name="responseId">The ID of the response to cancel.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>The cancelled Response object.</returns>
+    Task<Response> CancelResponse(string responseId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Returns a list of input items for a given response.
+    /// </summary>
+    /// <param name="responseId">The ID of the response to retrieve input items for.</param>
+    /// <param name="request">Optional request parameters including pagination and include fields.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>A list of input item objects.</returns>
+    Task<ResponseItemList> ListInputItems(string responseId, InputItemsListRequest? request = null, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Get input token counts for a response request before creating it.
+    /// This is useful for estimating costs before making an API call.
+    /// </summary>
+    /// <param name="request">The request parameters to count tokens for.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>The input token counts.</returns>
+    Task<TokenCountsResponse> CountInputTokens(TokenCountsRequest request, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Get input token counts with an explicit per-call model override.
+    /// </summary>
+    /// <param name="request">The request parameters to count tokens for.</param>
+    /// <param name="modelId">The model ID to use for this request.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>The input token counts.</returns>
+    Task<TokenCountsResponse> CountInputTokens(TokenCountsRequest request, string? modelId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a model response with streaming.
+    /// Streams events as they are generated by the model.
+    /// </summary>
+    /// <param name="createResponse">The request parameters. The stream property will be automatically set to true.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>An async enumerable of streaming events.</returns>
+    IAsyncEnumerable<IResponseStreamEvent> CreateAsStreamAsync(CreateResponse createResponse, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Creates a model response with streaming and an explicit per-call model override.
+    /// </summary>
+    /// <param name="createResponse">The request parameters. The stream property will be automatically set to true.</param>
+    /// <param name="modelId">The model ID to use for this request.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>An async enumerable of streaming events.</returns>
+    IAsyncEnumerable<IResponseStreamEvent> CreateAsStreamAsync(CreateResponse createResponse, string? modelId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Retrieves a model response with streaming (for background responses).
+    /// Use this to stream events from a response that was created with background=true.
+    /// </summary>
+    /// <param name="responseId">The ID of the response to retrieve.</param>
+    /// <param name="request">Optional request parameters including include fields.</param>
+    /// <param name="cancellationToken">Propagates notification that operations should be canceled.</param>
+    /// <returns>An async enumerable of streaming events.</returns>
+    IAsyncEnumerable<IResponseStreamEvent> RetrieveAsStreamAsync(string responseId, RetrieveResponseRequest? request = null, CancellationToken cancellationToken = default);
+}
+
+public static class IResponsesServiceExtensions
+{
+    /// <summary>
+    /// Creates a model response using a strongly typed model ID.
+    /// </summary>
+    public static Task<Response> Create(this IResponsesService service, CreateResponse createResponse, Models.Model modelId, CancellationToken cancellationToken = default)
+    {
+        return service.CreateResponse(createResponse, modelId.EnumToString(), cancellationToken);
+    }
+
+    /// <summary>
+    /// Creates a model response as a stream using a strongly typed model ID.
+    /// </summary>
+    public static IAsyncEnumerable<IResponseStreamEvent> CreateAsStream(this IResponsesService service, CreateResponse createResponse, Models.Model modelId, CancellationToken cancellationToken = default)
+    {
+        return service.CreateAsStreamAsync(createResponse, modelId.EnumToString(), cancellationToken);
+    }
+
+    /// <summary>
+    /// Counts input tokens using a strongly typed model ID.
+    /// </summary>
+    public static Task<TokenCountsResponse> CountInputTokens(this IResponsesService service, TokenCountsRequest request, Models.Model modelId, CancellationToken cancellationToken = default)
+    {
+        return service.CountInputTokens(request, modelId.EnumToString(), cancellationToken);
+    }
+}

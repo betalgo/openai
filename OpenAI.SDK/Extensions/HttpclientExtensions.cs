@@ -1,4 +1,4 @@
-﻿using System.Net.Http.Headers;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -11,13 +11,13 @@ internal static class HttpClientExtensionsV2
 {
     public static async Task<TResponse> GetReadAsAsync<TResponse>(this HttpClient client, string uri, CancellationToken cancellationToken = default) where TResponse : ResponseBase, new()
     {
-        var response = await client.GetAsync(uri, cancellationToken);
+        using var response = await client.GetAsync(uri, cancellationToken);
         return await HandleResponseContent<TResponse>(response, cancellationToken);
     }
 
     public static async Task<TResponse> PostAndReadAsAsync<TResponse>(this HttpClient client, string uri, object? requestModel, CancellationToken cancellationToken = default) where TResponse : ResponseBase, new()
     {
-        var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
+        using var response = await client.PostAsJsonAsync(uri, requestModel, new JsonSerializerOptions
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
         }, cancellationToken);
@@ -58,7 +58,7 @@ internal static class HttpClientExtensionsV2
     }
 
 
-    public static HttpResponseMessage PostAsStreamAsync(this HttpClient client, string uri, object requestModel, CancellationToken cancellationToken = default)
+    public static HttpResponseMessage PostAsStreamSync(this HttpClient client, string uri, object requestModel, CancellationToken cancellationToken = default)
     {
         var settings = new JsonSerializerOptions
         {
@@ -85,6 +85,27 @@ internal static class HttpClientExtensionsV2
 #endif
     }
 
+    public static async Task<HttpResponseMessage> PostAndGetStreamAsync(this HttpClient client, string uri, object requestModel, CancellationToken cancellationToken = default)
+    {
+        var settings = new JsonSerializerOptions
+        {
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault
+        };
+
+        var content = JsonContent.Create(requestModel, null, settings);
+        var request = CreatePostEventStreamRequest(uri, content);
+
+        return await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+    }
+
+    public static async Task<HttpResponseMessage> GetAndGetStreamAsync(this HttpClient client, string uri, CancellationToken cancellationToken = default)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, uri);
+        request.Headers.Accept.Add(new("text/event-stream"));
+
+        return await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+    }
+
     private static HttpResponseMessage SendRequestPreNet6(HttpClient client, HttpRequestMessage request, CancellationToken cancellationToken)
     {
         var responseTask = client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
@@ -103,14 +124,14 @@ internal static class HttpClientExtensionsV2
 
     public static async Task<TResponse> PostFileAndReadAsAsync<TResponse>(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default) where TResponse : ResponseBase, new()
     {
-        var response = await client.PostAsync(uri, content, cancellationToken);
+        using var response = await client.PostAsync(uri, content, cancellationToken);
         return await HandleResponseContent<TResponse>(response, cancellationToken);
     }
 
     public static async Task<(string? stringResponse, TResponse baseResponse)> PostFileAndReadAsStringAsync<TResponse>(this HttpClient client, string uri, HttpContent content, CancellationToken cancellationToken = default)
         where TResponse : ResponseBase, new()
     {
-        var response = await client.PostAsync(uri, content, cancellationToken);
+        using var response = await client.PostAsync(uri, content, cancellationToken);
         if (response.IsSuccessStatusCode)
         {
             var tResponse = new TResponse
@@ -128,7 +149,7 @@ internal static class HttpClientExtensionsV2
 
     public static async Task<TResponse> DeleteAndReadAsAsync<TResponse>(this HttpClient client, string uri, CancellationToken cancellationToken = default) where TResponse : ResponseBase, new()
     {
-        var response = await client.DeleteAsync(uri, cancellationToken);
+        using var response = await client.DeleteAsync(uri, cancellationToken);
         return await HandleResponseContent<TResponse>(response, cancellationToken);
     }
 
@@ -151,6 +172,15 @@ internal static class HttpClientExtensionsV2
             result = await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken) ?? throw new InvalidOperationException();
         }
 
+        if (!response.IsSuccessStatusCode && result.Error == null)
+        {
+            result.Error = new()
+            {
+                Type = "http_error",
+                Code = ((int)response.StatusCode).ToString(System.Globalization.CultureInfo.InvariantCulture),
+                MessageObject = $"The endpoint returned HTTP {(int)response.StatusCode} ({response.StatusCode}) without an error envelope."
+            };
+        }
         result.HttpStatusCode = response.StatusCode;
         result.HeaderValues = response.ParseHeaders();
 

@@ -172,7 +172,7 @@ public class FunctionCallingHelperTests
     {
         var obj = new FunctionCallingTestClass();
 
-        Should.Throw<ArgumentNullException>(() => FunctionCallingHelper.CallFunction<string>(null!, obj));
+        Should.Throw<ArgumentNullException>(() => FunctionCallingHelper.CallFunction<string>((FunctionCall)null!, obj));
     }
 
     [Fact]

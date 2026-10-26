@@ -112,6 +112,9 @@ public partial class OpenAIService : IOpenAIService, IDisposable
     /// <inheritdoc />
     public IBetaService Beta => this;
 
+    /// <inheritdoc />
+    public IResponsesService Responses => this;
+
     /// <summary>
     ///     Sets default Model Id
     /// </summary>

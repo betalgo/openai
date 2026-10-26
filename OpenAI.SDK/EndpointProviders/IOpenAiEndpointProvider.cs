@@ -78,4 +78,10 @@ internal interface IOpenAIEndpointProvider
     string VectorStoreFileBatchCancel(string vectorStoreId, string batchId);
     string VectorStoreFileBatchList(string vectorStoreId, string batchId, PaginationRequest? baseListRequest);
     string MessageDelete(string threadId, string messageId);
+    string ResponsesCreate();
+    string ResponsesRetrieve(string responseId, string? queryParameters);
+    string ResponsesDelete(string responseId);
+    string ResponsesCancel(string responseId);
+    string ResponsesInputItemsList(string responseId, string? queryParameters);
+    string ResponsesInputTokensCount();
 }
